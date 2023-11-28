@@ -10,7 +10,6 @@ import static tkcy.simpleaddon.api.unification.TKCYSAMaterials.*;
 import gregtech.api.fluids.FluidBuilder;
 import gregtech.api.unification.material.Material;
 import gregtech.api.unification.material.Materials;
-import gregtech.api.unification.material.properties.PropertyKey;
 
 public final class TKCYSAFirstDegreeMaterials {
 
@@ -36,12 +35,9 @@ public final class TKCYSAFirstDegreeMaterials {
                 .build();
         ChromiumOxide.setFormula("Cr2O3", true);
 
-        //GoldChain
-        PreciousMetal = new Material.Builder(4004, gregtechId( "precious_metal"))
+        // GoldChain
+        PreciousMetal = new Material.Builder(4004, gregtechId("precious_metal"))
                 .dust().ore()
-                .liquid(new FluidBuilder()
-                        .temperature(1337)
-                        .customStill())
                 .addOreByproducts(Materials.Cobalt, Materials.Copper, Materials.Iron)
                 .flags(DISABLE_DECOMPOSITION)
                 .components(Materials.Gold, 1)
@@ -50,11 +46,10 @@ public final class TKCYSAFirstDegreeMaterials {
                 .build();
         PreciousMetal.setFormula("Au?");
 
-        GoldAlloy = new Material.Builder(4005, gregtechId( "gold_alloy"))
+        GoldAlloy = new Material.Builder(4005, gregtechId("gold_alloy"))
                 .ingot()
                 .liquid(new FluidBuilder()
-                        .temperature(1000)
-                        .customStill())
+                        .temperature(1000))
                 .flags(DISABLE_DECOMPOSITION)
                 .components(Materials.Copper, 3, PreciousMetal, 1)
                 .iconSet(SHINY)
@@ -62,14 +57,14 @@ public final class TKCYSAFirstDegreeMaterials {
                 .build();
         GoldAlloy.setFormula("Cu3Au?", true);
 
-        GoldLeach = new Material.Builder(4006, gregtechId( "gold_leach"))
-                .dust()
+        GoldLeach = new Material.Builder(4006, gregtechId("gold_leach"))
+                .fluid()
                 .iconSet(SHINY)
                 .color(0xB99023)
                 .build();
         GoldLeach.setFormula("CuAu?", true);
 
-        CopperLeach = new Material.Builder(4007, gregtechId( "copper_leach"))
+        CopperLeach = new Material.Builder(4007, gregtechId("copper_leach"))
                 .dust()
                 .iconSet(SHINY)
                 .flags(DISABLE_DECOMPOSITION)
@@ -78,21 +73,31 @@ public final class TKCYSAFirstDegreeMaterials {
                 .build();
         CopperLeach.setFormula("Cu?", true);
 
-        PotassiumBisulfate = new Material.Builder(4008, gregtechId( "potassium_bisulfate"))
+        PotassiumBisulfate = new Material.Builder(4008, gregtechId("potassium_bisulfate"))
                 .dust()
                 .iconSet(DULL)
                 .components(Potassium, 1, Hydrogen, 1, Sulfur, 1, Oxygen, 4)
                 .colorAverage()
                 .build();
 
-        ChloroauricAcid = new Material.Builder(4009, gregtechId( "chloroauric_acid"))
+        PotassiumMetaBisulfite = new Material.Builder(4009, gregtechId("potassium_metabisulfite"))
+                .dust()
+                .iconSet(DULL)
+                .components(Potassium, 2, Sulfur, 2, Oxygen, 5)
+                .colorAverage()
+                .build();
+
+        ChloroauricAcid = new Material.Builder(4010, gregtechId("chloroauric_acid"))
                 .liquid(new FluidBuilder()
-                        .attributes(ACID)
-                        .temperature(1000)
-                        .customStill())
+                        .attributes(ACID))
                 .components(Hydrogen, 1, Gold, 1, Chlorine, 4)
                 .colorAverage()
                 .build();
 
+        PotassiumHydroxide = new Material.Builder(4011, gregtechId("potassium_hydroxide"))
+                .dust()
+                .components(Potassium, 1, Oxygen, 1, Hydrogen, 1)
+                .colorAverage()
+                .build();
     }
 }
