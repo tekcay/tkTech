@@ -15,7 +15,7 @@ public class MiscChemicals {
                 .EUt(100)
                 .input(dust, RockSalt, 2)
                 .fluidInputs(DistilledWater.getFluid(2000))
-                .input(dust, PotassiumHydroxide)
+                .output(dust, PotassiumHydroxide, 2)
                 .fluidOutputs(Hydrogen.getFluid(1000))
                 .fluidOutputs(Chlorine.getFluid(1000))
                 .buildAndRegister();
