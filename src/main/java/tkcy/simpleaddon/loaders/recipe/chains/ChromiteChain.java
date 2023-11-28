@@ -15,7 +15,7 @@ public class ChromiteChain {
         // STEP 1: 2 FeCr2O4 + 2 Na2CO3 + O2 -> 2 Na2CrO4 + Fe2O3 + 2 CO2
         CHEMICAL_RECIPES.recipeBuilder()
                 .input(dust, Chromite, 14)
-                .input(dust, SodiumCarbonate, 12)
+                .input(dust, SodaAsh, 12)
                 .fluidInputs(Oxygen.getFluid(7000))
                 .output(dust, SodiumChromate, 8)
                 .output(dust, BandedIron, 5)
@@ -25,7 +25,7 @@ public class ChromiteChain {
 
         LARGE_CHEMICAL_RECIPES.recipeBuilder()
                 .input(dust, Chromite, 14)
-                .input(dust, SodiumCarbonate, 12)
+                .input(dust, SodaAsh, 12)
                 .fluidInputs(Oxygen.getFluid(7000))
                 .output(dust, SodiumChromate, 8)
                 .output(dust, BandedIron, 5)
@@ -50,7 +50,7 @@ public class ChromiteChain {
                 .input(dust, SodiumDichromate, 11)
                 .input(dust, Carbon, 2)
                 .output(dust, ChromiumOxide, 8)
-                .output(dust, SodiumCarbonate, 6)
+                .output(dust, SodaAsh, 6)
                 .EUt(100)
                 .blastFurnaceTemp(2000)
                 .duration(80)

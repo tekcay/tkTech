@@ -1,5 +1,6 @@
 package tkcy.simpleaddon.api.unification;
 
+import static gregtech.api.unification.material.Materials.*;
 import static gregtech.api.util.GTUtility.gregtechId;
 import static tkcy.simpleaddon.api.unification.TKCYSAMaterials.*;
 
@@ -28,11 +29,5 @@ public final class TKCYSAFirstDegreeMaterials {
                 .color(0x69c765)
                 .build();
         ChromiumOxide.setFormula("Cr2O3", true);
-
-        SodiumCarbonate = new Material.Builder(4004, gregtechId("sodium_carbonate"))
-                .dust()
-                .color(0xdeddd1)
-                .build();
-        SodiumCarbonate.setFormula("Na2CO3", true);
     }
 }
