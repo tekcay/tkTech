@@ -1,5 +1,6 @@
 package tkcy.simpleaddon.loaders.recipe;
 
+import tkcy.simpleaddon.loaders.recipe.chains.ChromiteChain;
 import tkcy.simpleaddon.loaders.recipe.handlers.TKCYSAMaterialRecipeHandler;
 
 public final class TKCYSARecipeLoader {
@@ -8,5 +9,6 @@ public final class TKCYSARecipeLoader {
 
     public static void init() {
         TKCYSAMaterialRecipeHandler.register();
+        ChromiteChain.init();
     }
 }

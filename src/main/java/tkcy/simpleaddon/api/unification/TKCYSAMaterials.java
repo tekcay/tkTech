@@ -2,7 +2,7 @@ package tkcy.simpleaddon.api.unification;
 
 import gregtech.api.unification.material.Material;
 
-public final class TKCYSAMaterials {
+public class TKCYSAMaterials {
 
     public static void init() {
         TKCYSAFirstDegreeMaterials.init();
@@ -10,10 +10,10 @@ public final class TKCYSAMaterials {
         TKCYSAMaterialFlagAddition.init();
     }
 
-    public static final Material SodiumCarbonate;
-    public static final Material SodiumChromate;
-    public static final Material SodiumDichromate;
-    public static final Material ChromiumOxide;
-    public static final Material SodiumSulfate;
-    public static final Material Alumina;
+    public static Material SodiumCarbonate;
+    public static Material SodiumChromate;
+    public static Material SodiumDichromate;
+    public static Material ChromiumOxide;
+    public static Material SodiumSulfate;
+    public static Material Alumina;
 }

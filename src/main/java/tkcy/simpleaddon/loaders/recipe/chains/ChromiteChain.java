@@ -63,7 +63,7 @@ public class ChromiteChain {
                 .output(dust, Alumina, 5)
                 .fluidOutputs(Chrome.getFluid(GTValues.L * 2))
                 .duration(80)
-                //.blastFurnaceTemp(Chrome.getFluid().getTemperature())
+                .blastFurnaceTemp(Chrome.getFluid().getTemperature())
                 .buildAndRegister();
     }
 
