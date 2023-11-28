@@ -1,5 +1,9 @@
 .nopublish
 
+### Library ###
+
+*.jar
+
 ### Windows ###
 
 thumbs.db
