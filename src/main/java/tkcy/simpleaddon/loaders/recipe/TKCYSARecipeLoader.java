@@ -22,7 +22,6 @@ public final class TKCYSARecipeLoader {
         if (TKCYSAConfigHolder.chains.enableGoldChain) GoldChain.init();
         if (TKCYSAConfigHolder.chains.enableIronChain) IronChain.init();
         if (TKCYSAConfigHolder.chains.enableTungstenChain) TungstenChain.init();
-
-        Roasting.init();
+        if (TKCYSAConfigHolder.chains.enableRoastingChain) Roasting.init();
     }
 }
