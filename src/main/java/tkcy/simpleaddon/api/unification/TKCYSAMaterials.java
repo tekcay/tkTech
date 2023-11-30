@@ -12,6 +12,8 @@ public class TKCYSAMaterials {
         TKCYSASecondDegreeMaterials.init();
 
         TKCYSAMaterialFlagAddition.init();
+
+        RoastingMaterials.init(4400);
     }
 
     // Chromite chain
@@ -36,4 +38,20 @@ public class TKCYSAMaterials {
 
     // Tungsten Chain
     public static Material TungstenOxide;
+
+    // Roasting
+    public static Material Kesterite;
+    public static Material Stannite;
+    public static Material Arsenopyrite;
+    public static Material MolybdenumTrioxide;
+
+    public static Material RoastedTetrahedrite;
+    public static Material RoastedCobaltite;
+    public static Material RoastedGalena;
+    public static Material SilverOxide;
+    public static Material RoastedChalcopyrite;
+    public static Material RoastedKesterite;
+    public static Material RoastedStannite;
+    public static Material RoastedArsenopyrite;
+    public static Material RoastedBornite;
 }

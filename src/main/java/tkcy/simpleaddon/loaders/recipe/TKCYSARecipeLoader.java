@@ -6,6 +6,7 @@ import tkcy.simpleaddon.loaders.recipe.chains.GoldChain;
 import tkcy.simpleaddon.loaders.recipe.chains.IronChain;
 import tkcy.simpleaddon.loaders.recipe.chains.TungstenChain;
 import tkcy.simpleaddon.loaders.recipe.handlers.MiscChemicals;
+import tkcy.simpleaddon.loaders.recipe.handlers.Roasting;
 import tkcy.simpleaddon.loaders.recipe.handlers.TKCYSAMaterialRecipeHandler;
 
 public final class TKCYSARecipeLoader {
@@ -21,5 +22,6 @@ public final class TKCYSARecipeLoader {
         if (TKCYSAConfigHolder.chains.enableGoldChain) GoldChain.init();
         if (TKCYSAConfigHolder.chains.enableIronChain) IronChain.init();
         if (TKCYSAConfigHolder.chains.enableTungstenChain) TungstenChain.init();
+        if (TKCYSAConfigHolder.chains.enableRoastingChain) Roasting.init();
     }
 }
