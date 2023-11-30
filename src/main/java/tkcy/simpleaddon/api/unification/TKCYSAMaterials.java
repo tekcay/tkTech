@@ -33,4 +33,7 @@ public class TKCYSAMaterials {
 
     // Iron
     public static Material PigIron;
+
+    // Tungsten Chain
+    public static Material TungstenOxide;
 }

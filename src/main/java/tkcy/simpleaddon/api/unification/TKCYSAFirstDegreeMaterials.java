@@ -107,5 +107,11 @@ public final class TKCYSAFirstDegreeMaterials {
                 .components(Iron, 1, Carbon, 1)
                 .colorAverage()
                 .build();
+
+        TungstenOxide = new Material.Builder(4013, gregtechId("tungsten_oxide"))
+                .dust()
+                .components(Tungsten, 1, Oxygen, 3)
+                .colorAverage()
+                .build();
     }
 }
