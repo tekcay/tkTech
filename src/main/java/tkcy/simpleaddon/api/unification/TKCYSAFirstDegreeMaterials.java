@@ -10,6 +10,7 @@ import static tkcy.simpleaddon.api.unification.TKCYSAMaterials.*;
 import gregtech.api.fluids.FluidBuilder;
 import gregtech.api.unification.material.Material;
 import gregtech.api.unification.material.Materials;
+import gregtech.api.unification.material.info.MaterialFlags;
 
 public final class TKCYSAFirstDegreeMaterials {
 
@@ -101,7 +102,8 @@ public final class TKCYSAFirstDegreeMaterials {
                 .build();
 
         PigIron = new Material.Builder(4012, gregtechId("pig_iron"))
-                .dust()
+                .ingot()
+                .flags(MaterialFlags.NO_UNIFICATION)
                 .components(Iron, 1, Carbon, 1)
                 .colorAverage()
                 .build();
