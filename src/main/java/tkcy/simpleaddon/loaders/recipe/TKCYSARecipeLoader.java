@@ -2,6 +2,7 @@ package tkcy.simpleaddon.loaders.recipe;
 
 import tkcy.simpleaddon.loaders.recipe.chains.ChromiteChain;
 import tkcy.simpleaddon.loaders.recipe.chains.GoldChain;
+import tkcy.simpleaddon.loaders.recipe.chains.IronChain;
 import tkcy.simpleaddon.loaders.recipe.handlers.MiscChemicals;
 import tkcy.simpleaddon.loaders.recipe.handlers.TKCYSAMaterialRecipeHandler;
 
@@ -14,5 +15,6 @@ public final class TKCYSARecipeLoader {
         MiscChemicals.init();
         ChromiteChain.init();
         GoldChain.init();
+        IronChain.init();
     }
 }
