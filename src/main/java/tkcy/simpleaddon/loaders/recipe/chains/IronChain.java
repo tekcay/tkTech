@@ -37,7 +37,7 @@ public class IronChain {
                 .output(OrePrefix.ingot, PigIron)
                 .duration(20 * 80)
                 .buildAndRegister();
-        
+
         RecipeMaps.PRIMITIVE_BLAST_FURNACE_RECIPES.recipeBuilder()
                 .input(OrePrefix.ore, BandedIron, 5)
                 .input(OrePrefix.gem, Coke, 2)
@@ -94,7 +94,7 @@ public class IronChain {
                 .output(OrePrefix.ingot, PigIron)
                 .duration(20 * 80)
                 .buildAndRegister();
-        
+
         RecipeMaps.PRIMITIVE_BLAST_FURNACE_RECIPES.recipeBuilder()
                 .input(OrePrefix.crushed, BandedIron, 5)
                 .input(OrePrefix.gem, Coke, 2)

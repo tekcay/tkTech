@@ -1,5 +1,6 @@
 package tkcy.simpleaddon.loaders.recipe;
 
+import tkcy.simpleaddon.common.TKCYSAConfigHolder;
 import tkcy.simpleaddon.loaders.recipe.chains.ChromiteChain;
 import tkcy.simpleaddon.loaders.recipe.chains.GoldChain;
 import tkcy.simpleaddon.loaders.recipe.chains.IronChain;
@@ -12,9 +13,11 @@ public final class TKCYSARecipeLoader {
 
     public static void init() {
         TKCYSAMaterialRecipeHandler.register();
+
         MiscChemicals.init();
-        ChromiteChain.init();
-        GoldChain.init();
-        IronChain.init();
+
+        if (TKCYSAConfigHolder.chains.enableChromiteChain) ChromiteChain.init();
+        if (TKCYSAConfigHolder.chains.enableGoldChain) GoldChain.init();
+        if (TKCYSAConfigHolder.chains.enableIronChain) IronChain.init();
     }
 }

@@ -7,14 +7,14 @@ import tkcy.simpleaddon.TekCaySimpleAddon;
 @Config(modid = TekCaySimpleAddon.MODID)
 public class TKCYSAConfigHolder {
 
-    @Config.Comment("Config options applying to all GCYM Multiblocks")
-    @Config.Name("Global Multiblock Options")
-    public static GlobalMultiblocks globalMultiblocks = new GlobalMultiblocks();
+    @Config.Comment("Config options applying to all chains")
+    @Config.Name("Chains")
+    public static Chains chains = new Chains();
 
-    public static class GlobalMultiblocks {
+    public static class Chains {
 
-        @Config.Comment({ "Makes nearly every GCYM Multiblock require blocks which set their maximum voltages.",
-                "Default: false" })
-        public boolean enableTieredCasings = false;
+        public boolean enableGoldChain = true;
+        public boolean enableIronChain = true;
+        public boolean enableChromiteChain = true;
     }
 }
