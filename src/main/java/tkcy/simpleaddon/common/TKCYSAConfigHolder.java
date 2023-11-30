@@ -16,5 +16,6 @@ public class TKCYSAConfigHolder {
         public boolean enableGoldChain = true;
         public boolean enableIronChain = true;
         public boolean enableChromiteChain = true;
+        public boolean enableTungstenChain = true;
     }
 }

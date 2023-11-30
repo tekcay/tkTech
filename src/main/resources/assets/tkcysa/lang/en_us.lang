@@ -17,3 +17,6 @@ gregtech.material.potassium_hydroxide=Potassium Hydroxide
 
 ##Iron
 gregtech.material.pig_iron=Pig Iron
+
+##Tungsten
+gregtech.material.tungsten_oxide=Tungsten Oxide
