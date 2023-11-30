@@ -1,12 +1,10 @@
 package tkcy.simpleaddon.loaders.recipe.chains;
 
-import gregtech.api.GTValues;
 import gregtech.api.recipes.RecipeMaps;
 import gregtech.api.unification.ore.OrePrefix;
-import tkcy.simpleaddon.api.unification.TKCYSAMaterials;
 
 import static gregtech.api.unification.material.Materials.*;
-import static tkcy.simpleaddon.api.unification.TKCYSAMaterials.*;
+import static tkcy.simpleaddon.api.unification.TKCYSAMaterials.PigIron;
 
 public class IronChain {
 
@@ -35,6 +33,16 @@ public class IronChain {
                 .input(OrePrefix.dust, Coal, 2)
                 .output(OrePrefix.ingot, PigIron)
                 .duration(20 * 80);
+
+        RecipeMaps.PRIMITIVE_BLAST_FURNACE_RECIPES.recipeBuilder()
+                .input(OrePrefix.ingot, PigIron, 3)
+                .output(OrePrefix.ingot, Iron)
+                .duration(20 * 30);
+
+        RecipeMaps.PRIMITIVE_BLAST_FURNACE_RECIPES.recipeBuilder()
+                .input(OrePrefix.ingot, Iron, 1)
+                .output(OrePrefix.ingot, WroughtIron)
+                .duration(20 * 30);
     }
 
 }
