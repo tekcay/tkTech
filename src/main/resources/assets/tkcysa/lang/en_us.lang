@@ -20,3 +20,9 @@ gregtech.material.pig_iron=Pig Iron
 
 ##Tungsten
 gregtech.material.tungsten_oxide=Tungsten Oxide
+
+##MTEs
+tkcysa.machine.primitive_roasting_oven.name=Primitive Roasting Oven
+
+##RecipesMaps
+recipemap.primitive_roasting.name=Primtive Roasting
