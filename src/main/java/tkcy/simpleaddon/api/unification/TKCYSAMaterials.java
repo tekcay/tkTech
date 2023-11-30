@@ -43,6 +43,7 @@ public class TKCYSAMaterials {
     public static Material Kesterite;
     public static Material Stannite;
     public static Material Arsenopyrite;
+    public static Material MolybdenumTrioxide;
 
     public static Material RoastedTetrahedrite;
     public static Material RoastedCobaltite;
