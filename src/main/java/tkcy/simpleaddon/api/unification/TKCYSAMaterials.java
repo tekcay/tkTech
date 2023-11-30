@@ -30,4 +30,7 @@ public class TKCYSAMaterials {
     public static Material PotassiumBisulfate;
     public static Material PotassiumMetaBisulfite;
     public static Material PotassiumHydroxide;
+
+    //Iron
+    public static Material PigIron;
 }

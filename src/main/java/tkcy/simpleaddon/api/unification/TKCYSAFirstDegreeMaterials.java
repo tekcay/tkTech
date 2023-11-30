@@ -99,5 +99,11 @@ public final class TKCYSAFirstDegreeMaterials {
                 .components(Potassium, 1, Oxygen, 1, Hydrogen, 1)
                 .colorAverage()
                 .build();
+
+        PigIron = new Material.Builder(4012, gregtechId("pig_iron"))
+                .dust()
+                .components(Iron, 1, Carbon, 1)
+                .colorAverage()
+                .build();
     }
 }

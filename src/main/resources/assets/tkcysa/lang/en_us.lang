@@ -14,3 +14,6 @@ gregtech.material.copper_leach=Copper Leach
 gregtech.material.chloroauric_acid=Chloroauric Acid
 gregtech.material.potassium_metabisulfite=Potassium Metasulfite
 gregtech.material.potassium_hydroxide=Potassium Hydroxide
+
+##Iron
+gregtech.material.pig_iron=Pig Iron
