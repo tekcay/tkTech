@@ -15,6 +15,23 @@ gregtech.material.chloroauric_acid=Chloroauric Acid
 gregtech.material.potassium_metabisulfite=Potassium Metasulfite
 gregtech.material.potassium_hydroxide=Potassium Hydroxide
 
+##Roasting
+gregtech.material.kesterite=Kesterite
+gregtech.material.stannite=Stannite
+gregtech.material.aresenopyrite=Arsenopyrite
+
+##RoastingOutput
+gregtech.material.cuprite=Cuprite
+gregtech.material.roasted.tetrahedrite=Roasted Tetrahedrite
+gregtech.material.roasted.stannite=Roasted Stannite
+gregtech.material.roasted.kesterite=Roasted Kesterite
+gregtech.material.roasted.arsenopyrite=Roasted Arsenopyrite
+gregtech.material.roasted.pyrite=Roasted Pyrite
+gregtech.material.roasted.cobaltite=Roasted Cobaltite
+gregtech.material.roasted.galena=Roasted Galena
+gregtech.material.roasted.chalcopyrite=Roasted Chalcopyrite
+gregtech.material.roasted.bornite=Roasted Bornite
+
 ##Iron
 gregtech.material.pig_iron=Pig Iron
 
