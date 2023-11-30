@@ -13,7 +13,7 @@ public class TKCYSAMaterials {
 
         TKCYSAMaterialFlagAddition.init();
 
-        Roasting.init(4400);
+        RoastingMaterials.init(4400);
     }
 
     // Chromite chain

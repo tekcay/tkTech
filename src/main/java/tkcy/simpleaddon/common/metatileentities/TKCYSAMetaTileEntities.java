@@ -12,6 +12,7 @@ public final class TKCYSAMetaTileEntities {
     private TKCYSAMetaTileEntities() {}
 
     public static void init() {
-        PRIMITIVE_ROASTING_OVEN = registerMetaTileEntity(4000, new PrimitiveRoastingOven(tkcysa("primitive_roasting_oven")));
+        PRIMITIVE_ROASTING_OVEN = registerMetaTileEntity(4000,
+                new PrimitiveRoastingOven(tkcysa("primitive_roasting_oven")));
     }
 }
