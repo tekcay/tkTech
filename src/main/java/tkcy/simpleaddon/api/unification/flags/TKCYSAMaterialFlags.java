@@ -1,4 +1,4 @@
-package tkcy.simpleaddon.api.unification;
+package tkcy.simpleaddon.api.unification.flags;
 
 import gregtech.api.unification.material.info.MaterialFlag;
 import gregtech.api.unification.material.properties.PropertyKey;

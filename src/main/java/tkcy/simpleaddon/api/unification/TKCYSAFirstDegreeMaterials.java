@@ -12,6 +12,8 @@ import gregtech.api.unification.material.Material;
 import gregtech.api.unification.material.Materials;
 import gregtech.api.unification.material.info.MaterialFlags;
 
+import tkcy.simpleaddon.api.unification.flags.FlagsAddition;
+
 public final class TKCYSAFirstDegreeMaterials {
 
     private TKCYSAFirstDegreeMaterials() {}
@@ -168,6 +170,22 @@ public final class TKCYSAFirstDegreeMaterials {
                 .components(Germanium, 1, Chlorine, 4)
                 .flags(DISABLE_DECOMPOSITION)
                 .colorAverage()
+                .build();
+
+        GalvanizedSteel = new Material.Builder(4022, gregtechId("galvanized_steel"))
+                .ingot()
+                .fluidPipeProperties(2000, 100, true, true, true, false)
+                .components(Iron, 9, Zinc, 1)
+                .flags(FlagsAddition.GENERATE_ALL_NO_UNIF)
+                .color(0xf5f8fa).iconSet(METALLIC)
+                .build();
+
+        Monel = new Material.Builder(4023, gregtechId("monel"))
+                .ingot()
+                .flags(EXT2_METAL)
+                .components(Nickel, 7, Copper, 3)
+                .flags(DISABLE_DECOMPOSITION)
+                .color(0xc1b8a8).iconSet(METALLIC)
                 .build();
     }
 }

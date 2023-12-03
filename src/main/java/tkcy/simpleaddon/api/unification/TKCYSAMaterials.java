@@ -73,4 +73,8 @@ public class TKCYSAMaterials {
     public static Material GermaniumOxide;
     public static Material GermaniumTetrachloride;
     public static Material Argyrodite;
+
+    // Alloys
+    public static Material GalvanizedSteel;
+    public static Material Monel;
 }
