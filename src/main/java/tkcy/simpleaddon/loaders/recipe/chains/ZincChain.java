@@ -15,7 +15,7 @@ public class ZincChain {
                 .input(dust, Zincite)
                 .input(dust, Coke)
                 .output(ingot, Zinc)
-                .duration(20 * 50)
+                .duration(20 * 100)
                 .buildAndRegister();
 
         // Primitive
@@ -23,7 +23,7 @@ public class ZincChain {
                 .input(dust, Zincite)
                 .input(dust, Coal)
                 .output(ingot, Zinc)
-                .duration(20 * 70)
+                .duration(20 * 120)
                 .buildAndRegister();
 
         // REMOVAL
@@ -36,7 +36,7 @@ public class ZincChain {
                 .output(ingot, Zinc)
                 .fluidOutputs(CarbonMonoxide.getFluid(1000))
                 .EUt(60)
-                .duration(20 * 50)
+                .duration(20 * 20)
                 .buildAndRegister();
 
         BLAST_RECIPES.recipeBuilder()
@@ -45,7 +45,7 @@ public class ZincChain {
                 .output(ingot, Zinc)
                 .fluidOutputs(CarbonMonoxide.getFluid(1000))
                 .EUt(60)
-                .duration(20 * 30)
+                .duration(20 * 10)
                 .buildAndRegister();
 
         // ZnO + CO -> Zn + CO2
@@ -55,7 +55,7 @@ public class ZincChain {
                 .output(ingot, Zinc)
                 .fluidOutputs(CarbonDioxide.getFluid(1000))
                 .EUt(60)
-                .duration(20 * 30)
+                .duration(20 * 20)
                 .buildAndRegister();
 
         // ZnSO4 + H2O -> Zn + 1/2 O2 + H2SO4
