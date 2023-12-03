@@ -20,5 +20,6 @@ public class TKCYSAConfigHolder {
         public boolean enableRoastingChain = true;
         public boolean enableZincChain = true;
         public boolean enableGermaniumChain = true;
+        public boolean enableCopperChain = true;
     }
 }

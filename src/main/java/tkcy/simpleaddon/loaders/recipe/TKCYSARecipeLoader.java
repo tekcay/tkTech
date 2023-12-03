@@ -14,7 +14,7 @@ public final class TKCYSARecipeLoader {
         TKCYSAMaterialRecipeHandler.register();
 
         MiscChemicals.init();
-
+        if (TKCYSAConfigHolder.chains.enableCopperChain) CopperChains.init();
         if (TKCYSAConfigHolder.chains.enableChromiteChain) ChromiteChain.init();
         if (TKCYSAConfigHolder.chains.enableGoldChain) GoldChain.init();
         if (TKCYSAConfigHolder.chains.enableIronChain) IronChain.init();
