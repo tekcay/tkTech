@@ -14,47 +14,57 @@ import gregtech.api.unification.OreDictUnifier;
 import gregtech.api.unification.material.Material;
 
 import akka.japi.Function;
+import tkcy.simpleaddon.api.recipes.RecipeRemovalHelper;
 import tkcy.simpleaddon.api.recipes.TKCYSARecipeMaps;
 
 public class Roasting {
 
     public static void init() {
-        chalcopyrite();
+        RecipeRemovalHelper.removeRecipeByInput(RecipeMaps.BLAST_RECIPES, dust, Galena);
 
-        registerRecipe(Chalcocite, 1, CupricOxide, 2, 2000);
-        registerRecipe(Pyrite, 2, BandedIron, 1, 2000);
-        registerRecipe(Realgar, 1, Arsenopyrite, 2, 2000);
-        registerRecipe(Tetrahedrite, 1, RoastedTetrahedrite, 1, 2000);
-        registerRecipe(Stibnite, 1, AntimonyTrioxide, 1, 1500);
-        registerRecipe(Cobaltite, 1, RoastedCobaltite, 1, 1000);
-        registerRecipe(Sphalerite, 1, Zincite, 1, 1000);
-        registerRecipe(Pentlandite, 1, Garnierite, 1, 2000);
-        registerRecipe(Galena, 1, RoastedGalena, 1, 1000);
-        registerRecipe(Kesterite, 1, RoastedKesterite, 1, 4000);
-        registerRecipe(Stannite, 1, RoastedStannite, 1, 4000);
-        registerRecipe(Arsenopyrite, 1, RoastedArsenopyrite, 1, 4000);
-        registerRecipe(Bornite, 1, RoastedBornite, 1, 4000);
-        registerRecipe(Molybdenite, 1, MolybdenumTrioxide, 1, 2000);
+        electricBlast(Chalcocite, 1, CupricOxide, 2, 2000);
+        electricBlast(Realgar, 1, Arsenopyrite, 2, 2000);
+        electricBlast(Tetrahedrite, 1, RoastedTetrahedrite, 1, 2000);
+        electricBlast(Cobaltite, 1, RoastedCobaltite, 1, 1000);
+        electricBlast(Sphalerite, 1, Zincite, 1, 1000);
+        electricBlast(Galena, 1, RoastedGalena, 1, 1000);
+        electricBlast(Kesterite, 1, RoastedKesterite, 1, 4000);
+        electricBlast(Stannite, 1, RoastedStannite, 1, 4000);
+        electricBlast(Arsenopyrite, 1, RoastedArsenopyrite, 1, 4000);
+        electricBlast(Bornite, 1, RoastedBornite, 1, 4000);
+
+        primitiveBlast(Chalcopyrite, 1, CupricOxide, 2);
+        primitiveBlast(Sphalerite, 1, Zincite, 1);
+        primitiveBlast(Galena, 1, RoastedGalena, 1);
+
+        centrifuge(RoastedChalcopyrite);
+        centrifuge(RoastedBornite);
+        centrifuge(RoastedArsenopyrite);
+        centrifuge(RoastedCobaltite);
+        centrifuge(RoastedGalena);
+        centrifuge(RoastedKesterite);
+        centrifuge(RoastedStannite);
+
+        chalcopyrite();
     }
 
-    private static void registerRecipe(Material material1, int amount1, Material material2, int amount2,
-                                       int sulfurDioxideAmount) {
-        if (material2 != Zincite && material2 != Garnierite && material2 != MolybdenumTrioxide) {
-            centrifuge(material2);
-        }
-
+    private static void primitiveBlast(Material material1, int amount1, Material material2, int amount2) {
         TKCYSARecipeMaps.PRIMITIVE_ROASTING.recipeBuilder()
                 .input(dust, material1, amount1)
                 .output(dust, material2, amount2)
-                .duration(20 * 20)
+                .duration(20 * 120)
                 .buildAndRegister();
+    }
 
+    private static void electricBlast(Material material1, int amount1, Material material2, int amount2,
+                                      int sulfurDioxideAmount) {
         RecipeMaps.BLAST_RECIPES.recipeBuilder()
                 .input(dust, material1, amount1)
                 .output(dust, material2, amount2)
                 .fluidInputs(Air.getFluid(sulfurDioxideAmount * 2))
                 .fluidOutputs(SulfurDioxide.getFluid(sulfurDioxideAmount))
                 .duration(20 * 50)
+                .blastFurnaceTemp(1200)
                 .EUt(80)
                 .buildAndRegister();
 
@@ -64,6 +74,7 @@ public class Roasting {
                 .fluidInputs(Oxygen.getFluid(sulfurDioxideAmount))
                 .fluidOutputs(SulfurDioxide.getFluid(sulfurDioxideAmount))
                 .duration(20 * 30)
+                .blastFurnaceTemp(1200)
                 .EUt(80)
                 .buildAndRegister();
     }
@@ -75,6 +86,7 @@ public class Roasting {
                 .output(dust, RoastedChalcopyrite)
                 .fluidInputs(Air.getFluid(2000 * 2))
                 .fluidOutputs(SulfurDioxide.getFluid(2000))
+                .blastFurnaceTemp(1200)
                 .duration(20 * 100)
                 .EUt(80)
                 .buildAndRegister();
@@ -82,8 +94,10 @@ public class Roasting {
         RecipeMaps.BLAST_RECIPES.recipeBuilder()
                 .input(dust, Chalcopyrite)
                 .output(dust, SiliconDioxide)
+                .output(dust, RoastedChalcopyrite)
                 .fluidInputs(Oxygen.getFluid(4000))
                 .fluidOutputs(SulfurDioxide.getFluid(2000))
+                .blastFurnaceTemp(1200)
                 .duration(20 * 50)
                 .EUt(80)
                 .buildAndRegister();
