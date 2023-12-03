@@ -3,6 +3,7 @@ package tkcy.simpleaddon.loaders.recipe.chains;
 import static gregtech.api.recipes.RecipeMaps.*;
 import static gregtech.api.unification.material.Materials.*;
 import static gregtech.api.unification.ore.OrePrefix.*;
+import static tkcy.simpleaddon.api.recipes.TKCYSARecipeMaps.ADVANCED_ELECTROLYSIS;
 import static tkcy.simpleaddon.api.unification.TKCYSAMaterials.*;
 
 import tkcy.simpleaddon.api.recipes.RecipeRemovalHelper;
@@ -59,12 +60,13 @@ public class ZincChain {
                 .buildAndRegister();
 
         // ZnSO4 + H2O -> Zn + 1/2 O2 + H2SO4
-        ELECTROLYZER_RECIPES.recipeBuilder().duration(200)
+        ADVANCED_ELECTROLYSIS.recipeBuilder().duration(200)
                 .fluidInputs(Water.getFluid(1000))
                 .notConsumable(stickLong, Aluminium)
                 .input(dust, ZincSulfate)
                 .output(dust, Zinc)
-                .fluidOutputs(Oxygen.getFluid(500), SulfuricAcid.getFluid(1000))
+                .fluidOutputs(Oxygen.getFluid(500))
+                .fluidOutputs(SulfuricAcid.getFluid(1000))
                 .EUt(100)
                 .buildAndRegister();
     }

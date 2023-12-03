@@ -51,6 +51,7 @@ public class IronChain {
                 .input(ingot, PigIron)
                 .output(OrePrefix.ingot, Iron)
                 .duration(20 * 50)
+                .EUt(80)
                 .buildAndRegister();
     }
 

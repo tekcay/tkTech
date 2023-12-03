@@ -22,4 +22,13 @@ public class TKCYSAConfigHolder {
         public boolean enableGermaniumChain = true;
         public boolean enableCopperChain = true;
     }
+
+    @Config.Comment("Config options applying to all chains")
+    @Config.Name("Harder stuff")
+    public static HarderStuff harderStuff = new HarderStuff();
+
+    public static class HarderStuff {
+
+        public boolean enableGalvanizedSteel = true;
+    }
 }
