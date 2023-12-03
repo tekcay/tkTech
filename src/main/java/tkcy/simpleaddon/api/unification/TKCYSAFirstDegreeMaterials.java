@@ -169,15 +169,5 @@ public final class TKCYSAFirstDegreeMaterials {
                 .flags(DISABLE_DECOMPOSITION)
                 .colorAverage()
                 .build();
-
-        /*
-         * GermanicAcid = new Material.Builder(4016, gregtechId("germanic_acid"))
-         * .liquid(new FluidBuilder().attributes(ACID))
-         * .components(Germanium, 1, Oxygen, 4, Hydrogen, 4)
-         * .flags(DISABLE_DECOMPOSITION)
-         * .colorAverage()
-         * .build();
-         * 
-         */
     }
 }
