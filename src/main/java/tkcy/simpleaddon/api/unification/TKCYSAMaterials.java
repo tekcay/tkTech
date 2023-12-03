@@ -2,6 +2,8 @@ package tkcy.simpleaddon.api.unification;
 
 import gregtech.api.unification.material.Material;
 
+import tkcy.simpleaddon.api.unification.properties.PropertiesAddition;
+
 public class TKCYSAMaterials {
 
     public static void init() {
@@ -14,6 +16,10 @@ public class TKCYSAMaterials {
         TKCYSAMaterialFlagAddition.init();
 
         RoastingMaterials.init(4400);
+
+        MaterialsFormula.init();
+
+        PropertiesAddition.init();
     }
 
     // Chromite chain
@@ -54,4 +60,17 @@ public class TKCYSAMaterials {
     public static Material RoastedStannite;
     public static Material RoastedArsenopyrite;
     public static Material RoastedBornite;
+
+    // Zinc chain
+    public static Material ZincSulfate;
+    public static Material ZincLeachingSolution;
+
+    // Germanium chain
+    public static Material ZincLeachingResidue;
+    public static Material GermanicAcid;
+    public static Material IronSulfate;
+    public static Material GermaniumSulfide;
+    public static Material GermaniumOxide;
+    public static Material GermaniumTetrachloride;
+    public static Material Argyrodite;
 }

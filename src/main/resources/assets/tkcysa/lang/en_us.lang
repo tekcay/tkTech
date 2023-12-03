@@ -39,6 +39,10 @@ gregtech.material.pig_iron=Pig Iron
 ##Tungsten
 gregtech.material.tungsten_oxide=Tungsten Oxide
 
+##Zinc
+gregtech.material.zinc_leaching_solution=Zinc Leaching Solution
+gregtech.material.zinc_sulfate=Zinc Sulfate
+
 ##MTEs
 tkcysa.machine.primitive_roasting_oven.name=Primitive Roasting Oven
 

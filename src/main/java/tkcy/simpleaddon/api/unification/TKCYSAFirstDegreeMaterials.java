@@ -113,5 +113,71 @@ public final class TKCYSAFirstDegreeMaterials {
                 .components(Tungsten, 1, Oxygen, 3)
                 .colorAverage()
                 .build();
+
+        ZincSulfate = new Material.Builder(4014, gregtechId("zinc_sulfate"))
+                .dust()
+                .components(Zinc, 1, Sulfur, 1, Oxygen, 4)
+                .colorAverage()
+                .build();
+
+        ZincLeachingSolution = new Material.Builder(4015, gregtechId("zinc_leaching_solution"))
+                .liquid(new FluidBuilder().attributes(ACID))
+                .components(SulfuricAcid, 1, Water, 1, Germanium, 1, Iron, 1)
+                .flags(DISABLE_DECOMPOSITION)
+                .colorAverage()
+                .build();
+
+        GermaniumSulfide = new Material.Builder(4016, gregtechId("germanium_sulfide"))
+                .dust()
+                .components(Germanium, 1, Sulfur, 2)
+                .flags(DISABLE_DECOMPOSITION)
+                .colorAverage()
+                .build();
+
+        GermaniumOxide = new Material.Builder(4017, gregtechId("germanium_oxide"))
+                .dust()
+                .components(Germanium, 1, Oxygen, 2)
+                .flags(DISABLE_DECOMPOSITION)
+                .colorAverage()
+                .build();
+
+        IronSulfate = new Material.Builder(4018, gregtechId("iron_sulfate"))
+                .dust()
+                .components(Iron, 1, Sulfur, 1, Oxygen, 4)
+                .flags(DISABLE_DECOMPOSITION)
+                .colorAverage()
+                .build();
+
+        ZincLeachingResidue = new Material.Builder(4019, gregtechId("zinc_leaching_residue"))
+                .fluid()
+                .flags(DISABLE_DECOMPOSITION)
+                .colorAverage()
+                .build();
+
+        Argyrodite = new Material.Builder(4020, gregtechId("argyrodite"))
+                .ore()
+                .dust()
+                .fluid()
+                .components(Silver, 8, Germanium, 1, Sulfur, 6)
+                .flags(DISABLE_DECOMPOSITION)
+                .colorAverage()
+                .build();
+
+        GermaniumTetrachloride = new Material.Builder(4021, gregtechId("germanium_tetrachloride"))
+                .liquid(new FluidBuilder().attributes(ACID))
+                .components(Germanium, 1, Chlorine, 4)
+                .flags(DISABLE_DECOMPOSITION)
+                .colorAverage()
+                .build();
+
+        /*
+         * GermanicAcid = new Material.Builder(4016, gregtechId("germanic_acid"))
+         * .liquid(new FluidBuilder().attributes(ACID))
+         * .components(Germanium, 1, Oxygen, 4, Hydrogen, 4)
+         * .flags(DISABLE_DECOMPOSITION)
+         * .colorAverage()
+         * .build();
+         * 
+         */
     }
 }
