@@ -13,6 +13,9 @@ public final class TKCYSARecipeMaps {
     public static final RecipeMap<SimpleRecipeBuilder> ADVANCED_ELECTROLYSIS = new RecipeMap<>("advanced_electrolysis",
             6, 4, 2, 6, new SimpleRecipeBuilder(), false)
                     .setSound(GTSoundEvents.ELECTROLYZER);
+    public static final RecipeMap<SimpleRecipeBuilder> ADVANCED_ASSEMBLING = new RecipeMap<>("advanced_assembling",
+            9, 1, 2, 0, new SimpleRecipeBuilder(), false)
+                    .setSound(GTSoundEvents.ASSEMBLER);
 
     private TKCYSARecipeMaps() {}
 }

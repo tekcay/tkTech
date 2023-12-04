@@ -60,8 +60,10 @@ gregtech.material.monel=Monel
 
 ##MTEs
 tkcysa.machine.primitive_roasting_oven.name=Primitive Roasting Oven
-tkcysa.machine.advanced_electrolysis.name=Electrolyzer
+tkcysa.machine.electrolyzer.name=Electrolyzer
+tkcysa.machine.assembler.name=Assembling Machine
 
 ##RecipesMaps
 recipemap.primitive_roasting.name=Primtive Roasting
 recipemap.advanced_electrolysis.name=Electrolyzis
+recipemap.advanced_assembling.name=Assembling
