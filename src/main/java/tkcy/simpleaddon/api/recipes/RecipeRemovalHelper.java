@@ -1,5 +1,7 @@
 package tkcy.simpleaddon.api.recipes;
 
+import javax.annotation.Nonnull;
+
 import net.minecraft.item.ItemStack;
 
 import gregtech.api.recipes.Recipe;
@@ -19,6 +21,35 @@ public class RecipeRemovalHelper {
                     if (stack.isItemEqual(OreDictUnifier.get(orePrefix, material, count))) {
                         recipeMap.removeRecipe(recipe);
                     }
+                }
+            }
+        }
+    }
+
+    public static void removeRecipeByOutput(RecipeMap<?> recipeMap, OrePrefix orePrefix, Material material) {
+        for (Recipe recipe : recipeMap.getRecipeList()) {
+            for (ItemStack stack : recipe.getOutputs()) {
+                int count = stack.getCount();
+                if (stack.isItemEqual(OreDictUnifier.get(orePrefix, material, count))) {
+                    recipeMap.removeRecipe(recipe);
+                }
+            }
+        }
+    }
+
+    public static void removeRecipeByOutput(RecipeMap<?> recipeMap, @Nonnull ItemStack itemStack) {
+        for (Recipe recipe : recipeMap.getRecipeList()) {
+            if (recipe.getOutputs().contains(itemStack)) {
+                recipeMap.removeRecipe(recipe);
+            }
+        }
+    }
+
+    public static void removeRecipeByOutputs(RecipeMap<?> recipeMap, @Nonnull ItemStack itemStack) {
+        for (Recipe recipe : recipeMap.getRecipeList()) {
+            for (ItemStack stack : recipe.getOutputs()) {
+                if (stack.isItemEqual(itemStack)) {
+                    recipeMap.removeRecipe(recipe);
                 }
             }
         }
