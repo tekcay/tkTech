@@ -6,7 +6,7 @@ import tkcy.simpleaddon.loaders.recipe.handlers.Alloys;
 import tkcy.simpleaddon.loaders.recipe.handlers.MiscChemicals;
 import tkcy.simpleaddon.loaders.recipe.handlers.Roasting;
 import tkcy.simpleaddon.loaders.recipe.handlers.TKCYSAMaterialRecipeHandler;
-import tkcy.simpleaddon.loaders.recipe.handlers.harderstuff.HarderHull;
+import tkcy.simpleaddon.loaders.recipe.handlers.harderstuff.HarderMachineCasings;
 
 public final class TKCYSARecipeLoader {
 
@@ -17,8 +17,10 @@ public final class TKCYSARecipeLoader {
 
         MiscChemicals.init();
 
-        if (TKCYSAConfigHolder.harderStuff.enableGalvanizedSteel) Alloys.init();
-        HarderHull.init();
+        if (TKCYSAConfigHolder.harderStuff.enableHarderMachineCasings) {
+            Alloys.init();
+            HarderMachineCasings.init();
+        }
 
         if (TKCYSAConfigHolder.chains.enableCopperChain) CopperChains.init();
         if (TKCYSAConfigHolder.chains.enableChromiteChain) ChromiteChain.init();

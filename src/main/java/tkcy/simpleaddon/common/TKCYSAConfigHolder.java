@@ -29,6 +29,6 @@ public class TKCYSAConfigHolder {
 
     public static class HarderStuff {
 
-        public boolean enableGalvanizedSteel = true;
+        public boolean enableHarderMachineCasings = true;
     }
 }

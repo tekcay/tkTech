@@ -10,8 +10,8 @@ import gregtech.api.unification.material.event.MaterialEvent;
 import gregtech.api.unification.material.event.PostMaterialEvent;
 
 import tkcy.simpleaddon.TekCaySimpleAddon;
-import tkcy.simpleaddon.api.unification.TKCYSAMaterialFlagAddition;
 import tkcy.simpleaddon.api.unification.TKCYSAMaterials;
+import tkcy.simpleaddon.api.unification.flags.FlagsAddition;
 
 @ApiStatus.Internal
 @Mod.EventBusSubscriber(modid = TekCaySimpleAddon.MODID)
@@ -26,6 +26,6 @@ public final class TKCYSAEventHandlers {
 
     @SubscribeEvent
     public static void registerMaterialsPost(PostMaterialEvent event) {
-        TKCYSAMaterialFlagAddition.initLate();
+        FlagsAddition.init();
     }
 }

@@ -13,8 +13,6 @@ public class TKCYSAMaterials {
         // 4201
         TKCYSASecondDegreeMaterials.init();
 
-        TKCYSAMaterialFlagAddition.init();
-
         RoastingMaterials.init(4400);
 
         MaterialsFormula.init();

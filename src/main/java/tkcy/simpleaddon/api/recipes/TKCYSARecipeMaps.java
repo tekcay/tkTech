@@ -11,7 +11,7 @@ public final class TKCYSARecipeMaps {
             1, 1, 0, 0, new PrimitiveRecipeBuilder(), false)
                     .setSound(GTSoundEvents.FURNACE);
     public static final RecipeMap<SimpleRecipeBuilder> ADVANCED_ELECTROLYSIS = new RecipeMap<>("advanced_electrolysis",
-            9, 4, 4, 6, new SimpleRecipeBuilder(), false)
+            6, 4, 2, 6, new SimpleRecipeBuilder(), false)
                     .setSound(GTSoundEvents.ELECTROLYZER);
 
     private TKCYSARecipeMaps() {}

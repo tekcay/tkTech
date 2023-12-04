@@ -6,13 +6,12 @@ import static gregtech.api.unification.material.info.MaterialFlags.DISABLE_DECOM
 import static gregtech.api.unification.material.info.MaterialIconSet.*;
 import static gregtech.api.util.GTUtility.gregtechId;
 import static tkcy.simpleaddon.api.unification.TKCYSAMaterials.*;
+import static tkcy.simpleaddon.api.unification.flags.TKCYSAMaterialFlags.GENERATE_ALL_NO_UNIF;
 
 import gregtech.api.fluids.FluidBuilder;
 import gregtech.api.unification.material.Material;
 import gregtech.api.unification.material.Materials;
 import gregtech.api.unification.material.info.MaterialFlags;
-
-import tkcy.simpleaddon.api.unification.flags.FlagsAddition;
 
 public final class TKCYSAFirstDegreeMaterials {
 
@@ -176,7 +175,7 @@ public final class TKCYSAFirstDegreeMaterials {
                 .ingot()
                 .fluidPipeProperties(2000, 100, true, true, true, false)
                 .components(Iron, 9, Zinc, 1)
-                .flags(FlagsAddition.GENERATE_ALL_NO_UNIF)
+                .flags(GENERATE_ALL_NO_UNIF)
                 .color(0xf5f8fa).iconSet(METALLIC)
                 .build();
 
