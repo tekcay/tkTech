@@ -104,6 +104,7 @@ public final class TKCYSAFirstDegreeMaterials {
 
         PigIron = new Material.Builder(4012, gregtechId("pig_iron"))
                 .ingot()
+                .liquid(new FluidBuilder().temperature(1800).attributes())
                 .flags(MaterialFlags.NO_UNIFICATION)
                 .components(Iron, 1, Carbon, 1)
                 .colorAverage()

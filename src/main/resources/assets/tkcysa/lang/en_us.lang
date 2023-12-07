@@ -62,8 +62,11 @@ gregtech.material.monel=Monel
 tkcysa.machine.primitive_roasting_oven.name=Primitive Roasting Oven
 tkcysa.machine.electrolyzer.name=Electrolyzer
 tkcysa.machine.assembler.name=Assembling Machine
+tkcysa.machine.fluid_primitive_blast_furnace.name=Fluid Primitive Blast Furnace
 
 ##RecipesMaps
 recipemap.primitive_roasting.name=Primtive Roasting
 recipemap.advanced_electrolysis.name=Electrolyzis
 recipemap.advanced_assembling.name=Assembling
+recipemap.fluid_primitive_blast.name=Fluid Blasting
+recipemap.casting.name=Casting

@@ -4,9 +4,12 @@ import static gregtech.api.unification.material.Materials.*;
 import static gregtech.api.unification.ore.OrePrefix.*;
 import static tkcy.simpleaddon.api.unification.TKCYSAMaterials.PigIron;
 
+import gregtech.api.GTValues;
 import gregtech.api.recipes.RecipeMaps;
 import gregtech.api.unification.material.Material;
 import gregtech.api.unification.ore.OrePrefix;
+
+import tkcy.simpleaddon.api.recipes.TKCYSARecipeMaps;
 
 public class IronChain {
 
@@ -25,25 +28,25 @@ public class IronChain {
     }
 
     private static void primitive(Material ore, OrePrefix prefix, int count, int carbonSourceCount, int pigIronCount) {
-        RecipeMaps.PRIMITIVE_BLAST_FURNACE_RECIPES.recipeBuilder()
+        TKCYSARecipeMaps.FLUID_PRIMITIVE_BLAST.recipeBuilder()
                 .input(prefix, ore, count)
                 .input(prefix, Coal, carbonSourceCount)
-                .output(OrePrefix.ingot, PigIron, pigIronCount)
+                .fluidOutputs(PigIron.getFluid(GTValues.L * pigIronCount))
                 .duration(20 * 150)
                 .buildAndRegister();
 
-        RecipeMaps.PRIMITIVE_BLAST_FURNACE_RECIPES.recipeBuilder()
+        TKCYSARecipeMaps.FLUID_PRIMITIVE_BLAST.recipeBuilder()
                 .input(OrePrefix.ore, ore, count)
                 .input(OrePrefix.gem, Coke, carbonSourceCount)
-                .output(OrePrefix.ingot, PigIron, pigIronCount)
+                .fluidOutputs(PigIron.getFluid(GTValues.L * pigIronCount))
                 .duration(20 * 125)
                 .buildAndRegister();
     }
 
     private static void pigIronToIron() {
-        RecipeMaps.PRIMITIVE_BLAST_FURNACE_RECIPES.recipeBuilder()
-                .input(ingot, PigIron)
-                .output(OrePrefix.ingot, Iron)
+        TKCYSARecipeMaps.FLUID_PRIMITIVE_BLAST.recipeBuilder()
+                .fluidInputs(PigIron.getFluid(GTValues.L))
+                .fluidOutputs(Iron.getFluid(GTValues.L))
                 .duration(20 * 150)
                 .buildAndRegister();
 

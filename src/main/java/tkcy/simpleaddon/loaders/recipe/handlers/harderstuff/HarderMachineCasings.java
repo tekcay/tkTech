@@ -35,6 +35,7 @@ public class HarderMachineCasings {
 
     /**
      * Remove all GTCEu recipes.
+     * 
      * @param tier as tier 0 corresponds to ULV tier etc.
      */
     private static void removeAllRecipes(int tier) {
