@@ -20,7 +20,7 @@ public final class TKCYSARecipeMaps {
             "fluid_primitive_blast",
             2, 0, 1, 1, new PrimitiveRecipeBuilder(), false)
                     .setSound(GTSoundEvents.FURNACE);
-    public static final RecipeMap<PrimitiveRecipeBuilder> CASTING = new RecipeMap<>(
+    public static final RecipeMap<PrimitiveRecipeBuilder> CASTING = new MinimalPrimitiveRecipeMap<>(
             "casting",
             1, 1, 1, 0, new PrimitiveRecipeBuilder(), false)
                     .setSound(GTSoundEvents.COOLING);
