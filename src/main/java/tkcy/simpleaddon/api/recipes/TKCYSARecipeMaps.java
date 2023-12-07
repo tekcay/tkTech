@@ -22,8 +22,8 @@ public final class TKCYSARecipeMaps {
                     .setSound(GTSoundEvents.FURNACE);
     public static final RecipeMap<PrimitiveRecipeBuilder> CASTING = new RecipeMap<>(
             "casting",
-            2, 1, 1, 0, new PrimitiveRecipeBuilder(), false)
-                    .setSound(GTSoundEvents.FURNACE);
+            1, 1, 1, 0, new PrimitiveRecipeBuilder(), false)
+                    .setSound(GTSoundEvents.COOLING);
 
     private TKCYSARecipeMaps() {}
 }

@@ -1,7 +1,6 @@
 package tkcy.simpleaddon.loaders.recipe.chains;
 
 import static gregtech.api.recipes.RecipeMaps.BLAST_RECIPES;
-import static gregtech.api.recipes.RecipeMaps.PRIMITIVE_BLAST_FURNACE_RECIPES;
 import static gregtech.api.unification.material.Materials.*;
 import static gregtech.api.unification.ore.OrePrefix.*;
 import static tkcy.simpleaddon.api.recipes.TKCYSARecipeMaps.ADVANCED_ELECTROLYSIS;
@@ -9,6 +8,7 @@ import static tkcy.simpleaddon.api.recipes.TKCYSARecipeMaps.FLUID_PRIMITIVE_BLAS
 import static tkcy.simpleaddon.api.unification.TKCYSAMaterials.ZincSulfate;
 
 import gregtech.api.GTValues;
+
 import tkcy.simpleaddon.api.recipes.RecipeRemovalHelper;
 
 public class ZincChain {
@@ -21,7 +21,8 @@ public class ZincChain {
                 .fluidOutputs(Zinc.getFluid(GTValues.L))
                 .duration(20 * 100)
                 .buildAndRegister();
-        PRIMITIVE_BLAST_FURNACE_RECIPES.recipeBuilder()
+
+        FLUID_PRIMITIVE_BLAST.recipeBuilder()
                 .input(dust, Zincite)
                 .input(dust, Coal)
                 .fluidOutputs(Zinc.getFluid(GTValues.L))

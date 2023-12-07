@@ -2,10 +2,7 @@ package tkcy.simpleaddon.loaders.recipe;
 
 import tkcy.simpleaddon.common.TKCYSAConfigHolder;
 import tkcy.simpleaddon.loaders.recipe.chains.*;
-import tkcy.simpleaddon.loaders.recipe.handlers.Alloys;
-import tkcy.simpleaddon.loaders.recipe.handlers.MiscChemicals;
-import tkcy.simpleaddon.loaders.recipe.handlers.Roasting;
-import tkcy.simpleaddon.loaders.recipe.handlers.TKCYSAMaterialRecipeHandler;
+import tkcy.simpleaddon.loaders.recipe.handlers.*;
 import tkcy.simpleaddon.loaders.recipe.handlers.harderstuff.HarderMachineCasings;
 
 public final class TKCYSARecipeLoader {
@@ -16,6 +13,7 @@ public final class TKCYSARecipeLoader {
         TKCYSAMaterialRecipeHandler.register();
 
         MiscChemicals.init();
+        PrimitiveCastingHandler.init();
 
         if (TKCYSAConfigHolder.harderStuff.enableHarderMachineCasings) {
             Alloys.init();
