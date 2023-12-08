@@ -71,3 +71,6 @@ recipemap.advanced_electrolysis.name=Electrolyzis
 recipemap.advanced_assembling.name=Assembling
 recipemap.fluid_primitive_blast.name=Fluid Blasting
 recipemap.casting.name=Casting
+
+##RecipeCategories
+#tkcysa.recipe.category.galvanizing=Galvanizing
