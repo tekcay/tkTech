@@ -7,7 +7,8 @@ import gregtech.core.sound.GTSoundEvents;
 
 public final class TKCYSARecipeMaps {
 
-    public static final RecipeMap<PrimitiveRecipeBuilder> PRIMITIVE_ROASTING = new RecipeMap<>("primitive_roasting",
+    public static final RecipeMap<PrimitiveRecipeBuilder> PRIMITIVE_ROASTING = new MinimalPrimitiveRecipeMap<>(
+            "primitive_roasting",
             1, 1, 0, 0, new PrimitiveRecipeBuilder(), false)
                     .setSound(GTSoundEvents.FURNACE);
     public static final RecipeMap<SimpleRecipeBuilder> ADVANCED_ELECTROLYSIS = new RecipeMap<>("advanced_electrolysis",
@@ -16,7 +17,7 @@ public final class TKCYSARecipeMaps {
     public static final RecipeMap<SimpleRecipeBuilder> ADVANCED_ASSEMBLING = new RecipeMap<>("advanced_assembling",
             9, 1, 2, 0, new SimpleRecipeBuilder(), false)
                     .setSound(GTSoundEvents.ASSEMBLER);
-    public static final RecipeMap<PrimitiveRecipeBuilder> FLUID_PRIMITIVE_BLAST = new RecipeMap<>(
+    public static final RecipeMap<PrimitiveRecipeBuilder> FLUID_PRIMITIVE_BLAST = new MinimalPrimitiveRecipeMap<>(
             "fluid_primitive_blast",
             2, 0, 1, 1, new PrimitiveRecipeBuilder(), false)
                     .setSound(GTSoundEvents.FURNACE);
