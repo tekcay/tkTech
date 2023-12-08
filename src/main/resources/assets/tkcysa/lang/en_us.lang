@@ -63,6 +63,7 @@ tkcysa.machine.primitive_roasting_oven.name=Primitive Roasting Oven
 tkcysa.machine.electrolyzer.name=Electrolyzer
 tkcysa.machine.assembler.name=Assembling Machine
 tkcysa.machine.fluid_primitive_blast_furnace.name=Fluid Primitive Blast Furnace
+tkcysa.machine.primitive_casting.name=Primitive Casting
 
 ##RecipesMaps
 recipemap.primitive_roasting.name=Primtive Roasting

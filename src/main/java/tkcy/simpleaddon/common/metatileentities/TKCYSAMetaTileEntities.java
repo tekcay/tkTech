@@ -7,6 +7,7 @@ import tkcy.simpleaddon.common.metatileentities.electric.AssemblingMachine;
 import tkcy.simpleaddon.common.metatileentities.electric.Electrolyzer;
 import tkcy.simpleaddon.common.metatileentities.multiprimitive.FluidPrimitiveBlastFurnace;
 import tkcy.simpleaddon.common.metatileentities.multiprimitive.PrimitiveRoastingOven;
+import tkcy.simpleaddon.common.metatileentities.primitive.PrimitiveCasting;
 
 public final class TKCYSAMetaTileEntities {
 
@@ -14,6 +15,7 @@ public final class TKCYSAMetaTileEntities {
     public static FluidPrimitiveBlastFurnace FLUID_PRIMITIVE_BLAST_FURNACE;
     public static Electrolyzer ELECTROLYZER;
     public static AssemblingMachine ASSEMBLING_MACHINE;
+    public static PrimitiveCasting PRIMITIVE_CASTING;
 
     private TKCYSAMetaTileEntities() {}
 
@@ -24,5 +26,6 @@ public final class TKCYSAMetaTileEntities {
         ASSEMBLING_MACHINE = registerMetaTileEntity(4002, new AssemblingMachine(tkcysa("assembler")));
         FLUID_PRIMITIVE_BLAST_FURNACE = registerMetaTileEntity(4003,
                 new FluidPrimitiveBlastFurnace(tkcysa("fluid_primitive_blast_furnace")));
+        PRIMITIVE_CASTING = registerMetaTileEntity(4004, new PrimitiveCasting(tkcysa("primitive_casting")));
     }
 }
