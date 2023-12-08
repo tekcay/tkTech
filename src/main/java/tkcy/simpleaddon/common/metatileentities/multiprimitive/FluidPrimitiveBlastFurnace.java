@@ -13,9 +13,10 @@ import gregtech.common.blocks.BlockMetalCasing;
 import gregtech.common.blocks.MetaBlocks;
 import gregtech.common.metatileentities.multi.MetaTileEntityPrimitiveBlastFurnace;
 
+import tkcy.simpleaddon.api.machines.BrickMultiblock;
 import tkcy.simpleaddon.api.recipes.TKCYSARecipeMaps;
 
-public class FluidPrimitiveBlastFurnace extends MetaTileEntityPrimitiveBlastFurnace {
+public class FluidPrimitiveBlastFurnace extends MetaTileEntityPrimitiveBlastFurnace implements BrickMultiblock {
 
     public FluidPrimitiveBlastFurnace(ResourceLocation metaTileEntityId) {
         super(metaTileEntityId);

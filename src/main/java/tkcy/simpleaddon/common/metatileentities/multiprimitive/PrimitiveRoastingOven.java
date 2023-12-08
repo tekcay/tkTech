@@ -13,9 +13,10 @@ import gregtech.common.metatileentities.MetaTileEntities;
 import gregtech.common.metatileentities.multi.MetaTileEntityCokeOven;
 
 import codechicken.lib.raytracer.CuboidRayTraceResult;
+import tkcy.simpleaddon.api.machines.BrickMultiblock;
 import tkcy.simpleaddon.api.recipes.TKCYSARecipeMaps;
 
-public class PrimitiveRoastingOven extends MetaTileEntityCokeOven {
+public class PrimitiveRoastingOven extends MetaTileEntityCokeOven implements BrickMultiblock {
 
     public PrimitiveRoastingOven(ResourceLocation metaTileEntityId) {
         super(metaTileEntityId);

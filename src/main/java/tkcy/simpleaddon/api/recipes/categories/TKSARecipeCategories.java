@@ -3,11 +3,11 @@ package tkcy.simpleaddon.api.recipes.categories;
 public class TKSARecipeCategories {
 
     /*
-    public static final GTRecipeCategory GALVANIZING = GTRecipeCategory.create(TekCaySimpleAddon.MODID,
-            "galvanizing",
-            "tkcysa.recipe.category.galvanizing",
-            TKCYSARecipeMaps.CASTING)
-            .jeiIcon(GuiTextures.MOLD_OVERLAY);
-
+     * public static final GTRecipeCategory GALVANIZING = GTRecipeCategory.create(TekCaySimpleAddon.MODID,
+     * "galvanizing",
+     * "tkcysa.recipe.category.galvanizing",
+     * TKCYSARecipeMaps.CASTING)
+     * .jeiIcon(GuiTextures.MOLD_OVERLAY);
+     * 
      */
 }
