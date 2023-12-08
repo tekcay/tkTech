@@ -16,6 +16,8 @@ public final class TKCYSARecipeLoader {
         MiscChemicals.init();
         PrimitiveCastingHandler.init();
 
+        MTEs.init();
+
         if (TKCYSAConfigHolder.harderStuff.enableHarderMachineCasings) {
             GalvanizedSteel.init();
             HarderMachineCasings.init();

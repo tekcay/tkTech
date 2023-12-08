@@ -1,10 +1,10 @@
 package tkcy.simpleaddon.common.metatileentities.multiblockpart;
 
-import gregtech.api.capability.impl.NotifiableItemStackHandler;
-import gregtech.api.items.itemhandlers.GTItemStackHandler;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.items.IItemHandlerModifiable;
 
+import gregtech.api.capability.impl.NotifiableItemStackHandler;
+import gregtech.api.items.itemhandlers.GTItemStackHandler;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
 import gregtech.api.metatileentity.multiblock.MultiblockAbility;
