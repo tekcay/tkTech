@@ -18,6 +18,8 @@ public class TKCYSAMaterials {
         MaterialsFormula.init();
 
         PropertiesAddition.init();
+
+        MaterialIconAddition.init();
     }
 
     // Chromite chain
