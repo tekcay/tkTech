@@ -1,29 +1,38 @@
 package tkcy.simpleaddon.common.metatileentities.multiprimitive;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import org.jetbrains.annotations.NotNull;
 
-import gregtech.api.capability.impl.PrimitiveRecipeLogic;
 import gregtech.api.gui.ModularUI;
+import gregtech.api.metatileentity.MetaTileEntity;
+import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
+import gregtech.api.metatileentity.multiblock.IMultiblockPart;
+import gregtech.api.metatileentity.multiblock.RecipeMapPrimitiveMultiblockController;
 import gregtech.api.pattern.BlockPattern;
 import gregtech.api.pattern.FactoryBlockPattern;
-import gregtech.api.pattern.TraceabilityPredicate;
-import gregtech.common.metatileentities.multi.MetaTileEntityCokeOven;
+import gregtech.client.renderer.ICubeRenderer;
+import gregtech.client.renderer.texture.Textures;
+import gregtech.common.blocks.BlockMetalCasing;
+import gregtech.common.blocks.MetaBlocks;
 
-import codechicken.lib.raytracer.CuboidRayTraceResult;
-import tkcy.simpleaddon.api.capabilities.TKCYSAMultiblockAbility;
-import tkcy.simpleaddon.api.machines.BrickMultiblock;
+import codechicken.lib.render.CCRenderState;
+import codechicken.lib.render.pipeline.IVertexOperation;
+import codechicken.lib.vec.Matrix4;
 import tkcy.simpleaddon.api.recipes.TKCYSARecipeMaps;
 
-public class PrimitiveRoastingOven extends MetaTileEntityCokeOven implements BrickMultiblock {
+public class PrimitiveRoastingOven extends RecipeMapPrimitiveMultiblockController {
 
     public PrimitiveRoastingOven(ResourceLocation metaTileEntityId) {
-        super(metaTileEntityId);
-        this.recipeMapWorkable = new PrimitiveRecipeLogic(this, TKCYSARecipeMaps.PRIMITIVE_ROASTING);
+        super(metaTileEntityId, TKCYSARecipeMaps.PRIMITIVE_ROASTING);
+    }
+
+    @Override
+    public MetaTileEntity createMetaTileEntity(IGregTechTileEntity tileEntity) {
+        return new PrimitiveRoastingOven(metaTileEntityId);
     }
 
     @Override
@@ -32,13 +41,33 @@ public class PrimitiveRoastingOven extends MetaTileEntityCokeOven implements Bri
                 .aisle("XXX", "XXX", "-X-")
                 .aisle("XXX", "X#X", "-X-")
                 .aisle("XXX", "XYX", "-X-")
+                // .where('I', metaTileEntities(TKCYSAMetaTileEntities.BRICK_ITEM_BUS[0]))
                 .where('X',
-                        states(getCasingState())
-                                .or(autoAbilities()))
+                        states(MetaBlocks.METAL_CASING.getState(BlockMetalCasing.MetalCasingType.COKE_BRICKS)))
+
+                // .or(autoAbilities()))
                 .where('#', air())
                 .where('-', any())
                 .where('Y', selfPredicate())
                 .build();
+    }
+
+    @SideOnly(Side.CLIENT)
+    @NotNull
+    @Override
+    protected ICubeRenderer getFrontOverlay() {
+        return Textures.COKE_OVEN_OVERLAY;
+    }
+
+    @Override
+    public boolean hasMaintenanceMechanics() {
+        return false;
+    }
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    public ICubeRenderer getBaseTexture(IMultiblockPart sourcePart) {
+        return Textures.COKE_BRICKS;
     }
 
     @Override
@@ -47,15 +76,18 @@ public class PrimitiveRoastingOven extends MetaTileEntityCokeOven implements Bri
     }
 
     @Override
-    public boolean onRightClick(EntityPlayer playerIn, EnumHand hand, EnumFacing facing,
-                                CuboidRayTraceResult hitResult) {
-        return false;
+    public void renderMetaTileEntity(CCRenderState renderState, Matrix4 translation, IVertexOperation[] pipeline) {
+        super.renderMetaTileEntity(renderState, translation, pipeline);
+        getFrontOverlay().renderOrientedState(renderState, translation, pipeline, getFrontFacing(),
+                recipeMapWorkable.isActive(), recipeMapWorkable.isWorkingEnabled());
     }
-
-    @Override
-    public TraceabilityPredicate autoAbilities(boolean checkMaintenance, boolean checkMuffler) {
-        TraceabilityPredicate predicate = new TraceabilityPredicate();
-        predicate = predicate.or(abilities(TKCYSAMultiblockAbility.BRICK_ITEMS));
-        return predicate;
-    }
+    /*
+     * @Override
+     * public TraceabilityPredicate autoAbilities(boolean checkMaintenance, boolean checkMuffler) {
+     * TraceabilityPredicate predicate = new TraceabilityPredicate();
+     * predicate = predicate.or(abilities(TKCYSAMultiblockAbility.BRICK_ITEMS));
+     * return predicate;
+     * }
+     * 
+     */
 }
