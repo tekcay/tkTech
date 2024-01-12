@@ -5,6 +5,8 @@ import gregtech.api.recipes.builders.PrimitiveRecipeBuilder;
 import gregtech.api.recipes.builders.SimpleRecipeBuilder;
 import gregtech.core.sound.GTSoundEvents;
 
+import tkcy.simpleaddon.api.recipes.builders.NoEnergyRecipeBuilder;
+
 public final class TKCYSARecipeMaps {
 
     public static final RecipeMap<PrimitiveRecipeBuilder> PRIMITIVE_ROASTING = new MinimalPrimitiveRecipeMap<>(
@@ -17,9 +19,9 @@ public final class TKCYSARecipeMaps {
     public static final RecipeMap<SimpleRecipeBuilder> ADVANCED_ASSEMBLING = new RecipeMap<>("advanced_assembling",
             9, 1, 2, 0, new SimpleRecipeBuilder(), false)
                     .setSound(GTSoundEvents.ASSEMBLER);
-    public static final RecipeMap<PrimitiveRecipeBuilder> FLUID_PRIMITIVE_BLAST = new MinimalPrimitiveRecipeMap<>(
+    public static final RecipeMap<NoEnergyRecipeBuilder> FLUID_PRIMITIVE_BLAST = new MinimalPrimitiveRecipeMap<>(
             "fluid_primitive_blast",
-            2, 0, 1, 1, new PrimitiveRecipeBuilder(), false)
+            2, 0, 1, 1, new NoEnergyRecipeBuilder(), false)
                     .setSound(GTSoundEvents.FURNACE);
     public static final RecipeMap<PrimitiveRecipeBuilder> CASTING = new MinimalPrimitiveRecipeMap<>(
             "casting",

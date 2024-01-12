@@ -34,7 +34,7 @@ public class BrickItemBus extends MetaTileEntityItemBus {
 
     @Override
     public MultiblockAbility<IItemHandlerModifiable> getAbility() {
-        return TKCYSAMultiblockAbility.BRICK_ITEMS;
+        return isExportHatch ? TKCYSAMultiblockAbility.BRICK_ITEMS_OUTPUT : TKCYSAMultiblockAbility.BRICK_ITEMS_INPUT;
     }
 
     @Override

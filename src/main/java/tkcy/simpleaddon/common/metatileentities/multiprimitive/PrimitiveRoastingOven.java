@@ -1,26 +1,27 @@
 package tkcy.simpleaddon.common.metatileentities.multiprimitive;
 
+import static tkcy.simpleaddon.api.capabilities.TKCYSAMultiblockAbility.BRICK_ITEMS_INPUT_PREDICATE;
+import static tkcy.simpleaddon.api.capabilities.TKCYSAMultiblockAbility.BRICK_ITEMS_OUTPUT_PREDICATE;
+import static tkcy.simpleaddon.api.predicates.Predicates.brick;
+
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import org.jetbrains.annotations.NotNull;
 
+import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
 import gregtech.api.metatileentity.multiblock.IMultiblockPart;
 import gregtech.api.metatileentity.multiblock.RecipeMapPrimitiveMultiblockController;
 import gregtech.api.pattern.BlockPattern;
 import gregtech.api.pattern.FactoryBlockPattern;
-import gregtech.api.pattern.TraceabilityPredicate;
 import gregtech.client.renderer.ICubeRenderer;
 import gregtech.client.renderer.texture.Textures;
-import gregtech.common.blocks.BlockMetalCasing;
-import gregtech.common.blocks.MetaBlocks;
 
 import codechicken.lib.render.CCRenderState;
 import codechicken.lib.render.pipeline.IVertexOperation;
 import codechicken.lib.vec.Matrix4;
-import tkcy.simpleaddon.api.capabilities.TKCYSAMultiblockAbility;
 import tkcy.simpleaddon.api.recipes.TKCYSARecipeMaps;
 
 public class PrimitiveRoastingOven extends RecipeMapPrimitiveMultiblockController {
@@ -31,7 +32,7 @@ public class PrimitiveRoastingOven extends RecipeMapPrimitiveMultiblockControlle
     }
 
     @Override
-    public PrimitiveRoastingOven createMetaTileEntity(IGregTechTileEntity tileEntity) {
+    public MetaTileEntity createMetaTileEntity(IGregTechTileEntity tileEntity) {
         return new PrimitiveRoastingOven(metaTileEntityId);
     }
 
@@ -41,9 +42,9 @@ public class PrimitiveRoastingOven extends RecipeMapPrimitiveMultiblockControlle
                 .aisle("XXX", "XXX", "-X-")
                 .aisle("XXX", "X#X", "-X-")
                 .aisle("XXX", "XYX", "-X-")
-                .where('X',
-                        states(MetaBlocks.METAL_CASING.getState(BlockMetalCasing.MetalCasingType.COKE_BRICKS))
-                                .or(abilities(TKCYSAMultiblockAbility.BRICK_ITEMS).setExactLimit(3).setPreviewCount(3)))
+                .where('X', brick()
+                        .or(BRICK_ITEMS_INPUT_PREDICATE)
+                        .or(BRICK_ITEMS_OUTPUT_PREDICATE))
                 .where('#', air())
                 .where('-', any())
                 .where('Y', selfPredicate())
@@ -73,14 +74,5 @@ public class PrimitiveRoastingOven extends RecipeMapPrimitiveMultiblockControlle
         super.renderMetaTileEntity(renderState, translation, pipeline);
         getFrontOverlay().renderOrientedState(renderState, translation, pipeline, getFrontFacing(),
                 recipeMapWorkable.isActive(), recipeMapWorkable.isWorkingEnabled());
-    }
-
-    @Override
-    public TraceabilityPredicate autoAbilities(boolean checkMaintenance, boolean checkMuffler) {
-        TraceabilityPredicate predicate = new TraceabilityPredicate();
-        predicate = predicate
-                .or(abilities(TKCYSAMultiblockAbility.BRICK_ITEMS).setMaxGlobalLimited(2))
-                .or(abilities(TKCYSAMultiblockAbility.BRICK_FLUIDS).setMaxGlobalLimited(2));
-        return predicate;
     }
 }

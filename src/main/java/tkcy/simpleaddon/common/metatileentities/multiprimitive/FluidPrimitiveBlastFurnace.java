@@ -1,56 +1,51 @@
 package tkcy.simpleaddon.common.metatileentities.multiprimitive;
 
+import static tkcy.simpleaddon.api.capabilities.TKCYSAMultiblockAbility.*;
+import static tkcy.simpleaddon.api.predicates.Predicates.brick;
+
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import org.jetbrains.annotations.NotNull;
 
+import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
 import gregtech.api.metatileentity.multiblock.IMultiblockPart;
-import gregtech.api.metatileentity.multiblock.RecipeMapPrimitiveMultiblockController;
+import gregtech.api.metatileentity.multiblock.RecipeMapMultiblockController;
 import gregtech.api.pattern.BlockPattern;
 import gregtech.api.pattern.FactoryBlockPattern;
-import gregtech.api.pattern.TraceabilityPredicate;
 import gregtech.client.renderer.ICubeRenderer;
 import gregtech.client.renderer.texture.Textures;
-import gregtech.common.blocks.BlockMetalCasing;
-import gregtech.common.blocks.MetaBlocks;
 
-import codechicken.lib.render.CCRenderState;
-import codechicken.lib.render.pipeline.IVertexOperation;
-import codechicken.lib.vec.Matrix4;
-import tkcy.simpleaddon.api.capabilities.TKCYSAMultiblockAbility;
+import tkcy.simpleaddon.api.logic.NoEnergyLogic;
 import tkcy.simpleaddon.api.recipes.TKCYSARecipeMaps;
 
-public class FluidPrimitiveBlastFurnace extends RecipeMapPrimitiveMultiblockController {
+public class FluidPrimitiveBlastFurnace extends RecipeMapMultiblockController {
 
     public FluidPrimitiveBlastFurnace(ResourceLocation metaTileEntityId) {
         super(metaTileEntityId, TKCYSARecipeMaps.FLUID_PRIMITIVE_BLAST);
-        // this.recipeMapWorkable = new NoEnergyLogic(this, TKCYSARecipeMaps.FLUID_PRIMITIVE_BLAST);
+        this.recipeMapWorkable = new NoEnergyLogic(this);
     }
 
     @Override
-    public FluidPrimitiveBlastFurnace createMetaTileEntity(IGregTechTileEntity tileEntity) {
+    public MetaTileEntity createMetaTileEntity(IGregTechTileEntity tileEntity) {
         return new FluidPrimitiveBlastFurnace(metaTileEntityId);
-    }
-
-    public static TraceabilityPredicate brick() {
-        return states(MetaBlocks.METAL_CASING.getState(BlockMetalCasing.MetalCasingType.PRIMITIVE_BRICKS));
     }
 
     @Override
     protected @NotNull BlockPattern createStructurePattern() {
         return FactoryBlockPattern.start()
                 .aisle("AAA", "XXX", "XXX", "BBB")
-                .aisle("AAA", "XXX", "X#X", "BBB")
+                .aisle("AAA", "XXX", "X#X", "BCB")
                 .aisle("AAA", "XYX", "XXX", "BBB")
-                .where('A', brick().or(abilities(TKCYSAMultiblockAbility.BRICK_FLUIDS)
+                .where('A', brick().or(BRICK_FLUIDS_OUTPUT_PREDICATE
                         .setMaxGlobalLimited(2)
                         .setPreviewCount(1)))
-                .where('B', brick().or(abilities(TKCYSAMultiblockAbility.BRICK_ITEMS)
+                .where('B', brick().or(BRICK_ITEMS_INPUT_PREDICATE
                         .setMaxGlobalLimited(2)
                         .setPreviewCount(1)))
+                .where('C', brick().or(BRICK_FLUIDS_INPUT_PREDICATE))
                 .where('X', brick())
                 // .or(abilities(TKCYSAMultiblockAbility.BRICK_FLUIDS).setPreviewCount(1).setMaxGlobalLimited(2))
                 // .or(abilities(TKCYSAMultiblockAbility.BRICK_ITEMS).setPreviewCount(2).setMaxGlobalLimited(2)))
@@ -59,12 +54,15 @@ public class FluidPrimitiveBlastFurnace extends RecipeMapPrimitiveMultiblockCont
                 .build();
     }
 
-    @Override
-    public void renderMetaTileEntity(CCRenderState renderState, Matrix4 translation, IVertexOperation[] pipeline) {
-        super.renderMetaTileEntity(renderState, translation, pipeline);
-        getFrontOverlay().renderOrientedState(renderState, translation, pipeline, getFrontFacing(),
-                recipeMapWorkable.isActive(), recipeMapWorkable.isWorkingEnabled());
-    }
+    /*
+     * @Override
+     * public void renderMetaTileEntity(CCRenderState renderState, Matrix4 translation, IVertexOperation[] pipeline) {
+     * super.renderMetaTileEntity(renderState, translation, pipeline);
+     * getFrontOverlay().renderOrientedState(renderState, translation, pipeline, getFrontFacing(),
+     * recipeMapWorkable.isActive(), recipeMapWorkable.isWorkingEnabled());
+     * }
+     * 
+     */
 
     @SideOnly(Side.CLIENT)
     @NotNull
