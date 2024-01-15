@@ -9,9 +9,9 @@ import tkcy.simpleaddon.api.recipes.builders.NoEnergyRecipeBuilder;
 
 public final class TKCYSARecipeMaps {
 
-    public static final RecipeMap<PrimitiveRecipeBuilder> PRIMITIVE_ROASTING = new MinimalPrimitiveRecipeMap<>(
+    public static final RecipeMap<NoEnergyRecipeBuilder> PRIMITIVE_ROASTING = new MinimalPrimitiveRecipeMap<>(
             "primitive_roasting",
-            1, 1, 0, 0, new PrimitiveRecipeBuilder(), false)
+            1, 1, 0, 0, new NoEnergyRecipeBuilder(), false)
                     .setSound(GTSoundEvents.FURNACE);
     public static final RecipeMap<SimpleRecipeBuilder> ADVANCED_ELECTROLYSIS = new RecipeMap<>("advanced_electrolysis",
             6, 4, 2, 6, new SimpleRecipeBuilder(), false)

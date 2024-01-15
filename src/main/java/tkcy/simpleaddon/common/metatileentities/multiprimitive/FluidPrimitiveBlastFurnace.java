@@ -1,6 +1,5 @@
 package tkcy.simpleaddon.common.metatileentities.multiprimitive;
 
-import static tkcy.simpleaddon.api.capabilities.TKCYSAMultiblockAbility.*;
 import static tkcy.simpleaddon.api.predicates.Predicates.brick;
 
 import net.minecraft.util.ResourceLocation;
@@ -12,20 +11,19 @@ import org.jetbrains.annotations.NotNull;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
 import gregtech.api.metatileentity.multiblock.IMultiblockPart;
-import gregtech.api.metatileentity.multiblock.RecipeMapMultiblockController;
+import gregtech.api.metatileentity.multiblock.MultiblockAbility;
 import gregtech.api.pattern.BlockPattern;
 import gregtech.api.pattern.FactoryBlockPattern;
 import gregtech.client.renderer.ICubeRenderer;
 import gregtech.client.renderer.texture.Textures;
 
-import tkcy.simpleaddon.api.logic.NoEnergyLogic;
+import tkcy.simpleaddon.api.machines.NoEnergyMultiController;
 import tkcy.simpleaddon.api.recipes.TKCYSARecipeMaps;
 
-public class FluidPrimitiveBlastFurnace extends RecipeMapMultiblockController {
+public class FluidPrimitiveBlastFurnace extends NoEnergyMultiController {
 
     public FluidPrimitiveBlastFurnace(ResourceLocation metaTileEntityId) {
         super(metaTileEntityId, TKCYSARecipeMaps.FLUID_PRIMITIVE_BLAST);
-        this.recipeMapWorkable = new NoEnergyLogic(this);
     }
 
     @Override
@@ -39,13 +37,13 @@ public class FluidPrimitiveBlastFurnace extends RecipeMapMultiblockController {
                 .aisle("AAA", "XXX", "XXX", "BBB")
                 .aisle("AAA", "XXX", "X#X", "BCB")
                 .aisle("AAA", "XYX", "XXX", "BBB")
-                .where('A', brick().or(BRICK_FLUIDS_OUTPUT_PREDICATE
+                .where('A', brick().or(abilities(MultiblockAbility.EXPORT_FLUIDS)
                         .setMaxGlobalLimited(2)
                         .setPreviewCount(1)))
-                .where('B', brick().or(BRICK_ITEMS_INPUT_PREDICATE
+                .where('B', brick().or(abilities(MultiblockAbility.IMPORT_ITEMS)
                         .setMaxGlobalLimited(2)
                         .setPreviewCount(1)))
-                .where('C', brick().or(BRICK_FLUIDS_INPUT_PREDICATE))
+                .where('C', brick().or(abilities(MultiblockAbility.IMPORT_FLUIDS)))
                 .where('X', brick())
                 // .or(abilities(TKCYSAMultiblockAbility.BRICK_FLUIDS).setPreviewCount(1).setMaxGlobalLimited(2))
                 // .or(abilities(TKCYSAMultiblockAbility.BRICK_ITEMS).setPreviewCount(2).setMaxGlobalLimited(2)))
@@ -54,26 +52,11 @@ public class FluidPrimitiveBlastFurnace extends RecipeMapMultiblockController {
                 .build();
     }
 
-    /*
-     * @Override
-     * public void renderMetaTileEntity(CCRenderState renderState, Matrix4 translation, IVertexOperation[] pipeline) {
-     * super.renderMetaTileEntity(renderState, translation, pipeline);
-     * getFrontOverlay().renderOrientedState(renderState, translation, pipeline, getFrontFacing(),
-     * recipeMapWorkable.isActive(), recipeMapWorkable.isWorkingEnabled());
-     * }
-     * 
-     */
-
     @SideOnly(Side.CLIENT)
     @NotNull
     @Override
     protected ICubeRenderer getFrontOverlay() {
         return Textures.PRIMITIVE_BLAST_FURNACE_OVERLAY;
-    }
-
-    @Override
-    public boolean hasMaintenanceMechanics() {
-        return false;
     }
 
     @SideOnly(Side.CLIENT)

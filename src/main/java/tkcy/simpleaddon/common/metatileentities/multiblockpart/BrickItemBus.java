@@ -20,6 +20,7 @@ public class BrickItemBus extends MetaTileEntityItemBus {
 
     public BrickItemBus(ResourceLocation metaTileEntityId, boolean isExportHatch) {
         super(metaTileEntityId, 0, isExportHatch);
+        initializeInventory();
     }
 
     @Override

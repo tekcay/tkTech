@@ -31,13 +31,17 @@ public final class TKCYSAMetaTileEntities {
         FLUID_PRIMITIVE_BLAST_FURNACE = registerMetaTileEntity(4003,
                 new FluidPrimitiveBlastFurnace(tkcysa("fluid_primitive_blast_furnace")));
         PRIMITIVE_CASTING = registerMetaTileEntity(4004, new PrimitiveCasting(tkcysa("primitive_casting")));
-        BRICK_FLUID_HATCH[0] = registerMetaTileEntity(4005,
-                new BrickFluidHatch(tkcysa("brick_fluid_input_hatch"), false));
-        BRICK_FLUID_HATCH[1] = registerMetaTileEntity(4006,
-                new BrickFluidHatch(tkcysa("brick_fluid_output_hatch"), true));
-        BRICK_ITEM_BUS[0] = registerMetaTileEntity(4007,
-                new BrickItemBus(tkcysa("brick_item_input_bus"), false));
-        BRICK_ITEM_BUS[1] = registerMetaTileEntity(4008,
-                new BrickItemBus(tkcysa("brick_item_output_bus"), true));
+
+        /*
+         * BRICK_FLUID_HATCH[0] = registerMetaTileEntity(4005,
+         * new BrickFluidHatch(tkcysa("brick_fluid_input_hatch"), false));
+         * BRICK_FLUID_HATCH[1] = registerMetaTileEntity(4006,
+         * new BrickFluidHatch(tkcysa("brick_fluid_output_hatch"), true));
+         * BRICK_ITEM_BUS[0] = registerMetaTileEntity(4007,
+         * new BrickItemBus(tkcysa("brick_item_input_bus"), false));
+         * BRICK_ITEM_BUS[1] = registerMetaTileEntity(4008,
+         * new BrickItemBus(tkcysa("brick_item_output_bus"), true));
+         * 
+         */
     }
 }

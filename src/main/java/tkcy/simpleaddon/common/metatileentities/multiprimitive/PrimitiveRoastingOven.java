@@ -1,7 +1,5 @@
 package tkcy.simpleaddon.common.metatileentities.multiprimitive;
 
-import static tkcy.simpleaddon.api.capabilities.TKCYSAMultiblockAbility.BRICK_ITEMS_INPUT_PREDICATE;
-import static tkcy.simpleaddon.api.capabilities.TKCYSAMultiblockAbility.BRICK_ITEMS_OUTPUT_PREDICATE;
 import static tkcy.simpleaddon.api.predicates.Predicates.brick;
 
 import net.minecraft.util.ResourceLocation;
@@ -13,7 +11,7 @@ import org.jetbrains.annotations.NotNull;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
 import gregtech.api.metatileentity.multiblock.IMultiblockPart;
-import gregtech.api.metatileentity.multiblock.RecipeMapPrimitiveMultiblockController;
+import gregtech.api.metatileentity.multiblock.MultiblockAbility;
 import gregtech.api.pattern.BlockPattern;
 import gregtech.api.pattern.FactoryBlockPattern;
 import gregtech.client.renderer.ICubeRenderer;
@@ -22,13 +20,13 @@ import gregtech.client.renderer.texture.Textures;
 import codechicken.lib.render.CCRenderState;
 import codechicken.lib.render.pipeline.IVertexOperation;
 import codechicken.lib.vec.Matrix4;
+import tkcy.simpleaddon.api.machines.NoEnergyMultiController;
 import tkcy.simpleaddon.api.recipes.TKCYSARecipeMaps;
 
-public class PrimitiveRoastingOven extends RecipeMapPrimitiveMultiblockController {
+public class PrimitiveRoastingOven extends NoEnergyMultiController {
 
     public PrimitiveRoastingOven(ResourceLocation metaTileEntityId) {
         super(metaTileEntityId, TKCYSARecipeMaps.PRIMITIVE_ROASTING);
-        // this.recipeMapWorkable = new NoEnergyLogic(this, TKCYSARecipeMaps.PRIMITIVE_ROASTING);
     }
 
     @Override
@@ -43,8 +41,14 @@ public class PrimitiveRoastingOven extends RecipeMapPrimitiveMultiblockControlle
                 .aisle("XXX", "X#X", "-X-")
                 .aisle("XXX", "XYX", "-X-")
                 .where('X', brick()
-                        .or(BRICK_ITEMS_INPUT_PREDICATE)
-                        .or(BRICK_ITEMS_OUTPUT_PREDICATE))
+                        .or(abilities(MultiblockAbility.IMPORT_ITEMS).setExactLimit(1))
+                        .or(abilities(MultiblockAbility.EXPORT_ITEMS).setExactLimit(1)))
+
+                /*
+                 * .or(BRICK_ITEMS_INPUT_PREDICATE)
+                 * .or(BRICK_ITEMS_OUTPUT_PREDICATE))
+                 * 
+                 */
                 .where('#', air())
                 .where('-', any())
                 .where('Y', selfPredicate())
@@ -56,11 +60,6 @@ public class PrimitiveRoastingOven extends RecipeMapPrimitiveMultiblockControlle
     @Override
     protected ICubeRenderer getFrontOverlay() {
         return Textures.COKE_OVEN_OVERLAY;
-    }
-
-    @Override
-    public boolean hasMaintenanceMechanics() {
-        return false;
     }
 
     @SideOnly(Side.CLIENT)
