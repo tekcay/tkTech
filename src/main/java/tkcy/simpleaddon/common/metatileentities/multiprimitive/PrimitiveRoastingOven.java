@@ -1,6 +1,7 @@
 package tkcy.simpleaddon.common.metatileentities.multiprimitive;
 
 import static tkcy.simpleaddon.api.predicates.Predicates.brick;
+import static tkcy.simpleaddon.api.predicates.Predicates.itemBus;
 
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
@@ -11,7 +12,6 @@ import org.jetbrains.annotations.NotNull;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
 import gregtech.api.metatileentity.multiblock.IMultiblockPart;
-import gregtech.api.metatileentity.multiblock.MultiblockAbility;
 import gregtech.api.pattern.BlockPattern;
 import gregtech.api.pattern.FactoryBlockPattern;
 import gregtech.client.renderer.ICubeRenderer;
@@ -41,14 +41,8 @@ public class PrimitiveRoastingOven extends NoEnergyMultiController {
                 .aisle("XXX", "X#X", "-X-")
                 .aisle("XXX", "XYX", "-X-")
                 .where('X', brick()
-                        .or(abilities(MultiblockAbility.IMPORT_ITEMS).setExactLimit(1))
-                        .or(abilities(MultiblockAbility.EXPORT_ITEMS).setExactLimit(1)))
-
-                /*
-                 * .or(BRICK_ITEMS_INPUT_PREDICATE)
-                 * .or(BRICK_ITEMS_OUTPUT_PREDICATE))
-                 * 
-                 */
+                        .or(itemBus(true, 1))
+                        .or(itemBus(false, 1)))
                 .where('#', air())
                 .where('-', any())
                 .where('Y', selfPredicate())

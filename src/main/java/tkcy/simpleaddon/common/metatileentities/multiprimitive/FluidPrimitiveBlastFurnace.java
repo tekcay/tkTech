@@ -1,6 +1,6 @@
 package tkcy.simpleaddon.common.metatileentities.multiprimitive;
 
-import static tkcy.simpleaddon.api.predicates.Predicates.brick;
+import static tkcy.simpleaddon.api.predicates.Predicates.*;
 
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
@@ -11,7 +11,6 @@ import org.jetbrains.annotations.NotNull;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
 import gregtech.api.metatileentity.multiblock.IMultiblockPart;
-import gregtech.api.metatileentity.multiblock.MultiblockAbility;
 import gregtech.api.pattern.BlockPattern;
 import gregtech.api.pattern.FactoryBlockPattern;
 import gregtech.client.renderer.ICubeRenderer;
@@ -37,16 +36,10 @@ public class FluidPrimitiveBlastFurnace extends NoEnergyMultiController {
                 .aisle("AAA", "XXX", "XXX", "BBB")
                 .aisle("AAA", "XXX", "X#X", "BCB")
                 .aisle("AAA", "XYX", "XXX", "BBB")
-                .where('A', brick().or(abilities(MultiblockAbility.EXPORT_FLUIDS)
-                        .setMaxGlobalLimited(2)
-                        .setPreviewCount(1)))
-                .where('B', brick().or(abilities(MultiblockAbility.IMPORT_ITEMS)
-                        .setMaxGlobalLimited(2)
-                        .setPreviewCount(1)))
-                .where('C', brick().or(abilities(MultiblockAbility.IMPORT_FLUIDS)))
+                .where('A', brick().or(fluidHatch(true, 1)))
+                .where('B', brick().or(itemBus(false, 2)))
+                .where('C', brick().or(fluidHatch(false, 1)))
                 .where('X', brick())
-                // .or(abilities(TKCYSAMultiblockAbility.BRICK_FLUIDS).setPreviewCount(1).setMaxGlobalLimited(2))
-                // .or(abilities(TKCYSAMultiblockAbility.BRICK_ITEMS).setPreviewCount(2).setMaxGlobalLimited(2)))
                 .where('#', air())
                 .where('Y', selfPredicate())
                 .build();

@@ -7,12 +7,9 @@ import gregtech.api.capability.impl.NotifiableItemStackHandler;
 import gregtech.api.items.itemhandlers.GTItemStackHandler;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
-import gregtech.api.metatileentity.multiblock.MultiblockAbility;
 import gregtech.client.renderer.ICubeRenderer;
 import gregtech.client.renderer.texture.Textures;
 import gregtech.common.metatileentities.multi.multiblockpart.MetaTileEntityItemBus;
-
-import tkcy.simpleaddon.api.capabilities.TKCYSAMultiblockAbility;
 
 public class BrickItemBus extends MetaTileEntityItemBus {
 
@@ -31,11 +28,6 @@ public class BrickItemBus extends MetaTileEntityItemBus {
     @Override
     public ICubeRenderer getBaseTexture() {
         return Textures.COKE_BRICKS;
-    }
-
-    @Override
-    public MultiblockAbility<IItemHandlerModifiable> getAbility() {
-        return isExportHatch ? TKCYSAMultiblockAbility.BRICK_ITEMS_OUTPUT : TKCYSAMultiblockAbility.BRICK_ITEMS_INPUT;
     }
 
     @Override
