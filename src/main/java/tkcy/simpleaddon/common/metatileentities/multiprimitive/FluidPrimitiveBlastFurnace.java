@@ -36,10 +36,10 @@ public class FluidPrimitiveBlastFurnace extends NoEnergyMultiController {
                 .aisle("AAA", "XXX", "XXX", "BBB")
                 .aisle("AAA", "XXX", "X#X", "BCB")
                 .aisle("AAA", "XYX", "XXX", "BBB")
-                .where('A', brick().or(fluidHatch(true, 1)))
-                .where('B', brick().or(itemBus(false, 2)))
-                .where('C', brick().or(fluidHatch(false, 1)))
-                .where('X', brick())
+                .where('A', cokeBrick().or(fluidHatch(true, 1)))
+                .where('B', cokeBrick().or(itemBus(false, 2)))
+                .where('C', cokeBrick().or(fluidHatch(false, 1)))
+                .where('X', cokeBrick())
                 .where('#', air())
                 .where('Y', selfPredicate())
                 .build();
@@ -55,6 +55,6 @@ public class FluidPrimitiveBlastFurnace extends NoEnergyMultiController {
     @SideOnly(Side.CLIENT)
     @Override
     public ICubeRenderer getBaseTexture(IMultiblockPart sourcePart) {
-        return Textures.PRIMITIVE_BRICKS;
+        return Textures.COKE_BRICKS;
     }
 }

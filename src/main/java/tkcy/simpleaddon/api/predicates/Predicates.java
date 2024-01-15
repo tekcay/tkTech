@@ -10,8 +10,12 @@ import gregtech.common.blocks.MetaBlocks;
 
 public class Predicates {
 
-    public static TraceabilityPredicate brick() {
+    public static TraceabilityPredicate fireBrick() {
         return states(MetaBlocks.METAL_CASING.getState(BlockMetalCasing.MetalCasingType.PRIMITIVE_BRICKS));
+    }
+
+    public static TraceabilityPredicate cokeBrick() {
+        return states(MetaBlocks.METAL_CASING.getState(BlockMetalCasing.MetalCasingType.COKE_BRICKS));
     }
 
     public static TraceabilityPredicate fluidHatch(boolean isExport) {

@@ -1,6 +1,6 @@
 package tkcy.simpleaddon.common.metatileentities.multiprimitive;
 
-import static tkcy.simpleaddon.api.predicates.Predicates.brick;
+import static tkcy.simpleaddon.api.predicates.Predicates.cokeBrick;
 import static tkcy.simpleaddon.api.predicates.Predicates.itemBus;
 
 import net.minecraft.util.ResourceLocation;
@@ -17,9 +17,6 @@ import gregtech.api.pattern.FactoryBlockPattern;
 import gregtech.client.renderer.ICubeRenderer;
 import gregtech.client.renderer.texture.Textures;
 
-import codechicken.lib.render.CCRenderState;
-import codechicken.lib.render.pipeline.IVertexOperation;
-import codechicken.lib.vec.Matrix4;
 import tkcy.simpleaddon.api.machines.NoEnergyMultiController;
 import tkcy.simpleaddon.api.recipes.TKCYSARecipeMaps;
 
@@ -40,7 +37,7 @@ public class PrimitiveRoastingOven extends NoEnergyMultiController {
                 .aisle("XXX", "XXX", "-X-")
                 .aisle("XXX", "X#X", "-X-")
                 .aisle("XXX", "XYX", "-X-")
-                .where('X', brick()
+                .where('X', cokeBrick()
                         .or(itemBus(true, 1))
                         .or(itemBus(false, 1)))
                 .where('#', air())
@@ -62,10 +59,6 @@ public class PrimitiveRoastingOven extends NoEnergyMultiController {
         return Textures.COKE_BRICKS;
     }
 
-    @Override
-    public void renderMetaTileEntity(CCRenderState renderState, Matrix4 translation, IVertexOperation[] pipeline) {
-        super.renderMetaTileEntity(renderState, translation, pipeline);
-        getFrontOverlay().renderOrientedState(renderState, translation, pipeline, getFrontFacing(),
-                recipeMapWorkable.isActive(), recipeMapWorkable.isWorkingEnabled());
-    }
+
+
 }
