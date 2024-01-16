@@ -71,6 +71,16 @@ gregtech.material.germanium_oxide=Germanium Oxide
 gregtech.material.germanium_tetrachloride=Germanium Tetrachloride
 gregtech.material.argyrodite=Argyroditee
 
+## Fluorine
+gregtech.material.potassium_bifluoride=Potassium Bifluoride
+gregtech.material.fluorite=Fluorite
+gregtech.material.calcium_sulfonate=Calcium Sulfonate
+gregtech.material.lithium_fluoride=Lithium Fluoride
+gregtech.material.sodium_fluoride=Sodium Fluoride
+gregtech.material.potassium_fluoride=Potassium Fluoride
+gregtech.material.lithium_hydroxide=Lithium Hydroxide
+gregtech.material.hydrogen_fluoride=Hydrogen Fluoride
+
 ##Arsenic
 gregtech.material.arsenopyrite=Arsenopyrite
 

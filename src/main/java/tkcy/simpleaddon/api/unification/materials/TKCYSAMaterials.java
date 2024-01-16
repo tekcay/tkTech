@@ -23,6 +23,7 @@ public class TKCYSAMaterials {
         id = ChromiteChainMaterials.init(id);
         id = ZincChainMaterials.init(id);
         id = GermaniumChainMaterials.init(id);
+        id = FluorineChainMaterials.init(id);
         id = SmallChains.init(id);
 
         id = AlloysMaterials.init(id);
@@ -50,6 +51,16 @@ public class TKCYSAMaterials {
     public static Material PotassiumBisulfate;
     public static Material PotassiumMetaBisulfite;
     public static Material PotassiumHydroxide;
+
+    // FluorineChain
+    public static Material PotassiumBifluoride;
+    public static Material Fluorite;
+    public static Material CalciumSulfonate;
+    public static Material LithiumFluoride;
+    public static Material SodiumFluoride;
+    public static Material PotassiumFluoride;
+    public static Material LithiumHydroxide;
+    public static Material HydrogenFluoride;
 
     // Iron
     public static Material PigIron;
