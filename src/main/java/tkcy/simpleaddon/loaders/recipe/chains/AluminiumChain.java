@@ -14,7 +14,6 @@ import tkcy.simpleaddon.api.recipes.TKCYSARecipeMaps;
 public class AluminiumChain {
 
     public static void init() {
-
         // HexafluorosilicAcid
         // 6 HF + SiO2 -> H2SiF6 + 2 H2O
         CHEMICAL_RECIPES.recipeBuilder()
@@ -109,7 +108,7 @@ public class AluminiumChain {
                 .fluidOutputs(Steam.getFluid(8000))
                 .output(dust, DriedTreatedPotassiumAluminate)
                 .duration(75 * SECOND)
-                .EUt(30)
+                .EUt(60)
                 .buildAndRegister();
 
         TKCYSARecipeMaps.DRYING.recipeBuilder()
@@ -117,7 +116,7 @@ public class AluminiumChain {
                 .fluidOutputs(Steam.getFluid(8000))
                 .output(dust, DriedTreatedSodiumAluminate)
                 .duration(75 * SECOND)
-                .EUt(30)
+                .EUt(60)
                 .buildAndRegister();
 
         // STEP 3

@@ -82,6 +82,8 @@ gregtech.material.monel=Monel
 tkcysa.machine.primitive_roasting_oven.name=Primitive Roasting Oven
 tkcysa.machine.electrolyzer.name=Electrolyzer
 tkcysa.machine.assembler.name=Assembling Machine
+tkcysa.machine.dryer.name=Dryer
+
 tkcysa.machine.fluid_primitive_blast_furnace.name=Fluid Primitive Blast Furnace
 tkcysa.machine.primitive_casting.name=Primitive Casting
 tkcysa.machine.brick_item_output_bus.name=Brick Item Output Bus
@@ -97,8 +99,6 @@ recipemap.fluid_primitive_blast.name=Fluid Blasting
 recipemap.casting.name=Casting
 recipemap.drying.name=Drying
 
-##Machines
-tkcya.machine.dryer.name=Dryer LV
 
 ##RecipeCategories
 #tkcysa.recipe.category.galvanizing=Galvanizing
