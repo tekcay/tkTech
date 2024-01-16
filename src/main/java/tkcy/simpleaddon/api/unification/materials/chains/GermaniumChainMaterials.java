@@ -1,13 +1,13 @@
 package tkcy.simpleaddon.api.unification.materials.chains;
 
-import gregtech.api.fluids.FluidBuilder;
-import gregtech.api.unification.material.Material;
-
 import static gregtech.api.fluids.attribute.FluidAttributes.ACID;
 import static gregtech.api.unification.material.Materials.*;
 import static gregtech.api.unification.material.info.MaterialFlags.DISABLE_DECOMPOSITION;
 import static gregtech.api.util.GTUtility.gregtechId;
 import static tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials.*;
+
+import gregtech.api.fluids.FluidBuilder;
+import gregtech.api.unification.material.Material;
 
 public class GermaniumChainMaterials {
 
@@ -48,7 +48,6 @@ public class GermaniumChainMaterials {
                 .flags(DISABLE_DECOMPOSITION)
                 .colorAverage()
                 .build();
-
 
         return id++;
     }

@@ -10,7 +10,7 @@ import gregtech.api.recipes.RecipeMaps;
 
 public class GoldChain {
 
-    public static void init(int id) {
+    public static void init() {
         // STEP 1
         // 3 Cu + Au? -> Cu3Au?
         BLAST_RECIPES.recipeBuilder().duration(80)

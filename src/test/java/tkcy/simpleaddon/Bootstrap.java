@@ -30,8 +30,8 @@ import gregtech.common.items.MetaItems;
 import gregtech.core.unification.material.internal.MaterialRegistryManager;
 import gregtech.modules.ModuleManager;
 
-import tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials;
 import tkcy.simpleaddon.api.unification.flags.FlagsAddition;
+import tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials;
 
 public final class Bootstrap {
 

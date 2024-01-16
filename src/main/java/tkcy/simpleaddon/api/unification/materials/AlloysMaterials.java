@@ -1,7 +1,5 @@
 package tkcy.simpleaddon.api.unification.materials;
 
-import gregtech.api.unification.material.Material;
-
 import static gregtech.api.unification.material.Materials.*;
 import static gregtech.api.unification.material.info.MaterialFlags.DISABLE_DECOMPOSITION;
 import static gregtech.api.unification.material.info.MaterialIconSet.METALLIC;
@@ -10,10 +8,11 @@ import static tkcy.simpleaddon.api.unification.flags.TKCYSAMaterialFlags.GENERAT
 import static tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials.GalvanizedSteel;
 import static tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials.Monel;
 
+import gregtech.api.unification.material.Material;
+
 public class AlloysMaterials {
 
     public static int init(int id) {
-
         GalvanizedSteel = new Material.Builder(id++, gregtechId("galvanized_steel"))
                 .ingot()
                 .fluidPipeProperties(2000, 100, true, true, true, false)

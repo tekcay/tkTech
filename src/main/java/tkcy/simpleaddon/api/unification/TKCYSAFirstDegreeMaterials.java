@@ -1,24 +1,18 @@
 package tkcy.simpleaddon.api.unification;
 
-import static gregtech.api.fluids.attribute.FluidAttributes.ACID;
 import static gregtech.api.unification.material.Materials.*;
 import static gregtech.api.unification.material.info.MaterialFlags.DISABLE_DECOMPOSITION;
-import static gregtech.api.unification.material.info.MaterialIconSet.*;
+import static gregtech.api.unification.material.info.MaterialIconSet.DULL;
 import static gregtech.api.util.GTUtility.gregtechId;
 import static tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials.*;
-import static tkcy.simpleaddon.api.unification.flags.TKCYSAMaterialFlags.GENERATE_ALL_NO_UNIF;
 
-import gregtech.api.fluids.FluidBuilder;
 import gregtech.api.unification.material.Material;
-import gregtech.api.unification.material.Materials;
-import gregtech.api.unification.material.info.MaterialFlags;
 
 public final class TKCYSAFirstDegreeMaterials {
 
     private TKCYSAFirstDegreeMaterials() {}
 
     public static void init() {
-
         PotassiumBisulfate = new Material.Builder(4008, gregtechId("potassium_bisulfate"))
                 .dust()
                 .iconSet(DULL)
@@ -45,11 +39,5 @@ public final class TKCYSAFirstDegreeMaterials {
                 .flags(DISABLE_DECOMPOSITION)
                 .colorAverage()
                 .build();
-
-
-
-
-
-
     }
 }

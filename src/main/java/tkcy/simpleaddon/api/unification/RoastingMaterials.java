@@ -1,6 +1,7 @@
 package tkcy.simpleaddon.api.unification;
 
 import static gregtech.api.unification.material.Materials.*;
+import static gregtech.api.unification.material.info.MaterialFlags.DECOMPOSITION_BY_CENTRIFUGING;
 import static gregtech.api.unification.material.info.MaterialFlags.DISABLE_DECOMPOSITION;
 import static gregtech.api.unification.material.info.MaterialIconSet.DULL;
 import static gregtech.api.util.GTUtility.gregtechId;
@@ -44,15 +45,14 @@ public class RoastingMaterials {
                 .dust()
                 .flags(DISABLE_DECOMPOSITION)
                 .components(Materials.CupricOxide, 6, Materials.AntimonyTrioxide, 1, BandedIron, 1)
-                .color((CupricOxide.getMaterialRGB() * 6 + AntimonyTrioxide.getMaterialRGB() +
-                        BandedIron.getMaterialRGB()) / 8)
+                .colorAverage()
                 .build();
 
         RoastedCobaltite = new Material.Builder(id++, gregtechId("roasted.cobaltite"))
                 .dust()
                 .flags(DISABLE_DECOMPOSITION)
                 .components(CobaltOxide, 2, ArsenicTrioxide, 1)
-                .color((CobaltOxide.getMaterialRGB() + ArsenicTrioxide.getMaterialRGB()) / 2)
+                .colorAverage()
                 .build();
 
         SilverOxide = new Material.Builder(id++, gregtechId("silver_oxide"))
@@ -71,43 +71,42 @@ public class RoastingMaterials {
 
         RoastedGalena = new Material.Builder(id++, gregtechId("roasted.galena"))
                 .dust()
-                .flags(DISABLE_DECOMPOSITION)
+                .flags(DECOMPOSITION_BY_CENTRIFUGING)
                 .components(Massicot, 9, SilverOxide, 6)
-                .color((Massicot.getMaterialRGB() * 9 + SilverOxide.getMaterialRGB() * 6) / 15)
+                .colorAverage()
                 .build();
 
         RoastedChalcopyrite = new Material.Builder(id++, gregtechId("roasted.chalcopyrite"))
                 .dust()
-                .flags(DISABLE_DECOMPOSITION)
+                .flags(DECOMPOSITION_BY_CENTRIFUGING)
                 .components(CupricOxide, 1, Ferrosilite, 1)
-                .color((CupricOxide.getMaterialRGB() + Ferrosilite.getMaterialRGB()) / 2)
+                .colorAverage()
                 .build();
 
         RoastedKesterite = new Material.Builder(id++, gregtechId("roasted.kesterite"))
                 .dust()
-                .flags(DISABLE_DECOMPOSITION)
+                .flags(DECOMPOSITION_BY_CENTRIFUGING)
                 .components(CupricOxide, 4, Zincite, 1, Cassiterite, 1)
-                .color((CupricOxide.getMaterialRGB() + Ferrosilite.getMaterialRGB()) / 2)
+                .colorAverage()
                 .build();
 
         RoastedStannite = new Material.Builder(id++, gregtechId("roasted.stannite"))
                 .dust()
-                .flags(DISABLE_DECOMPOSITION)
+                .flags(DECOMPOSITION_BY_CENTRIFUGING)
                 .components(CupricOxide, 4, BandedIron, 1, Cassiterite, 2)
-                .color((CupricOxide.getMaterialRGB() * 4 + BandedIron.getMaterialRGB() +
-                        Cassiterite.getMaterialRGB() * 2) / 7)
+                .colorAverage()
                 .build();
 
         RoastedArsenopyrite = new Material.Builder(id++, gregtechId("roasted.arsenopyrite"))
-                .dust().flags(DISABLE_DECOMPOSITION)
+                .dust().flags(DECOMPOSITION_BY_CENTRIFUGING)
                 .components(BandedIron, 1, ArsenicTrioxide, 1)
-                .color((BandedIron.getMaterialRGB() + ArsenicTrioxide.getMaterialRGB()) / 2)
+                .colorAverage()
                 .build();
 
         RoastedBornite = new Material.Builder(id++, gregtechId("roasted.bornite"))
-                .dust().flags(DISABLE_DECOMPOSITION)
+                .dust().flags(DECOMPOSITION_BY_CENTRIFUGING)
                 .components(CupricOxide, 10, BandedIron, 1)
-                .color((CupricOxide.getMaterialRGB() * 10 + BandedIron.getMaterialRGB()) / 11)
+                .colorAverage()
                 .build();
 
         return id;
