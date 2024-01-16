@@ -14,7 +14,7 @@ public final class TKCYSARecipeMaps {
             1, 1, 0, 0, new NoEnergyRecipeBuilder(), false)
                     .setSound(GTSoundEvents.FURNACE);
     public static final RecipeMap<SimpleRecipeBuilder> ADVANCED_ELECTROLYSIS = new RecipeMap<>("advanced_electrolysis",
-            6, 4, 2, 6, new SimpleRecipeBuilder(), false)
+            6, 4, 3, 6, new SimpleRecipeBuilder(), false)
                     .setSound(GTSoundEvents.ELECTROLYZER);
     public static final RecipeMap<SimpleRecipeBuilder> ADVANCED_ASSEMBLING = new RecipeMap<>("advanced_assembling",
             9, 1, 2, 0, new SimpleRecipeBuilder(), false)
@@ -26,6 +26,10 @@ public final class TKCYSARecipeMaps {
     public static final RecipeMap<PrimitiveRecipeBuilder> CASTING = new MinimalPrimitiveRecipeMap<>(
             "casting",
             1, 1, 1, 0, new PrimitiveRecipeBuilder(), false);
+
+    public static final RecipeMap<SimpleRecipeBuilder> DRYING = new RecipeMap<>("drying", 1, 1, 1, 1,
+            new SimpleRecipeBuilder(), false)
+                    .setSound(GTSoundEvents.BOILER);
 
     private TKCYSARecipeMaps() {}
 }

@@ -1,13 +1,14 @@
 package tkcy.simpleaddon.loaders.recipe.handlers;
 
-import gregtech.api.recipes.RecipeMaps;
-import gregtech.api.unification.material.Material;
-import tkcy.simpleaddon.api.recipes.RecipeRemovalHelper;
-import tkcy.simpleaddon.api.recipes.TKCYSARecipeMaps;
-
 import static gregtech.api.unification.material.Materials.*;
 import static gregtech.api.unification.ore.OrePrefix.dust;
 import static tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials.*;
+
+import gregtech.api.recipes.RecipeMaps;
+import gregtech.api.unification.material.Material;
+
+import tkcy.simpleaddon.api.recipes.RecipeRemovalHelper;
+import tkcy.simpleaddon.api.recipes.TKCYSARecipeMaps;
 
 public class Roasting {
 

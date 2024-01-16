@@ -1,8 +1,16 @@
 package tkcy.simpleaddon.common.metatileentities;
 
 import static gregtech.common.metatileentities.MetaTileEntities.registerMetaTileEntity;
+import static gregtech.common.metatileentities.MetaTileEntities.registerSimpleMetaTileEntity;
+import static tkcy.simpleaddon.api.recipes.TKCYSARecipeMaps.DRYING;
 import static tkcy.simpleaddon.api.utils.TKCYSAUtil.tkcysa;
 
+import gregtech.api.GTValues;
+import gregtech.api.metatileentity.SimpleMachineMetaTileEntity;
+import gregtech.api.util.GTUtility;
+import gregtech.client.renderer.texture.Textures;
+
+import tkcy.simpleaddon.api.utils.TKCYSAUtil;
 import tkcy.simpleaddon.common.metatileentities.electric.AssemblingMachine;
 import tkcy.simpleaddon.common.metatileentities.electric.Electrolyzer;
 import tkcy.simpleaddon.common.metatileentities.multiblockpart.BrickFluidHatch;
@@ -20,6 +28,7 @@ public final class TKCYSAMetaTileEntities {
     public static PrimitiveCasting PRIMITIVE_CASTING;
     public static BrickFluidHatch[] BRICK_FLUID_HATCH = new BrickFluidHatch[2];
     public static BrickItemBus[] BRICK_ITEM_BUS = new BrickItemBus[2];
+    public static SimpleMachineMetaTileEntity[] DRYER = new SimpleMachineMetaTileEntity[GTValues.IV];
 
     private TKCYSAMetaTileEntities() {}
 
@@ -39,5 +48,8 @@ public final class TKCYSAMetaTileEntities {
                 new BrickItemBus(tkcysa("brick_item_input_bus"), false));
         BRICK_ITEM_BUS[1] = registerMetaTileEntity(4008,
                 new BrickItemBus(tkcysa("brick_item_output_bus"), true));
+
+        registerSimpleMetaTileEntity(DRYER, 4009, "dryer", DRYING, Textures.CHARCOAL_PILE_OVERLAY, true,
+                TKCYSAUtil::tkcysa, GTUtility.hvCappedTankSizeFunction);
     }
 }

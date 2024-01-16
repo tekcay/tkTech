@@ -8,8 +8,21 @@ gregtech.material.potassium_sulfate=Potassium Sulfate
 
 ##AluminiumChain
 gregtech.material.aluminium_fluoride=Aluminium Fluoride
+gregtech.material.alumina=Alumina
+gregtech.material.aluminium_hydroxide=Aluminium Hydroxide
+
 gregtech.material.potassium_aluminate=Potassium Aluminate
 gregtech.material.sodium_aluminate=Sodium Aluminate
+
+gregtech.material.bauxite_residue=Bauxite Residue
+
+gregtech.material.potash_treated_bauxite=Potash Treated Bauxite
+gregtech.material.soda_treated_bauxite=Soda Treated Bauxite
+gregtech.material.treated_sodium_aluminate=Treated Sodium Aluminate
+gregtech.material.treated_potassium_aluminate=Treated Potassium Aluminate
+gregtech.material.dried_treated_potassium_aluminate=Dried Treated Potassium Aluminate
+gregtech.material.dried_treated_sodium_aluminate=Dried Treated Sodium Aluminate
+
 gregtech.material.cryolite=Cryolite
 gregtech.material.hexafluorosilic_acid=Hexafluorosilic Acid
 
@@ -82,6 +95,10 @@ recipemap.advanced_electrolysis.name=Electrolyzis
 recipemap.advanced_assembling.name=Assembling
 recipemap.fluid_primitive_blast.name=Fluid Blasting
 recipemap.casting.name=Casting
+recipemap.drying.name=Drying
+
+##Machines
+tkcya.machine.dryer.name=Dryer LV
 
 ##RecipeCategories
 #tkcysa.recipe.category.galvanizing=Galvanizing

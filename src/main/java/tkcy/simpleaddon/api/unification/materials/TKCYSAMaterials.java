@@ -89,8 +89,14 @@ public class TKCYSAMaterials {
     // BauxiteChain
     public static Material PotassiumAluminate;
     public static Material SodiumAluminate;
+    public static Material TreatedPotassiumAluminate;
+    public static Material TreatedSodiumAluminate;
     public static Material BauxiteResidue;
+    public static Material PotashTreatedBauxite;
+    public static Material SodaTreatedBauxite;
     public static Material AluminiumFluoride;
+    public static Material DriedTreatedSodiumAluminate;
+    public static Material DriedTreatedPotassiumAluminate;
     public static Material Cryolite;
     public static Material HexafluorosilicAcid;
     public static Material AluminiumHydroxide;
