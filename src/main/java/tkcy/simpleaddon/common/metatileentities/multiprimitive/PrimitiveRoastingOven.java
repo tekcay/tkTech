@@ -58,7 +58,4 @@ public class PrimitiveRoastingOven extends NoEnergyMultiController {
     public ICubeRenderer getBaseTexture(IMultiblockPart sourcePart) {
         return Textures.COKE_BRICKS;
     }
-
-
-
 }

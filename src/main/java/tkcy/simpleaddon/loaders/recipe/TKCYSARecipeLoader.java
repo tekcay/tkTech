@@ -31,5 +31,6 @@ public final class TKCYSARecipeLoader {
         if (TKCYSAConfigHolder.chains.enableRoastingChain) Roasting.init();
         if (TKCYSAConfigHolder.chains.enableZincChain) ZincChain.init();
         if (TKCYSAConfigHolder.chains.enableGermaniumChain) GermaniumChain.init();
+        if (TKCYSAConfigHolder.chains.enableAluminiumChain) AluminiumChain.init();
     }
 }

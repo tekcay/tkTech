@@ -4,8 +4,8 @@ import static gregtech.api.recipes.RecipeMaps.CHEMICAL_RECIPES;
 import static gregtech.api.recipes.RecipeMaps.MIXER_RECIPES;
 import static gregtech.api.unification.material.Materials.*;
 import static gregtech.api.unification.ore.OrePrefix.dust;
-import static tkcy.simpleaddon.api.unification.TKCYSAMaterials.PotassiumHydroxide;
-import static tkcy.simpleaddon.api.unification.TKCYSAMaterials.PotassiumMetaBisulfite;
+import static tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials.PotassiumHydroxide;
+import static tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials.PotassiumMetaBisulfite;
 
 public class MiscChemicals {
 

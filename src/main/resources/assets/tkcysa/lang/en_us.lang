@@ -6,6 +6,26 @@ gregtech.material.sodium_carbonate=Sodium Carbonate
 gregtech.material.sodium_sulfate=Sodium Sulfate
 gregtech.material.potassium_sulfate=Potassium Sulfate
 
+##AluminiumChain
+gregtech.material.aluminium_fluoride=Aluminium Fluoride
+gregtech.material.alumina=Alumina
+gregtech.material.aluminium_hydroxide=Aluminium Hydroxide
+
+gregtech.material.potassium_aluminate=Potassium Aluminate
+gregtech.material.sodium_aluminate=Sodium Aluminate
+
+gregtech.material.bauxite_residue=Bauxite Residue
+
+gregtech.material.potash_treated_bauxite=Potash Treated Bauxite
+gregtech.material.soda_treated_bauxite=Soda Treated Bauxite
+gregtech.material.treated_sodium_aluminate=Treated Sodium Aluminate
+gregtech.material.treated_potassium_aluminate=Treated Potassium Aluminate
+gregtech.material.dried_treated_potassium_aluminate=Dried Treated Potassium Aluminate
+gregtech.material.dried_treated_sodium_aluminate=Dried Treated Sodium Aluminate
+
+gregtech.material.cryolite=Cryolite
+gregtech.material.hexafluorosilic_acid=Hexafluorosilic Acid
+
 ##GoldChain
 gregtech.material.precious_metal=Precious Metal
 gregtech.material.gold_alloy=Gold Alloy
@@ -62,6 +82,8 @@ gregtech.material.monel=Monel
 tkcysa.machine.primitive_roasting_oven.name=Primitive Roasting Oven
 tkcysa.machine.electrolyzer.name=Electrolyzer
 tkcysa.machine.assembler.name=Assembling Machine
+tkcysa.machine.dryer.name=Dryer
+
 tkcysa.machine.fluid_primitive_blast_furnace.name=Fluid Primitive Blast Furnace
 tkcysa.machine.primitive_casting.name=Primitive Casting
 tkcysa.machine.brick_item_output_bus.name=Brick Item Output Bus
@@ -75,6 +97,8 @@ recipemap.advanced_electrolysis.name=Electrolyzis
 recipemap.advanced_assembling.name=Assembling
 recipemap.fluid_primitive_blast.name=Fluid Blasting
 recipemap.casting.name=Casting
+recipemap.drying.name=Drying
+
 
 ##RecipeCategories
 #tkcysa.recipe.category.galvanizing=Galvanizing

@@ -16,5 +16,7 @@ public class FlagsAddition {
                 GENERATE_SMALL_GEAR);
         TKCYSAMaterialFlags.GENERATE_ALL.forEach(f -> Steel.addFlags(f));
         Materials.EXT2_METAL.forEach(f -> Brick.addFlags(f));
+
+        Carbon.addFlags(GENERATE_LONG_ROD);
     }
 }

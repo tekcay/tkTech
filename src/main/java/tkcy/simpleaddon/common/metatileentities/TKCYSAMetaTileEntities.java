@@ -4,6 +4,7 @@ import static gregtech.common.metatileentities.MetaTileEntities.registerMetaTile
 import static tkcy.simpleaddon.api.utils.TKCYSAUtil.tkcysa;
 
 import tkcy.simpleaddon.common.metatileentities.electric.AssemblingMachine;
+import tkcy.simpleaddon.common.metatileentities.electric.Dryer;
 import tkcy.simpleaddon.common.metatileentities.electric.Electrolyzer;
 import tkcy.simpleaddon.common.metatileentities.multiblockpart.BrickFluidHatch;
 import tkcy.simpleaddon.common.metatileentities.multiblockpart.BrickItemBus;
@@ -20,6 +21,7 @@ public final class TKCYSAMetaTileEntities {
     public static PrimitiveCasting PRIMITIVE_CASTING;
     public static BrickFluidHatch[] BRICK_FLUID_HATCH = new BrickFluidHatch[2];
     public static BrickItemBus[] BRICK_ITEM_BUS = new BrickItemBus[2];
+    public static Dryer DRYER;
 
     private TKCYSAMetaTileEntities() {}
 
@@ -39,5 +41,6 @@ public final class TKCYSAMetaTileEntities {
                 new BrickItemBus(tkcysa("brick_item_input_bus"), false));
         BRICK_ITEM_BUS[1] = registerMetaTileEntity(4008,
                 new BrickItemBus(tkcysa("brick_item_output_bus"), true));
+        DRYER = registerMetaTileEntity(4009, new Dryer(tkcysa("dryer")));
     }
 }

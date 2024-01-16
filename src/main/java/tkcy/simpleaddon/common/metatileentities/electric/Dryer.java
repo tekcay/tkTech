@@ -1,8 +1,5 @@
 package tkcy.simpleaddon.common.metatileentities.electric;
 
-import static gregtech.common.blocks.BlockMetalCasing.MetalCasingType.STEEL_SOLID;
-import static gregtech.common.blocks.MetaBlocks.METAL_CASING;
-
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
@@ -16,42 +13,46 @@ import gregtech.api.metatileentity.multiblock.IMultiblockPart;
 import gregtech.api.metatileentity.multiblock.RecipeMapMultiblockController;
 import gregtech.api.pattern.BlockPattern;
 import gregtech.api.pattern.FactoryBlockPattern;
+import gregtech.api.util.RelativeDirection;
 import gregtech.client.renderer.ICubeRenderer;
 import gregtech.client.renderer.texture.Textures;
+import gregtech.common.blocks.BlockMachineCasing;
+import gregtech.common.blocks.MetaBlocks;
 
 import tkcy.simpleaddon.api.recipes.TKCYSARecipeMaps;
 
-public class Electrolyzer extends RecipeMapMultiblockController {
+public class Dryer extends RecipeMapMultiblockController {
 
-    public Electrolyzer(ResourceLocation metaTileEntityId) {
-        super(metaTileEntityId, TKCYSARecipeMaps.ADVANCED_ELECTROLYSIS);
+    public Dryer(ResourceLocation metaTileEntityId) {
+        super(metaTileEntityId, TKCYSARecipeMaps.DRYING);
     }
 
     @Override
     protected @NotNull BlockPattern createStructurePattern() {
-        return FactoryBlockPattern.start()
+        return FactoryBlockPattern.start(RelativeDirection.RIGHT, RelativeDirection.FRONT, RelativeDirection.UP)
+                .aisle("XYX", "XXX", "XXX")
+                .aisle("CCC", "C#C", "CCC")
                 .aisle("XXX", "XXX", "XXX")
-                .aisle("XXX", "X#X", "XXX")
-                .aisle("XXX", "XYX", "XXX")
                 .where('X', states(getCasingState())
                         .or(autoAbilities()))
+                .where('C', heatingCoils())
                 .where('Y', selfPredicate())
                 .where('#', air())
                 .build();
     }
 
-    public IBlockState getCasingState() {
-        return METAL_CASING.getState(STEEL_SOLID);
-    }
-
     @SideOnly(Side.CLIENT)
     @Override
     public ICubeRenderer getBaseTexture(IMultiblockPart sourcePart) {
-        return Textures.SOLID_STEEL_CASING;
+        return Textures.VOLTAGE_CASINGS[0];
+    }
+
+    protected IBlockState getCasingState() {
+        return MetaBlocks.MACHINE_CASING.getState(BlockMachineCasing.MachineCasingType.ULV);
     }
 
     @Override
     public MetaTileEntity createMetaTileEntity(IGregTechTileEntity tileEntity) {
-        return new Electrolyzer(metaTileEntityId);
+        return new Dryer(metaTileEntityId);
     }
 }

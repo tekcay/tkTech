@@ -1,7 +1,12 @@
-package tkcy.simpleaddon.api.unification;
+package tkcy.simpleaddon.api.unification.materials;
 
 import gregtech.api.unification.material.Material;
 
+import tkcy.simpleaddon.api.unification.MaterialIconAddition;
+import tkcy.simpleaddon.api.unification.MaterialsFormula;
+import tkcy.simpleaddon.api.unification.RoastingMaterials;
+import tkcy.simpleaddon.api.unification.TKCYSAFirstDegreeMaterials;
+import tkcy.simpleaddon.api.unification.materials.chains.*;
 import tkcy.simpleaddon.api.unification.properties.PropertiesAddition;
 
 public class TKCYSAMaterials {
@@ -11,9 +16,16 @@ public class TKCYSAMaterials {
         TKCYSAFirstDegreeMaterials.init();
 
         // 4201
-        TKCYSASecondDegreeMaterials.init();
+        int id = 4200;
+        id = RoastingMaterials.init(id);
+        id = AluminiumChainMaterials.init(id);
+        id = GoldChainMaterials.init(id);
+        id = ChromiteChainMaterials.init(id);
+        id = ZincChainMaterials.init(id);
+        id = GermaniumChainMaterials.init(id);
+        id = SmallChains.init(id);
 
-        RoastingMaterials.init(4400);
+        id = AlloysMaterials.init(id);
 
         MaterialsFormula.init();
 
@@ -73,6 +85,21 @@ public class TKCYSAMaterials {
     public static Material GermaniumOxide;
     public static Material GermaniumTetrachloride;
     public static Material Argyrodite;
+
+    // BauxiteChain
+    public static Material PotassiumAluminate;
+    public static Material SodiumAluminate;
+    public static Material TreatedPotassiumAluminate;
+    public static Material TreatedSodiumAluminate;
+    public static Material BauxiteResidue;
+    public static Material PotashTreatedBauxite;
+    public static Material SodaTreatedBauxite;
+    public static Material AluminiumFluoride;
+    public static Material DriedTreatedSodiumAluminate;
+    public static Material DriedTreatedPotassiumAluminate;
+    public static Material Cryolite;
+    public static Material HexafluorosilicAcid;
+    public static Material AluminiumHydroxide;
 
     // Alloys
     public static Material GalvanizedSteel;

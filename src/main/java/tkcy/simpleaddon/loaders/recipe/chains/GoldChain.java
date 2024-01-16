@@ -3,7 +3,7 @@ package tkcy.simpleaddon.loaders.recipe.chains;
 import static gregtech.api.recipes.RecipeMaps.*;
 import static gregtech.api.unification.material.Materials.*;
 import static gregtech.api.unification.ore.OrePrefix.*;
-import static tkcy.simpleaddon.api.unification.TKCYSAMaterials.*;
+import static tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials.*;
 
 import gregtech.api.GTValues;
 import gregtech.api.recipes.RecipeMaps;

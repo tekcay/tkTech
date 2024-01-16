@@ -2,18 +2,11 @@ package tkcy.simpleaddon.loaders.recipe.handlers;
 
 import static gregtech.api.unification.material.Materials.*;
 import static gregtech.api.unification.ore.OrePrefix.dust;
-import static tkcy.simpleaddon.api.unification.TKCYSAMaterials.*;
-
-import java.util.List;
-import java.util.stream.Collectors;
-
-import net.minecraft.item.ItemStack;
+import static tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials.*;
 
 import gregtech.api.recipes.RecipeMaps;
-import gregtech.api.unification.OreDictUnifier;
 import gregtech.api.unification.material.Material;
 
-import akka.japi.Function;
 import tkcy.simpleaddon.api.recipes.RecipeRemovalHelper;
 import tkcy.simpleaddon.api.recipes.TKCYSARecipeMaps;
 
@@ -36,14 +29,6 @@ public class Roasting {
         primitiveBlast(Chalcopyrite, 1, CupricOxide, 2);
         primitiveBlast(Sphalerite, 1, Zincite, 1);
         primitiveBlast(Galena, 1, RoastedGalena, 1);
-
-        centrifuge(RoastedChalcopyrite);
-        centrifuge(RoastedBornite);
-        centrifuge(RoastedArsenopyrite);
-        centrifuge(RoastedCobaltite);
-        centrifuge(RoastedGalena);
-        centrifuge(RoastedKesterite);
-        centrifuge(RoastedStannite);
 
         chalcopyrite();
     }
@@ -101,34 +86,5 @@ public class Roasting {
                 .duration(20 * 50)
                 .EUt(80)
                 .buildAndRegister();
-    }
-
-    public static List<ItemStack> getStacksFromMaterialComposition(Material material) {
-        return material.getMaterialComponents().stream()
-                .map(materialStack -> OreDictUnifier.get(dust, materialStack.material, (int) materialStack.amount))
-                .collect(Collectors.toList());
-    }
-
-    private static final Function<Material, Long> con = material -> material
-            .getMaterialComponents()
-            .stream()
-            .mapToLong(materialStack -> materialStack.amount)
-            .sum();
-
-    public static int getAmountComponentsSum(Material material) throws Exception {
-        return Math.toIntExact((con.apply(material)));
-    }
-
-    private static void centrifuge(Material material) {
-        try {
-            RecipeMaps.CENTRIFUGE_RECIPES.recipeBuilder()
-                    .input(dust, material, getAmountComponentsSum(material))
-                    .outputs(getStacksFromMaterialComposition(material))
-                    .duration(100)
-                    .EUt(20)
-                    .buildAndRegister();
-        } catch (Exception exception) {
-            throw new RuntimeException(exception.getMessage());
-        }
     }
 }

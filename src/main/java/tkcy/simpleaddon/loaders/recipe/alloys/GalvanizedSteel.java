@@ -5,7 +5,7 @@ import static gregtech.api.unification.material.Materials.Zinc;
 import static gregtech.api.unification.ore.OrePrefix.*;
 import static tkcy.simpleaddon.api.recipes.TKCYSARecipeMaps.ADVANCED_ELECTROLYSIS;
 import static tkcy.simpleaddon.api.recipes.TKCYSARecipeMaps.CASTING;
-import static tkcy.simpleaddon.api.unification.TKCYSAMaterials.GalvanizedSteel;
+import static tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials.GalvanizedSteel;
 
 import java.util.ArrayList;
 import java.util.List;

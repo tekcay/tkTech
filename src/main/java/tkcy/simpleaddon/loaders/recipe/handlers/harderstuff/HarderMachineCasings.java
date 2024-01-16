@@ -2,7 +2,7 @@ package tkcy.simpleaddon.loaders.recipe.handlers.harderstuff;
 
 import static gregtech.api.unification.material.Materials.Magnalium;
 import static gregtech.api.unification.material.Materials.Steel;
-import static tkcy.simpleaddon.api.unification.TKCYSAMaterials.GalvanizedSteel;
+import static tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials.GalvanizedSteel;
 
 import net.minecraft.item.ItemStack;
 

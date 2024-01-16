@@ -1,7 +1,7 @@
 package tkcy.simpleaddon.api.unification;
 
 import static gregtech.api.unification.material.Materials.*;
-import static tkcy.simpleaddon.api.unification.TKCYSAMaterials.*;
+import static tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials.*;
 
 public class MaterialsFormula {
 
@@ -14,5 +14,6 @@ public class MaterialsFormula {
         Iodine.setFormula("I2", true);
         Sulfur.setFormula("S8", true);
         Oxygen.setFormula("O2", true);
+        Nitrogen.setFormula("N2", true);
     }
 }
