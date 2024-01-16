@@ -1,4 +1,4 @@
-package tkcy.simpleaddon.api.unification;
+package tkcy.simpleaddon.api.unification.iconset;
 
 import gregtech.api.unification.material.Materials;
 import gregtech.api.unification.material.info.MaterialIconSet;

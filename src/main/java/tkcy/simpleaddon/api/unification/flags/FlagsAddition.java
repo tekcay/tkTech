@@ -17,6 +17,10 @@ public class FlagsAddition {
         TKCYSAMaterialFlags.GENERATE_ALL.forEach(f -> Steel.addFlags(f));
         Materials.EXT2_METAL.forEach(f -> Brick.addFlags(f));
 
-        Carbon.addFlags(GENERATE_LONG_ROD);
+        Carbon.addFlags(GENERATE_LONG_ROD, TKCYSAMaterialFlags.GENERATE_ELECTRODES);
+        Gold.addFlags(TKCYSAMaterialFlags.GENERATE_ELECTRODES);
+        Copper.addFlags(TKCYSAMaterialFlags.GENERATE_ELECTRODES);
+        Nickel.addFlags(TKCYSAMaterialFlags.GENERATE_ELECTRODES);
+        Zinc.addFlags(TKCYSAMaterialFlags.GENERATE_ELECTRODES);
     }
 }

@@ -2,10 +2,10 @@ package tkcy.simpleaddon.api.unification.materials;
 
 import gregtech.api.unification.material.Material;
 
-import tkcy.simpleaddon.api.unification.MaterialIconAddition;
 import tkcy.simpleaddon.api.unification.MaterialsFormula;
 import tkcy.simpleaddon.api.unification.RoastingMaterials;
 import tkcy.simpleaddon.api.unification.TKCYSAFirstDegreeMaterials;
+import tkcy.simpleaddon.api.unification.iconset.MaterialIconAddition;
 import tkcy.simpleaddon.api.unification.materials.chains.*;
 import tkcy.simpleaddon.api.unification.properties.PropertiesAddition;
 

@@ -1,18 +1,14 @@
 package tkcy.simpleaddon.loaders.recipe.chains;
 
-import tkcy.simpleaddon.api.recipes.TKCYSARecipeMaps;
-
 import static gregtech.api.GTValues.*;
 import static gregtech.api.recipes.RecipeMaps.CHEMICAL_RECIPES;
 import static gregtech.api.unification.material.Materials.*;
 import static gregtech.api.unification.ore.OrePrefix.dust;
-import static gregtech.api.unification.ore.OrePrefix.dustTiny;
 import static tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials.*;
 
 public class FluorineChain {
 
     public static void init() {
-
         // CaF2 + H2SO4 -> CaSO4 + 2 HF
         CHEMICAL_RECIPES.recipeBuilder()
                 .input(dust, Fluorite, 1)
@@ -71,15 +67,18 @@ public class FluorineChain {
                 .EUt(VA[LV])
                 .buildAndRegister();
 
-        // KF.HF(l) + electrode + LiF -> H2 + F2 //TODO 70-130 °C
-        TKCYSARecipeMaps.ADVANCED_ELECTROLYSIS.recipeBuilder()
-                .input(dustTiny, LithiumFluoride, 1)
-                .notConsumable(electrodeCarbon)
-                .notConsumable(electrodeSteel)
-                .fluidInputs(PotassiumBifluoride.getFluid(1000))
-                .fluidOutputs(Hydrogen.getFluid(1000), Fluorine.getFluid(1000))
-                .duration(80)
-                .EUt(60)
-                .buildAndRegister();
+        /*
+         * // KF.HF(l) + electrode + LiF -> H2 + F2 //TODO 70-130 °C
+         * TKCYSARecipeMaps.ADVANCED_ELECTROLYSIS.recipeBuilder()
+         * .input(dustTiny, LithiumFluoride, 1)
+         * .notConsumable(electrodeCarbon)
+         * .notConsumable(electrodeSteel)
+         * .fluidInputs(PotassiumBifluoride.getFluid(1000))
+         * .fluidOutputs(Hydrogen.getFluid(1000), Fluorine.getFluid(1000))
+         * .duration(80)
+         * .EUt(60)
+         * .buildAndRegister();
+         * 
+         */
     }
 }

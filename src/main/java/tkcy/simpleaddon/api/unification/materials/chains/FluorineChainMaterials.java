@@ -1,19 +1,18 @@
 package tkcy.simpleaddon.api.unification.materials.chains;
 
-import gregtech.api.fluids.FluidBuilder;
-import gregtech.api.fluids.attribute.FluidAttributes;
-import gregtech.api.unification.material.Material;
-import gregtech.api.unification.material.info.MaterialIconSet;
-
 import static gregtech.api.unification.material.Materials.*;
 import static gregtech.api.unification.material.info.MaterialFlags.DISABLE_DECOMPOSITION;
 import static gregtech.api.util.GTUtility.gregtechId;
 import static tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials.*;
 
+import gregtech.api.fluids.FluidBuilder;
+import gregtech.api.fluids.attribute.FluidAttributes;
+import gregtech.api.unification.material.Material;
+import gregtech.api.unification.material.info.MaterialIconSet;
+
 public class FluorineChainMaterials {
 
     public static int init(int id) {
-
         // FluorineChain
 
         HydrogenFluoride = new Material.Builder(id++, gregtechId("hydrogen_fluoride"))
