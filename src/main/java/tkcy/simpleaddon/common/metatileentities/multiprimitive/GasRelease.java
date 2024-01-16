@@ -3,10 +3,13 @@ package tkcy.simpleaddon.common.metatileentities.multiprimitive;
 import static gregtech.common.blocks.BlockBoilerCasing.BoilerCasingType.STEEL_PIPE;
 import static gregtech.common.blocks.MetaBlocks.BOILER_CASING;
 
+import java.util.function.Function;
+
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -24,16 +27,16 @@ import gregtech.client.renderer.ICubeRenderer;
 import gregtech.client.renderer.texture.Textures;
 
 import tkcy.simpleaddon.api.machines.NoEnergyMultiController;
-import tkcy.simpleaddon.api.metatileentities.HeightMetaTileEntity;
+import tkcy.simpleaddon.api.metatileentities.RepetitiveSide;
 import tkcy.simpleaddon.api.recipes.TKCYSARecipeMaps;
 
-public class GasRelease extends NoEnergyMultiController implements HeightMetaTileEntity {
+public class GasRelease extends NoEnergyMultiController implements RepetitiveSide {
 
     private int height = 1;
     private final String heightMarker = "height";
 
     public GasRelease(ResourceLocation metaTileEntityId) {
-        super(metaTileEntityId, TKCYSARecipeMaps.PRIMITIVE_ROASTING);
+        super(metaTileEntityId, TKCYSARecipeMaps.GAS_RELEASE);
     }
 
     @Override
@@ -46,11 +49,11 @@ public class GasRelease extends NoEnergyMultiController implements HeightMetaTil
         return FactoryBlockPattern.start(RelativeDirection.RIGHT, RelativeDirection.FRONT, RelativeDirection.UP)
                 .aisle("I")
                 .aisle("Y")
-                .aisle("P").setRepeatable(getMinHeight(), getMaxHeight())
+                .aisle("P").setRepeatable(getMinSideLength(), getMaxSideLength())
                 .aisle("M")
                 .where('I', abilities(MultiblockAbility.IMPORT_FLUIDS))
                 .where('M', abilities(MultiblockAbility.MUFFLER_HATCH))
-                .where('P', states(getBlockStateToTest()))
+                .where('P', states(getSideBlockBlockState()))
                 .where('Y', selfPredicate())
                 .build();
     }
@@ -100,17 +103,17 @@ public class GasRelease extends NoEnergyMultiController implements HeightMetaTil
     }
 
     @Override
-    public int getMinHeight() {
+    public int getMinSideLength() {
         return 3;
     }
 
     @Override
-    public int getMaxHeight() {
+    public int getMaxSideLength() {
         return 15;
     }
 
     @Override
-    public IBlockState getBlockStateToTest() {
+    public IBlockState getSideBlockBlockState() {
         return BOILER_CASING.getState(STEEL_PIPE);
     }
 
@@ -121,6 +124,11 @@ public class GasRelease extends NoEnergyMultiController implements HeightMetaTil
 
     @Override
     public void setParallelNumber() {
-        this.recipeMapWorkable.setParallelLimit(this.height / 2);
+        this.recipeMapWorkable.setParallelLimit(this.height / 3);
+    }
+
+    @Override
+    public Function<Integer, BlockPos> getRepetitiveDirection() {
+        return pos -> this.getPos().up(pos);
     }
 }
