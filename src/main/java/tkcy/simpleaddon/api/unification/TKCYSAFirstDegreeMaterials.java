@@ -6,6 +6,7 @@ import static gregtech.api.unification.material.info.MaterialFlags.DISABLE_DECOM
 import static gregtech.api.unification.material.info.MaterialIconSet.*;
 import static gregtech.api.util.GTUtility.gregtechId;
 import static tkcy.simpleaddon.api.unification.TKCYSAMaterials.*;
+import static tkcy.simpleaddon.api.unification.flags.TKCYSAMaterialFlags.GENERATE_ALL_NO_UNIF;
 
 import gregtech.api.fluids.FluidBuilder;
 import gregtech.api.unification.material.Material;
@@ -103,6 +104,7 @@ public final class TKCYSAFirstDegreeMaterials {
 
         PigIron = new Material.Builder(4012, gregtechId("pig_iron"))
                 .ingot()
+                .liquid(new FluidBuilder().temperature(1800).attributes())
                 .flags(MaterialFlags.NO_UNIFICATION)
                 .components(Iron, 1, Carbon, 1)
                 .colorAverage()
@@ -168,6 +170,22 @@ public final class TKCYSAFirstDegreeMaterials {
                 .components(Germanium, 1, Chlorine, 4)
                 .flags(DISABLE_DECOMPOSITION)
                 .colorAverage()
+                .build();
+
+        GalvanizedSteel = new Material.Builder(4022, gregtechId("galvanized_steel"))
+                .ingot()
+                .fluidPipeProperties(2000, 100, true, true, true, false)
+                .components(Iron, 9, Zinc, 1)
+                .flags(GENERATE_ALL_NO_UNIF)
+                .color(0xf5f8fa).iconSet(METALLIC)
+                .build();
+
+        Monel = new Material.Builder(4023, gregtechId("monel"))
+                .ingot()
+                .flags(EXT2_METAL)
+                .components(Nickel, 7, Copper, 3)
+                .flags(DISABLE_DECOMPOSITION)
+                .color(0xc1b8a8).iconSet(METALLIC)
                 .build();
     }
 }

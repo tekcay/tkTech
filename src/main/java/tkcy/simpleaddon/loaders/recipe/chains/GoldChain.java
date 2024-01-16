@@ -5,6 +5,7 @@ import static gregtech.api.unification.material.Materials.*;
 import static gregtech.api.unification.ore.OrePrefix.*;
 import static tkcy.simpleaddon.api.unification.TKCYSAMaterials.*;
 
+import gregtech.api.GTValues;
 import gregtech.api.recipes.RecipeMaps;
 
 public class GoldChain {
@@ -49,7 +50,7 @@ public class GoldChain {
                 .fluidInputs(ChloroauricAcid.getFluid(1000))
                 .fluidInputs(DistilledWater.getFluid(1000))
                 .input(dustTiny, PotassiumMetaBisulfite)
-                .fluidOutputs(Gold.getFluid(1000))
+                .fluidOutputs(Gold.getFluid(GTValues.L))
                 .fluidOutputs(DilutedHydrochloricAcid.getFluid(1000))
                 .buildAndRegister();
 

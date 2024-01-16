@@ -30,8 +30,8 @@ import gregtech.common.items.MetaItems;
 import gregtech.core.unification.material.internal.MaterialRegistryManager;
 import gregtech.modules.ModuleManager;
 
-import tkcy.simpleaddon.api.unification.TKCYSAMaterialFlagAddition;
 import tkcy.simpleaddon.api.unification.TKCYSAMaterials;
+import tkcy.simpleaddon.api.unification.flags.FlagsAddition;
 
 public final class Bootstrap {
 
@@ -78,10 +78,9 @@ public final class Bootstrap {
         Loader.instance().setupTestHarness(new DummyModContainer(meta));
 
         TKCYSAMaterials.init();
-        TKCYSAMaterialFlagAddition.init();
+        FlagsAddition.init();
 
         managerInternal.closeRegistries();
-        TKCYSAMaterialFlagAddition.initLate();
 
         managerInternal.freezeRegistries();
 

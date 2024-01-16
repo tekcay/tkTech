@@ -1,10 +1,10 @@
 package tkcy.simpleaddon.loaders.recipe;
 
 import tkcy.simpleaddon.common.TKCYSAConfigHolder;
+import tkcy.simpleaddon.loaders.recipe.alloys.GalvanizedSteel;
 import tkcy.simpleaddon.loaders.recipe.chains.*;
-import tkcy.simpleaddon.loaders.recipe.handlers.MiscChemicals;
-import tkcy.simpleaddon.loaders.recipe.handlers.Roasting;
-import tkcy.simpleaddon.loaders.recipe.handlers.TKCYSAMaterialRecipeHandler;
+import tkcy.simpleaddon.loaders.recipe.handlers.*;
+import tkcy.simpleaddon.loaders.recipe.handlers.harderstuff.HarderMachineCasings;
 
 public final class TKCYSARecipeLoader {
 
@@ -14,6 +14,15 @@ public final class TKCYSARecipeLoader {
         TKCYSAMaterialRecipeHandler.register();
 
         MiscChemicals.init();
+        PrimitiveCastingHandler.init();
+
+        MTEs.init();
+
+        if (TKCYSAConfigHolder.harderStuff.enableHarderMachineCasings) {
+            GalvanizedSteel.init();
+            HarderMachineCasings.init();
+        }
+
         if (TKCYSAConfigHolder.chains.enableCopperChain) CopperChains.init();
         if (TKCYSAConfigHolder.chains.enableChromiteChain) ChromiteChain.init();
         if (TKCYSAConfigHolder.chains.enableGoldChain) GoldChain.init();

@@ -1,4 +1,4 @@
-.nopublish
+*.sh
 
 ### Library ###
 
@@ -85,3 +85,4 @@ local.properties
 run/
 
 logs/
+/test.sh

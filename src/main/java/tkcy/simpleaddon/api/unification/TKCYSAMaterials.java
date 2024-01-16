@@ -13,13 +13,13 @@ public class TKCYSAMaterials {
         // 4201
         TKCYSASecondDegreeMaterials.init();
 
-        TKCYSAMaterialFlagAddition.init();
-
         RoastingMaterials.init(4400);
 
         MaterialsFormula.init();
 
         PropertiesAddition.init();
+
+        MaterialIconAddition.init();
     }
 
     // Chromite chain
@@ -73,4 +73,8 @@ public class TKCYSAMaterials {
     public static Material GermaniumOxide;
     public static Material GermaniumTetrachloride;
     public static Material Argyrodite;
+
+    // Alloys
+    public static Material GalvanizedSteel;
+    public static Material Monel;
 }

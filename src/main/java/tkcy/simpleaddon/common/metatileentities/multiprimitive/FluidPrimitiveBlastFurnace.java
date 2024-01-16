@@ -1,7 +1,6 @@
 package tkcy.simpleaddon.common.metatileentities.multiprimitive;
 
-import static tkcy.simpleaddon.api.predicates.Predicates.cokeBrick;
-import static tkcy.simpleaddon.api.predicates.Predicates.itemBus;
+import static tkcy.simpleaddon.api.predicates.Predicates.*;
 
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
@@ -20,28 +19,28 @@ import gregtech.client.renderer.texture.Textures;
 import tkcy.simpleaddon.api.machines.NoEnergyMultiController;
 import tkcy.simpleaddon.api.recipes.TKCYSARecipeMaps;
 
-public class PrimitiveRoastingOven extends NoEnergyMultiController {
+public class FluidPrimitiveBlastFurnace extends NoEnergyMultiController {
 
-    public PrimitiveRoastingOven(ResourceLocation metaTileEntityId) {
-        super(metaTileEntityId, TKCYSARecipeMaps.PRIMITIVE_ROASTING);
+    public FluidPrimitiveBlastFurnace(ResourceLocation metaTileEntityId) {
+        super(metaTileEntityId, TKCYSARecipeMaps.FLUID_PRIMITIVE_BLAST);
     }
 
     @Override
     public MetaTileEntity createMetaTileEntity(IGregTechTileEntity tileEntity) {
-        return new PrimitiveRoastingOven(metaTileEntityId);
+        return new FluidPrimitiveBlastFurnace(metaTileEntityId);
     }
 
     @Override
     protected @NotNull BlockPattern createStructurePattern() {
         return FactoryBlockPattern.start()
-                .aisle("XXX", "XXX", "-X-")
-                .aisle("XXX", "X#X", "-X-")
-                .aisle("XXX", "XYX", "-X-")
-                .where('X', cokeBrick()
-                        .or(itemBus(true, 1))
-                        .or(itemBus(false, 1)))
+                .aisle("AAA", "XXX", "XXX", "BBB")
+                .aisle("AAA", "XXX", "X#X", "BCB")
+                .aisle("AAA", "XYX", "XXX", "BBB")
+                .where('A', cokeBrick().or(fluidHatch(true, 1)))
+                .where('B', cokeBrick().or(itemBus(false, 2)))
+                .where('C', cokeBrick().or(fluidHatch(false, 1)))
+                .where('X', cokeBrick())
                 .where('#', air())
-                .where('-', any())
                 .where('Y', selfPredicate())
                 .build();
     }
@@ -50,7 +49,7 @@ public class PrimitiveRoastingOven extends NoEnergyMultiController {
     @NotNull
     @Override
     protected ICubeRenderer getFrontOverlay() {
-        return Textures.COKE_OVEN_OVERLAY;
+        return Textures.PRIMITIVE_BLAST_FURNACE_OVERLAY;
     }
 
     @SideOnly(Side.CLIENT)
@@ -58,7 +57,4 @@ public class PrimitiveRoastingOven extends NoEnergyMultiController {
     public ICubeRenderer getBaseTexture(IMultiblockPart sourcePart) {
         return Textures.COKE_BRICKS;
     }
-
-
-
 }

@@ -54,11 +54,27 @@ gregtech.material.argyrodite=Argyroditee
 ##Arsenic
 gregtech.material.arsenopyrite=Arsenopyrite
 
-
-
+##Alloys
+gregtech.material.galvanized_steel=Galvanized Steel
+gregtech.material.monel=Monel
 
 ##MTEs
 tkcysa.machine.primitive_roasting_oven.name=Primitive Roasting Oven
+tkcysa.machine.electrolyzer.name=Electrolyzer
+tkcysa.machine.assembler.name=Assembling Machine
+tkcysa.machine.fluid_primitive_blast_furnace.name=Fluid Primitive Blast Furnace
+tkcysa.machine.primitive_casting.name=Primitive Casting
+tkcysa.machine.brick_item_output_bus.name=Brick Item Output Bus
+tkcysa.machine.brick_item_input_bus.name=Brick Item Input Bus
+tkcysa.machine.brick_fluid_output_hatch.name=Brick Fluid Output Hatch
+tkcysa.machine.brick_fluid_input_hatch.name=Brick Fluid Input Hatch
 
 ##RecipesMaps
 recipemap.primitive_roasting.name=Primtive Roasting
+recipemap.advanced_electrolysis.name=Electrolyzis
+recipemap.advanced_assembling.name=Assembling
+recipemap.fluid_primitive_blast.name=Fluid Blasting
+recipemap.casting.name=Casting
+
+##RecipeCategories
+#tkcysa.recipe.category.galvanizing=Galvanizing

@@ -1,9 +1,13 @@
 package tkcy.simpleaddon.loaders.recipe.chains;
 
-import static gregtech.api.recipes.RecipeMaps.*;
+import static gregtech.api.recipes.RecipeMaps.BLAST_RECIPES;
 import static gregtech.api.unification.material.Materials.*;
 import static gregtech.api.unification.ore.OrePrefix.*;
-import static tkcy.simpleaddon.api.unification.TKCYSAMaterials.*;
+import static tkcy.simpleaddon.api.recipes.TKCYSARecipeMaps.ADVANCED_ELECTROLYSIS;
+import static tkcy.simpleaddon.api.recipes.TKCYSARecipeMaps.FLUID_PRIMITIVE_BLAST;
+import static tkcy.simpleaddon.api.unification.TKCYSAMaterials.ZincSulfate;
+
+import gregtech.api.GTValues;
 
 import tkcy.simpleaddon.api.recipes.RecipeRemovalHelper;
 
@@ -11,18 +15,17 @@ public class ZincChain {
 
     public static void init() {
         // Primitive
-        PRIMITIVE_BLAST_FURNACE_RECIPES.recipeBuilder()
+        FLUID_PRIMITIVE_BLAST.recipeBuilder()
                 .input(dust, Zincite)
                 .input(dust, Coke)
-                .output(ingot, Zinc)
+                .fluidOutputs(Zinc.getFluid(GTValues.L))
                 .duration(20 * 100)
                 .buildAndRegister();
 
-        // Primitive
-        PRIMITIVE_BLAST_FURNACE_RECIPES.recipeBuilder()
+        FLUID_PRIMITIVE_BLAST.recipeBuilder()
                 .input(dust, Zincite)
                 .input(dust, Coal)
-                .output(ingot, Zinc)
+                .fluidOutputs(Zinc.getFluid(GTValues.L))
                 .duration(20 * 120)
                 .buildAndRegister();
 
@@ -59,12 +62,13 @@ public class ZincChain {
                 .buildAndRegister();
 
         // ZnSO4 + H2O -> Zn + 1/2 O2 + H2SO4
-        ELECTROLYZER_RECIPES.recipeBuilder().duration(200)
+        ADVANCED_ELECTROLYSIS.recipeBuilder().duration(200)
                 .fluidInputs(Water.getFluid(1000))
                 .notConsumable(stickLong, Aluminium)
                 .input(dust, ZincSulfate)
                 .output(dust, Zinc)
-                .fluidOutputs(Oxygen.getFluid(500), SulfuricAcid.getFluid(1000))
+                .fluidOutputs(Oxygen.getFluid(500))
+                .fluidOutputs(SulfuricAcid.getFluid(1000))
                 .EUt(100)
                 .buildAndRegister();
     }
