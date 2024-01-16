@@ -5,6 +5,8 @@ import static gregtech.api.unification.material.Materials.*;
 import static gregtech.api.unification.ore.OrePrefix.*;
 import static tkcy.simpleaddon.api.TKCYSAValues.SECOND;
 import static tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials.*;
+import static tkcy.simpleaddon.api.unification.ore.TKCYSAOrePrefix.anode;
+import static tkcy.simpleaddon.api.unification.ore.TKCYSAOrePrefix.cathode;
 
 import gregtech.api.GTValues;
 import gregtech.api.recipes.RecipeMaps;
@@ -136,8 +138,9 @@ public class AluminiumChain {
                 .fluidInputs(Alumina.getFluid(GTValues.L * 2))
                 .fluidInputs(AluminiumFluoride.getFluid(2))
                 .fluidInputs(Cryolite.getFluid(1))
-                .input(stickLong, Carbon, 3)
-                .notConsumable(stickLong, Carbon, 64)
+                .notConsumable(cathode, Carbon, 3)
+                .notConsumable(anode, Carbon, 3)
+                .input(dust, Carbon, 3)
                 .output(dust, Aluminium, 4)
                 .fluidOutputs(CarbonDioxide.getFluid(3000))
                 .duration(75 * SECOND)
