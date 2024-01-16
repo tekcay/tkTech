@@ -9,6 +9,7 @@ import tkcy.simpleaddon.common.metatileentities.electric.Electrolyzer;
 import tkcy.simpleaddon.common.metatileentities.multiblockpart.BrickFluidHatch;
 import tkcy.simpleaddon.common.metatileentities.multiblockpart.BrickItemBus;
 import tkcy.simpleaddon.common.metatileentities.multiprimitive.FluidPrimitiveBlastFurnace;
+import tkcy.simpleaddon.common.metatileentities.multiprimitive.GasRelease;
 import tkcy.simpleaddon.common.metatileentities.multiprimitive.PrimitiveRoastingOven;
 import tkcy.simpleaddon.common.metatileentities.primitive.PrimitiveCasting;
 
@@ -22,6 +23,7 @@ public final class TKCYSAMetaTileEntities {
     public static BrickFluidHatch[] BRICK_FLUID_HATCH = new BrickFluidHatch[2];
     public static BrickItemBus[] BRICK_ITEM_BUS = new BrickItemBus[2];
     public static Dryer DRYER;
+    public static GasRelease GAS_RELEASE;
 
     private TKCYSAMetaTileEntities() {}
 
@@ -42,5 +44,6 @@ public final class TKCYSAMetaTileEntities {
         BRICK_ITEM_BUS[1] = registerMetaTileEntity(4008,
                 new BrickItemBus(tkcysa("brick_item_output_bus"), true));
         DRYER = registerMetaTileEntity(4009, new Dryer(tkcysa("dryer")));
+        GAS_RELEASE = registerMetaTileEntity(4010, new GasRelease(tkcysa("gas_release")));
     }
 }
