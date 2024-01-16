@@ -2,10 +2,10 @@ package tkcy.simpleaddon.api.unification.materials;
 
 import gregtech.api.unification.material.Material;
 
-import tkcy.simpleaddon.api.unification.MaterialIconAddition;
 import tkcy.simpleaddon.api.unification.MaterialsFormula;
 import tkcy.simpleaddon.api.unification.RoastingMaterials;
 import tkcy.simpleaddon.api.unification.TKCYSAFirstDegreeMaterials;
+import tkcy.simpleaddon.api.unification.iconset.MaterialIconAddition;
 import tkcy.simpleaddon.api.unification.materials.chains.*;
 import tkcy.simpleaddon.api.unification.properties.PropertiesAddition;
 
@@ -23,6 +23,7 @@ public class TKCYSAMaterials {
         id = ChromiteChainMaterials.init(id);
         id = ZincChainMaterials.init(id);
         id = GermaniumChainMaterials.init(id);
+        id = FluorineChainMaterials.init(id);
         id = SmallChains.init(id);
 
         id = AlloysMaterials.init(id);
@@ -50,6 +51,23 @@ public class TKCYSAMaterials {
     public static Material PotassiumBisulfate;
     public static Material PotassiumMetaBisulfite;
     public static Material PotassiumHydroxide;
+
+    // FluorineChain
+    public static Material PotassiumBifluoride;
+    public static Material Fluorite;
+
+    /**
+     * Used in
+     * Fireproofing:
+     * Fire-Resistant Materials: Calcium sulfate can contribute to the fire resistance of certain materials, making it
+     * useful in applications where fireproofing is essential.
+     */
+    public static Material CalciumSulfate;
+    public static Material LithiumFluoride;
+    public static Material SodiumFluoride;
+    public static Material PotassiumFluoride;
+    public static Material LithiumHydroxide;
+    public static Material HydrogenFluoride;
 
     // Iron
     public static Material PigIron;

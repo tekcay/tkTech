@@ -2,7 +2,6 @@ package tkcy.simpleaddon.api.unification.materials.chains;
 
 import static gregtech.api.util.GTUtility.gregtechId;
 import static tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials.*;
-import static tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials.ChromiumOxide;
 
 import gregtech.api.unification.material.Material;
 

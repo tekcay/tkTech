@@ -6,6 +6,8 @@ import static gregtech.api.unification.ore.OrePrefix.*;
 import static tkcy.simpleaddon.api.recipes.TKCYSARecipeMaps.ADVANCED_ELECTROLYSIS;
 import static tkcy.simpleaddon.api.recipes.TKCYSARecipeMaps.FLUID_PRIMITIVE_BLAST;
 import static tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials.ZincSulfate;
+import static tkcy.simpleaddon.api.unification.ore.TKCYSAOrePrefix.anode;
+import static tkcy.simpleaddon.api.unification.ore.TKCYSAOrePrefix.cathode;
 
 import gregtech.api.GTValues;
 
@@ -64,7 +66,8 @@ public class ZincChain {
         // ZnSO4 + H2O -> Zn + 1/2 O2 + H2SO4
         ADVANCED_ELECTROLYSIS.recipeBuilder().duration(200)
                 .fluidInputs(Water.getFluid(1000))
-                .notConsumable(stickLong, Aluminium)
+                .notConsumable(anode, Carbon)
+                .notConsumable(cathode, Carbon)
                 .input(dust, ZincSulfate)
                 .output(dust, Zinc)
                 .fluidOutputs(Oxygen.getFluid(500))

@@ -27,6 +27,10 @@ public final class TKCYSAMaterialFlags {
             .requireFlags(NO_ALLOY_BLAST_RECIPES)
             .build();
 
+    public static final MaterialFlag GENERATE_ELECTRODES = new MaterialFlag.Builder("generate_electrodes")
+            .requireFlags(GENERATE_LONG_ROD)
+            .build();
+
     public static final List<MaterialFlag> GENERATE_ALL = new ArrayList<>();
     public static final List<MaterialFlag> GENERATE_ALL_NO_UNIF = new ArrayList<>();
 

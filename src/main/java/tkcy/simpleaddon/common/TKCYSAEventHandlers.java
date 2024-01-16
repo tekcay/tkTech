@@ -12,6 +12,7 @@ import gregtech.api.unification.material.event.PostMaterialEvent;
 import tkcy.simpleaddon.TekCaySimpleAddon;
 import tkcy.simpleaddon.api.unification.flags.FlagsAddition;
 import tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials;
+import tkcy.simpleaddon.api.unification.ore.OrePrefixRegitry;
 
 @ApiStatus.Internal
 @Mod.EventBusSubscriber(modid = TekCaySimpleAddon.MODID)
@@ -22,6 +23,7 @@ public final class TKCYSAEventHandlers {
     @SubscribeEvent(priority = EventPriority.HIGH)
     public static void registerMaterials(MaterialEvent event) {
         TKCYSAMaterials.init();
+        OrePrefixRegitry.register();
     }
 
     @SubscribeEvent

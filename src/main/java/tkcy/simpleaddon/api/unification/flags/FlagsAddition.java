@@ -17,6 +17,19 @@ public class FlagsAddition {
         TKCYSAMaterialFlags.GENERATE_ALL.forEach(f -> Steel.addFlags(f));
         Materials.EXT2_METAL.forEach(f -> Brick.addFlags(f));
 
-        Carbon.addFlags(GENERATE_LONG_ROD);
+        Carbon.addFlags(GENERATE_LONG_ROD, TKCYSAMaterialFlags.GENERATE_ELECTRODES);
+        Gold.addFlags(TKCYSAMaterialFlags.GENERATE_ELECTRODES);
+        Copper.addFlags(TKCYSAMaterialFlags.GENERATE_ELECTRODES);
+        Nickel.addFlags(TKCYSAMaterialFlags.GENERATE_ELECTRODES);
+        Zinc.addFlags(TKCYSAMaterialFlags.GENERATE_ELECTRODES);
+        Steel.addFlags(TKCYSAMaterialFlags.GENERATE_ELECTRODES);
+        Palladium.addFlags(TKCYSAMaterialFlags.GENERATE_ELECTRODES);
+        Platinum.addFlags(TKCYSAMaterialFlags.GENERATE_ELECTRODES);
+        Rhodium.addFlags(TKCYSAMaterialFlags.GENERATE_ELECTRODES);
+        Iridium.addFlags(TKCYSAMaterialFlags.GENERATE_ELECTRODES);
+        Rubidium.addFlags(TKCYSAMaterialFlags.GENERATE_ELECTRODES);
+        Molybdenum.addFlags(TKCYSAMaterialFlags.GENERATE_ELECTRODES);
+        Iron.addFlags(TKCYSAMaterialFlags.GENERATE_ELECTRODES);
+        Ruthenium.addFlags(TKCYSAMaterialFlags.GENERATE_ELECTRODES);
     }
 }
