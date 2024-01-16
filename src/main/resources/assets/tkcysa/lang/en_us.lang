@@ -109,6 +109,9 @@ recipemap.fluid_primitive_blast.name=Fluid Blasting
 recipemap.casting.name=Casting
 recipemap.drying.name=Drying
 
+# Ore Prefixes
+
+item.material.oreprefix.electrode=%s Electrode
 
 ##RecipeCategories
 #tkcysa.recipe.category.galvanizing=Galvanizing
