@@ -5,6 +5,7 @@ import static gregtech.common.items.MetaItems.addOrePrefix;
 public class OrePrefixRegitry {
 
     public static void register() {
+        addOrePrefix(TKCYSAOrePrefix.electrode);
         addOrePrefix(TKCYSAOrePrefix.anode);
         addOrePrefix(TKCYSAOrePrefix.cathode);
     }

@@ -112,6 +112,7 @@ recipemap.drying.name=Drying
 # Ore Prefixes
 item.material.oreprefix.cathode=%s Cathode
 item.material.oreprefix.anode=%s Anode
+item.material.oreprefix.electrode=%s Electrode
 
 ##RecipeCategories
 #tkcysa.recipe.category.galvanizing=Galvanizing

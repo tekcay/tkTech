@@ -5,6 +5,7 @@ import tkcy.simpleaddon.loaders.recipe.alloys.GalvanizedSteel;
 import tkcy.simpleaddon.loaders.recipe.chains.*;
 import tkcy.simpleaddon.loaders.recipe.handlers.*;
 import tkcy.simpleaddon.loaders.recipe.handlers.harderstuff.HarderMachineCasings;
+import tkcy.simpleaddon.loaders.recipe.parts.PartsHandler;
 
 public final class TKCYSARecipeLoader {
 
@@ -15,6 +16,7 @@ public final class TKCYSARecipeLoader {
 
         MiscChemicals.init();
         PrimitiveCastingHandler.init();
+        PartsHandler.init();
 
         MTEs.init();
 

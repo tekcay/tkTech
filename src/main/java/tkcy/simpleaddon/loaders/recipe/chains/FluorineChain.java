@@ -2,9 +2,14 @@ package tkcy.simpleaddon.loaders.recipe.chains;
 
 import static gregtech.api.GTValues.*;
 import static gregtech.api.recipes.RecipeMaps.CHEMICAL_RECIPES;
+import static gregtech.api.recipes.RecipeMaps.EXTRACTOR_RECIPES;
 import static gregtech.api.unification.material.Materials.*;
 import static gregtech.api.unification.ore.OrePrefix.dust;
+import static gregtech.api.unification.ore.OrePrefix.dustTiny;
 import static tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials.*;
+
+import tkcy.simpleaddon.api.recipes.TKCYSARecipeMaps;
+import tkcy.simpleaddon.api.unification.ore.TKCYSAOrePrefix;
 
 public class FluorineChain {
 
@@ -60,25 +65,22 @@ public class FluorineChain {
                 .buildAndRegister();
 
         // KF.HF(s) -> KF.HF(l)
-        CHEMICAL_RECIPES.recipeBuilder() // TODO Melter or liquid extractor
+        EXTRACTOR_RECIPES.recipeBuilder()
                 .input(dust, PotassiumBifluoride, 1)
                 .fluidOutputs(PotassiumBifluoride.getFluid(1000))
                 .duration(80)
                 .EUt(VA[LV])
                 .buildAndRegister();
 
-        /*
-         * // KF.HF(l) + electrode + LiF -> H2 + F2 //TODO 70-130 °C
-         * TKCYSARecipeMaps.ADVANCED_ELECTROLYSIS.recipeBuilder()
-         * .input(dustTiny, LithiumFluoride, 1)
-         * .notConsumable(electrodeCarbon)
-         * .notConsumable(electrodeSteel)
-         * .fluidInputs(PotassiumBifluoride.getFluid(1000))
-         * .fluidOutputs(Hydrogen.getFluid(1000), Fluorine.getFluid(1000))
-         * .duration(80)
-         * .EUt(60)
-         * .buildAndRegister();
-         * 
-         */
+        // KF.HF(l) + electrode + LiF -> H2 + F2
+        TKCYSARecipeMaps.ADVANCED_ELECTROLYSIS.recipeBuilder()
+                .input(dustTiny, LithiumFluoride, 1)
+                .notConsumable(TKCYSAOrePrefix.anode, Carbon)
+                .notConsumable(TKCYSAOrePrefix.cathode, Steel)
+                .fluidInputs(PotassiumBifluoride.getFluid(1000))
+                .fluidOutputs(Hydrogen.getFluid(1000), Fluorine.getFluid(1000))
+                .duration(80)
+                .EUt(60)
+                .buildAndRegister();
     }
 }
