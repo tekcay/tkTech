@@ -104,21 +104,24 @@ public class AluminiumChainMaterials {
         AluminiumFluoride = new Material.Builder(id++, gregtechId("aluminium_fluoride"))
                 .dust()
                 .liquid(new FluidBuilder().temperature(1560))
+                .components(Aluminium, 1, Fluorine, 3)
+                .flags(DISABLE_DECOMPOSITION)
                 .colorAverage()
                 .build();
-        AluminiumFluoride.setFormula("AlF3", true);
 
         Cryolite = new Material.Builder(id++, gregtechId("cryolite"))
                 .liquid(new FluidBuilder().temperature(1285))
                 .colorAverage()
+                .components(Sodium, 3, Aluminium, 1, Fluorine, 6)
+                .flags(DISABLE_DECOMPOSITION)
                 .build();
-        Cryolite.setFormula("Na3AlF6", true);
 
         HexafluorosilicAcid = new Material.Builder(id++, gregtechId("hexafluorosilic_acid"))
                 .fluid()
+                .flags(DISABLE_DECOMPOSITION)
+                .components(Hydrogen, 2, Silicon, 1, Fluorine, 6)
                 .colorAverage()
                 .build();
-        HexafluorosilicAcid.setFormula("H2SiF6", true);
 
         return id;
     }

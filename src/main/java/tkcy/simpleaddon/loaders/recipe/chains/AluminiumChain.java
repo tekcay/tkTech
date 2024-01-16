@@ -1,7 +1,6 @@
 package tkcy.simpleaddon.loaders.recipe.chains;
 
-import static gregtech.api.recipes.RecipeMaps.CHEMICAL_BATH_RECIPES;
-import static gregtech.api.recipes.RecipeMaps.EXTRACTOR_RECIPES;
+import static gregtech.api.recipes.RecipeMaps.*;
 import static gregtech.api.unification.material.Materials.*;
 import static gregtech.api.unification.ore.OrePrefix.*;
 import static tkcy.simpleaddon.api.TKCYSAValues.SECOND;
@@ -15,6 +14,50 @@ import tkcy.simpleaddon.api.recipes.TKCYSARecipeMaps;
 public class AluminiumChain {
 
     public static void init() {
+
+        // HexafluorosilicAcid
+        // 6 HF + SiO2 -> H2SiF6 + 2 H2O
+        CHEMICAL_RECIPES.recipeBuilder()
+                .input(dust, SiliconDioxide)
+                .fluidInputs(HydrofluoricAcid.getFluid(6000))
+                .fluidOutputs(HexafluorosilicAcid.getFluid(1000))
+                .fluidOutputs(Water.getFluid(2000))
+                .duration(100)
+                .EUt(30)
+                .buildAndRegister();
+
+        // AluminiumFluoride
+
+        // 2 Al + 3 F2 -> 2 AlF3
+        CHEMICAL_RECIPES.recipeBuilder()
+                .input(dust, Aluminium, 2)
+                .fluidOutputs(Alumina.getFluid(GTValues.L / 2))
+                .duration(100)
+                .EUt(30)
+                .buildAndRegister();
+
+        // 5 Al2O3 + 9 H2SiF6 -> 8 AlF3 + 3 H2O
+        CHEMICAL_RECIPES.recipeBuilder()
+                .input(dust, Alumina, 5)
+                .fluidInputs(HexafluorosilicAcid.getFluid(9000))
+                .fluidOutputs(AluminiumFluoride.getFluid(8000))
+                .fluidOutputs(Water.getFluid(3000))
+                .duration(100)
+                .EUt(30)
+                .buildAndRegister();
+
+        // Cryolite
+        // 18 NaOH + 5 Al2O3 + 24 HF -> 20 Cryolite + 27 H2O
+        CHEMICAL_RECIPES.recipeBuilder()
+                .input(dust, SodiumHydroxide, 18)
+                .input(dust, Alumina, 5)
+                .fluidInputs(HydrofluoricAcid.getFluid(24000))
+                .fluidOutputs(Water.getFluid(27000))
+                .fluidOutputs(Cryolite.getFluid(20000))
+                .duration(100)
+                .EUt(30)
+                .buildAndRegister();
+
         // STEP 1
 
         // Bauxite + 1.5 KOH -> 2 KAlO2 + (2 FeTiO3 + TiO2) tinyDust
