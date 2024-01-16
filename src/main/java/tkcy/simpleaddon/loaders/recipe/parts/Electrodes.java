@@ -1,18 +1,37 @@
 package tkcy.simpleaddon.loaders.recipe.parts;
 
+import static gregtech.api.unification.material.Materials.Carbon;
+
 import gregtech.api.recipes.RecipeMaps;
 import gregtech.api.unification.material.Material;
 import gregtech.api.unification.material.properties.IngotProperty;
 import gregtech.api.unification.material.properties.PropertyKey;
 import gregtech.api.unification.ore.OrePrefix;
+
 import tkcy.simpleaddon.api.unification.ore.TKCYSAOrePrefix;
 
 public class Electrodes {
+
+    /**
+     * To use for materials which unification is disabled
+     * 
+     * @param material
+     */
+    public static void addElectrodesProcesses(Material material) {
+        OrePrefix orePrefix = OrePrefix.stickLong;
+        IngotProperty ingotProperty = new IngotProperty();
+
+        electrode(orePrefix, material, ingotProperty);
+        anode(orePrefix, material, ingotProperty);
+        cathode(orePrefix, material, ingotProperty);
+    }
 
     public static void init() {
         TKCYSAOrePrefix.cathode.addProcessingHandler(PropertyKey.INGOT, Electrodes::cathode);
         TKCYSAOrePrefix.anode.addProcessingHandler(PropertyKey.INGOT, Electrodes::anode);
         TKCYSAOrePrefix.electrode.addProcessingHandler(PropertyKey.INGOT, Electrodes::electrode);
+
+        addElectrodesProcesses(Carbon);
     }
 
     private static void electrode(OrePrefix orePrefix, Material material, IngotProperty property) {

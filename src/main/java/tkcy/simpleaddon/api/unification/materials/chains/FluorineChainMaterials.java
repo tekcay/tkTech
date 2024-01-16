@@ -40,7 +40,7 @@ public class FluorineChainMaterials {
                 .colorAverage()
                 .build();
 
-        CalciumSulfonate = new Material.Builder(id++, gregtechId("calcium_sulfonate"))
+        CalciumSulfate = new Material.Builder(id++, gregtechId("calcium_sulfate"))
                 .dust()
                 .flags(DISABLE_DECOMPOSITION)
                 .iconSet(MaterialIconSet.BRIGHT)

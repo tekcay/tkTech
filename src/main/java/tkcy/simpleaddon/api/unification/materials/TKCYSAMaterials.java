@@ -55,7 +55,14 @@ public class TKCYSAMaterials {
     // FluorineChain
     public static Material PotassiumBifluoride;
     public static Material Fluorite;
-    public static Material CalciumSulfonate;
+
+    /**
+     * Used in
+     * Fireproofing:
+     * Fire-Resistant Materials: Calcium sulfate can contribute to the fire resistance of certain materials, making it
+     * useful in applications where fireproofing is essential.
+     */
+    public static Material CalciumSulfate;
     public static Material LithiumFluoride;
     public static Material SodiumFluoride;
     public static Material PotassiumFluoride;

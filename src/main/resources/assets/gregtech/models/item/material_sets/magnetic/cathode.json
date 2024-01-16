@@ -1,5 +1,6 @@
 {"parent": "item/generated", 
  "textures": 
- {"layer0": "tkcysa:items/material_sets/magnetic/cathode"
+     {"layer0": "tkcysa:items/electrode/electrode",
+       "layer1": "tkcysa:items/electrode/minus"
  } 
  }

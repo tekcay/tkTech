@@ -1,7 +1,7 @@
 package tkcy.simpleaddon.loaders.recipe.chains;
 
 import static gregtech.api.GTValues.*;
-import static gregtech.api.recipes.RecipeMaps.CHEMICAL_RECIPES;
+import static gregtech.api.recipes.RecipeMaps.*;
 import static gregtech.api.recipes.RecipeMaps.EXTRACTOR_RECIPES;
 import static gregtech.api.unification.material.Materials.*;
 import static gregtech.api.unification.ore.OrePrefix.dust;
@@ -15,10 +15,10 @@ public class FluorineChain {
 
     public static void init() {
         // CaF2 + H2SO4 -> CaSO4 + 2 HF
-        CHEMICAL_RECIPES.recipeBuilder()
+        CHEMICAL_BATH_RECIPES.recipeBuilder()
                 .input(dust, Fluorite, 1)
                 .fluidInputs(SulfuricAcid.getFluid(1000))
-                .output(dust, CalciumSulfonate, 1)
+                .output(dust, CalciumSulfate, 1)
                 .fluidOutputs(HydrofluoricAcid.getFluid(1000))
                 .duration(80)
                 .EUt(VA[LV])
