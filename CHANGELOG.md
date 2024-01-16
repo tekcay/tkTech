@@ -3,6 +3,7 @@
 ## v0.1
 
 ### Features
+- Fluorine chain ([#13](https://github.com/tekcay/tkcy-simple-addon/pull/13))
 - Aluminium chain ([#12](https://github.com/tekcay/tkcy-simple-addon/pull/12))
 - Added Galvanized Steel addition, production and usage, Primitive Roaster
 and Fluid Blast Furnace, Advanced Electrolyzer, casting ([#11](https://github.com/tekcay/tkcy-simple-addon/pull/11))
