@@ -1,7 +1,7 @@
 package tkcy.simpleaddon.api.unification;
 
 import static gregtech.api.unification.material.Materials.*;
-import static tkcy.simpleaddon.api.unification.TKCYSAMaterials.*;
+import static tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials.*;
 
 public class MaterialsFormula {
 

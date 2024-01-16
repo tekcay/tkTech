@@ -1,7 +1,9 @@
-package tkcy.simpleaddon.api.unification;
+package tkcy.simpleaddon.api.unification.materials;
 
 import gregtech.api.unification.material.Material;
 
+import tkcy.simpleaddon.api.unification.*;
+import tkcy.simpleaddon.api.unification.materials.chains.*;
 import tkcy.simpleaddon.api.unification.properties.PropertiesAddition;
 
 public class TKCYSAMaterials {
@@ -11,9 +13,15 @@ public class TKCYSAMaterials {
         TKCYSAFirstDegreeMaterials.init();
 
         // 4201
-        TKCYSASecondDegreeMaterials.init();
+        int id = 4200;
+        id = RoastingMaterials.init(id);
+        id = AluminiumChainMaterials.init(id);
+        id = GoldChainMaterials.init(id);
+        id = ChromiteChainMaterials.init(id);
+        id = ZincChainMaterials.init(id);
+        id = SmallChains.init(id);
 
-        RoastingMaterials.init(4400);
+        id = AlloysMaterials.init(id);
 
         MaterialsFormula.init();
 
@@ -73,6 +81,14 @@ public class TKCYSAMaterials {
     public static Material GermaniumOxide;
     public static Material GermaniumTetrachloride;
     public static Material Argyrodite;
+
+    // BauxiteChain
+    public static Material PotassiumAluminate;
+    public static Material SodiumAluminate;
+    public static Material AluminiumFluoride;
+    public static Material Cryolite;
+    public static Material HexafluorosilicAcid;
+    public static Material AluminiumHydroxide;
 
     // Alloys
     public static Material GalvanizedSteel;

@@ -2,7 +2,7 @@ package tkcy.simpleaddon.loaders.recipe.handlers;
 
 import static gregtech.api.unification.material.Materials.*;
 import static gregtech.api.unification.ore.OrePrefix.dust;
-import static tkcy.simpleaddon.api.unification.TKCYSAMaterials.*;
+import static tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials.*;
 
 import java.util.List;
 import java.util.stream.Collectors;

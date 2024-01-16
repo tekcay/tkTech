@@ -5,7 +5,7 @@ import static gregtech.api.unification.material.Materials.*;
 import static gregtech.api.unification.ore.OrePrefix.*;
 import static tkcy.simpleaddon.api.recipes.TKCYSARecipeMaps.ADVANCED_ELECTROLYSIS;
 import static tkcy.simpleaddon.api.recipes.TKCYSARecipeMaps.FLUID_PRIMITIVE_BLAST;
-import static tkcy.simpleaddon.api.unification.TKCYSAMaterials.ZincSulfate;
+import static tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials.ZincSulfate;
 
 import gregtech.api.GTValues;
 

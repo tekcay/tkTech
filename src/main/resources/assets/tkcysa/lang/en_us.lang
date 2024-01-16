@@ -6,6 +6,13 @@ gregtech.material.sodium_carbonate=Sodium Carbonate
 gregtech.material.sodium_sulfate=Sodium Sulfate
 gregtech.material.potassium_sulfate=Potassium Sulfate
 
+##AluminiumChain
+gregtech.material.aluminium_fluoride=Aluminium Fluoride
+gregtech.material.potassium_aluminate=Potassium Aluminate
+gregtech.material.sodium_aluminate=Sodium Aluminate
+gregtech.material.cryolite=Cryolite
+gregtech.material.hexafluorosilic_acid=Hexafluorosilic Acid
+
 ##GoldChain
 gregtech.material.precious_metal=Precious Metal
 gregtech.material.gold_alloy=Gold Alloy

@@ -3,14 +3,14 @@ package tkcy.simpleaddon.loaders.recipe.chains;
 import static gregtech.api.recipes.RecipeMaps.*;
 import static gregtech.api.unification.material.Materials.*;
 import static gregtech.api.unification.ore.OrePrefix.*;
-import static tkcy.simpleaddon.api.unification.TKCYSAMaterials.*;
+import static tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials.*;
 
 import gregtech.api.GTValues;
 import gregtech.api.recipes.RecipeMaps;
 
 public class GoldChain {
 
-    public static void init() {
+    public static void init(int id) {
         // STEP 1
         // 3 Cu + Au? -> Cu3Au?
         BLAST_RECIPES.recipeBuilder().duration(80)
