@@ -118,5 +118,11 @@ item.material.oreprefix.electrode=%s Electrode
 
 #
 tkcysa.test_display.height=Height: %d
+
+##Machines tooltips
+tkcysa.machine.gas_release.1=Release gases into the atmosphere
+tkcysa.machine.gas_release.2=Every additional 3 layers add one parallel point
+
+
 ##RecipeCategories
 #tkcysa.recipe.category.galvanizing=Galvanizing

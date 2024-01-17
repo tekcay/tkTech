@@ -3,17 +3,22 @@ package tkcy.simpleaddon.common.metatileentities.multiprimitive;
 import static gregtech.common.blocks.BlockBoilerCasing.BoilerCasingType.STEEL_PIPE;
 import static gregtech.common.blocks.MetaBlocks.BOILER_CASING;
 
+import java.util.List;
 import java.util.function.Function;
 
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.resources.I18n;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
@@ -67,6 +72,14 @@ public class GasRelease extends NoEnergyMultiController implements RepetitiveSid
         this.recipeMapWorkable.setParallelLimit(this.getParallelNumber());
         this.recipeMapWorkable.applyParallelBonus(TKCYSARecipeMaps.GAS_RELEASE.recipeBuilder());
         initializeAbilities();
+    }
+
+    @Override
+    public void addInformation(ItemStack stack, @Nullable World player, @NotNull List<String> tooltip,
+                               boolean advanced) {
+        super.addInformation(stack, player, tooltip, advanced);
+        tooltip.add(I18n.format("tkcysa.machine.gas_release.1"));
+        tooltip.add(I18n.format("tkcysa.machine.gas_release.2"));
     }
 
     @Override
