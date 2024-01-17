@@ -111,6 +111,7 @@ tkcysa.machine.electrolyzer.name=Electrolyzer
 tkcysa.machine.assembler.name=Assembling Machine
 tkcysa.machine.dryer.name=Dryer
 tkcysa.machine.gas_release.name=Gas Release
+tkcysa.machine.alloying_crucible.name=Alloying Crucible
 
 tkcysa.machine.fluid_primitive_blast_furnace.name=Fluid Primitive Blast Furnace
 tkcysa.machine.primitive_casting.name=Primitive Casting
@@ -139,7 +140,9 @@ tkcysa.test_display.height=Height: %d
 
 ##Machines tooltips
 tkcysa.machine.gas_release.1=Release gases into the atmosphere
-tkcysa.machine.gas_release.2=Every additional 3 layers add one parallel point
+tkcysa.machine.alloying_crucible.1=Release gases into the atmosphere
+
+tkcysa.machine.parallel.tooltip=Every additional %d layers add one parallel point
 
 
 ##RecipeCategories

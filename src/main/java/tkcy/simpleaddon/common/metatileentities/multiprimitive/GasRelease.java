@@ -39,7 +39,6 @@ import tkcy.simpleaddon.api.recipes.logic.NoEnergyParallelLogic;
 public class GasRelease extends NoEnergyMultiController implements RepetitiveSide {
 
     private int height = 1;
-    private final String heightMarker = "height";
 
     public GasRelease(ResourceLocation metaTileEntityId) {
         super(metaTileEntityId, TKCYSARecipeMaps.GAS_RELEASE);
@@ -79,7 +78,7 @@ public class GasRelease extends NoEnergyMultiController implements RepetitiveSid
                                boolean advanced) {
         super.addInformation(stack, player, tooltip, advanced);
         tooltip.add(I18n.format("tkcysa.machine.gas_release.1"));
-        tooltip.add(I18n.format("tkcysa.machine.gas_release.2"));
+        addParallelTooltip(tooltip);
     }
 
     @Override
@@ -103,14 +102,14 @@ public class GasRelease extends NoEnergyMultiController implements RepetitiveSid
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound data) {
         super.writeToNBT(data);
-        data.setInteger(this.heightMarker, this.height);
+        data.setInteger(RepetitiveSide.getHeightMarker(), this.height);
         return data;
     }
 
     @Override
     public void readFromNBT(NBTTagCompound data) {
         super.readFromNBT(data);
-        this.height = data.getInteger(this.heightMarker);
+        this.height = data.getInteger(RepetitiveSide.getHeightMarker());
     }
 
     @Override
@@ -146,8 +145,8 @@ public class GasRelease extends NoEnergyMultiController implements RepetitiveSid
     }
 
     @Override
-    public int getParallelNumber() {
-        return this.height / 3;
+    public int getLayersPerParallel() {
+        return 3;
     }
 
     @Override
