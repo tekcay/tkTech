@@ -10,7 +10,7 @@ import gregtech.api.metatileentity.multiblock.RecipeMapMultiblockController;
 import gregtech.api.pattern.TraceabilityPredicate;
 import gregtech.api.recipes.RecipeMap;
 
-import tkcy.simpleaddon.api.logic.NoEnergyLogic;
+import tkcy.simpleaddon.api.recipes.logic.NoEnergyLogic;
 
 public abstract class NoEnergyMultiController extends RecipeMapMultiblockController {
 

@@ -1,4 +1,4 @@
-package tkcy.simpleaddon.api.logic;
+package tkcy.simpleaddon.api.recipes.logic;
 
 import static gregtech.api.recipes.logic.OverclockingLogic.standardOverclockingLogic;
 

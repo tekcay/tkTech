@@ -18,7 +18,7 @@ public interface RepetitiveSide {
 
     MetaTileEntity getMetatileEntity();
 
-    void setParallelNumber();
+    int getParallelNumber();
 
     Function<Integer, BlockPos> getRepetitiveDirection();
 

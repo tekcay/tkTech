@@ -29,6 +29,7 @@ import gregtech.client.renderer.texture.Textures;
 import tkcy.simpleaddon.api.machines.NoEnergyMultiController;
 import tkcy.simpleaddon.api.metatileentities.RepetitiveSide;
 import tkcy.simpleaddon.api.recipes.TKCYSARecipeMaps;
+import tkcy.simpleaddon.api.recipes.logic.NoEnergyParallelLogic;
 
 public class GasRelease extends NoEnergyMultiController implements RepetitiveSide {
 
@@ -37,6 +38,7 @@ public class GasRelease extends NoEnergyMultiController implements RepetitiveSid
 
     public GasRelease(ResourceLocation metaTileEntityId) {
         super(metaTileEntityId, TKCYSARecipeMaps.GAS_RELEASE);
+        this.recipeMapWorkable = new NoEnergyParallelLogic(this);
     }
 
     @Override
@@ -62,7 +64,8 @@ public class GasRelease extends NoEnergyMultiController implements RepetitiveSid
     protected void formStructure(PatternMatchContext context) {
         super.formStructure(context);
         this.height = getHeight();
-        setParallelNumber();
+        this.recipeMapWorkable.setParallelLimit(this.getParallelNumber());
+        this.recipeMapWorkable.applyParallelBonus(TKCYSARecipeMaps.GAS_RELEASE.recipeBuilder());
         initializeAbilities();
     }
 
@@ -85,9 +88,16 @@ public class GasRelease extends NoEnergyMultiController implements RepetitiveSid
     }
 
     @Override
+    public NBTTagCompound writeToNBT(NBTTagCompound data) {
+        super.writeToNBT(data);
+        data.setInteger(this.heightMarker, this.height);
+        return data;
+    }
+
+    @Override
     public void readFromNBT(NBTTagCompound data) {
         super.readFromNBT(data);
-        this.height = data.getInteger("height");
+        this.height = data.getInteger(this.heightMarker);
     }
 
     @Override
@@ -123,8 +133,8 @@ public class GasRelease extends NoEnergyMultiController implements RepetitiveSid
     }
 
     @Override
-    public void setParallelNumber() {
-        this.recipeMapWorkable.setParallelLimit(this.height / 3);
+    public int getParallelNumber() {
+        return this.height / 3;
     }
 
     @Override
