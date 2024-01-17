@@ -93,6 +93,7 @@ tkcysa.machine.primitive_roasting_oven.name=Primitive Roasting Oven
 tkcysa.machine.electrolyzer.name=Electrolyzer
 tkcysa.machine.assembler.name=Assembling Machine
 tkcysa.machine.dryer.name=Dryer
+tkcysa.machine.gas_release.name=Gas Release
 
 tkcysa.machine.fluid_primitive_blast_furnace.name=Fluid Primitive Blast Furnace
 tkcysa.machine.primitive_casting.name=Primitive Casting
@@ -108,11 +109,20 @@ recipemap.advanced_assembling.name=Assembling
 recipemap.fluid_primitive_blast.name=Fluid Blasting
 recipemap.casting.name=Casting
 recipemap.drying.name=Drying
+recipemap.gas_release.name=Gas Release
 
 # Ore Prefixes
 item.material.oreprefix.cathode=%s Cathode
 item.material.oreprefix.anode=%s Anode
 item.material.oreprefix.electrode=%s Electrode
+
+#
+tkcysa.test_display.height=Height: %d
+
+##Machines tooltips
+tkcysa.machine.gas_release.1=Release gases into the atmosphere
+tkcysa.machine.gas_release.2=Every additional 3 layers add one parallel point
+
 
 ##RecipeCategories
 #tkcysa.recipe.category.galvanizing=Galvanizing

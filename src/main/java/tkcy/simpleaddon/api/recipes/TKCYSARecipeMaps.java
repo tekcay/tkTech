@@ -30,6 +30,10 @@ public final class TKCYSARecipeMaps {
     public static final RecipeMap<SimpleRecipeBuilder> DRYING = new RecipeMap<>("drying", 1, 1, 1, 1,
             new SimpleRecipeBuilder(), false)
                     .setSound(GTSoundEvents.BOILER);
+    public static final RecipeMap<NoEnergyRecipeBuilder> GAS_RELEASE = new MinimalPrimitiveRecipeMap<>("gas_release", 0,
+            0, 1, 0,
+            new NoEnergyRecipeBuilder(), false)
+                    .setSound(GTSoundEvents.BOILER);
 
     private TKCYSARecipeMaps() {}
 }

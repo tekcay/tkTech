@@ -17,6 +17,7 @@ public final class TKCYSARecipeLoader {
         MiscChemicals.init();
         PrimitiveCastingHandler.init();
         PartsHandler.init();
+        GasReleaseHandler.generateRecipes();
 
         MTEs.init();
 
