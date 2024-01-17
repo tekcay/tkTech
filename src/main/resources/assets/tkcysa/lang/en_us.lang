@@ -127,6 +127,7 @@ recipemap.fluid_primitive_blast.name=Fluid Blasting
 recipemap.casting.name=Casting
 recipemap.drying.name=Drying
 recipemap.gas_release.name=Gas Release
+recipemap.alloying.name=Alloying
 
 # Ore Prefixes
 item.material.oreprefix.cathode=%s Cathode

@@ -1,6 +1,7 @@
 package tkcy.simpleaddon.loaders.recipe;
 
 import tkcy.simpleaddon.common.TKCYSAConfigHolder;
+import tkcy.simpleaddon.loaders.recipe.alloys.Alloying;
 import tkcy.simpleaddon.loaders.recipe.alloys.GalvanizedSteel;
 import tkcy.simpleaddon.loaders.recipe.chains.*;
 import tkcy.simpleaddon.loaders.recipe.handlers.*;
@@ -18,6 +19,7 @@ public final class TKCYSARecipeLoader {
         PrimitiveCastingHandler.init();
         PartsHandler.init();
         GasReleaseHandler.generateRecipes();
+        Alloying.init();
 
         MTEs.init();
 

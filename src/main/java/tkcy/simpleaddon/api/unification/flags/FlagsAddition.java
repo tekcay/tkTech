@@ -2,10 +2,15 @@ package tkcy.simpleaddon.api.unification.flags;
 
 import static gregtech.api.unification.material.Materials.*;
 import static gregtech.api.unification.material.info.MaterialFlags.*;
+import static tkcy.simpleaddon.api.unification.flags.TKCYSAMaterialFlags.*;
+import static tkcy.simpleaddon.modules.ElectrodeModule.electrodeMaterials;
 
 import org.jetbrains.annotations.ApiStatus;
 
+import gregtech.api.unification.material.Material;
 import gregtech.api.unification.material.Materials;
+
+import tkcy.simpleaddon.modules.AlloyingModules;
 
 @ApiStatus.Internal
 public class FlagsAddition {
@@ -17,19 +22,17 @@ public class FlagsAddition {
         TKCYSAMaterialFlags.GENERATE_ALL.forEach(f -> Steel.addFlags(f));
         Materials.EXT2_METAL.forEach(f -> Brick.addFlags(f));
 
-        Carbon.addFlags(GENERATE_LONG_ROD, TKCYSAMaterialFlags.GENERATE_ELECTRODES);
-        Gold.addFlags(TKCYSAMaterialFlags.GENERATE_ELECTRODES);
-        Copper.addFlags(TKCYSAMaterialFlags.GENERATE_ELECTRODES);
-        Nickel.addFlags(TKCYSAMaterialFlags.GENERATE_ELECTRODES);
-        Zinc.addFlags(TKCYSAMaterialFlags.GENERATE_ELECTRODES);
-        Steel.addFlags(TKCYSAMaterialFlags.GENERATE_ELECTRODES);
-        Palladium.addFlags(TKCYSAMaterialFlags.GENERATE_ELECTRODES);
-        Platinum.addFlags(TKCYSAMaterialFlags.GENERATE_ELECTRODES);
-        Rhodium.addFlags(TKCYSAMaterialFlags.GENERATE_ELECTRODES);
-        Iridium.addFlags(TKCYSAMaterialFlags.GENERATE_ELECTRODES);
-        Rubidium.addFlags(TKCYSAMaterialFlags.GENERATE_ELECTRODES);
-        Molybdenum.addFlags(TKCYSAMaterialFlags.GENERATE_ELECTRODES);
-        Iron.addFlags(TKCYSAMaterialFlags.GENERATE_ELECTRODES);
-        Ruthenium.addFlags(TKCYSAMaterialFlags.GENERATE_ELECTRODES);
+        Carbon.addFlags(GENERATE_LONG_ROD);
+
+        electrodeMaterials.forEach(FlagsAddition::addElectrodeFlag);
+        AlloyingModules.materialsAlloy.forEach(FlagsAddition::addAlloyFlag);
+    }
+
+    public static void addAlloyFlag(Material material) {
+        material.addFlags(ALLOY);
+    }
+
+    public static void addElectrodeFlag(Material material) {
+        material.addFlags(GENERATE_ELECTRODES);
     }
 }

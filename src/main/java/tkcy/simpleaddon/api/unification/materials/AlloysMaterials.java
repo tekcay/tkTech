@@ -5,8 +5,7 @@ import static gregtech.api.unification.material.info.MaterialFlags.DISABLE_DECOM
 import static gregtech.api.unification.material.info.MaterialFlags.NO_SMELTING;
 import static gregtech.api.unification.material.info.MaterialIconSet.METALLIC;
 import static gregtech.api.util.GTUtility.gregtechId;
-import static tkcy.simpleaddon.api.unification.flags.TKCYSAMaterialFlags.GENERATE_ALL;
-import static tkcy.simpleaddon.api.unification.flags.TKCYSAMaterialFlags.GENERATE_ALL_NO_UNIF;
+import static tkcy.simpleaddon.api.unification.flags.TKCYSAMaterialFlags.*;
 import static tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials.*;
 
 import gregtech.api.unification.material.Material;
@@ -24,7 +23,9 @@ public class AlloysMaterials {
 
         Monel = new Material.Builder(id++, gregtechId("monel"))
                 .ingot()
-                .flags(EXT2_METAL)
+                .fluid()
+                .flags(GENERATE_ALL)
+                .flags(ALLOY)
                 .components(Nickel, 7, Copper, 3)
                 .flags(DISABLE_DECOMPOSITION)
                 .color(0xc1b8a8).iconSet(METALLIC)
@@ -34,6 +35,7 @@ public class AlloysMaterials {
                 .ingot(2)
                 .fluid()
                 .flags(GENERATE_ALL)
+                .flags(ALLOY)
                 .flags(DISABLE_DECOMPOSITION, NO_SMELTING)
                 .components(Cobalt, 8, Chrome, 3, Steel, 3, Vanadium, 1, Tungsten, 4)
                 .colorAverage()
@@ -44,6 +46,7 @@ public class AlloysMaterials {
                 .ingot(2)
                 .fluid()
                 .flags(GENERATE_ALL)
+                .flags(ALLOY)
                 .flags(DISABLE_DECOMPOSITION, NO_SMELTING)
                 .components(Steel, 18, Manganese, 3)
                 .colorAverage()
@@ -54,6 +57,7 @@ public class AlloysMaterials {
                 .ingot(2)
                 .fluid()
                 .flags(GENERATE_ALL)
+                .flags(ALLOY)
                 .flags(DISABLE_DECOMPOSITION, NO_SMELTING)
                 .components(Chrome, 1, Steel, 4, Nickel, 5)
                 .colorAverage()
@@ -64,6 +68,7 @@ public class AlloysMaterials {
                 .ingot(2)
                 .fluid()
                 .flags(GENERATE_ALL)
+                .flags(ALLOY)
                 .flags(DISABLE_DECOMPOSITION, NO_SMELTING)
                 .components(Chrome, 4, Steel, 1, Nickel, 8)
                 .colorAverage()
@@ -74,6 +79,7 @@ public class AlloysMaterials {
                 .ingot(2)
                 .fluid()
                 .flags(GENERATE_ALL)
+                .flags(ALLOY)
                 .flags(DISABLE_DECOMPOSITION, NO_SMELTING)
                 .components(Carbon, 4, Cobalt, 16, Chrome, 28, Tungsten, 1)
                 .colorAverage()
@@ -84,6 +90,7 @@ public class AlloysMaterials {
                 .ingot(2)
                 .fluid()
                 .flags(GENERATE_ALL)
+                .flags(ALLOY)
                 .flags(DISABLE_DECOMPOSITION, NO_SMELTING)
                 .components(Aluminium, 3, Titanium, 24, Vanadium, 1)
                 .colorAverage()

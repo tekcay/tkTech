@@ -6,7 +6,9 @@ import static gregtech.api.unification.material.info.MaterialFlags.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Predicate;
 
+import gregtech.api.unification.material.Material;
 import gregtech.api.unification.material.info.MaterialFlag;
 import gregtech.api.unification.material.properties.PropertyKey;
 
@@ -30,6 +32,10 @@ public final class TKCYSAMaterialFlags {
     public static final MaterialFlag GENERATE_ELECTRODES = new MaterialFlag.Builder("generate_electrodes")
             .requireFlags(GENERATE_LONG_ROD)
             .build();
+    public static final MaterialFlag ALLOY = new MaterialFlag.Builder("alloy")
+            .build();
+
+    public static final Predicate<Material> isAlloy = material -> material.hasFlag(ALLOY);
 
     public static final List<MaterialFlag> GENERATE_ALL = new ArrayList<>();
     public static final List<MaterialFlag> GENERATE_ALL_NO_UNIF = new ArrayList<>();
