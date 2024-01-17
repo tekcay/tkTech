@@ -122,4 +122,11 @@ public class TKCYSAMaterials {
     // Alloys
     public static Material GalvanizedSteel;
     public static Material Monel;
+    public static Material BT6;
+    public static Material Mangalloy;
+    public static Material Talonite;
+    public static Material HastelloyN;
+    public static Material Inconel600;
+    public static Material Inconel690;
+    public static Material TC4;
 }
