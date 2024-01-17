@@ -3,6 +3,7 @@
 ## v0.1
 
 ### Features
+- Gas release multiblock and recipes ([#14](https://github.com/tekcay/tkcy-simple-addon/pull/14))
 - Fluorine chain ([#13](https://github.com/tekcay/tkcy-simple-addon/pull/13))
 - Aluminium chain ([#12](https://github.com/tekcay/tkcy-simple-addon/pull/12))
 - Added Galvanized Steel addition, production and usage, Primitive Roaster
@@ -15,7 +16,7 @@ and Fluid Blast Furnace, Advanced Electrolyzer, casting ([#11](https://github.co
 - Chromite chain ([#1](https://github.com/tekcay/tkcy-simple-addon/pull/1))
 
 ### Internal
-
+- No energy and parallel logic, dynamic side length of a multiblock detection methods ([#14](https://github.com/tekcay/tkcy-simple-addon/pull/14))
 - Updated to GTCEu 2.8.5, added Lombok dependency ([#10](https://github.com/tekcay/tkcy-simple-addon/pull/10))
 - Added config options ([#5](https://github.com/tekcay/tkcy-simple-addon/pull/5))
 - Updated mod version and infos ([#3](https://github.com/tekcay/tkcy-simple-addon/pull/3))
