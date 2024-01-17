@@ -34,7 +34,7 @@ public final class TKCYSARecipeMaps {
             0, 1, 0,
             new NoEnergyRecipeBuilder(), false)
                     .setSound(GTSoundEvents.BOILER);
-    public static final RecipeMap<NoEnergyRecipeBuilder> ALLOYING = new RecipeMap<>("alloying", 0,
+    public static final RecipeMap<NoEnergyRecipeBuilder> ALLOYING = new RecipeMap<>("alloying", 1,
             0, 10, 2,
             new NoEnergyRecipeBuilder(), false)
                     .setSound(GTSoundEvents.BOILER);

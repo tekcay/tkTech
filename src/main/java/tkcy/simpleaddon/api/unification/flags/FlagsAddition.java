@@ -3,14 +3,13 @@ package tkcy.simpleaddon.api.unification.flags;
 import static gregtech.api.unification.material.Materials.*;
 import static gregtech.api.unification.material.info.MaterialFlags.*;
 import static tkcy.simpleaddon.api.unification.flags.TKCYSAMaterialFlags.*;
+import static tkcy.simpleaddon.modules.AlloyingModule.alloysMaterials;
 import static tkcy.simpleaddon.modules.ElectrodeModule.electrodeMaterials;
 
 import org.jetbrains.annotations.ApiStatus;
 
 import gregtech.api.unification.material.Material;
 import gregtech.api.unification.material.Materials;
-
-import tkcy.simpleaddon.modules.AlloyingModules;
 
 @ApiStatus.Internal
 public class FlagsAddition {
@@ -25,7 +24,7 @@ public class FlagsAddition {
         Carbon.addFlags(GENERATE_LONG_ROD);
 
         electrodeMaterials.forEach(FlagsAddition::addElectrodeFlag);
-        AlloyingModules.materialsAlloy.forEach(FlagsAddition::addAlloyFlag);
+        alloysMaterials.forEach(FlagsAddition::addAlloyFlag);
     }
 
     public static void addAlloyFlag(Material material) {

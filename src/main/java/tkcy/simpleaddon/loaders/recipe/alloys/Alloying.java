@@ -12,10 +12,11 @@ import gregtech.api.GTValues;
 import gregtech.api.GregTechAPI;
 import gregtech.api.recipes.RecipeBuilder;
 import gregtech.api.unification.material.Material;
+import gregtech.api.unification.ore.OrePrefix;
 import gregtech.api.unification.stack.MaterialStack;
 
 import tkcy.simpleaddon.api.recipes.TKCYSARecipeMaps;
-import tkcy.simpleaddon.api.utils.TKCYSAUtil;
+import tkcy.simpleaddon.api.utils.MaterialHelper;
 
 public class Alloying {
 
@@ -27,7 +28,7 @@ public class Alloying {
     }
 
     private static void generateRecipe(Material output) {
-        int componentAmount = TKCYSAUtil.getAmountComponentsSum(output);
+        int componentAmount = MaterialHelper.getAmountComponentsSum(output);
         RecipeBuilder<?> recipeBuilder = TKCYSARecipeMaps.ALLOYING.recipeBuilder();
 
         output.getMaterialComponents()
@@ -36,6 +37,7 @@ public class Alloying {
                 .forEach(recipeBuilder::fluidInputs);
 
         recipeBuilder.fluidOutputs(output.getFluid(componentAmount * GTValues.L))
+                .notConsumable(OrePrefix.dust, output)
                 .duration(SECOND * componentAmount)
                 .buildAndRegister();
     }
