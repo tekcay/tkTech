@@ -27,16 +27,17 @@ import tkcy.simpleaddon.api.machines.NoEnergyMultiController;
 import tkcy.simpleaddon.api.recipes.TKCYSARecipeMaps;
 import tkcy.simpleaddon.api.recipes.logic.NoEnergyLogic;
 
-public class PrimitiveAlloyingCrucible extends NoEnergyMultiController {
+public class AlloyingCrucible extends NoEnergyMultiController {
 
-    public PrimitiveAlloyingCrucible(ResourceLocation metaTileEntityId) {
+    public AlloyingCrucible(ResourceLocation metaTileEntityId) {
         super(metaTileEntityId, TKCYSARecipeMaps.ALLOYING);
         this.recipeMapWorkable = new NoEnergyLogic(this);
+        initializeAbilities();
     }
 
     @Override
     public MetaTileEntity createMetaTileEntity(IGregTechTileEntity tileEntity) {
-        return new PrimitiveAlloyingCrucible(metaTileEntityId);
+        return new AlloyingCrucible(metaTileEntityId);
     }
 
     @Override
@@ -44,10 +45,11 @@ public class PrimitiveAlloyingCrucible extends NoEnergyMultiController {
         return FactoryBlockPattern.start(RelativeDirection.RIGHT, RelativeDirection.FRONT, RelativeDirection.UP)
                 .aisle("XXX", "XAX", "XXX")
                 .aisle("CYC", "C#C", "CCC")
+                .aisle("CCC", "CIC", "CCC")
                 .where('C', cokeBrick()
-                        .or(fluidHatch(false, 2))
-                        .or(itemBus(false, 1)))
-                .where('A', fluidHatch(true, 1))
+                        .or(brickFluidHatch(false, 2)))
+                .where('I', brickItemBus(false, 1))
+                .where('A', brickFluidHatch(true, 1))
                 .where('X', cokeBrick())
                 .where('#', air())
                 .where('Y', selfPredicate())
