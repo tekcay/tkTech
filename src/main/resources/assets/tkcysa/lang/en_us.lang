@@ -87,6 +87,26 @@ gregtech.material.arsenopyrite=Arsenopyrite
 ##Alloys
 gregtech.material.galvanized_steel=Galvanized Steel
 gregtech.material.monel=Monel
+gregtech.material.bt_6=BT6
+gregtech.material.hastelloy_n=Hastelloy N
+gregtech.material.inconel_600=Inconel-600
+gregtech.material.inconel_690=Inconel-690
+gregtech.material.eglin_steel=Eglin Steel
+gregtech.material.af_1410=AF_1410
+gregtech.material.aermet_100=AerMet 100
+gregtech.material.hy_180=HY 180
+gregtech.material.hp_4920=HP 4920
+gregtech.material.stellite_star_j=Stellite Star J
+gregtech.material.mangalloy=Mangalloy
+gregtech.material.talonite=Talonite
+gregtech.material.nitinol=Nitinol
+gregtech.material.nitinol_60=Nitinol-60
+gregtech.material.tc_4=Ti-6Al-4V
+gregtech.material.aluminium_5052=Aluminium 5052
+gregtech.material.aluminium_6061=Aluminium 6061
+
+##Misc materials
+gregtech.material.ceramic=Ceramic
 
 ##MTEs
 tkcysa.machine.primitive_roasting_oven.name=Primitive Roasting Oven
@@ -94,6 +114,7 @@ tkcysa.machine.electrolyzer.name=Electrolyzer
 tkcysa.machine.assembler.name=Assembling Machine
 tkcysa.machine.dryer.name=Dryer
 tkcysa.machine.gas_release.name=Gas Release
+tkcysa.machine.alloying_crucible.name=Alloying Crucible
 
 tkcysa.machine.fluid_primitive_blast_furnace.name=Fluid Primitive Blast Furnace
 tkcysa.machine.primitive_casting.name=Primitive Casting
@@ -110,6 +131,7 @@ recipemap.fluid_primitive_blast.name=Fluid Blasting
 recipemap.casting.name=Casting
 recipemap.drying.name=Drying
 recipemap.gas_release.name=Gas Release
+recipemap.alloying.name=Alloying
 
 # Ore Prefixes
 item.material.oreprefix.cathode=%s Cathode
@@ -121,7 +143,16 @@ tkcysa.test_display.height=Height: %d
 
 ##Machines tooltips
 tkcysa.machine.gas_release.1=Release gases into the atmosphere
-tkcysa.machine.gas_release.2=Every additional 3 layers add one parallel point
+tkcysa.machine.alloying_crucible.1=Release gases into the atmosphere
+
+tkcysa.casting.tooltip.1=Solidifies liquid into parts using mold
+tkcysa.casting.tooltip.2=§fRecipe duration increases as :
+tkcysa.casting.tooltip.3=§f- the fluid temperature §5T1 §fincreases
+tkcysa.casting.tooltip.4=§f- the temperature gap between §d51 §fand the mold temperature capacity increases
+tkcysa.casting.tooltip.5=§f- the required amount to cast the part increases
+tkcysa.casting.tooltip=§e%s §fmolds handle fluids up to §c%dK
+
+tkcysa.machine.parallel.tooltip=Every additional %d layers add one parallel point
 
 
 ##RecipeCategories

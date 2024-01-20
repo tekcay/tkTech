@@ -1,7 +1,7 @@
 package tkcy.simpleaddon.common.metatileentities.multiprimitive;
 
+import static tkcy.simpleaddon.api.predicates.Predicates.brickItemBus;
 import static tkcy.simpleaddon.api.predicates.Predicates.cokeBrick;
-import static tkcy.simpleaddon.api.predicates.Predicates.itemBus;
 
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
@@ -38,8 +38,8 @@ public class PrimitiveRoastingOven extends NoEnergyMultiController {
                 .aisle("XXX", "X#X", "-X-")
                 .aisle("XXX", "XYX", "-X-")
                 .where('X', cokeBrick()
-                        .or(itemBus(true, 1))
-                        .or(itemBus(false, 1)))
+                        .or(brickItemBus(true, 1))
+                        .or(brickItemBus(false, 1)))
                 .where('#', air())
                 .where('-', any())
                 .where('Y', selfPredicate())

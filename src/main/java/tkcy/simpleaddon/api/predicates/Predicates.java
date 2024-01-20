@@ -18,22 +18,22 @@ public class Predicates {
         return states(MetaBlocks.METAL_CASING.getState(BlockMetalCasing.MetalCasingType.COKE_BRICKS));
     }
 
-    public static TraceabilityPredicate fluidHatch(boolean isExport) {
+    public static TraceabilityPredicate brickFluidHatch(boolean isExport) {
         return isExport ? metaTileEntities(BRICK_FLUID_HATCH[1]) : metaTileEntities(BRICK_FLUID_HATCH[0]);
     }
 
-    public static TraceabilityPredicate fluidHatch(boolean isExport, int amount) {
-        return fluidHatch(isExport)
+    public static TraceabilityPredicate brickFluidHatch(boolean isExport, int amount) {
+        return brickFluidHatch(isExport)
                 .setExactLimit(amount)
                 .setPreviewCount(amount);
     }
 
-    public static TraceabilityPredicate itemBus(boolean isExport) {
+    public static TraceabilityPredicate brickItemBus(boolean isExport) {
         return isExport ? metaTileEntities(BRICK_ITEM_BUS[1]) : metaTileEntities(BRICK_ITEM_BUS[0]);
     }
 
-    public static TraceabilityPredicate itemBus(boolean isExport, int amount) {
-        return itemBus(isExport)
+    public static TraceabilityPredicate brickItemBus(boolean isExport, int amount) {
+        return brickItemBus(isExport)
                 .setExactLimit(amount)
                 .setPreviewCount(amount);
     }

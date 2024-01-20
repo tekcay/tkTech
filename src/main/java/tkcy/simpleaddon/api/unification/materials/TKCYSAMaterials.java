@@ -7,6 +7,7 @@ import tkcy.simpleaddon.api.unification.RoastingMaterials;
 import tkcy.simpleaddon.api.unification.TKCYSAFirstDegreeMaterials;
 import tkcy.simpleaddon.api.unification.iconset.MaterialIconAddition;
 import tkcy.simpleaddon.api.unification.materials.chains.*;
+import tkcy.simpleaddon.api.unification.materials.other.MiscMaterials;
 import tkcy.simpleaddon.api.unification.properties.PropertiesAddition;
 
 public class TKCYSAMaterials {
@@ -27,6 +28,8 @@ public class TKCYSAMaterials {
         id = SmallChains.init(id);
 
         id = AlloysMaterials.init(id);
+
+        id = MiscMaterials.register(id);
 
         MaterialsFormula.init();
 
@@ -122,4 +125,14 @@ public class TKCYSAMaterials {
     // Alloys
     public static Material GalvanizedSteel;
     public static Material Monel;
+    public static Material BT6;
+    public static Material Mangalloy;
+    public static Material Talonite;
+    public static Material HastelloyN;
+    public static Material Inconel600;
+    public static Material Inconel690;
+    public static Material TC4;
+
+    // Misc
+    public static Material Ceramic;
 }

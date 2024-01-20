@@ -2,43 +2,54 @@ package tkcy.simpleaddon.common.metatileentities.multiprimitive;
 
 import static tkcy.simpleaddon.api.predicates.Predicates.*;
 
+import java.util.List;
+
+import net.minecraft.client.resources.I18n;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
 import gregtech.api.metatileentity.multiblock.IMultiblockPart;
 import gregtech.api.pattern.BlockPattern;
 import gregtech.api.pattern.FactoryBlockPattern;
+import gregtech.api.util.RelativeDirection;
 import gregtech.client.renderer.ICubeRenderer;
 import gregtech.client.renderer.texture.Textures;
 
 import tkcy.simpleaddon.api.machines.NoEnergyMultiController;
 import tkcy.simpleaddon.api.recipes.TKCYSARecipeMaps;
+import tkcy.simpleaddon.api.recipes.logic.NoEnergyLogic;
 
-public class FluidPrimitiveBlastFurnace extends NoEnergyMultiController {
+public class AlloyingCrucible extends NoEnergyMultiController {
 
-    public FluidPrimitiveBlastFurnace(ResourceLocation metaTileEntityId) {
-        super(metaTileEntityId, TKCYSARecipeMaps.FLUID_PRIMITIVE_BLAST);
+    public AlloyingCrucible(ResourceLocation metaTileEntityId) {
+        super(metaTileEntityId, TKCYSARecipeMaps.ALLOYING);
+        this.recipeMapWorkable = new NoEnergyLogic(this);
+        initializeAbilities();
     }
 
     @Override
     public MetaTileEntity createMetaTileEntity(IGregTechTileEntity tileEntity) {
-        return new FluidPrimitiveBlastFurnace(metaTileEntityId);
+        return new AlloyingCrucible(metaTileEntityId);
     }
 
     @Override
     protected @NotNull BlockPattern createStructurePattern() {
-        return FactoryBlockPattern.start()
-                .aisle("AAA", "XXX", "XXX", "BBB")
-                .aisle("AAA", "XXX", "X#X", "BCB")
-                .aisle("AAA", "XYX", "XXX", "BBB")
-                .where('A', cokeBrick().or(brickFluidHatch(true, 1)))
-                .where('B', cokeBrick().or(brickItemBus(false, 2)))
-                .where('C', cokeBrick().or(brickFluidHatch(false, 1)))
+        return FactoryBlockPattern.start(RelativeDirection.RIGHT, RelativeDirection.FRONT, RelativeDirection.UP)
+                .aisle("XXX", "XAX", "XXX")
+                .aisle("CYC", "C#C", "CCC")
+                .aisle("CCC", "CIC", "CCC")
+                .where('C', cokeBrick()
+                        .or(brickFluidHatch(false, 2)))
+                .where('I', brickItemBus(false, 1))
+                .where('A', brickFluidHatch(true, 1))
                 .where('X', cokeBrick())
                 .where('#', air())
                 .where('Y', selfPredicate())
@@ -56,5 +67,12 @@ public class FluidPrimitiveBlastFurnace extends NoEnergyMultiController {
     @Override
     public ICubeRenderer getBaseTexture(IMultiblockPart sourcePart) {
         return Textures.COKE_BRICKS;
+    }
+
+    @Override
+    public void addInformation(ItemStack stack, @Nullable World player, @NotNull List<String> tooltip,
+                               boolean advanced) {
+        super.addInformation(stack, player, tooltip, advanced);
+        tooltip.add(I18n.format("tkcysa.machine.alloying_crucible.1"));
     }
 }

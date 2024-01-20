@@ -1,8 +1,8 @@
 package tkcy.simpleaddon.loaders.recipe.handlers.harderstuff;
 
-import static gregtech.api.unification.material.Materials.Magnalium;
+import static gregtech.api.unification.material.Materials.StainlessSteel;
 import static gregtech.api.unification.material.Materials.Steel;
-import static tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials.GalvanizedSteel;
+import static tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials.*;
 
 import net.minecraft.item.ItemStack;
 
@@ -25,10 +25,18 @@ public class HarderMachineCasings {
         removeAllRecipes(0);
         removeAllRecipes(1);
         removeAllRecipes(2);
+        removeAllRecipes(3);
+        removeAllRecipes(4);
+        removeAllRecipes(5);
+        removeAllRecipes(6);
 
         addAssemblingRecipe(Steel, 0);
         addAssemblingRecipe(GalvanizedSteel, 1);
-        addAssemblingRecipe(Magnalium, 2);
+        addAssemblingRecipe(Mangalloy, 2);
+        addAssemblingRecipe(StainlessSteel, 3);
+        addAssemblingRecipe(BT6, 4);
+        addAssemblingRecipe(Talonite, 5);
+        addAssemblingRecipe(HastelloyN, 6);
 
         ulvMachineCasing();
     }

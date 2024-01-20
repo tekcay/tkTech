@@ -18,6 +18,7 @@ import net.minecraftforge.registries.IForgeRegistry;
 import tkcy.simpleaddon.TekCaySimpleAddon;
 import tkcy.simpleaddon.api.utils.TKCYSALog;
 import tkcy.simpleaddon.loaders.recipe.TKCYSARecipeLoader;
+import tkcy.simpleaddon.modules.AlloyingModule;
 
 @Mod.EventBusSubscriber(modid = TekCaySimpleAddon.MODID)
 public class CommonProxy {
@@ -41,6 +42,8 @@ public class CommonProxy {
     public static void registerItems(RegistryEvent.Register<Item> event) {
         TKCYSALog.logger.info("Registering Items...");
         IForgeRegistry<Item> registry = event.getRegistry();
+
+        AlloyingModule.setAlloyFluidTemperature();
     }
 
     private static <T extends Block> ItemBlock createItemBlock(T block, Function<T, ItemBlock> producer) {
