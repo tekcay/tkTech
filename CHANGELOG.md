@@ -3,6 +3,7 @@
 ## v0.1
 
 ### Features
+- More alloys for harder casings, primitive alloying crucible to make alloys by mixing molten metals ([#15](https://github.com/tekcay/tkcy-simple-addon/pull/15))
 - Gas release multiblock and recipes ([#14](https://github.com/tekcay/tkcy-simple-addon/pull/14))
 - Fluorine chain ([#13](https://github.com/tekcay/tkcy-simple-addon/pull/13))
 - Aluminium chain ([#12](https://github.com/tekcay/tkcy-simple-addon/pull/12))
