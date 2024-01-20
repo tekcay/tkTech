@@ -13,7 +13,7 @@ import java.util.List;
 import gregtech.api.GTValues;
 import gregtech.api.unification.ore.OrePrefix;
 
-public class GalvanizedSteel {
+public class GalvanizedSteelRecipes {
 
     public static List<OrePrefix> PREFIXES = new ArrayList<>();
 
@@ -45,7 +45,7 @@ public class GalvanizedSteel {
     }
 
     public static void init() {
-        PREFIXES.forEach(tkcy.simpleaddon.loaders.recipe.alloys.GalvanizedSteel::galvanized);
+        PREFIXES.forEach(GalvanizedSteelRecipes::galvanized);
     }
 
     private static void galvanized(OrePrefix orePrefix) {

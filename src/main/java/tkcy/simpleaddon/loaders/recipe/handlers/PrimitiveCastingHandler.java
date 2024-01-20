@@ -2,8 +2,6 @@ package tkcy.simpleaddon.loaders.recipe.handlers;
 
 import static tkcy.simpleaddon.api.TKCYSAValues.SECOND;
 
-import java.util.function.Predicate;
-
 import gregtech.api.GregTechAPI;
 import gregtech.api.unification.material.Material;
 import gregtech.api.unification.ore.OrePrefix;
@@ -26,15 +24,10 @@ public class PrimitiveCastingHandler {
     private static void generate() {
         GregTechAPI.materialManager.getRegisteredMaterials()
                 .stream()
-                // .filter(isNotMoldMaterial)
                 .filter(Material::hasFluid)
                 .filter(MaterialHelper.hasPlateFlag)
-                // .filter(doesGenerateMoldOutputs)
                 .forEach(PrimitiveCastingHandler::loopAroundMoldMaterials);
     }
-
-    private static final Predicate<Material> isNotMoldMaterial = material -> !CastingInfo.MOLD_MATERIALS
-            .contains(material);
 
     private static void loopAroundMoldMaterials(Material input) {
         CastingInfo.CASTING_INFOS
@@ -52,22 +45,16 @@ public class PrimitiveCastingHandler {
     }
 
     private static void recipe(Material input, Material moldMaterial, OrePrefix orePrefix) {
-        TKCYSALog.logger.info("###############################");
         int fluidAmount = MaterialHelper.getOrePrefixFluidAmount(orePrefix);
-        TKCYSALog.logger.info(String.format("\nfluidInput : %s\n%d K\nmoldMaterial : %s \n%d K\norePrefix : %s",
-                input.getLocalizedName(), MaterialHelper.getMaterialFluidTemperature.apply(input),
-                moldMaterial.getLocalizedName(), MaterialHelper.getMaterialFluidTemperature.apply(moldMaterial),
-                orePrefix.name()));
-
         int duration = getDuration(input, fluidAmount);
-        TKCYSALog.logger.info("duration : " + duration);
-
         int multiplier = CastingInfo.getFluidMaterialGapMultiplier(moldMaterial, input);
-        TKCYSALog.logger.info("multiplier : " + multiplier);
 
         duration *= multiplier;
 
-        if (duration == 0) throw new IllegalArgumentException();
+        if (duration == 0) {
+            sendErrorMessage(input, moldMaterial, orePrefix, fluidAmount, multiplier);
+            throw new IllegalArgumentException();
+        }
 
         TKCYSARecipeMaps.CASTING.recipeBuilder()
                 .fluidInputs(input.getFluid(fluidAmount))
@@ -79,5 +66,22 @@ public class PrimitiveCastingHandler {
 
     private static int getDuration(Material material, int fluidOreAmount) {
         return Math.max(1, (int) (material.getMass() * fluidOreAmount / SECOND));
+    }
+
+    private static void sendErrorMessage(Material input, Material moldMaterial, OrePrefix orePrefix, int fluidAmount,
+                                         int multiplier) {
+        TKCYSALog.logger.error(String.format("""
+                Primitive casting recipe for %s %s with the mold %s %s returned a duration of 0. Error details :
+                fluidAmount = %d
+                duration before multiplier = %d
+                 multiplier = %d""",
+                input.getLocalizedName(),
+                orePrefix.name(),
+                moldMaterial.getLocalizedName(),
+                orePrefix.name(),
+                fluidAmount,
+                getDuration(input, fluidAmount),
+                multiplier));
+        throw new IllegalArgumentException();
     }
 }

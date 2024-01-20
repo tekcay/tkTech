@@ -99,4 +99,14 @@ public class MaterialHelper {
 
     public static final Predicate<Material> isMaterialFluidTemperatureDefault = material -> material.hasFluid() &&
             material.getFluid().getTemperature() != 300;
+
+    public static int getCarbonAmountInMaterial(@NotNull Material material) {
+        return material.getMaterialComponents()
+                .stream()
+                .filter(materialStack -> materialStack.material == Materials.Carbon)
+                .mapToLong(materialStack -> materialStack.amount)
+                .mapToInt(Math::toIntExact)
+                .findFirst()
+                .orElse(0);
+    }
 }

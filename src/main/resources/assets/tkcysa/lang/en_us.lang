@@ -147,7 +147,7 @@ tkcysa.machine.alloying_crucible.1=Release gases into the atmosphere
 
 tkcysa.casting.tooltip.1=Solidifies liquid into parts using mold
 tkcysa.casting.tooltip.2=§fRecipe duration increases as :
-tkcysa.casting.tooltip.3=- the fluid temperature §5T1 §fincreases
+tkcysa.casting.tooltip.3=§f- the fluid temperature §5T1 §fincreases
 tkcysa.casting.tooltip.4=§f- the temperature gap between §d51 §fand the mold temperature capacity increases
 tkcysa.casting.tooltip.5=§f- the required amount to cast the part increases
 tkcysa.casting.tooltip=§e%s §fmolds handle fluids up to §c%dK
