@@ -31,5 +31,6 @@ public class TKCYSAConfigHolder {
     public static class HarderStuff {
 
         public boolean enableHarderMachineCasings = true;
+        public boolean enableAlloyingAndCasting = true;
     }
 }
