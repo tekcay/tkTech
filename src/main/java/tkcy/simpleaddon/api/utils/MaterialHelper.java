@@ -9,7 +9,11 @@ import net.minecraftforge.fluids.FluidStack;
 
 import org.jetbrains.annotations.NotNull;
 
+import gregtech.api.GTValues;
 import gregtech.api.unification.material.Material;
+import gregtech.api.unification.material.Materials;
+import gregtech.api.unification.material.info.MaterialFlags;
+import gregtech.api.unification.ore.OrePrefix;
 import gregtech.api.unification.stack.MaterialStack;
 
 public class MaterialHelper {
@@ -79,6 +83,19 @@ public class MaterialHelper {
                 .mapToInt(MaterialHelper::getFluidTemperature)
                 .sum() / getAmountComponentsSum(materialStacks));
     }
+
+    public static Function<Material, Integer> getMaterialFluidTemperature = material -> material.getFluid()
+            .getTemperature();
+
+    public static boolean isMaterialFluidTemperatureColder(Material material1, Material material2) {
+        return getMaterialFluidTemperature.apply(material1) <= getMaterialFluidTemperature.apply(material2);
+    }
+
+    public static int getOrePrefixFluidAmount(OrePrefix orePrefix) {
+        return (int) (GTValues.L * orePrefix.getMaterialAmount(Materials.Steel) / GTValues.M);
+    }
+
+    public static Predicate<Material> hasPlateFlag = material -> material.hasFlag(MaterialFlags.GENERATE_PLATE);
 
     public static final Predicate<Material> isMaterialFluidTemperatureDefault = material -> material.hasFluid() &&
             material.getFluid().getTemperature() != 300;

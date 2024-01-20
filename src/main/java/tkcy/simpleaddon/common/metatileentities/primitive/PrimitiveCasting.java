@@ -1,10 +1,18 @@
 package tkcy.simpleaddon.common.metatileentities.primitive;
 
+import java.util.List;
+
+import net.minecraft.client.resources.I18n;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import gregtech.api.GTValues;
 import gregtech.client.renderer.ICubeRenderer;
@@ -15,6 +23,7 @@ import codechicken.lib.render.CCRenderState;
 import codechicken.lib.render.pipeline.IVertexOperation;
 import codechicken.lib.vec.Matrix4;
 import tkcy.simpleaddon.api.machines.PrimitiveSingleBlock;
+import tkcy.simpleaddon.api.recipes.CastingInfo;
 import tkcy.simpleaddon.api.recipes.TKCYSARecipeMaps;
 
 public class PrimitiveCasting extends PrimitiveSingleBlock {
@@ -68,5 +77,17 @@ public class PrimitiveCasting extends PrimitiveSingleBlock {
     protected void randomDisplayTick(float x, float y, float z) {
         getWorld().spawnParticle(EnumParticleTypes.SMOKE_LARGE, x, y, z, 0, 0, 0);
         getWorld().spawnParticle(EnumParticleTypes.FLAME, x, y, z, 0, 0, 0);
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void addInformation(ItemStack stack, @Nullable World world, @NotNull List<String> tooltip,
+                               boolean advanced) {
+        tooltip.add(I18n.format("tkcysa.casting.tooltip.1"));
+        tooltip.add(I18n.format("tkcysa.casting.tooltip.2"));
+        tooltip.add(I18n.format("tkcysa.casting.tooltip.3"));
+        tooltip.add(I18n.format("tkcysa.casting.tooltip.4"));
+        tooltip.add(I18n.format("tkcysa.casting.tooltip.5"));
+        CastingInfo.CASTING_INFOS.forEach(castingInfo -> CastingInfo.addToTooltip.accept(castingInfo, tooltip));
     }
 }

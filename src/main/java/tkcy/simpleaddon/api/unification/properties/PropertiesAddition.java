@@ -18,10 +18,7 @@ public class PropertiesAddition {
         Germanium.setProperty(PropertyKey.INGOT, new IngotProperty());
         addFluidProperty(Germanium);
 
-        // Brick
-        Brick.setProperty(PropertyKey.FLUID_PIPE, new FluidPipeProperties(2500, 1, false, false,
-                false, false));
-
+        Carbon.setProperty(PropertyKey.INGOT, new IngotProperty());
         missingFluidPropertyMaterial.forEach(PropertiesAddition::addFluidProperty);
     }
 }

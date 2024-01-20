@@ -46,6 +46,7 @@ public class AlloyingModule {
         alloysMaterials.add(BlackSteel);
         alloysMaterials.add(IndiumTinBariumTitaniumCuprate);
         alloysMaterials.add(YttriumBariumCuprate);
+
     }
 
     static {

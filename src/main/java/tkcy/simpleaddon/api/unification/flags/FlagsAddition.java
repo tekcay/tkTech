@@ -19,9 +19,10 @@ public class FlagsAddition {
         Brick.addFlags(GENERATE_LONG_ROD, GENERATE_ROD, GENERATE_GEAR, GENERATE_PLATE, GENERATE_RING,
                 GENERATE_SMALL_GEAR);
         TKCYSAMaterialFlags.GENERATE_ALL.forEach(f -> Steel.addFlags(f));
+
         Materials.EXT2_METAL.forEach(f -> Brick.addFlags(f));
 
-        Carbon.addFlags(GENERATE_LONG_ROD);
+        GENERATE_ALL_NO_UNIF.forEach(flag -> Carbon.addFlags(flag));
 
         electrodeMaterials.forEach(FlagsAddition::addElectrodeFlag);
         alloysMaterials.forEach(FlagsAddition::addAlloyFlag);

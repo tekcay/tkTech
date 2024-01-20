@@ -8,9 +8,9 @@ import tkcy.simpleaddon.common.metatileentities.electric.Dryer;
 import tkcy.simpleaddon.common.metatileentities.electric.Electrolyzer;
 import tkcy.simpleaddon.common.metatileentities.multiblockpart.BrickFluidHatch;
 import tkcy.simpleaddon.common.metatileentities.multiblockpart.BrickItemBus;
+import tkcy.simpleaddon.common.metatileentities.multiprimitive.AlloyingCrucible;
 import tkcy.simpleaddon.common.metatileentities.multiprimitive.FluidPrimitiveBlastFurnace;
 import tkcy.simpleaddon.common.metatileentities.multiprimitive.GasRelease;
-import tkcy.simpleaddon.common.metatileentities.multiprimitive.AlloyingCrucible;
 import tkcy.simpleaddon.common.metatileentities.multiprimitive.PrimitiveRoastingOven;
 import tkcy.simpleaddon.common.metatileentities.primitive.PrimitiveCasting;
 

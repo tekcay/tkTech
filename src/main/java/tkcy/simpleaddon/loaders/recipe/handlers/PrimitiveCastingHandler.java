@@ -1,65 +1,83 @@
 package tkcy.simpleaddon.loaders.recipe.handlers;
 
-import static gregtech.api.unification.material.Materials.*;
+import static tkcy.simpleaddon.api.TKCYSAValues.SECOND;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.BiConsumer;
+import java.util.function.Predicate;
 
+import gregtech.api.GregTechAPI;
 import gregtech.api.unification.material.Material;
 import gregtech.api.unification.ore.OrePrefix;
-import gregtech.api.util.GTLog;
 
+import tkcy.simpleaddon.api.recipes.CastingInfo;
 import tkcy.simpleaddon.api.recipes.TKCYSARecipeMaps;
-import tkcy.simpleaddon.api.utils.TKCYSAUtil;
+import tkcy.simpleaddon.api.utils.MaterialHelper;
+import tkcy.simpleaddon.api.utils.TKCYSALog;
 
 public class PrimitiveCastingHandler {
 
     public static void init() {
-        generateRecipes(Iron);
-        generateRecipes(Zinc);
-        generateRecipes(Steel);
-        generateRecipes(Copper);
-        generateRecipes(Tin);
-        generateRecipes(Bronze);
-        generateRecipes(RedAlloy);
-        generateRecipes(TinAlloy);
+        try {
+            generate();
+        } catch (IllegalArgumentException e) {
+            TKCYSALog.logger.error("ERROR");
+        }
     }
 
-    private static void generateRecipes(Material material) {
-        GTLog.logger.info("material.getUnlocalizedName() : " + material.getUnlocalizedName());
-
-        orePrefixes.stream()
-                .filter(orePrefix -> orePrefix.doGenerateItem(material))
-                .forEach(orePrefix -> consumer.accept(material, orePrefix));
+    private static void generate() {
+        GregTechAPI.materialManager.getRegisteredMaterials()
+                .stream()
+                // .filter(isNotMoldMaterial)
+                .filter(Material::hasFluid)
+                .filter(MaterialHelper.hasPlateFlag)
+                // .filter(doesGenerateMoldOutputs)
+                .forEach(PrimitiveCastingHandler::loopAroundMoldMaterials);
     }
 
-    private static final BiConsumer<Material, OrePrefix> consumer = (material, orePrefix) -> handler(material,
-            orePrefix, TKCYSAUtil.getFluidAmountFromOrePrefix(orePrefix));
+    private static final Predicate<Material> isNotMoldMaterial = material -> !CastingInfo.MOLD_MATERIALS
+            .contains(material);
 
-    private static final List<OrePrefix> orePrefixes = new ArrayList<>();
-
-    static {
-        orePrefixes.add(OrePrefix.ingot);
-        orePrefixes.add(OrePrefix.plate);
-        orePrefixes.add(OrePrefix.stick);
-        orePrefixes.add(OrePrefix.stickLong);
-        orePrefixes.add(OrePrefix.gear);
-        orePrefixes.add(OrePrefix.gearSmall);
-        orePrefixes.add(OrePrefix.bolt);
-        orePrefixes.add(OrePrefix.ring);
+    private static void loopAroundMoldMaterials(Material input) {
+        CastingInfo.CASTING_INFOS
+                .stream()
+                .filter(castingInfo -> castingInfo.canHandleFluidMaterial(input))
+                .forEach(castingInfo -> generate(input, castingInfo.getMoldMaterial()));
     }
 
-    private static void handler(Material material, OrePrefix orePrefix, int fluidAmount) {
+    private static void generate(Material input, Material moldMaterial) {
+        CastingInfo.MATERIALS_OREPREFIXES_MOLDS
+                .getSecond()
+                .stream()
+                .filter(orePrefix -> orePrefix.doGenerateItem(input))
+                .forEach(orePrefix -> recipe(input, moldMaterial, orePrefix));
+    }
+
+    private static void recipe(Material input, Material moldMaterial, OrePrefix orePrefix) {
+        TKCYSALog.logger.info("###############################");
+        int fluidAmount = MaterialHelper.getOrePrefixFluidAmount(orePrefix);
+        TKCYSALog.logger.info(String.format("\nfluidInput : %s\n%d K\nmoldMaterial : %s \n%d K\norePrefix : %s",
+                input.getLocalizedName(), MaterialHelper.getMaterialFluidTemperature.apply(input),
+                moldMaterial.getLocalizedName(), MaterialHelper.getMaterialFluidTemperature.apply(moldMaterial),
+                orePrefix.name()));
+
+        int duration = getDuration(input, fluidAmount);
+        TKCYSALog.logger.info("duration : " + duration);
+
+        int multiplier = CastingInfo.getFluidMaterialGapMultiplier(moldMaterial, input);
+        TKCYSALog.logger.info("multiplier : " + multiplier);
+
+        duration *= multiplier;
+
+        if (duration == 0) throw new IllegalArgumentException();
+
         TKCYSARecipeMaps.CASTING.recipeBuilder()
-                .fluidInputs(material.getFluid(fluidAmount))
-                .notConsumable(orePrefix, Brick)
-                .output(orePrefix, material)
-                .duration(getDuration(material, fluidAmount))
+                .fluidInputs(input.getFluid(fluidAmount))
+                .notConsumable(orePrefix, moldMaterial)
+                .output(orePrefix, input)
+                .duration(duration)
                 .buildAndRegister();
     }
 
     private static int getDuration(Material material, int fluidOreAmount) {
-        return (int) (material.getMass() * fluidOreAmount / 20);
+        return Math.max(1, (int) (material.getMass() * fluidOreAmount / SECOND));
     }
 }
