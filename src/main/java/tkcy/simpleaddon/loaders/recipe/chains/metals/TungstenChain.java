@@ -1,4 +1,4 @@
-package tkcy.simpleaddon.loaders.recipe.chains;
+package tkcy.simpleaddon.loaders.recipe.chains.metals;
 
 import static gregtech.api.unification.material.Materials.*;
 import static tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials.TungstenOxide;

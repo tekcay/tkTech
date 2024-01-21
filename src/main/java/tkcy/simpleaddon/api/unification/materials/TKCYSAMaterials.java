@@ -25,6 +25,7 @@ public class TKCYSAMaterials {
         id = ZincChainMaterials.init(id);
         id = GermaniumChainMaterials.init(id);
         id = FluorineChainMaterials.init(id);
+        id = ManganeseChainMaterials.register(id);
         id = SmallChains.init(id);
 
         id = AlloysMaterials.init(id);
@@ -121,6 +122,16 @@ public class TKCYSAMaterials {
     public static Material Cryolite;
     public static Material HexafluorosilicAcid;
     public static Material AluminiumHydroxide;
+
+    // Manganese chain
+    public static Material TreatedSpessartine;
+    public static Material OxalicAcid;
+    public static Material CrudeOxalicAcid;
+    public static Material DryOxalicAcid;
+    public static Material CrudeDimethylOxalate;
+    public static Material CrudeDiethylOxalate;
+    public static Material DimethylOxalate;
+    public static Material DiethylOxalate;
 
     // Alloys
     public static Material GalvanizedSteel;

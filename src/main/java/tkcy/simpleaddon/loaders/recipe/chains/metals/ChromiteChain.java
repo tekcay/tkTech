@@ -1,4 +1,4 @@
-package tkcy.simpleaddon.loaders.recipe.chains;
+package tkcy.simpleaddon.loaders.recipe.chains.metals;
 
 import static gregtech.api.GTValues.MV;
 import static gregtech.api.GTValues.VA;

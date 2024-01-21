@@ -84,6 +84,16 @@ gregtech.material.hydrogen_fluoride=Hydrogen Fluoride
 ##Arsenic
 gregtech.material.arsenopyrite=Arsenopyrite
 
+## Manganese
+gregtech.material.treated_spessartine=Treated Spessartine
+gregtech.material.dry_oxalic_acid=Dry Oxalic Acid
+gregtech.material.oxalic_acid=Oxalic Acid
+gregtech.material.dimethyl_oxalate=Dimethyl Oxalate
+gregtech.material.diethyl_oxalate=Diethyl Oxalate
+gregtech.material.crude_oxalic_acid=Crude Oxalic Acid
+gregtech.material.crude_dimethyl_oxalate=Crude Dimethyl Oxalate
+gregtech.material.crude_diethyl_oxalate=Crude Diethyl Oxalate
+
 ##Alloys
 gregtech.material.galvanized_steel=Galvanized Steel
 gregtech.material.monel=Monel
