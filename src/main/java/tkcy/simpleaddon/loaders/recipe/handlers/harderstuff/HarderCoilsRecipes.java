@@ -20,7 +20,7 @@ import gregtech.common.items.MetaItems;
 
 import tkcy.simpleaddon.api.recipes.TKCYSARecipeMaps;
 
-public class CoilsRecipes {
+public class HarderCoilsRecipes {
 
     public static void init() {
         // Mica based pulp
