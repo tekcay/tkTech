@@ -10,6 +10,7 @@ import tkcy.simpleaddon.loaders.recipe.alloys.GalvanizedSteelRecipes;
 import tkcy.simpleaddon.loaders.recipe.chains.chemicals.OxalicAcidChain;
 import tkcy.simpleaddon.loaders.recipe.chains.metals.*;
 import tkcy.simpleaddon.loaders.recipe.handlers.*;
+import tkcy.simpleaddon.loaders.recipe.handlers.harderstuff.CircuitRecipes;
 import tkcy.simpleaddon.loaders.recipe.handlers.harderstuff.HarderCoilsRecipes;
 import tkcy.simpleaddon.loaders.recipe.handlers.harderstuff.HarderMachineCasings;
 import tkcy.simpleaddon.loaders.recipe.handlers.harderstuff.HarderPolarization;
@@ -33,6 +34,7 @@ public final class TKCYSARecipeLoader {
         if (harderStuff.enableAlloyingAndCasting) AlloyingRecipes.init();
         if (harderStuff.enableHarderCoils) HarderCoilsRecipes.init();
         if (harderStuff.enableHarderPolarization) HarderPolarization.init();
+        if (harderStuff.removeTinCircuitRecipes) CircuitRecipes.init();
 
         MTEs.init();
 
