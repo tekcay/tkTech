@@ -1,14 +1,15 @@
 package tkcy.simpleaddon.loaders.recipe;
 
+import static tkcy.simpleaddon.common.TKCYSAConfigHolder.chains;
+import static tkcy.simpleaddon.common.TKCYSAConfigHolder.harderStuff;
+
 import tkcy.simpleaddon.loaders.recipe.alloys.AlloyingRecipes;
 import tkcy.simpleaddon.loaders.recipe.alloys.GalvanizedSteelRecipes;
 import tkcy.simpleaddon.loaders.recipe.chains.*;
 import tkcy.simpleaddon.loaders.recipe.handlers.*;
+import tkcy.simpleaddon.loaders.recipe.handlers.harderstuff.CoilsRecipes;
 import tkcy.simpleaddon.loaders.recipe.handlers.harderstuff.HarderMachineCasings;
 import tkcy.simpleaddon.loaders.recipe.parts.PartsHandler;
-
-import static tkcy.simpleaddon.common.TKCYSAConfigHolder.chains;
-import static tkcy.simpleaddon.common.TKCYSAConfigHolder.harderStuff;
 
 public final class TKCYSARecipeLoader {
 
@@ -23,6 +24,7 @@ public final class TKCYSARecipeLoader {
         GasReleaseHandler.generateRecipes();
 
         if (harderStuff.enableAlloyingAndCasting) AlloyingRecipes.init();
+        if (harderStuff.enableHarderCoils) CoilsRecipes.init();
 
         MTEs.init();
 

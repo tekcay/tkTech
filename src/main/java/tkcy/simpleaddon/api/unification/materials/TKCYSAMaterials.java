@@ -135,4 +135,5 @@ public class TKCYSAMaterials {
 
     // Misc
     public static Material Ceramic;
+    public static Material MicaPulp;
 }
