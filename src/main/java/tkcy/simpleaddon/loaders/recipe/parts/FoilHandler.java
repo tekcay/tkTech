@@ -1,5 +1,7 @@
 package tkcy.simpleaddon.loaders.recipe.parts;
 
+import static gregtech.loaders.recipe.CraftingComponent.*;
+
 import gregtech.api.GTValues;
 import gregtech.api.GregTechAPI;
 import gregtech.api.recipes.GTRecipeHandler;
@@ -10,15 +12,23 @@ import gregtech.api.unification.material.Material;
 import gregtech.api.unification.material.properties.IngotProperty;
 import gregtech.api.unification.material.properties.PropertyKey;
 import gregtech.api.unification.ore.OrePrefix;
+import gregtech.loaders.recipe.MetaTileEntityLoader;
 
 import tkcy.simpleaddon.api.recipes.TKCYSARecipeMaps;
+import tkcy.simpleaddon.common.metatileentities.TKCYSAMetaTileEntities;
 
 public class FoilHandler {
 
     public static void init() {
-        remove();
+        removeFoilRecipes();
+        addClusterMillRecipes();
         OrePrefix.foil.addProcessingHandler(PropertyKey.INGOT, FoilHandler::foils);
+    }
 
+    private static void addClusterMillRecipes() {
+        MetaTileEntityLoader.registerMachineRecipe(TKCYSAMetaTileEntities.CLUSTER_MILLS,
+                "MMM", "CHC", "MMM",
+                'M', MOTOR, 'C', CIRCUIT, 'H', HULL);
     }
 
     private static void foils(OrePrefix orePrefix, Material material, IngotProperty ingotProperty) {
@@ -30,14 +40,14 @@ public class FoilHandler {
                 .buildAndRegister();
     }
 
-    private static void remove() {
+    private static void removeFoilRecipes() {
         GregTechAPI.materialManager.getRegisteredMaterials()
                 .stream()
                 .filter(OrePrefix.foil::doGenerateItem)
-                .forEach(FoilHandler::remove);
+                .forEach(FoilHandler::removeFoilRecipes);
     }
 
-    private static void remove(Material material) {
+    private static void removeFoilRecipes(Material material) {
         method(material, OrePrefix.ingot, 10);
         method(material, OrePrefix.plate, 1);
     }
