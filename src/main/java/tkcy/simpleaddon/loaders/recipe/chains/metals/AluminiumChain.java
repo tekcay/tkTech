@@ -1,4 +1,4 @@
-package tkcy.simpleaddon.loaders.recipe.chains;
+package tkcy.simpleaddon.loaders.recipe.chains.metals;
 
 import static gregtech.api.recipes.RecipeMaps.*;
 import static gregtech.api.unification.material.Materials.*;

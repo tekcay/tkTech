@@ -13,29 +13,19 @@ public class ElectrodeModule {
 
     static {
         electrodeMaterials.add(Gold);
-        electrodeMaterials.add(
-                Copper);
-        electrodeMaterials.add(
-                Nickel);
-        electrodeMaterials.add(
-                Zinc);
-        electrodeMaterials.add(
-                Steel);
-        electrodeMaterials.add(
-                Palladium);
-        electrodeMaterials.add(
-                Platinum);
-        electrodeMaterials.add(
-                Rhodium);
-        electrodeMaterials.add(
-                Iridium);
-        electrodeMaterials.add(
-                Rubidium);
-        electrodeMaterials.add(
-                Molybdenum);
-        electrodeMaterials.add(
-                Iron);
+        electrodeMaterials.add(Copper);
+        electrodeMaterials.add(Nickel);
+        electrodeMaterials.add(Zinc);
+        electrodeMaterials.add(Steel);
+        electrodeMaterials.add(Palladium);
+        electrodeMaterials.add(Platinum);
+        electrodeMaterials.add(Rhodium);
+        electrodeMaterials.add(Iridium);
+        electrodeMaterials.add(Rubidium);
+        electrodeMaterials.add(Molybdenum);
+        electrodeMaterials.add(Iron);
         electrodeMaterials.add(Carbon);
+        electrodeMaterials.add(Manganese);
 
     }
 }

@@ -3,9 +3,12 @@ package tkcy.simpleaddon.loaders.recipe;
 import static tkcy.simpleaddon.common.TKCYSAConfigHolder.chains;
 import static tkcy.simpleaddon.common.TKCYSAConfigHolder.harderStuff;
 
+import gregtech.api.recipes.RecipeMaps;
+
 import tkcy.simpleaddon.loaders.recipe.alloys.AlloyingRecipes;
 import tkcy.simpleaddon.loaders.recipe.alloys.GalvanizedSteelRecipes;
-import tkcy.simpleaddon.loaders.recipe.chains.*;
+import tkcy.simpleaddon.loaders.recipe.chains.chemicals.OxalicAcidChain;
+import tkcy.simpleaddon.loaders.recipe.chains.metals.*;
 import tkcy.simpleaddon.loaders.recipe.handlers.*;
 import tkcy.simpleaddon.loaders.recipe.handlers.harderstuff.CoilsRecipes;
 import tkcy.simpleaddon.loaders.recipe.handlers.harderstuff.HarderMachineCasings;
@@ -16,8 +19,11 @@ public final class TKCYSARecipeLoader {
     private TKCYSARecipeLoader() {}
 
     public static void init() {
+        RecipeMaps.BLAST_RECIPES.setMaxFluidOutputs(2);
+
         TKCYSAMaterialRecipeHandler.register();
 
+        OxalicAcidChain.init();
         MiscChemicals.init();
         PrimitiveCastingHandler.init();
         PartsHandler.init();
