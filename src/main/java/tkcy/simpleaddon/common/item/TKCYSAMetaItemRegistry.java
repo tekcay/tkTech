@@ -1,5 +1,7 @@
 package tkcy.simpleaddon.common.item;
 
+import static tkcy.simpleaddon.common.item.TKCYSAMetaItems.*;
+
 import gregtech.api.items.metaitem.StandardMetaItem;
 
 public class TKCYSAMetaItemRegistry extends StandardMetaItem {
@@ -10,8 +12,15 @@ public class TKCYSAMetaItemRegistry extends StandardMetaItem {
 
     @Override
     public void registerSubItems() {
-        TKCYSAMetaItems.MICA_SHEET = addItem(1, "mica.sheet");
-        TKCYSAMetaItems.MICA_INSULATOR_SHEET = addItem(2, "mica_insulator.sheet");
-        TKCYSAMetaItems.MICA_INSULATOR_FOIL = addItem(3, "mica_insulator.foil");
+        MICA_SHEET = addItem(1, "mica.sheet");
+        MICA_INSULATOR_SHEET = addItem(2, "mica_insulator.sheet");
+        MICA_INSULATOR_FOIL = addItem(3, "mica_insulator.foil");
+
+        // ULV Components
+        ELECTRIC_MOTOR_ULV = addItem(200, "electric_motor_ulv");
+        ELECTRIC_PUMP_ULV = addItem(201, "electric_pump_ulv");
+        ELECTRIC_PISTON_ULV = addItem(202, "piston_ulv");
+        CONVEYOR_MODULE_ULV = addItem(203, "conveyor_ulv");
+        ROBOT_ARM_ULV = addItem(204, "robot_arm_ulv");
     }
 }

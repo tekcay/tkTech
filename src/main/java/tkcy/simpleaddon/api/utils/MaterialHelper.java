@@ -8,8 +8,10 @@ import java.util.stream.Collectors;
 import net.minecraftforge.fluids.FluidStack;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import gregtech.api.GTValues;
+import gregtech.api.GregTechAPI;
 import gregtech.api.unification.material.Material;
 import gregtech.api.unification.material.Materials;
 import gregtech.api.unification.material.info.MaterialFlags;
@@ -108,5 +110,15 @@ public class MaterialHelper {
                 .mapToInt(Math::toIntExact)
                 .findFirst()
                 .orElse(0);
+    }
+
+    @Nullable
+    public static Material getMaterialFromFluid(FluidStack fluidStack) {
+        return GregTechAPI.materialManager.getRegisteredMaterials()
+                .stream()
+                .filter(Material::hasFluid)
+                .filter(material -> fluidStack.isFluidEqual(material.getFluid(1)))
+                .findFirst()
+                .orElse(null);
     }
 }
