@@ -2,8 +2,9 @@ package tkcy.simpleaddon.api.unification.materials.other;
 
 import static gregtech.api.unification.material.info.MaterialFlags.*;
 import static gregtech.api.unification.material.info.MaterialIconSet.DULL;
+import static gregtech.api.unification.material.info.MaterialIconSet.SAND;
 import static gregtech.api.util.GTUtility.gregtechId;
-import static tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials.Ceramic;
+import static tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials.*;
 
 import gregtech.api.fluids.FluidBuilder;
 import gregtech.api.unification.material.Material;
@@ -20,6 +21,11 @@ public class MiscMaterials {
                 .color(0xe47a17)
                 .iconSet(DULL)
                 .colorAverage()
+                .build();
+
+        MicaPulp = new Material.Builder(startdId++, gregtechId("mica_pulp"))
+                .dust(1)
+                .color(0xf1cd91).iconSet(SAND)
                 .build();
 
         return startdId;

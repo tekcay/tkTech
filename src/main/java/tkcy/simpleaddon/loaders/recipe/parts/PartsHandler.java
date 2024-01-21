@@ -4,5 +4,6 @@ public class PartsHandler {
 
     public static void init() {
         Electrodes.init();
+        FoilHandler.init();
     }
 }

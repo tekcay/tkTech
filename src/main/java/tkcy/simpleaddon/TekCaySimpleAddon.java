@@ -10,6 +10,7 @@ import tkcy.simpleaddon.api.TKCYSAInternalTags;
 import tkcy.simpleaddon.api.utils.TKCYSALog;
 import tkcy.simpleaddon.common.CommonProxy;
 import tkcy.simpleaddon.common.block.TKCYSAMetaBlocks;
+import tkcy.simpleaddon.common.item.TKCYSAMetaItems;
 import tkcy.simpleaddon.common.metatileentities.TKCYSAMetaTileEntities;
 
 @Mod(modid = TekCaySimpleAddon.MODID,
@@ -30,7 +31,7 @@ public class TekCaySimpleAddon {
     @Mod.EventHandler
     public void onPreInit(@NotNull FMLPreInitializationEvent event) {
         TKCYSALog.init(event.getModLog());
-
+        TKCYSAMetaItems.init();
         TKCYSAMetaBlocks.init();
         TKCYSAMetaTileEntities.init();
 

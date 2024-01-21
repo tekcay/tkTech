@@ -107,6 +107,7 @@ gregtech.material.aluminium_6061=Aluminium 6061
 
 ##Misc materials
 gregtech.material.ceramic=Ceramic
+gregtech.material.mica_pulp=Mica Based
 
 ##MTEs
 tkcysa.machine.primitive_roasting_oven.name=Primitive Roasting Oven
@@ -123,6 +124,12 @@ tkcysa.machine.brick_item_input_bus.name=Brick Item Input Bus
 tkcysa.machine.brick_fluid_output_hatch.name=Brick Fluid Output Hatch
 tkcysa.machine.brick_fluid_input_hatch.name=Brick Fluid Input Hatch
 
+tkcysa.machine.cluster_mill.lv.name=Cluster Mill LV
+tkcysa.machine.cluster_mill.mv.name=Cluster Mill MV
+tkcysa.machine.cluster_mill.hv.name=Cluster Mill HV
+tkcysa.machine.cluster_mill.ev.name=Cluster Mill EV
+tkcysa.machine.cluster_mill.iv.name=Cluster Mill IV
+
 ##RecipesMaps
 recipemap.primitive_roasting.name=Primtive Roasting
 recipemap.advanced_electrolysis.name=Electrolyzis
@@ -132,11 +139,17 @@ recipemap.casting.name=Casting
 recipemap.drying.name=Drying
 recipemap.gas_release.name=Gas Release
 recipemap.alloying.name=Alloying
+recipemap.cluster_mill.name=Cluster Mill
 
 # Ore Prefixes
 item.material.oreprefix.cathode=%s Cathode
 item.material.oreprefix.anode=%s Anode
 item.material.oreprefix.electrode=%s Electrode
+
+#MetaItems
+metaitem.mica.sheet.name=Mica Based Sheet
+metaitem.mica_insulator.sheet.name=Mica Insulator Sheet
+metaitem.mica_insulator.foil.name=Mica Insulator Foil
 
 #
 tkcysa.test_display.height=Height: %d

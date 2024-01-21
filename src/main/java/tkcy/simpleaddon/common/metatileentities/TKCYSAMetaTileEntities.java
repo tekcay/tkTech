@@ -1,8 +1,15 @@
 package tkcy.simpleaddon.common.metatileentities;
 
 import static gregtech.common.metatileentities.MetaTileEntities.registerMetaTileEntity;
+import static gregtech.common.metatileentities.MetaTileEntities.registerSimpleMetaTileEntity;
 import static tkcy.simpleaddon.api.utils.TKCYSAUtil.tkcysa;
 
+import gregtech.api.metatileentity.SimpleMachineMetaTileEntity;
+import gregtech.api.util.GTUtility;
+import gregtech.client.renderer.texture.Textures;
+
+import tkcy.simpleaddon.api.recipes.TKCYSARecipeMaps;
+import tkcy.simpleaddon.api.utils.TKCYSAUtil;
 import tkcy.simpleaddon.common.metatileentities.electric.AssemblingMachine;
 import tkcy.simpleaddon.common.metatileentities.electric.Dryer;
 import tkcy.simpleaddon.common.metatileentities.electric.Electrolyzer;
@@ -26,6 +33,7 @@ public final class TKCYSAMetaTileEntities {
     public static Dryer DRYER;
     public static GasRelease GAS_RELEASE;
     public static AlloyingCrucible PRIMITIVE_ALLOYING_CRUCIBLE;
+    public static SimpleMachineMetaTileEntity[] CLUSTER_MILLS = new SimpleMachineMetaTileEntity[5];
 
     private TKCYSAMetaTileEntities() {}
 
@@ -60,5 +68,10 @@ public final class TKCYSAMetaTileEntities {
 
         PRIMITIVE_ALLOYING_CRUCIBLE = registerMetaTileEntity(4011,
                 new AlloyingCrucible(tkcysa("alloying_crucible")));
+
+        registerSimpleMetaTileEntity(
+                CLUSTER_MILLS, 4012, "cluster_mill",
+                TKCYSARecipeMaps.CLUSTER_MILL_RECIPES, Textures.ASSEMBLER_OVERLAY,
+                true, TKCYSAUtil::tkcysa, GTUtility.hvCappedTankSizeFunction);
     }
 }
