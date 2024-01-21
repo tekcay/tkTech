@@ -3,6 +3,7 @@
 ## v0.1
 
 ### Features
+- Harder polarizer recipes ([#18](https://github.com/tekcay/tkcy-simple-addon/pull/18))
 - Manganese chain ([#17](https://github.com/tekcay/tkcy-simple-addon/pull/17))
 - Added harder coils and foils ([#16](https://github.com/tekcay/tkcy-simple-addon/pull/16))
 - More alloys for harder casings, primitive alloying crucible to make alloys by mixing molten metals ([#15](https://github.com/tekcay/tkcy-simple-addon/pull/15))
