@@ -3,6 +3,7 @@
 ## v0.1
 
 ### Features
+- Added harder coils and foils ([#16](https://github.com/tekcay/tkcy-simple-addon/pull/16))
 - More alloys for harder casings, primitive alloying crucible to make alloys by mixing molten metals ([#15](https://github.com/tekcay/tkcy-simple-addon/pull/15))
 - Gas release multiblock and recipes ([#14](https://github.com/tekcay/tkcy-simple-addon/pull/14))
 - Fluorine chain ([#13](https://github.com/tekcay/tkcy-simple-addon/pull/13))
@@ -17,6 +18,7 @@ and Fluid Blast Furnace, Advanced Electrolyzer, casting ([#11](https://github.co
 - Chromite chain ([#1](https://github.com/tekcay/tkcy-simple-addon/pull/1))
 
 ### Internal
+- Moved recipes registering to lowest loading part ([#16](https://github.com/tekcay/tkcy-simple-addon/pull/16))
 - No energy and parallel logic, dynamic side length of a multiblock detection methods ([#14](https://github.com/tekcay/tkcy-simple-addon/pull/14))
 - Updated to GTCEu 2.8.5, added Lombok dependency ([#10](https://github.com/tekcay/tkcy-simple-addon/pull/10))
 - Added config options ([#5](https://github.com/tekcay/tkcy-simple-addon/pull/5))
