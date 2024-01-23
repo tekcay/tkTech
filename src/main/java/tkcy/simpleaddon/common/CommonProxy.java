@@ -16,7 +16,13 @@ import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.registries.IForgeRegistry;
 
+import gregtech.api.unification.material.event.MaterialEvent;
+import gregtech.api.unification.material.event.PostMaterialEvent;
+
 import tkcy.simpleaddon.TekCaySimpleAddon;
+import tkcy.simpleaddon.api.unification.flags.FlagsAddition;
+import tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials;
+import tkcy.simpleaddon.api.unification.ore.OrePrefixRegistry;
 import tkcy.simpleaddon.api.utils.TKCYSALog;
 import tkcy.simpleaddon.loaders.recipe.TKCYSARecipeLoader;
 import tkcy.simpleaddon.modules.AlloyingModule;
@@ -51,6 +57,17 @@ public class CommonProxy {
         ItemBlock itemBlock = producer.apply(block);
         itemBlock.setRegistryName(Objects.requireNonNull(block.getRegistryName()));
         return itemBlock;
+    }
+
+    @SubscribeEvent(priority = EventPriority.HIGH)
+    public static void registerMaterials(MaterialEvent event) {
+        TKCYSAMaterials.init();
+        OrePrefixRegistry.register();
+    }
+
+    @SubscribeEvent
+    public static void registerMaterialsPost(PostMaterialEvent event) {
+        FlagsAddition.init();
     }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)

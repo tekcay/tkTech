@@ -34,6 +34,7 @@ public final class TKCYSAMetaTileEntities {
     public static GasRelease GAS_RELEASE;
     public static AlloyingCrucible PRIMITIVE_ALLOYING_CRUCIBLE;
     public static SimpleMachineMetaTileEntity[] CLUSTER_MILLS = new SimpleMachineMetaTileEntity[5];
+    public static SimpleMachineMetaTileEntity[] COMPONENT_ASSEMBLER_MTE = new SimpleMachineMetaTileEntity[6];
 
     private TKCYSAMetaTileEntities() {}
 
@@ -72,6 +73,11 @@ public final class TKCYSAMetaTileEntities {
         registerSimpleMetaTileEntity(
                 CLUSTER_MILLS, 4012, "cluster_mill",
                 TKCYSARecipeMaps.CLUSTER_MILL_RECIPES, Textures.ASSEMBLER_OVERLAY,
+                true, TKCYSAUtil::tkcysa, GTUtility.hvCappedTankSizeFunction);
+
+        registerSimpleMetaTileEntity(
+                COMPONENT_ASSEMBLER_MTE, 4018, "component_assembler",
+                TKCYSARecipeMaps.COMPONENT_ASSEMBING, Textures.ASSEMBLER_OVERLAY,
                 true, TKCYSAUtil::tkcysa, GTUtility.hvCappedTankSizeFunction);
     }
 }

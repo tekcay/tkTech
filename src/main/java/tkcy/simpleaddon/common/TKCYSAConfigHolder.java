@@ -34,5 +34,7 @@ public class TKCYSAConfigHolder {
         public boolean enableAlloyingAndCasting = true;
         public boolean enableHarderCoils = true;
         public boolean enableHarderPolarization = true;
+        public boolean removeTinCircuitRecipes = true;
+        public boolean enableHarderComponents = true;
     }
 }

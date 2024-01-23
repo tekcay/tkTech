@@ -5,6 +5,7 @@ import static gregtech.api.unification.material.info.MaterialFlags.*;
 import static tkcy.simpleaddon.api.unification.flags.TKCYSAMaterialFlags.*;
 import static tkcy.simpleaddon.modules.AlloyingModule.alloysMaterials;
 import static tkcy.simpleaddon.modules.ElectrodeModule.electrodeMaterials;
+import static tkcy.simpleaddon.modules.ComponentsModule.getLvAcceptedRubberMaterials;
 
 import org.jetbrains.annotations.ApiStatus;
 
@@ -26,6 +27,7 @@ public class FlagsAddition {
 
         electrodeMaterials.forEach(FlagsAddition::addElectrodeFlag);
         alloysMaterials.forEach(FlagsAddition::addAlloyFlag);
+        getLvAcceptedRubberMaterials().forEach(FlagsAddition::addRingAndPlateFlags);
     }
 
     public static void addAlloyFlag(Material material) {
@@ -34,5 +36,9 @@ public class FlagsAddition {
 
     public static void addElectrodeFlag(Material material) {
         material.addFlags(GENERATE_ELECTRODES);
+    }
+
+    public static void addRingAndPlateFlags(Material material) {
+        material.addFlags(GENERATE_RING, GENERATE_PLATE);
     }
 }

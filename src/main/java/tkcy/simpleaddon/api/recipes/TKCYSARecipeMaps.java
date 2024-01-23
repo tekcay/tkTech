@@ -41,6 +41,10 @@ public final class TKCYSARecipeMaps {
     public static final RecipeMap<SimpleRecipeBuilder> CLUSTER_MILL_RECIPES = new RecipeMap<>("cluster_mill", 2, 1, 0,
             0, new SimpleRecipeBuilder(), false)
                     .setSound(GTSoundEvents.MOTOR);
+    public static final RecipeMap<SimpleRecipeBuilder> COMPONENT_ASSEMBING = new RecipeMap<>("component_assembler", 9,
+            1, 1,
+            0, new SimpleRecipeBuilder(), false)
+                    .setSound(GTSoundEvents.ASSEMBLER);
 
     private TKCYSARecipeMaps() {}
 }

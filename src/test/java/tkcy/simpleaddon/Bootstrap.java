@@ -39,7 +39,7 @@ public final class Bootstrap {
 
     private Bootstrap() {}
 
-    public static void perform() {
+    public static void perform() throws ClassNotFoundException {
         if (bootstrapped) {
             return;
         }

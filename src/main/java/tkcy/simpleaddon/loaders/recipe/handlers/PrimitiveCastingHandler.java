@@ -70,12 +70,12 @@ public class PrimitiveCastingHandler {
 
     private static void sendErrorMessage(Material input, Material moldMaterial, OrePrefix orePrefix, int fluidAmount,
                                          int multiplier) {
-        TKCYSALog.logger.error(String.format("""
-                Primitive casting recipe for %s %s with the mold %s %s returned a duration of 0. Error details :
-                fluidAmount = %d
-                duration before multiplier = %d
-                 multiplier = %d""",
-                input.getLocalizedName(),
+        TKCYSALog.logger.error(String.format(
+                "Primitive casting recipe for %s %s with the mold %s returned a duration of 0. Error details :" +
+                        "fluidAmount = %d" +
+                        "duration before multiplier = %d" +
+                        "multiplier = %d" +
+                        input.getLocalizedName(),
                 orePrefix.name(),
                 moldMaterial.getLocalizedName(),
                 orePrefix.name(),
