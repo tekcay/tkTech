@@ -3,6 +3,13 @@
 ## v0.1
 
 ### Features
+
+- Removed circuit recipes that use tin as fluid input ([#19](https://github.com/tekcay/tkcy-simple-addon/pull/19))
+- Added the commponent assembler and its recipemap ([#19](https://github.com/tekcay/tkcy-simple-addon/pull/19))
+- Removed GTCEu recipes for components lv to iv and added new ones using soldering alloy in tge component assembler ([#19](https://github.com/tekcay/tkcy-simple-addon/pull/19))
+- Added texture for lv fluid regulator ([#19](https://github.com/tekcay/tkcy-simple-addon/pull/19))
+- Added ulv components ([#19](https://github.com/tekcay/tkcy-simple-addon/pull/19))
+- Changed lv components textures for the GT6 ones ([#19](https://github.com/tekcay/tkcy-simple-addon/pull/19))
 - Harder polarizer recipes ([#18](https://github.com/tekcay/tkcy-simple-addon/pull/18))
 - Manganese chain ([#17](https://github.com/tekcay/tkcy-simple-addon/pull/17))
 - Added harder coils and foils ([#16](https://github.com/tekcay/tkcy-simple-addon/pull/16))
@@ -20,11 +27,14 @@ and Fluid Blast Furnace, Advanced Electrolyzer, casting ([#11](https://github.co
 - Chromite chain ([#1](https://github.com/tekcay/tkcy-simple-addon/pull/1))
 
 ### Internal
+- Updated lombok to 1.18.30 ([#19](https://github.com/tekcay/tkcy-simple-addon/pull/19))
+- Added a component module and components tier orePrefixes ([#19](https://github.com/tekcay/tkcy-simple-addon/pull/19))
 - Moved recipes registering to lowest loading part ([#16](https://github.com/tekcay/tkcy-simple-addon/pull/16))
 - No energy and parallel logic, dynamic side length of a multiblock detection methods ([#14](https://github.com/tekcay/tkcy-simple-addon/pull/14))
 - Updated to GTCEu 2.8.5, added Lombok dependency ([#10](https://github.com/tekcay/tkcy-simple-addon/pull/10))
 - Added config options ([#5](https://github.com/tekcay/tkcy-simple-addon/pull/5))
 - Updated mod version and infos ([#3](https://github.com/tekcay/tkcy-simple-addon/pull/3))
+
 
 ### Fixes
 
