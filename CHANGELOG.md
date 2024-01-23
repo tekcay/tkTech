@@ -1,5 +1,16 @@
 # Changelog
 
+## v0.2
+
+### Features
+
+
+### Internal
+
+
+### Fixes
+
+
 ## v0.1
 
 ### Features
@@ -27,6 +38,7 @@ and Fluid Blast Furnace, Advanced Electrolyzer, casting ([#11](https://github.co
 - Chromite chain ([#1](https://github.com/tekcay/tkcy-simple-addon/pull/1))
 
 ### Internal
+- Updated GTCEu to 2.8.6 ([#20](https://github.com/tekcay/tkcy-simple-addon/pull/20))
 - Updated lombok to 1.18.30 ([#19](https://github.com/tekcay/tkcy-simple-addon/pull/19))
 - Added a component module and components tier orePrefixes ([#19](https://github.com/tekcay/tkcy-simple-addon/pull/19))
 - Moved recipes registering to lowest loading part ([#16](https://github.com/tekcay/tkcy-simple-addon/pull/16))

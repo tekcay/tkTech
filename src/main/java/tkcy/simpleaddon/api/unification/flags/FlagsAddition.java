@@ -4,8 +4,8 @@ import static gregtech.api.unification.material.Materials.*;
 import static gregtech.api.unification.material.info.MaterialFlags.*;
 import static tkcy.simpleaddon.api.unification.flags.TKCYSAMaterialFlags.*;
 import static tkcy.simpleaddon.modules.AlloyingModule.alloysMaterials;
-import static tkcy.simpleaddon.modules.ElectrodeModule.electrodeMaterials;
 import static tkcy.simpleaddon.modules.ComponentsModule.getLvAcceptedRubberMaterials;
+import static tkcy.simpleaddon.modules.ElectrodeModule.electrodeMaterials;
 
 import org.jetbrains.annotations.ApiStatus;
 
