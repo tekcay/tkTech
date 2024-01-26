@@ -7,6 +7,7 @@ import tkcy.simpleaddon.api.unification.RoastingMaterials;
 import tkcy.simpleaddon.api.unification.TKCYSAFirstDegreeMaterials;
 import tkcy.simpleaddon.api.unification.iconset.MaterialIconAddition;
 import tkcy.simpleaddon.api.unification.materials.chains.*;
+import tkcy.simpleaddon.api.unification.materials.other.MethaneCracking;
 import tkcy.simpleaddon.api.unification.materials.other.MiscMaterials;
 import tkcy.simpleaddon.api.unification.properties.PropertiesAddition;
 
@@ -27,6 +28,7 @@ public class TKCYSAMaterials {
         id = FluorineChainMaterials.init(id);
         id = ManganeseChainMaterials.register(id);
         id = SmallChains.init(id);
+        id = MethaneCracking.register(id);
 
         id = AlloysMaterials.init(id);
 
@@ -147,4 +149,9 @@ public class TKCYSAMaterials {
     // Misc
     public static Material Ceramic;
     public static Material MicaPulp;
+
+    // MethaneCracking
+    public static Material LightlySteamCrackedMethane;
+    public static Material ModeratelySteamCrackedMethane;
+    public static Material SeverelySteamCrackedMethane;
 }
