@@ -32,6 +32,7 @@ public class MethaneCracking {
         RecipeMaps.CRACKING_RECIPES.recipeBuilder()
                 .notConsumable(new IntCircuitIngredient(1))
                 .fluidInputs(Methane.getFluid(1000))
+                .fluidInputs(Steam.getFluid(1000))
                 .fluidOutputs(LightlySteamCrackedMethane.getFluid(1000))
                 .duration(120).EUt(120).buildAndRegister();
 
@@ -39,6 +40,7 @@ public class MethaneCracking {
         RecipeMaps.CRACKING_RECIPES.recipeBuilder()
                 .notConsumable(new IntCircuitIngredient(2))
                 .fluidInputs(Methane.getFluid(1000))
+                .fluidInputs(Steam.getFluid(1000))
                 .fluidOutputs(ModeratelySteamCrackedMethane.getFluid(1000))
                 .duration(120).EUt(180).buildAndRegister();
 
@@ -46,6 +48,7 @@ public class MethaneCracking {
         RecipeMaps.CRACKING_RECIPES.recipeBuilder()
                 .notConsumable(new IntCircuitIngredient(3))
                 .fluidInputs(Methane.getFluid(1000))
+                .fluidInputs(Steam.getFluid(1000))
                 .fluidOutputs(SeverelySteamCrackedMethane.getFluid(1000))
                 .duration(120).EUt(240).buildAndRegister();
     }
