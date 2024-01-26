@@ -119,6 +119,11 @@ gregtech.material.aluminium_6061=Aluminium 6061
 gregtech.material.ceramic=Ceramic
 gregtech.material.mica_pulp=Mica Based
 
+##Methane cracking
+gregtech.material.severely_steam_cracked_methane=Severely Steam Cracked Methane
+gregtech.material.moderately_steam_cracked_methane=Moderately Steam Cracked Methane
+gregtech.material.lightly_steam_cracked_methane=Lightly Steam Cracked Methane
+
 ##MTEs
 tkcysa.machine.primitive_roasting_oven.name=Primitive Roasting Oven
 tkcysa.machine.electrolyzer.name=Electrolyzer

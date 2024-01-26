@@ -33,6 +33,7 @@ public final class TKCYSARecipeLoader {
         if (harderStuff.enableHarderPolarization) HarderPolarization.init();
         if (harderStuff.removeTinCircuitRecipes) CircuitRecipes.init();
         if (harderStuff.enableHarderComponents) HarderComponents.init();
+        if (harderStuff.enableMethaneCracking) MethaneCracking.init();
 
         MTEs.init();
 

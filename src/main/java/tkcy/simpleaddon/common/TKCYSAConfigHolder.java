@@ -36,5 +36,6 @@ public class TKCYSAConfigHolder {
         public boolean enableHarderPolarization = true;
         public boolean removeTinCircuitRecipes = true;
         public boolean enableHarderComponents = true;
+        public boolean enableMethaneCracking = true;
     }
 }
