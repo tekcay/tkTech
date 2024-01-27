@@ -7,6 +7,7 @@ import tkcy.simpleaddon.api.unification.RoastingMaterials;
 import tkcy.simpleaddon.api.unification.TKCYSAFirstDegreeMaterials;
 import tkcy.simpleaddon.api.unification.iconset.MaterialIconAddition;
 import tkcy.simpleaddon.api.unification.materials.chains.*;
+import tkcy.simpleaddon.api.unification.materials.other.Chemicals;
 import tkcy.simpleaddon.api.unification.materials.other.MethaneCracking;
 import tkcy.simpleaddon.api.unification.materials.other.MiscMaterials;
 import tkcy.simpleaddon.api.unification.properties.PropertiesAddition;
@@ -27,12 +28,14 @@ public class TKCYSAMaterials {
         id = GermaniumChainMaterials.init(id);
         id = FluorineChainMaterials.init(id);
         id = ManganeseChainMaterials.register(id);
-        id = SmallChains.init(id);
+        id = SmallChainsMaterials.init(id);
         id = MethaneCracking.register(id);
+        id = PlatinumGroupChainMaterials.register(id);
 
         id = AlloysMaterials.init(id);
 
         id = MiscMaterials.register(id);
+        id = Chemicals.register(id);
 
         MaterialsFormula.init();
 
@@ -61,13 +64,6 @@ public class TKCYSAMaterials {
     // FluorineChain
     public static Material PotassiumBifluoride;
     public static Material Fluorite;
-
-    /**
-     * Used in
-     * Fireproofing:
-     * Fire-Resistant Materials: Calcium sulfate can contribute to the fire resistance of certain materials, making it
-     * useful in applications where fireproofing is essential.
-     */
     public static Material CalciumSulfate;
     public static Material LithiumFluoride;
     public static Material SodiumFluoride;
@@ -135,6 +131,14 @@ public class TKCYSAMaterials {
     public static Material DimethylOxalate;
     public static Material DiethylOxalate;
 
+    // Platinum chain
+    public static Material TreatedPlatinumGroupSludge;
+    public static Material RhodiumHydroxide;
+    public static Material ChlororhodicAcid;
+    public static Material RhodiumPrecipitate;
+    public static Material TreatedRhodiumPrecipitate;
+    public static Material HotRhodium;
+
     // Alloys
     public static Material GalvanizedSteel;
     public static Material Monel;
@@ -149,6 +153,9 @@ public class TKCYSAMaterials {
     // Misc
     public static Material Ceramic;
     public static Material MicaPulp;
+    public static Material SodiumNitrite;
+    public static Material SodiumNitriteSolution;
+    public static Material LiquidDinitrogenTrioxide;
 
     // MethaneCracking
     public static Material LightlySteamCrackedMethane;

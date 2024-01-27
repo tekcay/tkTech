@@ -65,6 +65,9 @@ public class CommonProxy {
         OrePrefixRegistry.register();
     }
 
+    @SubscribeEvent()
+    public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {}
+
     @SubscribeEvent
     public static void registerMaterialsPost(PostMaterialEvent event) {
         FlagsAddition.init();

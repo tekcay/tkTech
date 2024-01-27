@@ -3,13 +3,14 @@
 ## v0.2
 
 ### Features
+- added missing steps in Platinum and Rhodium chains ([#22](https://github.com/tekcay/tkcy-simple-addon/pull/22))
 - added methane cracking recipes in the cracking unit and removed the GTCEu one.
 Subsequent products must be distilled to recover the desired hydrogen
 ([#21](https://github.com/tekcay/tkcy-simple-addon/pull/21))
 
 
 ### Internal
-
+- added JEI module to hide ingredients ([#21](https://github.com/tekcay/tkcy-simple-addon/pull/21))
 
 ### Fixes
 
