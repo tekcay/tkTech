@@ -1,7 +1,9 @@
 package tkcy.simpleaddon.loaders.recipe.handlers;
 
+import static gregtech.api.GTValues.L;
 import static gregtech.api.unification.material.Materials.*;
 import static gregtech.api.unification.ore.OrePrefix.dust;
+import static tkcy.simpleaddon.api.TKCYSAValues.SECOND;
 import static tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials.*;
 
 import gregtech.api.recipes.RecipeMaps;
@@ -31,6 +33,7 @@ public class Roasting {
         primitiveBlast(Galena, 1, RoastedGalena, 1);
 
         chalcopyrite();
+        cinnabar();
     }
 
     private static void primitiveBlast(Material material1, int amount1, Material material2, int amount2) {
@@ -85,6 +88,34 @@ public class Roasting {
                 .blastFurnaceTemp(1200)
                 .duration(20 * 50)
                 .EUt(80)
+                .buildAndRegister();
+    }
+
+    private static void cinnabar() {
+        TKCYSARecipeMaps.PRIMITIVE_ROASTING.recipeBuilder()
+                .duration(SECOND * 200)
+                .input(dust, Cinnabar)
+                .fluidOutputs(Mercury.getFluid(L))
+                .buildAndRegister();
+
+        RecipeMaps.BLAST_RECIPES.recipeBuilder()
+                .duration(SECOND * 10)
+                .EUt(60)
+                .blastFurnaceTemp(500)
+                .fluidInputs(Air.getFluid(4000))
+                .input(dust, Cinnabar)
+                .fluidOutputs(SulfurDioxide.getFluid(1000))
+                .fluidOutputs(Mercury.getFluid(L))
+                .buildAndRegister();
+
+        RecipeMaps.BLAST_RECIPES.recipeBuilder()
+                .duration(SECOND * 8)
+                .EUt(50)
+                .blastFurnaceTemp(500)
+                .fluidInputs(Oxygen.getFluid(1000))
+                .input(dust, Cinnabar)
+                .fluidOutputs(SulfurDioxide.getFluid(1000))
+                .fluidOutputs(Mercury.getFluid(L))
                 .buildAndRegister();
     }
 }

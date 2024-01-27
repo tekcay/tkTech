@@ -3,6 +3,7 @@
 ## v0.2
 
 ### Features
+- added recipes for Cinnabar roasting ([#23](https://github.com/tekcay/tkcy-simple-addon/pull/23))
 - added missing steps in Platinum and Rhodium chains ([#22](https://github.com/tekcay/tkcy-simple-addon/pull/22))
 - added methane cracking recipes in the cracking unit and removed the GTCEu one.
 Subsequent products must be distilled to recover the desired hydrogen
