@@ -94,6 +94,9 @@ gregtech.material.crude_oxalic_acid=Crude Oxalic Acid
 gregtech.material.crude_dimethyl_oxalate=Crude Dimethyl Oxalate
 gregtech.material.crude_diethyl_oxalate=Crude Diethyl Oxalate
 
+## Platinum group
+gregtech.material.treated_platinum_group_sludge=Treated Platinum Group Sludge
+
 ##Alloys
 gregtech.material.galvanized_steel=Galvanized Steel
 gregtech.material.monel=Monel

@@ -42,6 +42,7 @@ public final class TKCYSARecipeLoader {
             HarderMachineCasings.init();
         }
 
+        PlatinumChain.init();
         if (chains.enableCopperChain) CopperChains.init();
         if (chains.enableChromiteChain) ChromiteChain.init();
         if (chains.enableGoldChain) GoldChain.init();

@@ -27,8 +27,9 @@ public class TKCYSAMaterials {
         id = GermaniumChainMaterials.init(id);
         id = FluorineChainMaterials.init(id);
         id = ManganeseChainMaterials.register(id);
-        id = SmallChains.init(id);
+        id = SmallChainsMaterials.init(id);
         id = MethaneCracking.register(id);
+        id = PlatinumGroupChainMaterials.register(id);
 
         id = AlloysMaterials.init(id);
 
@@ -61,13 +62,6 @@ public class TKCYSAMaterials {
     // FluorineChain
     public static Material PotassiumBifluoride;
     public static Material Fluorite;
-
-    /**
-     * Used in
-     * Fireproofing:
-     * Fire-Resistant Materials: Calcium sulfate can contribute to the fire resistance of certain materials, making it
-     * useful in applications where fireproofing is essential.
-     */
     public static Material CalciumSulfate;
     public static Material LithiumFluoride;
     public static Material SodiumFluoride;
@@ -134,6 +128,9 @@ public class TKCYSAMaterials {
     public static Material CrudeDiethylOxalate;
     public static Material DimethylOxalate;
     public static Material DiethylOxalate;
+
+    // Platinum chain
+    public static Material TreatedPlatinumGroupSludge;
 
     // Alloys
     public static Material GalvanizedSteel;

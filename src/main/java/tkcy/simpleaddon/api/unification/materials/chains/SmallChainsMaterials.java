@@ -10,7 +10,7 @@ import gregtech.api.fluids.FluidBuilder;
 import gregtech.api.unification.material.Material;
 import gregtech.api.unification.material.info.MaterialFlags;
 
-public class SmallChains {
+public class SmallChainsMaterials {
 
     public static int init(int id) {
         PigIron = new Material.Builder(id++, gregtechId("pig_iron"))
