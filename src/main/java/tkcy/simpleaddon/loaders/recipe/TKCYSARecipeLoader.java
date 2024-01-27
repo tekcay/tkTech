@@ -1,9 +1,8 @@
 package tkcy.simpleaddon.loaders.recipe;
 
+import static gregtech.api.recipes.RecipeMaps.*;
 import static tkcy.simpleaddon.common.TKCYSAConfigHolder.chains;
 import static tkcy.simpleaddon.common.TKCYSAConfigHolder.harderStuff;
-
-import gregtech.api.recipes.RecipeMaps;
 
 import tkcy.simpleaddon.loaders.recipe.alloys.AlloyingRecipes;
 import tkcy.simpleaddon.loaders.recipe.alloys.GalvanizedSteelRecipes;
@@ -18,8 +17,7 @@ public final class TKCYSARecipeLoader {
     private TKCYSARecipeLoader() {}
 
     public static void init() {
-        RecipeMaps.BLAST_RECIPES.setMaxFluidOutputs(2);
-
+        POLARIZER_RECIPES.setMaxInputs(2);
 
         TKCYSAMaterialRecipeHandler.register();
 

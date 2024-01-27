@@ -10,8 +10,6 @@ import gregtech.api.unification.ore.OrePrefix;
 public class HarderPolarization {
 
     public static void init() {
-        RecipeMaps.POLARIZER_RECIPES.setMaxInputs(2);
-
         GTRecipeItemInput gtRecipeItemInput = new GTRecipeItemInput(
                 OreDictUnifier.get(OrePrefix.dust, Materials.Magnetite));
 

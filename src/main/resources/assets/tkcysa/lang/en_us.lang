@@ -100,7 +100,7 @@ gregtech.material.rhodium_hydroxide=Rhodium Hydroxide
 gregtech.material.chlororhodic_acid=Chlororhodic Acid
 gregtech.material.rhodium_precipitate=Rhodium Precipitate
 gregtech.material.treated_rhodium_precipitate=Treated Rhodium Precipitate
-gregtech.material.hot_rhodium=Hot Rhodium
+gregtech.material.rhodium_hot=Hot Rhodium
 
 ##Alloys
 gregtech.material.galvanized_steel=Galvanized Steel

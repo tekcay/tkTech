@@ -1,14 +1,13 @@
 package tkcy.simpleaddon.api.unification.materials.chains;
 
+import static gregtech.api.unification.material.Materials.*;
 import static gregtech.api.util.GTUtility.gregtechId;
+import static tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials.*;
 
 import gregtech.api.fluids.FluidBuilder;
 import gregtech.api.fluids.attribute.FluidAttributes;
 import gregtech.api.unification.material.Material;
-import gregtech.api.unification.material.Materials;
-import static gregtech.api.unification.material.Materials.*;
-
-import static tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials.*;
+import gregtech.api.unification.material.info.MaterialFlags;
 
 public class PlatinumGroupChainMaterials {
 
@@ -27,6 +26,7 @@ public class PlatinumGroupChainMaterials {
                 .components(Rhodium, 1, Oxygen, 2, Hydrogen, 2)
                 .colorAverage()
                 .build();
+        RhodiumHydroxide.setFormula("Rh(OH)2", true);
 
         ChlororhodicAcid = new Material.Builder(startId++, gregtechId("chlororhodic_acid"))
                 .liquid(new FluidBuilder().attributes(FluidAttributes.ACID))
@@ -34,25 +34,24 @@ public class PlatinumGroupChainMaterials {
                 .colorAverage()
                 .build();
 
-        RhodiumPrecipitate = new Material.Builder(startId, gregtechId("rhodium_precipitate"))
+        RhodiumPrecipitate = new Material.Builder(startId++, gregtechId("rhodium_precipitate"))
                 .dust()
                 .color(0x8c2222)
                 .build();
         RhodiumPrecipitate.setFormula("Rh?");
 
-        TreatedRhodiumPrecipitate = new Material.Builder(startId, gregtechId("treated_rhodium_precipitate"))
+        TreatedRhodiumPrecipitate = new Material.Builder(startId++, gregtechId("treated_rhodium_precipitate"))
                 .liquid(new FluidBuilder().attributes(FluidAttributes.ACID))
                 .components(RhodiumPrecipitate, 1, HydrochloricAcid, 4)
                 .colorAverage()
                 .build();
 
-        HotRhodium = new Material.Builder(startId, gregtechId("hot_rhodium"))
-                .liquid(new FluidBuilder().temperature(Rhodium.getFluid().getTemperature()))
+        HotRhodium = new Material.Builder(startId++, gregtechId("rhodium_hot"))
+                .liquid(new FluidBuilder().temperature(1500))
+                .flags(MaterialFlags.DISABLE_DECOMPOSITION)
                 .components(Rhodium, 1)
                 .colorAverage()
                 .build();
-
-
 
         return startId;
     }
