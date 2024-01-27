@@ -78,9 +78,19 @@ public class PlatinumChain {
                                 .output(dust, RhodiumPrecipitate)
                                         .buildAndRegister();
 
+        MIXER_RECIPES.recipeBuilder().duration(SECOND * 20).EUt(VA[MV])
+                        .input(dust, RhodiumPrecipitate)
+                                .fluidInputs(HydrochloricAcid.getFluid(4000))
+                                        .fluidOutputs(TreatedRhodiumPrecipitate.getFluid(1000))
+                                                .buildAndRegister();
+
         FLUID_HEATER_RECIPES.recipeBuilder().duration(SECOND * 200).EUt(VA[HV])
-                .input(dust, RhodiumPrecipitate)
-                .fluidInputs(HydrochloricAcid.getFluid(4000))
+                .fluidInputs(TreatedRhodiumPrecipitate.getFluid(1000))
+                .fluidOutputs(HotRhodium.getFluid(L))
+                .buildAndRegister();
+
+        VACUUM_RECIPES.recipeBuilder().duration(SECOND * 200).EUt(VA[HV])
+                .fluidInputs(HotRhodium.getFluid(L))
                 .output(dust, Rhodium)
                 .buildAndRegister();
     }

@@ -134,6 +134,8 @@ public class TKCYSAMaterials {
     public static Material RhodiumHydroxide;
     public static Material ChlororhodicAcid;
     public static Material RhodiumPrecipitate;
+    public static Material TreatedRhodiumPrecipitate;
+    public static Material HotRhodium;
 
     // Alloys
     public static Material GalvanizedSteel;

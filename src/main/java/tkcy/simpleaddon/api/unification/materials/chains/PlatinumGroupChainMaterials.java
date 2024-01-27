@@ -6,38 +6,51 @@ import gregtech.api.fluids.FluidBuilder;
 import gregtech.api.fluids.attribute.FluidAttributes;
 import gregtech.api.unification.material.Material;
 import gregtech.api.unification.material.Materials;
+import static gregtech.api.unification.material.Materials.*;
 
-import tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials;
+import static tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials.*;
 
 public class PlatinumGroupChainMaterials {
 
     public static int register(int startId) {
-        TKCYSAMaterials.TreatedPlatinumGroupSludge = new Material.Builder(startId++,
+        TreatedPlatinumGroupSludge = new Material.Builder(startId++,
                 gregtechId("treated_platinum_group_sludge"))
                         .liquid(new FluidBuilder().attributes(FluidAttributes.ACID))
-                        .components(Materials.PlatinumGroupSludge, 5, Materials.AquaRegia, 1)
+                        .components(PlatinumGroupSludge, 5, AquaRegia, 1)
                         .colorAverage()
                         .build();
-        TKCYSAMaterials.TreatedPlatinumGroupSludge.setFormula("");
+        TreatedPlatinumGroupSludge.setFormula("");
 
-        TKCYSAMaterials.RhodiumHydroxide = new Material.Builder(startId++, gregtechId("rhodium_hydroxide"))
+        RhodiumHydroxide = new Material.Builder(startId++, gregtechId("rhodium_hydroxide"))
                 .dust()
                 .fluid()
-                .components(Materials.Rhodium, 1, Materials.Oxygen, 2, Materials.Hydrogen, 2)
+                .components(Rhodium, 1, Oxygen, 2, Hydrogen, 2)
                 .colorAverage()
                 .build();
 
-        TKCYSAMaterials.ChlororhodicAcid = new Material.Builder(startId++, gregtechId("chlororhodic_acid"))
+        ChlororhodicAcid = new Material.Builder(startId++, gregtechId("chlororhodic_acid"))
                 .liquid(new FluidBuilder().attributes(FluidAttributes.ACID))
-                .components(Materials.Hydrogen, 3, Materials.Rhodium, 1, Materials.Chlorine, 6)
+                .components(Hydrogen, 3, Rhodium, 1, Chlorine, 6)
                 .colorAverage()
                 .build();
 
-        TKCYSAMaterials.RhodiumPrecipitate = new Material.Builder(startId, gregtechId("rhodium_precipitate"))
+        RhodiumPrecipitate = new Material.Builder(startId, gregtechId("rhodium_precipitate"))
                 .dust()
                 .color(0x8c2222)
                 .build();
-        TKCYSAMaterials.RhodiumPrecipitate.setFormula("Rh?");
+        RhodiumPrecipitate.setFormula("Rh?");
+
+        TreatedRhodiumPrecipitate = new Material.Builder(startId, gregtechId("treated_rhodium_precipitate"))
+                .liquid(new FluidBuilder().attributes(FluidAttributes.ACID))
+                .components(RhodiumPrecipitate, 1, HydrochloricAcid, 4)
+                .colorAverage()
+                .build();
+
+        HotRhodium = new Material.Builder(startId, gregtechId("hot_rhodium"))
+                .liquid(new FluidBuilder().temperature(Rhodium.getFluid().getTemperature()))
+                .components(Rhodium, 1)
+                .colorAverage()
+                .build();
 
 
 

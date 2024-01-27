@@ -20,6 +20,7 @@ public final class TKCYSARecipeLoader {
     public static void init() {
         RecipeMaps.BLAST_RECIPES.setMaxFluidOutputs(2);
 
+
         TKCYSAMaterialRecipeHandler.register();
 
         OxalicAcidChain.init();

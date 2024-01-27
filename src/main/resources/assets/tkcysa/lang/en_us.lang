@@ -99,6 +99,8 @@ gregtech.material.treated_platinum_group_sludge=Treated Platinum Group Sludge
 gregtech.material.rhodium_hydroxide=Rhodium Hydroxide
 gregtech.material.chlororhodic_acid=Chlororhodic Acid
 gregtech.material.rhodium_precipitate=Rhodium Precipitate
+gregtech.material.treated_rhodium_precipitate=Treated Rhodium Precipitate
+gregtech.material.hot_rhodium=Hot Rhodium
 
 ##Alloys
 gregtech.material.galvanized_steel=Galvanized Steel
