@@ -17,8 +17,6 @@ import gregtech.api.recipes.Recipe;
 import gregtech.api.recipes.RecipeMaps;
 import gregtech.api.unification.OreDictUnifier;
 
-import tkcy.simpleaddon.api.utils.TKCYSALog;
-
 public class PlatinumChain {
 
     public static void init() {
@@ -83,8 +81,6 @@ public class PlatinumChain {
                 .fluidInputs(HydrochloricAcid.getFluid(4000))
                 .fluidOutputs(TreatedRhodiumPrecipitate.getFluid(1000))
                 .buildAndRegister();
-
-        TKCYSALog.logger.info("HAPPENS hERE ?");
 
         FLUID_HEATER_RECIPES.recipeBuilder().duration(SECOND * 200).EUt(VA[HV])
                 .fluidInputs(TreatedRhodiumPrecipitate.getFluid(1000))

@@ -27,5 +27,7 @@ public class MiscChemicals {
                 .input(dust, PotassiumHydroxide)
                 .output(dust, PotassiumMetaBisulfite)
                 .buildAndRegister();
+
+        // Sodium nitrite
     }
 }

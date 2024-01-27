@@ -15,7 +15,7 @@ import gregtech.common.metatileentities.MetaTileEntities;
 import tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials;
 import tkcy.simpleaddon.common.metatileentities.TKCYSAMetaTileEntities;
 
-public class MTEs {
+public class BrickMTEs {
 
     public static void init() {
         brickMultis();
