@@ -11,7 +11,7 @@ public final class TKCYSARecipeMaps {
 
     public static final RecipeMap<NoEnergyRecipeBuilder> PRIMITIVE_ROASTING = new MinimalPrimitiveRecipeMap<>(
             "primitive_roasting",
-            1, 1, 0, 0, new NoEnergyRecipeBuilder(), false)
+            1, 1, 0, 1, new NoEnergyRecipeBuilder(), false)
                     .setSound(GTSoundEvents.FURNACE);
     public static final RecipeMap<SimpleRecipeBuilder> ADVANCED_ELECTROLYSIS = new RecipeMap<>("advanced_electrolysis",
             6, 4, 3, 6, new SimpleRecipeBuilder(), false)
