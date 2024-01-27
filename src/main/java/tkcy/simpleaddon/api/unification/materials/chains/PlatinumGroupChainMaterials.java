@@ -20,6 +20,27 @@ public class PlatinumGroupChainMaterials {
                         .build();
         TKCYSAMaterials.TreatedPlatinumGroupSludge.setFormula("");
 
+        TKCYSAMaterials.RhodiumHydroxide = new Material.Builder(startId++, gregtechId("rhodium_hydroxide"))
+                .dust()
+                .fluid()
+                .components(Materials.Rhodium, 1, Materials.Oxygen, 2, Materials.Hydrogen, 2)
+                .colorAverage()
+                .build();
+
+        TKCYSAMaterials.ChlororhodicAcid = new Material.Builder(startId++, gregtechId("chlororhodic_acid"))
+                .liquid(new FluidBuilder().attributes(FluidAttributes.ACID))
+                .components(Materials.Hydrogen, 3, Materials.Rhodium, 1, Materials.Chlorine, 6)
+                .colorAverage()
+                .build();
+
+        TKCYSAMaterials.RhodiumPrecipitate = new Material.Builder(startId, gregtechId("rhodium_precipitate"))
+                .dust()
+                .color(0x8c2222)
+                .build();
+        TKCYSAMaterials.RhodiumPrecipitate.setFormula("Rh?");
+
+
+
         return startId;
     }
 }

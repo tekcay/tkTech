@@ -22,6 +22,7 @@ public class TKCYSAConfigHolder {
         public boolean enableGermaniumChain = true;
         public boolean enableCopperChain = true;
         public boolean enableAluminiumChain = true;
+        public boolean enablePlatinumGroupChains = true;
     }
 
     @Config.Comment("Config options applying to all chains")

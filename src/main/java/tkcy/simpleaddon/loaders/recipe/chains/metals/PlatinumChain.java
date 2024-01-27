@@ -1,10 +1,11 @@
 package tkcy.simpleaddon.loaders.recipe.chains.metals;
 
 import static gregtech.api.GTValues.*;
-import static gregtech.api.recipes.RecipeMaps.CENTRIFUGE_RECIPES;
+import static gregtech.api.recipes.RecipeMaps.*;
 import static gregtech.api.unification.material.Materials.*;
 import static gregtech.api.unification.ore.OrePrefix.dust;
 import static tkcy.simpleaddon.api.TKCYSAValues.SECOND;
+import static tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials.*;
 
 import java.util.Collections;
 import java.util.List;
@@ -16,24 +17,24 @@ import gregtech.api.recipes.Recipe;
 import gregtech.api.recipes.RecipeMaps;
 import gregtech.api.unification.OreDictUnifier;
 
-import tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials;
-
 public class PlatinumChain {
 
     public static void init() {
         removal();
-        recipes();
+        platinum();
+        rhodium();
     }
 
-    private static void recipes() {
+    private static void platinum() {
+        //Froth
         RecipeMaps.CHEMICAL_BATH_RECIPES.recipeBuilder().duration(SECOND * 40).EUt(VA[MV])
                 .input(dust, PlatinumGroupSludge, 5)
                 .fluidInputs(AquaRegia.getFluid(1000))
-                .fluidOutputs(TKCYSAMaterials.TreatedPlatinumGroupSludge.getFluid(5000))
+                .fluidOutputs(TreatedPlatinumGroupSludge.getFluid(5000))
                 .buildAndRegister();
 
         CENTRIFUGE_RECIPES.recipeBuilder().duration(500).EUt(VA[HV])
-                .fluidInputs(TKCYSAMaterials.TreatedPlatinumGroupSludge.getFluid(5000))
+                .fluidInputs(TreatedPlatinumGroupSludge.getFluid(5000))
                 .output(dust, PlatinumRaw, 3) // PtCl2
                 .output(dust, PalladiumRaw, 3) // PdNH3
                 .output(dust, InertMetalMixture, 2) // RhRuO4
@@ -46,6 +47,41 @@ public class PlatinumChain {
                 .output(dust, Platinum)
                 .fluidOutputs(Chlorine.getFluid(800))
                 .blastFurnaceTemp(2200)
+                .buildAndRegister();
+    }
+
+    private static void rhodium() {
+        //Froth
+        CHEMICAL_RECIPES.recipeBuilder().duration(SECOND * 60).EUt(VA[LV])
+                .fluidInputs(DistilledWater.getFluid(2000))
+                .notConsumable(DistilledWater.getFluid(8000))
+                .input(dust, RhodiumSulfate)
+                .input(dust, SodiumHydroxide, 2)
+                .fluidOutputs(RhodiumHydroxide.getFluid(1000))
+                .buildAndRegister();
+
+        //Rh(OH)2 + HCl -> H3RhCl6
+        CHEMICAL_RECIPES.recipeBuilder().duration(SECOND * 10).EUt(VA[LV])
+                        .fluidInputs(RhodiumHydroxide.getFluid(1000))
+                                .fluidInputs(HydrochloricAcid.getFluid(6000))
+                                        .fluidOutputs(ChlororhodicAcid.getFluid(1000))
+                                                .buildAndRegister();
+
+
+        // H3RhCl6 + NH4Cl + NaNO2 -> Rh?
+        CHEMICAL_RECIPES.recipeBuilder().duration(SECOND * 70).EUt(VA[LV])
+                        .fluidInputs(ChlororhodicAcid.getFluid(1000))
+                .fluidInputs(DistilledWater.getFluid(2000))
+                .notConsumable(DistilledWater.getFluid(6000))
+                .input(dust, AmmoniumChloride)
+                .input(dust, SodiumNitrite)
+                                .output(dust, RhodiumPrecipitate)
+                                        .buildAndRegister();
+
+        FLUID_HEATER_RECIPES.recipeBuilder().duration(SECOND * 200).EUt(VA[HV])
+                .input(dust, RhodiumPrecipitate)
+                .fluidInputs(HydrochloricAcid.getFluid(4000))
+                .output(dust, Rhodium)
                 .buildAndRegister();
     }
 

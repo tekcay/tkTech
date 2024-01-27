@@ -96,6 +96,9 @@ gregtech.material.crude_diethyl_oxalate=Crude Diethyl Oxalate
 
 ## Platinum group
 gregtech.material.treated_platinum_group_sludge=Treated Platinum Group Sludge
+gregtech.material.rhodium_hydroxide=Rhodium Hydroxide
+gregtech.material.chlororhodic_acid=Chlororhodic Acid
+gregtech.material.rhodium_precipitate=Rhodium Precipitate
 
 ##Alloys
 gregtech.material.galvanized_steel=Galvanized Steel
@@ -118,9 +121,13 @@ gregtech.material.tc_4=Ti-6Al-4V
 gregtech.material.aluminium_5052=Aluminium 5052
 gregtech.material.aluminium_6061=Aluminium 6061
 
+##Chemicals
+gregtech.material.sodium_nitrite=Sodium Nitrite
+
 ##Misc materials
 gregtech.material.ceramic=Ceramic
 gregtech.material.mica_pulp=Mica Based
+
 
 ##Methane cracking
 gregtech.material.severely_steam_cracked_methane=Severely Steam Cracked Methane

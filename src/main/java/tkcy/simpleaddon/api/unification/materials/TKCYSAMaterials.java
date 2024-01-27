@@ -131,6 +131,9 @@ public class TKCYSAMaterials {
 
     // Platinum chain
     public static Material TreatedPlatinumGroupSludge;
+    public static Material RhodiumHydroxide;
+    public static Material ChlororhodicAcid;
+    public static Material RhodiumPrecipitate;
 
     // Alloys
     public static Material GalvanizedSteel;
@@ -146,6 +149,7 @@ public class TKCYSAMaterials {
     // Misc
     public static Material Ceramic;
     public static Material MicaPulp;
+    public static Material SodiumNitrite;
 
     // MethaneCracking
     public static Material LightlySteamCrackedMethane;
