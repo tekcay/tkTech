@@ -14,7 +14,6 @@ import gregtech.api.recipes.GTRecipeHandler;
 import gregtech.api.recipes.ModHandler;
 import gregtech.common.metatileentities.MetaTileEntities;
 
-import tkcy.simpleaddon.api.utils.TKCYSALog;
 import tkcy.simpleaddon.loaders.recipe.alloys.AlloyingRecipes;
 import tkcy.simpleaddon.loaders.recipe.alloys.GalvanizedSteelRecipes;
 import tkcy.simpleaddon.loaders.recipe.chains.chemicals.OxalicAcidChain;
@@ -81,7 +80,6 @@ public final class TKCYSARecipeLoader {
      * Hidden in JEI via {@link //tkcy.simpleaddon.integration.jei.Removals}.
      */
     private static void removeGTCEuElectrolyzerMTEs() {
-
         Arrays.stream(MetaTileEntities.ELECTROLYZER)
                 .filter(Objects::nonNull)
                 .map(MetaTileEntity::getStackForm)

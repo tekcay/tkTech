@@ -125,6 +125,8 @@ gregtech.material.aluminium_6061=Aluminium 6061
 
 ##Chemicals
 gregtech.material.sodium_nitrite=Sodium Nitrite
+gregtech.material.sodium_nitrite_solution=Sodium Nitrite Solution
+gregtech.material.liquid_dinitrogen_trioxide=Liquid Dinitrogen Trioxide
 
 ##Misc materials
 gregtech.material.ceramic=Ceramic

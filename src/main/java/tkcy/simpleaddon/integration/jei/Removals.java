@@ -19,7 +19,6 @@ public class Removals implements IModPlugin {
         IJeiHelpers jeiHelpers = registry.getJeiHelpers();
         IIngredientBlacklist ingredientBlacklist = jeiHelpers.getIngredientBlacklist();
 
-
         Arrays.stream(MetaTileEntities.ELECTROLYZER)
                 .filter(Objects::nonNull)
                 .map(MetaTileEntity::getStackForm)
