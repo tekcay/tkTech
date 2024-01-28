@@ -45,6 +45,10 @@ public final class TKCYSARecipeMaps {
             1, 1,
             0, new SimpleRecipeBuilder(), false)
                     .setSound(GTSoundEvents.ASSEMBLER);
+    public static final RecipeMap<SimpleRecipeBuilder> HYDROGENATION = new RecipeMap<>("hydrogenation", 1,
+            1, 2,
+            2, new SimpleRecipeBuilder(), false)
+                    .setSound(GTSoundEvents.COOLING);
 
     private TKCYSARecipeMaps() {}
 }

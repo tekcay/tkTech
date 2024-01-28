@@ -177,6 +177,7 @@ recipemap.gas_release.name=Gas Release
 recipemap.alloying.name=Alloying
 recipemap.cluster_mill.name=Cluster Mill
 recipemap.component_assembler.name=Component Assembler
+recipemap.hydrogenation.name=Hydrogenation
 
 # Ore Prefixes
 item.material.oreprefix.cathode=%s Cathode
