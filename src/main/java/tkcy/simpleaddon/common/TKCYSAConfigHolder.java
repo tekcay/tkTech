@@ -38,5 +38,6 @@ public class TKCYSAConfigHolder {
         public boolean removeTinCircuitRecipes = true;
         public boolean enableHarderComponents = true;
         public boolean enableMethaneCracking = true;
+        public boolean enableHarderHydrogenation = true;
     }
 }

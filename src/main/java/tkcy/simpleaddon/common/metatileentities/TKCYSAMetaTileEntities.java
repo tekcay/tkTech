@@ -13,6 +13,7 @@ import tkcy.simpleaddon.api.utils.TKCYSAUtil;
 import tkcy.simpleaddon.common.metatileentities.electric.AssemblingMachine;
 import tkcy.simpleaddon.common.metatileentities.electric.Dryer;
 import tkcy.simpleaddon.common.metatileentities.electric.Electrolyzer;
+import tkcy.simpleaddon.common.metatileentities.electric.HydrogenationUnitMTE;
 import tkcy.simpleaddon.common.metatileentities.multiblockpart.BrickFluidHatch;
 import tkcy.simpleaddon.common.metatileentities.multiblockpart.BrickItemBus;
 import tkcy.simpleaddon.common.metatileentities.multiprimitive.AlloyingCrucible;
@@ -33,6 +34,7 @@ public final class TKCYSAMetaTileEntities {
     public static Dryer DRYER;
     public static GasRelease GAS_RELEASE;
     public static AlloyingCrucible PRIMITIVE_ALLOYING_CRUCIBLE;
+    public static HydrogenationUnitMTE HYDROGENATION_UNIT_MTE;
     public static SimpleMachineMetaTileEntity[] CLUSTER_MILLS = new SimpleMachineMetaTileEntity[5];
     public static SimpleMachineMetaTileEntity[] COMPONENT_ASSEMBLER_MTE = new SimpleMachineMetaTileEntity[6];
 
@@ -79,5 +81,7 @@ public final class TKCYSAMetaTileEntities {
                 COMPONENT_ASSEMBLER_MTE, 4018, "component_assembler",
                 TKCYSARecipeMaps.COMPONENT_ASSEMBING, Textures.ASSEMBLER_OVERLAY,
                 true, TKCYSAUtil::tkcysa, GTUtility.hvCappedTankSizeFunction);
+
+        HYDROGENATION_UNIT_MTE = registerMetaTileEntity(4024, new HydrogenationUnitMTE(tkcysa("hydrogenation_unit")));
     }
 }
