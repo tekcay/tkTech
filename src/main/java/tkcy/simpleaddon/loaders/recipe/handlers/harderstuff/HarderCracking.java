@@ -3,6 +3,9 @@ package tkcy.simpleaddon.loaders.recipe.handlers.harderstuff;
 import static gregtech.api.GTValues.*;
 import static gregtech.api.recipes.RecipeMaps.*;
 import static gregtech.api.unification.material.Materials.*;
+import static tkcy.simpleaddon.api.TKCYSAValues.SECOND;
+import static tkcy.simpleaddon.api.utils.CollectionHelper.buildMap;
+import static tkcy.simpleaddon.modules.PetroChemModule.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -19,26 +22,90 @@ public class HarderCracking {
     private static final List<RecipeMap<?>> chemRecipeMaps = Arrays.asList(CHEMICAL_RECIPES, LARGE_CHEMICAL_RECIPES);
 
     public static void init() {
-        chemReactorRecipeRemoval();
-        addTestRecipe();
+        chemReactorCrackingRecipesRemoval();
+        addRecipes();
     }
 
-    private static void addTestRecipe() {
+    private static void addRecipes() {
+        buildMap(desulfurizedFuels, lightlyHydroCracked).forEach(HarderCracking::addLightlyHydroCrackedRecipes);
+        buildMap(desulfurizedFuels, lightlyHydroCracked).forEach(HarderCracking::addLightlyHydroCrackedRecipes);
+        buildMap(desulfurizedFuels, lightlySteamCracked).forEach(HarderCracking::addLightlySteamCrackedRecipes);
+        buildMap(desulfurizedFuels, severelyHydroCracked).forEach(HarderCracking::addSeverelyHydroCrackedRecipes);
+        buildMap(desulfurizedFuels, severelySteamCracked).forEach(HarderCracking::addSeverelySteamCrackedRecipes);
+        buildMap(hydrocarbonMaterials, hydroCrackedHydrocarbonMaterials)
+                .forEach(HarderCracking::addModeratelyHydroCrackedRecipes);
+        buildMap(hydrocarbonMaterials, steamCrackedHydrocarbonMaterials)
+                .forEach(HarderCracking::addModeratelySteamCrackedRecipes);
+    }
+
+    private static void addLightlyHydroCrackedRecipes(Material input, Material output) {
         TKCYSARecipeMaps.CRACKING.recipeBuilder()
+                .EUt(VA[MV])
+                .duration(SECOND)
+                .fluidInputs(input.getFluid(500))
+                .fluidInputs(Hydrogen.getFluid(1000))
                 .coil(BlockWireCoil.CoilType.KANTHAL)
-                .EUt(20)
-                .duration(20)
-                .fluidInputs(HydrochloricAcid.getFluid(10))
-                .fluidOutputs(Propane.getFluid(20))
+                .fluidOutputs(output.getFluid(500))
                 .buildAndRegister();
     }
 
-    private static void chemReactorRecipeRemoval() {
-        List<Material> oilLayersMaterials = Arrays.asList(HeavyFuel, LightFuel, Naphtha, RefineryGas);
-        List<Material> hydrocarbonMaterials = Arrays.asList(Ethane, Ethylene, Propene, Propane, Butane, Butene,
-                Butadiene);
+    private static void addLightlySteamCrackedRecipes(Material input, Material output) {
+        TKCYSARecipeMaps.CRACKING.recipeBuilder()
+                .EUt(VA[MV])
+                .duration(SECOND)
+                .fluidInputs(input.getFluid(500))
+                .fluidInputs(Steam.getFluid(2000))
+                .coil(BlockWireCoil.CoilType.KANTHAL)
+                .fluidOutputs(output.getFluid(500))
+                .buildAndRegister();
+    }
 
-        oilLayersMaterials.forEach(HarderCracking::removeLightlyAndModeraltelyCrackingRecipes);
+    private static void addModeratelyHydroCrackedRecipes(Material input, Material output) {
+        TKCYSARecipeMaps.CRACKING.recipeBuilder()
+                .EUt(300)
+                .duration(SECOND)
+                .fluidInputs(input.getFluid(500))
+                .fluidInputs(Hydrogen.getFluid(2000))
+                .coil(BlockWireCoil.CoilType.NICHROME)
+                .fluidOutputs(output.getFluid(500))
+                .buildAndRegister();
+    }
+
+    private static void addModeratelySteamCrackedRecipes(Material input, Material output) {
+        TKCYSARecipeMaps.CRACKING.recipeBuilder()
+                .EUt(300)
+                .duration(SECOND)
+                .fluidInputs(input.getFluid(500))
+                .fluidInputs(Steam.getFluid(4000))
+                .coil(BlockWireCoil.CoilType.NICHROME)
+                .fluidOutputs(output.getFluid(500))
+                .buildAndRegister();
+    }
+
+    private static void addSeverelyHydroCrackedRecipes(Material input, Material output) {
+        TKCYSARecipeMaps.CRACKING.recipeBuilder()
+                .EUt(600)
+                .duration(SECOND)
+                .fluidInputs(input.getFluid(500))
+                .fluidInputs(Hydrogen.getFluid(4000))
+                .coil(BlockWireCoil.CoilType.RTM_ALLOY)
+                .fluidOutputs(output.getFluid(500))
+                .buildAndRegister();
+    }
+
+    private static void addSeverelySteamCrackedRecipes(Material input, Material output) {
+        TKCYSARecipeMaps.CRACKING.recipeBuilder()
+                .EUt(600)
+                .duration(SECOND)
+                .fluidInputs(input.getFluid(500))
+                .fluidInputs(Steam.getFluid(8000))
+                .coil(BlockWireCoil.CoilType.RTM_ALLOY)
+                .fluidOutputs(output.getFluid(500))
+                .buildAndRegister();
+    }
+
+    private static void chemReactorCrackingRecipesRemoval() {
+        desulfurizedFuels.forEach(HarderCracking::removeLightlyAndModeraltelyCrackingRecipes);
         hydrocarbonMaterials.forEach(HarderCracking::removeModeratelyCrackingRecipes);
     }
 

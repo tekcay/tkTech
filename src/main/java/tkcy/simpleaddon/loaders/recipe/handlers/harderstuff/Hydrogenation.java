@@ -3,9 +3,12 @@ package tkcy.simpleaddon.loaders.recipe.handlers.harderstuff;
 import static gregtech.api.GTValues.*;
 import static gregtech.api.unification.material.Materials.*;
 import static tkcy.simpleaddon.api.TKCYSAValues.SECOND;
+import static tkcy.simpleaddon.modules.PetroChemModule.desulfurizedFuels;
+import static tkcy.simpleaddon.modules.PetroChemModule.sulfuricLayers;
 
 import java.util.*;
 
+import gregtech.api.recipes.GTRecipeHandler;
 import net.minecraftforge.fluids.FluidStack;
 
 import gregtech.api.recipes.Recipe;
@@ -15,6 +18,7 @@ import gregtech.api.unification.material.Material;
 import gregtech.api.unification.ore.OrePrefix;
 
 import tkcy.simpleaddon.api.recipes.TKCYSARecipeMaps;
+import tkcy.simpleaddon.api.utils.CollectionHelper;
 import tkcy.simpleaddon.api.utils.RecipeHelper;
 
 public class Hydrogenation {
@@ -23,14 +27,12 @@ public class Hydrogenation {
         removeOilDesulfurizationRecipes();
         removeAmmoniaRecipe();
 
-        Map<Material, Material> sulfuricOilLayers = new HashMap<>();
-        sulfuricOilLayers.put(SulfuricHeavyFuel, HeavyFuel);
-        sulfuricOilLayers.put(SulfuricNaphtha, Naphtha);
-        sulfuricOilLayers.put(SulfuricLightFuel, LightFuel);
-        sulfuricOilLayers.put(SulfuricGas, RefineryGas);
+        CollectionHelper.buildMap(sulfuricLayers, desulfurizedFuels)
+                .forEach(Hydrogenation::oilDesulfurizationRecipes);
 
-        sulfuricOilLayers.forEach(Hydrogenation::oilDesulfurizationRecipes);
         miscHydrogenations();
+
+        GTRecipeHandler.removeAllRecipes(RecipeMaps.CRACKING_RECIPES);
     }
 
     private static void miscHydrogenations() {

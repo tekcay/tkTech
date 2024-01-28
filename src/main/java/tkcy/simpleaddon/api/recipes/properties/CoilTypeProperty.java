@@ -1,10 +1,11 @@
 package tkcy.simpleaddon.api.recipes.properties;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.I18n;
+
 import gregtech.api.recipes.recipeproperties.RecipeProperty;
 import gregtech.api.unification.material.Material;
 import gregtech.common.blocks.BlockWireCoil;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.I18n;
 
 public class CoilTypeProperty extends RecipeProperty<BlockWireCoil.CoilType> {
 
