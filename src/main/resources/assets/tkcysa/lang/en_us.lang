@@ -146,6 +146,7 @@ tkcysa.machine.dryer.name=Dryer
 tkcysa.machine.gas_release.name=Gas Release
 tkcysa.machine.alloying_crucible.name=Alloying Crucible
 tkcysa.machine.hydrogenation_unit.name=Hydrogenation Unit
+tkcysa.machine.cracking_unit.name=Cracking Unit
 
 tkcysa.machine.fluid_primitive_blast_furnace.name=Fluid Primitive Blast Furnace
 tkcysa.machine.primitive_casting.name=Primitive Casting
