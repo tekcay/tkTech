@@ -3,6 +3,7 @@ package tkcy.simpleaddon.loaders.recipe.handlers.harderstuff;
 import static gregtech.api.GTValues.*;
 import static gregtech.api.recipes.RecipeMaps.*;
 import static gregtech.api.unification.material.Materials.*;
+import static gregtech.common.blocks.BlockWireCoil.CoilType.CUPRONICKEL;
 import static tkcy.simpleaddon.api.TKCYSAValues.SECOND;
 import static tkcy.simpleaddon.api.utils.CollectionHelper.buildMap;
 import static tkcy.simpleaddon.modules.PetroChemModule.*;
@@ -10,12 +11,22 @@ import static tkcy.simpleaddon.modules.PetroChemModule.*;
 import java.util.Arrays;
 import java.util.List;
 
+import gregtech.api.GTValues;
+import gregtech.api.recipes.GTRecipeHandler;
+import gregtech.api.recipes.ModHandler;
 import gregtech.api.recipes.RecipeMap;
+import gregtech.api.unification.material.MarkerMaterials;
 import gregtech.api.unification.material.Material;
+import gregtech.api.unification.ore.OrePrefix;
+import gregtech.api.unification.stack.UnificationEntry;
 import gregtech.common.blocks.BlockWireCoil;
+import gregtech.common.blocks.MetaBlocks;
+import gregtech.common.items.MetaItems;
+import gregtech.common.metatileentities.MetaTileEntities;
 
 import tkcy.simpleaddon.api.recipes.TKCYSARecipeMaps;
 import tkcy.simpleaddon.api.utils.RecipeHelper;
+import tkcy.simpleaddon.common.metatileentities.TKCYSAMetaTileEntities;
 
 public class HarderCracking {
 
@@ -23,7 +34,19 @@ public class HarderCracking {
 
     public static void init() {
         chemReactorCrackingRecipesRemoval();
+        GTRecipeHandler.removeAllRecipes(CRACKING_RECIPES);
+        transferControllerShapedRecipe();
         addRecipes();
+    }
+
+    private static void transferControllerShapedRecipe() {
+        ModHandler.removeRecipeByOutput(MetaTileEntities.CRACKER.getStackForm());
+        ModHandler.addShapedRecipe(true, "tkcysa_cracking_unit", TKCYSAMetaTileEntities.CRACKING_UNIT.getStackForm(),
+                "CEC", "PHP", "CEC",
+                'C', MetaBlocks.WIRE_COIL.getItemVariant(CUPRONICKEL),
+                'E', MetaItems.ELECTRIC_PUMP_HV, 'P',
+                new UnificationEntry(OrePrefix.circuit, MarkerMaterials.Tier.HV),
+                'H', MetaTileEntities.HULL[GTValues.HV].getStackForm());
     }
 
     private static void addRecipes() {

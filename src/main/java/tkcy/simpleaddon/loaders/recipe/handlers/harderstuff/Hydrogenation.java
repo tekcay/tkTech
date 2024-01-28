@@ -8,12 +8,9 @@ import static tkcy.simpleaddon.modules.PetroChemModule.sulfuricLayers;
 
 import java.util.*;
 
-import gregtech.api.recipes.GTRecipeHandler;
 import net.minecraftforge.fluids.FluidStack;
 
-import gregtech.api.recipes.Recipe;
-import gregtech.api.recipes.RecipeMap;
-import gregtech.api.recipes.RecipeMaps;
+import gregtech.api.recipes.*;
 import gregtech.api.unification.material.Material;
 import gregtech.api.unification.ore.OrePrefix;
 
@@ -31,8 +28,6 @@ public class Hydrogenation {
                 .forEach(Hydrogenation::oilDesulfurizationRecipes);
 
         miscHydrogenations();
-
-        GTRecipeHandler.removeAllRecipes(RecipeMaps.CRACKING_RECIPES);
     }
 
     private static void miscHydrogenations() {
