@@ -22,7 +22,8 @@ public class RecipeHelper {
     }
 
     @SuppressWarnings("UnusedReturnValue")
-    public static boolean tryToRemoveRecipeWithCircuitConfig(@NotNull RecipeMap<?> recipeMap, long voltage, int circuitConfig,
+    public static boolean tryToRemoveRecipeWithCircuitConfig(@NotNull RecipeMap<?> recipeMap, long voltage,
+                                                             int circuitConfig,
                                                              @NotNull FluidStack... fluidStacks) {
         return recipeMap.removeRecipe(findRecipeWithCircuitConfig(recipeMap, voltage, circuitConfig, fluidStacks));
     }

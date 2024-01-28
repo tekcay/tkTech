@@ -33,8 +33,6 @@ public class Hydrogenation {
         miscHydrogenations();
     }
 
-
-
     private static void miscHydrogenations() {
         // N2 + 3 H2 -> NH3
         TKCYSARecipeMaps.HYDROGENATION.recipeBuilder()
