@@ -1,19 +1,17 @@
 package tkcy.simpleaddon.api.recipes.builders;
 
-import java.util.Arrays;
-
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.jetbrains.annotations.NotNull;
-
 import gregtech.api.recipes.Recipe;
 import gregtech.api.recipes.RecipeBuilder;
 import gregtech.api.recipes.RecipeMap;
 import gregtech.api.unification.material.Material;
 import gregtech.api.util.EnumValidationResult;
 import gregtech.common.blocks.BlockWireCoil;
-
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.jetbrains.annotations.NotNull;
 import tkcy.simpleaddon.api.recipes.properties.CoilTypeProperty;
 import tkcy.simpleaddon.api.utils.TKCYSALog;
+
+import java.util.Arrays;
 
 public class CoilTypeRecipeBuilder extends RecipeBuilder<CoilTypeRecipeBuilder> {
 
@@ -31,14 +29,6 @@ public class CoilTypeRecipeBuilder extends RecipeBuilder<CoilTypeRecipeBuilder> 
     public CoilTypeRecipeBuilder copy() {
         return new CoilTypeRecipeBuilder(this);
     }
-
-    /*
-     * public ValidationResult<Recipe> build() {
-     * this.applyProperty(CoilTypeProperty.getInstance(), true);
-     * return super.build();
-     * }
-     * 
-     */
 
     @Override
     public boolean applyProperty(@NotNull String key, Object value) {
@@ -59,7 +49,7 @@ public class CoilTypeRecipeBuilder extends RecipeBuilder<CoilTypeRecipeBuilder> 
         return this;
     }
 
-    private static BlockWireCoil.CoilType getDefaultValue() {
+    public static BlockWireCoil.CoilType getDefaultValue() {
         return BlockWireCoil.CoilType.CUPRONICKEL;
     }
 
