@@ -180,6 +180,7 @@ recipemap.alloying.name=Alloying
 recipemap.cluster_mill.name=Cluster Mill
 recipemap.component_assembler.name=Component Assembler
 recipemap.hydrogenation.name=Hydrogenation
+recipemap.cracking.name=Cracking
 
 # Ore Prefixes
 item.material.oreprefix.cathode=%s Cathode
@@ -214,6 +215,8 @@ tkcysa.casting.tooltip=§e%s §fmolds handle fluids up to §c%dK
 
 tkcysa.machine.parallel.tooltip=Every additional %d layers add one parallel point
 
+## Recipe properties
+tkcysa.recipe.coil=Coil: %s
 
 ##RecipeCategories
 #tkcysa.recipe.category.galvanizing=Galvanizing

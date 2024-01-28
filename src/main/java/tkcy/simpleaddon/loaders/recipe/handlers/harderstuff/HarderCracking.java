@@ -9,7 +9,9 @@ import java.util.List;
 
 import gregtech.api.recipes.RecipeMap;
 import gregtech.api.unification.material.Material;
+import gregtech.common.blocks.BlockWireCoil;
 
+import tkcy.simpleaddon.api.recipes.TKCYSARecipeMaps;
 import tkcy.simpleaddon.api.utils.RecipeHelper;
 
 public class HarderCracking {
@@ -18,6 +20,17 @@ public class HarderCracking {
 
     public static void init() {
         chemReactorRecipeRemoval();
+        addTestRecipe();
+    }
+
+    private static void addTestRecipe() {
+        TKCYSARecipeMaps.CRACKING.recipeBuilder()
+                .coil(BlockWireCoil.CoilType.KANTHAL)
+                .EUt(20)
+                .duration(20)
+                .fluidInputs(HydrochloricAcid.getFluid(10))
+                .fluidOutputs(Propane.getFluid(20))
+                .buildAndRegister();
     }
 
     private static void chemReactorRecipeRemoval() {
