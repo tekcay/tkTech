@@ -15,7 +15,6 @@ public class TKCYSAOrePrefix {
     public static final OrePrefix cathode = new OrePrefix("cathode", M, null, TKCYSAMaterialIconType.cathode,
             ENABLE_UNIFICATION,
             mat -> mat.hasFlag(TKCYSAMaterialFlags.GENERATE_ELECTRODES));
-
     public static final OrePrefix anode = new OrePrefix("anode", M, null, TKCYSAMaterialIconType.anode,
             ENABLE_UNIFICATION,
             mat -> mat.hasFlag(TKCYSAMaterialFlags.GENERATE_ELECTRODES));

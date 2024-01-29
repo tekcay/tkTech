@@ -65,8 +65,11 @@ public class CommonProxy {
         OrePrefixRegistry.register();
     }
 
-    @SubscribeEvent()
-    public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {}
+    @SubscribeEvent(priority = EventPriority.LOW)
+    public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {
+        TKCYSALog.logger.info("Registering recipe low...");
+        TKCYSARecipeLoader.init();
+    }
 
     @SubscribeEvent
     public static void registerMaterialsPost(PostMaterialEvent event) {
@@ -80,6 +83,6 @@ public class CommonProxy {
         // Main recipe registration
         // This is called AFTER GregTech registers recipes, so
         // anything here is safe to call removals in
-        TKCYSARecipeLoader.init();
+        TKCYSARecipeLoader.latestInit();
     }
 }
