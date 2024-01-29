@@ -5,6 +5,7 @@ import static gregtech.api.recipes.RecipeMaps.*;
 import static gregtech.api.unification.material.Materials.*;
 import static gregtech.common.blocks.BlockWireCoil.CoilType.CUPRONICKEL;
 import static tkcy.simpleaddon.api.TKCYSAValues.SECOND;
+import static tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials.*;
 import static tkcy.simpleaddon.api.utils.CollectionHelper.buildMap;
 import static tkcy.simpleaddon.modules.PetroChemModule.*;
 
@@ -41,7 +42,8 @@ public class HarderCracking {
 
     private static void transferControllerShapedRecipe() {
         ModHandler.removeRecipeByOutput(MetaTileEntities.CRACKER.getStackForm());
-        ModHandler.addShapedRecipe(true, "tkcysa_cracking_unit", TKCYSAMetaTileEntities.CRACKING_UNIT.getStackForm(),
+        ModHandler.addShapedRecipe(true, "tkcysa_cracking_unit",
+                TKCYSAMetaTileEntities.CRACKING_UNIT.getStackForm(),
                 "CEC", "PHP", "CEC",
                 'C', MetaBlocks.WIRE_COIL.getItemVariant(CUPRONICKEL),
                 'E', MetaItems.ELECTRIC_PUMP_HV, 'P',
@@ -59,6 +61,18 @@ public class HarderCracking {
                 .forEach(HarderCracking::addModeratelyHydroCrackedRecipes);
         buildMap(hydrocarbonMaterials, steamCrackedHydrocarbonMaterials)
                 .forEach(HarderCracking::addModeratelySteamCrackedRecipes);
+
+        addMethaneCrackingRecipes();
+        addDistillationRecipes();
+    }
+
+    private static void addMethaneCrackingRecipes() {
+        // 2 CH4 + H2O -> 2 CO + 3 H2
+        addLightlySteamCrackedRecipes(Methane, LightlySteamCrackedMethane);
+        // CH4 + H2O -> CO + 3 H2
+        addModeratelySteamCrackedRecipes(Methane, ModeratelySteamCrackedMethane);
+        // CH4 + 2 H2O -> CO2 + 4 H2
+        addSeverelySteamCrackedRecipes(Methane, SeverelySteamCrackedMethane);
     }
 
     private static void addLightlyHydroCrackedRecipes(Material input, Material output) {
@@ -130,6 +144,9 @@ public class HarderCracking {
     private static void chemReactorCrackingRecipesRemoval() {
         desulfurizedFuels.forEach(HarderCracking::removeLightlyAndModeraltelyCrackingRecipes);
         hydrocarbonMaterials.forEach(HarderCracking::removeModeratelyCrackingRecipes);
+
+        RecipeHelper.tryToRemoveRecipeWithCircuitConfig(CHEMICAL_RECIPES, VA[HV], 1, Water.getFluid(2000),
+                Methane.getFluid(2000));
     }
 
     private static void removeLightlyAndModeraltelyCrackingRecipes(Material material) {
@@ -156,5 +173,28 @@ public class HarderCracking {
             RecipeHelper.tryToRemoveRecipeWithCircuitConfig(recipeMap, VA[LV], 2, Steam.getFluid(1000),
                     material.getFluid(1000));
         }
+    }
+
+    private static void addDistillationRecipes() {
+        DISTILLATION_RECIPES.recipeBuilder()
+                .fluidInputs(LightlySteamCrackedMethane.getFluid(1000))
+                .fluidOutputs(DistilledWater.getFluid(1000))
+                .fluidOutputs(CarbonMonoxide.getFluid(1000))
+                .fluidOutputs(Hydrogen.getFluid(1500))
+                .duration(120).EUt(120).buildAndRegister();
+
+        DISTILLATION_RECIPES.recipeBuilder()
+                .fluidInputs(ModeratelySteamCrackedMethane.getFluid(1000))
+                .fluidOutputs(DistilledWater.getFluid(2000))
+                .fluidOutputs(CarbonMonoxide.getFluid(1000))
+                .fluidOutputs(Hydrogen.getFluid(3000))
+                .duration(120).EUt(120).buildAndRegister();
+
+        DISTILLATION_RECIPES.recipeBuilder()
+                .fluidInputs(SeverelySteamCrackedMethane.getFluid(1000))
+                .fluidOutputs(DistilledWater.getFluid(4000))
+                .fluidOutputs(CarbonDioxide.getFluid(1000))
+                .fluidOutputs(Hydrogen.getFluid(4000))
+                .duration(120).EUt(120).buildAndRegister();
     }
 }

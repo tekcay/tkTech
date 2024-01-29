@@ -14,6 +14,7 @@ import gregtech.common.metatileentities.MetaTileEntities;
 
 import mezz.jei.api.*;
 import mezz.jei.api.ingredients.IIngredientBlacklist;
+import tkcy.simpleaddon.common.TKCYSAConfigHolder;
 
 @JEIPlugin
 public class Removals implements IModPlugin {
@@ -30,7 +31,7 @@ public class Removals implements IModPlugin {
                 .map(MetaTileEntity::getStackForm)
                 .forEach(toHide::add);
 
-        toHide.add(MetaTileEntities.CRACKER.getStackForm());
+        if (TKCYSAConfigHolder.harderStuff.enableHarderCracking) toHide.add(MetaTileEntities.CRACKER.getStackForm());
 
         toHide.forEach(ingredientBlacklist::addIngredientToBlacklist);
     }
