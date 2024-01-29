@@ -17,7 +17,7 @@ Subsequent products must be distilled to recover the desired hydrogen
 - added JEI module to hide ingredients ([#21](https://github.com/tekcay/tkcy-simple-addon/pull/21))
 
 ### Fixes
-- fixed brick buses and hatches being used in non-primitive multis ([#27](https://github.com/tekcay/tkcy-simple-addon/pull/27))
+- fixed brick buses and hatches being used in non-primitive multis ([#29](https://github.com/tekcay/tkcy-simple-addon/pull/29))
 
 
 ## v0.1
