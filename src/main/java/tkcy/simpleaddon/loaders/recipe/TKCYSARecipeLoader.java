@@ -29,12 +29,13 @@ public final class TKCYSARecipeLoader {
     public static void init() {
         POLARIZER_RECIPES.setMaxInputs(2);
         BLAST_RECIPES.setMaxFluidOutputs(2);
-
         TKCYSAMaterialRecipeHandler.register();
+        PartsHandler.init();
+    }
 
+    public static void latestInit() {
         MiscChemicals.init();
         PrimitiveCastingHandler.init();
-        PartsHandler.init();
         GasReleaseHandler.generateRecipes();
 
         harderStuff();
