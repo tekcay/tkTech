@@ -146,6 +146,7 @@ tkcysa.machine.dryer.name=Dryer
 tkcysa.machine.gas_release.name=Gas Release
 tkcysa.machine.alloying_crucible.name=Alloying Crucible
 tkcysa.machine.hydrogenation_unit.name=Hydrogenation Unit
+tkcysa.machine.cracking_unit.name=Cracking Unit
 
 tkcysa.machine.fluid_primitive_blast_furnace.name=Fluid Primitive Blast Furnace
 tkcysa.machine.primitive_casting.name=Primitive Casting
@@ -179,6 +180,7 @@ recipemap.alloying.name=Alloying
 recipemap.cluster_mill.name=Cluster Mill
 recipemap.component_assembler.name=Component Assembler
 recipemap.hydrogenation.name=Hydrogenation
+recipemap.cracking.name=Cracking
 
 # Ore Prefixes
 item.material.oreprefix.cathode=%s Cathode
@@ -203,6 +205,11 @@ tkcysa.test_display.height=Height: %d
 ##Machines tooltips
 tkcysa.machine.gas_release.1=Release gases into the atmosphere
 tkcysa.machine.alloying_crucible.1=Release gases into the atmosphere
+tkcysa.machine.cracker.tooltip.1=Cracks hydrocarbons or oil layers to get interesting compounds.
+tkcysa.machine.cracker.tooltip.2=All coils must be the same.
+tkcysa.machine.cracker.tooltip.3=§a%s §fenables §2LIGHT §fcracking.
+tkcysa.machine.cracker.tooltip.4=§e%s §fenables §6MODERATE §fcracking.
+tkcysa.machine.cracker.tooltip.5=§c%s §fenables §4SEVERE §fcracking.
 
 tkcysa.casting.tooltip.1=Solidifies liquid into parts using mold
 tkcysa.casting.tooltip.2=§fRecipe duration increases as :
@@ -213,6 +220,8 @@ tkcysa.casting.tooltip=§e%s §fmolds handle fluids up to §c%dK
 
 tkcysa.machine.parallel.tooltip=Every additional %d layers add one parallel point
 
+## Recipe properties
+tkcysa.recipe.coil=Coil: %s
 
 ##RecipeCategories
 #tkcysa.recipe.category.galvanizing=Galvanizing

@@ -5,6 +5,7 @@ import gregtech.api.recipes.builders.PrimitiveRecipeBuilder;
 import gregtech.api.recipes.builders.SimpleRecipeBuilder;
 import gregtech.core.sound.GTSoundEvents;
 
+import tkcy.simpleaddon.api.recipes.builders.CoilTypeRecipeBuilder;
 import tkcy.simpleaddon.api.recipes.builders.NoEnergyRecipeBuilder;
 
 public final class TKCYSARecipeMaps {
@@ -49,6 +50,10 @@ public final class TKCYSARecipeMaps {
             1, 2,
             2, new SimpleRecipeBuilder(), false)
                     .setSound(GTSoundEvents.COOLING);
+    public static final RecipeMap<CoilTypeRecipeBuilder> CRACKING = new RecipeMap<>("cracking", 1,
+            0, 2,
+            1, new CoilTypeRecipeBuilder(), false)
+                    .setSound(GTSoundEvents.BOILER);
 
     private TKCYSARecipeMaps() {}
 }

@@ -3,6 +3,7 @@
 ## v0.2
 
 ### Features
+- added harder cracking ([#25](https://github.com/tekcay/tkcy-simple-addon/pull/25))
 - added harder hydrogenation processes and new multi for sulfuric fuels and ammonia synthesis ([#24](https://github.com/tekcay/tkcy-simple-addon/pull/24))
 - added recipes for Cinnabar roasting ([#23](https://github.com/tekcay/tkcy-simple-addon/pull/23))
 - added missing steps in Platinum and Rhodium chains ([#22](https://github.com/tekcay/tkcy-simple-addon/pull/22))
@@ -12,6 +13,7 @@ Subsequent products must be distilled to recover the desired hydrogen
 
 
 ### Internal
+- added a new recipe builder to detect coil type ([#25](https://github.com/tekcay/tkcy-simple-addon/pull/25))
 - added JEI module to hide ingredients ([#21](https://github.com/tekcay/tkcy-simple-addon/pull/21))
 
 ### Fixes

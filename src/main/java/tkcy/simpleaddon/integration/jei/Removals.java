@@ -1,7 +1,11 @@
 package tkcy.simpleaddon.integration.jei;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
+
+import net.minecraft.item.ItemStack;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -10,6 +14,7 @@ import gregtech.common.metatileentities.MetaTileEntities;
 
 import mezz.jei.api.*;
 import mezz.jei.api.ingredients.IIngredientBlacklist;
+import tkcy.simpleaddon.common.TKCYSAConfigHolder;
 
 @JEIPlugin
 public class Removals implements IModPlugin {
@@ -19,9 +24,15 @@ public class Removals implements IModPlugin {
         IJeiHelpers jeiHelpers = registry.getJeiHelpers();
         IIngredientBlacklist ingredientBlacklist = jeiHelpers.getIngredientBlacklist();
 
+        List<ItemStack> toHide = new ArrayList<>();
+
         Arrays.stream(MetaTileEntities.ELECTROLYZER)
                 .filter(Objects::nonNull)
                 .map(MetaTileEntity::getStackForm)
-                .forEach(ingredientBlacklist::addIngredientToBlacklist);
+                .forEach(toHide::add);
+
+        if (TKCYSAConfigHolder.harderStuff.enableHarderCracking) toHide.add(MetaTileEntities.CRACKER.getStackForm());
+
+        toHide.forEach(ingredientBlacklist::addIngredientToBlacklist);
     }
 }

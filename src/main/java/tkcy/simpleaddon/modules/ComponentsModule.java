@@ -3,7 +3,7 @@ package tkcy.simpleaddon.modules;
 import static gregtech.api.unification.material.Materials.*;
 import static gregtech.common.items.MetaItems.*;
 import static tkcy.simpleaddon.api.unification.ore.TKCYSAOrePrefix.*;
-import static tkcy.simpleaddon.api.utils.ListHelper.buildList;
+import static tkcy.simpleaddon.api.utils.CollectionHelper.buildList;
 
 import java.util.ArrayList;
 import java.util.List;
