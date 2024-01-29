@@ -68,7 +68,6 @@ public class CommonProxy {
     @SubscribeEvent(priority = EventPriority.LOW)
     public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {
         TKCYSALog.logger.info("Registering recipe low...");
-        TKCYSARecipeLoader.init();
     }
 
     @SubscribeEvent

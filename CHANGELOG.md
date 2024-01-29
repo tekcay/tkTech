@@ -17,6 +17,7 @@ Subsequent products must be distilled to recover the desired hydrogen
 - added JEI module to hide ingredients ([#21](https://github.com/tekcay/tkcy-simple-addon/pull/21))
 
 ### Fixes
+- fixed foils recipes not being generated ([#31](https://github.com/tekcay/tkcy-simple-addon/pull/31))
 - fixed electrodes recipes not being generated, missing texture overlay ([#30](https://github.com/tekcay/tkcy-simple-addon/pull/30))
 - fixed brick buses and hatches being used in non-primitive multis ([#29](https://github.com/tekcay/tkcy-simple-addon/pull/29))
 
