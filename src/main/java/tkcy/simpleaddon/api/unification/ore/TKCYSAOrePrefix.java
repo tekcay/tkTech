@@ -5,7 +5,6 @@ import static gregtech.api.unification.ore.OrePrefix.Flags.ENABLE_UNIFICATION;
 import static gregtech.api.unification.ore.OrePrefix.Flags.SELF_REFERENCING;
 
 import gregtech.api.unification.material.MarkerMaterials;
-import gregtech.api.unification.material.info.MaterialIconType;
 import gregtech.api.unification.ore.OrePrefix;
 
 import tkcy.simpleaddon.api.unification.flags.TKCYSAMaterialFlags;
@@ -43,7 +42,7 @@ public class TKCYSAOrePrefix {
     public static final OrePrefix uvComponents = new OrePrefix("uvComponents", -1, MarkerMaterials.Empty,
             TKCYSAMaterialIconType.uvComponents, SELF_REFERENCING, null);
 
-    //OreBlocks
+    // OreBlocks
     public static final OrePrefix casing = new OrePrefix("casing", M * 9, null, TKCYSAMaterialIconType.casing,
             ENABLE_UNIFICATION, null);
 }

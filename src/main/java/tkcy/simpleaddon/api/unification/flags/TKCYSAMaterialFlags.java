@@ -32,6 +32,9 @@ public final class TKCYSAMaterialFlags {
     public static final MaterialFlag GENERATE_ELECTRODES = new MaterialFlag.Builder("generate_electrodes")
             .requireFlags(GENERATE_LONG_ROD)
             .build();
+    public static final MaterialFlag GENERATE_CASING = new MaterialFlag.Builder("generate_casing")
+            .requireFlags(GENERATE_PLATE)
+            .build();
     public static final MaterialFlag ALLOY = new MaterialFlag.Builder("alloy")
             .build();
 

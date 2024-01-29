@@ -18,12 +18,16 @@ import net.minecraftforge.registries.IForgeRegistry;
 
 import gregtech.api.unification.material.event.MaterialEvent;
 import gregtech.api.unification.material.event.PostMaterialEvent;
+import gregtech.common.blocks.MaterialItemBlock;
 
 import tkcy.simpleaddon.TekCaySimpleAddon;
 import tkcy.simpleaddon.api.unification.flags.FlagsAddition;
 import tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials;
 import tkcy.simpleaddon.api.unification.ore.OrePrefixRegistry;
+import tkcy.simpleaddon.api.unification.ore.TKCYSAOrePrefix;
 import tkcy.simpleaddon.api.utils.TKCYSALog;
+import tkcy.simpleaddon.common.block.BlockMaterialCasing;
+import tkcy.simpleaddon.common.block.TKCYSAMetaBlocks;
 import tkcy.simpleaddon.loaders.recipe.TKCYSARecipeLoader;
 import tkcy.simpleaddon.modules.AlloyingModule;
 
@@ -51,6 +55,10 @@ public class CommonProxy {
         IForgeRegistry<Item> registry = event.getRegistry();
 
         AlloyingModule.setAlloyFluidTemperature();
+
+        for (BlockMaterialCasing block : TKCYSAMetaBlocks.CASINGS_BLOCKS) {
+            registry.register(createItemBlock(block, b -> new MaterialItemBlock(b, TKCYSAOrePrefix.casing)));
+        }
     }
 
     private static <T extends Block> ItemBlock createItemBlock(T block, Function<T, ItemBlock> producer) {
@@ -66,7 +74,11 @@ public class CommonProxy {
     }
 
     @SubscribeEvent()
-    public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {}
+    public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {
+        TKCYSALog.logger.info("Registering ore dictionary...");
+
+        TKCYSAMetaBlocks.registerOreDict();
+    }
 
     @SubscribeEvent
     public static void registerMaterialsPost(PostMaterialEvent event) {
@@ -82,4 +94,6 @@ public class CommonProxy {
         // anything here is safe to call removals in
         TKCYSARecipeLoader.init();
     }
+
+    public void onLoad() {}
 }
