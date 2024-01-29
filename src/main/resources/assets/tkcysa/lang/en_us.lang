@@ -186,6 +186,7 @@ recipemap.cracking.name=Cracking
 item.material.oreprefix.cathode=%s Cathode
 item.material.oreprefix.anode=%s Anode
 item.material.oreprefix.electrode=%s Electrode
+item.material.oreprefix.casing=%s Casing
 
 # MetaItems
 metaitem.mica.sheet.name=Mica Based Sheet
