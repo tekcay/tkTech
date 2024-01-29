@@ -47,6 +47,8 @@ public class CommonProxy {
     public static void registerBlocks(RegistryEvent.Register<Block> event) {
         TKCYSALog.logger.info("Registering blocks...");
         IForgeRegistry<Block> registry = event.getRegistry();
+
+        TKCYSAMetaBlocks.CASINGS.values().stream().distinct().forEach(registry::register);
     }
 
     @SubscribeEvent

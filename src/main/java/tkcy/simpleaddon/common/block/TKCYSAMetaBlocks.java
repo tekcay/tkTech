@@ -22,6 +22,7 @@ import gregtech.api.util.function.TriConsumer;
 
 import it.unimi.dsi.fastutil.ints.Int2ObjectAVLTreeMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import tkcy.simpleaddon.api.unification.flags.TKCYSAMaterialFlags;
 import tkcy.simpleaddon.api.unification.ore.TKCYSAOrePrefix;
 
@@ -29,7 +30,7 @@ public class TKCYSAMetaBlocks {
 
     private TKCYSAMetaBlocks() {}
 
-    public static final Map<Material, BlockMaterialCasing> CASINGS = new HashMap<>();
+    public static final Map<Material, BlockMaterialCasing> CASINGS = new Object2ObjectOpenHashMap<>();
     public static final List<BlockMaterialCasing> CASINGS_BLOCKS = new ArrayList<>();
 
     public static void init() {
@@ -38,6 +39,9 @@ public class TKCYSAMetaBlocks {
                 TKCYSAMetaBlocks::createCasingBlock);
     }
 
+    ////
+    // 16 by default
+    ////
     protected static void createGeneratedBlock(Predicate<Material> materialPredicate,
                                                TriConsumer<String, Material[], Integer> blockGenerator) {
         for (MaterialRegistry registry : GregTechAPI.materialManager.getRegistries()) {
@@ -45,15 +49,15 @@ public class TKCYSAMetaBlocks {
             for (Material material : registry) {
                 if (materialPredicate.test(material)) {
                     int id = material.getId();
-                    int metaBlockID = id / 16;
-                    int subBlockID = id % 16;
+                    int metaBlockID = id / 4;
+                    int subBlockID = id % 4;
                     if (!blocksToGenerate.containsKey(metaBlockID)) {
-                        Material[] materials = new Material[16];
+                        Material[] materials = new Material[4];
                         Arrays.fill(materials, Materials.NULL);
                         blocksToGenerate.put(metaBlockID, materials);
                     }
 
-                    blocksToGenerate.get(metaBlockID)[subBlockID] = material;
+                    (blocksToGenerate.get(metaBlockID))[subBlockID] = material;
                 }
             }
             blocksToGenerate.forEach((key, value) -> blockGenerator.accept(registry.getModid(), value, key));
@@ -71,7 +75,8 @@ public class TKCYSAMetaBlocks {
 
     @SideOnly(Side.CLIENT)
     public static void registerItemModels() {
-        for (BlockMaterialCasing block : CASINGS_BLOCKS) block.onModelRegister();
+        // for (BlockMaterialCasing block : CASINGS_BLOCKS) block.onModelRegister();
+        CASINGS.values().stream().distinct().forEach(BlockMaterialCasing::onModelRegister);
     }
 
     @SideOnly(Side.CLIENT)
