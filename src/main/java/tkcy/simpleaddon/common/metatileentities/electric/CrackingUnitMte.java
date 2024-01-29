@@ -120,7 +120,11 @@ public class CrackingUnitMte extends RecipeMapMultiblockController {
     public void addInformation(ItemStack stack, @Nullable World player, @NotNull List<String> tooltip,
                                boolean advanced) {
         super.addInformation(stack, player, tooltip, advanced);
-        tooltip.add(I18n.format("gregtech.machine.cracker.tooltip.1"));
+        tooltip.add(I18n.format("tkcysa.machine.cracker.tooltip.1"));
+        tooltip.add(I18n.format("tkcysa.machine.cracker.tooltip.2"));
+        tooltip.add(I18n.format("tkcysa.machine.cracker.tooltip.3", Materials.Kanthal.getLocalizedName()));
+        tooltip.add(I18n.format("tkcysa.machine.cracker.tooltip.4", Materials.Nichrome.getLocalizedName()));
+        tooltip.add(I18n.format("tkcysa.machine.cracker.tooltip.5", Materials.RTMAlloy.getLocalizedName()));
     }
 
     @SideOnly(Side.CLIENT)

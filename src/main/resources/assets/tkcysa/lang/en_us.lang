@@ -205,6 +205,11 @@ tkcysa.test_display.height=Height: %d
 ##Machines tooltips
 tkcysa.machine.gas_release.1=Release gases into the atmosphere
 tkcysa.machine.alloying_crucible.1=Release gases into the atmosphere
+tkcysa.machine.cracker.tooltip.1=Cracks hydrocarbons or oil layers to get interesting compounds.
+tkcysa.machine.cracker.tooltip.2=All coils must be the same.
+tkcysa.machine.cracker.tooltip.3=§a%s §fenables §2LIGHT §fcracking.
+tkcysa.machine.cracker.tooltip.4=§e%s §fenables §6MODERATE §fcracking.
+tkcysa.machine.cracker.tooltip.5=§c%s §fenables §4SEVERE §fcracking.
 
 tkcysa.casting.tooltip.1=Solidifies liquid into parts using mold
 tkcysa.casting.tooltip.2=§fRecipe duration increases as :
