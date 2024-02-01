@@ -147,6 +147,7 @@ tkcysa.machine.gas_release.name=Gas Release
 tkcysa.machine.alloying_crucible.name=Alloying Crucible
 tkcysa.machine.hydrogenation_unit.name=Hydrogenation Unit
 tkcysa.machine.cracking_unit.name=Cracking Unit
+tkcysa.machine.steam_dust_mixer.name=Steam Dust Mixer
 
 tkcysa.machine.fluid_primitive_blast_furnace.name=Fluid Primitive Blast Furnace
 tkcysa.machine.primitive_casting.name=Primitive Casting
@@ -181,6 +182,7 @@ recipemap.cluster_mill.name=Cluster Mill
 recipemap.component_assembler.name=Component Assembler
 recipemap.hydrogenation.name=Hydrogenation
 recipemap.cracking.name=Cracking
+recipemap.dust_mixing.name=Dust Mixing
 
 # Ore Prefixes
 item.material.oreprefix.cathode=%s Cathode
