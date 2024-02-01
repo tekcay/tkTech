@@ -4,6 +4,7 @@
 
 ### Features
 - added Steam Dust Mixer and Steam Meleter ([#32](https://github.com/tekcay/tkcy-simple-addon/pull/32))
+- added GT6 plates textures ([#31](https://github.com/tekcay/tkcy-simple-addon/pull/31))
 - added harder cracking ([#25](https://github.com/tekcay/tkcy-simple-addon/pull/25))
 - added harder hydrogenation processes and new multi for sulfuric fuels and ammonia synthesis ([#24](https://github.com/tekcay/tkcy-simple-addon/pull/24))
 - added recipes for Cinnabar roasting ([#23](https://github.com/tekcay/tkcy-simple-addon/pull/23))
