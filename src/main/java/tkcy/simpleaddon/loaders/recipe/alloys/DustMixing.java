@@ -28,7 +28,7 @@ public class DustMixing {
     }
 
     private static void recipeAddition() {
-        TKCYSARecipeMaps.DUST_MIXING.recipeBuilder()
+        TKCYSARecipeMaps.PRIMITIVE_DUST_MIXING.recipeBuilder()
                 .input(OrePrefix.dust, Copper, 3)
                 .input(OrePrefix.dust, Tin, 1)
                 .output(OrePrefix.dust, Bronze, 4)
@@ -36,7 +36,7 @@ public class DustMixing {
                 .duration((int) Bronze.getMass())
                 .buildAndRegister();
 
-        TKCYSARecipeMaps.DUST_MIXING.recipeBuilder()
+        TKCYSARecipeMaps.PRIMITIVE_DUST_MIXING.recipeBuilder()
                 .input(OrePrefix.dust, Steel, 1)
                 .input(OrePrefix.dust, Tin, 1)
                 .output(OrePrefix.dust, TinAlloy, 2)
@@ -44,7 +44,7 @@ public class DustMixing {
                 .duration((int) TinAlloy.getMass())
                 .buildAndRegister();
 
-        TKCYSARecipeMaps.DUST_MIXING.recipeBuilder()
+        TKCYSARecipeMaps.PRIMITIVE_DUST_MIXING.recipeBuilder()
                 .input(OrePrefix.dust, Copper)
                 .input(OrePrefix.dust, Redstone, 4)
                 .output(OrePrefix.dust, RedAlloy)
@@ -52,7 +52,7 @@ public class DustMixing {
                 .duration((int) RedAlloy.getMass())
                 .buildAndRegister();
 
-        TKCYSARecipeMaps.DUST_MIXING.recipeBuilder()
+        TKCYSARecipeMaps.PRIMITIVE_DUST_MIXING.recipeBuilder()
                 .input(OrePrefix.dust, Bronze, 2)
                 .input(OrePrefix.dust, Lead)
                 .output(OrePrefix.dust, Potin, 9)
@@ -60,7 +60,7 @@ public class DustMixing {
                 .duration((int) Potin.getMass())
                 .buildAndRegister();
 
-        TKCYSARecipeMaps.DUST_MIXING.recipeBuilder()
+        TKCYSARecipeMaps.PRIMITIVE_DUST_MIXING.recipeBuilder()
                 .input(OrePrefix.dust, Antimony)
                 .input(OrePrefix.dust, Tin, 6)
                 .input(OrePrefix.dust, Lead, 3)
@@ -69,7 +69,7 @@ public class DustMixing {
                 .duration((int) SolderingAlloy.getMass())
                 .buildAndRegister();
 
-        TKCYSARecipeMaps.DUST_MIXING.recipeBuilder()
+        TKCYSARecipeMaps.PRIMITIVE_DUST_MIXING.recipeBuilder()
                 .input(OrePrefix.dust, Zinc)
                 .input(OrePrefix.dust, Copper, 3)
                 .output(OrePrefix.dust, Brass, 4)

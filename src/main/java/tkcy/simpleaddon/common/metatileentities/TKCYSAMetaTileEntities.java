@@ -19,6 +19,7 @@ import tkcy.simpleaddon.common.metatileentities.multiprimitive.GasRelease;
 import tkcy.simpleaddon.common.metatileentities.multiprimitive.PrimitiveRoastingOven;
 import tkcy.simpleaddon.common.metatileentities.primitive.PrimitiveCasting;
 import tkcy.simpleaddon.common.metatileentities.steam.SteamDustMixer;
+import tkcy.simpleaddon.common.metatileentities.steam.SteamMelter;
 
 public final class TKCYSAMetaTileEntities {
 
@@ -35,6 +36,7 @@ public final class TKCYSAMetaTileEntities {
     public static HydrogenationUnitMTE HYDROGENATION_UNIT_MTE;
     public static CrackingUnitMte CRACKING_UNIT;
     public static SteamDustMixer STEAM_DUST_MIXER;
+    public static SteamMelter STEAM_MELTER;
     public static SimpleMachineMetaTileEntity[] CLUSTER_MILLS = new SimpleMachineMetaTileEntity[5];
     public static SimpleMachineMetaTileEntity[] COMPONENT_ASSEMBLER_MTE = new SimpleMachineMetaTileEntity[6];
 
@@ -84,6 +86,7 @@ public final class TKCYSAMetaTileEntities {
 
         HYDROGENATION_UNIT_MTE = registerMetaTileEntity(4024, new HydrogenationUnitMTE(tkcysa("hydrogenation_unit")));
         CRACKING_UNIT = registerMetaTileEntity(4025, new CrackingUnitMte(tkcysa("cracking_unit")));
-        STEAM_DUST_MIXER = registerMetaTileEntity(4026, new SteamDustMixer(tkcysa("steam_dust_mixer"), true));
+        STEAM_DUST_MIXER = registerMetaTileEntity(4026, new SteamDustMixer(tkcysa("steam_dust_mixer")));
+        STEAM_MELTER = registerMetaTileEntity(4027, new SteamMelter(tkcysa("steam_melter")));
     }
 }

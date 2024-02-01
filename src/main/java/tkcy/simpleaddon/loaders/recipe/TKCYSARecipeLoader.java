@@ -16,6 +16,7 @@ import gregtech.common.metatileentities.MetaTileEntities;
 
 import tkcy.simpleaddon.loaders.recipe.alloys.DustMixing;
 import tkcy.simpleaddon.loaders.recipe.alloys.GalvanizedSteelRecipes;
+import tkcy.simpleaddon.loaders.recipe.alloys.Melting;
 import tkcy.simpleaddon.loaders.recipe.chains.chemicals.OxalicAcidChain;
 import tkcy.simpleaddon.loaders.recipe.chains.metals.*;
 import tkcy.simpleaddon.loaders.recipe.handlers.*;
@@ -36,6 +37,7 @@ public final class TKCYSARecipeLoader {
         GasReleaseHandler.generateRecipes();
 
         DustMixing.init();
+        Melting.init();
 
         harderStuff();
         chains();
