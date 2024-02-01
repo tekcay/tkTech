@@ -39,7 +39,7 @@ public final class TKCYSARecipeMaps {
             0, 9, 2,
             new NoEnergyRecipeBuilder(), false)
                     .setSound(GTSoundEvents.BOILER);
-    public static final RecipeMap<SimpleRecipeBuilder> DUST_MIXING = new RecipeMap<>("dust_mixing", 2,
+    public static final RecipeMap<SimpleRecipeBuilder> DUST_MIXING = new RecipeMap<>("dust_mixing", 3,
             1, 0, 0,
             new SimpleRecipeBuilder(), false)
                     .setSound(GTSoundEvents.TURBINE);

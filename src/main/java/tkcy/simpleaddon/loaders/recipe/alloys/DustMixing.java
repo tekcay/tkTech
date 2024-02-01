@@ -59,6 +59,23 @@ public class DustMixing {
                 .EUt(10)
                 .duration((int) Potin.getMass())
                 .buildAndRegister();
+
+        TKCYSARecipeMaps.DUST_MIXING.recipeBuilder()
+                .input(OrePrefix.dust, Antimony)
+                .input(OrePrefix.dust, Tin, 6)
+                .input(OrePrefix.dust, Lead, 3)
+                .output(OrePrefix.dust, SolderingAlloy, 10)
+                .EUt(10)
+                .duration((int) SolderingAlloy.getMass())
+                .buildAndRegister();
+
+        TKCYSARecipeMaps.DUST_MIXING.recipeBuilder()
+                .input(OrePrefix.dust, Zinc)
+                .input(OrePrefix.dust, Copper, 3)
+                .output(OrePrefix.dust, Brass, 4)
+                .EUt(10)
+                .duration((int) Brass.getMass())
+                .buildAndRegister();
     }
 
     private static void removeShaped() {
@@ -82,9 +99,11 @@ public class DustMixing {
         RecipeMaps.MIXER_RECIPES.recipeBuilder()
                 .input(OrePrefix.dust, Steel)
                 .input(OrePrefix.dust, Tin)
+                .output(OrePrefix.dust, TinAlloy)
                 .circuitMeta(1)
                 .EUt(VA[ULV])
-                .duration((int) TinAlloy.getMass());
+                .duration((int) TinAlloy.getMass())
+                .buildAndRegister();
     }
 
     private static ItemStack getCircuitStack(int config) {

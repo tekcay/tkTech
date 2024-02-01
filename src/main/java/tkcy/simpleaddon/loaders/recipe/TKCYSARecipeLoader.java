@@ -14,7 +14,6 @@ import gregtech.api.recipes.GTRecipeHandler;
 import gregtech.api.recipes.ModHandler;
 import gregtech.common.metatileentities.MetaTileEntities;
 
-import tkcy.simpleaddon.loaders.recipe.alloys.AlloyingRecipes;
 import tkcy.simpleaddon.loaders.recipe.alloys.DustMixing;
 import tkcy.simpleaddon.loaders.recipe.alloys.GalvanizedSteelRecipes;
 import tkcy.simpleaddon.loaders.recipe.chains.chemicals.OxalicAcidChain;
@@ -47,7 +46,7 @@ public final class TKCYSARecipeLoader {
     }
 
     private static void harderStuff() {
-        if (harderStuff.enableAlloyingAndCasting) AlloyingRecipes.init();
+        // if (harderStuff.enableAlloyingAndCasting) AlloyingRecipes.init();
         if (harderStuff.enableHarderCoils) HarderCoilsRecipes.init();
         if (harderStuff.enableHarderPolarization) HarderPolarization.init();
         if (harderStuff.removeTinCircuitRecipes) CircuitRecipes.init();
