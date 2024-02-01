@@ -40,5 +40,6 @@ public class TKCYSAConfigHolder {
         public boolean enableMethaneCracking = true;
         public boolean enableHarderHydrogenation = true;
         public boolean enableHarderCracking = true;
+        public boolean enableHarderCable = true;
     }
 }

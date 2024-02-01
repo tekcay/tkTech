@@ -1,5 +1,7 @@
 package tkcy.simpleaddon.common;
 
+import static gregtech.api.GTValues.*;
+
 import java.util.Objects;
 import java.util.function.Function;
 
@@ -63,6 +65,14 @@ public class CommonProxy {
     public static void registerMaterials(MaterialEvent event) {
         TKCYSAMaterials.init();
         OrePrefixRegistry.register();
+    }
+
+    // this is called almost last, to make sure all mods registered their ore dictionary
+    // items and blocks for running first phase of material handlers
+    // it will also clear generated materials
+    @SubscribeEvent(priority = EventPriority.LOW)
+    public static void runEarlyMaterialHandlers(RegistryEvent.Register<IRecipe> event) {
+        TKCYSALog.logger.info("Running early material handlers...");
     }
 
     @SubscribeEvent(priority = EventPriority.LOW)
