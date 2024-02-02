@@ -8,5 +8,6 @@ public class OreProcessingsHandler {
         Electrodes.init();
         if (harderStuff.enableHarderCoils) FoilHandler.init();
         if (harderStuff.enableHarderCable) WireHandler.init();
+        if (harderStuff.enableHarderFineWires) FineWireHandler.init();
     }
 }

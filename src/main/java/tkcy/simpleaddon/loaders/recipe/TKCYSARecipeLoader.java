@@ -50,7 +50,6 @@ public final class TKCYSARecipeLoader {
 
         if (harderStuff.enableHarderCoils) HarderCoilsRecipes.init();
         if (harderStuff.enableHarderPolarization) HarderPolarization.init();
-        if (harderStuff.removeTinCircuitRecipes) CircuitRecipes.init();
         if (harderStuff.enableHarderComponents) HarderComponents.init();
         if (harderStuff.enableHarderHydrogenation) Hydrogenation.init();
         if (harderStuff.enableHarderCracking) HarderCracking.init();

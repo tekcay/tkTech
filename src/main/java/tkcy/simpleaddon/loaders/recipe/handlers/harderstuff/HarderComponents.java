@@ -11,12 +11,9 @@ import static tkcy.simpleaddon.common.item.TKCYSAMetaItems.*;
 import static tkcy.simpleaddon.common.metatileentities.TKCYSAMetaTileEntities.COMPONENT_ASSEMBLER_MTE;
 import static tkcy.simpleaddon.modules.ComponentsModule.*;
 
-import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
 import gregtech.api.recipes.ModHandler;
-import gregtech.api.recipes.Recipe;
-import gregtech.api.recipes.RecipeMaps;
 import gregtech.api.unification.material.MarkerMaterials;
 import gregtech.api.unification.material.Material;
 import gregtech.api.unification.material.Materials;
@@ -27,7 +24,6 @@ public class HarderComponents {
     public static void init() {
         addULVComponentsShapedRecipes();
         addComponentAssemblerRecipe();
-        findAndRemove();
         motors();
         robotsArms();
         pumpsAndConveyors();
@@ -113,31 +109,6 @@ public class HarderComponents {
                 'H', HULL[5].getStackForm(),
                 'A', ROBOT_ARM_EV.getStackForm(),
                 'P', ELECTRIC_PISTON_EV.getStackForm());
-    }
-
-    private static void findAndRemove() {
-        for (Recipe recipe : RecipeMaps.ASSEMBLER_RECIPES.getRecipeList()) {
-            for (ItemStack component : getComponents()) {
-                if (getAssemblerRecipeOutput(recipe).isItemEqual(component)) {
-                    removeGTCEuRecipes(component, recipe);
-                }
-            }
-        }
-    }
-
-    private static void removeGTCEuRecipes(ItemStack component, Recipe recipe) {
-        ModHandler.removeRecipeByOutput(component);
-        RecipeMaps.ASSEMBLER_RECIPES.removeRecipe(recipe);
-    }
-
-    /**
-     * Returns the first element of the recipe outputs as {@link RecipeMaps#ASSEMBLER_RECIPES} only has one output.
-     *
-     * @param recipe assembler recipe
-     * @return the output as an {@link ItemStack}
-     */
-    private static ItemStack getAssemblerRecipeOutput(Recipe recipe) {
-        return recipe.getOutputs().get(0);
     }
 
     private static final FluidStack input = Materials.SolderingAlloy.getFluid(72);
