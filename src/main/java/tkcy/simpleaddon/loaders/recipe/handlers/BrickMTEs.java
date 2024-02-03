@@ -1,15 +1,17 @@
 package tkcy.simpleaddon.loaders.recipe.handlers;
 
+import static gregtech.api.unification.ore.OrePrefix.*;
+import static net.minecraft.init.Blocks.GLASS;
+
+import net.minecraft.item.ItemStack;
+
 import gregtech.api.recipes.ModHandler;
 import gregtech.api.unification.material.Materials;
 import gregtech.api.unification.stack.UnificationEntry;
 import gregtech.common.metatileentities.MetaTileEntities;
-import net.minecraft.item.ItemStack;
+
 import tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials;
 import tkcy.simpleaddon.common.metatileentities.TKCYSAMetaTileEntities;
-
-import static gregtech.api.unification.ore.OrePrefix.*;
-import static net.minecraft.init.Blocks.GLASS;
 
 public class BrickMTEs {
 

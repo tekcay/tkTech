@@ -13,7 +13,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import gregtech.api.GTValues;
-import gregtech.api.recipes.GTRecipeHandler;
 import gregtech.api.recipes.ModHandler;
 import gregtech.api.recipes.RecipeMap;
 import gregtech.api.unification.material.MarkerMaterials;
@@ -26,7 +25,6 @@ import gregtech.common.items.MetaItems;
 import gregtech.common.metatileentities.MetaTileEntities;
 
 import tkcy.simpleaddon.api.recipes.TKCYSARecipeMaps;
-import tkcy.simpleaddon.api.utils.RecipeHelper;
 import tkcy.simpleaddon.common.metatileentities.TKCYSAMetaTileEntities;
 
 public class HarderCracking {

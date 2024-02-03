@@ -5,13 +5,8 @@ import static tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials.Calcium
 import static tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials.MicaPulp;
 import static tkcy.simpleaddon.common.item.TKCYSAMetaItems.*;
 
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.fluids.FluidStack;
-
 import gregtech.api.GTValues;
-import gregtech.api.recipes.GTRecipeHandler;
 import gregtech.api.recipes.RecipeMaps;
-import gregtech.api.unification.OreDictUnifier;
 import gregtech.api.unification.material.Materials;
 import gregtech.api.unification.ore.OrePrefix;
 import gregtech.common.blocks.BlockWireCoil;
