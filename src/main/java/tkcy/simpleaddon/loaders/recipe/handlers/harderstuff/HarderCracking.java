@@ -13,7 +13,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import gregtech.api.GTValues;
-import gregtech.api.recipes.GTRecipeHandler;
 import gregtech.api.recipes.ModHandler;
 import gregtech.api.recipes.RecipeMap;
 import gregtech.api.unification.material.MarkerMaterials;
@@ -26,7 +25,6 @@ import gregtech.common.items.MetaItems;
 import gregtech.common.metatileentities.MetaTileEntities;
 
 import tkcy.simpleaddon.api.recipes.TKCYSARecipeMaps;
-import tkcy.simpleaddon.api.utils.RecipeHelper;
 import tkcy.simpleaddon.common.metatileentities.TKCYSAMetaTileEntities;
 
 public class HarderCracking {
@@ -34,8 +32,6 @@ public class HarderCracking {
     private static final List<RecipeMap<?>> chemRecipeMaps = Arrays.asList(CHEMICAL_RECIPES, LARGE_CHEMICAL_RECIPES);
 
     public static void init() {
-        chemReactorCrackingRecipesRemoval();
-        GTRecipeHandler.removeAllRecipes(CRACKING_RECIPES);
         transferControllerShapedRecipe();
         addRecipes();
     }
@@ -139,40 +135,6 @@ public class HarderCracking {
                 .coil(BlockWireCoil.CoilType.RTM_ALLOY)
                 .fluidOutputs(output.getFluid(500))
                 .buildAndRegister();
-    }
-
-    private static void chemReactorCrackingRecipesRemoval() {
-        desulfurizedFuels.forEach(HarderCracking::removeLightlyAndModeraltelyCrackingRecipes);
-        hydrocarbonMaterials.forEach(HarderCracking::removeModeratelyCrackingRecipes);
-
-        RecipeHelper.tryToRemoveRecipeWithCircuitConfig(CHEMICAL_RECIPES, VA[HV], 1, Water.getFluid(2000),
-                Methane.getFluid(2000));
-    }
-
-    private static void removeLightlyAndModeraltelyCrackingRecipes(Material material) {
-        for (RecipeMap<?> recipeMap : chemRecipeMaps) {
-            // Lightly
-            RecipeHelper.tryToRemoveRecipeWithCircuitConfig(recipeMap, VA[LV], 1, Hydrogen.getFluid(1000),
-                    material.getFluid(500));
-            RecipeHelper.tryToRemoveRecipeWithCircuitConfig(recipeMap, VA[LV], 1, Steam.getFluid(1000),
-                    material.getFluid(1000));
-
-            // Severely
-            RecipeHelper.tryToRemoveRecipeWithCircuitConfig(recipeMap, VA[LV], 2, Hydrogen.getFluid(3000),
-                    material.getFluid(500));
-            RecipeHelper.tryToRemoveRecipeWithCircuitConfig(recipeMap, VA[LV], 3, Steam.getFluid(1000),
-                    material.getFluid(1000));
-        }
-    }
-
-    private static void removeModeratelyCrackingRecipes(Material material) {
-        for (RecipeMap<?> recipeMap : chemRecipeMaps) {
-
-            RecipeHelper.tryToRemoveRecipeWithCircuitConfig(recipeMap, VA[LV], 2, Hydrogen.getFluid(2000),
-                    material.getFluid(500));
-            RecipeHelper.tryToRemoveRecipeWithCircuitConfig(recipeMap, VA[LV], 2, Steam.getFluid(1000),
-                    material.getFluid(1000));
-        }
     }
 
     private static void addDistillationRecipes() {

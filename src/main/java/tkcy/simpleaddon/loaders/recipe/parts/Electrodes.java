@@ -13,12 +13,12 @@ public class Electrodes {
 
     public static void init() {
         ElectrodeModule.electrodeMaterials.stream()
-                .peek(Electrodes::electrode)
-                .peek(Electrodes::cathode)
+                .map(Electrodes::electrode)
+                .map(Electrodes::cathode)
                 .forEach(Electrodes::anode);
     }
 
-    private static void electrode(Material material) {
+    private static Material electrode(Material material) {
         RecipeMaps.LASER_ENGRAVER_RECIPES.recipeBuilder()
                 .input(OrePrefix.stickLong, material)
                 .notConsumable(OrePrefix.lens, getLensMaterial(material))
@@ -26,6 +26,7 @@ public class Electrodes {
                 .duration((int) (material.getMass() * 10))
                 .EUt(30)
                 .buildAndRegister();
+        return material;
     }
 
     private static Material getLensMaterial(Material electordeMaterial) {
@@ -54,7 +55,7 @@ public class Electrodes {
                 .buildAndRegister();
     }
 
-    private static void cathode(Material material) {
+    private static Material cathode(Material material) {
         RecipeMaps.POLARIZER_RECIPES.recipeBuilder()
                 .input(TKCYSAOrePrefix.anode, material)
                 .output(TKCYSAOrePrefix.cathode, material)
@@ -68,5 +69,7 @@ public class Electrodes {
                 .duration((int) (material.getMass() * 3))
                 .EUt(30)
                 .buildAndRegister();
+
+        return material;
     }
 }

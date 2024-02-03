@@ -16,6 +16,8 @@ import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.registries.IForgeRegistry;
 
+import org.jetbrains.annotations.NotNull;
+
 import gregtech.api.unification.material.event.MaterialEvent;
 import gregtech.api.unification.material.event.PostMaterialEvent;
 
@@ -25,6 +27,7 @@ import tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials;
 import tkcy.simpleaddon.api.unification.ore.OrePrefixRegistry;
 import tkcy.simpleaddon.api.utils.TKCYSALog;
 import tkcy.simpleaddon.loaders.recipe.TKCYSARecipeLoader;
+import tkcy.simpleaddon.loaders.recipe.parts.OreProcessingsHandler;
 import tkcy.simpleaddon.modules.AlloyingModule;
 
 @Mod.EventBusSubscriber(modid = TekCaySimpleAddon.MODID)
@@ -62,12 +65,27 @@ public class CommonProxy {
     @SubscribeEvent(priority = EventPriority.HIGH)
     public static void registerMaterials(MaterialEvent event) {
         TKCYSAMaterials.init();
+    }
+
+    @SubscribeEvent(priority = EventPriority.HIGH)
+    public static void postRegisterMaterials(@NotNull PostMaterialEvent event) {
         OrePrefixRegistry.register();
     }
 
+    // this is called almost last, to make sure all mods registered their ore dictionary
+    // items and blocks for running first phase of material handlers
+    // it will also clear generated materials
     @SubscribeEvent(priority = EventPriority.LOW)
+    public static void runEarlyMaterialHandlers(RegistryEvent.Register<IRecipe> event) {
+        TKCYSALog.logger.info("Running early material handlers...");
+    }
+
+    @SubscribeEvent
     public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {
         TKCYSALog.logger.info("Registering recipe low...");
+        OreProcessingsHandler.init();
+
+        // OrePrefix.runMaterialHandlers();
     }
 
     @SubscribeEvent
@@ -82,6 +100,7 @@ public class CommonProxy {
         // Main recipe registration
         // This is called AFTER GregTech registers recipes, so
         // anything here is safe to call removals in
+
         TKCYSARecipeLoader.latestInit();
     }
 }

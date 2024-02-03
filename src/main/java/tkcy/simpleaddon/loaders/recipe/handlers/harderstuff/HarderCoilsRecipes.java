@@ -5,13 +5,8 @@ import static tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials.Calcium
 import static tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials.MicaPulp;
 import static tkcy.simpleaddon.common.item.TKCYSAMetaItems.*;
 
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.fluids.FluidStack;
-
 import gregtech.api.GTValues;
-import gregtech.api.recipes.GTRecipeHandler;
 import gregtech.api.recipes.RecipeMaps;
-import gregtech.api.unification.OreDictUnifier;
 import gregtech.api.unification.material.Materials;
 import gregtech.api.unification.ore.OrePrefix;
 import gregtech.common.blocks.BlockWireCoil;
@@ -111,32 +106,5 @@ public class HarderCoilsRecipes {
                 .fluidInputs(Materials.Tungsten.getFluid(GTValues.L))
                 .outputs(MetaBlocks.WIRE_COIL.getItemVariant(BlockWireCoil.CoilType.HSS_G)).duration(600)
                 .buildAndRegister();
-
-        // RecipeRemovals
-
-        GTRecipeHandler.removeRecipesByInputs(RecipeMaps.ASSEMBLER_RECIPES,
-                new ItemStack[] { OreDictUnifier.get(OrePrefix.wireGtDouble, Materials.Cupronickel, 8),
-                        OreDictUnifier.get(OrePrefix.foil, Materials.Bronze, 8) },
-                new FluidStack[] { (Materials.TinAlloy.getFluid(L)) });
-
-        GTRecipeHandler.removeRecipesByInputs(RecipeMaps.ASSEMBLER_RECIPES,
-                new ItemStack[] { OreDictUnifier.get(OrePrefix.wireGtDouble, Materials.Kanthal, 8),
-                        OreDictUnifier.get(OrePrefix.foil, Materials.Aluminium, 8) },
-                new FluidStack[] { (Materials.Copper.getFluid(L)) });
-
-        GTRecipeHandler.removeRecipesByInputs(RecipeMaps.ASSEMBLER_RECIPES,
-                new ItemStack[] { OreDictUnifier.get(OrePrefix.wireGtDouble, Materials.Nichrome, 8),
-                        OreDictUnifier.get(OrePrefix.foil, Materials.StainlessSteel, 8) },
-                new FluidStack[] { (Materials.Aluminium.getFluid(L)) });
-
-        GTRecipeHandler.removeRecipesByInputs(RecipeMaps.ASSEMBLER_RECIPES,
-                new ItemStack[] { OreDictUnifier.get(OrePrefix.wireGtDouble, Materials.RTMAlloy, 8),
-                        OreDictUnifier.get(OrePrefix.foil, Materials.VanadiumSteel, 8) },
-                new FluidStack[] { (Materials.Nichrome.getFluid(L)) });
-
-        GTRecipeHandler.removeRecipesByInputs(RecipeMaps.ASSEMBLER_RECIPES,
-                new ItemStack[] { OreDictUnifier.get(OrePrefix.wireGtDouble, Materials.HSSG, 8),
-                        OreDictUnifier.get(OrePrefix.foil, Materials.TungstenCarbide, 8) },
-                new FluidStack[] { (Materials.Tungsten.getFluid(L)) });
     }
 }

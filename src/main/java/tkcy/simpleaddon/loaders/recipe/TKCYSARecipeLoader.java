@@ -21,7 +21,6 @@ import tkcy.simpleaddon.loaders.recipe.chains.chemicals.OxalicAcidChain;
 import tkcy.simpleaddon.loaders.recipe.chains.metals.*;
 import tkcy.simpleaddon.loaders.recipe.handlers.*;
 import tkcy.simpleaddon.loaders.recipe.handlers.harderstuff.*;
-import tkcy.simpleaddon.loaders.recipe.parts.PartsHandler;
 
 public final class TKCYSARecipeLoader {
 
@@ -31,7 +30,6 @@ public final class TKCYSARecipeLoader {
         POLARIZER_RECIPES.setMaxInputs(2);
         BLAST_RECIPES.setMaxFluidOutputs(2);
 
-        PartsHandler.init();
         MiscChemicals.init();
         PrimitiveCastingHandler.init();
         GasReleaseHandler.generateRecipes();
@@ -49,9 +47,9 @@ public final class TKCYSARecipeLoader {
 
     private static void harderStuff() {
         // if (harderStuff.enableAlloyingAndCasting) AlloyingRecipes.init();
+
         if (harderStuff.enableHarderCoils) HarderCoilsRecipes.init();
         if (harderStuff.enableHarderPolarization) HarderPolarization.init();
-        if (harderStuff.removeTinCircuitRecipes) CircuitRecipes.init();
         if (harderStuff.enableHarderComponents) HarderComponents.init();
         if (harderStuff.enableHarderHydrogenation) Hydrogenation.init();
         if (harderStuff.enableHarderCracking) HarderCracking.init();
