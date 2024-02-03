@@ -1,9 +1,11 @@
 # Changelog
 
+***
+
 ## v0.2
 
 ### Features
-- added Steam Dust Mixer and Steam Meleter ([#32](https://github.com/tekcay/tkcy-simple-addon/pull/32))
+- added Steam Dust Mixer and Steam Melter ([#32](https://github.com/tekcay/tkcy-simple-addon/pull/32))
 - added GT6 plates textures ([#31](https://github.com/tekcay/tkcy-simple-addon/pull/31))
 - added harder cracking ([#25](https://github.com/tekcay/tkcy-simple-addon/pull/25))
 - added harder hydrogenation processes and new multi for sulfuric fuels and ammonia synthesis ([#24](https://github.com/tekcay/tkcy-simple-addon/pull/24))
@@ -23,7 +25,7 @@ Subsequent products must be distilled to recover the desired hydrogen
 - fixed electrodes recipes not being generated, missing texture overlay ([#30](https://github.com/tekcay/tkcy-simple-addon/pull/30))
 - fixed brick buses and hatches being used in non-primitive multis ([#29](https://github.com/tekcay/tkcy-simple-addon/pull/29))
 
-
+***
 
 ## v0.1
 

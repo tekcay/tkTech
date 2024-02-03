@@ -1,38 +1,27 @@
 package tkcy.simpleaddon.loaders.recipe.handlers;
 
-import static gregtech.api.unification.ore.OrePrefix.*;
-import static net.minecraft.init.Blocks.GLASS;
-
-import net.minecraft.item.ItemStack;
-
 import gregtech.api.recipes.ModHandler;
 import gregtech.api.unification.material.Materials;
 import gregtech.api.unification.stack.UnificationEntry;
-import gregtech.common.blocks.BlockMachineCasing;
-import gregtech.common.blocks.MetaBlocks;
 import gregtech.common.metatileentities.MetaTileEntities;
-
+import net.minecraft.item.ItemStack;
 import tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials;
 import tkcy.simpleaddon.common.metatileentities.TKCYSAMetaTileEntities;
+
+import static gregtech.api.unification.ore.OrePrefix.*;
+import static net.minecraft.init.Blocks.GLASS;
 
 public class BrickMTEs {
 
     public static void init() {
         brickMultis();
-        // brickBusHatch();
-        machineCasings();
+        brickBusHatch();
         singleBlockMachines();
     }
 
     private static void singleBlockMachines() {
         ModHandler.addShapedRecipe("primitive_casting", TKCYSAMetaTileEntities.PRIMITIVE_CASTING.getStackForm(),
                 "PPP", "P P", "PPP", 'P', new UnificationEntry(plate, Materials.Brick));
-    }
-
-    private static void machineCasings() {
-        ModHandler.addShapedRecipe("ulv_machine_casing",
-                MetaBlocks.MACHINE_CASING.getItemVariant(BlockMachineCasing.MachineCasingType.ULV),
-                "PPP", "PwP", "PPP", 'P', new UnificationEntry(plate, Materials.Potin));
     }
 
     private static void brickMultis() {
