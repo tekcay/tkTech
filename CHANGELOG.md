@@ -23,6 +23,7 @@ Subsequent products must be distilled to recover the desired hydrogen
 - added JEI module to hide ingredients ([#21](https://github.com/tekcay/tkcy-simple-addon/pull/21))
 
 ### Fixes
+- fixed some cracking recipes not generated ([#35](https://github.com/tekcay/tkcy-simple-addon/pull/35))
 - fixed shiny materials anode and cathode items not having +/- texture overlay ([#34](https://github.com/tekcay/tkcy-simple-addon/pull/34))
 - fixed ore processing handlers not working properly by reorganized common proxy calls ([#34](https://github.com/tekcay/tkcy-simple-addon/pull/34))
 - fixed foils recipes not being generated
