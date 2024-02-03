@@ -59,7 +59,7 @@ public final class TKCYSARecipeMaps {
             1, 2,
             2, new SimpleRecipeBuilder(), false)
                     .setSound(GTSoundEvents.COOLING);
-    public static final RecipeMap<CoilTypeRecipeBuilder> CRACKING = new RecipeMap<>("cracking", 1,
+    public static final RecipeMap<CoilTypeRecipeBuilder> CRACKING = new RecipeMap<>("cracking", 2,
             0, 2,
             1, new CoilTypeRecipeBuilder(), false)
                     .setSound(GTSoundEvents.BOILER);

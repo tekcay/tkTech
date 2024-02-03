@@ -3,18 +3,14 @@ package tkcy.simpleaddon.loaders.recipe.handlers.harderstuff;
 import static gregtech.api.GTValues.*;
 import static gregtech.api.recipes.RecipeMaps.*;
 import static gregtech.api.unification.material.Materials.*;
-import static gregtech.common.blocks.BlockWireCoil.CoilType.CUPRONICKEL;
+import static gregtech.common.blocks.BlockWireCoil.CoilType.NICHROME;
 import static tkcy.simpleaddon.api.TKCYSAValues.SECOND;
 import static tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials.*;
 import static tkcy.simpleaddon.api.utils.CollectionHelper.buildMap;
 import static tkcy.simpleaddon.modules.PetroChemModule.*;
 
-import java.util.Arrays;
-import java.util.List;
-
 import gregtech.api.GTValues;
 import gregtech.api.recipes.ModHandler;
-import gregtech.api.recipes.RecipeMap;
 import gregtech.api.unification.material.MarkerMaterials;
 import gregtech.api.unification.material.Material;
 import gregtech.api.unification.ore.OrePrefix;
@@ -29,8 +25,6 @@ import tkcy.simpleaddon.common.metatileentities.TKCYSAMetaTileEntities;
 
 public class HarderCracking {
 
-    private static final List<RecipeMap<?>> chemRecipeMaps = Arrays.asList(CHEMICAL_RECIPES, LARGE_CHEMICAL_RECIPES);
-
     public static void init() {
         transferControllerShapedRecipe();
         addRecipes();
@@ -41,14 +35,13 @@ public class HarderCracking {
         ModHandler.addShapedRecipe(true, "tkcysa_cracking_unit",
                 TKCYSAMetaTileEntities.CRACKING_UNIT.getStackForm(),
                 "CEC", "PHP", "CEC",
-                'C', MetaBlocks.WIRE_COIL.getItemVariant(CUPRONICKEL),
+                'C', MetaBlocks.WIRE_COIL.getItemVariant(NICHROME),
                 'E', MetaItems.ELECTRIC_PUMP_HV, 'P',
                 new UnificationEntry(OrePrefix.circuit, MarkerMaterials.Tier.HV),
                 'H', MetaTileEntities.HULL[GTValues.HV].getStackForm());
     }
 
     private static void addRecipes() {
-        buildMap(desulfurizedFuels, lightlyHydroCracked).forEach(HarderCracking::addLightlyHydroCrackedRecipes);
         buildMap(desulfurizedFuels, lightlyHydroCracked).forEach(HarderCracking::addLightlyHydroCrackedRecipes);
         buildMap(desulfurizedFuels, lightlySteamCracked).forEach(HarderCracking::addLightlySteamCrackedRecipes);
         buildMap(desulfurizedFuels, severelyHydroCracked).forEach(HarderCracking::addSeverelyHydroCrackedRecipes);
@@ -75,6 +68,7 @@ public class HarderCracking {
         TKCYSARecipeMaps.CRACKING.recipeBuilder()
                 .EUt(VA[MV])
                 .duration(SECOND)
+                .circuitMeta(1)
                 .fluidInputs(input.getFluid(500))
                 .fluidInputs(Hydrogen.getFluid(1000))
                 .coil(BlockWireCoil.CoilType.KANTHAL)
@@ -86,6 +80,7 @@ public class HarderCracking {
         TKCYSARecipeMaps.CRACKING.recipeBuilder()
                 .EUt(VA[MV])
                 .duration(SECOND)
+                .circuitMeta(1)
                 .fluidInputs(input.getFluid(500))
                 .fluidInputs(Steam.getFluid(2000))
                 .coil(BlockWireCoil.CoilType.KANTHAL)
@@ -97,6 +92,7 @@ public class HarderCracking {
         TKCYSARecipeMaps.CRACKING.recipeBuilder()
                 .EUt(300)
                 .duration(SECOND)
+                .circuitMeta(2)
                 .fluidInputs(input.getFluid(500))
                 .fluidInputs(Hydrogen.getFluid(2000))
                 .coil(BlockWireCoil.CoilType.NICHROME)
@@ -108,6 +104,7 @@ public class HarderCracking {
         TKCYSARecipeMaps.CRACKING.recipeBuilder()
                 .EUt(300)
                 .duration(SECOND)
+                .circuitMeta(2)
                 .fluidInputs(input.getFluid(500))
                 .fluidInputs(Steam.getFluid(4000))
                 .coil(BlockWireCoil.CoilType.NICHROME)
@@ -119,6 +116,7 @@ public class HarderCracking {
         TKCYSARecipeMaps.CRACKING.recipeBuilder()
                 .EUt(600)
                 .duration(SECOND)
+                .circuitMeta(3)
                 .fluidInputs(input.getFluid(500))
                 .fluidInputs(Hydrogen.getFluid(4000))
                 .coil(BlockWireCoil.CoilType.RTM_ALLOY)
@@ -130,6 +128,7 @@ public class HarderCracking {
         TKCYSARecipeMaps.CRACKING.recipeBuilder()
                 .EUt(600)
                 .duration(SECOND)
+                .circuitMeta(3)
                 .fluidInputs(input.getFluid(500))
                 .fluidInputs(Steam.getFluid(8000))
                 .coil(BlockWireCoil.CoilType.RTM_ALLOY)
