@@ -7,6 +7,7 @@ import static gregtech.common.items.MetaItems.*;
 import static gregtech.common.metatileentities.MetaTileEntities.HULL;
 import static tkcy.simpleaddon.api.recipes.TKCYSARecipeMaps.COMPONENT_ASSEMBING;
 import static tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials.GalvanizedSteel;
+import static tkcy.simpleaddon.api.unification.ore.TKCYSAOrePrefix.curvedPlate;
 import static tkcy.simpleaddon.common.item.TKCYSAMetaItems.*;
 import static tkcy.simpleaddon.common.metatileentities.TKCYSAMetaTileEntities.COMPONENT_ASSEMBLER_MTE;
 import static tkcy.simpleaddon.modules.ComponentsModule.*;
@@ -18,6 +19,7 @@ import gregtech.api.unification.material.MarkerMaterials;
 import gregtech.api.unification.material.Material;
 import gregtech.api.unification.material.Materials;
 import gregtech.api.unification.stack.UnificationEntry;
+import tkcy.simpleaddon.api.unification.ore.TKCYSAOrePrefix;
 
 public class HarderComponents {
 
@@ -35,16 +37,16 @@ public class HarderComponents {
     }
 
     private static void addULVComponentsShapedRecipes() {
-        ModHandler.addShapedRecipe("electric_motor_ulv", ELECTRIC_MOTOR_ULV.getStackForm(), "CWR", "WMW", "RWC",
+        ModHandler.addShapedRecipe("electric_motor_ulv", ELECTRIC_MOTOR_ULV.getStackForm(), "CWR", "WMW", "VWC",
                 'C', new UnificationEntry(cableGtSingle, Lead),
                 'W', new UnificationEntry(wireGtSingle, RedAlloy),
-                'R', new UnificationEntry(stick, Steel),
-                'M', new UnificationEntry(stick, SteelMagnetic));
+                'R', new UnificationEntry(stick, TinAlloy),
+                'V', new UnificationEntry(curvedPlate, TinAlloy),
+                'M', new UnificationEntry(bolt, SteelMagnetic));
 
-        ModHandler.addShapedRecipe("electric_pump_ulv", ELECTRIC_PUMP_ULV.getStackForm(), "SXR", "dPw", "RMC",
-                'S', new UnificationEntry(screw, Lead),
-                'X', new UnificationEntry(rotor, Lead),
-                'P', new UnificationEntry(pipeNormalFluid, Potin),
+        ModHandler.addShapedRecipe("electric_pump_ulv", ELECTRIC_PUMP_ULV.getStackForm(), "SRO", "dVw", "OMS",
+                'S', new UnificationEntry(screw, TinAlloy),
+                'X', new UnificationEntry(rotor, TinAlloy),
                 'R', new UnificationEntry(ring, Rubber),
                 'C', new UnificationEntry(cableGtSingle, Lead),
                 'M', ELECTRIC_MOTOR_ULV.getStackForm());
@@ -54,56 +56,56 @@ public class HarderComponents {
                 'C', new UnificationEntry(cableGtSingle, Lead),
                 'M', ELECTRIC_MOTOR_ULV.getStackForm());
 
-        ModHandler.addShapedRecipe(true, "electric_piston_ulv", ELECTRIC_PISTON_ULV.getStackForm(), "PPP", "CRR", "CMG",
+        ModHandler.addShapedRecipe(true, "electric_piston_ulv", ELECTRIC_PISTON_ULV.getStackForm(), "SPP", "dRR", "SMG",
                 'P', new UnificationEntry(plate, Steel),
-                'C', new UnificationEntry(cableGtSingle, Tin),
-                'R', new UnificationEntry(stick, Steel),
-                'G', new UnificationEntry(gearSmall, Steel),
+                'C', new UnificationEntry(screw, TinAlloy),
+                'R', new UnificationEntry(stick, TinAlloy),
+                'G', new UnificationEntry(gearSmall, TinAlloy),
                 'M', ELECTRIC_MOTOR_ULV.getStackForm());
 
         ModHandler.addShapedRecipe(true, "robot_arm_ulv", ROBOT_ARM_ULV.getStackForm(), "CCC", "MRM", "PXR",
                 'C', new UnificationEntry(cableGtSingle, Lead),
-                'R', new UnificationEntry(stick, Steel),
+                'R', new UnificationEntry(stick, TinAlloy),
                 'X', new UnificationEntry(circuit, MarkerMaterials.Tier.ULV),
                 'M', ELECTRIC_MOTOR_LV.getStackForm(),
                 'P', ELECTRIC_PISTON_ULV.getStackForm());
     }
 
     private static void addComponentAssemblerRecipe() {
-        ModHandler.addShapedRecipe(true, "component_assembler_lv", COMPONENT_ASSEMBLER_MTE[1].getStackForm(), "PCP",
-                "AHA", "WCW",
+        ModHandler.addShapedRecipe(true, "component_assembler_lv", COMPONENT_ASSEMBLER_MTE[1].getStackForm(),
+                "PCP", "AHA", "WCW",
                 'C', new UnificationEntry(circuit, MarkerMaterials.Tier.ULV),
                 'W', new UnificationEntry(cableGtSingle, Lead),
                 'H', HULL[1].getStackForm(),
                 'A', ROBOT_ARM_ULV.getStackForm(),
                 'P', ELECTRIC_PISTON_ULV.getStackForm());
 
-        ModHandler.addShapedRecipe(true, "component_assembler_mv", COMPONENT_ASSEMBLER_MTE[2].getStackForm(), "PCP",
-                "AHA", "WCW",
+        ModHandler.addShapedRecipe(true, "component_assembler_mv", COMPONENT_ASSEMBLER_MTE[2].getStackForm(),
+                "PCP", "AHA", "WCW",
                 'C', new UnificationEntry(circuit, MarkerMaterials.Tier.LV),
                 'W', new UnificationEntry(cableGtDouble, Tin),
                 'H', HULL[2].getStackForm(),
                 'A', ROBOT_ARM_LV.getStackForm(),
                 'P', ELECTRIC_PISTON_LV.getStackForm());
 
-        ModHandler.addShapedRecipe(true, "component_assembler_hv", COMPONENT_ASSEMBLER_MTE[3].getStackForm(), "PCP",
-                "AHA", "WCW",
+        ModHandler.addShapedRecipe(true, "component_assembler_hv", COMPONENT_ASSEMBLER_MTE[3].getStackForm(),
+                "PCP", "AHA", "WCW",
                 'C', new UnificationEntry(circuit, MarkerMaterials.Tier.MV),
                 'W', new UnificationEntry(cableGtQuadruple, Copper),
                 'H', HULL[3].getStackForm(),
                 'A', ROBOT_ARM_MV.getStackForm(),
                 'P', ELECTRIC_PISTON_MV.getStackForm());
 
-        ModHandler.addShapedRecipe(true, "component_assembler_ev", COMPONENT_ASSEMBLER_MTE[4].getStackForm(), "PCP",
-                "AHA", "WCW",
+        ModHandler.addShapedRecipe(true, "component_assembler_ev", COMPONENT_ASSEMBLER_MTE[4].getStackForm(),
+                "PCP", "AHA", "WCW",
                 'C', new UnificationEntry(circuit, MarkerMaterials.Tier.HV),
                 'W', new UnificationEntry(cableGtOctal, Gold),
                 'H', HULL[4].getStackForm(),
                 'A', ROBOT_ARM_HV.getStackForm(),
                 'P', ELECTRIC_PISTON_HV.getStackForm());
 
-        ModHandler.addShapedRecipe(true, "component_assembler_iv", COMPONENT_ASSEMBLER_MTE[5].getStackForm(), "PCP",
-                "AHA", "WCW",
+        ModHandler.addShapedRecipe(true, "component_assembler_iv", COMPONENT_ASSEMBLER_MTE[5].getStackForm(),
+                "PCP", "AHA", "WCW",
                 'C', new UnificationEntry(circuit, MarkerMaterials.Tier.EV),
                 'W', new UnificationEntry(cableGtHex, Aluminium),
                 'H', HULL[5].getStackForm(),
@@ -119,6 +121,7 @@ public class HarderComponents {
                 .input(stick, GalvanizedSteel, 2)
                 .input(stick, SteelMagnetic)
                 .input(wireGtSingle, Copper, 4)
+                .input(curvedPlate, GalvanizedSteel)
                 .fluidInputs(input)
                 .outputs(ELECTRIC_MOTOR_LV.getStackForm())
                 .duration(100).EUt(VA[LV]).buildAndRegister();
@@ -128,6 +131,7 @@ public class HarderComponents {
                 .input(stick, Aluminium, 2)
                 .input(stick, SteelMagnetic)
                 .input(wireGtDouble, Cupronickel, 4)
+                .input(curvedPlate, Aluminium)
                 .fluidInputs(input)
                 .outputs(ELECTRIC_MOTOR_MV.getStackForm())
                 .duration(100).EUt(VA[MV]).buildAndRegister();
@@ -137,6 +141,7 @@ public class HarderComponents {
                 .input(stick, StainlessSteel, 2)
                 .input(stick, SteelMagnetic)
                 .input(wireGtDouble, Electrum, 4)
+                .input(curvedPlate, StainlessSteel)
                 .fluidInputs(input)
                 .outputs(ELECTRIC_MOTOR_HV.getStackForm())
                 .duration(100).EUt(VA[HV]).buildAndRegister();
@@ -146,6 +151,7 @@ public class HarderComponents {
                 .input(stick, Titanium, 2)
                 .input(stick, NeodymiumMagnetic)
                 .input(wireGtDouble, Kanthal, 4)
+                .input(curvedPlate, Titanium)
                 .fluidInputs(input)
                 .outputs(ELECTRIC_MOTOR_EV.getStackForm())
                 .duration(100).EUt(VA[EV]).buildAndRegister();
@@ -155,6 +161,7 @@ public class HarderComponents {
                 .input(stick, TungstenSteel, 2)
                 .input(stick, NeodymiumMagnetic)
                 .input(wireGtDouble, Graphene, 4)
+                .input(curvedPlate, Tungsten)
                 .fluidInputs(input)
                 .outputs(ELECTRIC_MOTOR_IV.getStackForm())
                 .duration(100).EUt(VA[IV]).buildAndRegister();
@@ -164,7 +171,7 @@ public class HarderComponents {
         COMPONENT_ASSEMBING.recipeBuilder()
                 .input(stick, GalvanizedSteel, 2)
                 .input(cableGtSingle, Tin, 2)
-                .input(plate, GalvanizedSteel, 3)
+                .input(plateDouble, GalvanizedSteel, 3)
                 .input(gearSmall, GalvanizedSteel)
                 .inputs(ELECTRIC_MOTOR_LV.getStackForm())
                 .fluidInputs(input)
@@ -174,7 +181,7 @@ public class HarderComponents {
         COMPONENT_ASSEMBING.recipeBuilder()
                 .input(stick, Aluminium, 2)
                 .input(cableGtSingle, Copper, 2)
-                .input(plate, Aluminium, 3)
+                .input(plateDouble, Aluminium, 3)
                 .input(gearSmall, Aluminium)
                 .inputs(ELECTRIC_MOTOR_MV.getStackForm())
                 .fluidInputs(input)
@@ -184,7 +191,7 @@ public class HarderComponents {
         COMPONENT_ASSEMBING.recipeBuilder()
                 .input(stick, StainlessSteel, 2)
                 .input(cableGtSingle, Gold, 2)
-                .input(plate, StainlessSteel, 3)
+                .input(plateDouble, StainlessSteel, 3)
                 .input(gearSmall, StainlessSteel)
                 .fluidInputs(input)
                 .inputs(ELECTRIC_MOTOR_HV.getStackForm())
@@ -194,7 +201,7 @@ public class HarderComponents {
         COMPONENT_ASSEMBING.recipeBuilder()
                 .input(stick, Titanium, 2)
                 .input(cableGtSingle, Aluminium, 2)
-                .input(plate, Titanium, 3)
+                .input(plateDouble, Titanium, 3)
                 .input(gearSmall, Titanium)
                 .fluidInputs(input)
                 .inputs(ELECTRIC_MOTOR_EV.getStackForm())
@@ -204,7 +211,7 @@ public class HarderComponents {
         COMPONENT_ASSEMBING.recipeBuilder()
                 .input(stick, TungstenSteel, 2)
                 .input(cableGtSingle, Tungsten, 2)
-                .input(plate, TungstenSteel, 3)
+                .input(plateDouble, TungstenSteel, 3)
                 .input(gearSmall, TungstenSteel)
                 .inputs(ELECTRIC_MOTOR_IV.getStackForm())
                 .fluidInputs(input)
@@ -216,9 +223,10 @@ public class HarderComponents {
         for (Material material : getLvAcceptedRubberMaterials()) {
             COMPONENT_ASSEMBING.recipeBuilder()
                     .input(cableGtSingle, Tin)
-                    .input(pipeNormalFluid, Bronze)
-                    .input(screw, Tin)
-                    .input(rotor, Tin)
+                    .input(pipeNormalFluid, GalvanizedSteel)
+                    .input(screw, TinAlloy)
+                    .input(rotor, TinAlloy)
+                    .input(curvedPlate, GalvanizedSteel)
                     .input(ring, material, 2)
                     .inputs(ELECTRIC_MOTOR_LV.getStackForm())
                     .fluidInputs(input)
@@ -238,10 +246,11 @@ public class HarderComponents {
         for (Material material : getMvAcceptedRubberMaterials()) {
             COMPONENT_ASSEMBING.recipeBuilder()
                     .input(cableGtSingle, Copper)
-                    .input(pipeNormalFluid, GalvanizedSteel)
-                    .input(screw, Bronze)
-                    .input(rotor, Bronze)
+                    .input(pipeNormalFluid, Aluminium)
+                    .input(screw, Aluminium)
+                    .input(rotor, Aluminium)
                     .input(ring, material, 2)
+                    .input(curvedPlate, Aluminium)
                     .fluidInputs(input)
                     .inputs(ELECTRIC_MOTOR_MV.getStackForm())
                     .outputs(ELECTRIC_PUMP_MV.getStackForm())
@@ -264,6 +273,7 @@ public class HarderComponents {
                     .input(screw, GalvanizedSteel)
                     .input(rotor, GalvanizedSteel)
                     .input(ring, material, 2)
+                    .input(curvedPlate, StainlessSteel)
                     .fluidInputs(input)
                     .inputs(ELECTRIC_MOTOR_HV.getStackForm())
                     .outputs(ELECTRIC_PUMP_HV.getStackForm())
@@ -286,6 +296,7 @@ public class HarderComponents {
                     .input(screw, StainlessSteel)
                     .input(rotor, StainlessSteel)
                     .input(ring, material, 2)
+                    .input(curvedPlate, Titanium)
                     .fluidInputs(input)
                     .inputs(ELECTRIC_MOTOR_EV.getStackForm())
                     .outputs(ELECTRIC_PUMP_EV.getStackForm())
@@ -308,6 +319,7 @@ public class HarderComponents {
                     .input(screw, TungstenSteel)
                     .input(rotor, TungstenSteel)
                     .input(ring, material, 2)
+                    .input(curvedPlate, TungstenCarbide)
                     .fluidInputs(input)
                     .inputs(ELECTRIC_MOTOR_IV.getStackForm())
                     .outputs(ELECTRIC_PUMP_IV.getStackForm())
@@ -379,43 +391,48 @@ public class HarderComponents {
     private static void fieldGenerators() {
         COMPONENT_ASSEMBING.recipeBuilder()
                 .input(gem, EnderPearl)
-                .input(plate, Steel, 2)
+                .input(plateDouble, GalvanizedSteel, 2)
                 .input(circuit, MarkerMaterials.Tier.LV, 2)
                 .input(wireGtQuadruple, ManganesePhosphide, 4)
+                .input(wireFine, Copper, 4)
                 .fluidInputs(input)
                 .outputs(FIELD_GENERATOR_LV.getStackForm())
                 .duration(100).EUt(VA[LV]).buildAndRegister();
 
         COMPONENT_ASSEMBING.recipeBuilder()
                 .input(gem, EnderEye)
-                .input(plate, Aluminium, 2)
+                .input(plateDouble, Aluminium, 3)
                 .input(circuit, MarkerMaterials.Tier.MV, 2)
                 .input(wireGtQuadruple, MagnesiumDiboride, 4)
+                .input(wireFine, Gold, 4)
                 .fluidInputs(input)
                 .outputs(FIELD_GENERATOR_MV.getStackForm())
                 .duration(100).EUt(VA[MV]).buildAndRegister();
 
         COMPONENT_ASSEMBING.recipeBuilder()
                 .input(QUANTUM_EYE)
-                .input(plate, StainlessSteel, 2)
+                .input(plateDouble, StainlessSteel, 4)
                 .input(circuit, MarkerMaterials.Tier.HV, 2)
                 .input(wireGtQuadruple, MercuryBariumCalciumCuprate, 4).fluidInputs(input)
+                .input(wireFine, Gold, 4)
                 .outputs(FIELD_GENERATOR_HV.getStackForm())
                 .duration(100).EUt(VA[HV]).buildAndRegister();
 
         COMPONENT_ASSEMBING.recipeBuilder()
                 .input(gem, NetherStar)
-                .input(plateDouble, Titanium, 2)
+                .input(plateDouble, Titanium, 5)
                 .input(circuit, MarkerMaterials.Tier.EV, 2)
                 .input(wireGtQuadruple, UraniumTriplatinum, 4).fluidInputs(input)
+                .input(wireFine, Platinum, 4)
                 .outputs(FIELD_GENERATOR_EV.getStackForm())
                 .duration(100).EUt(VA[EV]).buildAndRegister();
 
         COMPONENT_ASSEMBING.recipeBuilder()
                 .input(QUANTUM_STAR)
-                .input(plateDouble, TungstenSteel, 2)
+                .input(plateDouble, TungstenSteel, 6)
                 .input(circuit, MarkerMaterials.Tier.IV, 2)
                 .input(wireGtQuadruple, SamariumIronArsenicOxide, 4)
+                .input(wireFine, Palladium, 4)
                 .fluidInputs(input)
                 .outputs(FIELD_GENERATOR_IV.getStackForm())
                 .duration(100).EUt(VA[IV]).buildAndRegister();
@@ -424,8 +441,8 @@ public class HarderComponents {
     private static void sensors() {
         COMPONENT_ASSEMBING.recipeBuilder()
                 .input(stick, Brass)
-                .input(plate, Steel, 4)
-                .input(circuit, MarkerMaterials.Tier.LV)
+                .input(curvedPlate, Steel, 4)
+                .input(circuit, MarkerMaterials.Tier.LV, 2)
                 .input(gem, Quartzite)
                 .fluidInputs(input)
                 .outputs(SENSOR_LV.getStackForm())
@@ -433,36 +450,36 @@ public class HarderComponents {
 
         COMPONENT_ASSEMBING.recipeBuilder()
                 .input(stick, Electrum)
-                .input(plate, Aluminium, 4)
-                .input(circuit, MarkerMaterials.Tier.MV)
-                .input(gemFlawless, Emerald)
+                .input(curvedPlate, Aluminium, 4)
+                .input(circuit, MarkerMaterials.Tier.MV, 2)
+                .input(gemFlawless, Diamond)
                 .fluidInputs(input)
                 .outputs(SENSOR_MV.getStackForm())
                 .duration(100).EUt(VA[MV]).buildAndRegister();
 
         COMPONENT_ASSEMBING.recipeBuilder()
                 .input(stick, Chrome)
-                .input(plate, StainlessSteel, 4)
-                .input(circuit, MarkerMaterials.Tier.HV)
-                .input(gem, EnderEye)
+                .input(curvedPlate, StainlessSteel, 4)
+                .input(circuit, MarkerMaterials.Tier.HV, 2)
+                .input(gem, Emerald)
                 .fluidInputs(input)
                 .outputs(SENSOR_HV.getStackForm())
                 .duration(100).EUt(VA[HV]).buildAndRegister();
 
         COMPONENT_ASSEMBING.recipeBuilder()
                 .input(stick, Platinum)
-                .input(plate, Titanium, 4)
-                .input(circuit, MarkerMaterials.Tier.EV)
-                .input(QUANTUM_EYE)
+                .input(curvedPlate, Titanium, 4)
+                .input(circuit, MarkerMaterials.Tier.EV, 2)
+                .input(lens, Platinum)
                 .fluidInputs(input)
                 .outputs(SENSOR_EV.getStackForm())
                 .duration(100).EUt(VA[EV]).buildAndRegister();
 
         COMPONENT_ASSEMBING.recipeBuilder()
                 .input(stick, Iridium)
-                .input(plate, TungstenSteel, 4)
-                .input(circuit, MarkerMaterials.Tier.IV)
-                .input(QUANTUM_STAR)
+                .input(curvedPlate, TungstenSteel, 4)
+                .input(circuit, MarkerMaterials.Tier.IV, 2)
+                .input(lens, Palladium)
                 .fluidInputs(input)
                 .outputs(SENSOR_IV.getStackForm())
                 .duration(100).EUt(VA[IV]).buildAndRegister();
@@ -481,9 +498,9 @@ public class HarderComponents {
 
         COMPONENT_ASSEMBING.recipeBuilder()
                 .input(stick, Electrum, 4)
-                .input(cableGtSingle, Copper, 2)
+                .input(cableGtDouble, Copper, 2)
                 .input(circuit, MarkerMaterials.Tier.MV, 2)
-                .input(gemFlawless, Emerald)
+                .input(gemFlawless, Diamond)
                 .circuitMeta(1)
                 .fluidInputs(input)
                 .outputs(EMITTER_MV.getStackForm())
@@ -491,9 +508,9 @@ public class HarderComponents {
 
         COMPONENT_ASSEMBING.recipeBuilder()
                 .input(stick, Chrome, 4)
-                .input(cableGtSingle, Gold, 2)
+                .input(cableGtQuadruple, Gold, 2)
                 .input(circuit, MarkerMaterials.Tier.HV, 2)
-                .input(gem, EnderEye)
+                .input(gem, Emerald)
                 .circuitMeta(1)
                 .fluidInputs(input)
                 .outputs(EMITTER_HV.getStackForm())
@@ -501,9 +518,9 @@ public class HarderComponents {
 
         COMPONENT_ASSEMBING.recipeBuilder()
                 .input(stick, Platinum, 4)
-                .input(cableGtSingle, Aluminium, 2)
+                .input(cableGtOctal, Aluminium, 2)
                 .input(circuit, MarkerMaterials.Tier.EV, 2)
-                .input(QUANTUM_EYE)
+                .input(lens, Platinum)
                 .circuitMeta(1)
                 .fluidInputs(input)
                 .outputs(EMITTER_EV.getStackForm())
@@ -511,9 +528,9 @@ public class HarderComponents {
 
         COMPONENT_ASSEMBING.recipeBuilder()
                 .input(stick, Iridium, 4)
-                .input(cableGtSingle, Tungsten, 2)
+                .input(cableGtHex, Tungsten, 2)
                 .input(circuit, MarkerMaterials.Tier.IV, 2)
-                .input(QUANTUM_STAR)
+                .input(lens, Palladium)
                 .circuitMeta(1)
                 .fluidInputs(input)
                 .outputs(EMITTER_IV.getStackForm())
