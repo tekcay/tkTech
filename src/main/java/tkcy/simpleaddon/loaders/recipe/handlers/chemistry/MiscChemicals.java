@@ -1,4 +1,4 @@
-package tkcy.simpleaddon.loaders.recipe.handlers;
+package tkcy.simpleaddon.loaders.recipe.handlers.chemistry;
 
 import static gregtech.api.GTValues.*;
 import static gregtech.api.recipes.RecipeMaps.*;
@@ -7,7 +7,11 @@ import static gregtech.api.unification.ore.OrePrefix.dust;
 import static tkcy.simpleaddon.api.TKCYSAValues.SECOND;
 import static tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials.*;
 
+import gregtech.api.unification.material.Materials;
+import gregtech.api.unification.ore.OrePrefix;
+
 import tkcy.simpleaddon.api.recipes.TKCYSARecipeMaps;
+import tkcy.simpleaddon.api.unification.ore.TKCYSAOrePrefix;
 
 public class MiscChemicals {
 
@@ -67,6 +71,19 @@ public class MiscChemicals {
                 .fluidInputs(NitrogenDioxide.getFluid(1000))
                 .fluidInputs(NitricOxide.getFluid(1000))
                 .fluidOutputs(LiquidDinitrogenTrioxide.getFluid(1000))
+                .buildAndRegister();
+
+        // 2 NaHSO4 -> Na2S2O8 + H2
+        TKCYSARecipeMaps.ADVANCED_ELECTROLYSIS.recipeBuilder()
+                .EUt(600)
+                .duration(SECOND)
+                .input(OrePrefix.dust, Materials.SodiumBisulfate)
+                .notConsumable(TKCYSAOrePrefix.anode, Platinum)
+                .notConsumable(TKCYSAOrePrefix.cathode, Platinum)
+                .notConsumable(Materials.DistilledWater.getFluid(5000))
+                .fluidInputs(Materials.DistilledWater.getFluid(1000))
+                .fluidOutputs(Materials.Hydrogen.getFluid(1000))
+                .fluidOutputs(Materials.SodiumPersulfate.getFluid(1000))
                 .buildAndRegister();
     }
 }

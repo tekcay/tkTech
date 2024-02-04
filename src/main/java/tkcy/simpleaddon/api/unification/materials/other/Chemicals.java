@@ -28,6 +28,12 @@ public class Chemicals {
                 .colorAverage()
                 .build();
 
+        SodiumPersulfateSolution = new Material.Builder(startId++, gregtechId("sodium_persulfate_solution;"))
+                .liquid(new FluidBuilder().temperature(293))
+                .components(SodiumPersulfate, 2, DistilledWater, 2)
+                .colorAverage()
+                .build();
+
         return startId;
     }
 }
