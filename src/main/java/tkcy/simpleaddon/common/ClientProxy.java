@@ -5,6 +5,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 
+import tkcy.simpleaddon.api.render.TKCYSATextures;
 import tkcy.simpleaddon.common.block.TKCYSAMetaBlocks;
 import tkcy.simpleaddon.common.item.TKCYSAToolItems;
 
@@ -14,6 +15,7 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void preLoad() {
         super.preLoad();
+        TKCYSATextures.preInit();
     }
 
     @SubscribeEvent

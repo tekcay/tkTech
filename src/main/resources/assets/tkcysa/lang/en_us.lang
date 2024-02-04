@@ -170,6 +170,12 @@ tkcysa.machine.component_assembler.hv.name=Component Assembler HV
 tkcysa.machine.component_assembler.ev.name=Component Assembler EV
 tkcysa.machine.component_assembler.iv.name=Component Assembler IV
 
+tkcysa.machine.rolling_mill.lv.name=Rolling Mill LV
+tkcysa.machine.rolling_mill.mv.name=Rolling Mill MV
+tkcysa.machine.rolling_mill.hv.name=Rolling Mill HV
+tkcysa.machine.rolling_mill.ev.name=Rolling Mill EV
+tkcysa.machine.rolling_mill.iv.name=Rolling Mill IV
+
 ##RecipesMaps
 recipemap.primitive_roasting.name=Primtive Roasting
 recipemap.advanced_electrolysis.name=Electrolyzis
@@ -185,6 +191,7 @@ recipemap.hydrogenation.name=Hydrogenation
 recipemap.cracking.name=Cracking
 recipemap.primitive_dust_mixing.name=Primtive Dust Mixing
 recipemap.primitive_smelting.name=Primitive Smelting
+recipemap.rolling_mill.name=Roll Bending
 
 # Ore Prefixes
 item.material.oreprefix.cathode=%s Cathode
