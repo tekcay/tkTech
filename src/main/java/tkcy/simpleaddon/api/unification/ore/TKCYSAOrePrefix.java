@@ -23,6 +23,11 @@ public class TKCYSAOrePrefix {
             ENABLE_UNIFICATION,
             mat -> mat.hasFlag(TKCYSAMaterialFlags.GENERATE_ELECTRODES));
 
+    public static final OrePrefix curvedPlate = new OrePrefix("curved_plate", M, null,
+            TKCYSAMaterialIconType.curvedPlate,
+            ENABLE_UNIFICATION,
+            mat -> mat.hasFlag(TKCYSAMaterialFlags.GENERATE_CURVED_PLATE));
+
     // Components
     public static final OrePrefix lvComponents = new OrePrefix("lvComponents", -1, MarkerMaterials.Empty,
             TKCYSAMaterialIconType.lvComponents, SELF_REFERENCING, null);

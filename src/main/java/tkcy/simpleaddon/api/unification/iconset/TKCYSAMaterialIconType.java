@@ -9,6 +9,7 @@ public class TKCYSAMaterialIconType {
     public static final MaterialIconType cathode = new MaterialIconType("cathode");
 
     public static final MaterialIconType anode = new MaterialIconType("anode");
+    public static final MaterialIconType curvedPlate = new MaterialIconType("curved_plate");
 
     // Components
     public static MaterialIconType lvComponents = new MaterialIconType("lvComponents");

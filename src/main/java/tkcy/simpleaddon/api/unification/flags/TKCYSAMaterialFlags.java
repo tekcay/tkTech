@@ -36,6 +36,11 @@ public final class TKCYSAMaterialFlags {
             .build();
     public static final MaterialFlag GENERATE_SOLDERING_IRON_TIP = new MaterialFlag.Builder(
             "generate_soldering_iron_tip")
+                    .requireFlags(GENERATE_BOLT_SCREW, GENERATE_ROD)
+                    .build();
+    public static final MaterialFlag GENERATE_CURVED_PLATE = new MaterialFlag.Builder(
+            "generate_curved_plate")
+                    .requireFlags(GENERATE_BOLT_SCREW, GENERATE_ROD)
                     .build();
 
     public static final Predicate<Material> isAlloy = material -> material.hasFlag(ALLOY);
@@ -48,7 +53,7 @@ public final class TKCYSAMaterialFlags {
         GENERATE_ALL.addAll(EXT2_METAL);
         GENERATE_ALL.addAll(Arrays.asList(GENERATE_ROTOR, GENERATE_SMALL_GEAR, GENERATE_SPRING,
                 GENERATE_SPRING_SMALL, GENERATE_FRAME, GENERATE_GEAR, GENERATE_DOUBLE_PLATE, GENERATE_DENSE,
-                GENERATE_FINE_WIRE, GENERATE_FOIL));
+                GENERATE_FINE_WIRE, GENERATE_FOIL, GENERATE_CURVED_PLATE));
 
         GENERATE_ALL_NO_UNIF.addAll(GENERATE_ALL);
         GENERATE_ALL_NO_UNIF.add(NO_UNIFICATION);

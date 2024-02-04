@@ -190,6 +190,7 @@ recipemap.primitive_smelting.name=Primitive Smelting
 item.material.oreprefix.cathode=%s Cathode
 item.material.oreprefix.anode=%s Anode
 item.material.oreprefix.electrode=%s Electrode
+item.material.oreprefix.curved_plate=%s Curved Plate
 
 # MetaItems
 metaitem.mica.sheet.name=Mica Based Sheet

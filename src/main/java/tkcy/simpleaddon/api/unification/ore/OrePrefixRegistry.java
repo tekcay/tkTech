@@ -9,6 +9,7 @@ public class OrePrefixRegistry {
         addOrePrefix(TKCYSAOrePrefix.electrode);
         addOrePrefix(TKCYSAOrePrefix.anode);
         addOrePrefix(TKCYSAOrePrefix.cathode);
+        addOrePrefix(curvedPlate);
 
         registerComponentsOres();
         registerToolOres();
