@@ -29,6 +29,8 @@ public class FlagsAddition {
 
         Steel.addFlags(GENERATE_SOLDERING_IRON_TIP);
 
+        addAllAlloyFlags(TinAlloy);
+
         electrodeMaterials.forEach(FlagsAddition::addElectrodeFlag);
         alloysMaterials.forEach(FlagsAddition::addAlloyFlag);
         getLvAcceptedRubberMaterials().forEach(FlagsAddition::addRingAndPlateFlags);
@@ -44,5 +46,9 @@ public class FlagsAddition {
 
     public static void addRingAndPlateFlags(Material material) {
         material.addFlags(GENERATE_RING, GENERATE_PLATE);
+    }
+
+    public static void addAllAlloyFlags(Material material) {
+        GENERATE_ALL.forEach(material::addFlags);
     }
 }

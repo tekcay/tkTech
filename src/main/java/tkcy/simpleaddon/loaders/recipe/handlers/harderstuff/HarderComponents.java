@@ -19,7 +19,6 @@ import gregtech.api.unification.material.MarkerMaterials;
 import gregtech.api.unification.material.Material;
 import gregtech.api.unification.material.Materials;
 import gregtech.api.unification.stack.UnificationEntry;
-import tkcy.simpleaddon.api.unification.ore.TKCYSAOrePrefix;
 
 public class HarderComponents {
 
@@ -42,12 +41,13 @@ public class HarderComponents {
                 'W', new UnificationEntry(wireGtSingle, RedAlloy),
                 'R', new UnificationEntry(stick, TinAlloy),
                 'V', new UnificationEntry(curvedPlate, TinAlloy),
-                'M', new UnificationEntry(bolt, SteelMagnetic));
+                'M', new UnificationEntry(stick, SteelMagnetic));
 
-        ModHandler.addShapedRecipe("electric_pump_ulv", ELECTRIC_PUMP_ULV.getStackForm(), "SRO", "dVw", "OMS",
+        ModHandler.addShapedRecipe("electric_pump_ulv", ELECTRIC_PUMP_ULV.getStackForm(), "SRC", "dXw", "VMS",
                 'S', new UnificationEntry(screw, TinAlloy),
                 'X', new UnificationEntry(rotor, TinAlloy),
                 'R', new UnificationEntry(ring, Rubber),
+                'V', new UnificationEntry(curvedPlate, TinAlloy),
                 'C', new UnificationEntry(cableGtSingle, Lead),
                 'M', ELECTRIC_MOTOR_ULV.getStackForm());
 
@@ -58,17 +58,10 @@ public class HarderComponents {
 
         ModHandler.addShapedRecipe(true, "electric_piston_ulv", ELECTRIC_PISTON_ULV.getStackForm(), "SPP", "dRR", "SMG",
                 'P', new UnificationEntry(plate, Steel),
-                'C', new UnificationEntry(screw, TinAlloy),
+                'S', new UnificationEntry(screw, TinAlloy),
                 'R', new UnificationEntry(stick, TinAlloy),
                 'G', new UnificationEntry(gearSmall, TinAlloy),
                 'M', ELECTRIC_MOTOR_ULV.getStackForm());
-
-        ModHandler.addShapedRecipe(true, "robot_arm_ulv", ROBOT_ARM_ULV.getStackForm(), "CCC", "MRM", "PXR",
-                'C', new UnificationEntry(cableGtSingle, Lead),
-                'R', new UnificationEntry(stick, TinAlloy),
-                'X', new UnificationEntry(circuit, MarkerMaterials.Tier.ULV),
-                'M', ELECTRIC_MOTOR_LV.getStackForm(),
-                'P', ELECTRIC_PISTON_ULV.getStackForm());
     }
 
     private static void addComponentAssemblerRecipe() {

@@ -5,7 +5,6 @@ import static gregtech.api.unification.ore.OrePrefix.Flags.ENABLE_UNIFICATION;
 import static gregtech.api.unification.ore.OrePrefix.Flags.SELF_REFERENCING;
 
 import gregtech.api.unification.material.MarkerMaterials;
-import gregtech.api.unification.material.info.MaterialFlag;
 import gregtech.api.unification.material.info.MaterialFlags;
 import gregtech.api.unification.ore.OrePrefix;
 

@@ -14,5 +14,6 @@ public class OreProcessingsHandler {
         if (harderStuff.enableHarderCoils) FoilHandler.init();
         if (harderStuff.enableHarderCable) WireHandler.init();
         if (harderStuff.enableHarderFineWires) FineWireHandler.init();
+        if (harderStuff.enableHarderRotors) RotorHandler.init();
     }
 }

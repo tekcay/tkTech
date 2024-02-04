@@ -191,7 +191,7 @@ recipemap.hydrogenation.name=Hydrogenation
 recipemap.cracking.name=Cracking
 recipemap.primitive_dust_mixing.name=Primtive Dust Mixing
 recipemap.primitive_smelting.name=Primitive Smelting
-recipemap.rolling_mill.name=Roll Bending
+recipemap.rolling.name=Roll Bending
 
 # Ore Prefixes
 item.material.oreprefix.cathode=%s Cathode
