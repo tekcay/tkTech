@@ -20,6 +20,7 @@ import tkcy.simpleaddon.loaders.recipe.alloys.Melting;
 import tkcy.simpleaddon.loaders.recipe.chains.chemicals.OxalicAcidChain;
 import tkcy.simpleaddon.loaders.recipe.chains.metals.*;
 import tkcy.simpleaddon.loaders.recipe.handlers.*;
+import tkcy.simpleaddon.loaders.recipe.handlers.chemistry.ChemistryHandler;
 import tkcy.simpleaddon.loaders.recipe.handlers.harderstuff.*;
 
 public final class TKCYSARecipeLoader {
@@ -30,7 +31,8 @@ public final class TKCYSARecipeLoader {
         POLARIZER_RECIPES.setMaxInputs(2);
         BLAST_RECIPES.setMaxFluidOutputs(2);
 
-        MiscChemicals.init();
+        ChemistryHandler.init();
+
         PrimitiveCastingHandler.init();
         GasReleaseHandler.generateRecipes();
 

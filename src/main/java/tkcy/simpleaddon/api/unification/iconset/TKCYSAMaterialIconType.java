@@ -9,8 +9,8 @@ public class TKCYSAMaterialIconType {
     public static final MaterialIconType cathode = new MaterialIconType("cathode");
 
     public static final MaterialIconType anode = new MaterialIconType("anode");
+    public static final MaterialIconType curvedPlate = new MaterialIconType("curved_plate");
 
-    // Components
     // Components
     public static MaterialIconType lvComponents = new MaterialIconType("lvComponents");
     public static MaterialIconType mvComponents = new MaterialIconType("mvComponents");
@@ -20,4 +20,7 @@ public class TKCYSAMaterialIconType {
     public static MaterialIconType luvComponents = new MaterialIconType("luvComponents");
     public static MaterialIconType zpmComponents = new MaterialIconType("zpmComponents");
     public static MaterialIconType uvComponents = new MaterialIconType("uvComponents");
+
+    //
+    public static MaterialIconType toolTipSolderingIron = new MaterialIconType("toolTipSolderingIron");
 }

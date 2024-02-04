@@ -9,6 +9,7 @@ import gregtech.api.util.GTUtility;
 import gregtech.client.renderer.texture.Textures;
 
 import tkcy.simpleaddon.api.recipes.TKCYSARecipeMaps;
+import tkcy.simpleaddon.api.render.TKCYSATextures;
 import tkcy.simpleaddon.api.utils.TKCYSAUtil;
 import tkcy.simpleaddon.common.metatileentities.electric.*;
 import tkcy.simpleaddon.common.metatileentities.multiblockpart.BrickFluidHatch;
@@ -39,6 +40,7 @@ public final class TKCYSAMetaTileEntities {
     public static SteamMelter STEAM_MELTER;
     public static SimpleMachineMetaTileEntity[] CLUSTER_MILLS = new SimpleMachineMetaTileEntity[5];
     public static SimpleMachineMetaTileEntity[] COMPONENT_ASSEMBLER_MTE = new SimpleMachineMetaTileEntity[6];
+    public static SimpleMachineMetaTileEntity[] ROLLING_MILL = new SimpleMachineMetaTileEntity[6];
 
     private TKCYSAMetaTileEntities() {}
 
@@ -84,9 +86,12 @@ public final class TKCYSAMetaTileEntities {
                 TKCYSARecipeMaps.COMPONENT_ASSEMBING, Textures.ASSEMBLER_OVERLAY,
                 true, TKCYSAUtil::tkcysa, GTUtility.hvCappedTankSizeFunction);
 
-        HYDROGENATION_UNIT_MTE = registerMetaTileEntity(4024, new HydrogenationUnitMTE(tkcysa("hydrogenation_unit")));
-        CRACKING_UNIT = registerMetaTileEntity(4025, new CrackingUnitMte(tkcysa("cracking_unit")));
-        STEAM_DUST_MIXER = registerMetaTileEntity(4026, new SteamDustMixer(tkcysa("steam_dust_mixer")));
-        STEAM_MELTER = registerMetaTileEntity(4027, new SteamMelter(tkcysa("steam_melter")));
+        registerSimpleMetaTileEntity(ROLLING_MILL, 4024, "rolling_mill", TKCYSARecipeMaps.ROLLING_RECIPES,
+                TKCYSATextures.ROLLING_MILL_OVERLAY, true, TKCYSAUtil::tkcysa, null);
+
+        HYDROGENATION_UNIT_MTE = registerMetaTileEntity(4100, new HydrogenationUnitMTE(tkcysa("hydrogenation_unit")));
+        CRACKING_UNIT = registerMetaTileEntity(4101, new CrackingUnitMte(tkcysa("cracking_unit")));
+        STEAM_DUST_MIXER = registerMetaTileEntity(4102, new SteamDustMixer(tkcysa("steam_dust_mixer")));
+        STEAM_MELTER = registerMetaTileEntity(4103, new SteamMelter(tkcysa("steam_melter")));
     }
 }

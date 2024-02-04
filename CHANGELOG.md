@@ -2,9 +2,15 @@
 
 ***
 
-## v0.2 (GTCEu-tk-0.1 as dependency)
+## v0.2 (GTCEu-tk-fork as dependency)
 
 ### Features
+- added processes to produce sodium persulfate ([#36](https://github.com/tekcay/tkcy-simple-addon/pull/36))
+- added the soldering iron from GT5u ([#36](https://github.com/tekcay/tkcy-simple-addon/pull/36))
+- added `curvedPlate` ore prefix, its processing handler and a new machine ([#36](https://github.com/tekcay/tkcy-simple-addon/pull/36))
+- added Steam Dust Mixer and Steam Melter ([#32](https://github.com/tekcay/tkcy-simple-addon/pull/32))
+- added Steam Dust Mixer and Steam Melter ([#32](https://github.com/tekcay/tkcy-simple-addon/pull/32))
+- added Steam Dust Mixer and Steam Melter ([#32](https://github.com/tekcay/tkcy-simple-addon/pull/32))
 - added Steam Dust Mixer and Steam Melter ([#32](https://github.com/tekcay/tkcy-simple-addon/pull/32))
 - added GT6 plates textures ([#31](https://github.com/tekcay/tkcy-simple-addon/pull/31))
 - added harder cracking ([#25](https://github.com/tekcay/tkcy-simple-addon/pull/25))
@@ -29,6 +35,12 @@ Subsequent products must be distilled to recover the desired hydrogen
 - fixed foils recipes not being generated
 - fixed electrodes recipes not being generated, missing texture overlay ([#30](https://github.com/tekcay/tkcy-simple-addon/pull/30))
 - fixed brick buses and hatches being used in non-primitive multis ([#29](https://github.com/tekcay/tkcy-simple-addon/pull/29))
+
+
+### Changes
+
+- longer cracking recipe duration ([#36](https://github.com/tekcay/tkcy-simple-addon/pull/36))
+- made components recipes even harder with the introduction of the `curvedPlate` ([#36](https://github.com/tekcay/tkcy-simple-addon/pull/36))
 
 ***
 

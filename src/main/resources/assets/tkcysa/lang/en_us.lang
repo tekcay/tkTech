@@ -170,6 +170,12 @@ tkcysa.machine.component_assembler.hv.name=Component Assembler HV
 tkcysa.machine.component_assembler.ev.name=Component Assembler EV
 tkcysa.machine.component_assembler.iv.name=Component Assembler IV
 
+tkcysa.machine.rolling_mill.lv.name=Rolling Mill LV
+tkcysa.machine.rolling_mill.mv.name=Rolling Mill MV
+tkcysa.machine.rolling_mill.hv.name=Rolling Mill HV
+tkcysa.machine.rolling_mill.ev.name=Rolling Mill EV
+tkcysa.machine.rolling_mill.iv.name=Rolling Mill IV
+
 ##RecipesMaps
 recipemap.primitive_roasting.name=Primtive Roasting
 recipemap.advanced_electrolysis.name=Electrolyzis
@@ -185,11 +191,13 @@ recipemap.hydrogenation.name=Hydrogenation
 recipemap.cracking.name=Cracking
 recipemap.primitive_dust_mixing.name=Primtive Dust Mixing
 recipemap.primitive_smelting.name=Primitive Smelting
+recipemap.rolling.name=Roll Bending
 
 # Ore Prefixes
 item.material.oreprefix.cathode=%s Cathode
 item.material.oreprefix.anode=%s Anode
 item.material.oreprefix.electrode=%s Electrode
+item.material.oreprefix.curved_plate=%s Curved Plate
 
 # MetaItems
 metaitem.mica.sheet.name=Mica Based Sheet
@@ -202,6 +210,15 @@ metaitem.electric_pump_ulv.name=ULV Electric Pump
 metaitem.piston_ulv.name=ULV Piston
 metaitem.conveyor_ulv.name=ULV Conveyor
 metaitem.robot_arm_ulv.name=ULV Robot Arm
+
+## Tools
+item.gt.tool.soldering_iron.name=%s Soldering Iron
+
+gt.tool.class.soldering_iron=Soldering Iron
+
+item.gt.tool.soldering_iron.tooltip=§8Hold left click to dismantle Machines
+
+item.material.oreprefix.toolTipSolderingIron=%s Soldering Iron Tip
 
 #
 tkcysa.test_display.height=Height: %d
