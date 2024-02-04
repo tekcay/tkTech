@@ -18,22 +18,23 @@ import net.minecraftforge.registries.IForgeRegistry;
 
 import org.jetbrains.annotations.NotNull;
 
+import gregtech.api.items.toolitem.IGTTool;
 import gregtech.api.unification.material.event.MaterialEvent;
 import gregtech.api.unification.material.event.PostMaterialEvent;
+import gregtech.common.items.ToolItems;
 
 import tkcy.simpleaddon.TekCaySimpleAddon;
 import tkcy.simpleaddon.api.unification.flags.FlagsAddition;
 import tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials;
 import tkcy.simpleaddon.api.unification.ore.OrePrefixRegistry;
 import tkcy.simpleaddon.api.utils.TKCYSALog;
+import tkcy.simpleaddon.common.item.TKCYSAToolItems;
 import tkcy.simpleaddon.loaders.recipe.TKCYSARecipeLoader;
 import tkcy.simpleaddon.loaders.recipe.parts.OreProcessingsHandler;
 import tkcy.simpleaddon.modules.AlloyingModule;
 
 @Mod.EventBusSubscriber(modid = TekCaySimpleAddon.MODID)
 public class CommonProxy {
-
-    public void preLoad() {}
 
     @SubscribeEvent
     public static void syncConfigValues(ConfigChangedEvent.OnConfigChangedEvent event) {
@@ -53,6 +54,9 @@ public class CommonProxy {
         TKCYSALog.logger.info("Registering Items...");
         IForgeRegistry<Item> registry = event.getRegistry();
 
+        for (IGTTool tool : TKCYSAToolItems.getAllTKCYSATools()) {
+            registry.register(tool.get());
+        }
         AlloyingModule.setAlloyFluidTemperature();
     }
 
@@ -84,8 +88,10 @@ public class CommonProxy {
     public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {
         TKCYSALog.logger.info("Registering recipe low...");
         OreProcessingsHandler.init();
+        // TKCYSAToolItems.registerOreDict();
+        ToolItems.registerOreDict();
 
-        // OrePrefix.runMaterialHandlers();
+        // ePrefixAdditions.init();
     }
 
     @SubscribeEvent
@@ -103,4 +109,8 @@ public class CommonProxy {
 
         TKCYSARecipeLoader.latestInit();
     }
+
+    public void preLoad() {}
+
+    public void onLoad() {}
 }

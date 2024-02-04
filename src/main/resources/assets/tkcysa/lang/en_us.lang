@@ -203,6 +203,15 @@ metaitem.piston_ulv.name=ULV Piston
 metaitem.conveyor_ulv.name=ULV Conveyor
 metaitem.robot_arm_ulv.name=ULV Robot Arm
 
+## Tools
+item.gt.tool.soldering_iron.name=%s Soldering Iron
+
+gt.tool.class.soldering_iron=Soldering Iron
+
+item.gt.tool.soldering_iron.tooltip=§8Hold left click to dismantle Machines
+
+item.material.oreprefix.toolTipSolderingIron=%s Soldering Iron Tip
+
 #
 tkcysa.test_display.height=Height: %d
 

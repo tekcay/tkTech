@@ -40,4 +40,9 @@ public class TKCYSAOrePrefix {
             TKCYSAMaterialIconType.zpmComponents, SELF_REFERENCING, null);
     public static final OrePrefix uvComponents = new OrePrefix("uvComponents", -1, MarkerMaterials.Empty,
             TKCYSAMaterialIconType.uvComponents, SELF_REFERENCING, null);
+
+    // Tools
+    public static final OrePrefix toolTipSolderingIron = new OrePrefix("toolTipSolderingIron", 1, null,
+            TKCYSAMaterialIconType.toolTipSolderingIron, ENABLE_UNIFICATION,
+            mat -> mat.hasFlag(TKCYSAMaterialFlags.GENERATE_SOLDERING_IRON_TIP));
 }

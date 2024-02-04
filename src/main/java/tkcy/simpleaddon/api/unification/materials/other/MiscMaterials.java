@@ -7,7 +7,6 @@ import static gregtech.api.util.GTUtility.gregtechId;
 import static tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials.*;
 
 import gregtech.api.fluids.FluidBuilder;
-import gregtech.api.fluids.FluidState;
 import gregtech.api.unification.material.Material;
 
 public class MiscMaterials {

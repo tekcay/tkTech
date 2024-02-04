@@ -27,6 +27,8 @@ public class FlagsAddition {
 
         GENERATE_ALL_NO_UNIF.forEach(flag -> Carbon.addFlags(flag));
 
+        Steel.addFlags(GENERATE_SOLDERING_IRON_TIP);
+
         electrodeMaterials.forEach(FlagsAddition::addElectrodeFlag);
         alloysMaterials.forEach(FlagsAddition::addAlloyFlag);
         getLvAcceptedRubberMaterials().forEach(FlagsAddition::addRingAndPlateFlags);

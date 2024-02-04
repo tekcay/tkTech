@@ -11,6 +11,7 @@ public class OrePrefixRegistry {
         addOrePrefix(TKCYSAOrePrefix.cathode);
 
         registerComponentsOres();
+        registerToolOres();
     }
 
     private static void registerComponentsOres() {
@@ -22,5 +23,9 @@ public class OrePrefixRegistry {
         addOrePrefix(luvComponents);
         addOrePrefix(zpmComponents);
         addOrePrefix(uvComponents);
+    }
+
+    private static void registerToolOres() {
+        addOrePrefix(toolTipSolderingIron);
     }
 }

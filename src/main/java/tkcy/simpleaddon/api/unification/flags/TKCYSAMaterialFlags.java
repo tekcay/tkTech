@@ -34,6 +34,9 @@ public final class TKCYSAMaterialFlags {
             .build();
     public static final MaterialFlag ALLOY = new MaterialFlag.Builder("alloy")
             .build();
+    public static final MaterialFlag GENERATE_SOLDERING_IRON_TIP = new MaterialFlag.Builder(
+            "generate_soldering_iron_tip")
+                    .build();
 
     public static final Predicate<Material> isAlloy = material -> material.hasFlag(ALLOY);
 
