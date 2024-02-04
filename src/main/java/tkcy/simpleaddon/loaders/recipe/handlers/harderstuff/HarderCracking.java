@@ -67,7 +67,7 @@ public class HarderCracking {
     private static void addLightlyHydroCrackedRecipes(Material input, Material output) {
         TKCYSARecipeMaps.CRACKING.recipeBuilder()
                 .EUt(VA[MV])
-                .duration(SECOND)
+                .duration(4 * SECOND)
                 .circuitMeta(1)
                 .fluidInputs(input.getFluid(500))
                 .fluidInputs(Hydrogen.getFluid(1000))
@@ -79,7 +79,7 @@ public class HarderCracking {
     private static void addLightlySteamCrackedRecipes(Material input, Material output) {
         TKCYSARecipeMaps.CRACKING.recipeBuilder()
                 .EUt(VA[MV])
-                .duration(SECOND)
+                .duration(4 * SECOND)
                 .circuitMeta(1)
                 .fluidInputs(input.getFluid(500))
                 .fluidInputs(Steam.getFluid(2000))
@@ -91,7 +91,7 @@ public class HarderCracking {
     private static void addModeratelyHydroCrackedRecipes(Material input, Material output) {
         TKCYSARecipeMaps.CRACKING.recipeBuilder()
                 .EUt(300)
-                .duration(SECOND)
+                .duration(4 * SECOND)
                 .circuitMeta(2)
                 .fluidInputs(input.getFluid(500))
                 .fluidInputs(Hydrogen.getFluid(2000))
@@ -103,7 +103,7 @@ public class HarderCracking {
     private static void addModeratelySteamCrackedRecipes(Material input, Material output) {
         TKCYSARecipeMaps.CRACKING.recipeBuilder()
                 .EUt(300)
-                .duration(SECOND)
+                .duration(4 * SECOND)
                 .circuitMeta(2)
                 .fluidInputs(input.getFluid(500))
                 .fluidInputs(Steam.getFluid(4000))
@@ -115,7 +115,7 @@ public class HarderCracking {
     private static void addSeverelyHydroCrackedRecipes(Material input, Material output) {
         TKCYSARecipeMaps.CRACKING.recipeBuilder()
                 .EUt(600)
-                .duration(SECOND)
+                .duration(4 * SECOND)
                 .circuitMeta(3)
                 .fluidInputs(input.getFluid(500))
                 .fluidInputs(Hydrogen.getFluid(4000))
@@ -127,7 +127,7 @@ public class HarderCracking {
     private static void addSeverelySteamCrackedRecipes(Material input, Material output) {
         TKCYSARecipeMaps.CRACKING.recipeBuilder()
                 .EUt(600)
-                .duration(SECOND)
+                .duration(4 * SECOND)
                 .circuitMeta(3)
                 .fluidInputs(input.getFluid(500))
                 .fluidInputs(Steam.getFluid(8000))
