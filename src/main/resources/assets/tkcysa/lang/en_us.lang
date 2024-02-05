@@ -249,6 +249,7 @@ tkcysa.machine.parallel.tooltip=Every additional %d layers add one parallel poin
 
 ## Recipe properties
 tkcysa.recipe.coil=Coil: %s
+tkcya.recipe.tool.uses=Tool uses: %d
 
 ##RecipeCategories
 #tkcysa.recipe.category.galvanizing=Galvanizing

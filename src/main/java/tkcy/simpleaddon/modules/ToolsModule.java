@@ -2,12 +2,18 @@ package tkcy.simpleaddon.modules;
 
 import java.util.*;
 
+import net.minecraft.item.ItemStack;
+
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import gregtech.api.items.toolitem.IGTTool;
 import gregtech.api.items.toolitem.ToolClasses;
+import gregtech.common.items.ToolItems;
 
 import lombok.Getter;
 import tkcy.simpleaddon.api.items.toolitem.TKCYSAToolClasses;
+import tkcy.simpleaddon.common.item.TKCYSAToolItems;
 
 public class ToolsModule {
 
@@ -15,40 +21,54 @@ public class ToolsModule {
 
     public enum GtTool {
 
-        SWORD(ToolClasses.SWORD),
-        PICKAXE(ToolClasses.PICKAXE),
-        SHOVEL(ToolClasses.SHOVEL),
-        AXE(ToolClasses.AXE),
-        HOE(ToolClasses.HOE),
-        SAW(ToolClasses.SAW),
-        HARD_HAMMER(ToolClasses.HARD_HAMMER),
-        SOFT_MALLET(ToolClasses.SOFT_MALLET),
-        WRENCH(ToolClasses.WRENCH),
-        FILE(ToolClasses.FILE),
-        CROWBAR(ToolClasses.CROWBAR),
-        SCREWDRIVER(ToolClasses.SCREWDRIVER),
-        MORTAR(ToolClasses.MORTAR),
-        WIRE_CUTTER(ToolClasses.WIRE_CUTTER),
-        SCYTHE(ToolClasses.SCYTHE),
-        SHEARS(ToolClasses.SHEARS),
-        KNIFE(ToolClasses.KNIFE),
-        BUTCHERY_KNIFE(ToolClasses.BUTCHERY_KNIFE),
-        GRAFTER(ToolClasses.GRAFTER),
-        PLUNGER(ToolClasses.PLUNGER),
-        SOLDERING_IRON(TKCYSAToolClasses.SOLDERING_IRON);
+        SWORD(ToolClasses.SWORD, ToolItems.SWORD),
+        PICKAXE(ToolClasses.PICKAXE, ToolItems.PICKAXE),
+        SHOVEL(ToolClasses.SHOVEL, ToolItems.SHOVEL),
+        AXE(ToolClasses.AXE, ToolItems.AXE),
+        HOE(ToolClasses.HOE, ToolItems.HOE),
+        SAW(ToolClasses.SAW, ToolItems.SAW),
+        HARD_HAMMER(ToolClasses.HARD_HAMMER, ToolItems.HARD_HAMMER),
+        SOFT_MALLET(ToolClasses.SOFT_MALLET, ToolItems.SOFT_MALLET),
+        WRENCH(ToolClasses.WRENCH, ToolItems.WRENCH),
+        FILE(ToolClasses.FILE, ToolItems.FILE),
+        CROWBAR(ToolClasses.CROWBAR, ToolItems.CROWBAR),
+        SCREWDRIVER(ToolClasses.SCREWDRIVER, ToolItems.SCREWDRIVER),
+        MORTAR(ToolClasses.MORTAR, ToolItems.MORTAR),
+        WIRE_CUTTER(ToolClasses.WIRE_CUTTER, ToolItems.WIRE_CUTTER),
+        SCYTHE(ToolClasses.SCYTHE, ToolItems.SCYTHE),
+        KNIFE(ToolClasses.KNIFE, ToolItems.KNIFE),
+        BUTCHERY_KNIFE(ToolClasses.BUTCHERY_KNIFE, ToolItems.BUTCHERY_KNIFE),
+        PLUNGER(ToolClasses.PLUNGER, ToolItems.PLUNGER),
+        SOLDERING_IRON(TKCYSAToolClasses.SOLDERING_IRON, TKCYSAToolItems.SOLDERING_IRON);
 
         @Getter
-        private String toolClassName;
+        private final String toolClassName;
 
-        GtTool(String toolClassName) {
+        @Getter
+        private final IGTTool tool;
+
+        GtTool(String toolClassName, IGTTool igtTool) {
             this.toolClassName = toolClassName;
+            this.tool = igtTool;
             GT_TOOLS.add(this);
+        }
+
+        public ItemStack getToolStack() {
+            return new ItemStack(this.tool.get());
         }
     }
 
     @Nullable
-    public static String getToolClass(Set<String> toolClasses) {
+    public static String getToolClass(@NotNull Set<String> toolClasses) {
         /*
+         * if (toolClasses.isEmpty()) return null;
+         * GT_TOOLS.stream()
+         * .filter(toolClasses::contains)
+         * 
+         * 
+         * 
+         * 
+         * /*
          * GT_TOOLS.stream()
          * .map(GtTool::getToolClassName)
          * .

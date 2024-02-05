@@ -30,9 +30,7 @@ public class ToolProperty extends RecipeProperty<ToolsModule.GtTool> implements 
     }
 
     @Override
-    public void drawInfo(Minecraft minecraft, int x, int y, int color, Object value) {
-        ;
-    }
+    public void drawInfo(Minecraft minecraft, int x, int y, int color, Object value) {}
 
     @Override
     public RecipeBuilder<?> testAndApplyPropertyValue(ToolsModule.GtTool valueToTest, EnumValidationResult recipeStatus,
@@ -43,6 +41,7 @@ public class ToolProperty extends RecipeProperty<ToolsModule.GtTool> implements 
             recipeStatus = EnumValidationResult.INVALID;
         }
         recipeBuilder.applyProperty(this, getDefaultValue());
+        recipeBuilder.notConsumable(valueToTest.getToolStack());
         return recipeBuilder;
     }
 
