@@ -1,5 +1,7 @@
 package tkcy.simpleaddon.api.recipes.builders;
 
+import org.jetbrains.annotations.NotNull;
+
 import gregtech.api.recipes.Recipe;
 import gregtech.api.recipes.RecipeBuilder;
 import gregtech.api.recipes.RecipeMap;
@@ -8,7 +10,7 @@ import gregtech.api.recipes.recipeproperties.PrimitiveProperty;
 import gregtech.api.util.EnumValidationResult;
 import gregtech.api.util.ValidationResult;
 import gregtech.common.blocks.BlockWireCoil;
-import org.jetbrains.annotations.NotNull;
+
 import tkcy.simpleaddon.api.recipes.properties.ToolProperty;
 import tkcy.simpleaddon.api.recipes.properties.ToolUsesProperty;
 import tkcy.simpleaddon.api.utils.TKCYSALog;

@@ -6,6 +6,7 @@ import net.minecraft.client.resources.I18n;
 import gregtech.api.recipes.recipeproperties.RecipeProperty;
 import gregtech.api.unification.material.Material;
 import gregtech.common.blocks.BlockWireCoil;
+
 import tkcy.simpleaddon.modules.RecipePropertiesKey;
 
 public class CoilTypeProperty extends RecipeProperty<BlockWireCoil.CoilType> {

@@ -1,14 +1,16 @@
 package tkcy.simpleaddon.api.recipes.properties;
 
+import java.util.function.Predicate;
+
+import net.minecraft.client.Minecraft;
+
 import gregtech.api.recipes.RecipeBuilder;
 import gregtech.api.recipes.recipeproperties.RecipeProperty;
 import gregtech.api.util.EnumValidationResult;
-import net.minecraft.client.Minecraft;
+
 import tkcy.simpleaddon.api.utils.TKCYSALog;
 import tkcy.simpleaddon.modules.RecipePropertiesKey;
 import tkcy.simpleaddon.modules.ToolsModule;
-
-import java.util.function.Predicate;
 
 public class ToolProperty extends RecipeProperty<ToolsModule.GtTool> implements TestPropertyValue<ToolsModule.GtTool> {
 
@@ -28,11 +30,13 @@ public class ToolProperty extends RecipeProperty<ToolsModule.GtTool> implements 
     }
 
     @Override
-    public void drawInfo(Minecraft minecraft, int x, int y, int color, Object value) {;
+    public void drawInfo(Minecraft minecraft, int x, int y, int color, Object value) {
+        ;
     }
 
     @Override
-    public RecipeBuilder<?> testAndApplyPropertyValue(ToolsModule.GtTool valueToTest, EnumValidationResult recipeStatus, RecipeBuilder<?> recipeBuilder) {
+    public RecipeBuilder<?> testAndApplyPropertyValue(ToolsModule.GtTool valueToTest, EnumValidationResult recipeStatus,
+                                                      RecipeBuilder<?> recipeBuilder) {
         if (this.testSuppliedValue().test(valueToTest)) {
             TKCYSALog.logger.error("Tool type must be declared in the ToolModule.GtTool enum!",
                     new IllegalArgumentException());

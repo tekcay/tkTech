@@ -1,23 +1,13 @@
 package tkcy.simpleaddon.common.metatileentities.primitive;
 
-import codechicken.lib.raytracer.CuboidRayTraceResult;
-import codechicken.lib.render.CCRenderState;
-import codechicken.lib.render.pipeline.ColourMultiplier;
-import codechicken.lib.render.pipeline.IVertexOperation;
-import codechicken.lib.vec.Matrix4;
-import gregtech.api.capability.impl.FluidTankList;
-import gregtech.api.capability.impl.NotifiableItemStackHandler;
-import gregtech.api.gui.ModularUI;
-import gregtech.api.items.toolitem.ToolClasses;
-import gregtech.api.items.toolitem.ToolHelper;
-import gregtech.api.metatileentity.MetaTileEntity;
-import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
-import gregtech.api.recipes.Recipe;
-import gregtech.api.recipes.RecipeMap;
-import gregtech.api.util.GTUtility;
-import gregtech.client.renderer.texture.Textures;
-import gregtech.client.renderer.texture.cube.SimpleOverlayRenderer;
-import net.minecraft.block.state.IBlockState;
+import static tkcy.simpleaddon.modules.NBTLabel.HIT_NUMBER;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.function.Consumer;
+
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -31,20 +21,32 @@ import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.IItemHandlerModifiable;
+
 import org.apache.commons.lang3.ArrayUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import gregtech.api.capability.impl.FluidTankList;
+import gregtech.api.capability.impl.NotifiableItemStackHandler;
+import gregtech.api.gui.ModularUI;
+import gregtech.api.items.toolitem.ToolClasses;
+import gregtech.api.items.toolitem.ToolHelper;
+import gregtech.api.metatileentity.MetaTileEntity;
+import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
+import gregtech.api.recipes.Recipe;
+import gregtech.api.recipes.RecipeMap;
+import gregtech.api.util.GTUtility;
+import gregtech.client.renderer.texture.Textures;
+import gregtech.client.renderer.texture.cube.SimpleOverlayRenderer;
+
+import codechicken.lib.raytracer.CuboidRayTraceResult;
+import codechicken.lib.render.CCRenderState;
+import codechicken.lib.render.pipeline.ColourMultiplier;
+import codechicken.lib.render.pipeline.IVertexOperation;
+import codechicken.lib.vec.Matrix4;
 import tkcy.simpleaddon.api.items.toolitem.ToolAction;
 import tkcy.simpleaddon.api.recipes.builders.ToolRecipeBuilder;
 import tkcy.simpleaddon.modules.ToolsModule;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.function.Consumer;
-
-import static tkcy.simpleaddon.modules.NBTLabel.HIT_NUMBER;
 
 public class MetaTileEntityParts extends MetaTileEntity implements ToolAction {
 
@@ -76,14 +78,11 @@ public class MetaTileEntityParts extends MetaTileEntity implements ToolAction {
         return new FluidTankList(false, new FluidTank(2000));
     }
 
-
     private void setToolClass(ItemStack itemStack, EntityPlayer playerIn) {
         Set<String> toolClasses = itemStack.getItem().getToolClasses(itemStack);
         if (toolClasses.isEmpty()) this.toolClass = null;
 
         this.toolClass = ToolsModule.getToolClass(toolClasses);
-
-
 
         if (!this.toolClassToToolAction.containsKey(this.toolClass)) return;
     }
@@ -102,7 +101,7 @@ public class MetaTileEntityParts extends MetaTileEntity implements ToolAction {
             this.setToolClass(toolItemStack, playerIn);
             if (!this.tryToDamage(toolItemStack, playerIn)) return true;
 
-            Recipe getCRecipe()
+            // Recipe getCRecipe()
 
         }
         return true;
@@ -113,7 +112,6 @@ public class MetaTileEntityParts extends MetaTileEntity implements ToolAction {
         ToolHelper.damageItem(toolStack, playerIn);
         return true;
     }
-
 
     @SideOnly(Side.CLIENT)
     protected SimpleOverlayRenderer getBaseRenderer() {
@@ -181,9 +179,7 @@ public class MetaTileEntityParts extends MetaTileEntity implements ToolAction {
         this.hitNumber = buf.readInt();
     }
 
-    public static void onHardHammerClick(EntityPlayer player) {
-
-    }
+    public static void onHardHammerClick(EntityPlayer player) {}
 
     @Override
     public Map<String, Consumer<EntityPlayer>> setToolClassToOnUsage() {
@@ -197,6 +193,6 @@ public class MetaTileEntityParts extends MetaTileEntity implements ToolAction {
     public Recipe getCurrentRecipe() {
         return this.recipeMap.getRecipeList()
                 .stream()
-                .filter(recipe -> );
+                .findAny().orElse(null);
     }
 }

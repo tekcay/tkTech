@@ -10,6 +10,7 @@ import stanhebben.zenscript.annotations.ZenExpansion;
 import stanhebben.zenscript.annotations.ZenProperty;
 import tkcy.simpleaddon.api.recipes.builders.CoilTypeRecipeBuilder;
 import tkcy.simpleaddon.api.recipes.builders.NoEnergyRecipeBuilder;
+import tkcy.simpleaddon.api.recipes.builders.ToolRecipeBuilder;
 
 @ZenExpansion("mods.tkcysa.recipe.RecipeMaps")
 @ZenRegister
@@ -86,6 +87,11 @@ public final class TKCYSARecipeMaps {
     @ZenProperty
     public static final RecipeMap<SimpleRecipeBuilder> ROLLING_RECIPES = new RecipeMap<>(
             "rolling", 2, 1, 0, 0, new SimpleRecipeBuilder(), false)
+                    .setSound(GTSoundEvents.MOTOR);
+
+    @ZenProperty
+    public static final RecipeMap<ToolRecipeBuilder> PARTS_WORKING = new RecipeMap<>(
+            "parts_working", 9, 3, 0, 0, new ToolRecipeBuilder(), false)
                     .setSound(GTSoundEvents.MOTOR);
 
     private TKCYSARecipeMaps() {}

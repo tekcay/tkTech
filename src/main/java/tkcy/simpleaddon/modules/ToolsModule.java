@@ -1,20 +1,20 @@
 package tkcy.simpleaddon.modules;
 
-import gregtech.api.items.toolitem.ToolClasses;
-import lombok.Getter;
-import org.jetbrains.annotations.Nullable;
-import tkcy.simpleaddon.api.items.toolitem.TKCYSAToolClasses;
-
 import java.util.*;
 
-import static net.minecraft.creativetab.CreativeTabs.TOOLS;
+import org.jetbrains.annotations.Nullable;
+
+import gregtech.api.items.toolitem.ToolClasses;
+
+import lombok.Getter;
+import tkcy.simpleaddon.api.items.toolitem.TKCYSAToolClasses;
 
 public class ToolsModule {
-
 
     public static final List<GtTool> GT_TOOLS = new ArrayList<>();
 
     public enum GtTool {
+
         SWORD(ToolClasses.SWORD),
         PICKAXE(ToolClasses.PICKAXE),
         SHOVEL(ToolClasses.SHOVEL),
@@ -46,21 +46,22 @@ public class ToolsModule {
         }
     }
 
-
-
     @Nullable
     public static String getToolClass(Set<String> toolClasses) {
-        GT_TOOLS.stream()
-                .map(GtTool::getToolClassName)
-                .
-
-
-
-        return toolClasses.stream()
-                .filter(Objects::nonNull)
-                .filter(TOOLS::contains)
-                .findFirst()
-                .orElse(null);
+        /*
+         * GT_TOOLS.stream()
+         * .map(GtTool::getToolClassName)
+         * .
+         * 
+         * 
+         * 
+         * return toolClasses.stream()
+         * .filter(Objects::nonNull)
+         * .filter(TOOLS::contains)
+         * .findFirst()
+         * .orElse(null);
+         * 
+         */
+        return GtTool.HARD_HAMMER.toolClassName;
     }
-
 }

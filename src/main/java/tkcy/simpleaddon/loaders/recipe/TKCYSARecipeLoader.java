@@ -22,6 +22,7 @@ import tkcy.simpleaddon.loaders.recipe.chains.metals.*;
 import tkcy.simpleaddon.loaders.recipe.handlers.*;
 import tkcy.simpleaddon.loaders.recipe.handlers.chemistry.ChemistryHandler;
 import tkcy.simpleaddon.loaders.recipe.handlers.harderstuff.*;
+import tkcy.simpleaddon.loaders.recipe.parts.PrimitivePartsHandler;
 
 public final class TKCYSARecipeLoader {
 
@@ -33,6 +34,7 @@ public final class TKCYSARecipeLoader {
 
         ChemistryHandler.init();
 
+        PrimitivePartsHandler.init();
         PrimitiveCastingHandler.init();
         GasReleaseHandler.generateRecipes();
 

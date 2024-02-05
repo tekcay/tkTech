@@ -1,7 +1,9 @@
 package tkcy.simpleaddon.api.recipes.properties;
 
-import gregtech.api.recipes.recipeproperties.RecipeProperty;
 import net.minecraft.client.Minecraft;
+
+import gregtech.api.recipes.recipeproperties.RecipeProperty;
+
 import tkcy.simpleaddon.modules.RecipePropertiesKey;
 
 public class ToolUsesProperty extends RecipeProperty<Integer> {
@@ -22,6 +24,7 @@ public class ToolUsesProperty extends RecipeProperty<Integer> {
     }
 
     @Override
-    public void drawInfo(Minecraft minecraft, int x, int y, int color, Object value) {;
+    public void drawInfo(Minecraft minecraft, int x, int y, int color, Object value) {
+        ;
     }
 }

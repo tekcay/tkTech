@@ -18,7 +18,6 @@ import gregtech.core.sound.GTSoundEvents;
 
 import tkcy.simpleaddon.api.items.toolitem.TKCYSAToolClasses;
 import tkcy.simpleaddon.api.items.toolitem.TKCYSAToolOreDict;
-import tkcy.simpleaddon.modules.ToolsModule;
 
 public class TKCYSAToolItems {
 
