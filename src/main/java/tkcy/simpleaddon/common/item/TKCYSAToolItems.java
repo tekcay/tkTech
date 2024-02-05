@@ -18,6 +18,7 @@ import gregtech.core.sound.GTSoundEvents;
 
 import tkcy.simpleaddon.api.items.toolitem.TKCYSAToolClasses;
 import tkcy.simpleaddon.api.items.toolitem.TKCYSAToolOreDict;
+import tkcy.simpleaddon.modules.ToolsModule;
 
 public class TKCYSAToolItems {
 
@@ -29,7 +30,7 @@ public class TKCYSAToolItems {
     }
 
     public static void init() {
-        SOLDERING_IRON = tkcysaRegister(ItemGTTool.Builder.of(GTValues.MODID, "soldering_iron")
+        SOLDERING_IRON = tkcysaRegister(ItemGTTool.Builder.of(GTValues.MODID, TKCYSAToolClasses.SOLDERING_IRON)
                 .toolStats(builder -> builder.crafting().damagePerAction(1))
                 .sound(GTSoundEvents.ELECTROLYZER)
                 .symbol('i')
