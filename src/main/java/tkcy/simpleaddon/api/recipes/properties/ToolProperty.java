@@ -12,7 +12,8 @@ import tkcy.simpleaddon.api.utils.TKCYSALog;
 import tkcy.simpleaddon.modules.RecipePropertiesKey;
 import tkcy.simpleaddon.modules.ToolsModule;
 
-public class ToolProperty extends RecipeProperty<ToolsModule.GtTool> implements TestPropertyValue<ToolsModule.GtTool> {
+public class ToolProperty extends RecipeProperty<ToolsModule.GtTool>
+                          implements RecipePropertyHelper<ToolsModule.GtTool> {
 
     public static final String KEY = RecipePropertiesKey.TOOL_KEY;
 
@@ -36,8 +37,7 @@ public class ToolProperty extends RecipeProperty<ToolsModule.GtTool> implements 
     public RecipeBuilder<?> testAndApplyPropertyValue(ToolsModule.GtTool valueToTest, EnumValidationResult recipeStatus,
                                                       RecipeBuilder<?> recipeBuilder) {
         if (this.testSuppliedValue().test(valueToTest)) {
-            TKCYSALog.logger.error("Tool type must be declared in the ToolModule.GtTool enum!",
-                    new IllegalArgumentException());
+            TKCYSALog.logger.error(this::getErrorMessage, new IllegalArgumentException());
             recipeStatus = EnumValidationResult.INVALID;
         }
         recipeBuilder.applyProperty(this, getDefaultValue());
@@ -53,5 +53,15 @@ public class ToolProperty extends RecipeProperty<ToolsModule.GtTool> implements 
     @Override
     public ToolsModule.GtTool getDefaultValue() {
         return ToolsModule.GtTool.AXE;
+    }
+
+    @Override
+    public String getErrorMessage() {
+        return "Tool type must be declared in the ToolModule.GtTool enum!";
+    }
+
+    @Override
+    public RecipeProperty<ToolsModule.GtTool> getPropertyInstance() {
+        return this;
     }
 }

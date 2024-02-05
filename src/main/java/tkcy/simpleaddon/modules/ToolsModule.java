@@ -60,28 +60,10 @@ public class ToolsModule {
 
     @Nullable
     public static String getToolClass(@NotNull Set<String> toolClasses) {
-        /*
-         * if (toolClasses.isEmpty()) return null;
-         * GT_TOOLS.stream()
-         * .filter(toolClasses::contains)
-         * 
-         * 
-         * 
-         * 
-         * /*
-         * GT_TOOLS.stream()
-         * .map(GtTool::getToolClassName)
-         * .
-         * 
-         * 
-         * 
-         * return toolClasses.stream()
-         * .filter(Objects::nonNull)
-         * .filter(TOOLS::contains)
-         * .findFirst()
-         * .orElse(null);
-         * 
-         */
-        return GtTool.HARD_HAMMER.toolClassName;
+        return GT_TOOLS.stream()
+                .map(GtTool::getToolClassName)
+                .filter(toolClasses::contains)
+                .findFirst()
+                .orElse(null);
     }
 }

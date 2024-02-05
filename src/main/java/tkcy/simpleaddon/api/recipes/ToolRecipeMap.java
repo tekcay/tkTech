@@ -8,13 +8,14 @@ import gregtech.api.capability.impl.FluidTankList;
 import gregtech.api.gui.GuiTextures;
 import gregtech.api.gui.ModularUI;
 import gregtech.api.gui.widgets.RecipeProgressWidget;
-import gregtech.api.recipes.RecipeBuilder;
 import gregtech.api.recipes.RecipeMap;
 
-public class ToolRecipeMap<R extends RecipeBuilder<R>> extends RecipeMap<R> {
+import tkcy.simpleaddon.api.recipes.builders.ToolRecipeBuilder;
+
+public class ToolRecipeMap<T extends ToolRecipeBuilder> extends RecipeMap<ToolRecipeBuilder> {
 
     public ToolRecipeMap(@NotNull String unlocalizedName, int maxInputs, int maxOutputs, int maxFluidInputs,
-                         int maxFluidOutputs, @NotNull R defaultRecipeBuilder, boolean isHidden) {
+                         int maxFluidOutputs, @NotNull T defaultRecipeBuilder, boolean isHidden) {
         super(unlocalizedName, maxInputs, maxOutputs, maxFluidInputs, maxFluidOutputs, defaultRecipeBuilder, isHidden);
     }
 
@@ -26,6 +27,7 @@ public class ToolRecipeMap<R extends RecipeBuilder<R>> extends RecipeMap<R> {
         builder.widget(new RecipeProgressWidget(200, 78, 7, 20, 20, progressBarTexture, moveType, this));
         addInventorySlotGroup(builder, importItems, importFluids, false, -16);
         addInventorySlotGroup(builder, exportItems, exportFluids, true, -16);
+
         if (this.specialTexture != null && this.specialTexturePosition != null) addSpecialTexture(builder);
         return builder;
     }

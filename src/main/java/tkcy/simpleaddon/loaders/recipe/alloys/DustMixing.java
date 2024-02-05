@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fluids.FluidStack;
 
 import gregtech.api.recipes.ModHandler;
 import gregtech.api.recipes.Recipe;
@@ -17,6 +16,7 @@ import gregtech.api.unification.OreDictUnifier;
 import gregtech.api.unification.ore.OrePrefix;
 
 import tkcy.simpleaddon.api.recipes.TKCYSARecipeMaps;
+import tkcy.simpleaddon.api.utils.RecipeHelper;
 
 public class DustMixing {
 
@@ -86,12 +86,11 @@ public class DustMixing {
 
     private static void removeTinAlloyMixer() {
         List<ItemStack> itemStacks = new ArrayList<>();
-        List<FluidStack> empty = new ArrayList<>();
         itemStacks.add(OreDictUnifier.get(OrePrefix.dust, Iron));
         itemStacks.add(OreDictUnifier.get(OrePrefix.dust, Tin));
         itemStacks.add(getCircuitStack(1));
 
-        Recipe recipe = RecipeMaps.MIXER_RECIPES.findRecipe(VA[ULV], itemStacks, empty);
+        Recipe recipe = RecipeMaps.MIXER_RECIPES.findRecipe(VA[ULV], itemStacks, RecipeHelper.emptyFluidStack);
         if (recipe != null) RecipeMaps.MIXER_RECIPES.removeRecipe(recipe);
     }
 

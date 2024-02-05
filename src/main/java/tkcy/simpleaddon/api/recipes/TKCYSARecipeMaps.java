@@ -90,8 +90,8 @@ public final class TKCYSARecipeMaps {
                     .setSound(GTSoundEvents.MOTOR);
 
     @ZenProperty
-    public static final RecipeMap<ToolRecipeBuilder> PARTS_WORKING = new RecipeMap<>(
-            "parts_working", 9, 3, 0, 0, new ToolRecipeBuilder(), false)
+    public static final RecipeMap<ToolRecipeBuilder> PARTS_WORKING = new ToolRecipeMap<>(
+            "parts_working", 2, 2, 0, 0, new ToolRecipeBuilder(), false)
                     .setSound(GTSoundEvents.MOTOR);
 
     private TKCYSARecipeMaps() {}

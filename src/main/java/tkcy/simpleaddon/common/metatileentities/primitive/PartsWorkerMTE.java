@@ -1,12 +1,8 @@
 package tkcy.simpleaddon.common.metatileentities.primitive;
 
-import static tkcy.simpleaddon.modules.NBTLabel.HIT_NUMBER;
+import static tkcy.simpleaddon.modules.NBTLabel.TOOL_USAGES;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.function.Consumer;
+import java.util.*;
 
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
@@ -16,6 +12,7 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fml.relauncher.Side;
@@ -28,13 +25,15 @@ import org.jetbrains.annotations.Nullable;
 
 import gregtech.api.capability.impl.FluidTankList;
 import gregtech.api.capability.impl.NotifiableItemStackHandler;
+import gregtech.api.gui.GuiTextures;
 import gregtech.api.gui.ModularUI;
-import gregtech.api.items.toolitem.ToolClasses;
+import gregtech.api.gui.widgets.LabelWidget;
 import gregtech.api.items.toolitem.ToolHelper;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
 import gregtech.api.recipes.Recipe;
 import gregtech.api.recipes.RecipeMap;
+import gregtech.api.recipes.recipeproperties.RecipeProperty;
 import gregtech.api.util.GTUtility;
 import gregtech.client.renderer.texture.Textures;
 import gregtech.client.renderer.texture.cube.SimpleOverlayRenderer;
@@ -45,32 +44,33 @@ import codechicken.lib.render.pipeline.ColourMultiplier;
 import codechicken.lib.render.pipeline.IVertexOperation;
 import codechicken.lib.vec.Matrix4;
 import tkcy.simpleaddon.api.items.toolitem.ToolAction;
+import tkcy.simpleaddon.api.recipes.TKCYSARecipeMaps;
 import tkcy.simpleaddon.api.recipes.builders.ToolRecipeBuilder;
+import tkcy.simpleaddon.api.recipes.properties.RecipePropertyHelper;
+import tkcy.simpleaddon.api.recipes.properties.ToolProperty;
+import tkcy.simpleaddon.api.recipes.properties.ToolUsesProperty;
+import tkcy.simpleaddon.api.utils.RecipeHelper;
 import tkcy.simpleaddon.modules.ToolsModule;
 
-public class MetaTileEntityParts extends MetaTileEntity implements ToolAction {
+public class PartsWorkerMTE extends MetaTileEntity implements ToolAction {
 
-    private int hitNumber = 0;
-    private int hitNumberToTransform;
+    private int toolUsage = 0;
     private final RecipeMap<ToolRecipeBuilder> recipeMap;
     private Recipe currentRecipe;
     private String toolClass;
-    private final Map<String, Consumer<EntityPlayer>> toolClassToToolAction;
+    private List<ItemStack> inputStacks = new ArrayList<>();
+    private int recipeToolUsages;
+    private final RecipePropertyHelper<Integer> toolUsesProperty = ToolUsesProperty.getInstance();
+    private final RecipeProperty<ToolsModule.GtTool> toolProperty = ToolProperty.getInstance();
 
-    public MetaTileEntityParts(ResourceLocation metaTileEntityId, RecipeMap<ToolRecipeBuilder> recipeMap) {
+    public PartsWorkerMTE(ResourceLocation metaTileEntityId, RecipeMap<ToolRecipeBuilder> recipeMap) {
         super(metaTileEntityId);
         this.recipeMap = recipeMap;
-        this.toolClassToToolAction = setToolClassToOnUsage();
     }
 
     @Override
     protected IItemHandlerModifiable createImportItemHandler() {
-        return new NotifiableItemStackHandler(this, 9, this, false);
-    }
-
-    @Override
-    protected IItemHandlerModifiable createExportItemHandler() {
-        return new NotifiableItemStackHandler(this, 2, this, true);
+        return new NotifiableItemStackHandler(this, 1, this, false);
     }
 
     @Override
@@ -78,13 +78,27 @@ public class MetaTileEntityParts extends MetaTileEntity implements ToolAction {
         return new FluidTankList(false, new FluidTank(2000));
     }
 
-    private void setToolClass(ItemStack itemStack, EntityPlayer playerIn) {
+    private boolean verifyToolStack(ItemStack itemStack, EntityPlayer playerIn) {
         Set<String> toolClasses = itemStack.getItem().getToolClasses(itemStack);
         if (toolClasses.isEmpty()) this.toolClass = null;
 
         this.toolClass = ToolsModule.getToolClass(toolClasses);
+        return toolClasses != null;
+    }
 
-        if (!this.toolClassToToolAction.containsKey(this.toolClass)) return;
+    private int getRecipeProgress() {
+        return (int) (100.0F * this.toolUsage / (100.0F * this.recipeToolUsages));
+    }
+
+    private void reinit() {
+        this.toolUsage = 0;
+    }
+
+    public void onToolSneakRightClick(EntityPlayer player) {
+        this.toolUsage++;
+        int progress = this.getRecipeProgress();
+        player.sendMessage(new TextComponentString(String.format("Recipe progress: %d/%%", this.toolUsage)) {});
+        if (progress >= 100) this.reinit();
     }
 
     @Override
@@ -96,21 +110,32 @@ public class MetaTileEntityParts extends MetaTileEntity implements ToolAction {
         if (!super.onRightClick(playerIn, hand, facing, hitResult)) {
 
             ItemStack toolItemStack = playerIn.getHeldItem(hand);
-            if (!playerIn.isSneaking() || toolItemStack.isEmpty()) return true;
+            if (toolItemStack.isEmpty()) return true;
 
-            this.setToolClass(toolItemStack, playerIn);
-            if (!this.tryToDamage(toolItemStack, playerIn)) return true;
+            if (!this.verifyToolStack(toolItemStack, playerIn)) return true;
+            if (this.didFailDamageTool(toolItemStack, playerIn)) return true;
 
-            // Recipe getCRecipe()
+            if (this.currentRecipe == null) {
+
+                this.inputStacks.add(toolItemStack);
+                this.inputStacks.add(this.itemInventory.getStackInSlot(0));
+
+                this.currentRecipe = getCurrentRecipe(this.inputStacks);
+                if (currentRecipe == null) return true;
+
+                this.toolUsage = this.toolUsesProperty.getValueFromRecipe(currentRecipe);
+                this.recipeToolUsages = toolUsage;
+
+            } else this.onToolSneakRightClick(playerIn);
 
         }
         return true;
     }
 
-    private boolean tryToDamage(ItemStack toolStack, EntityPlayer playerIn) {
-        if (this.toolClass == null) return false;
+    private boolean didFailDamageTool(ItemStack toolStack, EntityPlayer playerIn) {
+        if (this.toolClass == null) return true;
         ToolHelper.damageItem(toolStack, playerIn);
-        return true;
+        return false;
     }
 
     @SideOnly(Side.CLIENT)
@@ -141,58 +166,72 @@ public class MetaTileEntityParts extends MetaTileEntity implements ToolAction {
 
     @Override
     public MetaTileEntity createMetaTileEntity(IGregTechTileEntity tileEntity) {
-        return new MetaTileEntityParts(metaTileEntityId, this.recipeMap);
-    }
-
-    @Override
-    protected ModularUI createUI(EntityPlayer entityPlayer) {
-        return null;
-    }
-
-    @Override
-    protected boolean openGUIOnRightClick() {
-        return false;
+        return new PartsWorkerMTE(metaTileEntityId, this.recipeMap);
     }
 
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound data) {
         super.writeToNBT(data);
-        data.setInteger(HIT_NUMBER.name(), hitNumber);
+        data.setInteger(TOOL_USAGES.name(), toolUsage);
         return data;
     }
 
     @Override
     public void readFromNBT(NBTTagCompound data) {
         super.readFromNBT(data);
-        this.hitNumber = data.getInteger(HIT_NUMBER.name());
+        this.toolUsage = data.getInteger(TOOL_USAGES.name());
     }
 
     @Override
     public void writeInitialSyncData(@NotNull PacketBuffer buf) {
         super.writeInitialSyncData(buf);
-        buf.writeInt(this.hitNumber);
+        buf.writeInt(this.toolUsage);
     }
 
     @Override
     public void receiveInitialSyncData(@NotNull PacketBuffer buf) {
         super.receiveInitialSyncData(buf);
-        this.hitNumber = buf.readInt();
-    }
-
-    public static void onHardHammerClick(EntityPlayer player) {}
-
-    @Override
-    public Map<String, Consumer<EntityPlayer>> setToolClassToOnUsage() {
-        Map<String, Consumer<EntityPlayer>> map = new HashMap<>();
-        map.put(ToolClasses.HARD_HAMMER, MetaTileEntityParts::onHardHammerClick);
-        return map;
+        this.toolUsage = buf.readInt();
     }
 
     @Override
     @Nullable
-    public Recipe getCurrentRecipe() {
-        return this.recipeMap.getRecipeList()
-                .stream()
-                .findAny().orElse(null);
+    public Recipe getCurrentRecipe(List<ItemStack> inputStacks) {
+        return TKCYSARecipeMaps.PARTS_WORKING.findRecipe(1, inputStacks, RecipeHelper.emptyFluidStack);
+    }
+
+    @Override
+    protected ModularUI createUI(EntityPlayer player) {
+        return createUITemplate(player).build(getHolder(), player);
+    }
+
+    protected ModularUI.Builder createUITemplate(EntityPlayer entityPlayer) {
+        return ModularUI.builder(GuiTextures.PRIMITIVE_BACKGROUND, 176, 166)
+                .shouldColor(false)
+                .widget(new LabelWidget(5, 5, getMetaFullName()))
+
+                .slot(this.importItems, 0, 60, 30, GuiTextures.PRIMITIVE_SLOT)
+
+                .bindPlayerInventory(entityPlayer.inventory, GuiTextures.SLOT, 0);
+    }
+
+    @Override
+    public boolean onHardHammerClick(EntityPlayer playerIn, EnumHand hand, EnumFacing facing,
+                                     CuboidRayTraceResult hitResult) {
+        if (this.currentRecipe == null) {
+
+            this.inputStacks.add(ToolsModule.GtTool.HARD_HAMMER.getToolStack());
+            this.inputStacks.add(this.itemInventory.getStackInSlot(0));
+
+
+
+            this.currentRecipe = getCurrentRecipe(this.inputStacks);
+            if (currentRecipe == null) return true;
+
+            this.toolUsage = this.toolUsesProperty.getValueFromRecipe(currentRecipe);
+            this.recipeToolUsages = toolUsage;
+
+        } else this.onToolSneakRightClick(playerIn);
+        return true;
     }
 }

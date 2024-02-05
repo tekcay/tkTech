@@ -7,13 +7,11 @@ import gregtech.api.recipes.RecipeBuilder;
 import gregtech.api.recipes.RecipeMap;
 import gregtech.api.recipes.recipeproperties.EmptyRecipePropertyStorage;
 import gregtech.api.recipes.recipeproperties.PrimitiveProperty;
-import gregtech.api.util.EnumValidationResult;
 import gregtech.api.util.ValidationResult;
 import gregtech.common.blocks.BlockWireCoil;
 
 import tkcy.simpleaddon.api.recipes.properties.ToolProperty;
 import tkcy.simpleaddon.api.recipes.properties.ToolUsesProperty;
-import tkcy.simpleaddon.api.utils.TKCYSALog;
 import tkcy.simpleaddon.modules.RecipePropertiesKey;
 import tkcy.simpleaddon.modules.ToolsModule;
 
@@ -45,13 +43,8 @@ public class ToolRecipeBuilder extends RecipeBuilder<ToolRecipeBuilder> {
     }
 
     public ToolRecipeBuilder toolUses(int uses) {
-        if (uses <= 1) {
-            TKCYSALog.logger.error("Uses must be more than 1!",
-                    new IllegalArgumentException());
-            recipeStatus = EnumValidationResult.INVALID;
-        }
-        this.applyProperty(ToolUsesProperty.getInstance(), 2);
-        return this;
+        ToolUsesProperty toolUsesProperty = ToolUsesProperty.getInstance();
+        return (ToolRecipeBuilder) toolUsesProperty.testAndApplyPropertyValue(uses, this.recipeStatus, this);
     }
 
     public static BlockWireCoil.CoilType getDefaultValue() {
