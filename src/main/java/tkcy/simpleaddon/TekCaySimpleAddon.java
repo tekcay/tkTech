@@ -37,4 +37,9 @@ public class TekCaySimpleAddon {
 
         proxy.preLoad();
     }
+
+    @Mod.EventHandler
+    public void onInit(@NotNull FMLPreInitializationEvent event) {
+        proxy.onLoad();
+    }
 }

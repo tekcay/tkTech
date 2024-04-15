@@ -17,7 +17,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import gregtech.api.GregTechAPI;
 import gregtech.api.items.toolitem.ToolClasses;
 import gregtech.api.unification.material.Material;
 import gregtech.client.model.MaterialStateMapper;
@@ -47,7 +46,7 @@ public abstract class BlockMaterialCasing extends BlockMaterialBase {
         setTranslationKey("casing");
         setHardness(5.0f);
         setResistance(10.0f);
-        setCreativeTab(GregTechAPI.TAB_GREGTECH_MATERIALS);
+        // setCreativeTab(GregTechAPI.TAB_GREGTECH_MATERIALS);
     }
 
     @Override
