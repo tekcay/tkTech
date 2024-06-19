@@ -29,13 +29,13 @@ public class TekCaySimpleAddon {
     public static CommonProxy proxy;
 
     @Mod.EventHandler
-    public void onPreInit(@NotNull FMLPreInitializationEvent event) {
-        TKCYSALog.init(event.getModLog());
-        TKCYSAMetaItems.init();
-        TKCYSAMetaBlocks.init();
-        TKCYSAMetaTileEntities.init();
-
+    public void preInit(@NotNull FMLPreInitializationEvent event) {
         proxy.preLoad();
+
+        TKCYSALog.init(event.getModLog());
+        TKCYSAMetaBlocks.init();
+        TKCYSAMetaItems.init();
+        TKCYSAMetaTileEntities.init();
     }
 
     @Mod.EventHandler

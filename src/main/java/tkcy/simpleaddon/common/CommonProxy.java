@@ -34,8 +34,6 @@ import tkcy.simpleaddon.modules.AlloyingModule;
 @Mod.EventBusSubscriber(modid = TekCaySimpleAddon.MODID)
 public class CommonProxy {
 
-    public void preLoad() {}
-
     @SubscribeEvent
     public static void syncConfigValues(ConfigChangedEvent.OnConfigChangedEvent event) {
         if (event.getModID().equals(TekCaySimpleAddon.MODID)) {
@@ -48,10 +46,11 @@ public class CommonProxy {
         TKCYSALog.logger.info("Registering blocks...");
         IForgeRegistry<Block> registry = event.getRegistry();
 
-        TKCYSAMetaBlocks.CASINGS.values().stream().distinct().forEach(registry::register);
+        for (BlockMaterialCasing blockMaterialCasing : TKCYSAMetaBlocks.CASINGS_BLOCKS)
+            registry.register(blockMaterialCasing);
     }
 
-    @SubscribeEvent
+    @SubscribeEvent(priority = EventPriority.NORMAL)
     public static void registerItems(RegistryEvent.Register<Item> event) {
         TKCYSALog.logger.info("Registering Items...");
         IForgeRegistry<Item> registry = event.getRegistry();
@@ -72,19 +71,19 @@ public class CommonProxy {
     @SubscribeEvent(priority = EventPriority.HIGH)
     public static void registerMaterials(MaterialEvent event) {
         TKCYSAMaterials.init();
-        OrePrefixRegistry.register();
     }
 
-    @SubscribeEvent()
+    @SubscribeEvent(priority = EventPriority.NORMAL)
     public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {
         TKCYSALog.logger.info("Registering ore dictionary...");
 
         TKCYSAMetaBlocks.registerOreDict();
     }
 
-    @SubscribeEvent
+    @SubscribeEvent(priority = EventPriority.HIGH)
     public static void registerMaterialsPost(PostMaterialEvent event) {
         FlagsAddition.init();
+        OrePrefixRegistry.register();
     }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
@@ -98,4 +97,6 @@ public class CommonProxy {
     }
 
     public void onLoad() {}
+
+    public void preLoad() {}
 }

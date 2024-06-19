@@ -30,6 +30,8 @@ public class FlagsAddition {
         electrodeMaterials.forEach(FlagsAddition::addElectrodeFlag);
         alloysMaterials.forEach(FlagsAddition::addAlloyFlag);
         getLvAcceptedRubberMaterials().forEach(FlagsAddition::addRingAndPlateFlags);
+
+        TungstenSteel.addFlags(GENERATE_CASING);
     }
 
     public static void addAlloyFlag(Material material) {

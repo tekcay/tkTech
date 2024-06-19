@@ -49,10 +49,10 @@ public class TKCYSAMetaBlocks {
             for (Material material : registry) {
                 if (materialPredicate.test(material)) {
                     int id = material.getId();
-                    int metaBlockID = id / 4;
-                    int subBlockID = id % 4;
+                    int metaBlockID = id / 16;
+                    int subBlockID = id % 16;
                     if (!blocksToGenerate.containsKey(metaBlockID)) {
-                        Material[] materials = new Material[4];
+                        Material[] materials = new Material[16];
                         Arrays.fill(materials, Materials.NULL);
                         blocksToGenerate.put(metaBlockID, materials);
                     }
@@ -75,8 +75,7 @@ public class TKCYSAMetaBlocks {
 
     @SideOnly(Side.CLIENT)
     public static void registerItemModels() {
-        // for (BlockMaterialCasing block : CASINGS_BLOCKS) block.onModelRegister();
-        CASINGS.values().stream().distinct().forEach(BlockMaterialCasing::onModelRegister);
+        for (BlockMaterialCasing blockMaterialCasing : CASINGS_BLOCKS) blockMaterialCasing.onModelRegister();
     }
 
     @SideOnly(Side.CLIENT)
