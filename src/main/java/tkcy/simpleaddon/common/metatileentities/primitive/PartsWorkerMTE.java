@@ -3,6 +3,7 @@ package tkcy.simpleaddon.common.metatileentities.primitive;
 import static tkcy.simpleaddon.modules.NBTLabel.TOOL_USAGES;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
@@ -33,6 +34,7 @@ import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
 import gregtech.api.recipes.Recipe;
 import gregtech.api.recipes.RecipeMap;
+import gregtech.api.recipes.ingredients.GTRecipeInput;
 import gregtech.api.recipes.recipeproperties.RecipeProperty;
 import gregtech.api.util.GTUtility;
 import gregtech.client.renderer.texture.Textures;
@@ -50,6 +52,7 @@ import tkcy.simpleaddon.api.recipes.properties.RecipePropertyHelper;
 import tkcy.simpleaddon.api.recipes.properties.ToolProperty;
 import tkcy.simpleaddon.api.recipes.properties.ToolUsesProperty;
 import tkcy.simpleaddon.api.utils.RecipeHelper;
+import tkcy.simpleaddon.api.utils.TKCYSALog;
 import tkcy.simpleaddon.modules.ToolsModule;
 
 public class PartsWorkerMTE extends MetaTileEntity implements ToolAction {
@@ -62,10 +65,24 @@ public class PartsWorkerMTE extends MetaTileEntity implements ToolAction {
     private int recipeToolUsages;
     private final RecipePropertyHelper<Integer> toolUsesProperty = ToolUsesProperty.getInstance();
     private final RecipeProperty<ToolsModule.GtTool> toolProperty = ToolProperty.getInstance();
+    private final List<Recipe> recipes = TKCYSARecipeMaps.PARTS_WORKING.getRecipeList().stream()
+            .collect(Collectors.toList());
 
     public PartsWorkerMTE(ResourceLocation metaTileEntityId, RecipeMap<ToolRecipeBuilder> recipeMap) {
         super(metaTileEntityId);
         this.recipeMap = recipeMap;
+    }
+
+    @Nullable
+    private Recipe getRecipe(@NotNull ItemStack itemStack) {
+        for (Recipe recipe : recipes) {
+            for (GTRecipeInput gtRecipeInput : recipe.getInputs()) {
+                if (gtRecipeInput.acceptsStack(itemStack)) {
+                    return recipe;
+                }
+            }
+        }
+        return null;
     }
 
     @Override
@@ -101,36 +118,39 @@ public class PartsWorkerMTE extends MetaTileEntity implements ToolAction {
         if (progress >= 100) this.reinit();
     }
 
-    @Override
-    public boolean onRightClick(EntityPlayer playerIn, EnumHand hand, EnumFacing facing,
-                                CuboidRayTraceResult hitResult) {
-        if (facing.equals(EnumFacing.UP))
-            return super.onRightClick(playerIn, hand, facing, hitResult);
-
-        if (!super.onRightClick(playerIn, hand, facing, hitResult)) {
-
-            ItemStack toolItemStack = playerIn.getHeldItem(hand);
-            if (toolItemStack.isEmpty()) return true;
-
-            if (!this.verifyToolStack(toolItemStack, playerIn)) return true;
-            if (this.didFailDamageTool(toolItemStack, playerIn)) return true;
-
-            if (this.currentRecipe == null) {
-
-                this.inputStacks.add(toolItemStack);
-                this.inputStacks.add(this.itemInventory.getStackInSlot(0));
-
-                this.currentRecipe = getCurrentRecipe(this.inputStacks);
-                if (currentRecipe == null) return true;
-
-                this.toolUsage = this.toolUsesProperty.getValueFromRecipe(currentRecipe);
-                this.recipeToolUsages = toolUsage;
-
-            } else this.onToolSneakRightClick(playerIn);
-
-        }
-        return true;
-    }
+    /*
+     * @Override
+     * public boolean onRightClick(EntityPlayer playerIn, EnumHand hand, EnumFacing facing,
+     * CuboidRayTraceResult hitResult) {
+     * if (facing.equals(EnumFacing.UP))
+     * return super.onRightClick(playerIn, hand, facing, hitResult);
+     *
+     * if (!super.onRightClick(playerIn, hand, facing, hitResult)) {
+     *
+     * ItemStack toolItemStack = playerIn.getHeldItem(hand);
+     * if (toolItemStack.isEmpty()) return true;
+     *
+     * if (!this.verifyToolStack(toolItemStack, playerIn)) return true;
+     * if (this.didFailDamageTool(toolItemStack, playerIn)) return true;
+     *
+     * if (this.currentRecipe == null) {
+     *
+     * this.inputStacks.add(toolItemStack);
+     * this.inputStacks.add(this.itemInventory.getStackInSlot(0));
+     *
+     * this.currentRecipe = getCurrentRecipe(this.inputStacks);
+     * if (currentRecipe == null) return true;
+     *
+     * this.toolUsage = this.toolUsesProperty.getValueFromRecipe(currentRecipe);
+     * this.recipeToolUsages = toolUsage;
+     *
+     * } else this.onToolSneakRightClick(playerIn);
+     *
+     * }
+     * return true;
+     * }
+     *
+     */
 
     private boolean didFailDamageTool(ItemStack toolStack, EntityPlayer playerIn) {
         if (this.toolClass == null) return true;
@@ -215,23 +235,66 @@ public class PartsWorkerMTE extends MetaTileEntity implements ToolAction {
                 .bindPlayerInventory(entityPlayer.inventory, GuiTextures.SLOT, 0);
     }
 
+    private static String stackToString(ItemStack itemStack) {
+        return String.format("%d %s", itemStack.getCount(), itemStack.getDisplayName());
+    }
+
     @Override
     public boolean onHardHammerClick(EntityPlayer playerIn, EnumHand hand, EnumFacing facing,
                                      CuboidRayTraceResult hitResult) {
+        TKCYSALog.logger.info("Click one");
+
+        ItemStack stack = this.itemInventory.getStackInSlot(0);
+
+        TKCYSALog.logger.info("is inventory empty : " + stack.isEmpty());
+
+        if (stack.isEmpty()) {
+            this.currentRecipe = null;
+            return false;
+        }
         if (this.currentRecipe == null) {
+            this.currentRecipe = this.getRecipe(stack);
+            TKCYSALog.logger.info("current recipe is null : " + this.currentRecipe == null);
+            if (this.currentRecipe == null) return false;
+        }
+        TKCYSALog.logger.info("outputs size : " + this.currentRecipe.getOutputs().size());
 
-            this.inputStacks.add(ToolsModule.GtTool.HARD_HAMMER.getToolStack());
-            this.inputStacks.add(this.itemInventory.getStackInSlot(0));
+        for (ItemStack itemStack : this.currentRecipe.getOutputs()) {
+            TKCYSALog.logger.info(String.format("%s transferred %b", stackToString(itemStack),
+                    playerIn.addItemStackToInventory(itemStack)));
+        }
 
+        /*
+         * TKCYSALog.logger.info("size : " + recipes.get(0).getInputs().size());
+         * TKCYSALog.logger.info("size2 : " + recipes.get(0).getInputs().get(0).getInputStacks().length);
+         *
+         * Recipe recipe = this.getRecipe(this.itemInventory.getStackInSlot(0));
+         *
+         * if (recipe != null) {
+         * TKCYSALog.logger.info("recipe not null");
+         * if (!recipe.getOutputs().isEmpty()) {
+         * TKCYSALog.logger.info("recipe has outputs");
+         * TKCYSALog.logger.info("outputs are %s and %s", recipe.getOutputs().get(0).getDisplayName(),
+         * recipe.getOutputs().get(0).getDisplayName());
+         * }
+         * }
+         *
+         */
 
-
-            this.currentRecipe = getCurrentRecipe(this.inputStacks);
-            if (currentRecipe == null) return true;
-
-            this.toolUsage = this.toolUsesProperty.getValueFromRecipe(currentRecipe);
-            this.recipeToolUsages = toolUsage;
-
-        } else this.onToolSneakRightClick(playerIn);
+        /*
+         * this.currentRecipe = getCurrentRecipe(this.inputStacks);
+         * if (currentRecipe == null) {
+         * TKCYSALog.logger.info("no recipe found");
+         * return true;
+         * }
+         * 
+         * this.toolUsage = this.toolUsesProperty.getValueFromRecipe(currentRecipe);
+         * this.recipeToolUsages = toolUsage;
+         * 
+         * } else this.onToolSneakRightClick(playerIn);
+         * return true;
+         * 
+         */
         return true;
     }
 }
