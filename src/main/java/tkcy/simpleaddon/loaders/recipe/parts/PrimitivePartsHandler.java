@@ -17,5 +17,14 @@ public class PrimitivePartsHandler {
                 .output(OrePrefix.dust, Materials.Bronze)
                 .duration(20)
                 .buildAndRegister();
+
+        TKCYSARecipeMaps.PARTS_WORKING.recipeBuilder()
+                .tool(ToolsModule.GtTool.HARD_HAMMER)
+                .toolUses(3)
+                .input(OrePrefix.plate, Materials.Bronze, 3)
+                .output(OrePrefix.plateDouble, Materials.Bronze)
+                .output(OrePrefix.dust, Materials.Bronze)
+                .duration(20)
+                .buildAndRegister();
     }
 }

@@ -1,5 +1,6 @@
 package tkcy.simpleaddon.common.metatileentities.primitive;
 
+import static tkcy.simpleaddon.api.utils.TKCYSALog.stackToString;
 import static tkcy.simpleaddon.modules.NBTLabel.TOOL_USAGES;
 
 import java.util.*;
@@ -29,6 +30,7 @@ import gregtech.api.capability.impl.NotifiableItemStackHandler;
 import gregtech.api.gui.GuiTextures;
 import gregtech.api.gui.ModularUI;
 import gregtech.api.gui.widgets.LabelWidget;
+import gregtech.api.items.itemhandlers.GTItemStackHandler;
 import gregtech.api.items.toolitem.ToolHelper;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
@@ -60,8 +62,8 @@ public class PartsWorkerMTE extends MetaTileEntity implements ToolAction {
     private int toolUsage = 0;
     private final RecipeMap<ToolRecipeBuilder> recipeMap;
     private Recipe currentRecipe;
+    private List<ItemStack> currentRecipeOutputStack;
     private String toolClass;
-    private List<ItemStack> inputStacks = new ArrayList<>();
     private int recipeToolUsages;
     private final RecipePropertyHelper<Integer> toolUsesProperty = ToolUsesProperty.getInstance();
     private final RecipeProperty<ToolsModule.GtTool> toolProperty = ToolProperty.getInstance();
@@ -71,10 +73,31 @@ public class PartsWorkerMTE extends MetaTileEntity implements ToolAction {
     public PartsWorkerMTE(ResourceLocation metaTileEntityId, RecipeMap<ToolRecipeBuilder> recipeMap) {
         super(metaTileEntityId);
         this.recipeMap = recipeMap;
+        this.createExportItemHandler();
+        this.currentRecipeOutputStack = new ArrayList<>();
+    }
+
+    @Override
+    protected IItemHandlerModifiable createExportItemHandler() {
+        return new GTItemStackHandler(this, 2);
     }
 
     @Nullable
     private Recipe getRecipe(@NotNull ItemStack itemStack) {
+        for (Recipe recipe : recipes) {
+            for (GTRecipeInput gtRecipeInput : recipe.getInputs()) {
+                if (gtRecipeInput.acceptsStack(itemStack)) {
+                    TKCYSALog.logger.info("does accept stack");
+                    return recipe;
+                }
+            }
+        }
+        TKCYSALog.logger.info("does NOT accept stack");
+        return null;
+    }
+
+    @Nullable
+    private Recipe getRecipeAdvanced(@NotNull ItemStack itemStack) {
         for (Recipe recipe : recipes) {
             for (GTRecipeInput gtRecipeInput : recipe.getInputs()) {
                 if (gtRecipeInput.acceptsStack(itemStack)) {
@@ -229,72 +252,87 @@ public class PartsWorkerMTE extends MetaTileEntity implements ToolAction {
         return ModularUI.builder(GuiTextures.PRIMITIVE_BACKGROUND, 176, 166)
                 .shouldColor(false)
                 .widget(new LabelWidget(5, 5, getMetaFullName()))
-
                 .slot(this.importItems, 0, 60, 30, GuiTextures.PRIMITIVE_SLOT)
-
                 .bindPlayerInventory(entityPlayer.inventory, GuiTextures.SLOT, 0);
     }
 
-    private static String stackToString(ItemStack itemStack) {
-        return String.format("%d %s", itemStack.getCount(), itemStack.getDisplayName());
+    private void fillExportItemHandler(@NotNull List<ItemStack> recipeOutputs) {
+        int slotIndex = 0;
+        for (ItemStack itemStack : recipeOutputs) {
+            TKCYSALog.logger.info("output is " + stackToString(itemStack));
+            this.exportItems.insertItem(slotIndex, itemStack, false);
+            slotIndex++;
+        }
+    }
+
+    private boolean fillPlayerInventory(EntityPlayer playerIn) {
+        boolean didItFill = false;
+        for (int slot = 0; slot < this.exportItems.getSlots(); slot++) {
+            // TKCYSALog.logger.info("current slotIndex loop : " + slot);
+            TKCYSALog.logger
+                    .info("to remove from exportItems : " + stackToString(this.exportItems.getStackInSlot(slot)));
+            ItemStack exportStack = this.exportItems.extractItem(slot, Integer.MAX_VALUE, false);
+            TKCYSALog.logger.info("removed from exportItems : " + stackToString(exportStack));
+            if (exportStack.isEmpty()) continue;
+            didItFill = playerIn.addItemStackToInventory(exportStack);
+        }
+        return didItFill;
     }
 
     @Override
     public boolean onHardHammerClick(EntityPlayer playerIn, EnumHand hand, EnumFacing facing,
                                      CuboidRayTraceResult hitResult) {
         TKCYSALog.logger.info("Click one");
+        ItemStack importInventory = this.importItems.getStackInSlot(0);
+        TKCYSALog.logger.info("is importInventory empty : " + importInventory.isEmpty());
 
-        ItemStack stack = this.itemInventory.getStackInSlot(0);
-
-        TKCYSALog.logger.info("is inventory empty : " + stack.isEmpty());
-
-        if (stack.isEmpty()) {
+        if (importInventory.isEmpty()) {
             this.currentRecipe = null;
+            this.currentRecipeOutputStack.clear();
+            TKCYSALog.logger.info("current recipe is null");
+            TKCYSALog.logger.info("############");
+            TKCYSALog.logger.info("############");
             return false;
         }
+
+        TKCYSALog.logger.info("importInventory is " + stackToString(importInventory));
+
+        // this.currentRecipe = this.getRecipe(importInventory);
+
         if (this.currentRecipe == null) {
-            this.currentRecipe = this.getRecipe(stack);
+            this.currentRecipe = this.getRecipe(importInventory);
             TKCYSALog.logger.info("current recipe is null : " + this.currentRecipe == null);
-            if (this.currentRecipe == null) return false;
+
+            this.currentRecipeOutputStack = this.currentRecipe.getOutputs();
+            this.markDirty();
+
+            if (this.currentRecipeOutputStack.isEmpty() || this.currentRecipe == null) {
+                this.currentRecipeOutputStack.clear();
+                TKCYSALog.logger.info("CLEAR");
+                TKCYSALog.logger.info("############");
+                TKCYSALog.logger.info("############");
+                return false;
+            }
         }
-        TKCYSALog.logger.info("outputs size : " + this.currentRecipe.getOutputs().size());
 
-        for (ItemStack itemStack : this.currentRecipe.getOutputs()) {
-            TKCYSALog.logger.info(String.format("%s transferred %b", stackToString(itemStack),
-                    playerIn.addItemStackToInventory(itemStack)));
+        for (ItemStack itemStack : this.currentRecipeOutputStack) {
+            TKCYSALog.logger.info("recipeOutputStack contains " + stackToString(itemStack));
         }
 
-        /*
-         * TKCYSALog.logger.info("size : " + recipes.get(0).getInputs().size());
-         * TKCYSALog.logger.info("size2 : " + recipes.get(0).getInputs().get(0).getInputStacks().length);
-         *
-         * Recipe recipe = this.getRecipe(this.itemInventory.getStackInSlot(0));
-         *
-         * if (recipe != null) {
-         * TKCYSALog.logger.info("recipe not null");
-         * if (!recipe.getOutputs().isEmpty()) {
-         * TKCYSALog.logger.info("recipe has outputs");
-         * TKCYSALog.logger.info("outputs are %s and %s", recipe.getOutputs().get(0).getDisplayName(),
-         * recipe.getOutputs().get(0).getDisplayName());
-         * }
-         * }
-         *
-         */
+        this.fillExportItemHandler(this.currentRecipeOutputStack);
+        boolean didItFill = this.fillPlayerInventory(playerIn);
+        TKCYSALog.logger.info("did it fill player inventory ? : " + didItFill);
+        if (didItFill) {
+            this.importItems.extractItem(0, 2, false);
+            TKCYSALog.logger.info("DID FILL");
+            TKCYSALog.logger.info("############");
+            TKCYSALog.logger.info("############");
+            return true;
+        }
 
-        /*
-         * this.currentRecipe = getCurrentRecipe(this.inputStacks);
-         * if (currentRecipe == null) {
-         * TKCYSALog.logger.info("no recipe found");
-         * return true;
-         * }
-         * 
-         * this.toolUsage = this.toolUsesProperty.getValueFromRecipe(currentRecipe);
-         * this.recipeToolUsages = toolUsage;
-         * 
-         * } else this.onToolSneakRightClick(playerIn);
-         * return true;
-         * 
-         */
-        return true;
+        TKCYSALog.logger.info("TRUE END");
+        TKCYSALog.logger.info("############");
+        TKCYSALog.logger.info("############");
+        return false;
     }
 }
