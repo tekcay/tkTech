@@ -2,6 +2,7 @@ package tkcy.simpleaddon.api.utils;
 
 import net.minecraft.item.ItemStack;
 
+import net.minecraftforge.fluids.FluidStack;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 
@@ -15,7 +16,11 @@ public final class TKCYSALog {
         logger = modLogger;
     }
 
-    public static String stackToString(ItemStack itemStack) {
+    public static String itemStackToString(@NotNull ItemStack itemStack) {
         return String.format("%d %s", itemStack.getCount(), itemStack.getDisplayName());
+    }
+
+    public static String fluidStackToString(@NotNull FluidStack fluidStack) {
+        return String.format("%d %s", fluidStack.amount, fluidStack.getLocalizedName());
     }
 }

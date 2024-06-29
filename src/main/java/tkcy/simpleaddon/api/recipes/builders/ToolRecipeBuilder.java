@@ -8,7 +8,6 @@ import gregtech.api.recipes.RecipeMap;
 import gregtech.api.recipes.recipeproperties.EmptyRecipePropertyStorage;
 import gregtech.api.recipes.recipeproperties.PrimitiveProperty;
 import gregtech.api.util.ValidationResult;
-import gregtech.common.blocks.BlockWireCoil;
 
 import tkcy.simpleaddon.api.recipes.properties.ToolProperty;
 import tkcy.simpleaddon.api.recipes.properties.ToolUsesProperty;
@@ -45,10 +44,6 @@ public class ToolRecipeBuilder extends RecipeBuilder<ToolRecipeBuilder> {
     public ToolRecipeBuilder toolUses(int uses) {
         ToolUsesProperty toolUsesProperty = ToolUsesProperty.getInstance();
         return (ToolRecipeBuilder) toolUsesProperty.testAndApplyPropertyValue(uses, this.recipeStatus, this);
-    }
-
-    public static BlockWireCoil.CoilType getDefaultValue() {
-        return BlockWireCoil.CoilType.CUPRONICKEL;
     }
 
     @Override

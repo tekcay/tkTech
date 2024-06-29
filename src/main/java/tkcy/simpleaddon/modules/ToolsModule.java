@@ -66,4 +66,14 @@ public class ToolsModule {
                 .findFirst()
                 .orElse(null);
     }
+
+    @Nullable
+    public static GtTool getGtTool(String toolClassName) {
+        for (GtTool tool : GT_TOOLS) {
+            if (tool.toolClassName.equals(toolClassName)) {
+                return tool;
+            }
+        }
+        return null;
+    }
 }
