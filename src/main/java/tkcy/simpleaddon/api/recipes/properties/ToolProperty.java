@@ -36,7 +36,7 @@ public class ToolProperty extends RecipeProperty<ToolsModule.GtTool>
     @Override
     public RecipeBuilder<?> testAndApplyPropertyValue(ToolsModule.GtTool valueToTest, EnumValidationResult recipeStatus,
                                                       RecipeBuilder<?> recipeBuilder) {
-        if (this.testSuppliedValue().test(valueToTest)) {
+        if (!this.testSuppliedValue().test(valueToTest)) {
             TKCYSALog.logger.error(this::getErrorMessage, new IllegalArgumentException());
             recipeStatus = EnumValidationResult.INVALID;
         }

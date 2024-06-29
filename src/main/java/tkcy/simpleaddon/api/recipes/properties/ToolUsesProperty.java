@@ -38,7 +38,7 @@ public class ToolUsesProperty extends RecipeProperty<Integer> implements RecipeP
     @Override
     public RecipeBuilder<?> testAndApplyPropertyValue(Integer valueToTest, EnumValidationResult recipeStatus,
                                                       RecipeBuilder<?> recipeBuilder) {
-        if (this.testSuppliedValue().test(valueToTest)) {
+        if (!this.testSuppliedValue().test(valueToTest)) {
             TKCYSALog.logger.error(this::getErrorMessage, new IllegalArgumentException());
             recipeStatus = EnumValidationResult.INVALID;
         }

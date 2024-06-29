@@ -47,6 +47,7 @@ public final class TKCYSARecipeMaps {
     public static final RecipeMap<NoEnergyRecipeBuilder> GAS_RELEASE = new MinimalPrimitiveRecipeMap<>("gas_release", 0,
             0, 1, 0,
             new NoEnergyRecipeBuilder(), false)
+                    .allowEmptyOutput()
                     .setSound(GTSoundEvents.BOILER);
     @ZenProperty
     public static final RecipeMap<NoEnergyRecipeBuilder> ALLOYING = new RecipeMap<>("alloying", 2,
