@@ -2,6 +2,12 @@
 
 ***
 
+## v0.3
+
+### Internal changes
+- updated GTCEu dependency from 2.8.6 to 2.8.8
+
+
 ## v0.2 (GTCEu-tk-fork as dependency)
 
 ### Features
