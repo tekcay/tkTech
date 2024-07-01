@@ -42,7 +42,7 @@ public class ToolUsesProperty extends RecipeProperty<Integer> implements RecipeP
             TKCYSALog.logger.error(this::getErrorMessage, new IllegalArgumentException());
             recipeStatus = EnumValidationResult.INVALID;
         }
-        recipeBuilder.applyProperty(this, getDefaultValue());
+        recipeBuilder.applyProperty(this, valueToTest);
         return recipeBuilder;
     }
 
@@ -53,12 +53,12 @@ public class ToolUsesProperty extends RecipeProperty<Integer> implements RecipeP
 
     @Override
     public Integer getDefaultValue() {
-        return 2;
+        return 1;
     }
 
     @Override
     public String getErrorMessage() {
-        return "Uses must be more than 1!";
+        return "Uses must be 1 or more!";
     }
 
     @Override

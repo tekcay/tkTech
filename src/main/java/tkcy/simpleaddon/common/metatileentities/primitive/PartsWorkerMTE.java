@@ -17,6 +17,7 @@ import net.minecraftforge.items.IItemHandlerModifiable;
 import org.apache.commons.lang3.ArrayUtils;
 import org.jetbrains.annotations.Nullable;
 
+import gregtech.api.capability.IMultipleTankHandler;
 import gregtech.api.capability.impl.FluidTankList;
 import gregtech.api.capability.impl.NotifiableItemStackHandler;
 import gregtech.api.gui.GuiTextures;
@@ -25,6 +26,7 @@ import gregtech.api.gui.widgets.LabelWidget;
 import gregtech.api.items.itemhandlers.GTItemStackHandler;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
+import gregtech.api.recipes.Recipe;
 import gregtech.api.recipes.RecipeMap;
 import gregtech.api.util.GTUtility;
 import gregtech.client.renderer.texture.Textures;
@@ -48,6 +50,18 @@ public class PartsWorkerMTE extends MetaTileEntity {
         super(metaTileEntityId);
         this.recipeMap = recipeMap;
         this.logic = new ToolRecipeLogic(this, recipeMap);
+    }
+
+    /**
+     * This is used for recipe trimming during
+     * {@link ToolRecipeLogic#prepareRecipe(Recipe, IItemHandlerModifiable, IMultipleTankHandler)}.
+     * </br>
+     * As we want to spawn items instead of transferring to output inventory, we use -1 (see
+     * {@link Recipe#trimRecipeOutputs(Recipe, RecipeMap, int, int)})
+     */
+    @Override
+    public int getItemOutputLimit() {
+        return -1;
     }
 
     @Override

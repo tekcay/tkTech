@@ -40,7 +40,7 @@ public class ToolProperty extends RecipeProperty<ToolsModule.GtTool>
             TKCYSALog.logger.error(this::getErrorMessage, new IllegalArgumentException());
             recipeStatus = EnumValidationResult.INVALID;
         }
-        recipeBuilder.applyProperty(this, getDefaultValue());
+        recipeBuilder.applyProperty(this, valueToTest);
         recipeBuilder.notConsumable(valueToTest.getToolStack());
         return recipeBuilder;
     }
