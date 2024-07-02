@@ -9,6 +9,7 @@ import gregtech.api.recipes.recipeproperties.EmptyRecipePropertyStorage;
 import gregtech.api.recipes.recipeproperties.PrimitiveProperty;
 import gregtech.api.util.ValidationResult;
 
+import tkcy.simpleaddon.api.recipes.properties.HideDurationProperty;
 import tkcy.simpleaddon.api.recipes.properties.ToolProperty;
 import tkcy.simpleaddon.api.recipes.properties.ToolUsesProperty;
 import tkcy.simpleaddon.modules.RecipePropertiesKey;
@@ -64,6 +65,7 @@ public class ToolRecipeBuilder extends RecipeBuilder<ToolRecipeBuilder> {
         this.EUt(1); // secretly force to 1 to allow recipe matching to work properly
         this.duration(10);
         applyProperty(PrimitiveProperty.getInstance(), true);
+        applyProperty(HideDurationProperty.getInstance(), true);
         return super.build();
     }
 }

@@ -30,11 +30,11 @@ import codechicken.lib.render.CCRenderState;
 import codechicken.lib.render.pipeline.ColourMultiplier;
 import codechicken.lib.render.pipeline.IVertexOperation;
 import codechicken.lib.vec.Matrix4;
-import tkcy.simpleaddon.api.metatileentities.PartsWorkerMTE;
+import tkcy.simpleaddon.api.metatileentities.ToolLogicMetaTileEntity;
 import tkcy.simpleaddon.api.recipes.builders.ToolRecipeBuilder;
 import tkcy.simpleaddon.modules.ToolsModule;
 
-public class AnvilMetatileEntity extends PartsWorkerMTE {
+public class AnvilMetatileEntity extends ToolLogicMetaTileEntity {
 
     public AnvilMetatileEntity(ResourceLocation metaTileEntityId, RecipeMap<ToolRecipeBuilder> recipeMap) {
         super(metaTileEntityId, recipeMap);

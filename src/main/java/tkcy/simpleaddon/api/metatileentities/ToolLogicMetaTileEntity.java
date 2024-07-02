@@ -25,12 +25,12 @@ import gregtech.api.recipes.RecipeMap;
 import tkcy.simpleaddon.api.recipes.builders.ToolRecipeBuilder;
 import tkcy.simpleaddon.api.recipes.logic.ToolRecipeLogic;
 
-public abstract class PartsWorkerMTE extends MetaTileEntity {
+public abstract class ToolLogicMetaTileEntity extends MetaTileEntity {
 
     protected final ToolRecipeLogic logic;
     protected final RecipeMap<ToolRecipeBuilder> recipeMap;
 
-    public PartsWorkerMTE(ResourceLocation metaTileEntityId, RecipeMap<ToolRecipeBuilder> recipeMap) {
+    public ToolLogicMetaTileEntity(ResourceLocation metaTileEntityId, RecipeMap<ToolRecipeBuilder> recipeMap) {
         super(metaTileEntityId);
         this.recipeMap = recipeMap;
         this.logic = new ToolRecipeLogic(this, recipeMap);

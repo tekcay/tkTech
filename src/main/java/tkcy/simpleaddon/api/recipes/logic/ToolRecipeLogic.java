@@ -20,7 +20,7 @@ import gregtech.api.recipes.RecipeMap;
 import gregtech.api.util.GTTransferUtils;
 import gregtech.api.util.GTUtility;
 
-import tkcy.simpleaddon.api.metatileentities.PartsWorkerMTE;
+import tkcy.simpleaddon.api.metatileentities.ToolLogicMetaTileEntity;
 import tkcy.simpleaddon.api.recipes.RecipeSearchHelpers;
 import tkcy.simpleaddon.api.recipes.builders.ToolRecipeBuilder;
 import tkcy.simpleaddon.api.recipes.properties.ToolProperty;
@@ -35,7 +35,7 @@ public class ToolRecipeLogic extends PrimitiveLogic {
     protected List<ItemStack> itemStackListInventory;
     protected List<FluidStack> fluidStackListInventory;
 
-    public ToolRecipeLogic(PartsWorkerMTE tileEntity, @NotNull RecipeMap<?> recipeMap) {
+    public ToolRecipeLogic(ToolLogicMetaTileEntity tileEntity, @NotNull RecipeMap<?> recipeMap) {
         super(tileEntity, recipeMap);
         this.itemStackListInventory = new ArrayList<>();
         this.fluidStackListInventory = new ArrayList<>();
@@ -82,9 +82,9 @@ public class ToolRecipeLogic extends PrimitiveLogic {
      * Spawns items in world, fluids remain in the mte fluidOutput inventory
      */
     protected void spawnOutputStacks() {
-        BlockPos metatileEntityBlockPos = this.metaTileEntity.getPos();
+        BlockPos metaTileEntityBlockPos = this.metaTileEntity.getPos();
         World world = this.metaTileEntity.getWorld();
-        this.itemOutputs.forEach(itemStack -> Block.spawnAsEntity(world, metatileEntityBlockPos, itemStack));
+        this.itemOutputs.forEach(itemStack -> Block.spawnAsEntity(world, metaTileEntityBlockPos, itemStack));
     }
 
     // Removed energy stuff

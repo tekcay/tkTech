@@ -8,7 +8,7 @@ import gregtech.api.metatileentity.SimpleMachineMetaTileEntity;
 import gregtech.api.util.GTUtility;
 import gregtech.client.renderer.texture.Textures;
 
-import tkcy.simpleaddon.api.metatileentities.PartsWorkerMTE;
+import tkcy.simpleaddon.api.metatileentities.ToolLogicMetaTileEntity;
 import tkcy.simpleaddon.api.recipes.TKCYSARecipeMaps;
 import tkcy.simpleaddon.api.render.TKCYSATextures;
 import tkcy.simpleaddon.api.utils.TKCYSAUtil;
@@ -40,7 +40,7 @@ public final class TKCYSAMetaTileEntities {
     public static CrackingUnitMte CRACKING_UNIT;
     public static SteamDustMixer STEAM_DUST_MIXER;
     public static SteamMelter STEAM_MELTER;
-    public static PartsWorkerMTE PARTS_WORKER_MTE;
+    public static ToolLogicMetaTileEntity PARTS_WORKER_MTE;
     public static SimpleMachineMetaTileEntity[] CLUSTER_MILLS = new SimpleMachineMetaTileEntity[5];
     public static SimpleMachineMetaTileEntity[] COMPONENT_ASSEMBLER_MTE = new SimpleMachineMetaTileEntity[6];
     public static SimpleMachineMetaTileEntity[] ROLLING_MILL = new SimpleMachineMetaTileEntity[6];
