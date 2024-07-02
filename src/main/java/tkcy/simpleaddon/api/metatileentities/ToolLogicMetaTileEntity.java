@@ -1,20 +1,15 @@
-package tkcy.simpleaddon.common.metatileentities.primitive;
+package tkcy.simpleaddon.api.metatileentities;
 
 import java.util.List;
 
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidTank;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.IItemHandlerModifiable;
 
-import org.apache.commons.lang3.ArrayUtils;
 import org.jetbrains.annotations.Nullable;
 
 import gregtech.api.capability.IMultipleTankHandler;
@@ -22,26 +17,15 @@ import gregtech.api.capability.impl.FluidTankList;
 import gregtech.api.capability.impl.NotifiableItemStackHandler;
 import gregtech.api.gui.GuiTextures;
 import gregtech.api.gui.ModularUI;
-import gregtech.api.gui.widgets.LabelWidget;
-import gregtech.api.items.itemhandlers.GTItemStackHandler;
+import gregtech.api.gui.widgets.*;
 import gregtech.api.metatileentity.MetaTileEntity;
-import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
 import gregtech.api.recipes.Recipe;
 import gregtech.api.recipes.RecipeMap;
-import gregtech.api.util.GTUtility;
-import gregtech.client.renderer.texture.Textures;
-import gregtech.client.renderer.texture.cube.SimpleOverlayRenderer;
 
-import codechicken.lib.raytracer.CuboidRayTraceResult;
-import codechicken.lib.render.CCRenderState;
-import codechicken.lib.render.pipeline.ColourMultiplier;
-import codechicken.lib.render.pipeline.IVertexOperation;
-import codechicken.lib.vec.Matrix4;
 import tkcy.simpleaddon.api.recipes.builders.ToolRecipeBuilder;
 import tkcy.simpleaddon.api.recipes.logic.ToolRecipeLogic;
-import tkcy.simpleaddon.modules.ToolsModule;
 
-public class PartsWorkerMTE extends MetaTileEntity {
+public abstract class PartsWorkerMTE extends MetaTileEntity {
 
     protected final ToolRecipeLogic logic;
     protected final RecipeMap<ToolRecipeBuilder> recipeMap;
@@ -65,43 +49,13 @@ public class PartsWorkerMTE extends MetaTileEntity {
     }
 
     @Override
-    protected IItemHandlerModifiable createExportItemHandler() {
-        return new GTItemStackHandler(this, 2);
-    }
-
-    @Override
     protected IItemHandlerModifiable createImportItemHandler() {
-        return new NotifiableItemStackHandler(this, 1, this, false);
+        return new NotifiableItemStackHandler(this, this.recipeMap.getMaxInputs(), this, false);
     }
 
     @Override
     protected FluidTankList createImportFluidHandler() {
         return new FluidTankList(false, new FluidTank(2000));
-    }
-
-
-    @SideOnly(Side.CLIENT)
-    protected SimpleOverlayRenderer getBaseRenderer() {
-        return Textures.COKE_BRICKS;
-    }
-
-    @Override
-    public void renderMetaTileEntity(CCRenderState renderState, Matrix4 translation, IVertexOperation[] pipeline) {
-        IVertexOperation[] colouredPipeline = ArrayUtils.add(pipeline,
-                new ColourMultiplier(GTUtility.convertRGBtoOpaqueRGBA_CL(getPaintingColorForRendering())));
-        getBaseRenderer().render(renderState, translation, colouredPipeline);
-        ColourMultiplier multiplier = new ColourMultiplier(
-                GTUtility.convertRGBtoOpaqueRGBA_CL(getPaintingColorForRendering()));
-        colouredPipeline = ArrayUtils.add(pipeline, multiplier);
-        Textures.CRAFTING_TABLE.renderOriented(renderState, translation, pipeline, EnumFacing.SOUTH);
-        Textures.CRAFTING_TABLE.renderOriented(renderState, translation, pipeline, EnumFacing.NORTH);
-        Textures.CRAFTING_TABLE.renderOriented(renderState, translation, pipeline, EnumFacing.EAST);
-        Textures.CRAFTING_TABLE.renderOriented(renderState, translation, pipeline, EnumFacing.WEST);
-    }
-
-    @Override
-    public MetaTileEntity createMetaTileEntity(IGregTechTileEntity tileEntity) {
-        return new PartsWorkerMTE(this.metaTileEntityId, this.recipeMap);
     }
 
     @Override
@@ -121,13 +75,8 @@ public class PartsWorkerMTE extends MetaTileEntity {
                 .shouldColor(false)
                 .widget(new LabelWidget(5, 5, getMetaFullName()))
                 .slot(this.importItems, 0, 60, 30, GuiTextures.PRIMITIVE_SLOT)
+                .progressBar(this.logic::getProgressPercent, 100, 30, 18, 18, GuiTextures.PROGRESS_BAR_BENDING,
+                        ProgressWidget.MoveType.HORIZONTAL, this.recipeMap)
                 .bindPlayerInventory(entityPlayer.inventory, GuiTextures.SLOT, 0);
-    }
-
-    @Override
-    public boolean onHardHammerClick(EntityPlayer playerIn, EnumHand hand, EnumFacing facing,
-                                     CuboidRayTraceResult hitResult) {
-        this.logic.startWorking(ToolsModule.GtTool.HARD_HAMMER);
-        return true;
     }
 }

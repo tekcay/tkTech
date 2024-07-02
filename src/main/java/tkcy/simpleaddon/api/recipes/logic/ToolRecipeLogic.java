@@ -20,11 +20,11 @@ import gregtech.api.recipes.RecipeMap;
 import gregtech.api.util.GTTransferUtils;
 import gregtech.api.util.GTUtility;
 
+import tkcy.simpleaddon.api.metatileentities.PartsWorkerMTE;
 import tkcy.simpleaddon.api.recipes.RecipeSearchHelpers;
 import tkcy.simpleaddon.api.recipes.builders.ToolRecipeBuilder;
 import tkcy.simpleaddon.api.recipes.properties.ToolProperty;
 import tkcy.simpleaddon.api.recipes.properties.ToolUsesProperty;
-import tkcy.simpleaddon.common.metatileentities.primitive.PartsWorkerMTE;
 import tkcy.simpleaddon.modules.NBTHelpers;
 import tkcy.simpleaddon.modules.NBTLabel;
 import tkcy.simpleaddon.modules.ToolsModule;

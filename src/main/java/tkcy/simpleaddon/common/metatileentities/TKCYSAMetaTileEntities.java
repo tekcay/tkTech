@@ -8,6 +8,7 @@ import gregtech.api.metatileentity.SimpleMachineMetaTileEntity;
 import gregtech.api.util.GTUtility;
 import gregtech.client.renderer.texture.Textures;
 
+import tkcy.simpleaddon.api.metatileentities.PartsWorkerMTE;
 import tkcy.simpleaddon.api.recipes.TKCYSARecipeMaps;
 import tkcy.simpleaddon.api.render.TKCYSATextures;
 import tkcy.simpleaddon.api.utils.TKCYSAUtil;
@@ -18,7 +19,7 @@ import tkcy.simpleaddon.common.metatileentities.multiprimitive.AlloyingCrucible;
 import tkcy.simpleaddon.common.metatileentities.multiprimitive.FluidPrimitiveBlastFurnace;
 import tkcy.simpleaddon.common.metatileentities.multiprimitive.GasRelease;
 import tkcy.simpleaddon.common.metatileentities.multiprimitive.PrimitiveRoastingOven;
-import tkcy.simpleaddon.common.metatileentities.primitive.PartsWorkerMTE;
+import tkcy.simpleaddon.common.metatileentities.primitive.AnvilMetatileEntity;
 import tkcy.simpleaddon.common.metatileentities.primitive.PrimitiveCasting;
 import tkcy.simpleaddon.common.metatileentities.steam.SteamDustMixer;
 import tkcy.simpleaddon.common.metatileentities.steam.SteamMelter;
@@ -96,6 +97,6 @@ public final class TKCYSAMetaTileEntities {
         STEAM_DUST_MIXER = registerMetaTileEntity(4102, new SteamDustMixer(tkcysa("steam_dust_mixer")));
         STEAM_MELTER = registerMetaTileEntity(4103, new SteamMelter(tkcysa("steam_melter")));
         PARTS_WORKER_MTE = registerMetaTileEntity(4104,
-                new PartsWorkerMTE(tkcysa("parts_worker_mte"), TKCYSARecipeMaps.PARTS_WORKING));
+                new AnvilMetatileEntity(tkcysa("anvil_metatile_entity"), TKCYSARecipeMaps.PARTS_WORKING));
     }
 }
