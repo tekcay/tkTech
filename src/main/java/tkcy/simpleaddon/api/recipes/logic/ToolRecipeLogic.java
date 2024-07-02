@@ -6,11 +6,8 @@ import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.fluids.FluidStack;
 
 import org.jetbrains.annotations.NotNull;
@@ -28,6 +25,7 @@ import tkcy.simpleaddon.api.recipes.properties.ToolProperty;
 import tkcy.simpleaddon.api.recipes.properties.ToolUsesProperty;
 import tkcy.simpleaddon.api.utils.TKCYSALog;
 import tkcy.simpleaddon.common.metatileentities.primitive.PartsWorkerMTE;
+import tkcy.simpleaddon.modules.NBTHelpers;
 import tkcy.simpleaddon.modules.NBTLabel;
 import tkcy.simpleaddon.modules.ToolsModule;
 
@@ -255,19 +253,12 @@ public class ToolRecipeLogic extends PrimitiveLogic {
         NBTTagCompound compound = new NBTTagCompound();
         compound.setBoolean("WorkEnabled", workingEnabled);
         compound.setBoolean("CanRecipeProgress", canRecipeProgress);
-        if (progressTime > 0) {
-            compound.setInteger(NBTLabel.CURRENT_TOOL_USES.name(), progressTime);
-            compound.setInteger(NBTLabel.RECIPE_TOOL_USES.name(), maxProgressTime);
-            NBTTagList itemOutputsList = new NBTTagList();
-            for (ItemStack itemOutput : itemOutputs) {
-                itemOutputsList.appendTag(itemOutput.writeToNBT(new NBTTagCompound()));
-            }
-            NBTTagList fluidOutputsList = new NBTTagList();
-            for (FluidStack fluidOutput : fluidOutputs) {
-                fluidOutputsList.appendTag(fluidOutput.writeToNBT(new NBTTagCompound()));
-            }
-            compound.setTag(NBTLabel.ITEM_OUTPUTS.name(), itemOutputsList);
-            compound.setTag(NBTLabel.FLUID_OUTPUTS.name(), fluidOutputsList);
+        if (this.progressTime > 0) {
+            compound.setInteger(NBTLabel.CURRENT_TOOL_USES.name(), this.progressTime);
+            compound.setInteger(NBTLabel.RECIPE_TOOL_USES.name(), this.maxProgressTime);
+
+            NBTHelpers.serializeItemOutputs.accept(compound, this.itemOutputs, NBTLabel.ITEM_OUTPUTS.name());
+            NBTHelpers.serializeFluidOutputs.accept(compound, this.fluidOutputs, NBTLabel.FLUID_OUTPUTS.name());
         }
         return compound;
     }
@@ -281,17 +272,8 @@ public class ToolRecipeLogic extends PrimitiveLogic {
         if (progressTime > 0) {
             this.isActive = true;
             this.maxProgressTime = compound.getInteger(NBTLabel.RECIPE_TOOL_USES.name());
-            NBTTagList itemOutputsList = compound.getTagList(NBTLabel.ITEM_OUTPUTS.name(), Constants.NBT.TAG_COMPOUND);
-            this.itemOutputs = NonNullList.create();
-            for (int i = 0; i < itemOutputsList.tagCount(); i++) {
-                this.itemOutputs.add(new ItemStack(itemOutputsList.getCompoundTagAt(i)));
-            }
-            NBTTagList fluidOutputsList = compound.getTagList(NBTLabel.FLUID_OUTPUTS.name(),
-                    Constants.NBT.TAG_COMPOUND);
-            this.fluidOutputs = new ArrayList<>();
-            for (int i = 0; i < fluidOutputsList.tagCount(); i++) {
-                this.fluidOutputs.add(FluidStack.loadFluidStackFromNBT(fluidOutputsList.getCompoundTagAt(i)));
-            }
+            this.itemOutputs = NBTHelpers.getDeserializedItemOutputs(compound, NBTLabel.ITEM_OUTPUTS);
+            this.fluidOutputs = NBTHelpers.getDeserializedFluidOutputs(compound, NBTLabel.FLUID_OUTPUTS);
         }
     }
 
