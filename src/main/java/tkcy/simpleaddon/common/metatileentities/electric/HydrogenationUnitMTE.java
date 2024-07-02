@@ -16,7 +16,7 @@ import gregtech.client.renderer.texture.Textures;
 import gregtech.common.blocks.BlockHermeticCasing;
 import gregtech.common.blocks.MetaBlocks;
 
-import tkcy.simpleaddon.api.recipes.TKCYSARecipeMaps;
+import tkcy.simpleaddon.api.recipes.recipemaps.TKCYSARecipeMaps;
 
 public class HydrogenationUnitMTE extends RecipeMapMultiblockController {
 

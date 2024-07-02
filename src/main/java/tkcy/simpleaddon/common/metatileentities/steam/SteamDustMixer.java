@@ -28,7 +28,7 @@ import gregtech.client.renderer.texture.Textures;
 import gregtech.client.renderer.texture.cube.SimpleSidedCubeRenderer;
 
 import tkcy.simpleaddon.api.recipes.CastingInfo;
-import tkcy.simpleaddon.api.recipes.TKCYSARecipeMaps;
+import tkcy.simpleaddon.api.recipes.recipemaps.TKCYSARecipeMaps;
 
 public class SteamDustMixer extends SteamMetaTileEntity {
 

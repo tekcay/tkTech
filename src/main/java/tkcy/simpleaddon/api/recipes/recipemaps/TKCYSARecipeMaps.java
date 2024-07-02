@@ -1,4 +1,4 @@
-package tkcy.simpleaddon.api.recipes;
+package tkcy.simpleaddon.api.recipes.recipemaps;
 
 import gregtech.api.recipes.RecipeMap;
 import gregtech.api.recipes.builders.PrimitiveRecipeBuilder;

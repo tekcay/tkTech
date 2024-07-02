@@ -14,7 +14,7 @@ import gregtech.api.unification.stack.UnificationEntry;
 import gregtech.common.blocks.BlockSteamCasing;
 import gregtech.common.blocks.MetaBlocks;
 
-import tkcy.simpleaddon.api.recipes.TKCYSARecipeMaps;
+import tkcy.simpleaddon.api.recipes.recipemaps.TKCYSARecipeMaps;
 import tkcy.simpleaddon.common.metatileentities.TKCYSAMetaTileEntities;
 
 public class Melting {

@@ -24,8 +24,8 @@ import gregtech.client.renderer.ICubeRenderer;
 import gregtech.client.renderer.texture.Textures;
 
 import tkcy.simpleaddon.api.machines.NoEnergyMultiController;
-import tkcy.simpleaddon.api.recipes.TKCYSARecipeMaps;
 import tkcy.simpleaddon.api.recipes.logic.NoEnergyLogic;
+import tkcy.simpleaddon.api.recipes.recipemaps.TKCYSARecipeMaps;
 
 public class AlloyingCrucible extends NoEnergyMultiController {
 

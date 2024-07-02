@@ -5,7 +5,7 @@ import static gregtech.api.unification.material.Materials.*;
 import static gregtech.api.unification.ore.OrePrefix.*;
 import static gregtech.common.items.MetaItems.*;
 import static gregtech.common.metatileentities.MetaTileEntities.HULL;
-import static tkcy.simpleaddon.api.recipes.TKCYSARecipeMaps.COMPONENT_ASSEMBING;
+import static tkcy.simpleaddon.api.recipes.recipemaps.TKCYSARecipeMaps.COMPONENT_ASSEMBING;
 import static tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials.GalvanizedSteel;
 import static tkcy.simpleaddon.api.unification.ore.TKCYSAOrePrefix.curvedPlate;
 import static tkcy.simpleaddon.common.item.TKCYSAMetaItems.*;

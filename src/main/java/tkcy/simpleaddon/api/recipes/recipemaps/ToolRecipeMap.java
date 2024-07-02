@@ -1,4 +1,4 @@
-package tkcy.simpleaddon.api.recipes;
+package tkcy.simpleaddon.api.recipes.recipemaps;
 
 import net.minecraftforge.items.IItemHandlerModifiable;
 

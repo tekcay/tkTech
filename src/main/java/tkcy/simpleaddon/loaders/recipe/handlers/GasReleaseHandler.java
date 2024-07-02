@@ -5,7 +5,7 @@ import static tkcy.simpleaddon.api.TKCYSAValues.SECOND;
 import gregtech.api.GregTechAPI;
 import gregtech.api.unification.material.Material;
 
-import tkcy.simpleaddon.api.recipes.TKCYSARecipeMaps;
+import tkcy.simpleaddon.api.recipes.recipemaps.TKCYSARecipeMaps;
 
 public class GasReleaseHandler {
 
