@@ -79,39 +79,6 @@ public class PartsWorkerMTE extends MetaTileEntity {
         return new FluidTankList(false, new FluidTank(2000));
     }
 
-    /*
-     * @Override
-     * public boolean onRightClick(EntityPlayer playerIn, EnumHand hand, EnumFacing facing,
-     * CuboidRayTraceResult hitResult) {
-     * if (facing.equals(EnumFacing.UP))
-     * return super.onRightClick(playerIn, hand, facing, hitResult);
-     *
-     * if (!super.onRightClick(playerIn, hand, facing, hitResult)) {
-     *
-     * ItemStack toolItemStack = playerIn.getHeldItem(hand);
-     * if (toolItemStack.isEmpty()) return true;
-     *
-     * if (!this.verifyToolStack(toolItemStack, playerIn)) return true;
-     * if (this.didFailDamageTool(toolItemStack, playerIn)) return true;
-     *
-     * if (this.currentRecipe == null) {
-     *
-     * this.inputStacks.add(toolItemStack);
-     * this.inputStacks.add(this.itemInventory.getStackInSlot(0));
-     *
-     * this.currentRecipe = getCurrentRecipe(this.inputStacks);
-     * if (currentRecipe == null) return true;
-     *
-     * this.toolUsage = this.toolUsesProperty.getValueFromRecipe(currentRecipe);
-     * this.recipeToolUsages = toolUsage;
-     *
-     * } else this.onToolSneakRightClick(playerIn);
-     *
-     * }
-     * return true;
-     * }
-     *
-     */
 
     @SideOnly(Side.CLIENT)
     protected SimpleOverlayRenderer getBaseRenderer() {
@@ -162,62 +129,5 @@ public class PartsWorkerMTE extends MetaTileEntity {
                                      CuboidRayTraceResult hitResult) {
         this.logic.startWorking(ToolsModule.GtTool.HARD_HAMMER);
         return true;
-
-        /*
-         * 
-         * TKCYSALog.logger.info("Click one");
-         * ItemStack importInventory = this.importItems.getStackInSlot(0);
-         * TKCYSALog.logger.info("is importInventory empty : " + importInventory.isEmpty());
-         * 
-         * if (importInventory.isEmpty()) {
-         * this.currentRecipe = null;
-         * this.currentRecipeOutputStack.clear();
-         * TKCYSALog.logger.info("current recipe is null");
-         * TKCYSALog.logger.info("############");
-         * TKCYSALog.logger.info("############");
-         * return false;
-         * }
-         * 
-         * TKCYSALog.logger.info("importInventory is " + stackToString(importInventory));
-         * 
-         * // this.currentRecipe = this.getRecipe(importInventory);
-         * 
-         * if (this.currentRecipe == null) {
-         * this.currentRecipe = this.getRecipe(importInventory);
-         * TKCYSALog.logger.info("current recipe is null : " + this.currentRecipe == null);
-         * 
-         * this.currentRecipeOutputStack = this.currentRecipe.getOutputs();
-         * this.markDirty();
-         * 
-         * if (this.currentRecipeOutputStack.isEmpty() || this.currentRecipe == null) {
-         * this.currentRecipeOutputStack.clear();
-         * TKCYSALog.logger.info("CLEAR");
-         * TKCYSALog.logger.info("############");
-         * TKCYSALog.logger.info("############");
-         * return false;
-         * }
-         * }
-         * 
-         * for (ItemStack itemStack : this.currentRecipeOutputStack) {
-         * TKCYSALog.logger.info("recipeOutputStack contains " + stackToString(itemStack));
-         * }
-         * 
-         * this.fillExportItemHandler(this.currentRecipeOutputStack);
-         * boolean didItFill = this.fillPlayerInventory(playerIn);
-         * TKCYSALog.logger.info("did it fill player inventory ? : " + didItFill);
-         * if (didItFill) {
-         * this.importItems.extractItem(0, 2, false);
-         * TKCYSALog.logger.info("DID FILL");
-         * TKCYSALog.logger.info("############");
-         * TKCYSALog.logger.info("############");
-         * return true;
-         * }
-         * 
-         * TKCYSALog.logger.info("TRUE END");
-         * TKCYSALog.logger.info("############");
-         * TKCYSALog.logger.info("############");
-         * return false;
-         * 
-         */
     }
 }

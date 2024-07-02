@@ -56,6 +56,9 @@ public class RecipeSearchHelpers {
         return list;
     }
 
+    /**
+     * Used for debugging
+     */
     @Nullable
     public static Recipe findRecipeWithToolp(@NotNull RecipeMap<?> recipeMap, @NotNull ToolsModule.GtTool gtTool,
                                              @NotNull List<ItemStack> inputItemStacks,

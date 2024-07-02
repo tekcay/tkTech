@@ -9,6 +9,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.items.IItemHandlerModifiable;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -23,7 +24,6 @@ import tkcy.simpleaddon.api.recipes.RecipeSearchHelpers;
 import tkcy.simpleaddon.api.recipes.builders.ToolRecipeBuilder;
 import tkcy.simpleaddon.api.recipes.properties.ToolProperty;
 import tkcy.simpleaddon.api.recipes.properties.ToolUsesProperty;
-import tkcy.simpleaddon.api.utils.TKCYSALog;
 import tkcy.simpleaddon.common.metatileentities.primitive.PartsWorkerMTE;
 import tkcy.simpleaddon.modules.NBTHelpers;
 import tkcy.simpleaddon.modules.NBTLabel;
@@ -42,32 +42,20 @@ public class ToolRecipeLogic extends PrimitiveLogic {
     }
 
     public void startWorking(ToolsModule.GtTool gtTool) {
-        TKCYSALog.logger.info("######################");
-        TKCYSALog.logger.info("######################");
-        TKCYSALog.logger.info("progressTime : " + progressTime);
-        TKCYSALog.logger.info("maxProgressTime : " + maxProgressTime);
-
         this.setActive(true);
         this.tool = gtTool;
-        // TODO
-        // this.canRecipeProgress = canProgressRecipe();
+
         if (progressTime > 0) {
             progressTime++;
             if (progressTime == maxProgressTime) {
-                TKCYSALog.logger.info("complete recipe");
                 completeRecipe();
                 return;
             }
         }
 
-        // check everything that would make a recipe never start here.
         if (progressTime == 0) {
-            TKCYSALog.logger.info("update inventories");
-
             updateFluidStackListInventory();
             updateItemStackListInventory();
-
-            TKCYSALog.logger.info("trySearchNewRecipe");
             trySearchNewRecipe();
         }
     }
@@ -84,13 +72,19 @@ public class ToolRecipeLogic extends PrimitiveLogic {
         this.tool = null;
     }
 
-    // Spawns items in world, fluids remain in the mte fluidOutput inventory
     @Override
     protected void outputRecipeOutputs() {
+        spawnOutputStacks();
+        GTTransferUtils.addFluidsToFluidHandler(getOutputTank(), false, this.fluidOutputs);
+    }
+
+    /**
+     * Spawns items in world, fluids remain in the mte fluidOutput inventory
+     */
+    protected void spawnOutputStacks() {
         BlockPos metatileEntityBlockPos = this.metaTileEntity.getPos();
         World world = this.metaTileEntity.getWorld();
         this.itemOutputs.forEach(itemStack -> Block.spawnAsEntity(world, metatileEntityBlockPos, itemStack));
-        GTTransferUtils.addFluidsToFluidHandler(getOutputTank(), false, fluidOutputs);
     }
 
     // Removed energy stuff
@@ -122,30 +116,19 @@ public class ToolRecipeLogic extends PrimitiveLogic {
         Recipe currentRecipe;
 
         // see if the last recipe we used still works
-        if (checkPreviousRecipe()) {
-            currentRecipe = this.previousRecipe;
-        } else {
-            TKCYSALog.logger.info("search recipe");
-            currentRecipe = researchRecipe();
-            // currentRecipe = getRecipeMap().findRecipe(getMaxVoltage(), this.itemStackListInventory,
-            // this.fluidStackListInventory);
-        }
+        if (checkPreviousRecipe()) currentRecipe = this.previousRecipe;
+        else currentRecipe = researchRecipe();
 
         // If a recipe was found, then inputs were valid. Cache found recipe.
         if (currentRecipe != null) this.previousRecipe = currentRecipe;
 
         this.invalidInputsForRecipes = (currentRecipe == null);
-
-        if (currentRecipe == null) {
-            TKCYSALog.logger.info("current recipe is null");
-            return;
-        }
+        if (currentRecipe == null) return;
         if (!checkCleanroomRequirement(currentRecipe)) return;
-
-        TKCYSALog.logger.info("preparing recipe");
         prepareRecipe(currentRecipe);
     }
 
+    @SuppressWarnings(value = "all")
     @Nullable
     protected Recipe researchRecipe() {
         return RecipeSearchHelpers.findRecipeWithTool(getRecipeMap(), this.tool, this.itemStackListInventory,
@@ -159,7 +142,6 @@ public class ToolRecipeLogic extends PrimitiveLogic {
                 metaTileEntity.getFluidOutputLimit());
 
         if (recipe != null && tryConsumeRecipeInputs(recipe)) {
-            TKCYSALog.logger.info("setupRecipe");
             setupRecipe(recipe);
             return true;
         }
@@ -175,32 +157,16 @@ public class ToolRecipeLogic extends PrimitiveLogic {
             this.isOutputsFull = true;
             return false;
         }
+
         this.isOutputsFull = false;
+
         if (recipe.matches(true, this.itemStackListInventory, this.fluidStackListInventory)) {
-            TKCYSALog.logger.info("matches");
             this.metaTileEntity.addNotifiedInput(getInputInventory());
             return true;
         }
-        TKCYSALog.logger.info("did not work");
+
         return false;
     }
-
-    // TODO
-    // @Override
-    // protected boolean setupAndConsumeRecipeInputs(@NotNull Recipe recipe,
-    // @NotNull IItemHandlerModifiable importInventory,
-    // @NotNull IMultipleTankHandler importFluids) {
-    // TKCYSALog.logger.info("setupAndConsumeRecipeInputs");
-    //
-    // this.isOutputsFull = false;
-    // if (recipe.matches(true, this.itemStackListInventory, this.fluidStackListInventory)) {
-    // TKCYSALog.logger.info("matches");
-    // this.metaTileEntity.addNotifiedInput(importInventory);
-    // return true;
-    // }
-    // TKCYSALog.logger.info("did not work");
-    // return false;
-    // }
 
     /**
      * Sets {@code maxProgress} from the {@link ToolProperty} in the {@link ToolRecipeBuilder}. Just used for the label.
@@ -275,6 +241,13 @@ public class ToolRecipeLogic extends PrimitiveLogic {
             this.itemOutputs = NBTHelpers.getDeserializedItemOutputs(compound, NBTLabel.ITEM_OUTPUTS);
             this.fluidOutputs = NBTHelpers.getDeserializedFluidOutputs(compound, NBTLabel.FLUID_OUTPUTS);
         }
+    }
+
+    @Override
+    protected boolean setupAndConsumeRecipeInputs(@NotNull Recipe recipe,
+                                                  @NotNull IItemHandlerModifiable importInventory,
+                                                  @NotNull IMultipleTankHandler importFluids) {
+        return true;
     }
 
     @Override
