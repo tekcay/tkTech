@@ -1,26 +1,26 @@
 package tkcy.simpleaddon.common.metatileentities.primitive;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.IItemHandlerModifiable;
 
 import org.apache.commons.lang3.ArrayUtils;
-import org.jetbrains.annotations.Nullable;
 
 import gregtech.api.capability.impl.NotifiableItemStackHandler;
+import gregtech.api.gui.GuiTextures;
+import gregtech.api.gui.ModularUI;
+import gregtech.api.gui.widgets.LabelWidget;
+import gregtech.api.gui.widgets.ProgressWidget;
 import gregtech.api.items.itemhandlers.GTItemStackHandler;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
 import gregtech.api.recipes.RecipeMap;
+import gregtech.api.unification.ore.OrePrefix;
 import gregtech.api.util.GTUtility;
 import gregtech.client.renderer.texture.Textures;
 import gregtech.client.renderer.texture.cube.SimpleOverlayRenderer;
@@ -41,6 +41,11 @@ public class AnvilMetatileEntity extends ToolLogicMetaTileEntity {
     }
 
     @Override
+    protected ToolsModule.GtTool getWorkingGtTool() {
+        return ToolsModule.GtTool.HARD_HAMMER;
+    }
+
+    @Override
     protected IItemHandlerModifiable createExportItemHandler() {
         return new GTItemStackHandler(this, 2);
     }
@@ -50,7 +55,7 @@ public class AnvilMetatileEntity extends ToolLogicMetaTileEntity {
         return new NotifiableItemStackHandler(this, 1, this, false);
     }
 
-    @SideOnly(Side.CLIENT)
+    @Override
     protected SimpleOverlayRenderer getBaseRenderer() {
         return Textures.COKE_BRICKS;
     }
@@ -75,16 +80,32 @@ public class AnvilMetatileEntity extends ToolLogicMetaTileEntity {
     }
 
     @Override
-    public void addInformation(ItemStack stack, @Nullable World player, List<String> tooltip, boolean advanced) {
-        tooltip.add(I18n.format("tkcya.machine.axe_support.tooltip.1"));
-        tooltip.add(I18n.format("tkcya.machine.axe_support.tooltip.2"));
-        super.addInformation(stack, player, tooltip, advanced);
+    protected List<OrePrefix> getPartsOrePrefixes() {
+        return new ArrayList<>() {
+
+            {
+                add(OrePrefix.plate);
+                add(OrePrefix.plateDouble);
+            }
+        };
     }
 
     @Override
     public boolean onHardHammerClick(EntityPlayer playerIn, EnumHand hand, EnumFacing facing,
                                      CuboidRayTraceResult hitResult) {
-        this.logic.startWorking(ToolsModule.GtTool.HARD_HAMMER);
+        if (!playerIn.isSneaking()) return false;
+        this.logic.startWorking(getWorkingGtTool());
         return true;
+    }
+
+    @Override
+    protected ModularUI.Builder createUITemplate(EntityPlayer entityPlayer) {
+        return ModularUI.builder(GuiTextures.PRIMITIVE_BACKGROUND, 176, 166)
+                .shouldColor(false)
+                .widget(new LabelWidget(5, 5, getMetaFullName()))
+                .slot(this.importItems, 0, 60, 30, GuiTextures.PRIMITIVE_SLOT)
+                .progressBar(this.logic::getProgressPercent, 100, 30, 18, 18, GuiTextures.PROGRESS_BAR_BENDING,
+                        ProgressWidget.MoveType.HORIZONTAL, this.recipeMap)
+                .bindPlayerInventory(entityPlayer.inventory, GuiTextures.SLOT, 0);
     }
 }

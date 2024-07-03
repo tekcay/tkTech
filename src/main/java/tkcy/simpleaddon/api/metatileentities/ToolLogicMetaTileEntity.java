@@ -1,29 +1,32 @@
 package tkcy.simpleaddon.api.metatileentities;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.FluidTank;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.IItemHandlerModifiable;
 
 import org.jetbrains.annotations.Nullable;
 
 import gregtech.api.capability.IMultipleTankHandler;
-import gregtech.api.capability.impl.FluidTankList;
 import gregtech.api.capability.impl.NotifiableItemStackHandler;
-import gregtech.api.gui.GuiTextures;
 import gregtech.api.gui.ModularUI;
-import gregtech.api.gui.widgets.*;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.recipes.Recipe;
 import gregtech.api.recipes.RecipeMap;
+import gregtech.api.unification.ore.OrePrefix;
+import gregtech.client.renderer.texture.cube.SimpleOverlayRenderer;
 
 import tkcy.simpleaddon.api.recipes.builders.ToolRecipeBuilder;
 import tkcy.simpleaddon.api.recipes.logic.ToolRecipeLogic;
+import tkcy.simpleaddon.api.utils.StringsHelper;
+import tkcy.simpleaddon.modules.ToolsModule;
 
 public abstract class ToolLogicMetaTileEntity extends MetaTileEntity {
 
@@ -54,14 +57,9 @@ public abstract class ToolLogicMetaTileEntity extends MetaTileEntity {
     }
 
     @Override
-    protected FluidTankList createImportFluidHandler() {
-        return new FluidTankList(false, new FluidTank(2000));
-    }
-
-    @Override
     public void addInformation(ItemStack stack, @Nullable World player, List<String> tooltip, boolean advanced) {
-        tooltip.add(I18n.format("tkcya.machine.axe_support.tooltip.1"));
-        tooltip.add(I18n.format("tkcya.machine.axe_support.tooltip.2"));
+        tooltip.add(I18n.format("tkcya.tool_machine.sneak_right_click_with_tool.tooltip.1", getWorkingGtTool()));
+        tooltip.add(I18n.format("tkcya.tool_machine.parts.tooltip", addPartsOrePrefixInformation()));
         super.addInformation(stack, player, tooltip, advanced);
     }
 
@@ -70,13 +68,22 @@ public abstract class ToolLogicMetaTileEntity extends MetaTileEntity {
         return createUITemplate(player).build(getHolder(), player);
     }
 
-    protected ModularUI.Builder createUITemplate(EntityPlayer entityPlayer) {
-        return ModularUI.builder(GuiTextures.PRIMITIVE_BACKGROUND, 176, 166)
-                .shouldColor(false)
-                .widget(new LabelWidget(5, 5, getMetaFullName()))
-                .slot(this.importItems, 0, 60, 30, GuiTextures.PRIMITIVE_SLOT)
-                .progressBar(this.logic::getProgressPercent, 100, 30, 18, 18, GuiTextures.PROGRESS_BAR_BENDING,
-                        ProgressWidget.MoveType.HORIZONTAL, this.recipeMap)
-                .bindPlayerInventory(entityPlayer.inventory, GuiTextures.SLOT, 0);
+    protected String addPartsOrePrefixInformation() {
+        return getPartsOrePrefixes().stream()
+                .map(OrePrefix::name)
+                .map(StringsHelper::convertCamelToTitleCase)
+                .collect(Collectors.joining("s, ")) + "s.";
     }
+
+    /**
+     * Returns the orePrefix of all the parts that can be made via this metaTileEntity recipes.
+     */
+    protected abstract List<OrePrefix> getPartsOrePrefixes();
+
+    @SideOnly(Side.CLIENT)
+    protected abstract SimpleOverlayRenderer getBaseRenderer();
+
+    protected abstract ToolsModule.GtTool getWorkingGtTool();
+
+    protected abstract ModularUI.Builder createUITemplate(EntityPlayer entityPlayer);
 }

@@ -13,6 +13,7 @@ import gregtech.common.items.ToolItems;
 
 import lombok.Getter;
 import tkcy.simpleaddon.api.items.toolitem.TKCYSAToolClasses;
+import tkcy.simpleaddon.api.utils.StringsHelper;
 import tkcy.simpleaddon.common.item.TKCYSAToolItems;
 
 public class ToolsModule {
@@ -51,6 +52,11 @@ public class ToolsModule {
             this.toolClassName = toolClassName;
             this.tool = igtTool;
             GT_TOOLS.add(this);
+        }
+
+        @Override
+        public String toString() {
+            return StringsHelper.convertScreamingSnakeToTileCase(this.name());
         }
 
         public ItemStack getToolStack() {
