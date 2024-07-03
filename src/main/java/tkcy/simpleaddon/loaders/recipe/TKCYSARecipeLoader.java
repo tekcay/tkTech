@@ -22,7 +22,6 @@ import tkcy.simpleaddon.loaders.recipe.chains.metals.*;
 import tkcy.simpleaddon.loaders.recipe.handlers.*;
 import tkcy.simpleaddon.loaders.recipe.handlers.chemistry.ChemistryHandler;
 import tkcy.simpleaddon.loaders.recipe.handlers.harderstuff.*;
-import tkcy.simpleaddon.loaders.recipe.parts.PrimitivePartsHandler;
 
 public final class TKCYSARecipeLoader {
 
@@ -34,7 +33,6 @@ public final class TKCYSARecipeLoader {
 
         ChemistryHandler.init();
 
-        PrimitivePartsHandler.init();
         PrimitiveCastingHandler.init();
         GasReleaseHandler.generateRecipes();
 
@@ -51,7 +49,6 @@ public final class TKCYSARecipeLoader {
 
     private static void harderStuff() {
         // if (harderStuff.enableAlloyingAndCasting) AlloyingRecipes.init();
-
         if (harderStuff.enableHarderCoils) HarderCoilsRecipes.init();
         if (harderStuff.enableHarderPolarization) HarderPolarization.init();
         if (harderStuff.enableHarderComponents) HarderComponents.init();

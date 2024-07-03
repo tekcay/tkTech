@@ -42,5 +42,6 @@ public class TKCYSAConfigHolder {
         public boolean enableHarderCable = true;
         public boolean enableHarderFineWires = true;
         public boolean enableHarderRotors = true;
+        public boolean enablePrimitiveCrafting = true;
     }
 }

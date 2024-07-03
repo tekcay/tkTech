@@ -11,6 +11,7 @@ public class OreProcessingsHandler {
         ToolsRecipes.init();
         CurvedPlateHandler.init();
         SpringHandler.init();
+        if (harderStuff.enablePrimitiveCrafting) PlatesHandler.init();
         if (harderStuff.enableHarderCoils) FoilHandler.init();
         if (harderStuff.enableHarderCable) WireHandler.init();
         if (harderStuff.enableHarderFineWires) FineWireHandler.init();

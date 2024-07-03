@@ -42,6 +42,9 @@ public final class TKCYSAMaterialFlags {
             "generate_curved_plate")
                     .requireFlags(GENERATE_BOLT_SCREW, GENERATE_ROD)
                     .build();
+    public static final MaterialFlag IS_POLYMER = new MaterialFlag.Builder(
+            "is_polymer")
+                    .build();
 
     public static final Predicate<Material> isAlloy = material -> material.hasFlag(ALLOY);
 
