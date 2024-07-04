@@ -3,6 +3,7 @@ package tkcy.simpleaddon.api.recipes.helpers;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.experimental.UtilityClass;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.items.IItemHandlerModifiable;
@@ -19,8 +20,10 @@ import gregtech.api.util.GTUtility;
 import tkcy.simpleaddon.api.recipes.properties.ToolProperty;
 import tkcy.simpleaddon.api.recipes.properties.ToolUsesProperty;
 import tkcy.simpleaddon.api.utils.TKCYSALog;
-import tkcy.simpleaddon.modules.ToolsModule;
+import tkcy.simpleaddon.modules.toolmodule.ToolsModule;
+import tkcy.simpleaddon.modules.toolmodule.WorkingTool;
 
+@UtilityClass
 public class RecipeSearchHelpers {
 
     @Nullable
@@ -31,6 +34,7 @@ public class RecipeSearchHelpers {
                 GTUtility.fluidHandlerToList(inputFluidInventory));
     }
 
+    @WorkingTool
     @Nullable
     public static Recipe findRecipeWithTool(@NotNull RecipeMap<?> recipeMap, @NotNull ToolsModule.GtTool gtTool,
                                             @NotNull List<ItemStack> inputItemStacks,
@@ -48,6 +52,7 @@ public class RecipeSearchHelpers {
      * Returns a list of itemStacks made of the list of {@code ItemStack} contained in {@code inputInventory} appended
      * by the used tool.
      */
+    @WorkingTool
     public static List<ItemStack> getAppendedInputsTool(@NotNull IItemHandlerModifiable inputInventory,
                                                         @NotNull ToolsModule.GtTool gtTool) {
         List<ItemStack> list = new ArrayList<>();
@@ -59,6 +64,7 @@ public class RecipeSearchHelpers {
     /**
      * Used for debugging
      */
+    @WorkingTool
     @Nullable
     public static Recipe findRecipeWithToolp(@NotNull RecipeMap<?> recipeMap, @NotNull ToolsModule.GtTool gtTool,
                                              @NotNull List<ItemStack> inputItemStacks,
@@ -123,6 +129,7 @@ public class RecipeSearchHelpers {
         return null;
     }
 
+    @WorkingTool
     public static List<ItemStack> accept(Recipe recipe) {
         List<ItemStack> recipeInputStacks = new ArrayList<>();
         for (GTRecipeInput gtRecipeInput : recipe.getInputs()) {

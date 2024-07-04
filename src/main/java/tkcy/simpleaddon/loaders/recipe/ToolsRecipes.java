@@ -12,9 +12,13 @@ import gregtech.api.unification.ore.OrePrefix;
 import gregtech.api.unification.stack.UnificationEntry;
 import gregtech.common.crafting.ToolHeadReplaceRecipe;
 
+import lombok.experimental.UtilityClass;
 import tkcy.simpleaddon.api.unification.ore.TKCYSAOrePrefix;
 import tkcy.simpleaddon.common.item.TKCYSAToolItems;
+import tkcy.simpleaddon.modules.toolmodule.WorkingTool;
 
+@WorkingTool
+@UtilityClass
 public class ToolsRecipes {
 
     public static void init() {

@@ -1,4 +1,4 @@
-package tkcy.simpleaddon.modules;
+package tkcy.simpleaddon.modules.toolmodule;
 
 import java.util.*;
 
@@ -12,10 +12,13 @@ import gregtech.api.items.toolitem.ToolClasses;
 import gregtech.common.items.ToolItems;
 
 import lombok.Getter;
+import lombok.experimental.UtilityClass;
 import tkcy.simpleaddon.api.items.toolitem.TKCYSAToolClasses;
 import tkcy.simpleaddon.api.utils.StringsHelper;
 import tkcy.simpleaddon.common.item.TKCYSAToolItems;
 
+@WorkingTool
+@UtilityClass
 public class ToolsModule {
 
     public static final List<GtTool> GT_TOOLS = new ArrayList<>();

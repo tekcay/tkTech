@@ -12,7 +12,9 @@ import gregtech.api.gui.widgets.RecipeProgressWidget;
 import gregtech.api.recipes.RecipeMap;
 
 import tkcy.simpleaddon.api.recipes.builders.ToolRecipeBuilder;
+import tkcy.simpleaddon.modules.toolmodule.WorkingTool;
 
+@WorkingTool
 public class ToolRecipeMap<T extends ToolRecipeBuilder> extends RecipeMap<ToolRecipeBuilder> {
 
     public ToolRecipeMap(@NotNull String unlocalizedName, int maxInputs, int maxOutputs, int maxFluidInputs,

@@ -13,8 +13,10 @@ import tkcy.simpleaddon.api.recipes.properties.HideDurationProperty;
 import tkcy.simpleaddon.api.recipes.properties.ToolProperty;
 import tkcy.simpleaddon.api.recipes.properties.ToolUsesProperty;
 import tkcy.simpleaddon.modules.RecipePropertiesKey;
-import tkcy.simpleaddon.modules.ToolsModule;
+import tkcy.simpleaddon.modules.toolmodule.ToolsModule;
+import tkcy.simpleaddon.modules.toolmodule.WorkingTool;
 
+@WorkingTool
 @SuppressWarnings("unused")
 public class ToolRecipeBuilder extends RecipeBuilder<ToolRecipeBuilder> {
 

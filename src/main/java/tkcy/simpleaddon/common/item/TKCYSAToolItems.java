@@ -3,6 +3,7 @@ package tkcy.simpleaddon.common.item;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.experimental.UtilityClass;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.model.ModelLoader;
@@ -18,7 +19,10 @@ import gregtech.core.sound.GTSoundEvents;
 
 import tkcy.simpleaddon.api.items.toolitem.TKCYSAToolClasses;
 import tkcy.simpleaddon.api.items.toolitem.TKCYSAToolOreDict;
+import tkcy.simpleaddon.modules.toolmodule.WorkingTool;
 
+@WorkingTool
+@UtilityClass
 public class TKCYSAToolItems {
 
     private static final List<IGTTool> TKCYSA_TOOLS = new ArrayList<>();

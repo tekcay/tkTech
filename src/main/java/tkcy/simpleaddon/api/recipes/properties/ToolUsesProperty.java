@@ -11,7 +11,9 @@ import gregtech.api.util.EnumValidationResult;
 
 import tkcy.simpleaddon.api.utils.TKCYSALog;
 import tkcy.simpleaddon.modules.RecipePropertiesKey;
+import tkcy.simpleaddon.modules.toolmodule.WorkingTool;
 
+@WorkingTool
 public class ToolUsesProperty extends RecipeProperty<Integer> implements RecipePropertyHelper<Integer> {
 
     public static final String KEY = RecipePropertiesKey.TOOL_USAGE_KEY;

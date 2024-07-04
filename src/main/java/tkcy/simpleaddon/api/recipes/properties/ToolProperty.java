@@ -10,8 +10,10 @@ import gregtech.api.util.EnumValidationResult;
 
 import tkcy.simpleaddon.api.utils.TKCYSALog;
 import tkcy.simpleaddon.modules.RecipePropertiesKey;
-import tkcy.simpleaddon.modules.ToolsModule;
+import tkcy.simpleaddon.modules.toolmodule.ToolsModule;
+import tkcy.simpleaddon.modules.toolmodule.WorkingTool;
 
+@WorkingTool
 public class ToolProperty extends RecipeProperty<ToolsModule.GtTool>
                           implements RecipePropertyHelper<ToolsModule.GtTool> {
 

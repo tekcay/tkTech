@@ -6,12 +6,15 @@ import gregtech.api.recipes.builders.SimpleRecipeBuilder;
 import gregtech.core.sound.GTSoundEvents;
 
 import crafttweaker.annotations.ZenRegister;
+import lombok.experimental.UtilityClass;
 import stanhebben.zenscript.annotations.ZenExpansion;
 import stanhebben.zenscript.annotations.ZenProperty;
 import tkcy.simpleaddon.api.recipes.builders.CoilTypeRecipeBuilder;
 import tkcy.simpleaddon.api.recipes.builders.NoEnergyRecipeBuilder;
 import tkcy.simpleaddon.api.recipes.builders.ToolRecipeBuilder;
+import tkcy.simpleaddon.modules.toolmodule.WorkingTool;
 
+@UtilityClass
 @ZenExpansion("mods.tkcysa.recipe.RecipeMaps")
 @ZenRegister
 public final class TKCYSARecipeMaps {
@@ -90,10 +93,9 @@ public final class TKCYSARecipeMaps {
             "rolling", 2, 1, 0, 0, new SimpleRecipeBuilder(), false)
                     .setSound(GTSoundEvents.MOTOR);
 
+    @WorkingTool
     @ZenProperty
     public static final RecipeMap<ToolRecipeBuilder> PARTS_WORKING = new ToolRecipeMap<>(
             "parts_working", 2, 2, 0, 0, new ToolRecipeBuilder(), false)
                     .setSound(GTSoundEvents.MOTOR);
-
-    private TKCYSARecipeMaps() {}
 }

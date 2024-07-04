@@ -15,7 +15,7 @@ import lombok.experimental.UtilityClass;
 import tkcy.simpleaddon.api.recipes.recipemaps.TKCYSARecipeMaps;
 import tkcy.simpleaddon.api.unification.flags.TKCYSAMaterialFlags;
 import tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials;
-import tkcy.simpleaddon.modules.ToolsModule;
+import tkcy.simpleaddon.modules.toolmodule.ToolsModule;
 
 @UtilityClass
 public class PlatesHandler {

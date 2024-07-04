@@ -26,8 +26,10 @@ import gregtech.client.renderer.texture.cube.SimpleOverlayRenderer;
 import tkcy.simpleaddon.api.recipes.builders.ToolRecipeBuilder;
 import tkcy.simpleaddon.api.recipes.logic.ToolRecipeLogic;
 import tkcy.simpleaddon.api.utils.StringsHelper;
-import tkcy.simpleaddon.modules.ToolsModule;
+import tkcy.simpleaddon.modules.toolmodule.ToolsModule;
+import tkcy.simpleaddon.modules.toolmodule.WorkingTool;
 
+@WorkingTool
 public abstract class ToolLogicMetaTileEntity extends MetaTileEntity {
 
     protected final ToolRecipeLogic logic;
