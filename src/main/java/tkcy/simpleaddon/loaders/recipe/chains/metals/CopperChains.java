@@ -6,6 +6,9 @@ import static gregtech.api.unification.ore.OrePrefix.dust;
 
 import gregtech.api.recipes.RecipeMaps;
 
+import lombok.experimental.UtilityClass;
+
+@UtilityClass
 public class CopperChains {
 
     public static void init() {

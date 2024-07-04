@@ -11,8 +11,10 @@ import gregtech.api.unification.material.properties.PropertyKey;
 import gregtech.api.unification.material.properties.WireProperties;
 import gregtech.api.unification.ore.OrePrefix;
 
+import lombok.experimental.UtilityClass;
 import tkcy.simpleaddon.modules.CablesModule;
 
+@UtilityClass
 public class WireHandler {
 
     public static void init() {

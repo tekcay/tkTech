@@ -1,7 +1,7 @@
 package tkcy.simpleaddon.common.metatileentities.multiprimitive;
 
-import static tkcy.simpleaddon.api.predicates.Predicates.brickItemBus;
-import static tkcy.simpleaddon.api.predicates.Predicates.cokeBrick;
+import static tkcy.simpleaddon.api.predicates.TKCYSAPredicates.brickItemBus;
+import static tkcy.simpleaddon.api.predicates.TKCYSAPredicates.cokeBrick;
 
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;

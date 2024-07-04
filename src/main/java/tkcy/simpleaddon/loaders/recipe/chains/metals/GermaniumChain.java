@@ -6,6 +6,9 @@ import static gregtech.api.unification.ore.OrePrefix.*;
 import static gregtech.api.unification.ore.OrePrefix.dust;
 import static tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials.*;
 
+import lombok.experimental.UtilityClass;
+
+@UtilityClass
 public class GermaniumChain {
 
     public static void init() {

@@ -13,6 +13,7 @@
 ## v0.2 (GTCEu-tk-fork as dependency)
 
 ### Features
+- added tool working machines ([#38](https://github.com/tekcay/tkcy-simple-addon/pull/38))
 - added processes to produce sodium persulfate ([#36](https://github.com/tekcay/tkcy-simple-addon/pull/36))
 - added the soldering iron from GT5u ([#36](https://github.com/tekcay/tkcy-simple-addon/pull/36))
 - added `curvedPlate` ore prefix, its processing handler and a new machine ([#36](https://github.com/tekcay/tkcy-simple-addon/pull/36))

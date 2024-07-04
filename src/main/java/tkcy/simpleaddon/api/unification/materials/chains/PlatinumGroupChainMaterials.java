@@ -9,6 +9,9 @@ import gregtech.api.fluids.attribute.FluidAttributes;
 import gregtech.api.unification.material.Material;
 import gregtech.api.unification.material.info.MaterialFlags;
 
+import lombok.experimental.UtilityClass;
+
+@UtilityClass
 public class PlatinumGroupChainMaterials {
 
     public static int register(int startId) {

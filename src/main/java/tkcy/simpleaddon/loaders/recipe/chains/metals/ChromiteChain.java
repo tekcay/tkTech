@@ -9,6 +9,9 @@ import static tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials.*;
 
 import gregtech.api.GTValues;
 
+import lombok.experimental.UtilityClass;
+
+@UtilityClass
 public class ChromiteChain {
 
     public static void init() {

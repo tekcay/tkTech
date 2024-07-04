@@ -9,6 +9,9 @@ import com.google.common.collect.ImmutableMap;
 
 import gregtech.api.unification.ore.OrePrefix;
 
+import lombok.experimental.UtilityClass;
+
+@UtilityClass
 public class CablesModule {
 
     public static final Map<OrePrefix, OrePrefix> cableToWireMap = ImmutableMap.of(

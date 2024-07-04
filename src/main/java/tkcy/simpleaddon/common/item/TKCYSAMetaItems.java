@@ -2,6 +2,9 @@ package tkcy.simpleaddon.common.item;
 
 import gregtech.api.items.metaitem.MetaItem;
 
+import lombok.experimental.UtilityClass;
+
+@UtilityClass
 public final class TKCYSAMetaItems {
 
     public static MetaItem<?>.MetaValueItem MICA_SHEET;

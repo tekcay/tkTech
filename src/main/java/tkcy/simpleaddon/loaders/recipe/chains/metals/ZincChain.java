@@ -11,8 +11,10 @@ import static tkcy.simpleaddon.api.unification.ore.TKCYSAOrePrefix.cathode;
 
 import gregtech.api.GTValues;
 
+import lombok.experimental.UtilityClass;
 import tkcy.simpleaddon.api.recipes.helpers.RecipeRemovalHelper;
 
+@UtilityClass
 public class ZincChain {
 
     public static void init() {

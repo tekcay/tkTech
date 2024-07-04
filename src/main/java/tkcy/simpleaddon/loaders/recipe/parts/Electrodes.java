@@ -6,9 +6,11 @@ import gregtech.api.unification.material.Materials;
 import gregtech.api.unification.material.info.MaterialIconSet;
 import gregtech.api.unification.ore.OrePrefix;
 
+import lombok.experimental.UtilityClass;
 import tkcy.simpleaddon.api.unification.ore.TKCYSAOrePrefix;
 import tkcy.simpleaddon.modules.ElectrodeModule;
 
+@UtilityClass
 public class Electrodes {
 
     public static void init() {

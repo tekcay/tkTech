@@ -95,6 +95,6 @@ public final class TKCYSARecipeMaps {
 
     @WorkingTool
     @ZenProperty
-    public static final RecipeMap<ToolRecipeBuilder> PARTS_WORKING = new ToolRecipeMap<>(
-            "parts_working", 2, 2, 0, 0, new ToolRecipeBuilder(), false);
+    public static final RecipeMap<ToolRecipeBuilder> ANVIL_RECIPES = new ToolRecipeMap<>(
+            "anvil_recipes", 2, 2, 0, 0, new ToolRecipeBuilder(), false);
 }

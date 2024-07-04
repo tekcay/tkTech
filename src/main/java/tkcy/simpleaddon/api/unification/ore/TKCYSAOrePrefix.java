@@ -8,9 +8,11 @@ import gregtech.api.unification.material.MarkerMaterials;
 import gregtech.api.unification.material.info.MaterialFlags;
 import gregtech.api.unification.ore.OrePrefix;
 
+import lombok.experimental.UtilityClass;
 import tkcy.simpleaddon.api.unification.flags.TKCYSAMaterialFlags;
 import tkcy.simpleaddon.api.unification.iconset.TKCYSAMaterialIconType;
 
+@UtilityClass
 public class TKCYSAOrePrefix {
 
     public static final OrePrefix cathode = new OrePrefix("cathode", M, null, TKCYSAMaterialIconType.cathode,

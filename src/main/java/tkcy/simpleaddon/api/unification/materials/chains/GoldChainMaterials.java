@@ -6,12 +6,14 @@ import static gregtech.api.unification.material.info.MaterialFlags.DISABLE_DECOM
 import static gregtech.api.unification.material.info.MaterialIconSet.SHINY;
 import static gregtech.api.util.GTUtility.gregtechId;
 import static tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials.*;
-import static tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials.CopperLeach;
 
 import gregtech.api.fluids.FluidBuilder;
 import gregtech.api.unification.material.Material;
 import gregtech.api.unification.material.Materials;
 
+import lombok.experimental.UtilityClass;
+
+@UtilityClass
 public class GoldChainMaterials {
 
     public static int init(int id) {

@@ -17,7 +17,6 @@ import tkcy.simpleaddon.api.items.toolitem.TKCYSAToolClasses;
 import tkcy.simpleaddon.api.utils.StringsHelper;
 import tkcy.simpleaddon.common.item.TKCYSAToolItems;
 
-@WorkingTool
 @UtilityClass
 public class ToolsModule {
 

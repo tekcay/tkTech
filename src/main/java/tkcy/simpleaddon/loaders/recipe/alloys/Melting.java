@@ -14,9 +14,13 @@ import gregtech.api.unification.stack.UnificationEntry;
 import gregtech.common.blocks.BlockSteamCasing;
 import gregtech.common.blocks.MetaBlocks;
 
+import lombok.experimental.UtilityClass;
 import tkcy.simpleaddon.api.recipes.recipemaps.TKCYSARecipeMaps;
 import tkcy.simpleaddon.common.metatileentities.TKCYSAMetaTileEntities;
+import tkcy.simpleaddon.modules.alloyingmodule.Alloying;
 
+@Alloying
+@UtilityClass
 public class Melting {
 
     public static void init() {

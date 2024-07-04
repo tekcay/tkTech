@@ -9,9 +9,11 @@ import gregtech.api.unification.material.properties.PropertyKey;
 import gregtech.api.unification.ore.OrePrefix;
 import gregtech.loaders.recipe.MetaTileEntityLoader;
 
+import lombok.experimental.UtilityClass;
 import tkcy.simpleaddon.api.recipes.recipemaps.TKCYSARecipeMaps;
 import tkcy.simpleaddon.common.metatileentities.TKCYSAMetaTileEntities;
 
+@UtilityClass
 public class FoilHandler {
 
     public static void init() {

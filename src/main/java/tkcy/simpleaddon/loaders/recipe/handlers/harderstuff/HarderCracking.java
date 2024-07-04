@@ -20,9 +20,11 @@ import gregtech.common.blocks.MetaBlocks;
 import gregtech.common.items.MetaItems;
 import gregtech.common.metatileentities.MetaTileEntities;
 
+import lombok.experimental.UtilityClass;
 import tkcy.simpleaddon.api.recipes.recipemaps.TKCYSARecipeMaps;
 import tkcy.simpleaddon.common.metatileentities.TKCYSAMetaTileEntities;
 
+@UtilityClass
 public class HarderCracking {
 
     public static void init() {

@@ -8,7 +8,8 @@ import gregtech.api.metatileentity.SimpleMachineMetaTileEntity;
 import gregtech.api.util.GTUtility;
 import gregtech.client.renderer.texture.Textures;
 
-import tkcy.simpleaddon.api.metatileentities.ToolLogicMetaTileEntity;
+import lombok.experimental.UtilityClass;
+import tkcy.simpleaddon.api.machines.ToolLogicMetaTileEntity;
 import tkcy.simpleaddon.api.recipes.recipemaps.TKCYSARecipeMaps;
 import tkcy.simpleaddon.api.render.TKCYSATextures;
 import tkcy.simpleaddon.api.utils.TKCYSAUtil;
@@ -24,7 +25,8 @@ import tkcy.simpleaddon.common.metatileentities.primitive.PrimitiveCasting;
 import tkcy.simpleaddon.common.metatileentities.steam.SteamDustMixer;
 import tkcy.simpleaddon.common.metatileentities.steam.SteamMelter;
 
-public final class TKCYSAMetaTileEntities {
+@UtilityClass
+public class TKCYSAMetaTileEntities {
 
     public static PrimitiveRoastingOven PRIMITIVE_ROASTING_OVEN;
     public static FluidPrimitiveBlastFurnace FLUID_PRIMITIVE_BLAST_FURNACE;
@@ -44,8 +46,6 @@ public final class TKCYSAMetaTileEntities {
     public static SimpleMachineMetaTileEntity[] CLUSTER_MILLS = new SimpleMachineMetaTileEntity[5];
     public static SimpleMachineMetaTileEntity[] COMPONENT_ASSEMBLER_MTE = new SimpleMachineMetaTileEntity[6];
     public static SimpleMachineMetaTileEntity[] ROLLING_MILL = new SimpleMachineMetaTileEntity[6];
-
-    private TKCYSAMetaTileEntities() {}
 
     public static void init() {
         PRIMITIVE_ROASTING_OVEN = registerMetaTileEntity(4000,
@@ -97,6 +97,6 @@ public final class TKCYSAMetaTileEntities {
         STEAM_DUST_MIXER = registerMetaTileEntity(4102, new SteamDustMixer(tkcysa("steam_dust_mixer")));
         STEAM_MELTER = registerMetaTileEntity(4103, new SteamMelter(tkcysa("steam_melter")));
         PARTS_WORKER_MTE = registerMetaTileEntity(4104,
-                new AnvilMetatileEntity(tkcysa("anvil"), TKCYSARecipeMaps.PARTS_WORKING));
+                new AnvilMetatileEntity(tkcysa("anvil"), TKCYSARecipeMaps.ANVIL_RECIPES));
     }
 }

@@ -2,6 +2,9 @@ package tkcy.simpleaddon.api.unification.iconset;
 
 import gregtech.api.unification.material.info.MaterialIconType;
 
+import lombok.experimental.UtilityClass;
+
+@UtilityClass
 public class TKCYSAMaterialIconType {
 
     public static final MaterialIconType electrode = new MaterialIconType("electrode");

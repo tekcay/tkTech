@@ -1,6 +1,6 @@
 package tkcy.simpleaddon.common.metatileentities.multiprimitive;
 
-import static tkcy.simpleaddon.api.predicates.Predicates.*;
+import static tkcy.simpleaddon.api.predicates.TKCYSAPredicates.*;
 
 import java.util.List;
 

@@ -31,7 +31,7 @@ import tkcy.simpleaddon.api.utils.TKCYSALog;
 import tkcy.simpleaddon.common.item.TKCYSAToolItems;
 import tkcy.simpleaddon.loaders.recipe.TKCYSARecipeLoader;
 import tkcy.simpleaddon.loaders.recipe.parts.OreProcessingsHandler;
-import tkcy.simpleaddon.modules.AlloyingModule;
+import tkcy.simpleaddon.modules.alloyingmodule.AlloyingModule;
 
 @Mod.EventBusSubscriber(modid = TekCaySimpleAddon.MODID)
 public class CommonProxy {

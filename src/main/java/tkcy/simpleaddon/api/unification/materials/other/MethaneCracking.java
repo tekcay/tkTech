@@ -6,6 +6,9 @@ import static tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials.*;
 
 import gregtech.api.unification.material.Material;
 
+import lombok.experimental.UtilityClass;
+
+@UtilityClass
 public class MethaneCracking {
 
     public static int register(int startId) {

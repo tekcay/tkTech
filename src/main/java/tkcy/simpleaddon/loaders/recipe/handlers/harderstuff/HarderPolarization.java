@@ -7,6 +7,9 @@ import gregtech.api.unification.OreDictUnifier;
 import gregtech.api.unification.material.Materials;
 import gregtech.api.unification.ore.OrePrefix;
 
+import lombok.experimental.UtilityClass;
+
+@UtilityClass
 public class HarderPolarization {
 
     public static void init() {

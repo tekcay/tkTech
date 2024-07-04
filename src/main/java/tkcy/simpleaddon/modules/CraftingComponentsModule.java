@@ -8,6 +8,9 @@ import gregtech.api.unification.ore.OrePrefix;
 import gregtech.api.unification.stack.UnificationEntry;
 import gregtech.loaders.recipe.CraftingComponent;
 
+import lombok.experimental.UtilityClass;
+
+@UtilityClass
 public class CraftingComponentsModule {
 
     public static CraftingComponent.Component GEAR;

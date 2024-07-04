@@ -11,6 +11,9 @@ import gregtech.api.unification.OreDictUnifier;
 import gregtech.api.unification.material.Material;
 import gregtech.api.unification.ore.OrePrefix;
 
+import lombok.experimental.UtilityClass;
+
+@UtilityClass
 public class RecipeRemovalHelper {
 
     public static void removeRecipeByInput(RecipeMap<?> recipeMap, OrePrefix orePrefix, Material material) {

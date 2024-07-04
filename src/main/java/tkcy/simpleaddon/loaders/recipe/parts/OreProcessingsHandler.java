@@ -2,8 +2,10 @@ package tkcy.simpleaddon.loaders.recipe.parts;
 
 import static tkcy.simpleaddon.common.TKCYSAConfigHolder.harderStuff;
 
+import lombok.experimental.UtilityClass;
 import tkcy.simpleaddon.loaders.recipe.ToolsRecipes;
 
+@UtilityClass
 public class OreProcessingsHandler {
 
     public static void init() {

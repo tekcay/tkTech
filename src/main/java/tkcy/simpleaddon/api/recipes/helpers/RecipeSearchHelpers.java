@@ -3,7 +3,6 @@ package tkcy.simpleaddon.api.recipes.helpers;
 import java.util.ArrayList;
 import java.util.List;
 
-import lombok.experimental.UtilityClass;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.items.IItemHandlerModifiable;
@@ -17,6 +16,7 @@ import gregtech.api.recipes.RecipeMap;
 import gregtech.api.recipes.ingredients.GTRecipeInput;
 import gregtech.api.util.GTUtility;
 
+import lombok.experimental.UtilityClass;
 import tkcy.simpleaddon.api.recipes.properties.ToolProperty;
 import tkcy.simpleaddon.api.recipes.properties.ToolUsesProperty;
 import tkcy.simpleaddon.api.utils.TKCYSALog;
