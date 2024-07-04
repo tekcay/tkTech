@@ -3,15 +3,15 @@ package tkcy.simpleaddon.loaders.recipe.chains.metals;
 import static gregtech.api.recipes.RecipeMaps.BLAST_RECIPES;
 import static gregtech.api.unification.material.Materials.*;
 import static gregtech.api.unification.ore.OrePrefix.*;
-import static tkcy.simpleaddon.api.recipes.TKCYSARecipeMaps.ADVANCED_ELECTROLYSIS;
-import static tkcy.simpleaddon.api.recipes.TKCYSARecipeMaps.FLUID_PRIMITIVE_BLAST;
+import static tkcy.simpleaddon.api.recipes.recipemaps.TKCYSARecipeMaps.ADVANCED_ELECTROLYSIS;
+import static tkcy.simpleaddon.api.recipes.recipemaps.TKCYSARecipeMaps.FLUID_PRIMITIVE_BLAST;
 import static tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials.ZincSulfate;
 import static tkcy.simpleaddon.api.unification.ore.TKCYSAOrePrefix.anode;
 import static tkcy.simpleaddon.api.unification.ore.TKCYSAOrePrefix.cathode;
 
 import gregtech.api.GTValues;
 
-import tkcy.simpleaddon.api.recipes.RecipeRemovalHelper;
+import tkcy.simpleaddon.api.recipes.helpers.RecipeRemovalHelper;
 
 public class ZincChain {
 

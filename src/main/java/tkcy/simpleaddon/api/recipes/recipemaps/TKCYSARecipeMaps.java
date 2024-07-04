@@ -1,4 +1,4 @@
-package tkcy.simpleaddon.api.recipes;
+package tkcy.simpleaddon.api.recipes.recipemaps;
 
 import gregtech.api.recipes.RecipeMap;
 import gregtech.api.recipes.builders.PrimitiveRecipeBuilder;
@@ -6,11 +6,15 @@ import gregtech.api.recipes.builders.SimpleRecipeBuilder;
 import gregtech.core.sound.GTSoundEvents;
 
 import crafttweaker.annotations.ZenRegister;
+import lombok.experimental.UtilityClass;
 import stanhebben.zenscript.annotations.ZenExpansion;
 import stanhebben.zenscript.annotations.ZenProperty;
 import tkcy.simpleaddon.api.recipes.builders.CoilTypeRecipeBuilder;
 import tkcy.simpleaddon.api.recipes.builders.NoEnergyRecipeBuilder;
+import tkcy.simpleaddon.api.recipes.builders.ToolRecipeBuilder;
+import tkcy.simpleaddon.modules.toolmodule.WorkingTool;
 
+@UtilityClass
 @ZenExpansion("mods.tkcysa.recipe.RecipeMaps")
 @ZenRegister
 public final class TKCYSARecipeMaps {
@@ -46,6 +50,7 @@ public final class TKCYSARecipeMaps {
     public static final RecipeMap<NoEnergyRecipeBuilder> GAS_RELEASE = new MinimalPrimitiveRecipeMap<>("gas_release", 0,
             0, 1, 0,
             new NoEnergyRecipeBuilder(), false)
+                    .allowEmptyOutput()
                     .setSound(GTSoundEvents.BOILER);
     @ZenProperty
     public static final RecipeMap<NoEnergyRecipeBuilder> ALLOYING = new RecipeMap<>("alloying", 2,
@@ -88,5 +93,8 @@ public final class TKCYSARecipeMaps {
             "rolling", 2, 1, 0, 0, new SimpleRecipeBuilder(), false)
                     .setSound(GTSoundEvents.MOTOR);
 
-    private TKCYSARecipeMaps() {}
+    @WorkingTool
+    @ZenProperty
+    public static final RecipeMap<ToolRecipeBuilder> PARTS_WORKING = new ToolRecipeMap<>(
+            "parts_working", 2, 2, 0, 0, new ToolRecipeBuilder(), false);
 }

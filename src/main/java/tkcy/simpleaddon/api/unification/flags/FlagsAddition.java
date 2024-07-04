@@ -12,6 +12,8 @@ import org.jetbrains.annotations.ApiStatus;
 import gregtech.api.unification.material.Material;
 import gregtech.api.unification.material.Materials;
 
+import tkcy.simpleaddon.modules.PolymersModule;
+
 @ApiStatus.Internal
 public class FlagsAddition {
 
@@ -34,6 +36,7 @@ public class FlagsAddition {
         electrodeMaterials.forEach(FlagsAddition::addElectrodeFlag);
         alloysMaterials.forEach(FlagsAddition::addAlloyFlag);
         getLvAcceptedRubberMaterials().forEach(FlagsAddition::addRingAndPlateFlags);
+        PolymersModule.GTCEu_POLYMERS.forEach(material -> material.addFlags(IS_POLYMER));
     }
 
     public static void addAlloyFlag(Material material) {

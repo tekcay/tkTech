@@ -49,7 +49,6 @@ public final class TKCYSARecipeLoader {
 
     private static void harderStuff() {
         // if (harderStuff.enableAlloyingAndCasting) AlloyingRecipes.init();
-
         if (harderStuff.enableHarderCoils) HarderCoilsRecipes.init();
         if (harderStuff.enableHarderPolarization) HarderPolarization.init();
         if (harderStuff.enableHarderComponents) HarderComponents.init();

@@ -3,6 +3,7 @@ package tkcy.simpleaddon.common.item;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.experimental.UtilityClass;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.model.ModelLoader;
@@ -18,7 +19,10 @@ import gregtech.core.sound.GTSoundEvents;
 
 import tkcy.simpleaddon.api.items.toolitem.TKCYSAToolClasses;
 import tkcy.simpleaddon.api.items.toolitem.TKCYSAToolOreDict;
+import tkcy.simpleaddon.modules.toolmodule.WorkingTool;
 
+@WorkingTool
+@UtilityClass
 public class TKCYSAToolItems {
 
     private static final List<IGTTool> TKCYSA_TOOLS = new ArrayList<>();
@@ -29,7 +33,7 @@ public class TKCYSAToolItems {
     }
 
     public static void init() {
-        SOLDERING_IRON = tkcysaRegister(ItemGTTool.Builder.of(GTValues.MODID, "soldering_iron")
+        SOLDERING_IRON = tkcysaRegister(ItemGTTool.Builder.of(GTValues.MODID, TKCYSAToolClasses.SOLDERING_IRON)
                 .toolStats(builder -> builder.crafting().damagePerAction(1))
                 .sound(GTSoundEvents.ELECTROLYZER)
                 .symbol('i')

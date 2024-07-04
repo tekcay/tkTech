@@ -14,7 +14,7 @@ import gregtech.api.unification.ore.OrePrefix;
 import gregtech.api.unification.stack.UnificationEntry;
 import gregtech.loaders.recipe.MetaTileEntityLoader;
 
-import tkcy.simpleaddon.api.recipes.TKCYSARecipeMaps;
+import tkcy.simpleaddon.api.recipes.recipemaps.TKCYSARecipeMaps;
 import tkcy.simpleaddon.api.unification.ore.TKCYSAOrePrefix;
 import tkcy.simpleaddon.common.metatileentities.TKCYSAMetaTileEntities;
 

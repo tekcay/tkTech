@@ -8,7 +8,8 @@ import gregtech.api.metatileentity.SimpleMachineMetaTileEntity;
 import gregtech.api.util.GTUtility;
 import gregtech.client.renderer.texture.Textures;
 
-import tkcy.simpleaddon.api.recipes.TKCYSARecipeMaps;
+import tkcy.simpleaddon.api.metatileentities.ToolLogicMetaTileEntity;
+import tkcy.simpleaddon.api.recipes.recipemaps.TKCYSARecipeMaps;
 import tkcy.simpleaddon.api.render.TKCYSATextures;
 import tkcy.simpleaddon.api.utils.TKCYSAUtil;
 import tkcy.simpleaddon.common.metatileentities.electric.*;
@@ -18,6 +19,7 @@ import tkcy.simpleaddon.common.metatileentities.multiprimitive.AlloyingCrucible;
 import tkcy.simpleaddon.common.metatileentities.multiprimitive.FluidPrimitiveBlastFurnace;
 import tkcy.simpleaddon.common.metatileentities.multiprimitive.GasRelease;
 import tkcy.simpleaddon.common.metatileentities.multiprimitive.PrimitiveRoastingOven;
+import tkcy.simpleaddon.common.metatileentities.primitive.AnvilMetatileEntity;
 import tkcy.simpleaddon.common.metatileentities.primitive.PrimitiveCasting;
 import tkcy.simpleaddon.common.metatileentities.steam.SteamDustMixer;
 import tkcy.simpleaddon.common.metatileentities.steam.SteamMelter;
@@ -38,6 +40,7 @@ public final class TKCYSAMetaTileEntities {
     public static CrackingUnitMte CRACKING_UNIT;
     public static SteamDustMixer STEAM_DUST_MIXER;
     public static SteamMelter STEAM_MELTER;
+    public static ToolLogicMetaTileEntity PARTS_WORKER_MTE;
     public static SimpleMachineMetaTileEntity[] CLUSTER_MILLS = new SimpleMachineMetaTileEntity[5];
     public static SimpleMachineMetaTileEntity[] COMPONENT_ASSEMBLER_MTE = new SimpleMachineMetaTileEntity[6];
     public static SimpleMachineMetaTileEntity[] ROLLING_MILL = new SimpleMachineMetaTileEntity[6];
@@ -93,5 +96,7 @@ public final class TKCYSAMetaTileEntities {
         CRACKING_UNIT = registerMetaTileEntity(4101, new CrackingUnitMte(tkcysa("cracking_unit")));
         STEAM_DUST_MIXER = registerMetaTileEntity(4102, new SteamDustMixer(tkcysa("steam_dust_mixer")));
         STEAM_MELTER = registerMetaTileEntity(4103, new SteamMelter(tkcysa("steam_melter")));
+        PARTS_WORKER_MTE = registerMetaTileEntity(4104,
+                new AnvilMetatileEntity(tkcysa("anvil"), TKCYSARecipeMaps.PARTS_WORKING));
     }
 }

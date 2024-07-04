@@ -15,7 +15,7 @@ import gregtech.api.unification.stack.UnificationEntry;
 import gregtech.common.blocks.BlockMachineCasing;
 import gregtech.common.blocks.MetaBlocks;
 
-import tkcy.simpleaddon.api.recipes.TKCYSARecipeMaps;
+import tkcy.simpleaddon.api.recipes.recipemaps.TKCYSARecipeMaps;
 
 public class HarderMachineCasings {
 

@@ -10,7 +10,7 @@ import gregtech.api.recipes.*;
 import gregtech.api.unification.material.Material;
 import gregtech.api.unification.ore.OrePrefix;
 
-import tkcy.simpleaddon.api.recipes.TKCYSARecipeMaps;
+import tkcy.simpleaddon.api.recipes.recipemaps.TKCYSARecipeMaps;
 import tkcy.simpleaddon.api.utils.CollectionHelper;
 import tkcy.simpleaddon.api.utils.RecipeHelper;
 

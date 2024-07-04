@@ -37,9 +37,9 @@ import gregtech.common.blocks.BlockWireCoil;
 import gregtech.common.blocks.MetaBlocks;
 import gregtech.core.sound.GTSoundEvents;
 
-import tkcy.simpleaddon.api.recipes.TKCYSARecipeMaps;
 import tkcy.simpleaddon.api.recipes.builders.CoilTypeRecipeBuilder;
 import tkcy.simpleaddon.api.recipes.properties.CoilTypeProperty;
+import tkcy.simpleaddon.api.recipes.recipemaps.TKCYSARecipeMaps;
 
 public class CrackingUnitMte extends RecipeMapMultiblockController {
 

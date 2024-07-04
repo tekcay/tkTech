@@ -7,7 +7,7 @@ import static tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials.*;
 
 import gregtech.api.recipes.RecipeMaps;
 
-import tkcy.simpleaddon.api.recipes.TKCYSARecipeMaps;
+import tkcy.simpleaddon.api.recipes.recipemaps.TKCYSARecipeMaps;
 
 public class OxalicAcidChain {
 

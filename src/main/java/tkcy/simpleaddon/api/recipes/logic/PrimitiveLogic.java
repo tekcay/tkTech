@@ -3,10 +3,14 @@ package tkcy.simpleaddon.api.recipes.logic;
 import gregtech.api.GTValues;
 import gregtech.api.capability.IWorkable;
 import gregtech.api.capability.impl.AbstractRecipeLogic;
+import gregtech.api.capability.impl.PrimitiveRecipeLogic;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.recipes.RecipeMap;
 import gregtech.api.recipes.logic.IParallelableRecipeLogic;
 
+/**
+ * Similar to {@link PrimitiveRecipeLogic} but can be used by any {@code metatileEntity}. It also disables overclock.
+ */
 public class PrimitiveLogic extends AbstractRecipeLogic implements IWorkable, IParallelableRecipeLogic {
 
     public PrimitiveLogic(MetaTileEntity tileEntity, RecipeMap<?> recipeMap) {
