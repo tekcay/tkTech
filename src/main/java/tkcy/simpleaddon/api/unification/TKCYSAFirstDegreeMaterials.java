@@ -8,9 +8,10 @@ import static tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials.*;
 
 import gregtech.api.unification.material.Material;
 
-public final class TKCYSAFirstDegreeMaterials {
+import lombok.experimental.UtilityClass;
 
-    private TKCYSAFirstDegreeMaterials() {}
+@UtilityClass
+public final class TKCYSAFirstDegreeMaterials {
 
     public static void init() {
         PotassiumBisulfate = new Material.Builder(4008, gregtechId("potassium_bisulfate"))

@@ -12,7 +12,7 @@ import gregtech.client.renderer.ICubeRenderer;
 import gregtech.client.renderer.texture.Textures;
 import gregtech.common.metatileentities.multi.multiblockpart.MetaTileEntityItemBus;
 
-import tkcy.simpleaddon.api.metatileentities.TKCYSAMultiblockAbility;
+import tkcy.simpleaddon.api.metatileentities.TKCYSAMultiblockAbilities;
 
 public class BrickItemBus extends MetaTileEntityItemBus {
 
@@ -47,6 +47,6 @@ public class BrickItemBus extends MetaTileEntityItemBus {
 
     @Override
     public MultiblockAbility<IItemHandlerModifiable> getAbility() {
-        return TKCYSAMultiblockAbility.BRICK_BUS;
+        return TKCYSAMultiblockAbilities.BRICK_BUS;
     }
 }

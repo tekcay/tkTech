@@ -12,8 +12,6 @@ public final class TKCYSALog {
 
     public static Logger logger;
 
-    private TKCYSALog() {}
-
     public static void init(@NotNull Logger modLogger) {
         logger = modLogger;
     }

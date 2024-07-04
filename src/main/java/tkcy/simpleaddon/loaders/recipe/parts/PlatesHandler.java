@@ -39,7 +39,7 @@ public class PlatesHandler {
     private static void primitiveProcessPlate(OrePrefix orePrefix, Material material, IngotProperty ingotProperty) {
         if (material.hasFlag(TKCYSAMaterialFlags.IS_POLYMER) || excludeMaterials.contains(material)) return;
 
-        TKCYSARecipeMaps.PARTS_WORKING.recipeBuilder()
+        TKCYSARecipeMaps.ANVIL_RECIPES.recipeBuilder()
                 .input(ingot, material, 2)
                 .output(orePrefix, material)
                 .output(dustSmall, material, 4)
@@ -50,7 +50,7 @@ public class PlatesHandler {
 
         if (!plateDouble.doGenerateItem(material)) return;
 
-        TKCYSARecipeMaps.PARTS_WORKING.recipeBuilder()
+        TKCYSARecipeMaps.ANVIL_RECIPES.recipeBuilder()
                 .tool(ToolsModule.GtTool.HARD_HAMMER)
                 .toolUses(2 * (1 + (int) material.getMass() / 20))
                 .input(orePrefix, material, 3)

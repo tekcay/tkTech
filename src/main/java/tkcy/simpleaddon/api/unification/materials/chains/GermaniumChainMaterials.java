@@ -9,6 +9,9 @@ import static tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials.*;
 import gregtech.api.fluids.FluidBuilder;
 import gregtech.api.unification.material.Material;
 
+import lombok.experimental.UtilityClass;
+
+@UtilityClass
 public class GermaniumChainMaterials {
 
     public static int init(int id) {

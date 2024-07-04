@@ -8,7 +8,10 @@ import gregtech.api.pattern.TraceabilityPredicate;
 import gregtech.common.blocks.BlockMetalCasing;
 import gregtech.common.blocks.MetaBlocks;
 
-public class Predicates {
+import lombok.experimental.UtilityClass;
+
+@UtilityClass
+public class TKCYSAPredicates {
 
     public static TraceabilityPredicate fireBrick() {
         return states(MetaBlocks.METAL_CASING.getState(BlockMetalCasing.MetalCasingType.PRIMITIVE_BRICKS));

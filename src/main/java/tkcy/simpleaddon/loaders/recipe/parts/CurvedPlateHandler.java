@@ -14,10 +14,12 @@ import gregtech.api.unification.ore.OrePrefix;
 import gregtech.api.unification.stack.UnificationEntry;
 import gregtech.loaders.recipe.MetaTileEntityLoader;
 
+import lombok.experimental.UtilityClass;
 import tkcy.simpleaddon.api.recipes.recipemaps.TKCYSARecipeMaps;
 import tkcy.simpleaddon.api.unification.ore.TKCYSAOrePrefix;
 import tkcy.simpleaddon.common.metatileentities.TKCYSAMetaTileEntities;
 
+@UtilityClass
 public class CurvedPlateHandler {
 
     public static void init() {

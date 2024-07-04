@@ -8,8 +8,10 @@ import gregtech.api.unification.material.properties.IngotProperty;
 import gregtech.api.unification.material.properties.PropertyKey;
 import gregtech.api.unification.ore.OrePrefix;
 
+import lombok.experimental.UtilityClass;
 import tkcy.simpleaddon.api.recipes.recipemaps.TKCYSARecipeMaps;
 
+@UtilityClass
 public class SpringHandler {
 
     public static void init() {

@@ -21,6 +21,9 @@ import gregtech.api.unification.material.info.MaterialFlags;
 import gregtech.api.unification.ore.OrePrefix;
 import gregtech.api.unification.stack.MaterialStack;
 
+import lombok.experimental.UtilityClass;
+
+@UtilityClass
 public class MaterialHelper {
 
     public static FluidStack generateFluidStackFromMaterialStack(@NotNull MaterialStack materialStack) {

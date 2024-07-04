@@ -13,9 +13,10 @@ import org.jetbrains.annotations.NotNull;
 
 import gregtech.common.blocks.MetaBlocks;
 
-public final class TKCYSAMetaBlocks {
+import lombok.experimental.UtilityClass;
 
-    private TKCYSAMetaBlocks() {}
+@UtilityClass
+public final class TKCYSAMetaBlocks {
 
     public static void init() {}
 

@@ -2,6 +2,9 @@ package tkcy.simpleaddon.api.unification.ore;
 
 import gregtech.api.unification.material.Materials;
 
+import lombok.experimental.UtilityClass;
+
+@UtilityClass
 public class OrePrefixAdditions {
 
     public static void init() {

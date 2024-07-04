@@ -10,6 +10,9 @@ import gregtech.api.unification.material.properties.PropertyKey;
 import gregtech.api.unification.material.properties.RotorProperty;
 import gregtech.api.unification.ore.OrePrefix;
 
+import lombok.experimental.UtilityClass;
+
+@UtilityClass
 public class RotorHandler {
 
     public static void init() {

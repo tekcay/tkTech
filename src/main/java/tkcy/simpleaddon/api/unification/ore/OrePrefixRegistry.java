@@ -3,6 +3,9 @@ package tkcy.simpleaddon.api.unification.ore;
 import static gregtech.common.items.MetaItems.addOrePrefix;
 import static tkcy.simpleaddon.api.unification.ore.TKCYSAOrePrefix.*;
 
+import lombok.experimental.UtilityClass;
+
+@UtilityClass
 public class OrePrefixRegistry {
 
     public static void register() {

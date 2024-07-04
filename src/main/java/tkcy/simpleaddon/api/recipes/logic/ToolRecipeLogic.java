@@ -20,7 +20,7 @@ import gregtech.api.recipes.RecipeMap;
 import gregtech.api.util.GTTransferUtils;
 import gregtech.api.util.GTUtility;
 
-import tkcy.simpleaddon.api.metatileentities.ToolLogicMetaTileEntity;
+import tkcy.simpleaddon.api.machines.ToolLogicMetaTileEntity;
 import tkcy.simpleaddon.api.recipes.builders.ToolRecipeBuilder;
 import tkcy.simpleaddon.api.recipes.helpers.RecipeSearchHelpers;
 import tkcy.simpleaddon.api.recipes.properties.ToolProperty;

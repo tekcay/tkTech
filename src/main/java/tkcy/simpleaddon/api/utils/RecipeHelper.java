@@ -12,6 +12,9 @@ import gregtech.api.recipes.RecipeBuilder;
 import gregtech.api.recipes.RecipeMap;
 import gregtech.api.recipes.ingredients.IntCircuitIngredient;
 
+import lombok.experimental.UtilityClass;
+
+@UtilityClass
 public class RecipeHelper {
 
     public static final List<FluidStack> emptyFluidStack = new ArrayList<>();

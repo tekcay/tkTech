@@ -15,9 +15,13 @@ import gregtech.api.recipes.ingredients.IntCircuitIngredient;
 import gregtech.api.unification.OreDictUnifier;
 import gregtech.api.unification.ore.OrePrefix;
 
+import lombok.experimental.UtilityClass;
 import tkcy.simpleaddon.api.recipes.recipemaps.TKCYSARecipeMaps;
 import tkcy.simpleaddon.api.utils.RecipeHelper;
+import tkcy.simpleaddon.modules.alloyingmodule.Alloying;
 
+@Alloying
+@UtilityClass
 public class DustMixing {
 
     public static void init() {

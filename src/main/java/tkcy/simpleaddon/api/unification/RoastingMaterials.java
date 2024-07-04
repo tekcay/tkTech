@@ -10,6 +10,9 @@ import static tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials.*;
 import gregtech.api.unification.material.Material;
 import gregtech.api.unification.material.Materials;
 
+import lombok.experimental.UtilityClass;
+
+@UtilityClass
 public class RoastingMaterials {
 
     public static int init(int id) {

@@ -1,4 +1,4 @@
-package tkcy.simpleaddon.api.metatileentities;
+package tkcy.simpleaddon.api.machines;
 
 import java.util.List;
 import java.util.stream.Collectors;

@@ -2,8 +2,10 @@ package tkcy.simpleaddon.common;
 
 import net.minecraftforge.common.config.Config;
 
+import lombok.experimental.UtilityClass;
 import tkcy.simpleaddon.TekCaySimpleAddon;
 
+@UtilityClass
 @Config(modid = TekCaySimpleAddon.MODID)
 public class TKCYSAConfigHolder {
 

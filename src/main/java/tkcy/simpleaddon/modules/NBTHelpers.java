@@ -14,6 +14,9 @@ import org.jetbrains.annotations.NotNull;
 
 import gregtech.api.util.function.TriConsumer;
 
+import lombok.experimental.UtilityClass;
+
+@UtilityClass
 public class NBTHelpers {
 
     public static NBTTagList getSerializedItemOutputsTag(NonNullList<ItemStack> itemOutputs) {

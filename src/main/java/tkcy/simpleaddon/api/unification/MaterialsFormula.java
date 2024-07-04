@@ -3,6 +3,9 @@ package tkcy.simpleaddon.api.unification;
 import static gregtech.api.unification.material.Materials.*;
 import static tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials.*;
 
+import lombok.experimental.UtilityClass;
+
+@UtilityClass
 public class MaterialsFormula {
 
     public static void init() {

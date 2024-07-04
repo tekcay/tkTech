@@ -2,6 +2,7 @@ package tkcy.simpleaddon.api.unification.materials;
 
 import gregtech.api.unification.material.Material;
 
+import lombok.experimental.UtilityClass;
 import tkcy.simpleaddon.api.unification.MaterialsFormula;
 import tkcy.simpleaddon.api.unification.RoastingMaterials;
 import tkcy.simpleaddon.api.unification.TKCYSAFirstDegreeMaterials;
@@ -12,6 +13,7 @@ import tkcy.simpleaddon.api.unification.materials.other.MethaneCracking;
 import tkcy.simpleaddon.api.unification.materials.other.MiscMaterials;
 import tkcy.simpleaddon.api.unification.properties.PropertiesAddition;
 
+@UtilityClass
 public class TKCYSAMaterials {
 
     public static void init() {

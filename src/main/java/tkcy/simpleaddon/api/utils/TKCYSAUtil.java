@@ -26,6 +26,4 @@ public final class TKCYSAUtil {
     public static FluidStack getFluidStackFromOrePrefix(@NotNull OrePrefix orePrefix, @NotNull Material material) {
         return material.getFluid(getFluidAmountFromOrePrefix(orePrefix));
     }
-
-    private TKCYSAUtil() {}
 }

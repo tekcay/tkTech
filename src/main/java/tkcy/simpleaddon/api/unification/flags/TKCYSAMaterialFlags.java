@@ -12,6 +12,9 @@ import gregtech.api.unification.material.Material;
 import gregtech.api.unification.material.info.MaterialFlag;
 import gregtech.api.unification.material.properties.PropertyKey;
 
+import lombok.experimental.UtilityClass;
+
+@UtilityClass
 public final class TKCYSAMaterialFlags {
 
     /**
@@ -63,6 +66,4 @@ public final class TKCYSAMaterialFlags {
         // GENERATE_ALL_NO_UNIF.addAll(Arrays.asList(NO_UNIFICATION, NO_SMELTING, NO_SMASHING, NO_WORKING,
         // NO_SMASHING));
     }
-
-    private TKCYSAMaterialFlags() {}
 }

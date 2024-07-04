@@ -1,7 +1,6 @@
 package tkcy.simpleaddon.api.unification.materials.chains;
 
 import static gregtech.api.unification.material.Materials.*;
-import static gregtech.api.unification.material.Materials.Hydrogen;
 import static gregtech.api.unification.material.info.MaterialFlags.DECOMPOSITION_BY_CENTRIFUGING;
 import static gregtech.api.unification.material.info.MaterialFlags.DISABLE_DECOMPOSITION;
 import static gregtech.api.unification.material.info.MaterialIconSet.DULL;
@@ -11,6 +10,9 @@ import static tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials.*;
 import gregtech.api.fluids.FluidBuilder;
 import gregtech.api.unification.material.Material;
 
+import lombok.experimental.UtilityClass;
+
+@UtilityClass
 public class AluminiumChainMaterials {
 
     public static int init(int id) {

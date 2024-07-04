@@ -1,4 +1,4 @@
-package tkcy.simpleaddon.modules;
+package tkcy.simpleaddon.modules.alloyingmodule;
 
 import static gregtech.api.unification.material.Materials.*;
 
@@ -7,8 +7,11 @@ import java.util.List;
 
 import gregtech.api.unification.material.Material;
 
+import lombok.experimental.UtilityClass;
 import tkcy.simpleaddon.api.utils.MaterialHelper;
 
+@Alloying
+@UtilityClass
 public class AlloyingModule {
 
     public static List<Material> alloysMaterials = new ArrayList<>();

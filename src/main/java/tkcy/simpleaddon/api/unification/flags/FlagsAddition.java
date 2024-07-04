@@ -3,17 +3,19 @@ package tkcy.simpleaddon.api.unification.flags;
 import static gregtech.api.unification.material.Materials.*;
 import static gregtech.api.unification.material.info.MaterialFlags.*;
 import static tkcy.simpleaddon.api.unification.flags.TKCYSAMaterialFlags.*;
-import static tkcy.simpleaddon.modules.AlloyingModule.alloysMaterials;
 import static tkcy.simpleaddon.modules.ComponentsModule.getLvAcceptedRubberMaterials;
 import static tkcy.simpleaddon.modules.ElectrodeModule.electrodeMaterials;
+import static tkcy.simpleaddon.modules.alloyingmodule.AlloyingModule.alloysMaterials;
 
 import org.jetbrains.annotations.ApiStatus;
 
 import gregtech.api.unification.material.Material;
 import gregtech.api.unification.material.Materials;
 
+import lombok.experimental.UtilityClass;
 import tkcy.simpleaddon.modules.PolymersModule;
 
+@UtilityClass
 @ApiStatus.Internal
 public class FlagsAddition {
 

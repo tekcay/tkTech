@@ -8,6 +8,9 @@ import gregtech.api.fluids.FluidBuilder;
 import gregtech.api.fluids.attribute.FluidAttributes;
 import gregtech.api.unification.material.Material;
 
+import lombok.experimental.UtilityClass;
+
+@UtilityClass
 public class ManganeseChainMaterials {
 
     public static int register(int startId) {

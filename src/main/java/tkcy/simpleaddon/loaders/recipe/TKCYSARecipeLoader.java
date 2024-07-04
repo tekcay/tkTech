@@ -14,6 +14,7 @@ import gregtech.api.recipes.GTRecipeHandler;
 import gregtech.api.recipes.ModHandler;
 import gregtech.common.metatileentities.MetaTileEntities;
 
+import lombok.experimental.UtilityClass;
 import tkcy.simpleaddon.loaders.recipe.alloys.DustMixing;
 import tkcy.simpleaddon.loaders.recipe.alloys.GalvanizedSteelRecipes;
 import tkcy.simpleaddon.loaders.recipe.alloys.Melting;
@@ -23,9 +24,8 @@ import tkcy.simpleaddon.loaders.recipe.handlers.*;
 import tkcy.simpleaddon.loaders.recipe.handlers.chemistry.ChemistryHandler;
 import tkcy.simpleaddon.loaders.recipe.handlers.harderstuff.*;
 
+@UtilityClass
 public final class TKCYSARecipeLoader {
-
-    private TKCYSARecipeLoader() {}
 
     public static void latestInit() {
         POLARIZER_RECIPES.setMaxInputs(2);

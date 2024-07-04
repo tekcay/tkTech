@@ -13,6 +13,9 @@ import java.util.List;
 import gregtech.api.GTValues;
 import gregtech.api.unification.ore.OrePrefix;
 
+import lombok.experimental.UtilityClass;
+
+@UtilityClass
 public class GalvanizedSteelRecipes {
 
     public static List<OrePrefix> PREFIXES = new ArrayList<>();

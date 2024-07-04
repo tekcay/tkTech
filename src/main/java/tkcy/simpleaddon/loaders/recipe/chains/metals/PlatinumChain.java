@@ -17,6 +17,9 @@ import gregtech.api.recipes.Recipe;
 import gregtech.api.recipes.RecipeMaps;
 import gregtech.api.unification.OreDictUnifier;
 
+import lombok.experimental.UtilityClass;
+
+@UtilityClass
 public class PlatinumChain {
 
     public static void init() {

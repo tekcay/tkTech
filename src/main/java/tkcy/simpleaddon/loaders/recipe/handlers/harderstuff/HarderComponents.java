@@ -20,6 +20,9 @@ import gregtech.api.unification.material.Material;
 import gregtech.api.unification.material.Materials;
 import gregtech.api.unification.stack.UnificationEntry;
 
+import lombok.experimental.UtilityClass;
+
+@UtilityClass
 public class HarderComponents {
 
     public static void init() {

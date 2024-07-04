@@ -9,6 +9,9 @@ import gregtech.api.unification.material.properties.IngotProperty;
 import gregtech.api.unification.material.properties.PropertyKey;
 import gregtech.api.unification.ore.OrePrefix;
 
+import lombok.experimental.UtilityClass;
+
+@UtilityClass
 public class FineWireHandler {
 
     public static void init() {
