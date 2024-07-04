@@ -96,6 +96,5 @@ public final class TKCYSARecipeMaps {
     @WorkingTool
     @ZenProperty
     public static final RecipeMap<ToolRecipeBuilder> PARTS_WORKING = new ToolRecipeMap<>(
-            "parts_working", 2, 2, 0, 0, new ToolRecipeBuilder(), false)
-                    .setSound(GTSoundEvents.MOTOR);
+            "parts_working", 2, 2, 0, 0, new ToolRecipeBuilder(), false);
 }
