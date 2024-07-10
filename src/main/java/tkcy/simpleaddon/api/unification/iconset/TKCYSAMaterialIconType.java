@@ -22,4 +22,5 @@ public class TKCYSAMaterialIconType {
 
     // Blocks
     public static MaterialIconType casing = new MaterialIconType("casing");
+    public static MaterialIconType wall = new MaterialIconType("wall");
 }

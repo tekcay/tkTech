@@ -6,10 +6,10 @@ import gregtech.common.blocks.properties.PropertyMaterial;
 
 import tkcy.simpleaddon.api.unification.iconset.TKCYSAMaterialIconType;
 
-public abstract class BlockMaterialCasing extends BlockMaterial {
+public abstract class BlockMaterialWall extends BlockMaterial {
 
-    public static BlockMaterialCasing create(gregtech.api.unification.material.Material[] materials) {
-        return new BlockMaterialCasing() {
+    public static BlockMaterialWall create(gregtech.api.unification.material.Material[] materials) {
+        return new BlockMaterialWall() {
 
             @Override
             public @NotNull PropertyMaterial getVariantProperty() {
@@ -18,7 +18,7 @@ public abstract class BlockMaterialCasing extends BlockMaterial {
         };
     }
 
-    private BlockMaterialCasing() {
-        super(TKCYSAMaterialIconType.casing);
+    private BlockMaterialWall() {
+        super(TKCYSAMaterialIconType.wall);
     }
 }

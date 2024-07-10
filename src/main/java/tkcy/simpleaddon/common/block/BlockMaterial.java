@@ -28,10 +28,10 @@ public abstract class BlockMaterial extends BlockMaterialBase {
 
     private final MaterialIconType materialIconType;
 
-    public BlockMaterial(MaterialIconType materialIconType, String translationKey) {
+    public BlockMaterial(MaterialIconType materialIconType) {
         super(net.minecraft.block.material.Material.IRON);
         this.materialIconType = materialIconType;
-        setTranslationKey(translationKey);
+        setTranslationKey(materialIconType.name);
         setHardness(5.0f);
         setResistance(10.0f);
     }

@@ -188,6 +188,7 @@ item.material.oreprefix.anode=%s Anode
 
 item.material.oreprefix.electrode=%s Electrode
 item.material.oreprefix.casing=%s Casing
+item.material.oreprefix.wall=%s Wall
 # MetaItems
 metaitem.mica.sheet.name=Mica Based Sheet
 metaitem.mica_insulator.sheet.name=Mica Insulator Sheet

@@ -45,4 +45,6 @@ public class TKCYSAOrePrefix {
     // OreBlocks
     public static final OrePrefix casing = new OrePrefix("casing", M * 9, null, TKCYSAMaterialIconType.casing,
             ENABLE_UNIFICATION, null);
+    public static final OrePrefix wall = new OrePrefix("wall", M * 9, null, TKCYSAMaterialIconType.wall,
+            ENABLE_UNIFICATION, null);
 }

@@ -24,9 +24,12 @@ public class TKCYSAMetaBlocks {
 
     public static final Map<Material, BlockMaterialCasing> CASINGS = new Object2ObjectOpenHashMap<>();
     public static final List<BlockMaterialCasing> CASINGS_BLOCKS = new ArrayList<>();
+    public static final Map<Material, BlockMaterialWall> WALLS = new Object2ObjectOpenHashMap<>();
+    public static final List<BlockMaterialWall> WALLS_BLOCKS = new ArrayList<>();
 
     public enum TranslationKeys {
-        meta_block_casing
+        meta_block_casing,
+        meta_block_wall
     }
 
     public static void init() {
@@ -34,11 +37,17 @@ public class TKCYSAMetaBlocks {
                 BlockMaterialCasing::create,
                 TranslationKeys.meta_block_casing,
                 material -> material.hasFlag(TKCYSAMaterialFlags.GENERATE_CASING));
+
+        BlockMaterialBaseRegisteringHelpers.createBlockMaterialBase(WALLS, WALLS_BLOCKS,
+                BlockMaterialWall::create,
+                TranslationKeys.meta_block_wall,
+                material -> material.hasFlag(TKCYSAMaterialFlags.GENERATE_CASING));
     }
 
     @SideOnly(Side.CLIENT)
     public static void registerItemModels() {
         for (BlockMaterialCasing blockMaterialCasing : CASINGS_BLOCKS) blockMaterialCasing.onModelRegister();
+        for (BlockMaterialWall blockMaterialWall : WALLS_BLOCKS) blockMaterialWall.onModelRegister();
     }
 
     @SideOnly(Side.CLIENT)
@@ -47,10 +56,12 @@ public class TKCYSAMetaBlocks {
         ItemColors itemColors = Minecraft.getMinecraft().getItemColors();
 
         BlockMaterialBaseRegisteringHelpers.registerColors(CASINGS_BLOCKS, blockColors, itemColors);
+        BlockMaterialBaseRegisteringHelpers.registerColors(WALLS_BLOCKS, blockColors, itemColors);
     }
 
     public static void registerOreDict() {
         BlockMaterialBaseRegisteringHelpers.registerOreDict(CASINGS, TKCYSAOrePrefix.casing);
+        BlockMaterialBaseRegisteringHelpers.registerOreDict(WALLS, TKCYSAOrePrefix.wall);
     }
 
     @SuppressWarnings("unchecked")
