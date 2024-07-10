@@ -2,6 +2,7 @@ package tkcy.simpleaddon;
 
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 import org.jetbrains.annotations.NotNull;
@@ -39,7 +40,7 @@ public class TekCaySimpleAddon {
     }
 
     @Mod.EventHandler
-    public void onInit(@NotNull FMLPreInitializationEvent event) {
+    public void onInit(@NotNull FMLInitializationEvent event) {
         proxy.onLoad();
     }
 }
