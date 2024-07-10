@@ -28,6 +28,7 @@ import gregtech.common.blocks.properties.PropertyMaterial;
 import tkcy.simpleaddon.api.unification.iconset.TKCYSAMaterialIconType;
 
 public abstract class BlockMaterialCasing extends BlockMaterialBase {
+    private PropertyMaterial property;
 
     public static BlockMaterialCasing create(Material[] materials) {
         PropertyMaterial property = PropertyMaterial.create("variant", materials);
@@ -41,8 +42,23 @@ public abstract class BlockMaterialCasing extends BlockMaterialBase {
         };
     }
 
+    @NotNull
+    @Override
+    public PropertyMaterial getVariantProperty() {
+        return property;
+    }
+
     private BlockMaterialCasing() {
         super(net.minecraft.block.material.Material.IRON);
+        setTranslationKey("casing");
+        setHardness(5.0f);
+        setResistance(10.0f);
+        // setCreativeTab(GregTechAPI.TAB_GREGTECH_MATERIALS);
+    }
+
+    public BlockMaterialCasing(Material[] materials) {
+        super(net.minecraft.block.material.Material.IRON);
+        PropertyMaterial property = PropertyMaterial.create("variant", materials);
         setTranslationKey("casing");
         setHardness(5.0f);
         setResistance(10.0f);

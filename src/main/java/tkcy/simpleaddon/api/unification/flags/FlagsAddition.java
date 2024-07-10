@@ -21,17 +21,18 @@ public class FlagsAddition {
                 GENERATE_SMALL_GEAR);
         Cinnabar.addFlags(DISABLE_DECOMPOSITION);
         Redstone.addFlags(DISABLE_DECOMPOSITION);
-        TKCYSAMaterialFlags.GENERATE_ALL.forEach(f -> Steel.addFlags(f));
+
+        // TKCYSAMaterialFlags.GENERATE_ALL.forEach(f -> Steel.addFlags(f));
 
         Materials.EXT2_METAL.forEach(f -> Brick.addFlags(f));
 
-        GENERATE_ALL_NO_UNIF.forEach(flag -> Carbon.addFlags(flag));
+        // GENERATE_ALL_NO_UNIF.forEach(flag -> Carbon.addFlags(flag));
 
         electrodeMaterials.forEach(FlagsAddition::addElectrodeFlag);
         alloysMaterials.forEach(FlagsAddition::addAlloyFlag);
         getLvAcceptedRubberMaterials().forEach(FlagsAddition::addRingAndPlateFlags);
 
-        TungstenSteel.addFlags(GENERATE_CASING);
+        // TungstenSteel.addFlags(GENERATE_CASING);
     }
 
     public static void addAlloyFlag(Material material) {
