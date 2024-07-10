@@ -31,7 +31,7 @@ public class TKCYSAMetaBlocks {
 
     public static void init() {
         BlockMaterialBaseRegisteringHelpers.createBlockMaterialBase(CASINGS, CASINGS_BLOCKS,
-                BlockMaterialCasing::create,
+                BlockMaterialCasing::build,
                 TranslationKeys.meta_block_casing,
                 material -> material.hasFlag(TKCYSAMaterialFlags.GENERATE_CASING));
     }
@@ -49,13 +49,13 @@ public class TKCYSAMetaBlocks {
         BlockMaterialBaseRegisteringHelpers.registerColors(CASINGS_BLOCKS, blockColors, itemColors);
     }
 
+    public static void registerOreDict() {
+        BlockMaterialBaseRegisteringHelpers.registerOreDict(CASINGS, TKCYSAOrePrefix.casing);
+    }
+
     @SuppressWarnings("unchecked")
     private static <T extends Comparable<T>> @NotNull String getPropertyName(@NotNull IProperty<T> property,
                                                                              Comparable<?> value) {
         return property.getName((T) value);
-    }
-
-    public static void registerOreDict() {
-        BlockMaterialBaseRegisteringHelpers.registerOreDict(CASINGS, TKCYSAOrePrefix.casing);
     }
 }
