@@ -27,6 +27,7 @@ import tkcy.simpleaddon.api.unification.ore.OrePrefixRegistry;
 import tkcy.simpleaddon.api.unification.ore.TKCYSAOrePrefix;
 import tkcy.simpleaddon.api.utils.TKCYSALog;
 import tkcy.simpleaddon.common.block.BlockMaterialCasing;
+import tkcy.simpleaddon.common.block.BlockMaterialCoil;
 import tkcy.simpleaddon.common.block.BlockMaterialWall;
 import tkcy.simpleaddon.common.block.TKCYSAMetaBlocks;
 import tkcy.simpleaddon.loaders.recipe.TKCYSARecipeLoader;
@@ -51,6 +52,8 @@ public class CommonProxy {
             registry.register(blockMaterialCasing);
         for (BlockMaterialWall blockMaterialWall : TKCYSAMetaBlocks.WALLS_BLOCKS)
             registry.register(blockMaterialWall);
+        for (BlockMaterialCoil blockMaterialCoil : TKCYSAMetaBlocks.COIL_BLOCKS)
+            registry.register(blockMaterialCoil);
     }
 
     @SubscribeEvent(priority = EventPriority.NORMAL)
@@ -66,6 +69,10 @@ public class CommonProxy {
 
         for (BlockMaterialWall block : TKCYSAMetaBlocks.WALLS_BLOCKS) {
             registry.register(createItemBlock(block, b -> new MaterialItemBlock(b, TKCYSAOrePrefix.wall)));
+        }
+
+        for (BlockMaterialCoil block : TKCYSAMetaBlocks.COIL_BLOCKS) {
+            registry.register(createItemBlock(block, b -> new MaterialItemBlock(b, TKCYSAOrePrefix.coil)));
         }
     }
 

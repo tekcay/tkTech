@@ -23,13 +23,17 @@ import tkcy.simpleaddon.api.utils.BlockMaterialBaseRegisteringHelpers;
 public class TKCYSAMetaBlocks {
 
     public static final Map<Material, BlockMaterialCasing> CASINGS = new Object2ObjectOpenHashMap<>();
-    public static final List<BlockMaterialCasing> CASINGS_BLOCKS = new ArrayList<>();
     public static final Map<Material, BlockMaterialWall> WALLS = new Object2ObjectOpenHashMap<>();
+    public static final Map<Material, BlockMaterialCoil> COILS = new Object2ObjectOpenHashMap<>();
+
+    public static final List<BlockMaterialCasing> CASINGS_BLOCKS = new ArrayList<>();
     public static final List<BlockMaterialWall> WALLS_BLOCKS = new ArrayList<>();
+    public static final List<BlockMaterialCoil> COIL_BLOCKS = new ArrayList<>();
 
     public enum TranslationKeys {
         meta_block_casing,
-        meta_block_wall
+        meta_block_wall,
+        meta_block_coil
     }
 
     public static void init() {
@@ -42,12 +46,18 @@ public class TKCYSAMetaBlocks {
                 BlockMaterialWall::create,
                 TranslationKeys.meta_block_wall,
                 material -> material.hasFlag(TKCYSAMaterialFlags.GENERATE_CASING));
+
+        BlockMaterialBaseRegisteringHelpers.createBlockMaterialBase(COILS, COIL_BLOCKS,
+                BlockMaterialCoil::create,
+                TranslationKeys.meta_block_coil,
+                material -> material.hasFlag(TKCYSAMaterialFlags.GENERATE_COIL));
     }
 
     @SideOnly(Side.CLIENT)
     public static void registerItemModels() {
         for (BlockMaterialCasing blockMaterialCasing : CASINGS_BLOCKS) blockMaterialCasing.onModelRegister();
         for (BlockMaterialWall blockMaterialWall : WALLS_BLOCKS) blockMaterialWall.onModelRegister();
+        for (BlockMaterialCoil blockMaterialCoil : COIL_BLOCKS) blockMaterialCoil.onModelRegister();
     }
 
     @SideOnly(Side.CLIENT)
@@ -57,11 +67,13 @@ public class TKCYSAMetaBlocks {
 
         BlockMaterialBaseRegisteringHelpers.registerColors(CASINGS_BLOCKS, blockColors, itemColors);
         BlockMaterialBaseRegisteringHelpers.registerColors(WALLS_BLOCKS, blockColors, itemColors);
+        BlockMaterialBaseRegisteringHelpers.registerColors(COIL_BLOCKS, blockColors, itemColors);
     }
 
     public static void registerOreDict() {
         BlockMaterialBaseRegisteringHelpers.registerOreDict(CASINGS, TKCYSAOrePrefix.casing);
         BlockMaterialBaseRegisteringHelpers.registerOreDict(WALLS, TKCYSAOrePrefix.wall);
+        BlockMaterialBaseRegisteringHelpers.registerOreDict(COILS, TKCYSAOrePrefix.coil);
     }
 
     @SuppressWarnings("unchecked")
