@@ -31,7 +31,7 @@ public class TKCYSAMetaBlocks {
 
     public static void init() {
         BlockMaterialBaseRegisteringHelpers.createBlockMaterialBase(CASINGS, CASINGS_BLOCKS,
-                BlockMaterialCasing::build,
+                BlockMaterialCasing::create,
                 TranslationKeys.meta_block_casing,
                 material -> material.hasFlag(TKCYSAMaterialFlags.GENERATE_CASING));
     }

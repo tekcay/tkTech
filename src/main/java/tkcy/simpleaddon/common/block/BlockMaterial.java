@@ -18,46 +18,23 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import gregtech.api.items.toolitem.ToolClasses;
-import gregtech.api.unification.material.Material;
 import gregtech.api.unification.material.info.MaterialIconType;
 import gregtech.client.model.MaterialStateMapper;
 import gregtech.client.model.modelfactories.MaterialBlockModelLoader;
 import gregtech.common.ConfigHolder;
 import gregtech.common.blocks.BlockMaterialBase;
-import gregtech.common.blocks.properties.PropertyMaterial;
 
 public abstract class BlockMaterial extends BlockMaterialBase {
 
-    public BlockMaterial(net.minecraft.block.material.Material material) {
-        super(material);
-    }
+    private final MaterialIconType materialIconType;
 
-    public static BlockMaterial create(Material[] materials, MaterialIconType materialIconType) {
-        PropertyMaterial property = PropertyMaterial.create("variant", materials);
-        return new BlockMaterial() {
-
-            @Override
-            MaterialIconType getMaterialIconType() {
-                return materialIconType;
-            }
-
-            @NotNull
-            @Override
-            public PropertyMaterial getVariantProperty() {
-                return property;
-            }
-        };
-    }
-
-    private BlockMaterial() {
+    public BlockMaterial(MaterialIconType materialIconType, String translationKey) {
         super(net.minecraft.block.material.Material.IRON);
-        setTranslationKey("casing");
+        this.materialIconType = materialIconType;
+        setTranslationKey(translationKey);
         setHardness(5.0f);
         setResistance(10.0f);
-        // setCreativeTab(GregTechAPI.TAB_GREGTECH_MATERIALS);
     }
-
-    abstract MaterialIconType getMaterialIconType();
 
     @Override
     @NotNull
@@ -94,11 +71,11 @@ public abstract class BlockMaterial extends BlockMaterialBase {
     @SideOnly(Side.CLIENT)
     public void onModelRegister() {
         ModelLoader.setCustomStateMapper(this, new MaterialStateMapper(
-                getMaterialIconType(), s -> getGtMaterial(s).getMaterialIconSet()));
+                this.materialIconType, s -> getGtMaterial(s).getMaterialIconSet()));
         for (IBlockState state : this.getBlockState().getValidStates()) {
             ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), this.getMetaFromState(state),
                     MaterialBlockModelLoader.registerItemModel(
-                            getMaterialIconType(),
+                            this.materialIconType,
                             getGtMaterial(state).getMaterialIconSet()));
         }
     }

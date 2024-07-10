@@ -2,20 +2,14 @@ package tkcy.simpleaddon.common.block;
 
 import org.jetbrains.annotations.NotNull;
 
-import gregtech.api.unification.material.info.MaterialIconType;
 import gregtech.common.blocks.properties.PropertyMaterial;
 
 import tkcy.simpleaddon.api.unification.iconset.TKCYSAMaterialIconType;
 
 public abstract class BlockMaterialCasing extends BlockMaterial {
 
-    public static BlockMaterialCasing build(gregtech.api.unification.material.Material[] materials) {
-        return new BlockMaterialCasing() {
-
-            @Override
-            MaterialIconType getMaterialIconType() {
-                return TKCYSAMaterialIconType.casing;
-            }
+    public static BlockMaterialCasing create(gregtech.api.unification.material.Material[] materials) {
+        return new BlockMaterialCasing("casing") {
 
             @Override
             public @NotNull PropertyMaterial getVariantProperty() {
@@ -24,7 +18,7 @@ public abstract class BlockMaterialCasing extends BlockMaterial {
         };
     }
 
-    private BlockMaterialCasing() {
-        super(net.minecraft.block.material.Material.IRON);
+    private BlockMaterialCasing(String translationKey) {
+        super(TKCYSAMaterialIconType.casing, translationKey);
     }
 }
