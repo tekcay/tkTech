@@ -1,49 +1,54 @@
 package tkcy.simpleaddon.loaders.recipe.parts;
 
-import static gregtech.api.unification.material.Materials.Carbon;
-
 import gregtech.api.recipes.RecipeMaps;
 import gregtech.api.unification.material.Material;
-import gregtech.api.unification.material.properties.IngotProperty;
-import gregtech.api.unification.material.properties.PropertyKey;
+import gregtech.api.unification.material.Materials;
+import gregtech.api.unification.material.info.MaterialIconSet;
 import gregtech.api.unification.ore.OrePrefix;
 
+import lombok.experimental.UtilityClass;
 import tkcy.simpleaddon.api.unification.ore.TKCYSAOrePrefix;
+import tkcy.simpleaddon.modules.ElectrodeModule;
 
+@UtilityClass
 public class Electrodes {
 
-    /**
-     * To use for materials which unification is disabled
-     * 
-     * @param material
-     */
-    public static void addElectrodesProcesses(Material material) {
-        OrePrefix orePrefix = OrePrefix.stickLong;
-        IngotProperty ingotProperty = new IngotProperty();
-
-        electrode(orePrefix, material, ingotProperty);
-        anode(orePrefix, material, ingotProperty);
-        cathode(orePrefix, material, ingotProperty);
-    }
-
     public static void init() {
-        TKCYSAOrePrefix.cathode.addProcessingHandler(PropertyKey.INGOT, Electrodes::cathode);
-        TKCYSAOrePrefix.anode.addProcessingHandler(PropertyKey.INGOT, Electrodes::anode);
-        TKCYSAOrePrefix.electrode.addProcessingHandler(PropertyKey.INGOT, Electrodes::electrode);
-
-        addElectrodesProcesses(Carbon);
+        ElectrodeModule.electrodeMaterials.stream()
+                .map(Electrodes::electrode)
+                .map(Electrodes::cathode)
+                .forEach(Electrodes::anode);
     }
 
-    private static void electrode(OrePrefix orePrefix, Material material, IngotProperty property) {
+    private static Material electrode(Material material) {
         RecipeMaps.LASER_ENGRAVER_RECIPES.recipeBuilder()
                 .input(OrePrefix.stickLong, material)
+                .notConsumable(OrePrefix.lens, getLensMaterial(material))
                 .output(TKCYSAOrePrefix.electrode, material)
                 .duration((int) (material.getMass() * 10))
                 .EUt(30)
                 .buildAndRegister();
+        return material;
     }
 
-    private static void anode(OrePrefix orePrefix, Material material, IngotProperty property) {
+    private static Material getLensMaterial(Material electordeMaterial) {
+        MaterialIconSet iconSet = electordeMaterial.getMaterialIconSet();
+
+        if (iconSet == MaterialIconSet.BRIGHT) {
+            return Materials.Sapphire;
+        } else if (iconSet == MaterialIconSet.SHINY) {
+            return Materials.Ruby;
+        } else if (iconSet == MaterialIconSet.DULL) {
+            return Materials.Emerald;
+        } else if (iconSet == MaterialIconSet.METALLIC) {
+            return Materials.Diamond;
+        } else if (iconSet == MaterialIconSet.MAGNETIC) {
+            return Materials.Glass;
+        }
+        return Materials.Glass;
+    }
+
+    private static void anode(Material material) {
         RecipeMaps.POLARIZER_RECIPES.recipeBuilder()
                 .input(TKCYSAOrePrefix.cathode, material)
                 .output(TKCYSAOrePrefix.anode, material)
@@ -52,7 +57,7 @@ public class Electrodes {
                 .buildAndRegister();
     }
 
-    private static void cathode(OrePrefix orePrefix, Material material, IngotProperty property) {
+    private static Material cathode(Material material) {
         RecipeMaps.POLARIZER_RECIPES.recipeBuilder()
                 .input(TKCYSAOrePrefix.anode, material)
                 .output(TKCYSAOrePrefix.cathode, material)
@@ -66,5 +71,7 @@ public class Electrodes {
                 .duration((int) (material.getMass() * 3))
                 .EUt(30)
                 .buildAndRegister();
+
+        return material;
     }
 }

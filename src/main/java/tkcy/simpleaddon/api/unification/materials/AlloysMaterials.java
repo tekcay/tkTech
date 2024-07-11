@@ -9,6 +9,11 @@ import static tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials.*;
 
 import gregtech.api.unification.material.Material;
 
+import lombok.experimental.UtilityClass;
+import tkcy.simpleaddon.modules.alloyingmodule.Alloying;
+
+@Alloying
+@UtilityClass
 public class AlloysMaterials {
 
     public static int init(int id) {

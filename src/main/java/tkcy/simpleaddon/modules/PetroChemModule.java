@@ -7,6 +7,9 @@ import java.util.List;
 
 import gregtech.api.unification.material.Material;
 
+import lombok.experimental.UtilityClass;
+
+@UtilityClass
 public class PetroChemModule {
 
     public static final List<Material> sulfuricLayers = Arrays.asList(SulfuricHeavyFuel, SulfuricNaphtha,

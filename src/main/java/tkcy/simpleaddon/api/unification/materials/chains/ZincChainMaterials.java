@@ -8,6 +8,9 @@ import static tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials.ZincSul
 
 import gregtech.api.unification.material.Material;
 
+import lombok.experimental.UtilityClass;
+
+@UtilityClass
 public class ZincChainMaterials {
 
     public static int init(int id) {

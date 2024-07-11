@@ -33,8 +33,8 @@ import gregtech.client.renderer.texture.Textures;
 
 import tkcy.simpleaddon.api.machines.NoEnergyMultiController;
 import tkcy.simpleaddon.api.metatileentities.RepetitiveSide;
-import tkcy.simpleaddon.api.recipes.TKCYSARecipeMaps;
 import tkcy.simpleaddon.api.recipes.logic.NoEnergyParallelLogic;
+import tkcy.simpleaddon.api.recipes.recipemaps.TKCYSARecipeMaps;
 
 public class GasRelease extends NoEnergyMultiController implements RepetitiveSide {
 

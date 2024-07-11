@@ -24,7 +24,7 @@ import codechicken.lib.render.pipeline.IVertexOperation;
 import codechicken.lib.vec.Matrix4;
 import tkcy.simpleaddon.api.machines.PrimitiveSingleBlock;
 import tkcy.simpleaddon.api.recipes.CastingInfo;
-import tkcy.simpleaddon.api.recipes.TKCYSARecipeMaps;
+import tkcy.simpleaddon.api.recipes.recipemaps.TKCYSARecipeMaps;
 
 public class PrimitiveCasting extends PrimitiveSingleBlock {
 

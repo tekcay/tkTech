@@ -4,11 +4,15 @@ import static gregtech.api.unification.material.info.MaterialFlags.*;
 import static gregtech.api.unification.material.info.MaterialIconSet.DULL;
 import static gregtech.api.unification.material.info.MaterialIconSet.SAND;
 import static gregtech.api.util.GTUtility.gregtechId;
-import static tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials.*;
+import static tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials.Ceramic;
+import static tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials.MicaPulp;
 
 import gregtech.api.fluids.FluidBuilder;
 import gregtech.api.unification.material.Material;
 
+import lombok.experimental.UtilityClass;
+
+@UtilityClass
 public class MiscMaterials {
 
     public static int register(int startdId) {

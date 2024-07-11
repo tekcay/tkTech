@@ -3,8 +3,8 @@ package tkcy.simpleaddon.loaders.recipe.alloys;
 import static gregtech.api.unification.material.Materials.Steel;
 import static gregtech.api.unification.material.Materials.Zinc;
 import static gregtech.api.unification.ore.OrePrefix.*;
-import static tkcy.simpleaddon.api.recipes.TKCYSARecipeMaps.ADVANCED_ELECTROLYSIS;
-import static tkcy.simpleaddon.api.recipes.TKCYSARecipeMaps.CASTING;
+import static tkcy.simpleaddon.api.recipes.recipemaps.TKCYSARecipeMaps.ADVANCED_ELECTROLYSIS;
+import static tkcy.simpleaddon.api.recipes.recipemaps.TKCYSARecipeMaps.CASTING;
 import static tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials.GalvanizedSteel;
 
 import java.util.ArrayList;
@@ -13,6 +13,9 @@ import java.util.List;
 import gregtech.api.GTValues;
 import gregtech.api.unification.ore.OrePrefix;
 
+import lombok.experimental.UtilityClass;
+
+@UtilityClass
 public class GalvanizedSteelRecipes {
 
     public static List<OrePrefix> PREFIXES = new ArrayList<>();

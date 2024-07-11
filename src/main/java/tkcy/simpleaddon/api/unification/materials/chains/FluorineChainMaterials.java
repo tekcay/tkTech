@@ -10,6 +10,9 @@ import gregtech.api.fluids.attribute.FluidAttributes;
 import gregtech.api.unification.material.Material;
 import gregtech.api.unification.material.info.MaterialIconSet;
 
+import lombok.experimental.UtilityClass;
+
+@UtilityClass
 public class FluorineChainMaterials {
 
     public static int init(int id) {

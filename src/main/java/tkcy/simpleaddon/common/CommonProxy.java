@@ -16,6 +16,7 @@ import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.registries.IForgeRegistry;
 
+import gregtech.api.items.toolitem.IGTTool;
 import gregtech.api.unification.material.event.MaterialEvent;
 import gregtech.api.unification.material.event.PostMaterialEvent;
 import gregtech.common.blocks.MaterialItemBlock;
@@ -30,8 +31,10 @@ import tkcy.simpleaddon.common.block.BlockMaterialCasing;
 import tkcy.simpleaddon.common.block.BlockMaterialCoil;
 import tkcy.simpleaddon.common.block.BlockMaterialWall;
 import tkcy.simpleaddon.common.block.TKCYSAMetaBlocks;
+import tkcy.simpleaddon.common.item.TKCYSAToolItems;
 import tkcy.simpleaddon.loaders.recipe.TKCYSARecipeLoader;
-import tkcy.simpleaddon.modules.AlloyingModule;
+import tkcy.simpleaddon.loaders.recipe.parts.OreProcessingsHandler;
+import tkcy.simpleaddon.modules.alloyingmodule.AlloyingModule;
 
 @Mod.EventBusSubscriber(modid = TekCaySimpleAddon.MODID)
 public class CommonProxy {
@@ -61,6 +64,9 @@ public class CommonProxy {
         TKCYSALog.logger.info("Registering Items...");
         IForgeRegistry<Item> registry = event.getRegistry();
 
+        for (IGTTool tool : TKCYSAToolItems.getAllTKCYSATools()) {
+            registry.register(tool.get());
+        }
         AlloyingModule.setAlloyFluidTemperature();
 
         for (BlockMaterialCasing block : TKCYSAMetaBlocks.CASINGS_BLOCKS) {
@@ -87,11 +93,20 @@ public class CommonProxy {
         TKCYSAMaterials.init();
     }
 
-    @SubscribeEvent(priority = EventPriority.NORMAL)
-    public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {
-        TKCYSALog.logger.info("Registering ore dictionary...");
+    // this is called almost last, to make sure all mods registered their ore dictionary
+    // items and blocks for running first phase of material handlers
+    // it will also clear generated materials
+    @SubscribeEvent(priority = EventPriority.LOW)
+    public static void runEarlyMaterialHandlers(RegistryEvent.Register<IRecipe> event) {
+        TKCYSALog.logger.info("Running early material handlers...");
+    }
 
+    @SubscribeEvent
+    public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {
+        TKCYSALog.logger.info("Registering recipe low...");
         TKCYSAMetaBlocks.registerOreDict();
+        OreProcessingsHandler.init();
+        TKCYSAToolItems.registerOreDict();
     }
 
     @SubscribeEvent(priority = EventPriority.HIGH)
@@ -107,7 +122,8 @@ public class CommonProxy {
         // Main recipe registration
         // This is called AFTER GregTech registers recipes, so
         // anything here is safe to call removals in
-        TKCYSARecipeLoader.init();
+
+        TKCYSARecipeLoader.latestInit();
     }
 
     public void onLoad() {}

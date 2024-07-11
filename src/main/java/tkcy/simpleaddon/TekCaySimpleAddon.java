@@ -12,6 +12,7 @@ import tkcy.simpleaddon.api.utils.TKCYSALog;
 import tkcy.simpleaddon.common.CommonProxy;
 import tkcy.simpleaddon.common.block.TKCYSAMetaBlocks;
 import tkcy.simpleaddon.common.item.TKCYSAMetaItems;
+import tkcy.simpleaddon.common.item.TKCYSAToolItems;
 import tkcy.simpleaddon.common.metatileentities.TKCYSAMetaTileEntities;
 
 @Mod(modid = TekCaySimpleAddon.MODID,
@@ -37,6 +38,7 @@ public class TekCaySimpleAddon {
         TKCYSAMetaBlocks.init();
         TKCYSAMetaItems.init();
         TKCYSAMetaTileEntities.init();
+        TKCYSAToolItems.init();
     }
 
     @Mod.EventHandler

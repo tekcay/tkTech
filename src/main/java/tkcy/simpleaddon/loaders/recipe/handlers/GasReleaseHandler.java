@@ -5,8 +5,10 @@ import static tkcy.simpleaddon.api.TKCYSAValues.SECOND;
 import gregtech.api.GregTechAPI;
 import gregtech.api.unification.material.Material;
 
-import tkcy.simpleaddon.api.recipes.TKCYSARecipeMaps;
+import lombok.experimental.UtilityClass;
+import tkcy.simpleaddon.api.recipes.recipemaps.TKCYSARecipeMaps;
 
+@UtilityClass
 public class GasReleaseHandler {
 
     public static void generateRecipes() {

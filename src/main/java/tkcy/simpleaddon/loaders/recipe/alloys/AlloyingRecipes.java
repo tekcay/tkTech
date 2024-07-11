@@ -16,9 +16,13 @@ import gregtech.api.unification.material.Material;
 import gregtech.api.unification.ore.OrePrefix;
 import gregtech.api.unification.stack.MaterialStack;
 
-import tkcy.simpleaddon.api.recipes.TKCYSARecipeMaps;
+import lombok.experimental.UtilityClass;
+import tkcy.simpleaddon.api.recipes.recipemaps.TKCYSARecipeMaps;
 import tkcy.simpleaddon.api.utils.MaterialHelper;
+import tkcy.simpleaddon.modules.alloyingmodule.Alloying;
 
+@Alloying
+@UtilityClass
 public class AlloyingRecipes {
 
     public static void init() {

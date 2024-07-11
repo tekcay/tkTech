@@ -14,28 +14,30 @@ import gregtech.api.recipes.GTRecipeHandler;
 import gregtech.api.recipes.ModHandler;
 import gregtech.common.metatileentities.MetaTileEntities;
 
-import tkcy.simpleaddon.loaders.recipe.alloys.AlloyingRecipes;
+import lombok.experimental.UtilityClass;
+import tkcy.simpleaddon.loaders.recipe.alloys.DustMixing;
 import tkcy.simpleaddon.loaders.recipe.alloys.GalvanizedSteelRecipes;
+import tkcy.simpleaddon.loaders.recipe.alloys.Melting;
 import tkcy.simpleaddon.loaders.recipe.chains.chemicals.OxalicAcidChain;
 import tkcy.simpleaddon.loaders.recipe.chains.metals.*;
 import tkcy.simpleaddon.loaders.recipe.handlers.*;
+import tkcy.simpleaddon.loaders.recipe.handlers.chemistry.ChemistryHandler;
 import tkcy.simpleaddon.loaders.recipe.handlers.harderstuff.*;
-import tkcy.simpleaddon.loaders.recipe.parts.PartsHandler;
 
+@UtilityClass
 public final class TKCYSARecipeLoader {
 
-    private TKCYSARecipeLoader() {}
-
-    public static void init() {
+    public static void latestInit() {
         POLARIZER_RECIPES.setMaxInputs(2);
         BLAST_RECIPES.setMaxFluidOutputs(2);
 
-        TKCYSAMaterialRecipeHandler.register();
+        ChemistryHandler.init();
 
-        MiscChemicals.init();
         PrimitiveCastingHandler.init();
-        PartsHandler.init();
         GasReleaseHandler.generateRecipes();
+
+        DustMixing.init();
+        Melting.init();
 
         harderStuff();
         chains();
@@ -46,10 +48,9 @@ public final class TKCYSARecipeLoader {
     }
 
     private static void harderStuff() {
-        if (harderStuff.enableAlloyingAndCasting) AlloyingRecipes.init();
+        // if (harderStuff.enableAlloyingAndCasting) AlloyingRecipes.init();
         if (harderStuff.enableHarderCoils) HarderCoilsRecipes.init();
         if (harderStuff.enableHarderPolarization) HarderPolarization.init();
-        if (harderStuff.removeTinCircuitRecipes) CircuitRecipes.init();
         if (harderStuff.enableHarderComponents) HarderComponents.init();
         if (harderStuff.enableHarderHydrogenation) Hydrogenation.init();
         if (harderStuff.enableHarderCracking) HarderCracking.init();

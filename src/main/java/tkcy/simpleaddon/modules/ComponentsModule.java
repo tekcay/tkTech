@@ -16,6 +16,9 @@ import gregtech.api.unification.material.MarkerMaterials;
 import gregtech.api.unification.material.Material;
 import gregtech.api.unification.ore.OrePrefix;
 
+import lombok.experimental.UtilityClass;
+
+@UtilityClass
 public final class ComponentsModule {
 
     public static List<Material> getIvAcceptedRubberMaterials() {

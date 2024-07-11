@@ -7,9 +7,12 @@ import gregtech.api.capability.impl.NotifiableItemStackHandler;
 import gregtech.api.items.itemhandlers.GTItemStackHandler;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
+import gregtech.api.metatileentity.multiblock.MultiblockAbility;
 import gregtech.client.renderer.ICubeRenderer;
 import gregtech.client.renderer.texture.Textures;
 import gregtech.common.metatileentities.multi.multiblockpart.MetaTileEntityItemBus;
+
+import tkcy.simpleaddon.api.metatileentities.TKCYSAMultiblockAbilities;
 
 public class BrickItemBus extends MetaTileEntityItemBus {
 
@@ -40,5 +43,10 @@ public class BrickItemBus extends MetaTileEntityItemBus {
     protected IItemHandlerModifiable createImportItemHandler() {
         return isExportHatch ? new GTItemStackHandler(this, 0) :
                 new NotifiableItemStackHandler(this, inventorySize, getController(), false);
+    }
+
+    @Override
+    public MultiblockAbility<IItemHandlerModifiable> getAbility() {
+        return TKCYSAMultiblockAbilities.BRICK_BUS;
     }
 }

@@ -2,6 +2,9 @@ package tkcy.simpleaddon.api.unification.iconset;
 
 import gregtech.api.unification.material.info.MaterialIconType;
 
+import lombok.experimental.UtilityClass;
+
+@UtilityClass
 public class TKCYSAMaterialIconType {
 
     public static final MaterialIconType electrode = new MaterialIconType("electrode");
@@ -9,6 +12,7 @@ public class TKCYSAMaterialIconType {
     public static final MaterialIconType cathode = new MaterialIconType("cathode");
 
     public static final MaterialIconType anode = new MaterialIconType("anode");
+    public static final MaterialIconType curvedPlate = new MaterialIconType("curved_plate");
 
     // Components
     public static MaterialIconType lvComponents = new MaterialIconType("lvComponents");
@@ -19,6 +23,9 @@ public class TKCYSAMaterialIconType {
     public static MaterialIconType luvComponents = new MaterialIconType("luvComponents");
     public static MaterialIconType zpmComponents = new MaterialIconType("zpmComponents");
     public static MaterialIconType uvComponents = new MaterialIconType("uvComponents");
+
+    //
+    public static MaterialIconType toolTipSolderingIron = new MaterialIconType("toolTipSolderingIron");
 
     // Blocks
     public static MaterialIconType casing = new MaterialIconType("casing");

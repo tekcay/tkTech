@@ -1,10 +1,12 @@
 package tkcy.simpleaddon.api.utils;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
 import org.jetbrains.annotations.NotNull;
@@ -12,12 +14,16 @@ import org.jetbrains.annotations.Nullable;
 
 import gregtech.api.GTValues;
 import gregtech.api.GregTechAPI;
+import gregtech.api.unification.OreDictUnifier;
 import gregtech.api.unification.material.Material;
 import gregtech.api.unification.material.Materials;
 import gregtech.api.unification.material.info.MaterialFlags;
 import gregtech.api.unification.ore.OrePrefix;
 import gregtech.api.unification.stack.MaterialStack;
 
+import lombok.experimental.UtilityClass;
+
+@UtilityClass
 public class MaterialHelper {
 
     public static FluidStack generateFluidStackFromMaterialStack(@NotNull MaterialStack materialStack) {
@@ -32,6 +38,11 @@ public class MaterialHelper {
 
     public static int getAmountComponentsSum(@NotNull Material material) {
         return Math.toIntExact(getAmountComponentsSum.apply(material));
+    }
+
+    public static ItemStack getMaterialCompositionOutput(@NotNull Material material, @NotNull OrePrefix orePrefix) {
+        int outputAmount = Math.toIntExact(getAmountComponentsSum.apply(material));
+        return OreDictUnifier.get(orePrefix, material, outputAmount);
     }
 
     public static int getAmountComponentsSum(List<MaterialStack> materialStacks) {
@@ -120,5 +131,13 @@ public class MaterialHelper {
                 .filter(material -> fluidStack.isFluidEqual(material.getFluid(1)))
                 .findFirst()
                 .orElse(null);
+    }
+
+    public static List<ItemStack> getComponentsStackAndApplyOre(Material material, OrePrefix orePrefix) {
+        return material.getMaterialComponents()
+                .stream()
+                .filter(Objects::nonNull)
+                .map(materialStack -> OreDictUnifier.get(orePrefix, materialStack.material, (int) materialStack.amount))
+                .collect(Collectors.toList());
     }
 }

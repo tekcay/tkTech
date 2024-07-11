@@ -8,6 +8,9 @@ import static tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials.*;
 import gregtech.api.GTValues;
 import gregtech.api.recipes.RecipeMaps;
 
+import lombok.experimental.UtilityClass;
+
+@UtilityClass
 public class GoldChain {
 
     public static void init() {

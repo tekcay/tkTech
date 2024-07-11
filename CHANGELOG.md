@@ -1,8 +1,27 @@
 # Changelog
 
-## v0.2
+***
+
+## v0.3
 
 ### Features
+
+### Internal changes
+- updated GTCEu dependency from 2.8.6 to 2.8.8 ([#37](https://github.com/tekcay/tkcy-simple-addon/pull/37))
+
+
+## v0.2 (GTCEu-tk-fork as dependency)
+
+### Features
+- added tool working machines ([#38](https://github.com/tekcay/tkcy-simple-addon/pull/38))
+- added processes to produce sodium persulfate ([#36](https://github.com/tekcay/tkcy-simple-addon/pull/36))
+- added the soldering iron from GT5u ([#36](https://github.com/tekcay/tkcy-simple-addon/pull/36))
+- added `curvedPlate` ore prefix, its processing handler and a new machine ([#36](https://github.com/tekcay/tkcy-simple-addon/pull/36))
+- added Steam Dust Mixer and Steam Melter ([#32](https://github.com/tekcay/tkcy-simple-addon/pull/32))
+- added Steam Dust Mixer and Steam Melter ([#32](https://github.com/tekcay/tkcy-simple-addon/pull/32))
+- added Steam Dust Mixer and Steam Melter ([#32](https://github.com/tekcay/tkcy-simple-addon/pull/32))
+- added Steam Dust Mixer and Steam Melter ([#32](https://github.com/tekcay/tkcy-simple-addon/pull/32))
+- added GT6 plates textures ([#31](https://github.com/tekcay/tkcy-simple-addon/pull/31))
 - added harder cracking ([#25](https://github.com/tekcay/tkcy-simple-addon/pull/25))
 - added harder hydrogenation processes and new multi for sulfuric fuels and ammonia synthesis ([#24](https://github.com/tekcay/tkcy-simple-addon/pull/24))
 - added recipes for Cinnabar roasting ([#23](https://github.com/tekcay/tkcy-simple-addon/pull/23))
@@ -13,13 +32,28 @@ Subsequent products must be distilled to recover the desired hydrogen
 
 
 ### Internal
+- renamed mod and .jar archive ([#34](https://github.com/tekcay/tkcy-simple-addon/pull/34))
+- removed all gtceu recipes removal methods ([#34](https://github.com/tekcay/tkcy-simple-addon/pull/34))
 - added a new recipe builder to detect coil type ([#25](https://github.com/tekcay/tkcy-simple-addon/pull/25))
 - added JEI module to hide ingredients ([#21](https://github.com/tekcay/tkcy-simple-addon/pull/21))
 
 ### Fixes
+- fixed some cracking recipes not generated ([#35](https://github.com/tekcay/tkcy-simple-addon/pull/35))
+- fixed shiny materials anode and cathode items not having +/- texture overlay ([#34](https://github.com/tekcay/tkcy-simple-addon/pull/34))
+- fixed ore processing handlers not working properly by reorganized common proxy calls ([#34](https://github.com/tekcay/tkcy-simple-addon/pull/34))
+- fixed foils recipes not being generated
+- fixed electrodes recipes not being generated, missing texture overlay ([#30](https://github.com/tekcay/tkcy-simple-addon/pull/30))
+- fixed brick buses and hatches being used in non-primitive multis ([#29](https://github.com/tekcay/tkcy-simple-addon/pull/29))
 
 
-## v0.1
+### Changes
+
+- longer cracking recipe duration ([#36](https://github.com/tekcay/tkcy-simple-addon/pull/36))
+- made components recipes even harder with the introduction of the `curvedPlate` ([#36](https://github.com/tekcay/tkcy-simple-addon/pull/36))
+
+***
+
+## v0.1 (GTCEu as 2.8.6 dependency)
 
 ### Features
 

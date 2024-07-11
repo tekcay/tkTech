@@ -147,6 +147,8 @@ tkcysa.machine.gas_release.name=Gas Release
 tkcysa.machine.alloying_crucible.name=Alloying Crucible
 tkcysa.machine.hydrogenation_unit.name=Hydrogenation Unit
 tkcysa.machine.cracking_unit.name=Cracking Unit
+tkcysa.machine.steam_dust_mixer.name=Steam Dust Mixer
+tkcysa.machine.steam_melter.name=Steam Melter
 
 tkcysa.machine.fluid_primitive_blast_furnace.name=Fluid Primitive Blast Furnace
 tkcysa.machine.primitive_casting.name=Primitive Casting
@@ -168,6 +170,14 @@ tkcysa.machine.component_assembler.hv.name=Component Assembler HV
 tkcysa.machine.component_assembler.ev.name=Component Assembler EV
 tkcysa.machine.component_assembler.iv.name=Component Assembler IV
 
+tkcysa.machine.rolling_mill.lv.name=Rolling Mill LV
+tkcysa.machine.rolling_mill.mv.name=Rolling Mill MV
+tkcysa.machine.rolling_mill.hv.name=Rolling Mill HV
+tkcysa.machine.rolling_mill.ev.name=Rolling Mill EV
+tkcysa.machine.rolling_mill.iv.name=Rolling Mill IV
+
+tkcysa.machine.anvil.name=Anvil
+
 ##RecipesMaps
 recipemap.primitive_roasting.name=Primtive Roasting
 recipemap.advanced_electrolysis.name=Electrolyzis
@@ -181,12 +191,17 @@ recipemap.cluster_mill.name=Cluster Mill
 recipemap.component_assembler.name=Component Assembler
 recipemap.hydrogenation.name=Hydrogenation
 recipemap.cracking.name=Cracking
+recipemap.primitive_dust_mixing.name=Primtive Dust Mixing
+recipemap.primitive_smelting.name=Primitive Smelting
+recipemap.rolling.name=Roll Bending
+recipemap.anvil_recipes.name=Anvil Recipes
 
 # Ore Prefixes
 item.material.oreprefix.cathode=%s Cathode
 item.material.oreprefix.anode=%s Anode
-
 item.material.oreprefix.electrode=%s Electrode
+item.material.oreprefix.curved_plate=%s Curved Plate
+
 item.material.oreprefix.casing=%s Casing
 item.material.oreprefix.wall=%s Wall
 item.material.oreprefix.coil=%s Coil
@@ -201,6 +216,15 @@ metaitem.electric_pump_ulv.name=ULV Electric Pump
 metaitem.piston_ulv.name=ULV Piston
 metaitem.conveyor_ulv.name=ULV Conveyor
 metaitem.robot_arm_ulv.name=ULV Robot Arm
+
+## Tools
+item.gt.tool.soldering_iron.name=%s Soldering Iron
+
+gt.tool.class.soldering_iron=Soldering Iron
+
+item.gt.tool.soldering_iron.tooltip=§8Hold left click to dismantle Machines
+
+item.material.oreprefix.toolTipSolderingIron=%s Soldering Iron Tip
 
 #
 tkcysa.test_display.height=Height: %d
@@ -221,10 +245,22 @@ tkcysa.casting.tooltip.4=§f- the temperature gap between §d51 §fand the mold 
 tkcysa.casting.tooltip.5=§f- the required amount to cast the part increases
 tkcysa.casting.tooltip=§e%s §fmolds handle fluids up to §c%dK
 
+tkcysa.steam_melter.tooltip.1=Melts metal dusts into their fluid form.
+tkcysa.steam_melter.tooltip.2=Auto-outputs on the bottom face.
+
+tkcya.tool_machine.sneak_right_click_with_tool.tooltip.1=§aSneak-right click§7 with a §b%d §7to run recipes.
+tkcya.tool_machine.parts.tooltip=§fUsed to make §e%s
+
 tkcysa.machine.parallel.tooltip=Every additional %d layers add one parallel point
+
+
+
 
 ## Recipe properties
 tkcysa.recipe.coil=Coil: %s
+tkcya.recipe.tool.uses=Tool uses: %d
+
+
 
 ##RecipeCategories
 #tkcysa.recipe.category.galvanizing=Galvanizing

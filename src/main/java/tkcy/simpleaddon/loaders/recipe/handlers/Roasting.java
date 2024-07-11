@@ -9,9 +9,11 @@ import static tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials.*;
 import gregtech.api.recipes.RecipeMaps;
 import gregtech.api.unification.material.Material;
 
-import tkcy.simpleaddon.api.recipes.RecipeRemovalHelper;
-import tkcy.simpleaddon.api.recipes.TKCYSARecipeMaps;
+import lombok.experimental.UtilityClass;
+import tkcy.simpleaddon.api.recipes.helpers.RecipeRemovalHelper;
+import tkcy.simpleaddon.api.recipes.recipemaps.TKCYSARecipeMaps;
 
+@UtilityClass
 public class Roasting {
 
     public static void init() {

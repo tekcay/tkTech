@@ -2,8 +2,10 @@ package tkcy.simpleaddon.common;
 
 import net.minecraftforge.common.config.Config;
 
+import lombok.experimental.UtilityClass;
 import tkcy.simpleaddon.TekCaySimpleAddon;
 
+@UtilityClass
 @Config(modid = TekCaySimpleAddon.MODID)
 public class TKCYSAConfigHolder {
 
@@ -37,8 +39,11 @@ public class TKCYSAConfigHolder {
         public boolean enableHarderPolarization = true;
         public boolean removeTinCircuitRecipes = true;
         public boolean enableHarderComponents = true;
-        public boolean enableMethaneCracking = true;
         public boolean enableHarderHydrogenation = true;
         public boolean enableHarderCracking = true;
+        public boolean enableHarderCable = true;
+        public boolean enableHarderFineWires = true;
+        public boolean enableHarderRotors = true;
+        public boolean enablePrimitiveCrafting = true;
     }
 }

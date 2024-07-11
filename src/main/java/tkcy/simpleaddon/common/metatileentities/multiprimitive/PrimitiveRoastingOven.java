@@ -1,7 +1,7 @@
 package tkcy.simpleaddon.common.metatileentities.multiprimitive;
 
-import static tkcy.simpleaddon.api.predicates.Predicates.brickItemBus;
-import static tkcy.simpleaddon.api.predicates.Predicates.cokeBrick;
+import static tkcy.simpleaddon.api.predicates.TKCYSAPredicates.brickItemBus;
+import static tkcy.simpleaddon.api.predicates.TKCYSAPredicates.cokeBrick;
 
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
@@ -18,7 +18,7 @@ import gregtech.client.renderer.ICubeRenderer;
 import gregtech.client.renderer.texture.Textures;
 
 import tkcy.simpleaddon.api.machines.NoEnergyMultiController;
-import tkcy.simpleaddon.api.recipes.TKCYSARecipeMaps;
+import tkcy.simpleaddon.api.recipes.recipemaps.TKCYSARecipeMaps;
 
 public class PrimitiveRoastingOven extends NoEnergyMultiController {
 

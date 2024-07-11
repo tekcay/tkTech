@@ -9,8 +9,10 @@ import gregtech.api.recipes.RecipeMaps;
 import gregtech.api.unification.material.Material;
 import gregtech.api.unification.ore.OrePrefix;
 
-import tkcy.simpleaddon.api.recipes.TKCYSARecipeMaps;
+import lombok.experimental.UtilityClass;
+import tkcy.simpleaddon.api.recipes.recipemaps.TKCYSARecipeMaps;
 
+@UtilityClass
 public class IronChain {
 
     public static void init() {

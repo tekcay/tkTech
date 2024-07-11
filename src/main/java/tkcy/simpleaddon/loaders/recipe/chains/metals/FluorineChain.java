@@ -8,9 +8,11 @@ import static gregtech.api.unification.ore.OrePrefix.dust;
 import static gregtech.api.unification.ore.OrePrefix.dustTiny;
 import static tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials.*;
 
-import tkcy.simpleaddon.api.recipes.TKCYSARecipeMaps;
+import lombok.experimental.UtilityClass;
+import tkcy.simpleaddon.api.recipes.recipemaps.TKCYSARecipeMaps;
 import tkcy.simpleaddon.api.unification.ore.TKCYSAOrePrefix;
 
+@UtilityClass
 public class FluorineChain {
 
     public static void init() {

@@ -6,22 +6,19 @@ import static tkcy.simpleaddon.api.TKCYSAValues.SECOND;
 import static tkcy.simpleaddon.modules.PetroChemModule.desulfurizedFuels;
 import static tkcy.simpleaddon.modules.PetroChemModule.sulfuricLayers;
 
-import java.util.*;
-
-import net.minecraftforge.fluids.FluidStack;
-
 import gregtech.api.recipes.*;
 import gregtech.api.unification.material.Material;
 import gregtech.api.unification.ore.OrePrefix;
 
-import tkcy.simpleaddon.api.recipes.TKCYSARecipeMaps;
+import lombok.experimental.UtilityClass;
+import tkcy.simpleaddon.api.recipes.recipemaps.TKCYSARecipeMaps;
 import tkcy.simpleaddon.api.utils.CollectionHelper;
 import tkcy.simpleaddon.api.utils.RecipeHelper;
 
+@UtilityClass
 public class Hydrogenation {
 
     public static void init() {
-        removeOilDesulfurizationRecipes();
         removeAmmoniaRecipe();
 
         CollectionHelper.buildMap(sulfuricLayers, desulfurizedFuels)
@@ -64,27 +61,5 @@ public class Hydrogenation {
 
         RecipeHelper.tryToRemoveRecipeWithCircuitConfig(
                 chemRecipeMap, VA[HV], 24, Nitrogen.getFluid(4000), Methane.getFluid(3000), Oxygen.getFluid(3000));
-    }
-
-    private static void removeOilDesulfurizationRecipes() {
-        List<FluidStack> sulfuricLayers = Arrays.asList(
-                SulfuricGas.getFluid(16000),
-                SulfuricNaphtha.getFluid(12000),
-                SulfuricLightFuel.getFluid(12000),
-                SulfuricHeavyFuel.getFluid(8000));
-
-        removeOilDesulfurizationRecipes(sulfuricLayers, RecipeMaps.LARGE_CHEMICAL_RECIPES);
-        removeOilDesulfurizationRecipes(sulfuricLayers, RecipeMaps.CHEMICAL_RECIPES);
-    }
-
-    private static void removeOilDesulfurizationRecipes(List<FluidStack> fluidStackList, RecipeMap<?> recipeMap) {
-        fluidStackList.stream()
-                .map(fluidStack -> getRecipe(recipeMap, fluidStack))
-                .forEach(recipeMap::removeRecipe);
-    }
-
-    private static Recipe getRecipe(RecipeMap<?> recipeMap, FluidStack sulfuricFluidStack) {
-        return recipeMap.findRecipe(VA[LV], new ArrayList<>(),
-                Arrays.asList(sulfuricFluidStack, Hydrogen.getFluid(2000)));
     }
 }

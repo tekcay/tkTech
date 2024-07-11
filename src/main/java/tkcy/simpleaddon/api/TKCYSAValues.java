@@ -10,6 +10,4 @@ public final class TKCYSAValues {
      * Second in ticks
      */
     public static final int SECOND = 20;
-
-    private TKCYSAValues() {}
 }

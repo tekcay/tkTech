@@ -6,6 +6,9 @@ import static tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials.Tungste
 import gregtech.api.recipes.RecipeMaps;
 import gregtech.api.unification.ore.OrePrefix;
 
+import lombok.experimental.UtilityClass;
+
+@UtilityClass
 public class TungstenChain {
 
     public static void init() {
