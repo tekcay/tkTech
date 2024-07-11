@@ -5,6 +5,7 @@
 ## v0.3
 
 ### Features
+- added casings, walls and coils orePrefix material blocks generated *via* a `MaterialFlag` ([#26](https://github.com/tekcay/tkcy-simple-addon/pull/26))
 
 ### Internal changes
 - updated GTCEu dependency from 2.8.6 to 2.8.8 ([#37](https://github.com/tekcay/tkcy-simple-addon/pull/37))
