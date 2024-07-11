@@ -1,5 +1,6 @@
 package tkcy.simpleaddon.api.render;
 
+import gregtech.client.renderer.texture.cube.SimpleOverlayRenderer;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.relauncher.Side;
 
@@ -13,6 +14,9 @@ import tkcy.simpleaddon.TekCaySimpleAddon;
 public class TKCYSATextures {
 
     public static OrientedOverlayRenderer ROLLING_MILL_OVERLAY = new OrientedOverlayRenderer("machines/rolling_mill");
+    public static SimpleOverlayRenderer WALL_TEXTURE = new SimpleOverlayRenderer("material_sets/dull/wall");
+    public static SimpleOverlayRenderer CASING_TEXTURE = new SimpleOverlayRenderer("material_sets/dull/casing");
+    public static SimpleOverlayRenderer COIL_TEXTURE = new SimpleOverlayRenderer("material_sets/dull/coil");
 
     public static void preInit() {
         // ROLLING_MILL_OVERLAY = new OrientedOverlayRenderer("machines/rolling_mill");
