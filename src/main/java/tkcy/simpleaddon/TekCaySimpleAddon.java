@@ -2,6 +2,7 @@ package tkcy.simpleaddon;
 
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 import org.jetbrains.annotations.NotNull;
@@ -30,18 +31,18 @@ public class TekCaySimpleAddon {
     public static CommonProxy proxy;
 
     @Mod.EventHandler
-    public void onPreInit(@NotNull FMLPreInitializationEvent event) {
+    public void preInit(@NotNull FMLPreInitializationEvent event) {
+        proxy.preLoad();
+
         TKCYSALog.init(event.getModLog());
-        TKCYSAMetaItems.init();
         TKCYSAMetaBlocks.init();
+        TKCYSAMetaItems.init();
         TKCYSAMetaTileEntities.init();
         TKCYSAToolItems.init();
-
-        proxy.preLoad();
     }
 
     @Mod.EventHandler
-    public void onInit(@NotNull FMLPreInitializationEvent event) {
+    public void onInit(@NotNull FMLInitializationEvent event) {
         proxy.onLoad();
     }
 }

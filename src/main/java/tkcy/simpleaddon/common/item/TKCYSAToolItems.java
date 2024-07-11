@@ -41,7 +41,7 @@ public class TKCYSAToolItems {
                 .oreDict(TKCYSAToolOreDict.solderingIron));
     }
 
-    public static IGTTool tkcysaRegister(@NotNull ToolBuilder<?> builder) {
+    private static IGTTool tkcysaRegister(@NotNull ToolBuilder<?> builder) {
         IGTTool tool = builder.build();
         TKCYSA_TOOLS.add(tool);
         return tool;

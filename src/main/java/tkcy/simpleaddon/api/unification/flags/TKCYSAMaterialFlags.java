@@ -35,6 +35,15 @@ public final class TKCYSAMaterialFlags {
     public static final MaterialFlag GENERATE_ELECTRODES = new MaterialFlag.Builder("generate_electrodes")
             .requireFlags(GENERATE_LONG_ROD)
             .build();
+    public static final MaterialFlag GENERATE_CASING = new MaterialFlag.Builder("generate_casing")
+            .requireFlags(GENERATE_PLATE)
+            .build();
+    public static final MaterialFlag GENERATE_WALL = new MaterialFlag.Builder("generate_wall")
+            .requireFlags(GENERATE_PLATE)
+            .build();
+    public static final MaterialFlag GENERATE_COIL = new MaterialFlag.Builder("generate_coil")
+            .requireFlags(GENERATE_PLATE)
+            .build();
     public static final MaterialFlag ALLOY = new MaterialFlag.Builder("alloy")
             .build();
     public static final MaterialFlag GENERATE_SOLDERING_IRON_TIP = new MaterialFlag.Builder(
@@ -59,7 +68,9 @@ public final class TKCYSAMaterialFlags {
         GENERATE_ALL.addAll(EXT2_METAL);
         GENERATE_ALL.addAll(Arrays.asList(GENERATE_ROTOR, GENERATE_SMALL_GEAR, GENERATE_SPRING,
                 GENERATE_SPRING_SMALL, GENERATE_FRAME, GENERATE_GEAR, GENERATE_DOUBLE_PLATE, GENERATE_DENSE,
-                GENERATE_FINE_WIRE, GENERATE_FOIL, GENERATE_CURVED_PLATE));
+                GENERATE_FINE_WIRE, GENERATE_FOIL, GENERATE_CURVED_PLATE, GENERATE_CASING, GENERATE_WALL, GENERATE_COIL,
+                DISABLE_DECOMPOSITION,
+                NO_SMELTING));
 
         GENERATE_ALL_NO_UNIF.addAll(GENERATE_ALL);
         GENERATE_ALL_NO_UNIF.add(NO_UNIFICATION);

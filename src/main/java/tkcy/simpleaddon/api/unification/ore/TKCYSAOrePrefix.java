@@ -18,6 +18,7 @@ public class TKCYSAOrePrefix {
     public static final OrePrefix cathode = new OrePrefix("cathode", M, null, TKCYSAMaterialIconType.cathode,
             ENABLE_UNIFICATION,
             mat -> mat.hasFlag(TKCYSAMaterialFlags.GENERATE_ELECTRODES));
+
     public static final OrePrefix anode = new OrePrefix("anode", M, null, TKCYSAMaterialIconType.anode,
             ENABLE_UNIFICATION,
             mat -> mat.hasFlag(TKCYSAMaterialFlags.GENERATE_ELECTRODES));
@@ -53,4 +54,12 @@ public class TKCYSAOrePrefix {
     public static final OrePrefix toolTipSolderingIron = new OrePrefix("toolTipSolderingIron", 1, null,
             TKCYSAMaterialIconType.toolTipSolderingIron, ENABLE_UNIFICATION,
             mat -> mat.hasFlag(TKCYSAMaterialFlags.GENERATE_SOLDERING_IRON_TIP));
+
+    // OreBlocks
+    public static final OrePrefix casing = new OrePrefix("casing", M * 9, null, TKCYSAMaterialIconType.casing,
+            ENABLE_UNIFICATION, null);
+    public static final OrePrefix wall = new OrePrefix("wall", M * 9, null, TKCYSAMaterialIconType.wall,
+            ENABLE_UNIFICATION, null);
+    public static final OrePrefix coil = new OrePrefix("coil", M * 9, null, TKCYSAMaterialIconType.coil,
+            ENABLE_UNIFICATION, null);
 }

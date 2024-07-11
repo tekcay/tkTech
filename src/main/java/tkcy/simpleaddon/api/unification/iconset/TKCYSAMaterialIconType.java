@@ -26,4 +26,9 @@ public class TKCYSAMaterialIconType {
 
     //
     public static MaterialIconType toolTipSolderingIron = new MaterialIconType("toolTipSolderingIron");
+
+    // Blocks
+    public static MaterialIconType casing = new MaterialIconType("casing");
+    public static MaterialIconType wall = new MaterialIconType("wall");
+    public static MaterialIconType coil = new MaterialIconType("coil");
 }

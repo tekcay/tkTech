@@ -16,18 +16,21 @@ import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.registries.IForgeRegistry;
 
-import org.jetbrains.annotations.NotNull;
-
 import gregtech.api.items.toolitem.IGTTool;
 import gregtech.api.unification.material.event.MaterialEvent;
 import gregtech.api.unification.material.event.PostMaterialEvent;
-import gregtech.common.items.ToolItems;
+import gregtech.common.blocks.MaterialItemBlock;
 
 import tkcy.simpleaddon.TekCaySimpleAddon;
 import tkcy.simpleaddon.api.unification.flags.FlagsAddition;
 import tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials;
 import tkcy.simpleaddon.api.unification.ore.OrePrefixRegistry;
+import tkcy.simpleaddon.api.unification.ore.TKCYSAOrePrefix;
 import tkcy.simpleaddon.api.utils.TKCYSALog;
+import tkcy.simpleaddon.common.block.BlockMaterialCasing;
+import tkcy.simpleaddon.common.block.BlockMaterialCoil;
+import tkcy.simpleaddon.common.block.BlockMaterialWall;
+import tkcy.simpleaddon.common.block.TKCYSAMetaBlocks;
 import tkcy.simpleaddon.common.item.TKCYSAToolItems;
 import tkcy.simpleaddon.loaders.recipe.TKCYSARecipeLoader;
 import tkcy.simpleaddon.loaders.recipe.parts.OreProcessingsHandler;
@@ -43,13 +46,20 @@ public class CommonProxy {
         }
     }
 
-    @SubscribeEvent
+    @SubscribeEvent(priority = EventPriority.NORMAL)
     public static void registerBlocks(RegistryEvent.Register<Block> event) {
         TKCYSALog.logger.info("Registering blocks...");
         IForgeRegistry<Block> registry = event.getRegistry();
+
+        for (BlockMaterialCasing blockMaterialCasing : TKCYSAMetaBlocks.CASINGS_BLOCKS)
+            registry.register(blockMaterialCasing);
+        for (BlockMaterialWall blockMaterialWall : TKCYSAMetaBlocks.WALLS_BLOCKS)
+            registry.register(blockMaterialWall);
+        for (BlockMaterialCoil blockMaterialCoil : TKCYSAMetaBlocks.COIL_BLOCKS)
+            registry.register(blockMaterialCoil);
     }
 
-    @SubscribeEvent
+    @SubscribeEvent(priority = EventPriority.NORMAL)
     public static void registerItems(RegistryEvent.Register<Item> event) {
         TKCYSALog.logger.info("Registering Items...");
         IForgeRegistry<Item> registry = event.getRegistry();
@@ -58,6 +68,18 @@ public class CommonProxy {
             registry.register(tool.get());
         }
         AlloyingModule.setAlloyFluidTemperature();
+
+        for (BlockMaterialCasing block : TKCYSAMetaBlocks.CASINGS_BLOCKS) {
+            registry.register(createItemBlock(block, b -> new MaterialItemBlock(b, TKCYSAOrePrefix.casing)));
+        }
+
+        for (BlockMaterialWall block : TKCYSAMetaBlocks.WALLS_BLOCKS) {
+            registry.register(createItemBlock(block, b -> new MaterialItemBlock(b, TKCYSAOrePrefix.wall)));
+        }
+
+        for (BlockMaterialCoil block : TKCYSAMetaBlocks.COIL_BLOCKS) {
+            registry.register(createItemBlock(block, b -> new MaterialItemBlock(b, TKCYSAOrePrefix.coil)));
+        }
     }
 
     private static <T extends Block> ItemBlock createItemBlock(T block, Function<T, ItemBlock> producer) {
@@ -71,11 +93,6 @@ public class CommonProxy {
         TKCYSAMaterials.init();
     }
 
-    @SubscribeEvent(priority = EventPriority.HIGH)
-    public static void postRegisterMaterials(@NotNull PostMaterialEvent event) {
-        OrePrefixRegistry.register();
-    }
-
     // this is called almost last, to make sure all mods registered their ore dictionary
     // items and blocks for running first phase of material handlers
     // it will also clear generated materials
@@ -87,16 +104,15 @@ public class CommonProxy {
     @SubscribeEvent
     public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {
         TKCYSALog.logger.info("Registering recipe low...");
+        TKCYSAMetaBlocks.registerOreDict();
         OreProcessingsHandler.init();
-        // TKCYSAToolItems.registerOreDict();
-        ToolItems.registerOreDict();
-
-        // ePrefixAdditions.init();
+        TKCYSAToolItems.registerOreDict();
     }
 
-    @SubscribeEvent
+    @SubscribeEvent(priority = EventPriority.HIGH)
     public static void registerMaterialsPost(PostMaterialEvent event) {
         FlagsAddition.init();
+        OrePrefixRegistry.register();
     }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
@@ -110,7 +126,7 @@ public class CommonProxy {
         TKCYSARecipeLoader.latestInit();
     }
 
-    public void preLoad() {}
-
     public void onLoad() {}
+
+    public void preLoad() {}
 }
