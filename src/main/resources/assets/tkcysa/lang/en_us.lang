@@ -254,6 +254,16 @@ tkcya.tool_machine.parts.tooltip=§fUsed to make §e%s
 tkcysa.machine.parallel.tooltip=Every additional %d layers add one parallel point
 
 
+##Modulable Storage
+tkcysa.multiblock.modulable_storage.content=%s
+tkcysa.multiblock.modulable_storage.capacity=Capacity: %s
+tkcysa.multiblock.modulable_storage.fill.percentage=%s
+tkcysa.multiblock.modulable_tank.bucket_equivalent=%s
+tkcysa.multiblock.modulable_storage.perLayer=%s per layer
+
+tkcysa.multiblock.modulable_tank.tooltip=Modulable Tank tooltip
+tkcysa.multiblock.modulable_pressurized_tank.tooltip=Modulable Pressurized Tank toolip
+tkcysa.multiblock.modulable_crate.tooltip=Modulable Crate tooltip
 
 
 ## Recipe properties

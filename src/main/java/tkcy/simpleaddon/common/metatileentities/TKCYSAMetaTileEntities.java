@@ -4,7 +4,12 @@ import static gregtech.common.metatileentities.MetaTileEntities.registerMetaTile
 import static gregtech.common.metatileentities.MetaTileEntities.registerSimpleMetaTileEntity;
 import static tkcy.simpleaddon.api.utils.TKCYSAUtil.tkcysa;
 
+import java.util.List;
+import java.util.function.Function;
+
+import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.SimpleMachineMetaTileEntity;
+import gregtech.api.unification.material.Material;
 import gregtech.api.util.GTUtility;
 import gregtech.client.renderer.texture.Textures;
 
@@ -16,14 +21,13 @@ import tkcy.simpleaddon.api.utils.TKCYSAUtil;
 import tkcy.simpleaddon.common.metatileentities.electric.*;
 import tkcy.simpleaddon.common.metatileentities.multiblockpart.BrickFluidHatch;
 import tkcy.simpleaddon.common.metatileentities.multiblockpart.BrickItemBus;
-import tkcy.simpleaddon.common.metatileentities.multiprimitive.AlloyingCrucible;
-import tkcy.simpleaddon.common.metatileentities.multiprimitive.FluidPrimitiveBlastFurnace;
-import tkcy.simpleaddon.common.metatileentities.multiprimitive.GasRelease;
-import tkcy.simpleaddon.common.metatileentities.multiprimitive.PrimitiveRoastingOven;
+import tkcy.simpleaddon.common.metatileentities.multiblockpart.MetaTileEntityModulableTankValve;
+import tkcy.simpleaddon.common.metatileentities.multiprimitive.*;
 import tkcy.simpleaddon.common.metatileentities.primitive.AnvilMetatileEntity;
 import tkcy.simpleaddon.common.metatileentities.primitive.PrimitiveCasting;
 import tkcy.simpleaddon.common.metatileentities.steam.SteamDustMixer;
 import tkcy.simpleaddon.common.metatileentities.steam.SteamMelter;
+import tkcy.simpleaddon.modules.storagemodule.StorageModule;
 
 @UtilityClass
 public class TKCYSAMetaTileEntities {
@@ -46,6 +50,11 @@ public class TKCYSAMetaTileEntities {
     public static SimpleMachineMetaTileEntity[] CLUSTER_MILLS = new SimpleMachineMetaTileEntity[5];
     public static SimpleMachineMetaTileEntity[] COMPONENT_ASSEMBLER_MTE = new SimpleMachineMetaTileEntity[6];
     public static SimpleMachineMetaTileEntity[] ROLLING_MILL = new SimpleMachineMetaTileEntity[6];
+
+    public static MetaTileEntityModulableTankValve[] MODULABLE_TANK_VALVES = new MetaTileEntityModulableTankValve[StorageModule.TANK_MATERIALS
+            .size()];
+    public static ModulableTank[] MODULABLE_TANKS = new ModulableTank[StorageModule.TANK_MATERIALS.size()];
+    public static ModulableTank[] MODULABLE_LARGE_TANKS = new ModulableTank[StorageModule.TANK_MATERIALS.size()];
 
     public static void init() {
         PRIMITIVE_ROASTING_OVEN = registerMetaTileEntity(4000,
@@ -98,5 +107,24 @@ public class TKCYSAMetaTileEntities {
         STEAM_MELTER = registerMetaTileEntity(4103, new SteamMelter(tkcysa("steam_melter")));
         PARTS_WORKER_MTE = registerMetaTileEntity(4104,
                 new AnvilMetatileEntity(tkcysa("anvil"), TKCYSARecipeMaps.ANVIL_RECIPES));
+
+        registerMaterialMetaTileEntity(StorageModule.TANK_MATERIALS, MODULABLE_TANKS, 4200,
+                StorageModule::initModulableTank);
+        registerMaterialMetaTileEntity(StorageModule.TANK_MATERIALS, MODULABLE_LARGE_TANKS, 4200,
+                StorageModule::initModulableLargeTank);
+        registerMaterialMetaTileEntity(StorageModule.TANK_MATERIALS, MODULABLE_TANK_VALVES, 4200,
+                StorageModule::initValve);
+    }
+
+    private static <T extends MetaTileEntity> void registerMaterialMetaTileEntity(List<Material> materials,
+                                                                                  T[] materialMetaTileEntities,
+                                                                                  int startId,
+                                                                                  Function<Material, T> mteSupplier) {
+        int index = 0;
+        for (Material material : materials) {
+            materialMetaTileEntities[index] = registerMetaTileEntity(startId, mteSupplier.apply(material));
+            index++;
+            startId++;
+        }
     }
 }

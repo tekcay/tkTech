@@ -14,10 +14,14 @@ import org.jetbrains.annotations.Nullable;
 
 import gregtech.api.GTValues;
 import gregtech.api.GregTechAPI;
+import gregtech.api.capability.impl.PropertyFluidFilter;
 import gregtech.api.unification.OreDictUnifier;
 import gregtech.api.unification.material.Material;
 import gregtech.api.unification.material.Materials;
 import gregtech.api.unification.material.info.MaterialFlags;
+import gregtech.api.unification.material.properties.FluidPipeProperties;
+import gregtech.api.unification.material.properties.IMaterialProperty;
+import gregtech.api.unification.material.properties.PropertyKey;
 import gregtech.api.unification.ore.OrePrefix;
 import gregtech.api.unification.stack.MaterialStack;
 
@@ -139,5 +143,16 @@ public class MaterialHelper {
                 .filter(Objects::nonNull)
                 .map(materialStack -> OreDictUnifier.get(orePrefix, materialStack.material, (int) materialStack.amount))
                 .collect(Collectors.toList());
+    }
+
+    public static <T extends IMaterialProperty> T getMaterialProperty(Material material, PropertyKey<T> propertyKey) {
+        return material.getProperties().getProperty(propertyKey);
+    }
+
+    public static PropertyFluidFilter getPropertyFluidFilter(Material material) {
+        FluidPipeProperties fluidPipeProperties = getMaterialProperty(material, PropertyKey.FLUID_PIPE);
+        return new PropertyFluidFilter(fluidPipeProperties.getMaxFluidTemperature(),
+                fluidPipeProperties.isGasProof(), fluidPipeProperties.isAcidProof(), fluidPipeProperties.isCryoProof(),
+                fluidPipeProperties.isPlasmaProof());
     }
 }

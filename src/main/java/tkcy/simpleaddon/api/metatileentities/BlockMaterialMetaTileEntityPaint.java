@@ -9,7 +9,5 @@ import gregtech.api.unification.material.Material;
  */
 public interface BlockMaterialMetaTileEntityPaint {
 
-    default int getPaintingColorForRendering(Material material) {
-        return material.getMaterialRGB();
-    }
+    int getPaintingColorForRendering(Material material);
 }
