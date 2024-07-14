@@ -110,9 +110,9 @@ public class TKCYSAMetaTileEntities {
 
         registerMaterialMetaTileEntity(StorageModule.TANK_MATERIALS, MODULABLE_TANKS, 4200,
                 StorageModule::initModulableTank);
-        registerMaterialMetaTileEntity(StorageModule.TANK_MATERIALS, MODULABLE_LARGE_TANKS, 4200,
+        registerMaterialMetaTileEntity(StorageModule.TANK_MATERIALS, MODULABLE_LARGE_TANKS, 4210,
                 StorageModule::initModulableLargeTank);
-        registerMaterialMetaTileEntity(StorageModule.TANK_MATERIALS, MODULABLE_TANK_VALVES, 4200,
+        registerMaterialMetaTileEntity(StorageModule.TANK_MATERIALS, MODULABLE_TANK_VALVES, 4220,
                 StorageModule::initValve);
     }
 

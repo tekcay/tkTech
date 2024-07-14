@@ -76,17 +76,21 @@ public class ModulableTank extends MultiblockWithDisplayBase
     private final Material material;
     private final boolean isLarge;
     private int height;
-    private final int layerCapacity = 1000000;
+    private final int layerCapacity;
     private int totalCapacity;
-    private final FluidPipeProperties fluidPipeProperties;
+    private FluidPipeProperties fluidPipeProperties;
     private static final String heightMarker = "modulableHeight";
 
     public ModulableTank(ResourceLocation metaTileEntityId, Material material, boolean isLarge) {
         super(metaTileEntityId);
         this.material = material;
         this.isLarge = isLarge;
-        this.fluidPipeProperties = MaterialHelper.getMaterialProperty(this.material, PropertyKey.FLUID_PIPE);
+        this.layerCapacity = (int) Math.pow(10, 6) * (isLarge ? 21 : 1);
         initializeInventory();
+    }
+
+    private void setFluidPipeProperties() {
+        this.fluidPipeProperties = MaterialHelper.getMaterialProperty(this.material, PropertyKey.FLUID_PIPE);
     }
 
     @Override
@@ -98,7 +102,10 @@ public class ModulableTank extends MultiblockWithDisplayBase
 
     @Override
     protected void initializeInventory() {
+        if (this.material == null) return;
         super.initializeInventory();
+
+        setFluidPipeProperties();
 
         FilteredFluidHandler tank = new FilteredFluidHandler(this.totalCapacity);
         tank.setFilter(MaterialHelper.getPropertyFluidFilter(this.material));
@@ -232,7 +239,9 @@ public class ModulableTank extends MultiblockWithDisplayBase
     public IBlockState getSideBlockBlockState() {
         if (this.material == Materials.TreatedWood)
             return MetaBlocks.STEAM_CASING.getState(BlockSteamCasing.SteamCasingType.WOOD_WALL);
-        else return TKCYSAMetaBlocks.WALLS.get(this.material).getDefaultState();
+        else {
+            return TKCYSAMetaBlocks.WALLS.get(this.material).getBlock(this.material);
+        }
     }
 
     @Override
@@ -286,7 +295,7 @@ public class ModulableTank extends MultiblockWithDisplayBase
                                boolean advanced) {
         tooltip.add(I18n.format("tkcysa.multiblock.modulable_tank.tooltip"));
         tooltip.add(I18n.format(
-                "tkcysa.multiblock.modulable_storage.perLayer", this.layerCapacity));
+                "tkcysa.multiblock.modulable_storage.perLayer", getCapacityPerLayerFormatted()));
 
         if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)) {
             tooltip.add(I18n.format("gregtech.fluid_pipe.max_temperature",

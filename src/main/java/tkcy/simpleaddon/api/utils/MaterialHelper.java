@@ -145,14 +145,24 @@ public class MaterialHelper {
                 .collect(Collectors.toList());
     }
 
+    @Nullable
     public static <T extends IMaterialProperty> T getMaterialProperty(Material material, PropertyKey<T> propertyKey) {
-        return material.getProperties().getProperty(propertyKey);
+        try {
+            return material.getProperties().getProperty(propertyKey);
+        } catch (NullPointerException e) {
+            return null;
+        }
     }
 
+    @Nullable
     public static PropertyFluidFilter getPropertyFluidFilter(Material material) {
         FluidPipeProperties fluidPipeProperties = getMaterialProperty(material, PropertyKey.FLUID_PIPE);
-        return new PropertyFluidFilter(fluidPipeProperties.getMaxFluidTemperature(),
-                fluidPipeProperties.isGasProof(), fluidPipeProperties.isAcidProof(), fluidPipeProperties.isCryoProof(),
+        if (fluidPipeProperties == null) return null;
+        return new PropertyFluidFilter(
+                fluidPipeProperties.getMaxFluidTemperature(),
+                fluidPipeProperties.isGasProof(),
+                fluidPipeProperties.isAcidProof(),
+                fluidPipeProperties.isCryoProof(),
                 fluidPipeProperties.isPlasmaProof());
     }
 }

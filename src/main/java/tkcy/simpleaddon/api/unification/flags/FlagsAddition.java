@@ -13,6 +13,7 @@ import gregtech.api.unification.material.Material;
 import gregtech.api.unification.material.Materials;
 
 import lombok.experimental.UtilityClass;
+import tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials;
 import tkcy.simpleaddon.modules.PolymersModule;
 
 @UtilityClass
@@ -25,7 +26,12 @@ public class FlagsAddition {
                 GENERATE_SMALL_GEAR);
         Cinnabar.addFlags(DISABLE_DECOMPOSITION);
         Redstone.addFlags(DISABLE_DECOMPOSITION);
-        TKCYSAMaterialFlags.GENERATE_ALL.forEach(f -> Steel.addFlags(f));
+        TKCYSAMaterialFlags.GENERATE_ALL.forEach(f -> {
+            Steel.addFlags(f);
+            StainlessSteel.addFlags(f);
+            TungstenCarbide.addFlags(f);
+            TKCYSAMaterials.GalvanizedSteel.addFlags(f);
+        });
 
         Materials.EXT2_METAL.forEach(f -> Brick.addFlags(f));
 
