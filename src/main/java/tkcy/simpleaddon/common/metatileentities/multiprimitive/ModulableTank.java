@@ -32,10 +32,6 @@ import org.lwjgl.input.Keyboard;
 
 import gregtech.api.capability.impl.FilteredFluidHandler;
 import gregtech.api.capability.impl.FluidTankList;
-import gregtech.api.gui.GuiTextures;
-import gregtech.api.gui.ModularUI;
-import gregtech.api.gui.widgets.LabelWidget;
-import gregtech.api.gui.widgets.TankWidget;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
 import gregtech.api.metatileentity.multiblock.IMultiblockPart;
@@ -132,7 +128,8 @@ public class ModulableTank extends MultiblockWithDisplayBase
                 .where('I', TKCYSAPredicates.isAir(heightMarker))
                 .where('X',
                         TKCYSAPredicates.iBlockStatePredicate(getSideBlockBlockState())
-                                .or(TKCYSAPredicates.metaTileEntityPredicate(StorageModule.getValve(this.material))))
+                                .or(TKCYSAPredicates.metaTileEntityPredicate(StorageModule.getValve(this.material))
+                                        .setMaxGlobalLimited(4)))
                 .build();
     }
 
@@ -177,16 +174,6 @@ public class ModulableTank extends MultiblockWithDisplayBase
     @Override
     protected boolean openGUIOnRightClick() {
         return isStructureFormed();
-    }
-
-    @Override
-    protected ModularUI.Builder createUITemplate(@NotNull EntityPlayer entityPlayer) {
-        return ModularUI.defaultBuilder()
-                .widget(new LabelWidget(6, 6, getMetaFullName()))
-                .widget(new TankWidget(this.importFluids.getTankAt(0), 52, 18, 72, 61)
-                        .setBackgroundTexture(GuiTextures.SLOT)
-                        .setContainerClicking(true, true))
-                .bindPlayerInventory(entityPlayer.inventory, GuiTextures.SLOT, 0);
     }
 
     @Override
@@ -295,7 +282,7 @@ public class ModulableTank extends MultiblockWithDisplayBase
                                boolean advanced) {
         tooltip.add(I18n.format("tkcysa.multiblock.modulable_tank.tooltip"));
         tooltip.add(I18n.format(
-                "tkcysa.multiblock.modulable_storage.perLayer", getCapacityPerLayerFormatted()));
+                "tkcysa.multiblock.modulable_storage.layer_infos", getCapacityPerLayerFormatted(), getMaxSideLength()));
 
         if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)) {
             tooltip.add(I18n.format("gregtech.fluid_pipe.max_temperature",
@@ -308,16 +295,16 @@ public class ModulableTank extends MultiblockWithDisplayBase
 
     protected TextComponentTranslation getContentTextTranslation() {
         return new TextComponentTranslation(
-                "tkcya.multiblock.modulable_storage.content", getContentFormatted());
+                "tkcysa.multiblock.modulable_storage.content", getContentFormatted());
     }
 
     protected TextComponentTranslation getPercentageTextTranslation() {
         return new TextComponentTranslation(
-                "tkcya.multiblock.modulable_storage.fill.percentage", getFillPercentage());
+                "tkcysa.multiblock.modulable_storage.fill.percentage", getFillPercentage());
     }
 
     protected TextComponentTranslation getContentValueTextTranslation() {
-        return new TextComponentTranslation("tkcya.multiblock.modulable_storage.capacity",
+        return new TextComponentTranslation("tkcysa.multiblock.modulable_storage.capacity",
                 UnitsConversions.convertAndFormatToSizeOfOrder(this.totalCapacity, getContentBaseUnit()));
     }
 
@@ -327,21 +314,18 @@ public class ModulableTank extends MultiblockWithDisplayBase
         textList.add(getPercentageTextTranslation());
     }
 
-    public void display(List<ITextComponent> textList) {
+    @Override
+    protected void addDisplayText(List<ITextComponent> textList) {
         if (!isStructureFormed()) {
             ITextComponent tooltip = new TextComponentTranslation("gregtech.multiblock.invalid_structure.tooltip");
             tooltip.setStyle((new Style()).setColor(TextFormatting.GRAY));
-            textList.add((new TextComponentTranslation("gregtech.multiblock.invalid_structure"))
-                    .setStyle((new Style())
-                            .setColor(TextFormatting.RED)
-                            .setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, tooltip))));
+            textList.add(
+                    (new TextComponentTranslation("gregtech.multiblock.invalid_structure"))
+                            .setStyle((new Style())
+                                    .setColor(TextFormatting.RED)
+                                    .setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, tooltip))));
         } else {
             displayInfos(textList);
         }
-    }
-
-    @Override
-    protected void addDisplayText(List<ITextComponent> textList) {
-        displayInfos(textList);
     }
 }

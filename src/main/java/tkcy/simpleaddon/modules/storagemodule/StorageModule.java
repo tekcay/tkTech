@@ -48,7 +48,7 @@ public class StorageModule {
     }
 
     public static MetaTileEntityModulableTankValve initValve(Material material) {
-        return new MetaTileEntityModulableTankValve(getMetaTileEntityId("modulable_tank_valve", material), material);
+        return new MetaTileEntityModulableTankValve(getMetaTileEntityId("modulable_tank_valve.", material), material);
     }
 
     public static ModulableTank initModulableLargeTank(Material material) {
