@@ -69,17 +69,15 @@ import tkcy.simpleaddon.modules.storagemodule.StorageModule;
 
 @StorageModule.StorageModulable
 public class ModulableTank extends MultiblockWithDisplayBase
-                           implements RepetitiveSide, BlockMaterialMetaTileEntityPaint, MaterialMetaTileEntity,
-                           IDataInfoProvider {
+                           implements RepetitiveSide, BlockMaterialMetaTileEntityPaint, MaterialMetaTileEntity {
 
     @Getter
     private final Material material;
-    private final boolean isLarge;
     private int height;
+    private final boolean isLarge;
     private final int layerCapacity;
     private int totalCapacity;
     private FluidPipeProperties fluidPipeProperties;
-    private static final String heightMarker = "modulableHeight";
     private FilteredFluidHandler tank;
 
     public ModulableTank(ResourceLocation metaTileEntityId, Material material, boolean isLarge) {
@@ -97,7 +95,7 @@ public class ModulableTank extends MultiblockWithDisplayBase
     @Override
     protected void formStructure(PatternMatchContext context) {
         super.formStructure(context);
-        this.height = context.getOrDefault(heightMarker, 0) + 1;
+        this.height = context.getOrDefault(RepetitiveSide.getHeightMarker(), 0) + 1;
         this.totalCapacity = this.layerCapacity * this.height;
     }
 
@@ -137,7 +135,7 @@ public class ModulableTank extends MultiblockWithDisplayBase
                 .where('S', selfPredicate())
                 .where(' ', any())
                 .where('A', air())
-                .where('I', TKCYSAPredicates.isAir(heightMarker))
+                .where('I', TKCYSAPredicates.isAir(RepetitiveSide.getHeightMarker()))
                 .where('X',
                         TKCYSAPredicates.iBlockStatePredicate(getSideBlockBlockState())
                                 .or(TKCYSAPredicates.metaTileEntityPredicate(StorageModule.getValve(this.material))
@@ -341,19 +339,5 @@ public class ModulableTank extends MultiblockWithDisplayBase
         } else {
             displayInfos(textList);
         }
-    }
-
-    @NotNull
-    @Override
-    public List<ITextComponent> getDataInfo() {
-        List<ITextComponent> list = new ObjectArrayList<>();
-        list.add(new TextComponentTranslation("behavior.tricorder.love"));
-        FluidStack fluidStack = this.tank.drain(Integer.MAX_VALUE, false);
-        if (fluidStack == null) return list;
-        list.add(new TextComponentTranslation("behavior.tricorder.fluid.amount",
-                fluidStack.amount));
-        list.add(new TextComponentTranslation("behavior.tricorder.fluid.name",
-                fluidStack.getLocalizedName()));
-        return list;
     }
 }
