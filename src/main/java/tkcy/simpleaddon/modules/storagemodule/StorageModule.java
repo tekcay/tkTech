@@ -15,7 +15,7 @@ import lombok.experimental.UtilityClass;
 import tkcy.simpleaddon.api.metatileentities.MaterialMetaTileEntity;
 import tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials;
 import tkcy.simpleaddon.common.metatileentities.TKCYSAMetaTileEntities;
-import tkcy.simpleaddon.common.metatileentities.multiprimitive.ModulableTank;
+import tkcy.simpleaddon.common.metatileentities.multiprimitive.MetaTileEntityMultiblockTank;
 import tkcy.simpleaddon.common.metatileentities.storage.MetaTileEntityModulableCrateValve;
 import tkcy.simpleaddon.common.metatileentities.storage.MetaTileEntityModulableTankValve;
 
@@ -64,16 +64,16 @@ public class StorageModule {
         return new MetaTileEntityModulableCrateValve(getMetaTileEntityId("modulable_crate_valve.", material), material);
     }
 
-    public static ModulableTank initModulableLargeTank(Material material) {
+    public static MetaTileEntityMultiblockTank initModulableLargeTank(Material material) {
         return initModulableTank(material, true);
     }
 
-    public static ModulableTank initModulableTank(Material material) {
+    public static MetaTileEntityMultiblockTank initModulableTank(Material material) {
         return initModulableTank(material, false);
     }
 
-    private static ModulableTank initModulableTank(Material material, boolean isLarge) {
+    private static MetaTileEntityMultiblockTank initModulableTank(Material material, boolean isLarge) {
         String baseResource = isLarge ? "modulable_large_tank." : "modulable_tank.";
-        return new ModulableTank(getMetaTileEntityId(baseResource, material), material, isLarge);
+        return new MetaTileEntityMultiblockTank(getMetaTileEntityId(baseResource, material), material, isLarge);
     }
 }

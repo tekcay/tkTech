@@ -53,8 +53,10 @@ public class TKCYSAMetaTileEntities {
     public static MetaTileEntityModulableCrateValve[] MODULABLE_CRATE_VALVES = new MetaTileEntityModulableCrateValve[StorageModule.CRATE_MATERIALS
             .size()];
 
-    public static ModulableTank[] MODULABLE_TANKS = new ModulableTank[StorageModule.TANK_MATERIALS.size()];
-    public static ModulableTank[] MODULABLE_LARGE_TANKS = new ModulableTank[StorageModule.TANK_MATERIALS.size()];
+    public static MetaTileEntityMultiblockTank[] MODULABLE_TANKS = new MetaTileEntityMultiblockTank[StorageModule.TANK_MATERIALS
+            .size()];
+    public static MetaTileEntityMultiblockTank[] MODULABLE_LARGE_TANKS = new MetaTileEntityMultiblockTank[StorageModule.TANK_MATERIALS
+            .size()];
 
     public static void init() {
         PRIMITIVE_ROASTING_OVEN = registerMetaTileEntity(4000,
