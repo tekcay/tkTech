@@ -2,13 +2,13 @@ package tkcy.simpleaddon.common.metatileentities.storage;
 
 import java.util.List;
 
+import gregtech.api.capability.impl.ItemHandlerProxy;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
-import gregtech.api.capability.impl.ItemHandlerProxy;
 import gregtech.api.metatileentity.multiblock.IMultiblockAbilityPart;
 import gregtech.api.metatileentity.multiblock.MultiblockAbility;
 import gregtech.api.metatileentity.multiblock.MultiblockControllerBase;
@@ -26,9 +26,11 @@ public class MetaTileEntityModulableCrateValve extends MetaTileEntityModulableVa
         super(metaTileEntityId, material);
     }
 
+    //TODO might happen around here
+
     @Override
     protected void initializeDummyInventory() {
-        this.itemInventory = new ItemHandlerProxy(new ItemStackHandler(), new ItemStackHandler());
+         this.itemInventory = new ItemHandlerProxy(new ItemStackHandler(), new ItemStackHandler());
     }
 
     @Override

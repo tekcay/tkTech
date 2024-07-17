@@ -44,17 +44,16 @@ import tkcy.simpleaddon.api.metatileentities.RepetitiveSide;
 import tkcy.simpleaddon.api.predicates.TKCYSAPredicates;
 import tkcy.simpleaddon.api.render.TKCYSATextures;
 import tkcy.simpleaddon.api.utils.StorageUtils;
-import tkcy.simpleaddon.api.utils.units.CommonUnits;
 import tkcy.simpleaddon.api.utils.units.UnitsConversions;
 import tkcy.simpleaddon.common.block.TKCYSAMetaBlocks;
 import tkcy.simpleaddon.common.metatileentities.storage.MetaTileEntityModulableValve;
 import tkcy.simpleaddon.modules.storagemodule.StorageModule;
 
 @StorageModule.StorageModulable
-public abstract class MetaTileEntityMultiblockStorage<T, U> extends MultiblockWithDisplayBase
+public abstract class MetaTileEntityMultiblockStorage<ContentHandler, ContentType> extends MultiblockWithDisplayBase
                                                      implements RepetitiveSide, BlockMaterialMetaTileEntityPaint,
                                                      MaterialMetaTileEntity,
-                                                     MetaTileEntityStorageFormat<U> {
+                                                     MetaTileEntityStorageFormat<ContentType> {
 
     @Getter
     private final Material material;
@@ -81,7 +80,11 @@ public abstract class MetaTileEntityMultiblockStorage<T, U> extends MultiblockWi
 
     protected abstract void setLayerCapacity(boolean isLarge);
 
-    protected abstract MetaTileEntityModulableValve<T> getValve(Material material);
+    protected abstract MetaTileEntityModulableValve<ContentHandler> getValve(Material material);
+
+    protected abstract Capability<ContentHandler> getCapability();
+
+    protected abstract ContentHandler getHandler();
 
     @NotNull
     @Override
@@ -164,10 +167,6 @@ public abstract class MetaTileEntityMultiblockStorage<T, U> extends MultiblockWi
         return Textures.MULTIBLOCK_TANK_OVERLAY;
     }
 
-    protected abstract Capability<T> getCapability();
-
-    protected abstract T getHandler();
-
     @Override
     public <T> T getCapability(Capability<T> capability, EnumFacing side) {
         if (capability == getCapability()) {
@@ -196,11 +195,6 @@ public abstract class MetaTileEntityMultiblockStorage<T, U> extends MultiblockWi
     }
 
     @Override
-    public CommonUnits getBaseContentUnit() {
-        return CommonUnits.liter;
-    }
-
-    @Override
     public MetaTileEntity getMetatileEntity() {
         return this;
     }
@@ -221,7 +215,7 @@ public abstract class MetaTileEntityMultiblockStorage<T, U> extends MultiblockWi
 
     @Override
     public void displayInfos(List<ITextComponent> textList) {
-        StorageUtils<U> stackStorageUtil = getStorageUtil();
+        StorageUtils<ContentType> stackStorageUtil = getStorageUtil();
 
         textList.add(stackStorageUtil.getCapacityTextTranslation());
         textList.add(stackStorageUtil.getContentTextTranslation());
@@ -249,7 +243,7 @@ public abstract class MetaTileEntityMultiblockStorage<T, U> extends MultiblockWi
     }
 
     @Override
-    public StorageUtils<U> getStorageUtil() {
+    public StorageUtils<ContentType> getStorageUtil() {
         return new StorageUtils<>(this);
     }
 }

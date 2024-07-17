@@ -1,7 +1,5 @@
 package tkcy.simpleaddon.common.metatileentities.multiprimitive;
 
-import static gregtech.api.util.RelativeDirection.*;
-
 import java.util.List;
 import java.util.function.Function;
 
@@ -30,6 +28,7 @@ import gregtech.api.unification.material.properties.PropertyKey;
 import tkcy.simpleaddon.api.metatileentities.MetaTileEntityStorageFormat;
 import tkcy.simpleaddon.api.utils.MaterialHelper;
 import tkcy.simpleaddon.api.utils.StorageUtils;
+import tkcy.simpleaddon.api.utils.units.CommonUnits;
 import tkcy.simpleaddon.common.metatileentities.storage.MetaTileEntityModulableValve;
 import tkcy.simpleaddon.modules.storagemodule.StorageModule;
 
@@ -51,11 +50,16 @@ public class MetaTileEntityMultiblockTank extends MetaTileEntityMultiblockStorag
 
     @Override
     protected MetaTileEntityModulableValve<IFluidHandler> getValve(Material material) {
-        return StorageModule.getValve(material);
+        return StorageModule.getTankValve(material);
     }
 
     private void setFluidPipeProperties() {
         this.fluidPipeProperties = MaterialHelper.getMaterialProperty(this.getMaterial(), PropertyKey.FLUID_PIPE);
+    }
+
+    @Override
+    public CommonUnits getBaseContentUnit() {
+        return CommonUnits.liter;
     }
 
     @Override

@@ -57,6 +57,10 @@ public class TKCYSAMetaTileEntities {
             .size()];
     public static MetaTileEntityMultiblockTank[] MODULABLE_LARGE_TANKS = new MetaTileEntityMultiblockTank[StorageModule.TANK_MATERIALS
             .size()];
+    public static MetaTileEntityMultiblockCrate[] MODULABLE_CRATES = new MetaTileEntityMultiblockCrate[StorageModule.CRATE_MATERIALS
+            .size()];
+    public static MetaTileEntityMultiblockCrate[] MODULABLE_LARGE_CRATES = new MetaTileEntityMultiblockCrate[StorageModule.CRATE_MATERIALS
+            .size()];
 
     public static void init() {
         PRIMITIVE_ROASTING_OVEN = registerMetaTileEntity(4000,
@@ -119,5 +123,11 @@ public class TKCYSAMetaTileEntities {
 
         MaterialMetaTileEntity.registerMaterialMetaTileEntity(StorageModule.CRATE_MATERIALS, MODULABLE_CRATE_VALVES,
                 4230, StorageModule::initCrateValve);
+
+        MaterialMetaTileEntity.registerMaterialMetaTileEntity(StorageModule.CRATE_MATERIALS, MODULABLE_CRATES,
+                4240, StorageModule::initModulableCrate);
+
+        MaterialMetaTileEntity.registerMaterialMetaTileEntity(StorageModule.CRATE_MATERIALS, MODULABLE_LARGE_CRATES,
+                4250, StorageModule::initModulableLargeCrate);
     }
 }

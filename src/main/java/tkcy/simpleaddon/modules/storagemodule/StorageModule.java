@@ -15,6 +15,7 @@ import lombok.experimental.UtilityClass;
 import tkcy.simpleaddon.api.metatileentities.MaterialMetaTileEntity;
 import tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials;
 import tkcy.simpleaddon.common.metatileentities.TKCYSAMetaTileEntities;
+import tkcy.simpleaddon.common.metatileentities.multiprimitive.MetaTileEntityMultiblockCrate;
 import tkcy.simpleaddon.common.metatileentities.multiprimitive.MetaTileEntityMultiblockTank;
 import tkcy.simpleaddon.common.metatileentities.storage.MetaTileEntityModulableCrateValve;
 import tkcy.simpleaddon.common.metatileentities.storage.MetaTileEntityModulableTankValve;
@@ -42,8 +43,12 @@ public class StorageModule {
         CRATE_MATERIALS.add(TKCYSAMaterials.GalvanizedSteel);
     }
 
-    public static MetaTileEntityModulableTankValve getValve(Material material) {
+    public static MetaTileEntityModulableTankValve getTankValve(Material material) {
         return get(material, TKCYSAMetaTileEntities.MODULABLE_TANK_VALVES);
+    }
+
+    public static MetaTileEntityModulableCrateValve getCrateValve(Material material) {
+        return get(material, TKCYSAMetaTileEntities.MODULABLE_CRATE_VALVES);
     }
 
     @Nullable
@@ -75,5 +80,18 @@ public class StorageModule {
     private static MetaTileEntityMultiblockTank initModulableTank(Material material, boolean isLarge) {
         String baseResource = isLarge ? "modulable_large_tank." : "modulable_tank.";
         return new MetaTileEntityMultiblockTank(getMetaTileEntityId(baseResource, material), material, isLarge);
+    }
+
+    public static MetaTileEntityMultiblockCrate initModulableLargeCrate(Material material) {
+        return initModulableCrate(material, true);
+    }
+
+    public static MetaTileEntityMultiblockCrate initModulableCrate(Material material) {
+        return initModulableCrate(material, false);
+    }
+
+    private static MetaTileEntityMultiblockCrate initModulableCrate(Material material, boolean isLarge) {
+        String baseResource = isLarge ? "modulable_large_crate." : "modulable_crate.";
+        return new MetaTileEntityMultiblockCrate(getMetaTileEntityId(baseResource, material), material, isLarge);
     }
 }
