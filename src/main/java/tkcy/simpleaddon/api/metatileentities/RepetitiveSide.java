@@ -25,8 +25,6 @@ public interface RepetitiveSide {
     /**
      * The amount of extra layers needed to increase the maxParallelValue.
      * Set to 1 to increase the maxParallel value per additional layer
-     * 
-     * @return
      */
     int getLayersPerParallel();
 

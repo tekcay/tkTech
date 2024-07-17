@@ -1,9 +1,11 @@
 package tkcy.simpleaddon.api.predicates;
 
-import static gregtech.api.metatileentity.multiblock.MultiblockControllerBase.metaTileEntities;
-import static gregtech.api.metatileentity.multiblock.MultiblockControllerBase.states;
+import static gregtech.api.metatileentity.multiblock.MultiblockControllerBase.*;
 import static tkcy.simpleaddon.common.metatileentities.TKCYSAMetaTileEntities.*;
 
+import net.minecraft.block.state.IBlockState;
+
+import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.pattern.TraceabilityPredicate;
 import gregtech.common.blocks.BlockMetalCasing;
 import gregtech.common.blocks.MetaBlocks;
@@ -39,5 +41,39 @@ public class TKCYSAPredicates {
         return brickItemBus(isExport)
                 .setExactLimit(amount)
                 .setPreviewCount(amount);
+    }
+
+    public static TraceabilityPredicate isAir(String matchContext) {
+        return new TraceabilityPredicate((blockWorldState) -> {
+            if (air().test(blockWorldState)) {
+                blockWorldState.getMatchContext().increment(matchContext, 1);
+                return true;
+            } else
+                return false;
+        });
+    }
+
+    public static TraceabilityPredicate heightIndicatorPredicate(TraceabilityPredicate predicate, String matchContext,
+                                                                 int incrementValue) {
+        return new TraceabilityPredicate((blockWorldState) -> {
+            if (predicate.test(blockWorldState)) {
+                blockWorldState.getMatchContext().increment(matchContext, incrementValue);
+                return true;
+            } else
+                return false;
+        });
+    }
+
+    public <T extends MetaTileEntity> TraceabilityPredicate metaTileEntityPredicate(TraceabilityPredicate traceabilityPredicate,
+                                                                                    T metaTileEntityToDetect) {
+        return traceabilityPredicate.or(metaTileEntities(metaTileEntityToDetect));
+    }
+
+    public <T extends MetaTileEntity> TraceabilityPredicate metaTileEntityPredicate(T metaTileEntityToDetect) {
+        return metaTileEntities(metaTileEntityToDetect);
+    }
+
+    public TraceabilityPredicate iBlockStatePredicate(IBlockState blockToPredicate) {
+        return states(blockToPredicate);
     }
 }

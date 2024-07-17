@@ -178,6 +178,21 @@ tkcysa.machine.rolling_mill.iv.name=Rolling Mill IV
 
 tkcysa.machine.anvil.name=Anvil
 
+tkcysa.machine.modulable_tank_valve.steel.name=Valve Tank Steel
+tkcysa.machine.modulable_tank_valve.stainless_steel.name=Valve Tank Stainless Steel
+tkcysa.machine.modulable_tank_valve.galvanized_steel.name=Valve Tank Galvanized Steel
+tkcysa.machine.modulable_tank_valve.tungsten_carbide.name=Valve Tank Tungsten Carbide
+
+tkcysa.machine.modulable_tank.steel.name=Tank Steel
+tkcysa.machine.modulable_tank.stainless_steel.name=Tank Stainless Steel
+tkcysa.machine.modulable_tank.galvanized_steel.name=Tank Galvanized Steel
+tkcysa.machine.modulable_tank.tungsten_carbide.name=Tank Tungsten Carbide
+
+tkcysa.machine.modulable_large_tank.steel.name=Large Tank Steel
+tkcysa.machine.modulable_large_tank.stainless_steel.name=Large Tank Stainless Steel
+tkcysa.machine.modulable_large_tank.galvanized_steel.name=Large Tank Galvanized Steel
+tkcysa.machine.modulable_large_tank.tungsten_carbide.name=Large Tank Tungsten Carbide
+
 ##RecipesMaps
 recipemap.primitive_roasting.name=Primtive Roasting
 recipemap.advanced_electrolysis.name=Electrolyzis
@@ -254,6 +269,16 @@ tkcya.tool_machine.parts.tooltip=§fUsed to make §e%s
 tkcysa.machine.parallel.tooltip=Every additional %d layers add one parallel point
 
 
+##Modulable Storage
+tkcysa.multiblock.modulable_storage.content=%s
+tkcysa.multiblock.modulable_storage.capacity=Capacity: %s
+tkcysa.multiblock.modulable_storage.fill.percentage=%s
+tkcysa.multiblock.modulable_tank.bucket_equivalent=%s
+tkcysa.multiblock.modulable_storage.layer_infos=§e%s §fper layer, up to §b%d §flayers.
+
+tkcysa.multiblock.modulable_tank.tooltip=A multiblock tank which capacity can be increased with extra-layers.
+tkcysa.multiblock.modulable_pressurized_tank.tooltip=Modulable Pressurized Tank toolip
+tkcysa.multiblock.modulable_crate.tooltip=Modulable Crate tooltip
 
 
 ## Recipe properties
@@ -264,3 +289,10 @@ tkcya.recipe.tool.uses=Tool uses: %d
 
 ##RecipeCategories
 #tkcysa.recipe.category.galvanizing=Galvanizing
+
+
+
+
+behavior.tricorder.love=LOVE
+behavior.tricorder.fluid.amount=Fluid amount: %d L
+behavior.tricorder.fluid.name=Fluid name: %s

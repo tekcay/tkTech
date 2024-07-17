@@ -1,10 +1,10 @@
 package tkcy.simpleaddon.api.render;
 
-import gregtech.client.renderer.texture.cube.SimpleOverlayRenderer;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.relauncher.Side;
 
 import gregtech.client.renderer.texture.cube.OrientedOverlayRenderer;
+import gregtech.client.renderer.texture.cube.SimpleOverlayRenderer;
 
 import lombok.experimental.UtilityClass;
 import tkcy.simpleaddon.TekCaySimpleAddon;
