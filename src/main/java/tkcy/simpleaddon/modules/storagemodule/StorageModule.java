@@ -15,8 +15,8 @@ import lombok.experimental.UtilityClass;
 import tkcy.simpleaddon.api.metatileentities.MaterialMetaTileEntity;
 import tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials;
 import tkcy.simpleaddon.common.metatileentities.TKCYSAMetaTileEntities;
-import tkcy.simpleaddon.common.metatileentities.multiblockpart.MetaTileEntityModulableTankValve;
 import tkcy.simpleaddon.common.metatileentities.multiprimitive.ModulableTank;
+import tkcy.simpleaddon.common.metatileentities.storage.MetaTileEntityModulableTankValve;
 
 @UtilityClass
 public class StorageModule {
@@ -26,7 +26,6 @@ public class StorageModule {
     public static final List<Material> TANK_MATERIALS = new ArrayList<>();
 
     static {
-        TANK_MATERIALS.add(Materials.TreatedWood);
         TANK_MATERIALS.add(Materials.Steel);
         TANK_MATERIALS.add(Materials.StainlessSteel);
         TANK_MATERIALS.add(Materials.TungstenCarbide);

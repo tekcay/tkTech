@@ -180,12 +180,18 @@ tkcysa.machine.anvil.name=Anvil
 
 tkcysa.machine.modulable_tank_valve.steel.name=Valve Tank Steel
 tkcysa.machine.modulable_tank_valve.stainless_steel.name=Valve Tank Stainless Steel
+tkcysa.machine.modulable_tank_valve.galvanized_steel.name=Valve Tank Galvanized Steel
+tkcysa.machine.modulable_tank_valve.tungsten_carbide.name=Valve Tank Tungsten Carbide
 
 tkcysa.machine.modulable_tank.steel.name=Tank Steel
 tkcysa.machine.modulable_tank.stainless_steel.name=Tank Stainless Steel
+tkcysa.machine.modulable_tank.galvanized_steel.name=Tank Galvanized Steel
+tkcysa.machine.modulable_tank.tungsten_carbide.name=Tank Tungsten Carbide
 
 tkcysa.machine.modulable_large_tank.steel.name=Large Tank Steel
 tkcysa.machine.modulable_large_tank.stainless_steel.name=Large Tank Stainless Steel
+tkcysa.machine.modulable_large_tank.galvanized_steel.name=Large Tank Galvanized Steel
+tkcysa.machine.modulable_large_tank.tungsten_carbide.name=Large Tank Tungsten Carbide
 
 ##RecipesMaps
 recipemap.primitive_roasting.name=Primtive Roasting

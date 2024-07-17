@@ -1,4 +1,4 @@
-package tkcy.simpleaddon.common.metatileentities.multiblockpart;
+package tkcy.simpleaddon.common.metatileentities.storage;
 
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.capability.IFluidHandler;
