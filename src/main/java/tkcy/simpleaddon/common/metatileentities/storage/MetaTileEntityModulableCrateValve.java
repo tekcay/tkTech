@@ -7,9 +7,7 @@ import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
 import gregtech.api.metatileentity.multiblock.IMultiblockAbilityPart;
 import gregtech.api.unification.material.Material;
-import gregtech.api.unification.material.Materials;
 import gregtech.client.renderer.ICubeRenderer;
-import gregtech.client.renderer.texture.Textures;
 import gregtech.common.metatileentities.multi.MetaTileEntityTankValve;
 
 import lombok.Getter;
@@ -38,13 +36,12 @@ public class MetaTileEntityModulableCrateValve extends MetaTileEntityTankValve
 
     @Override
     public ICubeRenderer getBaseTexture() {
-        return material.equals(Materials.TreatedWood) ? Textures.WOOD_WALL : TKCYSATextures.WALL_TEXTURE;
+        return TKCYSATextures.WALL_TEXTURE;
     }
 
     @Override
     public int getPaintingColorForRendering() {
-        return material.equals(Materials.TreatedWood) ? super.getPaintingColorForRendering() :
-                getPaintingColorForRendering(this.material);
+        return getPaintingColorForRendering(this.material);
     }
 
     @Override
