@@ -6,6 +6,7 @@
 
 ### Features
 - added casings, walls and coils orePrefix material blocks generated *via* a `MaterialFlag` ([#26](https://github.com/tekcay/tkcy-simple-addon/pull/26))
+- added modulable multiblock tanks ([#41](https://github.com/tekcay/tkcy-simple-addon/pull/41))
 
 ### Internal changes
 - added an interface for using unpainted `BlockMaterial` in MetaTileEntities ([#40](https://github.com/tekcay/tkcy-simple-addon/pull/40))
