@@ -4,6 +4,8 @@ import static tkcy.simpleaddon.api.utils.number.IsBetweenUtils.isBetweenEndExclu
 import static tkcy.simpleaddon.api.utils.number.IsBetweenUtils.isBetweenEndExclusiveExponents;
 import static tkcy.simpleaddon.api.utils.units.UnitFormat.formatValueWithUnit;
 
+import java.util.Arrays;
+
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
@@ -27,10 +29,23 @@ public class UnitsConversions {
      *         {@code (120000, "bar")} -> "120.0 kbar"
      */
     public static String convertAndFormatToSizeOfOrder(double value, String unit) {
-        return MetricPrefix.UNITS.entrySet().stream()
-                .filter(entry -> !isBetweenEndExclusive(1, 1000, value))
-                .filter(entry -> isBetweenEndExclusiveExponents(entry.getKey(), entry.getKey() + 3, value))
-                .map(entry -> formatValueWithUnit(value / Math.pow(10, entry.getKey()), unit, entry.getValue()))
+        return Arrays.stream(MetricPrefix.values())
+                .filter(metricPrefix -> !isBetweenEndExclusive(1, 1000, value))
+                .filter(metricPrefix -> isBetweenEndExclusiveExponents(metricPrefix.getPrefix(),
+                        metricPrefix.getPrefix() + 3, value))
+                .map(metricPrefix -> formatValueWithUnit(value / Math.pow(10, metricPrefix.getPrefix()), unit,
+                        metricPrefix.getPrefix()))
+                .findAny()
+                .orElse(formatValueWithUnit(value, unit));
+    }
+
+    public static String convertAndFormatToSizeOfOrder(double value, CommonUnits unit) {
+        return Arrays.stream(MetricPrefix.values())
+                .filter(metricPrefix -> !isBetweenEndExclusive(1, 1000, value))
+                .filter(metricPrefix -> isBetweenEndExclusiveExponents(metricPrefix.getPrefix(),
+                        metricPrefix.getExponent() + 3, value))
+                .map(metricPrefix -> formatValueWithUnit(value / Math.pow(10, metricPrefix.getExponent()),
+                        UnitFormat.buildUnit(metricPrefix, unit)))
                 .findAny()
                 .orElse(formatValueWithUnit(value, unit));
     }

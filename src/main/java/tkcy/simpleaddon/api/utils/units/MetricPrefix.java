@@ -1,38 +1,29 @@
 package tkcy.simpleaddon.api.utils.units;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
-import lombok.experimental.UtilityClass;
+@Getter
+@AllArgsConstructor
+public enum MetricPrefix {
 
-@UtilityClass
-public class MetricPrefix {
+    femto('f', -15),
+    pico('p', -12),
+    nano('n', -9),
+    micro('µ', -6),
+    milli('m', -3),
+    kilo('k', 3),
+    mega('M', 6),
+    giga('G', 9),
+    tera('T', 12),
+    peta('P', 15),
+    exa('E', 18);
 
-    public static final Map<Integer, Character> UNITS = new LinkedHashMap<>();
+    final char prefix;
+    final int exponent;
 
-    public static final char femto = 'f';
-    public static final char pico = 'p';
-    public static final char nano = 'n';
-    public static final char micro = 'µ';
-    public static final char milli = 'm';
-    public static final char kilo = 'k';
-    public static final char mega = 'M';
-    public static final char giga = 'G';
-    public static final char tera = 'T';
-    public static final char peta = 'P';
-    public static final char exa = 'E';
-
-    static {
-        UNITS.put(-15, femto);
-        UNITS.put(-12, pico);
-        UNITS.put(-9, nano);
-        UNITS.put(-6, micro);
-        UNITS.put(-3, milli);
-        UNITS.put(3, kilo);
-        UNITS.put(6, mega);
-        UNITS.put(9, giga);
-        UNITS.put(12, tera);
-        UNITS.put(15, peta);
-        UNITS.put(18, exa);
+    @Override
+    public String toString() {
+        return String.valueOf(this.prefix);
     }
 }

@@ -33,7 +33,6 @@ import org.lwjgl.input.Keyboard;
 import gregtech.api.capability.impl.FilteredFluidHandler;
 import gregtech.api.capability.impl.FluidTankList;
 import gregtech.api.capability.impl.PropertyFluidFilter;
-import gregtech.api.metatileentity.IDataInfoProvider;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
 import gregtech.api.metatileentity.multiblock.IMultiblockPart;
@@ -54,22 +53,25 @@ import codechicken.lib.raytracer.CuboidRayTraceResult;
 import codechicken.lib.render.CCRenderState;
 import codechicken.lib.render.pipeline.IVertexOperation;
 import codechicken.lib.vec.Matrix4;
-import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import lombok.Getter;
 import tkcy.simpleaddon.api.metatileentities.BlockMaterialMetaTileEntityPaint;
 import tkcy.simpleaddon.api.metatileentities.MaterialMetaTileEntity;
+import tkcy.simpleaddon.api.metatileentities.MetaTileEntityStorageFormat;
 import tkcy.simpleaddon.api.metatileentities.RepetitiveSide;
 import tkcy.simpleaddon.api.predicates.TKCYSAPredicates;
 import tkcy.simpleaddon.api.render.TKCYSATextures;
 import tkcy.simpleaddon.api.utils.MaterialHelper;
-import tkcy.simpleaddon.api.utils.number.Numbers;
+import tkcy.simpleaddon.api.utils.StorageUtils;
+import tkcy.simpleaddon.api.utils.TKCYSALog;
+import tkcy.simpleaddon.api.utils.units.CommonUnits;
 import tkcy.simpleaddon.api.utils.units.UnitsConversions;
 import tkcy.simpleaddon.common.block.TKCYSAMetaBlocks;
 import tkcy.simpleaddon.modules.storagemodule.StorageModule;
 
 @StorageModule.StorageModulable
 public class ModulableTank extends MultiblockWithDisplayBase
-                           implements RepetitiveSide, BlockMaterialMetaTileEntityPaint, MaterialMetaTileEntity {
+                           implements RepetitiveSide, BlockMaterialMetaTileEntityPaint, MaterialMetaTileEntity,
+                           MetaTileEntityStorageFormat<FluidStack> {
 
     @Getter
     private final Material material;
@@ -79,6 +81,8 @@ public class ModulableTank extends MultiblockWithDisplayBase
     private int totalCapacity;
     private FluidPipeProperties fluidPipeProperties;
     private FilteredFluidHandler tank;
+    @Getter
+    private StorageUtils<FluidStack> storageUtil;
 
     public ModulableTank(ResourceLocation metaTileEntityId, Material material, boolean isLarge) {
         super(metaTileEntityId);
@@ -116,6 +120,8 @@ public class ModulableTank extends MultiblockWithDisplayBase
 
         this.exportFluids = this.importFluids = new FluidTankList(true, this.tank);
         this.fluidInventory = this.tank;
+        StorageUtils.initOrUpdate(this);
+        TKCYSALog.logger.info("initializeInventory() : " + storageUtil);
     }
 
     @Override
@@ -126,6 +132,10 @@ public class ModulableTank extends MultiblockWithDisplayBase
     @Override
     protected void updateFormedValid() {
         this.tank.setCapacity(this.totalCapacity);
+        if (this.getOffsetTimer() % 60 == 0) {
+            StorageUtils.initOrUpdate(this);
+            TKCYSALog.logger.info("updateFormedValid() : " + storageUtil);
+        }
     }
 
     @NotNull
@@ -256,40 +266,15 @@ public class ModulableTank extends MultiblockWithDisplayBase
         return pos -> this.getPos().up(pos);
     }
 
-    @Nullable
-    public FluidStack getFluidStackInventory() {
-        return this.fluidInventory.drain(Integer.MAX_VALUE, false);
-    }
-
-    public boolean isEmpty() {
-        return getFluidStackInventory() == null;
-    }
-
-    public String getContentBaseUnit() {
-        return "L";
-    }
-
-    @SuppressWarnings("ConstantConditions")
-    public String getContentFormatted() {
-        return isEmpty() ? "Empty" : String.format("%s of %s",
-                UnitsConversions.convertAndFormatToSizeOfOrder(getFluidStackInventory().amount,
-                        getContentBaseUnit()),
-                getFluidStackInventory().getLocalizedName());
-    }
-
     public String getCapacityPerLayerFormatted() {
-        return UnitsConversions.convertAndFormatToSizeOfOrder(this.layerCapacity, getContentBaseUnit());
-    }
-
-    @SuppressWarnings("ConstantConditions")
-    protected String getFillPercentage() {
-        return isEmpty() ? "0% filled" :
-                Numbers.getQuotientPercentage(getFluidStackInventory().amount, this.totalCapacity) + "% filled";
+        return UnitsConversions.convertAndFormatToSizeOfOrder(this.layerCapacity,
+                this.storageUtil.getBaseContentUnit());
     }
 
     @Override
     public void addInformation(ItemStack stack, @Nullable World player, @NotNull List<String> tooltip,
                                boolean advanced) {
+        StorageUtils.initOrUpdate(this);
         tooltip.add(I18n.format("tkcysa.multiblock.modulable_tank.tooltip"));
         tooltip.add(I18n.format(
                 "tkcysa.multiblock.modulable_storage.layer_infos", getCapacityPerLayerFormatted(), getMaxSideLength()));
@@ -305,25 +290,13 @@ public class ModulableTank extends MultiblockWithDisplayBase
         }
     }
 
-    protected TextComponentTranslation getContentTextTranslation() {
-        return new TextComponentTranslation(
-                "tkcysa.multiblock.modulable_storage.content", getContentFormatted());
-    }
-
-    protected TextComponentTranslation getPercentageTextTranslation() {
-        return new TextComponentTranslation(
-                "tkcysa.multiblock.modulable_storage.fill.percentage", getFillPercentage());
-    }
-
-    protected TextComponentTranslation getContentValueTextTranslation() {
-        return new TextComponentTranslation("tkcysa.multiblock.modulable_storage.capacity",
-                UnitsConversions.convertAndFormatToSizeOfOrder(this.totalCapacity, getContentBaseUnit()));
-    }
-
-    protected void displayInfos(List<ITextComponent> textList) {
-        textList.add(getContentTextTranslation());
-        textList.add(getContentValueTextTranslation());
-        textList.add(getPercentageTextTranslation());
+    @Override
+    public void displayInfos(List<ITextComponent> textList) {
+        StorageUtils.initOrUpdate(this);
+        TKCYSALog.logger.info("displayInfos() : " + storageUtil);
+        textList.add(this.storageUtil.getCapacityTextTranslation());
+        textList.add(this.storageUtil.getContentTextTranslation());
+        textList.add(this.storageUtil.getFillPercentageTextTranslation());
     }
 
     @Override
@@ -339,5 +312,32 @@ public class ModulableTank extends MultiblockWithDisplayBase
         } else {
             displayInfos(textList);
         }
+    }
+
+    @Override
+    public void initStorageUtil() {
+        new StorageUtils<>(this, this.totalCapacity, CommonUnits.liter, FluidStack::getLocalizedName,
+                fluidStack -> fluidStack.amount);
+    }
+
+    @Override
+    @Nullable
+    public FluidStack getContent() {
+        return this.fluidInventory.drain(Integer.MAX_VALUE, false);
+    }
+
+    @Override
+    public String getPercentageTranslationKey() {
+        return "tkcysa.multiblock.modulable_storage.fill.percentage";
+    }
+
+    @Override
+    public String getCapacityTranslationKey() {
+        return "tkcysa.multiblock.modulable_storage.capacity";
+    }
+
+    @Override
+    public String getContentTextTranslationKey() {
+        return "tkcysa.multiblock.modulable_storage.content";
     }
 }
