@@ -283,3 +283,10 @@ tkcya.recipe.tool.uses=Tool uses: %d
 
 ##RecipeCategories
 #tkcysa.recipe.category.galvanizing=Galvanizing
+
+
+
+
+behavior.tricorder.love=LOVE
+behavior.tricorder.fluid.amount=Fluid amount: %d L
+behavior.tricorder.fluid.name=Fluid name: %s

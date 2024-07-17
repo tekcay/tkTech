@@ -83,7 +83,7 @@ public class MetaTileEntityModulableTankValve extends MetaTileEntityMultiblockPa
             IFluidHandler fluidHandler = tileEntity == null ? null : tileEntity
                     .getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, getFrontFacing().getOpposite());
             if (fluidHandler != null) {
-                GTTransferUtils.transferFluids(fluidInventory, fluidHandler, Integer.MAX_VALUE);
+                GTTransferUtils.transferFluids(fluidInventory, fluidHandler);
             }
         }
     }

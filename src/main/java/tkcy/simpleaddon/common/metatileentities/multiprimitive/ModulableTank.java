@@ -32,6 +32,8 @@ import org.lwjgl.input.Keyboard;
 
 import gregtech.api.capability.impl.FilteredFluidHandler;
 import gregtech.api.capability.impl.FluidTankList;
+import gregtech.api.capability.impl.PropertyFluidFilter;
+import gregtech.api.metatileentity.IDataInfoProvider;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
 import gregtech.api.metatileentity.multiblock.IMultiblockPart;
@@ -52,6 +54,7 @@ import codechicken.lib.raytracer.CuboidRayTraceResult;
 import codechicken.lib.render.CCRenderState;
 import codechicken.lib.render.pipeline.IVertexOperation;
 import codechicken.lib.vec.Matrix4;
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import lombok.Getter;
 import tkcy.simpleaddon.api.metatileentities.BlockMaterialMetaTileEntityPaint;
 import tkcy.simpleaddon.api.metatileentities.MaterialMetaTileEntity;
@@ -66,7 +69,8 @@ import tkcy.simpleaddon.modules.storagemodule.StorageModule;
 
 @StorageModule.StorageModulable
 public class ModulableTank extends MultiblockWithDisplayBase
-                           implements RepetitiveSide, BlockMaterialMetaTileEntityPaint, MaterialMetaTileEntity {
+                           implements RepetitiveSide, BlockMaterialMetaTileEntityPaint, MaterialMetaTileEntity,
+                           IDataInfoProvider {
 
     @Getter
     private final Material material;
@@ -76,6 +80,7 @@ public class ModulableTank extends MultiblockWithDisplayBase
     private int totalCapacity;
     private FluidPipeProperties fluidPipeProperties;
     private static final String heightMarker = "modulableHeight";
+    private FilteredFluidHandler tank;
 
     public ModulableTank(ResourceLocation metaTileEntityId, Material material, boolean isLarge) {
         super(metaTileEntityId);
@@ -103,11 +108,16 @@ public class ModulableTank extends MultiblockWithDisplayBase
 
         setFluidPipeProperties();
 
-        FilteredFluidHandler tank = new FilteredFluidHandler(this.totalCapacity);
-        tank.setFilter(MaterialHelper.getPropertyFluidFilter(this.material));
+        this.tank = new FilteredFluidHandler(this.totalCapacity);
+        this.tank.setFilter(new PropertyFluidFilter(
+                this.fluidPipeProperties.getMaxFluidTemperature(),
+                false,
+                this.fluidPipeProperties.isAcidProof(),
+                false,
+                false));
 
-        this.exportFluids = this.importFluids = new FluidTankList(true, tank);
-        this.fluidInventory = tank;
+        this.exportFluids = this.importFluids = new FluidTankList(true, this.tank);
+        this.fluidInventory = this.tank;
     }
 
     @Override
@@ -116,7 +126,9 @@ public class ModulableTank extends MultiblockWithDisplayBase
     }
 
     @Override
-    protected void updateFormedValid() {}
+    protected void updateFormedValid() {
+        this.tank.setCapacity(this.totalCapacity);
+    }
 
     @NotNull
     @Override
@@ -287,7 +299,9 @@ public class ModulableTank extends MultiblockWithDisplayBase
         if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)) {
             tooltip.add(I18n.format("gregtech.fluid_pipe.max_temperature",
                     this.fluidPipeProperties.getMaxFluidTemperature()));
-            if (this.fluidPipeProperties.isAcidProof()) tooltip.add(I18n.format("gregtech.fluid_pipe.acid_proof"));
+            if (this.fluidPipeProperties.isAcidProof()) {
+                tooltip.add(I18n.format("gregtech.fluid_pipe.acid_proof"));
+            }
         } else {
             tooltip.add(I18n.format("gregtech.tooltip.fluid_pipe_hold_shift"));
         }
@@ -327,5 +341,19 @@ public class ModulableTank extends MultiblockWithDisplayBase
         } else {
             displayInfos(textList);
         }
+    }
+
+    @NotNull
+    @Override
+    public List<ITextComponent> getDataInfo() {
+        List<ITextComponent> list = new ObjectArrayList<>();
+        list.add(new TextComponentTranslation("behavior.tricorder.love"));
+        FluidStack fluidStack = this.tank.drain(Integer.MAX_VALUE, false);
+        if (fluidStack == null) return list;
+        list.add(new TextComponentTranslation("behavior.tricorder.fluid.amount",
+                fluidStack.amount));
+        list.add(new TextComponentTranslation("behavior.tricorder.fluid.name",
+                fluidStack.getLocalizedName()));
+        return list;
     }
 }
