@@ -41,13 +41,10 @@ import gregtech.api.pattern.BlockPattern;
 import gregtech.api.pattern.FactoryBlockPattern;
 import gregtech.api.pattern.PatternMatchContext;
 import gregtech.api.unification.material.Material;
-import gregtech.api.unification.material.Materials;
 import gregtech.api.unification.material.properties.FluidPipeProperties;
 import gregtech.api.unification.material.properties.PropertyKey;
 import gregtech.client.renderer.ICubeRenderer;
 import gregtech.client.renderer.texture.Textures;
-import gregtech.common.blocks.BlockSteamCasing;
-import gregtech.common.blocks.MetaBlocks;
 
 import codechicken.lib.raytracer.CuboidRayTraceResult;
 import codechicken.lib.render.CCRenderState;
@@ -165,8 +162,7 @@ public class ModulableTank extends MultiblockWithDisplayBase
     @Override
     @NotNull
     public ICubeRenderer getBaseTexture(IMultiblockPart sourcePart) {
-        if (this.material == Materials.TreatedWood) return Textures.WOOD_WALL;
-        else return TKCYSATextures.WALL_TEXTURE;
+        return TKCYSATextures.WALL_TEXTURE;
     }
 
     @Override
@@ -235,11 +231,7 @@ public class ModulableTank extends MultiblockWithDisplayBase
 
     @Override
     public IBlockState getSideBlockBlockState() {
-        if (this.material == Materials.TreatedWood)
-            return MetaBlocks.STEAM_CASING.getState(BlockSteamCasing.SteamCasingType.WOOD_WALL);
-        else {
-            return TKCYSAMetaBlocks.WALLS.get(this.material).getBlock(this.material);
-        }
+        return TKCYSAMetaBlocks.WALLS.get(this.material).getBlock(this.material);
     }
 
     @Override

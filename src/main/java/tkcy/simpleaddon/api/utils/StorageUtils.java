@@ -42,8 +42,7 @@ public class StorageUtils<T> {
     }
 
     protected String getFillPercentage() {
-        return isEmpty() ? "Empty" :
-                Numbers.getQuotientPercentage(this.contentAmount, this.maxAmount) + "% filled";
+        return isEmpty() ? "" : Numbers.getQuotientPercentage(this.contentAmount, this.maxAmount) + "% filled";
     }
 
     public TextComponentTranslation getFillPercentageTextTranslation() {
