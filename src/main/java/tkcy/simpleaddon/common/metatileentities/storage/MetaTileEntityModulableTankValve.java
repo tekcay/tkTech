@@ -2,14 +2,12 @@ package tkcy.simpleaddon.common.metatileentities.storage;
 
 import java.util.List;
 
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import gregtech.api.capability.impl.FluidHandlerProxy;
 import gregtech.api.capability.impl.FluidTankList;
@@ -30,14 +28,13 @@ public class MetaTileEntityModulableTankValve extends MetaTileEntityModulableVal
     }
 
     @Override
-    public IFluidHandler getHandler(@Nullable TileEntity tileEntity) {
-        return tileEntity == null ?
-                null : tileEntity.getCapability(this.getCapability(), getFrontFacing().getOpposite());
+    protected void initializeDummyInventory() {
+        this.fluidInventory = new FluidHandlerProxy(new FluidTankList(false), new FluidTankList(false));
     }
 
     @Override
-    protected int transferInventoryToHandler(IFluidHandler handler) {
-        return GTTransferUtils.transferFluids(fluidInventory, handler);
+    protected void transferInventoryToHandler(IFluidHandler handler) {
+        GTTransferUtils.transferFluids(fluidInventory, handler);
     }
 
     @Override
@@ -50,11 +47,6 @@ public class MetaTileEntityModulableTankValve extends MetaTileEntityModulableVal
         super.addToMultiBlock(controllerBase);
         this.fluidInventory = controllerBase.getFluidInventory(); // directly use controllers fluid inventory as there
         // is no reason to proxy it
-    }
-
-    @Override
-    protected void initializeDummyInventory() {
-        this.fluidInventory = new FluidHandlerProxy(new FluidTankList(false), new FluidTankList(false));
     }
 
     @Override

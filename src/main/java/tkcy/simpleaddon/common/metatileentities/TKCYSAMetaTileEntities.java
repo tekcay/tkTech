@@ -22,6 +22,7 @@ import tkcy.simpleaddon.common.metatileentities.primitive.AnvilMetatileEntity;
 import tkcy.simpleaddon.common.metatileentities.primitive.PrimitiveCasting;
 import tkcy.simpleaddon.common.metatileentities.steam.SteamDustMixer;
 import tkcy.simpleaddon.common.metatileentities.steam.SteamMelter;
+import tkcy.simpleaddon.common.metatileentities.storage.MetaTileEntityModulableCrateValve;
 import tkcy.simpleaddon.common.metatileentities.storage.MetaTileEntityModulableTankValve;
 import tkcy.simpleaddon.modules.storagemodule.StorageModule;
 
@@ -49,6 +50,9 @@ public class TKCYSAMetaTileEntities {
 
     public static MetaTileEntityModulableTankValve[] MODULABLE_TANK_VALVES = new MetaTileEntityModulableTankValve[StorageModule.TANK_MATERIALS
             .size()];
+    public static MetaTileEntityModulableCrateValve[] MODULABLE_CRATE_VALVES = new MetaTileEntityModulableCrateValve[StorageModule.CRATE_MATERIALS
+            .size()];
+
     public static ModulableTank[] MODULABLE_TANKS = new ModulableTank[StorageModule.TANK_MATERIALS.size()];
     public static ModulableTank[] MODULABLE_LARGE_TANKS = new ModulableTank[StorageModule.TANK_MATERIALS.size()];
 
@@ -109,6 +113,9 @@ public class TKCYSAMetaTileEntities {
         MaterialMetaTileEntity.registerMaterialMetaTileEntity(StorageModule.TANK_MATERIALS, MODULABLE_LARGE_TANKS, 4210,
                 StorageModule::initModulableLargeTank);
         MaterialMetaTileEntity.registerMaterialMetaTileEntity(StorageModule.TANK_MATERIALS, MODULABLE_TANK_VALVES, 4220,
-                StorageModule::initValve);
+                StorageModule::initTankValve);
+
+        MaterialMetaTileEntity.registerMaterialMetaTileEntity(StorageModule.CRATE_MATERIALS, MODULABLE_CRATE_VALVES,
+                4230, StorageModule::initCrateValve);
     }
 }

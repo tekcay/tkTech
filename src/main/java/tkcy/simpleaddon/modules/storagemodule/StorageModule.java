@@ -16,6 +16,7 @@ import tkcy.simpleaddon.api.metatileentities.MaterialMetaTileEntity;
 import tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials;
 import tkcy.simpleaddon.common.metatileentities.TKCYSAMetaTileEntities;
 import tkcy.simpleaddon.common.metatileentities.multiprimitive.ModulableTank;
+import tkcy.simpleaddon.common.metatileentities.storage.MetaTileEntityModulableCrateValve;
 import tkcy.simpleaddon.common.metatileentities.storage.MetaTileEntityModulableTankValve;
 
 @UtilityClass
@@ -32,6 +33,15 @@ public class StorageModule {
         TANK_MATERIALS.add(TKCYSAMaterials.GalvanizedSteel);
     }
 
+    public static final List<Material> CRATE_MATERIALS = new ArrayList<>();
+
+    static {
+        CRATE_MATERIALS.add(Materials.Steel);
+        CRATE_MATERIALS.add(Materials.StainlessSteel);
+        CRATE_MATERIALS.add(Materials.TungstenCarbide);
+        CRATE_MATERIALS.add(TKCYSAMaterials.GalvanizedSteel);
+    }
+
     public static MetaTileEntityModulableTankValve getValve(Material material) {
         return get(material, TKCYSAMetaTileEntities.MODULABLE_TANK_VALVES);
     }
@@ -46,8 +56,12 @@ public class StorageModule {
                 .orElse(null);
     }
 
-    public static MetaTileEntityModulableTankValve initValve(Material material) {
+    public static MetaTileEntityModulableTankValve initTankValve(Material material) {
         return new MetaTileEntityModulableTankValve(getMetaTileEntityId("modulable_tank_valve.", material), material);
+    }
+
+    public static MetaTileEntityModulableCrateValve initCrateValve(Material material) {
+        return new MetaTileEntityModulableCrateValve(getMetaTileEntityId("modulable_crate_valve.", material), material);
     }
 
     public static ModulableTank initModulableLargeTank(Material material) {

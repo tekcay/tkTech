@@ -88,16 +88,18 @@ public abstract class MetaTileEntityModulableValve<T> extends MetaTileEntityMult
         }
     }
 
+    protected T getHandler(@Nullable TileEntity tileEntity) {
+        return tileEntity == null ?
+                null : tileEntity.getCapability(this.getCapability(), getFrontFacing().getOpposite());
+    }
+
     /**
      * When this block is not connected to any multiblock it uses dummy inventory to prevent problems with capability
      * checks
      */
     protected abstract void initializeDummyInventory();
 
-    protected abstract T getHandler(@Nullable TileEntity tileEntity);
-
-    @SuppressWarnings("UnusedReturnValue")
-    protected abstract int transferInventoryToHandler(T handler);
+    protected abstract void transferInventoryToHandler(T handler);
 
     protected abstract Capability<T> getCapability();
 
