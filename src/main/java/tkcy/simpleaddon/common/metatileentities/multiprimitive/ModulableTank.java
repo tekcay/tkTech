@@ -62,7 +62,6 @@ import tkcy.simpleaddon.api.predicates.TKCYSAPredicates;
 import tkcy.simpleaddon.api.render.TKCYSATextures;
 import tkcy.simpleaddon.api.utils.MaterialHelper;
 import tkcy.simpleaddon.api.utils.StorageUtils;
-import tkcy.simpleaddon.api.utils.TKCYSALog;
 import tkcy.simpleaddon.api.utils.units.CommonUnits;
 import tkcy.simpleaddon.api.utils.units.UnitsConversions;
 import tkcy.simpleaddon.common.block.TKCYSAMetaBlocks;
@@ -81,8 +80,6 @@ public class ModulableTank extends MultiblockWithDisplayBase
     private int totalCapacity;
     private FluidPipeProperties fluidPipeProperties;
     private FilteredFluidHandler tank;
-    @Getter
-    private StorageUtils<FluidStack> storageUtil;
 
     public ModulableTank(ResourceLocation metaTileEntityId, Material material, boolean isLarge) {
         super(metaTileEntityId);
@@ -120,8 +117,6 @@ public class ModulableTank extends MultiblockWithDisplayBase
 
         this.exportFluids = this.importFluids = new FluidTankList(true, this.tank);
         this.fluidInventory = this.tank;
-        StorageUtils.initOrUpdate(this);
-        TKCYSALog.logger.info("initializeInventory() : " + storageUtil);
     }
 
     @Override
@@ -132,10 +127,6 @@ public class ModulableTank extends MultiblockWithDisplayBase
     @Override
     protected void updateFormedValid() {
         this.tank.setCapacity(this.totalCapacity);
-        if (this.getOffsetTimer() % 60 == 0) {
-            StorageUtils.initOrUpdate(this);
-            TKCYSALog.logger.info("updateFormedValid() : " + storageUtil);
-        }
     }
 
     @NotNull
@@ -252,6 +243,11 @@ public class ModulableTank extends MultiblockWithDisplayBase
     }
 
     @Override
+    public CommonUnits getBaseContentUnit() {
+        return CommonUnits.liter;
+    }
+
+    @Override
     public MetaTileEntity getMetatileEntity() {
         return this;
     }
@@ -267,14 +263,12 @@ public class ModulableTank extends MultiblockWithDisplayBase
     }
 
     public String getCapacityPerLayerFormatted() {
-        return UnitsConversions.convertAndFormatToSizeOfOrder(this.layerCapacity,
-                this.storageUtil.getBaseContentUnit());
+        return UnitsConversions.convertAndFormatToSizeOfOrder(this.layerCapacity, getBaseContentUnit());
     }
 
     @Override
     public void addInformation(ItemStack stack, @Nullable World player, @NotNull List<String> tooltip,
                                boolean advanced) {
-        StorageUtils.initOrUpdate(this);
         tooltip.add(I18n.format("tkcysa.multiblock.modulable_tank.tooltip"));
         tooltip.add(I18n.format(
                 "tkcysa.multiblock.modulable_storage.layer_infos", getCapacityPerLayerFormatted(), getMaxSideLength()));
@@ -292,11 +286,26 @@ public class ModulableTank extends MultiblockWithDisplayBase
 
     @Override
     public void displayInfos(List<ITextComponent> textList) {
-        StorageUtils.initOrUpdate(this);
-        TKCYSALog.logger.info("displayInfos() : " + storageUtil);
-        textList.add(this.storageUtil.getCapacityTextTranslation());
-        textList.add(this.storageUtil.getContentTextTranslation());
-        textList.add(this.storageUtil.getFillPercentageTextTranslation());
+        StorageUtils<FluidStack> stackStorageUtil = getStorageUtil();
+
+        textList.add(stackStorageUtil.getCapacityTextTranslation());
+        textList.add(stackStorageUtil.getContentTextTranslation());
+        textList.add(stackStorageUtil.getFillPercentageTextTranslation());
+    }
+
+    @Override
+    public int getMaxCapacity() {
+        return this.totalCapacity;
+    }
+
+    @Override
+    public Function<FluidStack, String> getContentLocalizedNameProvider() {
+        return FluidStack::getLocalizedName;
+    }
+
+    @Override
+    public Function<FluidStack, Integer> getContentAmountProvider() {
+        return fluidStack -> fluidStack.amount;
     }
 
     @Override
@@ -315,9 +324,8 @@ public class ModulableTank extends MultiblockWithDisplayBase
     }
 
     @Override
-    public void initStorageUtil() {
-        new StorageUtils<>(this, this.totalCapacity, CommonUnits.liter, FluidStack::getLocalizedName,
-                fluidStack -> fluidStack.amount);
+    public StorageUtils<FluidStack> getStorageUtil() {
+        return new StorageUtils<>(this);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package tkcy.simpleaddon.api.metatileentities;
 
 import java.util.List;
+import java.util.function.Function;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.ITextComponent;
@@ -9,6 +10,7 @@ import net.minecraftforge.fluids.FluidStack;
 import org.jetbrains.annotations.Nullable;
 
 import tkcy.simpleaddon.api.utils.StorageUtils;
+import tkcy.simpleaddon.api.utils.units.CommonUnits;
 
 /**
  *
@@ -16,12 +18,12 @@ import tkcy.simpleaddon.api.utils.StorageUtils;
  */
 public interface MetaTileEntityStorageFormat<T> {
 
-    void initStorageUtil();
-
     StorageUtils<T> getStorageUtil();
 
     @Nullable
     T getContent();
+
+    CommonUnits getBaseContentUnit();
 
     String getPercentageTranslationKey();
 
@@ -30,4 +32,10 @@ public interface MetaTileEntityStorageFormat<T> {
     String getContentTextTranslationKey();
 
     void displayInfos(List<ITextComponent> textList);
+
+    int getMaxCapacity();
+
+    Function<T, String> getContentLocalizedNameProvider();
+
+    Function<T, Integer> getContentAmountProvider();
 }

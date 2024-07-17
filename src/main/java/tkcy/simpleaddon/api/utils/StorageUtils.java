@@ -1,57 +1,34 @@
 package tkcy.simpleaddon.api.utils;
 
-import java.util.function.Function;
-
 import net.minecraft.util.text.TextComponentTranslation;
 
 import org.jetbrains.annotations.Nullable;
 
-import lombok.Getter;
 import tkcy.simpleaddon.api.metatileentities.MetaTileEntityStorageFormat;
 import tkcy.simpleaddon.api.utils.number.Numbers;
 import tkcy.simpleaddon.api.utils.units.CommonUnits;
 import tkcy.simpleaddon.api.utils.units.UnitsConversions;
 
-@Getter
 public class StorageUtils<T> {
 
     private int contentAmount;
     private String contentLocalizedName;
-
     private final CommonUnits baseContentUnit;
     private final int maxAmount;
-    private final Function<T, String> contentLocalizedNameProvider;
-    private final Function<T, Integer> contentAmountProvider;
     private final MetaTileEntityStorageFormat<T> mte;
 
-    public StorageUtils(MetaTileEntityStorageFormat<T> mte, int maxAmount, CommonUnits baseContentUnit,
-                        Function<T, String> contentLocalizedNameProvider,
-                        Function<T, Integer> contentAmountProvider) {
+    public StorageUtils(MetaTileEntityStorageFormat<T> mte) {
         this.mte = mte;
-        this.maxAmount = maxAmount;
-        this.baseContentUnit = baseContentUnit;
-        this.contentLocalizedNameProvider = contentLocalizedNameProvider;
-        this.contentAmountProvider = contentAmountProvider;
-    }
-
-    @Override
-    public String toString() {
-        return "content amount : " + contentAmount + "contentLocalizedName : " + contentLocalizedName + "maxAmount : " +
-                maxAmount + "baseContentUnit : " + baseContentUnit;
+        this.maxAmount = mte.getMaxCapacity();
+        this.baseContentUnit = mte.getBaseContentUnit();
+        T content = mte.getContent();
+        updateContent(content);
     }
 
     public void updateContent(@Nullable T content) {
         if (content == null) return;
-        this.contentAmount = this.contentAmountProvider.apply(content);
-        this.contentLocalizedName = this.contentLocalizedNameProvider.apply(content);
-    }
-
-    public void updateContent() {
-        updateContent(this.mte.getContent());
-    }
-
-    public void setEmpty() {
-        this.contentAmount = 0;
+        this.contentAmount = this.mte.getContentAmountProvider().apply(content);
+        this.contentLocalizedName = this.mte.getContentLocalizedNameProvider().apply(content);
     }
 
     private boolean isEmpty() {
@@ -62,11 +39,6 @@ public class StorageUtils<T> {
         return isEmpty() ? "Empty" : String.format("%s of %s",
                 UnitsConversions.convertAndFormatToSizeOfOrder(this.contentAmount, this.baseContentUnit),
                 this.contentLocalizedName);
-    }
-
-    public String updateAndgetContentFormatted(T content) {
-        updateContent(content);
-        return getContentFormatted();
     }
 
     protected String getFillPercentage() {
@@ -86,11 +58,5 @@ public class StorageUtils<T> {
     public TextComponentTranslation getContentTextTranslation() {
         return new TextComponentTranslation(
                 this.mte.getContentTextTranslationKey(), getContentFormatted());
-    }
-
-    public static void initOrUpdate(MetaTileEntityStorageFormat<?> mte) {
-        if (mte.getStorageUtil() == null) {
-            mte.initStorageUtil();
-        } else mte.getStorageUtil().updateContent();
     }
 }
