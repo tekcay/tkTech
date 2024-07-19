@@ -181,7 +181,7 @@ public abstract class MetaTileEntityMultiblockStorage<ContentHandler, ContentTyp
 
     @Override
     public int getMinSideLength() {
-        return 1;
+        return 0;
     }
 
     @Override
