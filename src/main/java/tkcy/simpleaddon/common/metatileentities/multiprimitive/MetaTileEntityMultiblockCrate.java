@@ -10,18 +10,20 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.IItemHandlerModifiable;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import gregtech.api.capability.impl.*;
-import gregtech.api.items.itemhandlers.GTItemStackHandler;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
 import gregtech.api.unification.material.Material;
 
+import tkcy.simpleaddon.api.capabilities.TKCYSAMultiblockAbilities;
 import tkcy.simpleaddon.api.metatileentities.MetaTileEntityStorageFormat;
 import tkcy.simpleaddon.api.utils.StorageUtils;
+import tkcy.simpleaddon.api.utils.TKCYSALog;
 import tkcy.simpleaddon.api.utils.units.CommonUnits;
 import tkcy.simpleaddon.common.metatileentities.storage.MetaTileEntityModulableCrateValve;
 import tkcy.simpleaddon.modules.storagemodule.StorageModule;
@@ -31,7 +33,7 @@ public class MetaTileEntityMultiblockCrate extends MetaTileEntityMultiblockStora
                                            implements MetaTileEntityStorageFormat<ItemStack> {
 
     private FilteredItemHandler filteredItemHandler;
-    private GTItemStackHandler itemStackHandler;
+    private IItemHandlerModifiable itemStackHandler;
 
     public MetaTileEntityMultiblockCrate(ResourceLocation metaTileEntityId, Material material, boolean isLarge) {
         super(metaTileEntityId, material, isLarge);
@@ -51,16 +53,29 @@ public class MetaTileEntityMultiblockCrate extends MetaTileEntityMultiblockStora
     protected void initializeInventory() {
         if (this.getMaterial() == null) return;
         super.initializeInventory();
-
-        this.itemStackHandler = new GTItemStackHandler(this, 1);
+        this.itemStackHandler = new FilteredItemHandler(this, 1);
 
         // this.filteredItemHandler = new FilteredItemHandler(this, this.totalCapacity);
         // this.filteredItemHandler.setFillPredicate(itemStack -> this.filteredItemHandler.getStackInSlot(0).isEmpty()
         // ||
         // this.filteredItemHandler.getStackInSlot(0).isItemEqual(itemStack));
+
+        TKCYSALog.logger.info("this.itemStackHandler.getSlots() : " + this.itemStackHandler.getSlots());
+
+        // this.exportItems = this.importItems = new
+        // ItemHandlerList(getAbilities(TKCYSAMultiblockAbilities.CRATE_VALVE));
         this.exportItems = this.importItems = this.itemStackHandler;
-        // this.itemInventory = this.filteredItemHandler;
+
+        TKCYSALog.logger.info("getAbilities(TKCYSAMultiblockAbilities.CRATE_VALVE).size() : " +
+                getAbilities(TKCYSAMultiblockAbilities.CRATE_VALVE).size());
+
+        TKCYSALog.logger.info("this.itemInventory.getSlots() : " + this.itemInventory.getSlots());
+        TKCYSALog.logger.info("this.importItems.getSlots() : " + this.importItems.getSlots());
+        TKCYSALog.logger.info("this.exportItems.getSlots() : " + this.exportItems.getSlots());
+
         this.itemInventory = this.itemStackHandler;
+
+        TKCYSALog.logger.info("this.itemInventory.getSlots() post : " + this.itemInventory.getSlots());
     }
 
     @Override
@@ -71,8 +86,6 @@ public class MetaTileEntityMultiblockCrate extends MetaTileEntityMultiblockStora
     @Override
     protected void updateFormedValid() {
         // this.filteredItemHandler.setSize(this.totalCapacity);
-        // this.itemStackHandler.setSize(this.totalCapacity);
-        this.itemStackHandler.setSize(1);
     }
 
     @Override

@@ -96,7 +96,7 @@ public abstract class MetaTileEntityMultiblockStorage<ContentHandler, ContentTyp
                 .where('I', TKCYSAPredicates.isAir(RepetitiveSide.getHeightMarker()))
                 .where('X',
                         TKCYSAPredicates.iBlockStatePredicate(getSideBlockBlockState())
-                                .or(TKCYSAPredicates.metaTileEntityPredicate(getValve(this.material))
+                                .or(metaTileEntities(getValve(this.material))
                                         .setMaxGlobalLimited(4)))
                 .build();
     }

@@ -6,6 +6,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.ItemStackHandler;
 
 import gregtech.api.capability.impl.ItemHandlerProxy;
 import gregtech.api.metatileentity.multiblock.IMultiblockAbilityPart;
@@ -29,7 +30,7 @@ public class MetaTileEntityModulableCrateValve extends MetaTileEntityModulableVa
 
     @Override
     protected void initializeDummyInventory() {
-        this.itemInventory = new ItemHandlerProxy(this.importItems, this.exportItems);
+        this.itemInventory = new ItemHandlerProxy(new ItemStackHandler(), new ItemStackHandler());
     }
 
     @Override
