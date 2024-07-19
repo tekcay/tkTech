@@ -33,8 +33,8 @@ public class MetaTileEntityModulableTankValve extends MetaTileEntityModulableVal
     }
 
     @Override
-    protected void transferInventoryToHandler(IFluidHandler handler) {
-        GTTransferUtils.transferFluids(fluidInventory, handler);
+    protected void autoOutputInventory(IFluidHandler handler) {
+        GTTransferUtils.transferFluids(this.fluidInventory, handler);
     }
 
     @Override

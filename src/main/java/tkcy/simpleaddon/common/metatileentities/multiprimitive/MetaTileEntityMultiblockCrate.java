@@ -1,6 +1,5 @@
 package tkcy.simpleaddon.common.metatileentities.multiprimitive;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
@@ -53,17 +52,13 @@ public class MetaTileEntityMultiblockCrate extends MetaTileEntityMultiblockStora
         if (this.getMaterial() == null) return;
         super.initializeInventory();
 
-        this.itemStackHandler = new GTItemStackHandler(this, this.totalCapacity);
+        this.itemStackHandler = new GTItemStackHandler(this, 1);
 
         // this.filteredItemHandler = new FilteredItemHandler(this, this.totalCapacity);
         // this.filteredItemHandler.setFillPredicate(itemStack -> this.filteredItemHandler.getStackInSlot(0).isEmpty()
         // ||
         // this.filteredItemHandler.getStackInSlot(0).isItemEqual(itemStack));
-
-        List<IItemHandler> handlers = new ArrayList<>();
-        // handlers.add(this.filteredItemHandler);
-        handlers.add(this.itemStackHandler);
-        this.exportItems = this.importItems = new ItemHandlerList(handlers);
+        this.exportItems = this.importItems = this.itemStackHandler;
         // this.itemInventory = this.filteredItemHandler;
         this.itemInventory = this.itemStackHandler;
     }
@@ -76,7 +71,8 @@ public class MetaTileEntityMultiblockCrate extends MetaTileEntityMultiblockStora
     @Override
     protected void updateFormedValid() {
         // this.filteredItemHandler.setSize(this.totalCapacity);
-        this.itemStackHandler.setSize(this.totalCapacity);
+        // this.itemStackHandler.setSize(this.totalCapacity);
+        this.itemStackHandler.setSize(1);
     }
 
     @Override

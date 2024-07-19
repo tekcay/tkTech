@@ -98,7 +98,7 @@ public class MetaTileEntityMultiblockTank extends MetaTileEntityMultiblockStorag
 
     @Override
     protected IFluidHandler getHandler() {
-        return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(this.fluidInventory);
+        return getCapability().cast(this.fluidInventory);
     }
 
     @Override

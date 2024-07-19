@@ -83,7 +83,7 @@ public abstract class MetaTileEntityModulableValve<T> extends MetaTileEntityMult
             TileEntity tileEntity = getNeighbor(getFrontFacing());
             T handler = getHandler(tileEntity);
             if (handler != null) {
-                transferInventoryToHandler(handler);
+                autoOutputInventory(handler);
             }
         }
     }
@@ -99,7 +99,7 @@ public abstract class MetaTileEntityModulableValve<T> extends MetaTileEntityMult
      */
     protected abstract void initializeDummyInventory();
 
-    protected abstract void transferInventoryToHandler(T handler);
+    protected abstract void autoOutputInventory(T handler);
 
     protected abstract Capability<T> getCapability();
 
