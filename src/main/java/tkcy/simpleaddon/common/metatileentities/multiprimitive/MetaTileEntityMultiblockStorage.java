@@ -28,6 +28,7 @@ import gregtech.api.metatileentity.multiblock.MultiblockWithDisplayBase;
 import gregtech.api.pattern.BlockPattern;
 import gregtech.api.pattern.FactoryBlockPattern;
 import gregtech.api.pattern.PatternMatchContext;
+import gregtech.api.pattern.TraceabilityPredicate;
 import gregtech.api.unification.material.Material;
 import gregtech.client.renderer.ICubeRenderer;
 import gregtech.client.renderer.texture.Textures;
@@ -46,7 +47,6 @@ import tkcy.simpleaddon.api.render.TKCYSATextures;
 import tkcy.simpleaddon.api.utils.StorageUtils;
 import tkcy.simpleaddon.api.utils.units.UnitsConversions;
 import tkcy.simpleaddon.common.block.TKCYSAMetaBlocks;
-import tkcy.simpleaddon.common.metatileentities.storage.MetaTileEntityModulableValve;
 import tkcy.simpleaddon.modules.storagemodule.StorageModule;
 
 @StorageModule.StorageModulable
@@ -76,15 +76,18 @@ public abstract class MetaTileEntityMultiblockStorage<ContentHandler, ContentTyp
         super.formStructure(context);
         this.height = context.getOrDefault(RepetitiveSide.getHeightMarker(), 0) + 1;
         this.totalCapacity = this.layerCapacity * this.height;
+        initializeAbilities();
     }
 
-    protected abstract void setLayerCapacity(boolean isLarge);
+    protected abstract void initializeAbilities();
 
-    protected abstract MetaTileEntityModulableValve<ContentHandler> getValve(Material material);
+    protected abstract void setLayerCapacity(boolean isLarge);
 
     protected abstract Capability<ContentHandler> getCapability();
 
     protected abstract ContentHandler getHandler();
+
+    protected abstract TraceabilityPredicate getTransferMetatileEntity();
 
     @NotNull
     @Override
@@ -96,7 +99,7 @@ public abstract class MetaTileEntityMultiblockStorage<ContentHandler, ContentTyp
                 .where('I', TKCYSAPredicates.isAir(RepetitiveSide.getHeightMarker()))
                 .where('X',
                         TKCYSAPredicates.iBlockStatePredicate(getSideBlockBlockState())
-                                .or(metaTileEntities(getValve(this.material))
+                                .or(getTransferMetatileEntity()
                                         .setMaxGlobalLimited(4)))
                 .build();
     }

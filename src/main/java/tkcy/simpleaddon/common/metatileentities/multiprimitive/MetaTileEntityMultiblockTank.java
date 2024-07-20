@@ -21,6 +21,7 @@ import gregtech.api.capability.impl.FluidTankList;
 import gregtech.api.capability.impl.PropertyFluidFilter;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
+import gregtech.api.pattern.TraceabilityPredicate;
 import gregtech.api.unification.material.Material;
 import gregtech.api.unification.material.properties.FluidPipeProperties;
 import gregtech.api.unification.material.properties.PropertyKey;
@@ -29,7 +30,6 @@ import tkcy.simpleaddon.api.metatileentities.MetaTileEntityStorageFormat;
 import tkcy.simpleaddon.api.utils.MaterialHelper;
 import tkcy.simpleaddon.api.utils.StorageUtils;
 import tkcy.simpleaddon.api.utils.units.CommonUnits;
-import tkcy.simpleaddon.common.metatileentities.storage.MetaTileEntityModulableValve;
 import tkcy.simpleaddon.modules.storagemodule.StorageModule;
 
 @StorageModule.StorageModulable
@@ -44,13 +44,11 @@ public class MetaTileEntityMultiblockTank extends MetaTileEntityMultiblockStorag
     }
 
     @Override
-    protected void setLayerCapacity(boolean isLarge) {
-        this.layerCapacity = (int) Math.pow(10, 6) * (isLarge ? 21 : 1);
-    }
+    protected void initializeAbilities() {}
 
     @Override
-    protected MetaTileEntityModulableValve<IFluidHandler> getValve(Material material) {
-        return StorageModule.getTankValve(material);
+    protected void setLayerCapacity(boolean isLarge) {
+        this.layerCapacity = (int) Math.pow(10, 6) * (isLarge ? 21 : 1);
     }
 
     private void setFluidPipeProperties() {
@@ -99,6 +97,11 @@ public class MetaTileEntityMultiblockTank extends MetaTileEntityMultiblockStorag
     @Override
     protected IFluidHandler getHandler() {
         return getCapability().cast(this.fluidInventory);
+    }
+
+    @Override
+    protected TraceabilityPredicate getTransferMetatileEntity() {
+        return metaTileEntities(StorageModule.getTankValve(getMaterial()));
     }
 
     @Override

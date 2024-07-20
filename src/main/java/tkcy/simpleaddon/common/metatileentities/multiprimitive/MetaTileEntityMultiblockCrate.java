@@ -10,7 +10,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.IItemHandlerModifiable;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -18,64 +17,45 @@ import org.jetbrains.annotations.Nullable;
 import gregtech.api.capability.impl.*;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
+import gregtech.api.metatileentity.multiblock.MultiblockAbility;
+import gregtech.api.pattern.TraceabilityPredicate;
 import gregtech.api.unification.material.Material;
+import gregtech.api.util.GTLog;
+import gregtech.api.util.GTTransferUtils;
 
-import tkcy.simpleaddon.api.capabilities.TKCYSAMultiblockAbilities;
 import tkcy.simpleaddon.api.metatileentities.MetaTileEntityStorageFormat;
+import tkcy.simpleaddon.api.utils.ItemHandlerHelpers;
 import tkcy.simpleaddon.api.utils.StorageUtils;
-import tkcy.simpleaddon.api.utils.TKCYSALog;
+import tkcy.simpleaddon.api.utils.TKFilteredItemHandler;
 import tkcy.simpleaddon.api.utils.units.CommonUnits;
-import tkcy.simpleaddon.common.metatileentities.storage.MetaTileEntityModulableCrateValve;
 import tkcy.simpleaddon.modules.storagemodule.StorageModule;
 
 @StorageModule.StorageModulable
 public class MetaTileEntityMultiblockCrate extends MetaTileEntityMultiblockStorage<IItemHandler, ItemStack>
                                            implements MetaTileEntityStorageFormat<ItemStack> {
 
-    private FilteredItemHandler filteredItemHandler;
-    private IItemHandlerModifiable itemStackHandler;
+    private TKFilteredItemHandler itemHandler;
 
     public MetaTileEntityMultiblockCrate(ResourceLocation metaTileEntityId, Material material, boolean isLarge) {
         super(metaTileEntityId, material, isLarge);
     }
 
     @Override
-    protected void setLayerCapacity(boolean isLarge) {
-        this.layerCapacity = (int) Math.pow(10, 6) * (isLarge ? 21 : 1);
+    protected void initializeAbilities() {
+        this.importItems = new ItemHandlerList(getAbilities(MultiblockAbility.IMPORT_ITEMS));
+        this.exportItems = new ItemHandlerList(getAbilities(MultiblockAbility.EXPORT_ITEMS));
+        this.itemHandler = new TKFilteredItemHandler(this, this.totalCapacity);
     }
 
     @Override
-    protected MetaTileEntityModulableCrateValve getValve(Material material) {
-        return StorageModule.getCrateValve(material);
+    protected void setLayerCapacity(boolean isLarge) {
+        this.layerCapacity = (int) Math.pow(10, 3) * (isLarge ? 21 : 1) * 64;
     }
 
     @Override
     protected void initializeInventory() {
         if (this.getMaterial() == null) return;
         super.initializeInventory();
-        this.itemStackHandler = new FilteredItemHandler(this, 1);
-
-        // this.filteredItemHandler = new FilteredItemHandler(this, this.totalCapacity);
-        // this.filteredItemHandler.setFillPredicate(itemStack -> this.filteredItemHandler.getStackInSlot(0).isEmpty()
-        // ||
-        // this.filteredItemHandler.getStackInSlot(0).isItemEqual(itemStack));
-
-        TKCYSALog.logger.info("this.itemStackHandler.getSlots() : " + this.itemStackHandler.getSlots());
-
-        // this.exportItems = this.importItems = new
-        // ItemHandlerList(getAbilities(TKCYSAMultiblockAbilities.CRATE_VALVE));
-        this.exportItems = this.importItems = this.itemStackHandler;
-
-        TKCYSALog.logger.info("getAbilities(TKCYSAMultiblockAbilities.CRATE_VALVE).size() : " +
-                getAbilities(TKCYSAMultiblockAbilities.CRATE_VALVE).size());
-
-        TKCYSALog.logger.info("this.itemInventory.getSlots() : " + this.itemInventory.getSlots());
-        TKCYSALog.logger.info("this.importItems.getSlots() : " + this.importItems.getSlots());
-        TKCYSALog.logger.info("this.exportItems.getSlots() : " + this.exportItems.getSlots());
-
-        this.itemInventory = this.itemStackHandler;
-
-        TKCYSALog.logger.info("this.itemInventory.getSlots() post : " + this.itemInventory.getSlots());
     }
 
     @Override
@@ -85,7 +65,14 @@ public class MetaTileEntityMultiblockCrate extends MetaTileEntityMultiblockStora
 
     @Override
     protected void updateFormedValid() {
-        // this.filteredItemHandler.setSize(this.totalCapacity);
+        ItemStack predicate = this.itemHandler.getPredicateStack();
+        if (!predicate.isEmpty()) GTLog.logger.info("filter is here : " + predicate.getDisplayName());
+        this.itemHandler.updateContent();
+        GTTransferUtils.moveInventoryItems(this.itemHandler, this.exportItems);
+        if (!this.itemHandler.hasItemFillPredicate()) {
+            if (!this.itemHandler.trySetFillPredicate(this.importItems)) return;
+        }
+        ItemHandlerHelpers.moveHandlerToFiltered(this.importItems, this.itemHandler);
     }
 
     @Override
@@ -95,15 +82,22 @@ public class MetaTileEntityMultiblockCrate extends MetaTileEntityMultiblockStora
 
     @Override
     protected IItemHandler getHandler() {
-        return getCapability().cast(this.itemInventory);
+        return getCapability().cast(this.itemHandler);
+    }
+
+    @Override
+    protected TraceabilityPredicate getTransferMetatileEntity() {
+        return new TraceabilityPredicate()
+                .or(abilities(MultiblockAbility.IMPORT_ITEMS))
+                .or(abilities(MultiblockAbility.EXPORT_ITEMS));
     }
 
     @Override
     public void addInformation(ItemStack stack, @Nullable World player, @NotNull List<String> tooltip,
                                boolean advanced) {
         tooltip.add(I18n.format("tkcysa.multiblock.modulable_tank.tooltip"));
-        tooltip.add(I18n.format(
-                "tkcysa.multiblock.modulable_storage.layer_infos", getCapacityPerLayerFormatted(), getMaxSideLength()));
+        tooltip.add(I18n.format("tkcysa.multiblock.modulable_storage.layer_infos",
+                getCapacityPerLayerFormatted(), getMaxSideLength()));
     }
 
     @Override
@@ -124,7 +118,9 @@ public class MetaTileEntityMultiblockCrate extends MetaTileEntityMultiblockStora
     @Override
     @Nullable
     public ItemStack getContent() {
-        return this.itemInventory.getStackInSlot(0);
+        if (this.itemHandler == null) return null;
+        this.itemHandler.updateContent();
+        return this.itemHandler.getContentStack();
     }
 
     @Override
