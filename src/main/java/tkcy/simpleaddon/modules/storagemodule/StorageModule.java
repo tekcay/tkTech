@@ -44,15 +44,16 @@ public class StorageModule {
     }
 
     public static MetaTileEntityModulableTankValve getTankValve(Material material) {
-        return get(material, TKCYSAMetaTileEntities.MODULABLE_TANK_VALVES);
+        return getMaterialMetaTileEntity(material, TKCYSAMetaTileEntities.MODULABLE_TANK_VALVES);
     }
 
     public static MetaTileEntityModulableCrateValve getCrateValve(Material material) {
-        return get(material, TKCYSAMetaTileEntities.MODULABLE_CRATE_VALVES);
+        return getMaterialMetaTileEntity(material, TKCYSAMetaTileEntities.MODULABLE_CRATE_VALVES);
     }
 
     @Nullable
-    private static <T extends MaterialMetaTileEntity> T get(Material material, T[] metaTileEntities) {
+    private static <T extends MaterialMetaTileEntity> T getMaterialMetaTileEntity(Material material,
+                                                                                  T[] metaTileEntities) {
         return IntStream.range(0, TANK_MATERIALS.size())
                 .boxed()
                 .map(i -> metaTileEntities[i])

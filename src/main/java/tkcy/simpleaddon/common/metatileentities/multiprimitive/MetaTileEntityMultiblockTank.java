@@ -44,9 +44,6 @@ public class MetaTileEntityMultiblockTank extends MetaTileEntityMultiblockStorag
     }
 
     @Override
-    protected void initializeAbilities() {}
-
-    @Override
     protected void setLayerCapacity(boolean isLarge) {
         this.layerCapacity = (int) Math.pow(10, 6) * (isLarge ? 21 : 1);
     }
@@ -100,7 +97,7 @@ public class MetaTileEntityMultiblockTank extends MetaTileEntityMultiblockStorag
     }
 
     @Override
-    protected TraceabilityPredicate getTransferMetatileEntity() {
+    protected TraceabilityPredicate getTransferPredicate() {
         return metaTileEntities(StorageModule.getTankValve(getMaterial()));
     }
 

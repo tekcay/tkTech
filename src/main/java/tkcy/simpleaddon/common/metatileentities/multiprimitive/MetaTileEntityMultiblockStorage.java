@@ -76,10 +76,13 @@ public abstract class MetaTileEntityMultiblockStorage<ContentHandler, ContentTyp
         super.formStructure(context);
         this.height = context.getOrDefault(RepetitiveSide.getHeightMarker(), 0) + 1;
         this.totalCapacity = this.layerCapacity * this.height;
-        initializeAbilities();
     }
 
-    protected abstract void initializeAbilities();
+    @Override
+    public void invalidateStructure() {
+        super.invalidateStructure();
+        // reset();
+    }
 
     protected abstract void setLayerCapacity(boolean isLarge);
 
@@ -87,7 +90,7 @@ public abstract class MetaTileEntityMultiblockStorage<ContentHandler, ContentTyp
 
     protected abstract ContentHandler getHandler();
 
-    protected abstract TraceabilityPredicate getTransferMetatileEntity();
+    protected abstract TraceabilityPredicate getTransferPredicate();
 
     @NotNull
     @Override
@@ -99,7 +102,7 @@ public abstract class MetaTileEntityMultiblockStorage<ContentHandler, ContentTyp
                 .where('I', TKCYSAPredicates.isAir(RepetitiveSide.getHeightMarker()))
                 .where('X',
                         TKCYSAPredicates.iBlockStatePredicate(getSideBlockBlockState())
-                                .or(getTransferMetatileEntity()
+                                .or(getTransferPredicate()
                                         .setMaxGlobalLimited(4)))
                 .build();
     }

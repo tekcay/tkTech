@@ -27,7 +27,6 @@ public class MetaTileEntityModulableCrateValve extends MetaTileEntityModulableVa
     }
 
     // TODO might happen around here
-
     @Override
     protected void initializeDummyInventory() {
         this.itemInventory = new ItemHandlerProxy(new ItemStackHandler(), new ItemStackHandler());

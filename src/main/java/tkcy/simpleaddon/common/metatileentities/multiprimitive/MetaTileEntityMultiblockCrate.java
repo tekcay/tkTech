@@ -2,8 +2,11 @@ package tkcy.simpleaddon.common.metatileentities.multiprimitive;
 
 import java.util.List;
 import java.util.function.Function;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import net.minecraft.client.resources.I18n;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
@@ -15,9 +18,11 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import gregtech.api.capability.impl.*;
+import gregtech.api.items.itemhandlers.GTItemStackHandler;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
 import gregtech.api.metatileentity.multiblock.MultiblockAbility;
+import gregtech.api.pattern.PatternMatchContext;
 import gregtech.api.pattern.TraceabilityPredicate;
 import gregtech.api.unification.material.Material;
 import gregtech.api.util.GTLog;
@@ -26,7 +31,6 @@ import gregtech.api.util.GTTransferUtils;
 import tkcy.simpleaddon.api.metatileentities.MetaTileEntityStorageFormat;
 import tkcy.simpleaddon.api.utils.ItemHandlerHelpers;
 import tkcy.simpleaddon.api.utils.StorageUtils;
-import tkcy.simpleaddon.api.utils.TKFilteredItemHandler;
 import tkcy.simpleaddon.api.utils.units.CommonUnits;
 import tkcy.simpleaddon.modules.storagemodule.StorageModule;
 
@@ -34,28 +38,31 @@ import tkcy.simpleaddon.modules.storagemodule.StorageModule;
 public class MetaTileEntityMultiblockCrate extends MetaTileEntityMultiblockStorage<IItemHandler, ItemStack>
                                            implements MetaTileEntityStorageFormat<ItemStack> {
 
-    private TKFilteredItemHandler itemHandler;
+    private ItemStack itemStackFilter;
 
     public MetaTileEntityMultiblockCrate(ResourceLocation metaTileEntityId, Material material, boolean isLarge) {
         super(metaTileEntityId, material, isLarge);
     }
 
     @Override
-    protected void initializeAbilities() {
-        this.importItems = new ItemHandlerList(getAbilities(MultiblockAbility.IMPORT_ITEMS));
-        this.exportItems = new ItemHandlerList(getAbilities(MultiblockAbility.EXPORT_ITEMS));
-        this.itemHandler = new TKFilteredItemHandler(this, this.totalCapacity);
+    protected void formStructure(PatternMatchContext context) {
+        super.formStructure(context);
+        this.initializeInventory();
+        this.itemStackFilter = ItemStack.EMPTY;
     }
 
     @Override
     protected void setLayerCapacity(boolean isLarge) {
-        this.layerCapacity = (int) Math.pow(10, 3) * (isLarge ? 21 : 1) * 64;
+        this.layerCapacity = (int) Math.pow(10, 2) * (isLarge ? 21 : 1);
     }
 
     @Override
     protected void initializeInventory() {
         if (this.getMaterial() == null) return;
         super.initializeInventory();
+        this.itemInventory = new GTItemStackHandler(this, this.totalCapacity);
+        this.importItems = new ItemHandlerList(getAbilities(MultiblockAbility.IMPORT_ITEMS));
+        this.exportItems = new ItemHandlerList(getAbilities(MultiblockAbility.EXPORT_ITEMS));
     }
 
     @Override
@@ -63,16 +70,123 @@ public class MetaTileEntityMultiblockCrate extends MetaTileEntityMultiblockStora
         return new MetaTileEntityMultiblockCrate(metaTileEntityId, getMaterial(), isLarge);
     }
 
+    private boolean isStackValidForFilter(@Nullable ItemStack itemStackFilter) {
+        if (itemStackFilter == null) return false;
+        if (itemStackFilter.isItemEqual(ItemStack.EMPTY)) return false;
+        return itemStackFilter.getItem() != Items.AIR;
+    }
+
+    private boolean hasStackFilter() {
+        return isStackValidForFilter(this.itemStackFilter);
+    }
+
     @Override
     protected void updateFormedValid() {
-        ItemStack predicate = this.itemHandler.getPredicateStack();
-        if (!predicate.isEmpty()) GTLog.logger.info("filter is here : " + predicate.getDisplayName());
-        this.itemHandler.updateContent();
-        GTTransferUtils.moveInventoryItems(this.itemHandler, this.exportItems);
-        if (!this.itemHandler.hasItemFillPredicate()) {
-            if (!this.itemHandler.trySetFillPredicate(this.importItems)) return;
+        if (!hasStackFilter()) {
+            log("NO STACK FILTER");
+            setStackFilter();
         }
-        ItemHandlerHelpers.moveHandlerToFiltered(this.importItems, this.itemHandler);
+        if (hasStackFilter()) {
+            log(String.format("HAS STACK FILTER : %s", this.itemStackFilter.getDisplayName()));
+            ItemHandlerHelpers.moveInventoryItemsFiltered(this.importItems, this.itemInventory, this.itemStackFilter);
+            // tryToFill();
+        }
+        tryToEmpty();
+    }
+
+    private void log(String message) {
+        if (getOffsetTimer() % 20 == 0) {
+            GTLog.logger.info(message);
+        }
+    }
+
+    protected int moveInventoryItems(IItemHandler sourceInventory, IItemHandler targetInventory,
+                                     int maxTransferAmount) {
+        int itemsLeftToTransfer = maxTransferAmount;
+        for (int srcIndex = 0; srcIndex < sourceInventory.getSlots(); srcIndex++) {
+            ItemStack sourceStack = sourceInventory.extractItem(srcIndex, itemsLeftToTransfer, true);
+            if (sourceStack.isEmpty()) {
+                continue;
+            }
+            if (!this.itemStackFilter.isItemEqual(sourceStack)) {
+                continue;
+            }
+            ItemStack remainder = GTTransferUtils.insertItem(targetInventory, sourceStack, true);
+            int amountToInsert = sourceStack.getCount() - remainder.getCount();
+
+            if (amountToInsert > 0) {
+                sourceStack = sourceInventory.extractItem(srcIndex, amountToInsert, false);
+                if (!sourceStack.isEmpty()) {
+                    GTTransferUtils.insertItem(targetInventory, sourceStack, false);
+                    itemsLeftToTransfer -= sourceStack.getCount();
+
+                    if (itemsLeftToTransfer == 0) {
+                        break;
+                    }
+                }
+            }
+        }
+        return maxTransferAmount - itemsLeftToTransfer;
+    }
+
+    private void tryToFill() {
+        int maxToExtract = getInitStream(this.importItems)
+                .map(slotIndex -> this.importItems.extractItem(slotIndex, Integer.MAX_VALUE, true))
+                .filter(this::isStackValidForFilter)
+                .filter(this.itemStackFilter::isItemEqual)
+                .mapToInt(ItemStack::getCount)
+                .sum();
+
+        if (maxToExtract == 0) return;
+
+        // moveInventoryItems(this.importItems, this.itemInventory, maxToExtract);
+
+        ItemStack extractedStack;
+        ItemStack remainder;
+
+        for (int slotIndex = 0; slotIndex < this.importItems.getSlots(); slotIndex++) {
+            int toRemove = Math.min(64, maxToExtract);
+            GTLog.logger.info("toRemove : " + toRemove);
+
+            extractedStack = this.importItems.extractItem(slotIndex, toRemove, true);
+            if (extractedStack.isEmpty()) {
+                GTLog.logger.info("extractedStack.isEmpty()");
+                continue;
+            }
+
+            remainder = GTTransferUtils.insertItem(this.itemInventory, extractedStack, true);
+            if (remainder.isEmpty()) {
+                GTLog.logger.info("remainder.isEmpty()");
+                continue;
+            }
+
+            extractedStack = this.importItems.extractItem(slotIndex, toRemove, false);
+            GTLog.logger.info(
+                    String.format("extracted : %d %s", extractedStack.getCount(), extractedStack.getDisplayName()));
+            remainder = GTTransferUtils.insertItem(this.itemInventory, extractedStack, false);
+            GTLog.logger.info(String.format("remainder : %d %s", remainder.getCount(), remainder.getDisplayName()));
+
+            maxToExtract -= remainder.getCount();
+            if (maxToExtract == 0) return;
+        }
+    }
+
+    private void tryToEmpty() {
+        GTTransferUtils.moveInventoryItems(this.itemInventory, this.exportItems);
+    }
+
+    private Stream<Integer> getInitStream(IItemHandler itemHandler) {
+        return IntStream
+                .range(0, itemHandler.getSlots())
+                .boxed();
+    }
+
+    private void setStackFilter() {
+        this.itemStackFilter = getInitStream(this.importItems)
+                .map(slotIndex -> this.importItems.extractItem(slotIndex, Integer.MAX_VALUE, true))
+                .filter(this::isStackValidForFilter)
+                .findAny()
+                .orElse(ItemStack.EMPTY);
     }
 
     @Override
@@ -82,11 +196,11 @@ public class MetaTileEntityMultiblockCrate extends MetaTileEntityMultiblockStora
 
     @Override
     protected IItemHandler getHandler() {
-        return getCapability().cast(this.itemHandler);
+        return getCapability().cast(this.itemInventory);
     }
 
     @Override
-    protected TraceabilityPredicate getTransferMetatileEntity() {
+    protected TraceabilityPredicate getTransferPredicate() {
         return new TraceabilityPredicate()
                 .or(abilities(MultiblockAbility.IMPORT_ITEMS))
                 .or(abilities(MultiblockAbility.EXPORT_ITEMS));
@@ -118,9 +232,13 @@ public class MetaTileEntityMultiblockCrate extends MetaTileEntityMultiblockStora
     @Override
     @Nullable
     public ItemStack getContent() {
-        if (this.itemHandler == null) return null;
-        this.itemHandler.updateContent();
-        return this.itemHandler.getContentStack();
+        if (this.itemInventory == null) return null;
+        ItemStack content = new ItemStack(this.itemStackFilter.getItem());
+        getInitStream(this.itemInventory)
+                .map(slotIndex -> this.itemInventory.getStackInSlot(slotIndex))
+                .map(ItemStack::getCount)
+                .forEach(content::grow);
+        return content;
     }
 
     @Override

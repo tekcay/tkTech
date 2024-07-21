@@ -7,6 +7,8 @@ import java.util.stream.IntStream;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.IItemHandler;
 
+import org.jetbrains.annotations.NotNull;
+
 import gregtech.api.capability.impl.FilteredItemHandler;
 import gregtech.api.util.GTLog;
 
@@ -51,5 +53,22 @@ public class ItemHandlerHelpers {
             }
         }
         return didItTransferSomething;
+    }
+
+    public static void moveInventoryItemsFiltered(@NotNull IItemHandler sourceInventory,
+                                                  @NotNull IItemHandler targetInventory,
+                                                  @NotNull ItemStack filterStack) {
+        for (int srcIndex = 0; srcIndex < sourceInventory.getSlots(); srcIndex++) {
+            ItemStack sourceStack = sourceInventory.extractItem(srcIndex, Integer.MAX_VALUE, true);
+            if (sourceStack.isEmpty() || !sourceStack.isItemEqual(filterStack)) {
+                continue;
+            }
+            ItemStack remainder = insertItem(targetInventory, sourceStack, true);
+            int amountToInsert = sourceStack.getCount() - remainder.getCount();
+            if (amountToInsert > 0) {
+                sourceStack = sourceInventory.extractItem(srcIndex, amountToInsert, false);
+                insertItem(targetInventory, sourceStack, false);
+            }
+        }
     }
 }
