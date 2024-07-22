@@ -15,4 +15,9 @@ class BooleanHelperTest {
     public void doesAnyMatch() {
         assertFalse(BooleanHelper.doesAnyMatch(1, 2, 3, 4));
     }
+
+    @Test
+    public void ajlzbf() {
+        assertTrue(127 / 64 == 1);
+    }
 }
