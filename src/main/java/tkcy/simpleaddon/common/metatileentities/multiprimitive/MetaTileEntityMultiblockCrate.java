@@ -1,11 +1,14 @@
 package tkcy.simpleaddon.common.metatileentities.multiprimitive;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -15,6 +18,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import gregtech.api.capability.impl.*;
+import gregtech.api.items.itemhandlers.GTItemStackHandler;
+import gregtech.api.metatileentity.IDataInfoProvider;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
 import gregtech.api.metatileentity.multiblock.MultiblockAbility;
@@ -30,10 +35,9 @@ import tkcy.simpleaddon.modules.storagemodule.StorageModule;
 
 @StorageModule.StorageModulable
 public class MetaTileEntityMultiblockCrate extends MetaTileEntityMultiblockStorage<IItemHandler, ItemStack>
-                                           implements MetaTileEntityStorageFormat<ItemStack> {
+                                           implements MetaTileEntityStorageFormat<ItemStack>, IDataInfoProvider {
 
-    private ItemStack itemStackFilter;
-    private MassiveSingleFilterItemStackHandler2 storeHandler;
+    private GTItemStackHandler singleSlotItemHandler;
 
     public MetaTileEntityMultiblockCrate(ResourceLocation metaTileEntityId, Material material, boolean isLarge) {
         super(metaTileEntityId, material, isLarge);
@@ -43,7 +47,6 @@ public class MetaTileEntityMultiblockCrate extends MetaTileEntityMultiblockStora
     protected void formStructure(PatternMatchContext context) {
         super.formStructure(context);
         this.initializeInventory();
-        this.itemStackFilter = ItemStack.EMPTY;
     }
 
     @Override
@@ -55,94 +58,26 @@ public class MetaTileEntityMultiblockCrate extends MetaTileEntityMultiblockStora
     protected void initializeInventory() {
         if (this.getMaterial() == null) return;
         super.initializeInventory();
-        this.storeHandler = new MassiveSingleFilterItemStackHandler2(this, this.totalCapacity);
+        // this.singleSlotItemHandler = new ModulableSingleItemStackHandler2(this, this.totalCapacity);
+        this.singleSlotItemHandler = new GTItemStackHandler(this, 1);
         this.importItems = new ItemHandlerList(getAbilities(MultiblockAbility.IMPORT_ITEMS));
         this.exportItems = new ItemHandlerList(getAbilities(MultiblockAbility.EXPORT_ITEMS));
+        this.itemInventory = new ItemHandlerProxy(this.singleSlotItemHandler, this.exportItems);
     }
 
     @Override
     public MetaTileEntity createMetaTileEntity(IGregTechTileEntity tileEntity) {
         return new MetaTileEntityMultiblockCrate(metaTileEntityId, getMaterial(), isLarge);
     }
-    /*
-     * private boolean isStackValidForFilter(@Nullable ItemStack itemStackFilter) {
-     * if (itemStackFilter == null) return false;
-     * return itemStackFilter.getItem() != Items.AIR;
-     * }
-     * 
-     * private void tryToTransfer() {
-     * 
-     * int maxAmountToTransfer = getInitStream(this.importItems)
-     * .map(slotIndex -> this.importItems.getStackInSlot(slotIndex))
-     * .mapToInt(ItemStack::getCount)
-     * .sum();
-     * 
-     * if (maxAmountToTransfer == 0) return;
-     * 
-     * 
-     * Map<Integer, ItemStack> slotIndexToItemStack = new HashMap<>(this.importItems.getSlots());
-     * 
-     * getInitStream(this.importItems)
-     * .sorted()
-     * .map(slotIndex -> this.importItems.getStackInSlot(slotIndex))
-     * .forEach(slotIndexToItemStack.values()::add);
-     * }
-     */
 
     @Override
     protected void updateFormedValid() {
-        if (getOffsetTimer() % 10 == 0) {
-            this.storeHandler.setMaxPerSlot(this.totalCapacity);
-            GTTransferUtils.moveInventoryItems(this.importItems, this.storeHandler);
-            GTTransferUtils.moveInventoryItems(this.storeHandler, this.exportItems);
+        if (!getWorld().isRemote && getOffsetTimer() % 5 == 0) {
+            GTTransferUtils.moveInventoryItems(this.importItems, this.singleSlotItemHandler);
+            GTTransferUtils.moveInventoryItems(this.singleSlotItemHandler, this.exportItems);
+            markDirty();
         }
     }
-    /*
-     * @Override
-     * protected void updateFormedValid2() {
-     * 
-     * if (!this.storeHandler.hasItemStackFilter()) setStackFilter();
-     * 
-     * if (!this.storeHandler.isFilled()) {
-     * 
-     * int maxToRemove = getInitStream(this.importItems)
-     * .map(slotIndex -> this.importItems.extractItem(slotIndex, Integer.MAX_VALUE, true))
-     * .filter(this.storeHandler.getItemStackFilter()::isItemEqual)
-     * .mapToInt(ItemStack::getCount)
-     * .sum();
-     * 
-     * int toRemove = this.storeHandler.insertItem(maxToRemove, true);
-     * 
-     * if (toRemove > 0) {
-     * this.storeHandler.insertItem(toRemove, false);
-     * }
-     * 
-     * 
-     * }
-     * this.storeHandler.tryToExtractItem(this.exportItems, false);
-     * }
-     * 
-     * private void log(String message) {
-     * if (getOffsetTimer() % 20 == 0) {
-     * GTLog.logger.info(message);
-     * }
-     * }
-     * 
-     * private Stream<Integer> getInitStream(IItemHandler itemHandler) {
-     * return IntStream
-     * .range(0, itemHandler.getSlots())
-     * .boxed();
-     * }
-     * 
-     * private void setStackFilter() {
-     * this.itemStackFilter = getInitStream(this.importItems)
-     * .map(slotIndex -> this.importItems.extractItem(slotIndex, Integer.MAX_VALUE, true))
-     * .filter(this::isStackValidForFilter)
-     * .findAny()
-     * .orElse(ItemStack.EMPTY);
-     * this.storeHandler.setItemStackFilter(this.itemStackFilter);
-     * }
-     */
 
     @Override
     protected Capability<IItemHandler> getCapability() {
@@ -151,7 +86,7 @@ public class MetaTileEntityMultiblockCrate extends MetaTileEntityMultiblockStora
 
     @Override
     protected IItemHandler getHandler() {
-        return getCapability().cast(this.storeHandler);
+        return getCapability().cast(this.singleSlotItemHandler);
     }
 
     @Override
@@ -187,28 +122,13 @@ public class MetaTileEntityMultiblockCrate extends MetaTileEntityMultiblockStora
     @Override
     @Nullable
     public ItemStack getContent() {
-        if (this.storeHandler == null) return null;
-        return this.storeHandler.getStackInSlot(0);
+        if (this.singleSlotItemHandler == null) return ItemStack.EMPTY;
+        return itemInventory.getStackInSlot(0);
     }
-    /*
-     * 
-     * @Override
-     * 
-     * @Nullable
-     * public ItemStack getContent() {
-     * if (this.storeHandler == null) return null;
-     * ItemStack content = new ItemStack(this.itemStackFilter.getItem());
-     * getInitStream(this.storeHandler)
-     * .map(slotIndex -> this.storeHandler.getStackInSlot(slotIndex))
-     * .map(ItemStack::getCount)
-     * .forEach(content::grow);
-     * return content;
-     * }
-     */
 
     @Override
     public CommonUnits getBaseContentUnit() {
-        return CommonUnits.liter;
+        return CommonUnits.empty;
     }
 
     @Override
@@ -224,5 +144,30 @@ public class MetaTileEntityMultiblockCrate extends MetaTileEntityMultiblockStora
     @Override
     public String getContentTextTranslationKey() {
         return "tkcysa.multiblock.modulable_storage.content";
+    }
+
+    @Override
+    public @NotNull List<ITextComponent> getDataInfo() {
+        List<ITextComponent> textComponents = new ArrayList<>();
+        ItemStack first = this.singleSlotItemHandler.getStackInSlot(0);
+        textComponents.add(new TextComponentTranslation("behavior.tricorder.itemStack",
+                "this.singleSlotItemHandler.getStackInSlot(0)",
+                first.getCount(), first.getDisplayName()));
+
+        textComponents
+                .add(new TextComponentTranslation("behavior.tricorder.size", "this.singleSlotItemHandler.getSlots",
+                        this.singleSlotItemHandler.getSlots()));
+
+        ItemStack second = this.itemInventory.getStackInSlot(0);
+        textComponents.add(new TextComponentTranslation("behavior.tricorder.itemStack",
+                "this.itemInventory.getStackInSlot(0)", second.getCount(),
+                second.getDisplayName()));
+
+        ItemStack third = this.itemInventory.getStackInSlot(1);
+        textComponents.add(new TextComponentTranslation("behavior.tricorder.itemStack",
+                "this.itemInventory.getStackInSlot(1)", third.getCount(),
+                third.getDisplayName()));
+
+        return textComponents;
     }
 }

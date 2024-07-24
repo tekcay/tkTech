@@ -57,11 +57,11 @@ public abstract class MetaTileEntityMultiblockStorage<ContentHandler, ContentTyp
 
     @Getter
     private final Material material;
+    @Getter
+    protected int totalCapacity;
     private int height;
     protected final boolean isLarge;
     protected int layerCapacity;
-    @Getter
-    protected int totalCapacity;
 
     public MetaTileEntityMultiblockStorage(ResourceLocation metaTileEntityId, Material material, boolean isLarge) {
         super(metaTileEntityId);
@@ -139,8 +139,7 @@ public abstract class MetaTileEntityMultiblockStorage<ContentHandler, ContentTyp
     @Override
     public boolean onRightClick(EntityPlayer playerIn, EnumHand hand, EnumFacing facing,
                                 CuboidRayTraceResult hitResult) {
-        if (!isStructureFormed())
-            return false;
+        if (!isStructureFormed()) return false;
         return super.onRightClick(playerIn, hand, facing, hitResult);
     }
 
@@ -176,11 +175,8 @@ public abstract class MetaTileEntityMultiblockStorage<ContentHandler, ContentTyp
     @Override
     public <T> T getCapability(Capability<T> capability, EnumFacing side) {
         if (capability == getCapability()) {
-            if (isStructureFormed()) {
-                return getCapability().cast(getHandler());
-            } else {
-                return null;
-            }
+            if (isStructureFormed()) return getCapability().cast(getHandler());
+            else return null;
         }
         return super.getCapability(capability, side);
     }

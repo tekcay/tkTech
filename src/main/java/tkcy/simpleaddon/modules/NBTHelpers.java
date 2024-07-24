@@ -19,7 +19,7 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class NBTHelpers {
 
-    public static NBTTagList getSerializedItemOutputsTag(NonNullList<ItemStack> itemOutputs) {
+    public static NBTTagList getSerializedItemsTag(NonNullList<ItemStack> itemOutputs) {
         NBTTagList itemOutputsList = new NBTTagList();
         for (ItemStack itemOutput : itemOutputs) {
             itemOutputsList.appendTag(itemOutput.writeToNBT(new NBTTagCompound()));
@@ -27,7 +27,7 @@ public class NBTHelpers {
         return itemOutputsList;
     }
 
-    public static NBTTagList getSerializedFluidOutputsTag(List<FluidStack> fluidOutputs) {
+    public static NBTTagList getSerializedFluidsTag(List<FluidStack> fluidOutputs) {
         NBTTagList fluidOutputsList = new NBTTagList();
         for (FluidStack fluidOutput : fluidOutputs) {
             fluidOutputsList.appendTag(fluidOutput.writeToNBT(new NBTTagCompound()));
@@ -35,22 +35,22 @@ public class NBTHelpers {
         return fluidOutputsList;
     }
 
-    public static TriConsumer<NBTTagCompound, NonNullList<ItemStack>, String> serializeItemOutputs = (nbtTagCompound,
+    public static TriConsumer<NBTTagCompound, NonNullList<ItemStack>, String> itemStacksSerializer = (nbtTagCompound,
                                                                                                       itemStacks,
                                                                                                       nbtLabel) -> nbtTagCompound
                                                                                                               .setTag(nbtLabel,
-                                                                                                                      getSerializedItemOutputsTag(
+                                                                                                                      getSerializedItemsTag(
                                                                                                                               itemStacks));
 
-    public static TriConsumer<NBTTagCompound, List<FluidStack>, String> serializeFluidOutputs = (nbtTagCompound,
+    public static TriConsumer<NBTTagCompound, List<FluidStack>, String> fluidStacksSerializer = (nbtTagCompound,
                                                                                                  fluidStacks,
                                                                                                  nbtLabel) -> nbtTagCompound
                                                                                                          .setTag(nbtLabel,
-                                                                                                                 getSerializedFluidOutputsTag(
+                                                                                                                 getSerializedFluidsTag(
                                                                                                                          fluidStacks));
 
-    public static NonNullList<ItemStack> getDeserializedItemOutputs(@NotNull NBTTagCompound compound,
-                                                                    @NotNull NBTLabel nbtLabel) {
+    public static NonNullList<ItemStack> getDeserializedItemStacks(@NotNull NBTTagCompound compound,
+                                                                   @NotNull NBTLabel nbtLabel) {
         NBTTagList itemOutputsList = compound.getTagList(nbtLabel.name(), Constants.NBT.TAG_COMPOUND);
         NonNullList<ItemStack> itemOutputs = NonNullList.create();
         for (int i = 0; i < itemOutputsList.tagCount(); i++) {
@@ -59,8 +59,8 @@ public class NBTHelpers {
         return itemOutputs;
     }
 
-    public static List<FluidStack> getDeserializedFluidOutputs(@NotNull NBTTagCompound compound,
-                                                               @NotNull NBTLabel nbtLabel) {
+    public static List<FluidStack> getDeserializedFluidStacks(@NotNull NBTTagCompound compound,
+                                                              @NotNull NBTLabel nbtLabel) {
         NBTTagList fluidOutputsList = compound.getTagList(nbtLabel.name(), Constants.NBT.TAG_COMPOUND);
         List<FluidStack> fluidOutputs = new ArrayList<>();
         for (int i = 0; i < fluidOutputsList.tagCount(); i++) {

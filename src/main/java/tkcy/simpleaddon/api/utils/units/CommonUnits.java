@@ -7,6 +7,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum CommonUnits {
 
+    empty(' '),
     meter('m'),
     liter('L'),
     kelvin('L'),
