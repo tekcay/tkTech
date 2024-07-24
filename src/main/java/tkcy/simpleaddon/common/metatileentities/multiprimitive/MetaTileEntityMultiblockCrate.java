@@ -6,6 +6,7 @@ import java.util.function.Function;
 
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentTranslation;
@@ -38,6 +39,7 @@ public class MetaTileEntityMultiblockCrate extends MetaTileEntityMultiblockStora
                                            implements MetaTileEntityStorageFormat<ItemStack>, IDataInfoProvider {
 
     private GTItemStackHandler singleSlotItemHandler;
+    private ItemStack storedItemStack = ItemStack.EMPTY;
 
     public MetaTileEntityMultiblockCrate(ResourceLocation metaTileEntityId, Material material, boolean isLarge) {
         super(metaTileEntityId, material, isLarge);
@@ -59,10 +61,9 @@ public class MetaTileEntityMultiblockCrate extends MetaTileEntityMultiblockStora
         if (this.getMaterial() == null) return;
         super.initializeInventory();
         // this.singleSlotItemHandler = new ModulableSingleItemStackHandler2(this, this.totalCapacity);
-        this.singleSlotItemHandler = new GTItemStackHandler(this, 1);
+        this.itemInventory = new GTItemStackHandler(this, 1);
         this.importItems = new ItemHandlerList(getAbilities(MultiblockAbility.IMPORT_ITEMS));
         this.exportItems = new ItemHandlerList(getAbilities(MultiblockAbility.EXPORT_ITEMS));
-        this.itemInventory = new ItemHandlerProxy(this.singleSlotItemHandler, this.exportItems);
     }
 
     @Override
@@ -73,9 +74,15 @@ public class MetaTileEntityMultiblockCrate extends MetaTileEntityMultiblockStora
     @Override
     protected void updateFormedValid() {
         if (!getWorld().isRemote && getOffsetTimer() % 5 == 0) {
-            GTTransferUtils.moveInventoryItems(this.importItems, this.singleSlotItemHandler);
-            GTTransferUtils.moveInventoryItems(this.singleSlotItemHandler, this.exportItems);
-            markDirty();
+            if (!this.itemInventory.getStackInSlot(0).isItemEqual(this.storedItemStack)) {
+                this.itemInventory.insertItem(0, this.storedItemStack, false);
+            }
+
+            this.itemInventory.insertItem(0, this.storedItemStack, false);
+            GTTransferUtils.moveInventoryItems(this.importItems, this.itemInventory);
+            this.storedItemStack = this.itemInventory.getStackInSlot(0);
+            GTTransferUtils.moveInventoryItems(this.itemInventory, this.exportItems);
+            this.storedItemStack = this.itemInventory.getStackInSlot(0);
         }
     }
 
@@ -86,7 +93,7 @@ public class MetaTileEntityMultiblockCrate extends MetaTileEntityMultiblockStora
 
     @Override
     protected IItemHandler getHandler() {
-        return getCapability().cast(this.singleSlotItemHandler);
+        return getCapability().cast(this.itemInventory);
     }
 
     @Override
@@ -122,7 +129,7 @@ public class MetaTileEntityMultiblockCrate extends MetaTileEntityMultiblockStora
     @Override
     @Nullable
     public ItemStack getContent() {
-        if (this.singleSlotItemHandler == null) return ItemStack.EMPTY;
+        if (this.itemInventory == null) return ItemStack.EMPTY;
         return itemInventory.getStackInSlot(0);
     }
 
@@ -148,15 +155,20 @@ public class MetaTileEntityMultiblockCrate extends MetaTileEntityMultiblockStora
 
     @Override
     public @NotNull List<ITextComponent> getDataInfo() {
-        List<ITextComponent> textComponents = new ArrayList<>();
-        ItemStack first = this.singleSlotItemHandler.getStackInSlot(0);
-        textComponents.add(new TextComponentTranslation("behavior.tricorder.itemStack",
-                "this.singleSlotItemHandler.getStackInSlot(0)",
-                first.getCount(), first.getDisplayName()));
-
-        textComponents
-                .add(new TextComponentTranslation("behavior.tricorder.size", "this.singleSlotItemHandler.getSlots",
-                        this.singleSlotItemHandler.getSlots()));
+        List<ITextComponent> textComponents = new ArrayList<>();/*
+                                                                 * ItemStack first =
+                                                                 * this.singleSlotItemHandler.getStackInSlot(0);
+                                                                 * textComponents.add(new TextComponentTranslation(
+                                                                 * "behavior.tricorder.itemStack",
+                                                                 * "this.singleSlotItemHandler.getStackInSlot(0)",
+                                                                 * first.getCount(), first.getDisplayName()));
+                                                                 * 
+                                                                 * textComponents
+                                                                 * .add(new
+                                                                 * TextComponentTranslation("behavior.tricorder.size",
+                                                                 * "this.singleSlotItemHandler.getSlots",
+                                                                 * this.singleSlotItemHandler.getSlots()));
+                                                                 */
 
         ItemStack second = this.itemInventory.getStackInSlot(0);
         textComponents.add(new TextComponentTranslation("behavior.tricorder.itemStack",
@@ -170,4 +182,38 @@ public class MetaTileEntityMultiblockCrate extends MetaTileEntityMultiblockStora
 
         return textComponents;
     }
+
+    @Override
+    public NBTTagCompound writeToNBT(NBTTagCompound data) {
+        super.writeToNBT(data);
+        NBTTagCompound stackTag = new NBTTagCompound();
+        this.storedItemStack.writeToNBT(stackTag);
+        data.setTag("storedItem", stackTag);
+        // storedItemStack.writeToNBT(stackTag);
+        // data.setTag(STORED_ITEM, stackTag);
+        // data.setInteger(ITEM_COUNT, this.itemStackSize);
+        return data;
+    }
+
+    @Override
+    public void readFromNBT(NBTTagCompound data) {
+        super.readFromNBT(data);
+        // this.itemStackSize = data.getInteger(ITEM_COUNT);
+        // this.storedItemStack = new ItemStack(data.getCompoundTag(STORED_ITEM));
+        this.storedItemStack = new ItemStack(data.getCompoundTag("storedItem"));
+        // this.itemInventory.insertItem(0, new ItemStack(data.getCompoundTag("storedItem")), false);
+    }
+    /*
+     * @Override
+     * public void writeInitialSyncData(PacketBuffer buf) {
+     * super.writeInitialSyncData(buf);
+     * buf.writeInt(itemStackSize);
+     * }
+     * 
+     * @Override
+     * public void receiveInitialSyncData(PacketBuffer buf) {
+     * super.receiveInitialSyncData(buf);
+     * itemStackSize = buf.readInt();
+     * }
+     */
 }
