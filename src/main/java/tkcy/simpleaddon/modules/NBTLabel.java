@@ -7,6 +7,7 @@ public enum NBTLabel {
     ITEM_OUTPUTS,
     FLUID_OUTPUTS,
     ITEM_INVENTORY,
+    ITEM_QUANTITY,
     SLOT_INDEX;
 
     @Override

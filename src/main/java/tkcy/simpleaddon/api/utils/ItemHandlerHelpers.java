@@ -71,4 +71,8 @@ public class ItemHandlerHelpers {
             }
         }
     }
+
+    public ItemStack newItemStack(ItemStack baseStack, int amount) {
+        return new ItemStack(baseStack.getItem(), amount);
+    }
 }
