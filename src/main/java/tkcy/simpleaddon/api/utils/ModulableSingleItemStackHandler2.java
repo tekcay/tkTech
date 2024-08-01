@@ -124,7 +124,9 @@ public class ModulableSingleItemStackHandler2 extends GTItemStackHandler {
     }
 
     public void export(IItemHandler handler, int maxToBeTransferred) {
-        ItemStack tobeTransferred = ItemHandlerHelpers.newItemStack(getContent(), maxToBeTransferred);
+        // TODO
+
+        ItemStack tobeTransferred = ItemHandlerHelpers.copyWithAmount(getContent(), maxToBeTransferred);
         GTTransferUtils.insertItem(handler, tobeTransferred, false);
         this.increaseAmount(-maxToBeTransferred);
     }

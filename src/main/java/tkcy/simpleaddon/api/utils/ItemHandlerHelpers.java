@@ -72,7 +72,9 @@ public class ItemHandlerHelpers {
         }
     }
 
-    public ItemStack newItemStack(ItemStack baseStack, int amount) {
-        return new ItemStack(baseStack.getItem(), amount);
+    public ItemStack copyWithAmount(ItemStack baseStack, int amount) {
+        ItemStack temp = baseStack.copy();
+        temp.setCount(amount);
+        return temp;
     }
 }

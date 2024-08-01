@@ -41,6 +41,7 @@ public class MetaTileEntityMultiblockCrate extends MetaTileEntityMultiblockStora
 
     private ModulableSingleItemStackHandler2 storedStackHandler;
     private ItemStack storedItemStack = ItemStack.EMPTY;
+    private ItemStack itemStackFilter = ItemStack.EMPTY;
     private int storedQuantity = 0;
 
     public MetaTileEntityMultiblockCrate(ResourceLocation metaTileEntityId, Material material, boolean isLarge) {
@@ -88,13 +89,24 @@ public class MetaTileEntityMultiblockCrate extends MetaTileEntityMultiblockStora
     protected void updateStoredItemStack(@NotNull ItemStack itemStack) {
         this.storedItemStack = itemStack;
         this.storedQuantity = itemStack.getCount();
+
         writeCustomData(TKCYSADataCodes.UPDATE_ITEM_STACK, TKCYSADataCodes.getItemStackWriter(this.storedItemStack));
         writeCustomData(TKCYSADataCodes.UPDATE_ITEM_COUNT, TKCYSADataCodes.getInt(this.storedQuantity));
     }
 
-    protected void updateStoredItemStack(@NotNull ModulableSingleItemStackHandler2 handler) {
-        this.storedItemStack = handler.getContent();
-        writeCustomData(TKCYSADataCodes.UPDATE_ITEM_STACK, TKCYSADataCodes.getItemStackWriter(this.storedItemStack));
+    protected void setStoredItemStack() {
+        this.storedItemStack = this.itemStackFilter.copy();
+        this.storedItemStack.setCount(this.storedQuantity);
+    }
+
+    protected void updateStoredItemStack() {
+        this.storedItemStack = this.storedStackHandler.getContent();
+        this.storedQuantity = this.storedStackHandler.getContent().getCount();
+        this.itemStackFilter = ItemHandlerHelpers.copyWithAmount(this.storedItemStack, 1);
+
+        writeCustomData(TKCYSADataCodes.UPDATE_ITEM_STACK,
+                TKCYSADataCodes.getItemStackWriter(this.itemStackFilter));
+        writeCustomData(TKCYSADataCodes.UPDATE_ITEM_COUNT, TKCYSADataCodes.getInt(this.storedQuantity));
     }
 
     protected void updateFormedValidFormer() {
@@ -139,33 +151,29 @@ public class MetaTileEntityMultiblockCrate extends MetaTileEntityMultiblockStora
         }
     }
 
-    private int ticks = 5;
+    private int ticks = 200;
 
     @Override
     protected void updateFormedValid() {
         if (!getWorld().isRemote && getOffsetTimer() % ticks == 0) {
 
-            if (this.storedStackHandler.getContent() != this.storedItemStack) {
+            if (!this.storedStackHandler.getContent().isItemEqual(this.itemStackFilter)) {
                 this.storedStackHandler.setStackInSlot(0, this.storedItemStack);
             }
-
-            ItemStack previousStack = this.storedItemStack.copy();
 
             if (importItems.getSlots() != 0) {
 
                 if (!isImportEmpty() && !this.storedStackHandler.isFull()) {
                     GTTransferUtils.moveInventoryItems(importItems, this.storedStackHandler);
                 }
-
-                if (this.storedStackHandler.getContent() != previousStack) {
-                    updateStoredItemStack(this.storedStackHandler.getContent());
-                }
             }
 
             int maxToTransfer = this.storedStackHandler.getMaxTransferredAmount(exportItems);
-            if (maxToTransfer == 0) return;
-            this.storedStackHandler.export(exportItems, maxToTransfer);
-            updateStoredItemStack(this.storedStackHandler);
+            if (maxToTransfer != 0) {
+                this.storedStackHandler.export(exportItems, maxToTransfer);
+            }
+
+            updateStoredItemStack();
         }
     }
 
@@ -239,31 +247,30 @@ public class MetaTileEntityMultiblockCrate extends MetaTileEntityMultiblockStora
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound data) {
         super.writeToNBT(data);
-        NBTTagCompound nbtTagCompound = new NBTTagCompound();
-        data.setInteger(NBTLabel.ITEM_QUANTITY.name(), this.storedQuantity);
         if (!this.storedItemStack.isEmpty()) {
-            this.storedItemStack.writeToNBT(nbtTagCompound);
+            NBTTagCompound nbtTagCompound = new NBTTagCompound();
+            this.itemStackFilter.writeToNBT(nbtTagCompound);
             data.setTag(NBTLabel.ITEM_INVENTORY.name(), nbtTagCompound);
+            data.setInteger(NBTLabel.ITEM_QUANTITY.name(), this.storedQuantity);
         }
-
         return data;
     }
 
     @Override
     public void readFromNBT(NBTTagCompound data) {
         super.readFromNBT(data);
-        if (data.hasKey(NBTLabel.ITEM_INVENTORY.name(), Constants.NBT.TAG_COMPOUND)) {
-            this.storedItemStack = new ItemStack(data.getCompoundTag(NBTLabel.ITEM_INVENTORY.name()));
-        }
-        if (data.hasKey(NBTLabel.ITEM_QUANTITY.name(), Constants.NBT.TAG_COMPOUND)) {
+        if (data.hasKey(NBTLabel.ITEM_INVENTORY.name(), Constants.NBT.TAG_COMPOUND) &&
+                data.hasKey(NBTLabel.ITEM_QUANTITY.name(), Constants.NBT.TAG_INT)) {
+            this.itemStackFilter = new ItemStack(data.getCompoundTag(NBTLabel.ITEM_INVENTORY.name()));
             this.storedQuantity = data.getInteger(NBTLabel.ITEM_QUANTITY.name());
+            this.storedItemStack = ItemHandlerHelpers.copyWithAmount(this.itemStackFilter, this.storedQuantity);
         }
     }
 
     @Override
     public void writeInitialSyncData(PacketBuffer buf) {
         super.writeInitialSyncData(buf);
-        buf.writeItemStack(this.storedItemStack);
+        buf.writeItemStack(this.itemStackFilter);
         buf.writeInt(this.storedQuantity);
     }
 
@@ -272,7 +279,8 @@ public class MetaTileEntityMultiblockCrate extends MetaTileEntityMultiblockStora
         super.receiveInitialSyncData(buf);
         this.storedQuantity = buf.readInt();
         try {
-            this.storedItemStack = buf.readItemStack();
+            this.itemStackFilter = buf.readItemStack();
+            this.storedItemStack = ItemHandlerHelpers.copyWithAmount(this.itemStackFilter, this.storedQuantity);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -283,8 +291,7 @@ public class MetaTileEntityMultiblockCrate extends MetaTileEntityMultiblockStora
         super.receiveCustomData(dataId, buf);
         if (dataId == TKCYSADataCodes.UPDATE_ITEM_STACK) {
             try {
-                this.storedItemStack = buf.readItemStack();
-                this.storedStackHandler.setStackInSlot(0, this.storedItemStack);
+                this.itemStackFilter = buf.readItemStack();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
