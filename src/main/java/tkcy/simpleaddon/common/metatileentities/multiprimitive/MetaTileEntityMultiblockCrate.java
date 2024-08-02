@@ -26,7 +26,6 @@ import gregtech.api.pattern.PatternMatchContext;
 import gregtech.api.pattern.TraceabilityPredicate;
 import gregtech.api.unification.material.Material;
 import gregtech.api.util.GTTransferUtils;
-import gregtech.common.metatileentities.MetaTileEntities;
 
 import tkcy.simpleaddon.api.metatileentities.MetaTileEntityStorageFormat;
 import tkcy.simpleaddon.api.utils.*;
@@ -76,8 +75,10 @@ public class MetaTileEntityMultiblockCrate extends MetaTileEntityMultiblockStora
         return new MetaTileEntityMultiblockCrate(metaTileEntityId, getMaterial(), isLarge);
     }
 
-    protected boolean isImportEmpty() {
-        return this.importItems.getStackInSlot(0).isEmpty();
+    protected boolean isImportHandlerWorkable() {
+        return ItemHandlerHelpers.handlerToStacksInSlots.apply(importItems)
+                .filter(itemStack -> !itemStack.isEmpty())
+                .anyMatch(itemStack -> !itemStack.isItemEqual(this.itemStackFilter));
     }
 
     protected void updateStoredItemStack() {
@@ -92,7 +93,7 @@ public class MetaTileEntityMultiblockCrate extends MetaTileEntityMultiblockStora
 
     @Override
     protected void updateFormedValid() {
-        if (!getWorld().isRemote && getOffsetTimer() % 200 == 0) {
+        if (!getWorld().isRemote && getOffsetTimer() % 5 == 0) {
 
             if (!this.storedStackHandler.getContent().isItemEqual(this.itemStackFilter)) {
                 this.storedStackHandler.setStackInSlot(0, this.storedItemStack);
@@ -100,7 +101,7 @@ public class MetaTileEntityMultiblockCrate extends MetaTileEntityMultiblockStora
 
             if (importItems.getSlots() != 0) {
 
-                if (!isImportEmpty() && !this.storedStackHandler.isFull()) {
+                if (isImportHandlerWorkable() && !this.storedStackHandler.isFull()) {
                     GTTransferUtils.moveInventoryItems(importItems, this.storedStackHandler);
                 }
             }
@@ -128,8 +129,8 @@ public class MetaTileEntityMultiblockCrate extends MetaTileEntityMultiblockStora
     protected TraceabilityPredicate getTransferPredicate() {
         return new TraceabilityPredicate()
                 .or(abilities(MultiblockAbility.EXPORT_ITEMS))
-                .or(metaTileEntities(MetaTileEntities.ITEM_IMPORT_BUS[0])
-                        .setMaxGlobalLimited(1));
+                .or(abilities(MultiblockAbility.IMPORT_ITEMS))
+                .setMaxGlobalLimited(4, 2);
     }
 
     @Override
@@ -184,9 +185,11 @@ public class MetaTileEntityMultiblockCrate extends MetaTileEntityMultiblockStora
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound data) {
         super.writeToNBT(data);
+
         if (!this.storedItemStack.isEmpty()) {
             NBTTagCompound nbtTagCompound = new NBTTagCompound();
             this.itemStackFilter.writeToNBT(nbtTagCompound);
+
             data.setTag(NBTLabel.ITEM_INVENTORY.name(), nbtTagCompound);
             data.setInteger(NBTLabel.ITEM_QUANTITY.name(), this.storedQuantity);
         }
@@ -196,8 +199,10 @@ public class MetaTileEntityMultiblockCrate extends MetaTileEntityMultiblockStora
     @Override
     public void readFromNBT(NBTTagCompound data) {
         super.readFromNBT(data);
+
         if (data.hasKey(NBTLabel.ITEM_INVENTORY.name(), Constants.NBT.TAG_COMPOUND) &&
                 data.hasKey(NBTLabel.ITEM_QUANTITY.name(), Constants.NBT.TAG_INT)) {
+
             this.itemStackFilter = new ItemStack(data.getCompoundTag(NBTLabel.ITEM_INVENTORY.name()));
             this.storedQuantity = data.getInteger(NBTLabel.ITEM_QUANTITY.name());
             this.storedItemStack = ItemHandlerHelpers.copyWithAmount(this.itemStackFilter, this.storedQuantity);
