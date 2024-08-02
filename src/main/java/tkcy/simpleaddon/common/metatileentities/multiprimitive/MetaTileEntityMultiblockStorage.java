@@ -212,7 +212,7 @@ public abstract class MetaTileEntityMultiblockStorage<ContentHandler, ContentTyp
     }
 
     public String getCapacityPerLayerFormatted() {
-        return UnitsConversions.convertAndFormatToSizeOfOrder(this.layerCapacity, getBaseContentUnit());
+        return UnitsConversions.convertAndFormatToSizeOfOrder(getBaseContentUnit(), this.layerCapacity);
     }
 
     @Override

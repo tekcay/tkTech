@@ -22,13 +22,23 @@ public class UnitsConversions {
      *         {@code Use example:}
      *         <br>
      *         <br>
-     *         {@code (0.04, "J")} -> "40.0 mJ"
+     *         {@code (0.04,} {@link CommonUnits#joule}) -> "40.0 mJ"
      *         <br>
-     *         {@code (12, "N")} -> "12.0 N"
-     *         <br>
-     *         {@code (120000, "bar")} -> "120.0 kbar"
+     *         {@code (120100,} {@link CommonUnits#bar}) -> "120.1 kbar"
      */
-    public static String convertAndFormatToSizeOfOrder(double value, CommonUnits unit) {
+    public static String convertAndFormatToSizeOfOrder(CommonUnits unit, double value) {
+        return Arrays.stream(MetricPrefix.values())
+                .filter(metricPrefix -> !isBetweenEndExclusive(1, 1000, value))
+                .filter(metricPrefix -> isBetweenEndExclusiveExponents(
+                        metricPrefix.getExponent(), metricPrefix.getExponent() + 3, value))
+                .map(metricPrefix -> formatValueWithUnit(
+                        value / Math.pow(10, metricPrefix.getExponent()),
+                        UnitFormat.buildUnit(metricPrefix, unit)))
+                .findAny()
+                .orElse(formatValueWithUnit(value, unit));
+    }
+
+    public static String convertAndFormatToSizeOfOrder(CommonUnits unit, int value) {
         return Arrays.stream(MetricPrefix.values())
                 .filter(metricPrefix -> !isBetweenEndExclusive(1, 1000, value))
                 .filter(metricPrefix -> isBetweenEndExclusiveExponents(

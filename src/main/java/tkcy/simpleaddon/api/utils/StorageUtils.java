@@ -36,8 +36,10 @@ public class StorageUtils<T> {
     }
 
     public String getContentFormatted() {
-        return isEmpty() ? "Empty" : String.format("%s of %s",
-                UnitsConversions.convertAndFormatToSizeOfOrder(this.contentAmount, this.baseContentUnit),
+        if (isEmpty()) return "Empty";
+
+        return String.format("%s of %s",
+                UnitsConversions.convertAndFormatToSizeOfOrder(this.baseContentUnit, this.contentAmount),
                 this.contentLocalizedName);
     }
 
@@ -51,7 +53,7 @@ public class StorageUtils<T> {
 
     public TextComponentTranslation getCapacityTextTranslation() {
         return new TextComponentTranslation(this.mte.getCapacityTranslationKey(),
-                UnitsConversions.convertAndFormatToSizeOfOrder(this.maxAmount, this.baseContentUnit));
+                UnitsConversions.convertAndFormatToSizeOfOrder(this.baseContentUnit, this.maxAmount));
     }
 
     public TextComponentTranslation getContentTextTranslation() {

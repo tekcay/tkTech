@@ -17,6 +17,10 @@ public class UnitFormat {
         return String.format("%3.1f %s", value, unit);
     }
 
+    public static String formatValueWithUnit(int value, CommonUnits unit) {
+        return unit == CommonUnits.empty ? String.format("%d", value) : String.format("%d %s", value, unit);
+    }
+
     public static String formatValueWithUnit(int value, String unit, char metricPrefix) {
         return String.format("%d %c%s", value, metricPrefix, unit);
     }
