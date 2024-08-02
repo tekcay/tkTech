@@ -15,6 +15,7 @@ import gregtech.api.unification.material.Materials;
 import lombok.experimental.UtilityClass;
 import tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials;
 import tkcy.simpleaddon.modules.PolymersModule;
+import tkcy.simpleaddon.modules.storagemodule.StorageModule;
 
 @UtilityClass
 @ApiStatus.Internal
@@ -33,6 +34,8 @@ public class FlagsAddition {
             TKCYSAMaterials.GalvanizedSteel.addFlags(f);
         });
 
+        addStorageWallFlag();
+
         Materials.EXT2_METAL.forEach(f -> Brick.addFlags(f));
 
         GENERATE_ALL_NO_UNIF.forEach(flag -> Carbon.addFlags(flag));
@@ -45,6 +48,12 @@ public class FlagsAddition {
         alloysMaterials.forEach(FlagsAddition::addAlloyFlag);
         getLvAcceptedRubberMaterials().forEach(FlagsAddition::addRingAndPlateFlags);
         PolymersModule.GTCEu_POLYMERS.forEach(material -> material.addFlags(IS_POLYMER));
+    }
+
+    @StorageModule.StorageModulable
+    public static void addStorageWallFlag() {
+        StorageModule.CRATE_MATERIALS.forEach(material -> material.addFlags(GENERATE_WALL));
+        StorageModule.TANK_MATERIALS.forEach(material -> material.addFlags(GENERATE_WALL));
     }
 
     public static void addAlloyFlag(Material material) {

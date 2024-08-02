@@ -38,23 +38,21 @@ public class StorageModule {
 
     static {
         CRATE_MATERIALS.add(Materials.Steel);
-        CRATE_MATERIALS.add(Materials.StainlessSteel);
-        CRATE_MATERIALS.add(Materials.TungstenCarbide);
-        CRATE_MATERIALS.add(TKCYSAMaterials.GalvanizedSteel);
     }
 
     public static MetaTileEntityModulableTankValve getTankValve(Material material) {
-        return getMaterialMetaTileEntity(material, TKCYSAMetaTileEntities.MODULABLE_TANK_VALVES);
+        return getMaterialMetaTileEntity(material, TANK_MATERIALS.size(), TKCYSAMetaTileEntities.MODULABLE_TANK_VALVES);
     }
 
     public static MetaTileEntityModulableCrateValve getCrateValve(Material material) {
-        return getMaterialMetaTileEntity(material, TKCYSAMetaTileEntities.MODULABLE_CRATE_VALVES);
+        return getMaterialMetaTileEntity(material, CRATE_MATERIALS.size(),
+                TKCYSAMetaTileEntities.MODULABLE_CRATE_VALVES);
     }
 
     @Nullable
-    private static <T extends MaterialMetaTileEntity> T getMaterialMetaTileEntity(Material material,
+    private static <T extends MaterialMetaTileEntity> T getMaterialMetaTileEntity(Material material, int materials,
                                                                                   T[] metaTileEntities) {
-        return IntStream.range(0, TANK_MATERIALS.size())
+        return IntStream.range(0, materials)
                 .boxed()
                 .map(i -> metaTileEntities[i])
                 .filter(mte -> mte.getMaterial() == material)

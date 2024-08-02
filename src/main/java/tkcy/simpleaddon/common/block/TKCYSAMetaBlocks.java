@@ -45,7 +45,7 @@ public class TKCYSAMetaBlocks {
         BlockMaterialBaseRegisteringHelpers.createBlockMaterialBase(WALLS, WALLS_BLOCKS,
                 BlockMaterialWall::create,
                 TranslationKeys.meta_block_wall,
-                material -> material.hasFlag(TKCYSAMaterialFlags.GENERATE_CASING));
+                material -> material.hasFlag(TKCYSAMaterialFlags.GENERATE_WALL));
 
         BlockMaterialBaseRegisteringHelpers.createBlockMaterialBase(COILS, COIL_BLOCKS,
                 BlockMaterialCoil::create,

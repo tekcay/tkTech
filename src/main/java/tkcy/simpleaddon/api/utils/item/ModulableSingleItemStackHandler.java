@@ -12,7 +12,9 @@ import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.util.GTTransferUtils;
 
 import lombok.Getter;
+import tkcy.simpleaddon.modules.storagemodule.StorageModule;
 
+@StorageModule.StorageModulable
 @Getter
 public class ModulableSingleItemStackHandler extends GTItemStackHandler {
 
