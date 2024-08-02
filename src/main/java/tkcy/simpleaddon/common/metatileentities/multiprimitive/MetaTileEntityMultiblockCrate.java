@@ -78,7 +78,7 @@ public class MetaTileEntityMultiblockCrate extends MetaTileEntityMultiblockStora
     protected boolean isImportHandlerWorkable() {
         return ItemHandlerHelpers.handlerToStacksInSlots.apply(importItems)
                 .filter(itemStack -> !itemStack.isEmpty())
-                .anyMatch(itemStack -> !itemStack.isItemEqual(this.itemStackFilter));
+                .anyMatch(itemStack -> itemStack.isItemEqual(this.itemStackFilter));
     }
 
     protected void updateStoredItemStack() {
@@ -99,9 +99,11 @@ public class MetaTileEntityMultiblockCrate extends MetaTileEntityMultiblockStora
                 this.storedStackHandler.setStackInSlot(0, this.storedItemStack);
             }
 
-            if (importItems.getSlots() != 0) {
+            if (importItems.getSlots() != 0 && !this.storedStackHandler.isFull()) {
 
-                if (isImportHandlerWorkable() && !this.storedStackHandler.isFull()) {
+
+
+                if (this.itemStackFilter.isEmpty() || isImportHandlerWorkable()) {
                     GTTransferUtils.moveInventoryItems(importItems, this.storedStackHandler);
                 }
             }
