@@ -6,7 +6,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.IItemHandler;
 
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import gregtech.api.items.itemhandlers.GTItemStackHandler;
 import gregtech.api.metatileentity.MetaTileEntity;
@@ -56,51 +55,8 @@ public class ModulableSingleItemStackHandler2 extends GTItemStackHandler {
         return getContent().getCount() == this.maxPerSlot;
     }
 
-    public boolean hasChanged(@NotNull ItemStack previousStack) {
-        return this.getContent() != previousStack;
-    }
-
     public void increaseAmount(int amount) {
         getContent().grow(amount);
-    }
-
-    public ItemStack insertItem(@Nonnull ItemStack stack, boolean simulate) {
-        return this.insertItem(0, stack, simulate);
-    }
-
-    /**
-     * @return the {@code ItemStack} not transferred
-     */
-    @Nullable
-    public ItemStack transferToHandler(@NotNull IItemHandler targetInventory) {
-        if (this.isEmpty()) return ItemStack.EMPTY;
-
-        ItemStack sourceStack = this.extractItem(0, getContent().getCount(), true);
-        if (sourceStack.isEmpty()) return ItemStack.EMPTY;
-
-        ItemStack remainder = GTTransferUtils.insertItem(targetInventory, sourceStack, true);
-        int amountToInsert = sourceStack.getCount() - remainder.getCount();
-
-        if (amountToInsert > 0) {
-            sourceStack = extractItem(0, amountToInsert, false);
-
-            return GTTransferUtils.insertItem(targetInventory, sourceStack, false);
-        }
-        return ItemStack.EMPTY;
-    }
-
-    public int getMaxTransferredAmount(@NotNull IItemHandler targetInventory, @NotNull ItemStack itemStack) {
-        int itemStackToTransferAmount = itemStack.getCount();
-
-        for (int slotIndex = 0; slotIndex < targetInventory.getSlots(); slotIndex++) {
-            ItemStack itemStackInSlot = targetInventory.getStackInSlot(slotIndex);
-            if (itemStackInSlot.isEmpty()) {
-                itemStackToTransferAmount -= Math.min(64, itemStackToTransferAmount);
-            } else if (itemStackInSlot.isItemEqual(itemStack)) {
-                itemStackToTransferAmount -= Math.min(itemStackInSlot.getCount(), itemStackToTransferAmount);
-            }
-        }
-        return itemStackToTransferAmount;
     }
 
     public int getMaxTransferredAmount(@NotNull IItemHandler targetInventory) {

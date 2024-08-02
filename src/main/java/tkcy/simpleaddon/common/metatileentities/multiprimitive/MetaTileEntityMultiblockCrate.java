@@ -86,19 +86,6 @@ public class MetaTileEntityMultiblockCrate extends MetaTileEntityMultiblockStora
         return this.importItems.getStackInSlot(0).isEmpty();
     }
 
-    protected void updateStoredItemStack(@NotNull ItemStack itemStack) {
-        this.storedItemStack = itemStack;
-        this.storedQuantity = itemStack.getCount();
-
-        writeCustomData(TKCYSADataCodes.UPDATE_ITEM_STACK, TKCYSADataCodes.getItemStackWriter(this.storedItemStack));
-        writeCustomData(TKCYSADataCodes.UPDATE_ITEM_COUNT, TKCYSADataCodes.getInt(this.storedQuantity));
-    }
-
-    protected void setStoredItemStack() {
-        this.storedItemStack = this.itemStackFilter.copy();
-        this.storedItemStack.setCount(this.storedQuantity);
-    }
-
     protected void updateStoredItemStack() {
         this.storedItemStack = this.storedStackHandler.getContent();
         this.storedQuantity = this.storedStackHandler.getContent().getCount();
@@ -109,53 +96,9 @@ public class MetaTileEntityMultiblockCrate extends MetaTileEntityMultiblockStora
         writeCustomData(TKCYSADataCodes.UPDATE_ITEM_COUNT, TKCYSADataCodes.getInt(this.storedQuantity));
     }
 
-    protected void updateFormedValidFormer() {
-        if (!getWorld().isRemote && getOffsetTimer() % 5 == 0) {
-
-            if (this.storedStackHandler.getContent() != this.storedItemStack) {
-                this.storedStackHandler.setStackInSlot(0, this.storedItemStack);
-            }
-
-            ItemStack previousStack = this.storedItemStack.copy();
-
-            if (this.storedStackHandler.getContent() != previousStack) {
-
-                if (importItems.getSlots() != 0) {
-
-                    if (!isImportEmpty() && !this.storedStackHandler.isFull()) {
-                        GTTransferUtils.moveInventoryItems(importItems, this.storedStackHandler);
-                    }
-
-                    if (this.storedStackHandler.getContent() != previousStack) {
-                        updateStoredItemStack(this.storedStackHandler.getContent());
-                    }
-                }
-
-                if (this.storedStackHandler.isEmpty()) return;
-
-                if (exportItems.getSlots() != 0 &&
-                        previousStack.getCount() != this.storedStackHandler.getContent().getCount()) {
-
-                    this.storedStackHandler.transferToHandler(exportItems);
-
-                    if (this.storedStackHandler.getContent() != previousStack) {
-
-                        if (this.storedStackHandler.isEmpty()) {
-                            updateStoredItemStack(ItemStack.EMPTY);
-                        } else if (this.storedItemStack != this.storedStackHandler.getContent()) {
-                            updateStoredItemStack(this.storedStackHandler.getContent());
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    private int ticks = 5;
-
     @Override
     protected void updateFormedValid() {
-        if (!getWorld().isRemote && getOffsetTimer() % ticks == 0) {
+        if (!getWorld().isRemote && getOffsetTimer() % 5 == 0) {
 
             if (!this.storedStackHandler.getContent().isItemEqual(this.itemStackFilter)) {
                 this.storedStackHandler.setStackInSlot(0, this.storedItemStack);
