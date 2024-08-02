@@ -151,7 +151,7 @@ public class MetaTileEntityMultiblockCrate extends MetaTileEntityMultiblockStora
         }
     }
 
-    private int ticks = 200;
+    private int ticks = 5;
 
     @Override
     protected void updateFormedValid() {
@@ -264,25 +264,6 @@ public class MetaTileEntityMultiblockCrate extends MetaTileEntityMultiblockStora
             this.itemStackFilter = new ItemStack(data.getCompoundTag(NBTLabel.ITEM_INVENTORY.name()));
             this.storedQuantity = data.getInteger(NBTLabel.ITEM_QUANTITY.name());
             this.storedItemStack = ItemHandlerHelpers.copyWithAmount(this.itemStackFilter, this.storedQuantity);
-        }
-    }
-
-    @Override
-    public void writeInitialSyncData(PacketBuffer buf) {
-        super.writeInitialSyncData(buf);
-        buf.writeItemStack(this.itemStackFilter);
-        buf.writeInt(this.storedQuantity);
-    }
-
-    @Override
-    public void receiveInitialSyncData(PacketBuffer buf) {
-        super.receiveInitialSyncData(buf);
-        this.storedQuantity = buf.readInt();
-        try {
-            this.itemStackFilter = buf.readItemStack();
-            this.storedItemStack = ItemHandlerHelpers.copyWithAmount(this.itemStackFilter, this.storedQuantity);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
     }
 
