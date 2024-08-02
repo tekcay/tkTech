@@ -1,4 +1,4 @@
-package tkcy.simpleaddon.api.utils;
+package tkcy.simpleaddon.api.utils.item;
 
 import javax.annotation.Nonnull;
 
@@ -14,23 +14,15 @@ import gregtech.api.util.GTTransferUtils;
 import lombok.Getter;
 
 @Getter
-public class ModulableSingleItemStackHandler2 extends GTItemStackHandler {
+public class ModulableSingleItemStackHandler extends GTItemStackHandler {
 
     private final int maxPerSlot;
     private final MetaTileEntity metaTileEntity;
 
-    public ModulableSingleItemStackHandler2(@NotNull MetaTileEntity metaTileEntity, int maxPerSlot) {
+    public ModulableSingleItemStackHandler(@NotNull MetaTileEntity metaTileEntity, int maxPerSlot) {
         super(metaTileEntity, 1);
         this.metaTileEntity = metaTileEntity;
         this.maxPerSlot = maxPerSlot;
-    }
-
-    public ModulableSingleItemStackHandler2(@NotNull MetaTileEntity metaTileEntity, int maxPerSlot,
-                                            @NotNull ItemStack itemStack) {
-        super(metaTileEntity, 1);
-        this.metaTileEntity = metaTileEntity;
-        this.maxPerSlot = maxPerSlot;
-        setStackInSlot(0, itemStack);
     }
 
     @Override
@@ -59,31 +51,35 @@ public class ModulableSingleItemStackHandler2 extends GTItemStackHandler {
         getContent().grow(amount);
     }
 
-    public int getMaxTransferredAmount(@NotNull IItemHandler targetInventory) {
-        int itemStackToTransferAmount = getContent().getCount();
-        if (itemStackToTransferAmount == 0) return 0;
+    public int getMaxTransferable(@NotNull IItemHandler targetInventory) {
+        if (isEmpty()) return 0;
 
-        int maxTransferredAmount = 0;
+        int storedAmount = getContent().getCount();
+        int maxTransferable = 0;
+        int maxTransferableInSlot;
 
         for (int slotIndex = 0; slotIndex < targetInventory.getSlots(); slotIndex++) {
             ItemStack itemStackInSlot = targetInventory.getStackInSlot(slotIndex);
+
             if (itemStackInSlot.isEmpty()) {
-                maxTransferredAmount += Math.min(64, itemStackToTransferAmount);
-                itemStackToTransferAmount -= maxTransferredAmount;
+                maxTransferableInSlot = Math.min(64, storedAmount);
+                maxTransferable += maxTransferableInSlot;
+                storedAmount -= maxTransferableInSlot;
 
             } else if (itemStackInSlot.isItemEqual(getContent())) {
-                maxTransferredAmount += Math.min(64 - itemStackInSlot.getCount(), itemStackToTransferAmount);
-                itemStackToTransferAmount -= maxTransferredAmount;
+                maxTransferableInSlot = Math.min(64 - itemStackInSlot.getCount(), storedAmount);
+                maxTransferable += maxTransferableInSlot;
+                storedAmount -= maxTransferableInSlot;
             }
+
+            if (storedAmount == 0) return maxTransferable;
         }
-        return maxTransferredAmount;
+        return maxTransferable;
     }
 
-    public void export(IItemHandler handler, int maxToBeTransferred) {
-        // TODO
-
+    public void exportToHandler(IItemHandler targetHandler, int maxToBeTransferred) {
         ItemStack tobeTransferred = ItemHandlerHelpers.copyWithAmount(getContent(), maxToBeTransferred);
-        GTTransferUtils.insertItem(handler, tobeTransferred, false);
+        GTTransferUtils.insertItem(targetHandler, tobeTransferred, false);
         this.increaseAmount(-maxToBeTransferred);
     }
 }

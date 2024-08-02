@@ -30,6 +30,8 @@ import gregtech.common.metatileentities.MetaTileEntities;
 
 import tkcy.simpleaddon.api.metatileentities.MetaTileEntityStorageFormat;
 import tkcy.simpleaddon.api.utils.*;
+import tkcy.simpleaddon.api.utils.item.ItemHandlerHelpers;
+import tkcy.simpleaddon.api.utils.item.ModulableSingleItemStackHandler;
 import tkcy.simpleaddon.api.utils.units.CommonUnits;
 import tkcy.simpleaddon.modules.NBTLabel;
 import tkcy.simpleaddon.modules.TKCYSADataCodes;
@@ -39,7 +41,7 @@ import tkcy.simpleaddon.modules.storagemodule.StorageModule;
 public class MetaTileEntityMultiblockCrate extends MetaTileEntityMultiblockStorage<IItemHandler, ItemStack>
                                            implements MetaTileEntityStorageFormat<ItemStack> {
 
-    private ModulableSingleItemStackHandler2 storedStackHandler;
+    private ModulableSingleItemStackHandler storedStackHandler;
     private ItemStack storedItemStack = ItemStack.EMPTY;
     private ItemStack itemStackFilter = ItemStack.EMPTY;
     private int storedQuantity = 0;
@@ -63,18 +65,10 @@ public class MetaTileEntityMultiblockCrate extends MetaTileEntityMultiblockStora
     protected void initializeInventory() {
         if (this.getMaterial() == null) return;
         super.initializeInventory();
-        initStoredStackHandler();
+        this.storedStackHandler = new ModulableSingleItemStackHandler(this, totalCapacity);
         itemInventory = this.storedStackHandler;
         importItems = new ItemHandlerList(getAbilities(MultiblockAbility.IMPORT_ITEMS));
         exportItems = new ItemHandlerList(getAbilities(MultiblockAbility.EXPORT_ITEMS));
-    }
-
-    protected void initStoredStackHandler() {
-        if (this.storedItemStack == null || this.storedItemStack.isEmpty()) {
-            this.storedStackHandler = new ModulableSingleItemStackHandler2(this, totalCapacity);
-        } else {
-            this.storedStackHandler = new ModulableSingleItemStackHandler2(this, totalCapacity, this.storedItemStack);
-        }
     }
 
     @Override
@@ -98,7 +92,7 @@ public class MetaTileEntityMultiblockCrate extends MetaTileEntityMultiblockStora
 
     @Override
     protected void updateFormedValid() {
-        if (!getWorld().isRemote && getOffsetTimer() % 5 == 0) {
+        if (!getWorld().isRemote && getOffsetTimer() % 200 == 0) {
 
             if (!this.storedStackHandler.getContent().isItemEqual(this.itemStackFilter)) {
                 this.storedStackHandler.setStackInSlot(0, this.storedItemStack);
@@ -111,9 +105,9 @@ public class MetaTileEntityMultiblockCrate extends MetaTileEntityMultiblockStora
                 }
             }
 
-            int maxToTransfer = this.storedStackHandler.getMaxTransferredAmount(exportItems);
+            int maxToTransfer = this.storedStackHandler.getMaxTransferable(exportItems);
             if (maxToTransfer != 0) {
-                this.storedStackHandler.export(exportItems, maxToTransfer);
+                this.storedStackHandler.exportToHandler(exportItems, maxToTransfer);
             }
 
             updateStoredItemStack();
