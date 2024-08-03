@@ -45,8 +45,6 @@ class UnitFormatTest {
     @Test
     void testUnitPrefix() {
         assertTrue(tr(MetricPrefix.none, CommonUnits.empty));
-
-
     }
 
     private boolean tr(MetricPrefix metricPrefix, CommonUnits unit) {

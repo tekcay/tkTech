@@ -18,18 +18,18 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import gregtech.api.capability.impl.ItemHandlerList;
-import gregtech.api.gui.GuiTextures;
 import gregtech.api.gui.Widget;
-import gregtech.api.gui.widgets.ClickButtonWidget;
-import gregtech.api.gui.widgets.WidgetGroup;
 import gregtech.api.items.itemhandlers.GTItemStackHandler;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
+import gregtech.api.metatileentity.multiblock.MultiblockAbility;
 import gregtech.api.pattern.PatternMatchContext;
 import gregtech.api.pattern.TraceabilityPredicate;
 import gregtech.api.unification.material.Material;
+import gregtech.api.util.GTTransferUtils;
 import gregtech.common.metatileentities.storage.MetaTileEntityCrate;
 
+import tkcy.simpleaddon.api.capabilities.TKCYSAMultiblockAbilities;
 import tkcy.simpleaddon.api.utils.StorageUtils;
 import tkcy.simpleaddon.api.utils.units.CommonUnits;
 import tkcy.simpleaddon.modules.NBTLabel;
@@ -72,9 +72,7 @@ public class MetaTileEntityMultiblockChest extends MetaTileEntityMultiblockStora
     }
 
     @Override
-    protected void updateFormedValid() {
-        this.storage.setSize(totalCapacity);
-    }
+    protected void updateFormedValid() {}
 
     @Override
     protected Capability<IItemHandler> getCapability() {
@@ -83,12 +81,12 @@ public class MetaTileEntityMultiblockChest extends MetaTileEntityMultiblockStora
 
     @Override
     protected IItemHandler getHandler() {
-        return getCapability().cast(this.storage);
+        return getCapability().cast(this.itemInventory);
     }
 
     @Override
     protected TraceabilityPredicate getTransferPredicate() {
-        return metaTileEntities(StorageModule.getCrateValve(getMaterial()));
+        return abilities(TKCYSAMultiblockAbilities.CHEST_VALVE);
     }
 
     @Override
@@ -101,12 +99,12 @@ public class MetaTileEntityMultiblockChest extends MetaTileEntityMultiblockStora
 
     @Override
     public Function<ItemStack, String> getContentLocalizedNameProvider() {
-        return itemStack -> (null);
+        return itemStack -> "bla";
     }
 
     @Override
     public Function<ItemStack, Integer> getContentAmountProvider() {
-        return itemStack -> (null);
+        return itemStack -> 3;
     }
 
     @Override
@@ -145,26 +143,8 @@ public class MetaTileEntityMultiblockChest extends MetaTileEntityMultiblockStora
 
     /**
      * From {@link MetaTileEntityCrate}
-     *//*
-        * 
-        * 
-        * @Override
-        * protected ModularUI createUI(EntityPlayer entityPlayer) {
-        * int factor = totalCapacity / 9 > 8 ? 18 : 9;
-        * 
-        * ModularUI.Builder builder = ModularUI
-        * .builder(GuiTextures.BACKGROUND, 176 + (factor == 18 ? 176 : 0), 8 + totalCapacity / factor * 18 + 104)
-        * .widget(getFlexButton(250, 200, 20, 60))
-        * .label(5, 5, getMetaFullName());
-        * for (int i = 0; i < totalCapacity; i++) {
-        * builder.slot(this.storage, i, 7 * (factor == 18 ? 2 : 1) + i % factor * 18, 18 + i / factor * 18,
-        * GuiTextures.SLOT);
-        * }
-        * builder.bindPlayerInventory(entityPlayer.inventory, GuiTextures.SLOT, 7 + (factor == 18 ? 88 : 0),
-        * 18 + totalCapacity / factor * 18 + 11);
-        * return builder.build(getHolder(), entityPlayer);
-        * }
-        */
+     */
+
     /*
      * @Override
      * protected ModularUI createUI(EntityPlayer entityPlayer) {
@@ -197,18 +177,20 @@ public class MetaTileEntityMultiblockChest extends MetaTileEntityMultiblockStora
     private void incrementPageIndex(Widget.ClickData clickData) {
         this.page++;
     }
-
-    @Override
-    protected @NotNull Widget getFlexButton(int x, int y, int width, int height) {
-        WidgetGroup group = new WidgetGroup(x, y, width, height);
-        group.addWidget(new ClickButtonWidget(380, 20, 9, 18, "", this::decrementPageIndex)
-                .setButtonTexture(GuiTextures.BUTTON_THROTTLE_MINUS)
-                .setTooltipText("gregtech.multiblock.large_boiler.throttle_decrement"));
-        group.addWidget(new ClickButtonWidget(380, 40, 9, 18, "", this::incrementPageIndex)
-                .setButtonTexture(GuiTextures.BUTTON_THROTTLE_PLUS)
-                .setTooltipText("gregtech.multiblock.large_boiler.throttle_increment"));
-        return group;
-    }
+    /*
+     * 
+     * @Override
+     * protected @NotNull Widget getFlexButton(int x, int y, int width, int height) {
+     * WidgetGroup group = new WidgetGroup(x, y, width, height);
+     * group.addWidget(new ClickButtonWidget(380, 20, 9, 18, "", this::decrementPageIndex)
+     * .setButtonTexture(GuiTextures.BUTTON_THROTTLE_MINUS)
+     * .setTooltipText("gregtech.multiblock.large_boiler.throttle_decrement"));
+     * group.addWidget(new ClickButtonWidget(380, 40, 9, 18, "", this::incrementPageIndex)
+     * .setButtonTexture(GuiTextures.BUTTON_THROTTLE_PLUS)
+     * .setTooltipText("gregtech.multiblock.large_boiler.throttle_increment"));
+     * return group;
+     * }
+     */
 
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound data) {

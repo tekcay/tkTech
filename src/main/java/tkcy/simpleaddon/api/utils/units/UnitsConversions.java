@@ -45,7 +45,6 @@ public class UnitsConversions {
     }
 
     public static String convertAndFormatToSizeOfOrder(CommonUnits unit, int value) {
-
         return Arrays.stream(MetricPrefix.values())
                 .filter(metricPrefix -> !isBetweenEndExclusive(1, 1000, value))
                 .filter(metricPrefix -> isBetweenEndExclusiveExponents(

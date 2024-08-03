@@ -27,7 +27,6 @@ import gregtech.api.pattern.TraceabilityPredicate;
 import gregtech.api.unification.material.Material;
 import gregtech.api.util.GTTransferUtils;
 
-import tkcy.simpleaddon.api.metatileentities.MetaTileEntityStorageFormat;
 import tkcy.simpleaddon.api.utils.*;
 import tkcy.simpleaddon.api.utils.item.ItemHandlerHelpers;
 import tkcy.simpleaddon.api.utils.item.ModulableSingleItemStackHandler;
@@ -37,8 +36,7 @@ import tkcy.simpleaddon.modules.TKCYSADataCodes;
 import tkcy.simpleaddon.modules.storagemodule.StorageModule;
 
 @StorageModule.StorageModulable
-public class MetaTileEntityMultiblockCrate extends MetaTileEntityMultiblockStorage<IItemHandler, ItemStack>
-                                           implements MetaTileEntityStorageFormat<ItemStack> {
+public class MetaTileEntityMultiblockCrate extends MetaTileEntityMultiblockStorage<IItemHandler, ItemStack> {
 
     private ModulableSingleItemStackHandler storedStackHandler;
     private ItemStack storedItemStack = ItemStack.EMPTY;
@@ -100,8 +98,6 @@ public class MetaTileEntityMultiblockCrate extends MetaTileEntityMultiblockStora
             }
 
             if (importItems.getSlots() != 0 && !this.storedStackHandler.isFull()) {
-
-
 
                 if (this.itemStackFilter.isEmpty() || isImportHandlerWorkable()) {
                     GTTransferUtils.moveInventoryItems(importItems, this.storedStackHandler);

@@ -45,11 +45,6 @@ public abstract class MetaTileEntityModulableValve<T> extends MetaTileEntityMult
     }
 
     @Override
-    public MetaTileEntity createMetaTileEntity(IGregTechTileEntity tileEntity) {
-        return new MetaTileEntityModulableTankValve(metaTileEntityId, material);
-    }
-
-    @Override
     public ICubeRenderer getBaseTexture() {
         return TKCYSATextures.WALL_TEXTURE;
     }
@@ -78,6 +73,7 @@ public abstract class MetaTileEntityModulableValve<T> extends MetaTileEntityMult
     @Override
     public void update() {
         super.update();
+
         if (!getWorld().isRemote && getOffsetTimer() % 5 == 0L && isAttachedToMultiBlock() &&
                 getFrontFacing() == EnumFacing.DOWN) {
             TileEntity tileEntity = getNeighbor(getFrontFacing());

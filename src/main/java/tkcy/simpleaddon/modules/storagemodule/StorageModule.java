@@ -1,5 +1,7 @@
 package tkcy.simpleaddon.modules.storagemodule;
 
+import static gregtech.api.util.RelativeDirection.*;
+import static gregtech.api.util.RelativeDirection.UP;
 import static tkcy.simpleaddon.api.metatileentities.MaterialMetaTileEntity.getMetaTileEntityId;
 
 import java.util.ArrayList;
@@ -8,15 +10,19 @@ import java.util.stream.IntStream;
 
 import org.jetbrains.annotations.Nullable;
 
+import gregtech.api.pattern.FactoryBlockPattern;
 import gregtech.api.unification.material.Material;
 import gregtech.api.unification.material.Materials;
 
 import lombok.experimental.UtilityClass;
 import tkcy.simpleaddon.api.metatileentities.MaterialMetaTileEntity;
+import tkcy.simpleaddon.api.metatileentities.RepetitiveSide;
 import tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials;
 import tkcy.simpleaddon.common.metatileentities.TKCYSAMetaTileEntities;
+import tkcy.simpleaddon.common.metatileentities.multiprimitive.MetaTileEntityMultiblockChest;
 import tkcy.simpleaddon.common.metatileentities.multiprimitive.MetaTileEntityMultiblockCrate;
 import tkcy.simpleaddon.common.metatileentities.multiprimitive.MetaTileEntityMultiblockTank;
+import tkcy.simpleaddon.common.metatileentities.storage.MetaTileEntityModulableChestValve;
 import tkcy.simpleaddon.common.metatileentities.storage.MetaTileEntityModulableCrateValve;
 import tkcy.simpleaddon.common.metatileentities.storage.MetaTileEntityModulableTankValve;
 
@@ -49,6 +55,11 @@ public class StorageModule {
                 TKCYSAMetaTileEntities.MODULABLE_CRATE_VALVES);
     }
 
+    public static MetaTileEntityModulableChestValve getChestValve(Material material) {
+        return getMaterialMetaTileEntity(material, CRATE_MATERIALS.size(),
+                TKCYSAMetaTileEntities.MODULABLE_CHEST_VALVES);
+    }
+
     @Nullable
     private static <T extends MaterialMetaTileEntity> T getMaterialMetaTileEntity(Material material, int materials,
                                                                                   T[] metaTileEntities) {
@@ -66,6 +77,10 @@ public class StorageModule {
 
     public static MetaTileEntityModulableCrateValve initCrateValve(Material material) {
         return new MetaTileEntityModulableCrateValve(getMetaTileEntityId("modulable_crate_valve.", material), material);
+    }
+
+    public static MetaTileEntityModulableChestValve initChestValve(Material material) {
+        return new MetaTileEntityModulableChestValve(getMetaTileEntityId("modulable_chest_valve.", material), material);
     }
 
     public static MetaTileEntityMultiblockTank initModulableLargeTank(Material material) {
@@ -89,8 +104,41 @@ public class StorageModule {
         return initModulableCrate(material, false);
     }
 
+    private static MetaTileEntityMultiblockChest initModulableChest(Material material, boolean isLarge) {
+        String baseResource = isLarge ? "modulable_large_chest." : "modulable_chest.";
+        return new MetaTileEntityMultiblockChest(getMetaTileEntityId(baseResource, material), material, isLarge);
+    }
+
+    public static MetaTileEntityMultiblockChest initModulableLargeChest(Material material) {
+        return initModulableChest(material, true);
+    }
+
+    public static MetaTileEntityMultiblockChest initModulableChest(Material material) {
+        return initModulableChest(material, false);
+    }
+
     private static MetaTileEntityMultiblockCrate initModulableCrate(Material material, boolean isLarge) {
         String baseResource = isLarge ? "modulable_large_crate." : "modulable_crate.";
         return new MetaTileEntityMultiblockCrate(getMetaTileEntityId(baseResource, material), material, isLarge);
+    }
+
+    public static FactoryBlockPattern getLargeTankPattern(RepetitiveSide repetitiveSideMeteTileEntity) {
+        return FactoryBlockPattern.start(RIGHT, FRONT, UP)
+                .aisle("  XXX  ", " XXXXX ", "XXXXXXX", "XXXXXXX", "XXXXXXX", " XXXXX ", "  XXX  ")
+                .aisle("  XSX  ", " XAAAX ", "XAAAAAX", "XAAAAAX", "XAAAAAX", " XAAAX ", "  XXX  ")
+                .aisle("  XXX  ", " XAAAX ", "XAAAAAX", "XAAIAAX", "XAAAAAX", " XAAAX ", "  XXX  ")
+                .setRepeatable(repetitiveSideMeteTileEntity.getMinSideLength(),
+                        repetitiveSideMeteTileEntity.getMaxSideLength())
+                .aisle("  XXX  ", " XXXXX ", "XXXXXXX", "XXXXXXX", "XXXXXXX", " XXXXX ", "  XXX  ");
+    }
+
+    public static FactoryBlockPattern getTankPattern(RepetitiveSide repetitiveSideMeteTileEntity) {
+        return FactoryBlockPattern.start(RIGHT, FRONT, UP)
+                .aisle("XXX", "XXX", "XXX")
+                .aisle("XSX", "X X", "XXX")
+                .aisle("XXX", "XIX", "XXX")
+                .setRepeatable(repetitiveSideMeteTileEntity.getMinSideLength(),
+                        repetitiveSideMeteTileEntity.getMaxSideLength())
+                .aisle("XXX", "XXX", "XXX");
     }
 }

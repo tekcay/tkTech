@@ -1,6 +1,8 @@
 package tkcy.simpleaddon.common.metatileentities.multiprimitive;
 
 import static gregtech.api.util.RelativeDirection.*;
+import static tkcy.simpleaddon.modules.storagemodule.StorageModule.getLargeTankPattern;
+import static tkcy.simpleaddon.modules.storagemodule.StorageModule.getTankPattern;
 
 import java.util.List;
 import java.util.function.Function;
@@ -26,7 +28,6 @@ import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.multiblock.IMultiblockPart;
 import gregtech.api.metatileentity.multiblock.MultiblockWithDisplayBase;
 import gregtech.api.pattern.BlockPattern;
-import gregtech.api.pattern.FactoryBlockPattern;
 import gregtech.api.pattern.PatternMatchContext;
 import gregtech.api.pattern.TraceabilityPredicate;
 import gregtech.api.unification.material.Material;
@@ -95,7 +96,7 @@ public abstract class MetaTileEntityMultiblockStorage<ContentHandler, ContentTyp
     @NotNull
     @Override
     protected BlockPattern createStructurePattern() {
-        return (this.isLarge ? getLargeTankPattern() : getTankPattern())
+        return (this.isLarge ? getLargeTankPattern(this) : getTankPattern(this))
                 .where('S', selfPredicate())
                 .where(' ', any())
                 .where('A', air())
@@ -105,23 +106,6 @@ public abstract class MetaTileEntityMultiblockStorage<ContentHandler, ContentTyp
                                 .or(getTransferPredicate()
                                         .setMaxGlobalLimited(4)))
                 .build();
-    }
-
-    private FactoryBlockPattern getLargeTankPattern() {
-        return FactoryBlockPattern.start(RIGHT, FRONT, UP)
-                .aisle("  XXX  ", " XXXXX ", "XXXXXXX", "XXXXXXX", "XXXXXXX", " XXXXX ", "  XXX  ")
-                .aisle("  XSX  ", " XAAAX ", "XAAAAAX", "XAAAAAX", "XAAAAAX", " XAAAX ", "  XXX  ")
-                .aisle("  XXX  ", " XAAAX ", "XAAAAAX", "XAAIAAX", "XAAAAAX", " XAAAX ", "  XXX  ")
-                .setRepeatable(getMinSideLength(), getMaxSideLength())
-                .aisle("  XXX  ", " XXXXX ", "XXXXXXX", "XXXXXXX", "XXXXXXX", " XXXXX ", "  XXX  ");
-    }
-
-    private FactoryBlockPattern getTankPattern() {
-        return FactoryBlockPattern.start(RIGHT, FRONT, UP)
-                .aisle("XXX", "XXX", "XXX")
-                .aisle("XSX", "X X", "XXX")
-                .aisle("XXX", "XIX", "XXX").setRepeatable(getMinSideLength(), getMaxSideLength())
-                .aisle("XXX", "XXX", "XXX");
     }
 
     @SideOnly(Side.CLIENT)

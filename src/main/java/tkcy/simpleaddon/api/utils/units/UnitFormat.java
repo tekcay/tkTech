@@ -1,6 +1,5 @@
 package tkcy.simpleaddon.api.utils.units;
 
-import gregtech.api.util.GTLog;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
@@ -35,7 +34,6 @@ public class UnitFormat {
     }
 
     public static String buildUnit(CommonUnits unit, MetricPrefix metricPrefix) {
-
         String space = CommonUnits.empty.getUnit();
 
         if (!unit.isEmpty() && metricPrefix.isNone()) space = " ";
