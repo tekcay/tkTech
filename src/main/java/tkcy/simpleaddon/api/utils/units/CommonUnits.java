@@ -7,7 +7,8 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum CommonUnits {
 
-    empty(""),
+    empty("", true),
+    stack("stacks", true),
     bar("bar"),
     meter("m"),
     liter("L"),
@@ -18,6 +19,15 @@ public enum CommonUnits {
     volt("V");
 
     private final String unit;
+    private boolean spaceRequiredAfterMetrix;
+
+    CommonUnits(String unit) {
+        this.unit = unit;
+    }
+
+    public boolean isEmpty() {
+        return this == empty;
+    }
 
     @Override
     public String toString() {

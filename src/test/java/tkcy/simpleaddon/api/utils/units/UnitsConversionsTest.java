@@ -1,8 +1,8 @@
 package tkcy.simpleaddon.api.utils.units;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static tkcy.simpleaddon.api.utils.units.UnitFormat.buildUnit;
 import static tkcy.simpleaddon.api.utils.units.UnitFormat.formatValueWithUnit;
+import static tkcy.simpleaddon.api.utils.units.UnitFormat.formatValueWithUnitAndPrefix;
 
 import org.junit.jupiter.api.Test;
 
@@ -10,11 +10,13 @@ import gregtech.api.util.GTLog;
 
 class UnitsConversionsTest {
 
+    private static final String content = " of trucs";
+
     @Test
     void convertAndFormatToSizeOfOrderTest() {
-        String toTest = UnitsConversions.convertAndFormatToSizeOfOrder(CommonUnits.bar, 10.0);
+        String toTest = UnitsConversions.convertAndFormatToSizeOfOrder(CommonUnits.bar, 10.0) + content;
         GTLog.logger.info(toTest);
-        assertEquals("10.0 bar", toTest);
+        assertEquals("10.0 bar" + content, toTest);
     }
 
     @Test
@@ -22,13 +24,6 @@ class UnitsConversionsTest {
         String toTest = UnitsConversions.convertAndFormatToSizeOfOrder(CommonUnits.bar, 10);
         GTLog.logger.info(toTest);
         assertEquals("10 bar", toTest);
-    }
-
-    @Test
-    void convertAndFormatToSizeOfOrderTestEmpty() {
-        String toTest = UnitsConversions.convertAndFormatToSizeOfOrder(CommonUnits.empty, 10);
-        GTLog.logger.info(toTest);
-        assertEquals("10", toTest);
     }
 
     @Test
@@ -61,22 +56,36 @@ class UnitsConversionsTest {
 
     @Test
     void convertAndFormatToSizeOfOrderTestKEmpty() {
-        String toTest = UnitsConversions.convertAndFormatToSizeOfOrder(CommonUnits.empty, 1000);
+        String toTest = UnitsConversions.convertAndFormatToSizeOfOrder(CommonUnits.empty, 1000) + content;
         GTLog.logger.info(toTest);
-        assertEquals("1.0 k", toTest);
+        assertEquals("1.0 k" + content, toTest);
+    }
+
+    @Test
+    void convertAndFormatToSizeOfOrderTestEmpty() {
+        String toTest = UnitsConversions.convertAndFormatToSizeOfOrder(CommonUnits.empty, 100) + content;
+        GTLog.logger.info(toTest);
+        assertEquals("100" + content, toTest);
     }
 
     @Test
     void formatValueWithUnitTest() {
-        String toTest = formatValueWithUnit(10, CommonUnits.bar);
+        String toTest = formatValueWithUnit(10, CommonUnits.bar) + content;
         GTLog.logger.info(toTest);
-        assertEquals("10 bar", toTest);
+        assertEquals("10 bar" + content, toTest);
+    }
+
+    @Test
+    void formatValueWithUnitKTest() {
+        String toTest = formatValueWithUnitAndPrefix(MetricPrefix.kilo, CommonUnits.bar, 10) + content;
+        GTLog.logger.info(toTest);
+        assertEquals("10 kbar" + content, toTest);
     }
 
     @Test
     void formatValueWithUnitTestEmpty() {
-        String toTest = formatValueWithUnit(10, CommonUnits.empty);
+        String toTest = formatValueWithUnit(10, CommonUnits.empty) + content;
         GTLog.logger.info(toTest);
-        assertEquals("10", toTest);
+        assertEquals("10" + content, toTest);
     }
 }
