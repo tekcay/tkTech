@@ -47,14 +47,6 @@ public class MetaTileEntityModulableChestValve extends MetaTileEntityModulableVa
     }
 
     @Override
-    public void update() {
-        super.update();
-        if (getOffsetTimer() % 20 == 0) {
-//            this.itemInventory = getController().getItemInventory();
-        }
-    }
-
-    @Override
     public MetaTileEntity createMetaTileEntity(IGregTechTileEntity tileEntity) {
         return new MetaTileEntityModulableChestValve(metaTileEntityId, getMaterial());
     }
@@ -62,6 +54,11 @@ public class MetaTileEntityModulableChestValve extends MetaTileEntityModulableVa
     @Override
     protected Capability<IItemHandler> getCapability() {
         return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY;
+    }
+
+    @Override
+    protected boolean doesAutoOutput() {
+        return false;
     }
 
     @Override

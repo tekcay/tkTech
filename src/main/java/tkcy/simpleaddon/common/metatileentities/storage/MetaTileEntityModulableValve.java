@@ -74,6 +74,8 @@ public abstract class MetaTileEntityModulableValve<T> extends MetaTileEntityMult
     public void update() {
         super.update();
 
+        if (!doesAutoOutput()) return;
+
         if (!getWorld().isRemote && getOffsetTimer() % 5 == 0L && isAttachedToMultiBlock() &&
                 getFrontFacing() == EnumFacing.DOWN) {
             TileEntity tileEntity = getNeighbor(getFrontFacing());
@@ -98,6 +100,7 @@ public abstract class MetaTileEntityModulableValve<T> extends MetaTileEntityMult
     protected abstract void autoOutputInventory(T handler);
 
     protected abstract Capability<T> getCapability();
+    protected abstract boolean doesAutoOutput();
 
     @Override
     protected void initializeInventory() {

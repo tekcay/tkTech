@@ -45,6 +45,11 @@ public class MetaTileEntityModulableTankValve extends MetaTileEntityModulableVal
     }
 
     @Override
+    protected boolean doesAutoOutput() {
+        return true;
+    }
+
+    @Override
     public void addToMultiBlock(MultiblockControllerBase controllerBase) {
         super.addToMultiBlock(controllerBase);
         this.fluidInventory = controllerBase.getFluidInventory(); // directly use controllers fluid inventory as there

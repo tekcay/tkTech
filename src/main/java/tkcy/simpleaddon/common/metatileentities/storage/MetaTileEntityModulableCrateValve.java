@@ -28,7 +28,6 @@ public class MetaTileEntityModulableCrateValve extends MetaTileEntityModulableVa
         super(metaTileEntityId, material);
     }
 
-    // TODO might happen around here
     @Override
     protected void initializeDummyInventory() {
         this.itemInventory = new ItemHandlerProxy(new ItemStackHandler(), new ItemStackHandler());
@@ -42,6 +41,11 @@ public class MetaTileEntityModulableCrateValve extends MetaTileEntityModulableVa
     @Override
     protected Capability<IItemHandler> getCapability() {
         return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY;
+    }
+
+    @Override
+    protected boolean doesAutoOutput() {
+        return true;
     }
 
     @Override
