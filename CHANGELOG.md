@@ -9,6 +9,7 @@
 - added modulable multiblock tanks ([#41](https://github.com/tekcay/tkcy-simple-addon/pull/41))
 
 ### Internal changes
+- updated GroovyScript from 0.6 to 1.0.1
 - added an interface for using unpainted `BlockMaterial` in MetaTileEntities ([#40](https://github.com/tekcay/tkcy-simple-addon/pull/40))
 - updated GTCEu dependency from 2.8.6 to 2.8.8 ([#37](https://github.com/tekcay/tkcy-simple-addon/pull/37))
 
