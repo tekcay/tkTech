@@ -2,20 +2,25 @@ package tkcy.simpleaddon.api.capabilities;
 
 import tkcy.simpleaddon.api.utils.units.CommonUnits;
 
-public interface PressureContainer extends DefaultContainer {
+public interface TemperatureContainer extends DefaultContainer {
 
     @Override
     default ContainerType getContainerType() {
-        return ContainerType.PRESSURE;
+        return ContainerType.TEMPERATURE;
+    }
+
+    @Override
+    default int getMinValue() {
+        return 0;
     }
 
     @Override
     default int getDefaultValue() {
-        return 1;
+        return 298;
     }
 
     @Override
     default CommonUnits getBaseUnit() {
-        return CommonUnits.bar;
+        return CommonUnits.kelvin;
     }
 }

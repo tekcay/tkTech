@@ -8,6 +8,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import org.jetbrains.annotations.NotNull;
 
 import tkcy.simpleaddon.api.TKCYSAInternalTags;
+import tkcy.simpleaddon.api.capabilities.TKCYSATileCapabilities;
 import tkcy.simpleaddon.api.utils.TKCYSALog;
 import tkcy.simpleaddon.common.CommonProxy;
 import tkcy.simpleaddon.common.block.TKCYSAMetaBlocks;
@@ -35,6 +36,7 @@ public class TekCaySimpleAddon {
         proxy.preLoad();
 
         TKCYSALog.init(event.getModLog());
+        TKCYSATileCapabilities.register();
         TKCYSAMetaBlocks.init();
         TKCYSAMetaItems.init();
         TKCYSAMetaTileEntities.init();

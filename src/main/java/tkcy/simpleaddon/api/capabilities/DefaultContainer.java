@@ -1,5 +1,7 @@
 package tkcy.simpleaddon.api.capabilities;
 
+import tkcy.simpleaddon.api.utils.units.CommonUnits;
+
 public interface DefaultContainer {
 
     int getDefaultValue();
@@ -17,4 +19,6 @@ public interface DefaultContainer {
     default boolean isTypeOf(ContainerType containerType) {
         return containerType == getContainerType();
     }
+
+    CommonUnits getBaseUnit();
 }

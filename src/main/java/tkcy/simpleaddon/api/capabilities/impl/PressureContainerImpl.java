@@ -3,11 +3,13 @@ package tkcy.simpleaddon.api.capabilities.impl;
 import net.minecraftforge.common.capabilities.Capability;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import gregtech.api.metatileentity.MetaTileEntity;
 
 import tkcy.simpleaddon.api.capabilities.ContainerType;
 import tkcy.simpleaddon.api.capabilities.PressureContainer;
+import tkcy.simpleaddon.api.capabilities.TKCYSATileCapabilities;
 
 public class PressureContainerImpl extends DefaultContainerImpl implements PressureContainer {
 
@@ -20,8 +22,12 @@ public class PressureContainerImpl extends DefaultContainerImpl implements Press
         return ContainerType.PRESSURE.name();
     }
 
+    @Nullable
     @Override
     public <T> T getCapability(Capability<T> capability) {
+        if (capability == TKCYSATileCapabilities.CAPABILITY_PRESSURE_CONTAINER) {
+            return TKCYSATileCapabilities.CAPABILITY_PRESSURE_CONTAINER.cast(this);
+        }
         return null;
     }
 }

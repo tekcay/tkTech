@@ -7,15 +7,17 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum CommonUnits {
 
-    meter('m'),
-    liter('L'),
-    kelvin('L'),
-    joule('J'),
-    watt('W'),
-    ampere('A'),
-    volt('V');
+    meter("m"),
+    liter("L"),
+    kelvin("K"),
+    joule("J"),
+    watt("W"),
+    ampere("A"),
+    volt("V"),
+    bar("bar"),
+    roundPerMinute("rpm");
 
-    final char unit;
+    final String unit;
 
     @Override
     public String toString() {
