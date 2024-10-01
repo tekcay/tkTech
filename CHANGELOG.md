@@ -9,6 +9,9 @@
 - added modulable multiblock tanks ([#41](https://github.com/tekcay/tkcy-simple-addon/pull/41))
 
 ### Internal changes
+- updated GTCEu dependency from 2.8.8 to 2.8.10 ([#44](https://github.com/tekcay/tkcy-simple-addon/pull/44))
+- updated GroovyScript from 1.0.1 to 1.1.3 ([#44](https://github.com/tekcay/tkcy-simple-addon/pull/44))
+- updated `FluidProperties` addition to an already registered `Material` ([#44](https://github.com/tekcay/tkcy-simple-addon/pull/44))
 - updated GroovyScript from 0.6 to 1.0.1 ([#42](https://github.com/tekcay/tkcy-simple-addon/pull/42))
 - added an interface for using unpainted `BlockMaterial` in MetaTileEntities ([#40](https://github.com/tekcay/tkcy-simple-addon/pull/40))
 - updated GTCEu dependency from 2.8.6 to 2.8.8 ([#37](https://github.com/tekcay/tkcy-simple-addon/pull/37))
@@ -97,6 +100,3 @@ and Fluid Blast Furnace, Advanced Electrolyzer, casting ([#11](https://github.co
 ### Fixes
 
 - Roasting iron, copper fixes ([#9](https://github.com/tekcay/tkcy-simple-addon/pull/9))
-
-
-
