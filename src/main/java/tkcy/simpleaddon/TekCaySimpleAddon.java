@@ -37,7 +37,7 @@ public class TekCaySimpleAddon {
         TKCYSALog.init(event.getModLog());
         TKCYSAMetaBlocks.init();
         TKCYSAMetaItems.init();
-        TKCYSAMetaTileEntities.init();
+        //TKCYSAMetaTileEntities.init();
         TKCYSAToolItems.init();
     }
 

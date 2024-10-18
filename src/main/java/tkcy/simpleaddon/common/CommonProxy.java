@@ -1,5 +1,7 @@
 package tkcy.simpleaddon.common;
 
+import static tkcy.simpleaddon.TekCaySimpleAddon.MODID;
+
 import java.util.Objects;
 import java.util.function.Function;
 
@@ -16,12 +18,13 @@ import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.registries.IForgeRegistry;
 
+import gregtech.api.GregTechAPI;
 import gregtech.api.items.toolitem.IGTTool;
+import gregtech.api.metatileentity.registry.MTEManager;
 import gregtech.api.unification.material.event.MaterialEvent;
 import gregtech.api.unification.material.event.PostMaterialEvent;
 import gregtech.common.blocks.MaterialItemBlock;
 
-import tkcy.simpleaddon.TekCaySimpleAddon;
 import tkcy.simpleaddon.api.unification.flags.FlagsAddition;
 import tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials;
 import tkcy.simpleaddon.api.unification.ore.OrePrefixRegistry;
@@ -36,13 +39,18 @@ import tkcy.simpleaddon.loaders.recipe.TKCYSARecipeLoader;
 import tkcy.simpleaddon.loaders.recipe.parts.OreProcessingsHandler;
 import tkcy.simpleaddon.modules.alloyingmodule.AlloyingModule;
 
-@Mod.EventBusSubscriber(modid = TekCaySimpleAddon.MODID)
+@Mod.EventBusSubscriber(modid = MODID)
 public class CommonProxy {
 
     @SubscribeEvent
+    public void registerMTERegistry(MTEManager.MTERegistryEvent event) {
+        GregTechAPI.mteManager.createRegistry(MODID);
+    }
+
+    @SubscribeEvent
     public static void syncConfigValues(ConfigChangedEvent.OnConfigChangedEvent event) {
-        if (event.getModID().equals(TekCaySimpleAddon.MODID)) {
-            ConfigManager.sync(TekCaySimpleAddon.MODID, Config.Type.INSTANCE);
+        if (event.getModID().equals(MODID)) {
+            ConfigManager.sync(MODID, Config.Type.INSTANCE);
         }
     }
 

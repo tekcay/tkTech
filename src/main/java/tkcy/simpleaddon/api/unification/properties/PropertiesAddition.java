@@ -12,7 +12,7 @@ import lombok.experimental.UtilityClass;
 public class PropertiesAddition {
 
     public static void addFluidProperty(Material material) {
-        material.setProperty(PropertyKey.FLUID, new FluidProperty());
+        // material.setProperty(PropertyKey.FLUID, new FluidProperty());
     }
 
     public static void init() {
