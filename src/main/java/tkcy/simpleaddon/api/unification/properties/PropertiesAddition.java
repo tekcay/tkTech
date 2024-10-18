@@ -3,6 +3,8 @@ package tkcy.simpleaddon.api.unification.properties;
 import static gregtech.api.unification.material.Materials.*;
 import static tkcy.simpleaddon.modules.alloyingmodule.AlloyingModule.missingFluidPropertyMaterial;
 
+import gregtech.api.fluids.FluidBuilder;
+import gregtech.api.fluids.store.FluidStorageKeys;
 import gregtech.api.unification.material.Material;
 import gregtech.api.unification.material.properties.*;
 
@@ -12,7 +14,7 @@ import lombok.experimental.UtilityClass;
 public class PropertiesAddition {
 
     public static void addFluidProperty(Material material) {
-        // material.setProperty(PropertyKey.FLUID, new FluidProperty());
+        material.setProperty(PropertyKey.FLUID, new FluidProperty(FluidStorageKeys.LIQUID, new FluidBuilder()));
     }
 
     public static void init() {
