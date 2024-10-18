@@ -3,9 +3,9 @@ package tkcy.simpleaddon.api.unification.materials;
 import static gregtech.api.unification.material.Materials.*;
 import static gregtech.api.unification.material.info.MaterialFlags.*;
 import static gregtech.api.unification.material.info.MaterialIconSet.METALLIC;
-import static gregtech.api.util.GTUtility.gregtechId;
 import static tkcy.simpleaddon.api.unification.flags.TKCYSAMaterialFlags.*;
 import static tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials.*;
+import static tkcy.simpleaddon.api.utils.TKCYSAUtil.tkcysa;
 
 import gregtech.api.unification.material.Material;
 
@@ -17,7 +17,7 @@ import tkcy.simpleaddon.modules.alloyingmodule.Alloying;
 public class AlloysMaterials {
 
     public static int init(int id) {
-        GalvanizedSteel = new Material.Builder(id++, gregtechId("galvanized_steel"))
+        GalvanizedSteel = new Material.Builder(id++, tkcysa("galvanized_steel"))
                 .ingot()
                 .fluidPipeProperties(2000, 100, true, true, true, false)
                 .components(Iron, 9, Zinc, 1)
@@ -25,7 +25,7 @@ public class AlloysMaterials {
                 .color(0xf5f8fa).iconSet(METALLIC)
                 .build();
 
-        Monel = new Material.Builder(id++, gregtechId("monel"))
+        Monel = new Material.Builder(id++, tkcysa("monel"))
                 .ingot()
                 .fluid()
                 .flags(GENERATE_ALL)
@@ -34,7 +34,7 @@ public class AlloysMaterials {
                 .color(0xc1b8a8).iconSet(METALLIC)
                 .build();
 
-        BT6 = new Material.Builder(id++, gregtechId("bt_6"))
+        BT6 = new Material.Builder(id++, tkcysa("bt_6"))
                 .ingot(2)
                 .fluid()
                 .flags(GENERATE_ALL)
@@ -44,7 +44,7 @@ public class AlloysMaterials {
                 .iconSet(METALLIC)
                 .build();
 
-        Mangalloy = new Material.Builder(id++, gregtechId("mangalloy"))
+        Mangalloy = new Material.Builder(id++, tkcysa("mangalloy"))
                 .ingot(2)
                 .fluid()
                 .flags(GENERATE_ALL)
@@ -54,7 +54,7 @@ public class AlloysMaterials {
                 .iconSet(METALLIC)
                 .build();
 
-        Inconel600 = new Material.Builder(id++, gregtechId("inconel_600"))
+        Inconel600 = new Material.Builder(id++, tkcysa("inconel_600"))
                 .ingot(2)
                 .fluid()
                 .flags(GENERATE_ALL)
@@ -64,7 +64,7 @@ public class AlloysMaterials {
                 .iconSet(METALLIC)
                 .build();
 
-        Inconel690 = new Material.Builder(id++, gregtechId("inconel_690"))
+        Inconel690 = new Material.Builder(id++, tkcysa("inconel_690"))
                 .ingot(2)
                 .fluid()
                 .flags(GENERATE_ALL)
@@ -74,7 +74,7 @@ public class AlloysMaterials {
                 .iconSet(METALLIC)
                 .build();
 
-        Talonite = new Material.Builder(id++, gregtechId("talonite"))
+        Talonite = new Material.Builder(id++, tkcysa("talonite"))
                 .ingot(2)
                 .fluid()
                 .flags(GENERATE_ALL)
@@ -84,7 +84,7 @@ public class AlloysMaterials {
                 .iconSet(METALLIC)
                 .build();
 
-        TC4 = new Material.Builder(id++, gregtechId("tc_4"))
+        TC4 = new Material.Builder(id++, tkcysa("tc_4"))
                 .ingot(2)
                 .fluid()
                 .flags(GENERATE_ALL)

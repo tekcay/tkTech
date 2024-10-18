@@ -1,9 +1,9 @@
 package tkcy.simpleaddon.api.unification.materials.chains;
 
 import static gregtech.api.unification.material.Materials.*;
-import static gregtech.api.util.GTUtility.gregtechId;
 import static tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials.PigIron;
 import static tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials.TungstenOxide;
+import static tkcy.simpleaddon.api.utils.TKCYSAUtil.tkcysa;
 
 import gregtech.api.fluids.FluidBuilder;
 import gregtech.api.unification.material.Material;
@@ -15,7 +15,7 @@ import lombok.experimental.UtilityClass;
 public class SmallChainsMaterials {
 
     public static int init(int id) {
-        PigIron = new Material.Builder(id++, gregtechId("pig_iron"))
+        PigIron = new Material.Builder(id++, tkcysa("pig_iron"))
                 .ingot()
                 .liquid(new FluidBuilder().temperature(1800).attributes())
                 .flags(MaterialFlags.NO_UNIFICATION)
@@ -23,7 +23,7 @@ public class SmallChainsMaterials {
                 .colorAverage()
                 .build();
 
-        TungstenOxide = new Material.Builder(id++, gregtechId("tungsten_oxide"))
+        TungstenOxide = new Material.Builder(id++, tkcysa("tungsten_oxide"))
                 .dust()
                 .components(Tungsten, 1, Oxygen, 3)
                 .colorAverage()
