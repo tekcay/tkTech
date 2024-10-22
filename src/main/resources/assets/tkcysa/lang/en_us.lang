@@ -282,6 +282,8 @@ tkcysa.multiblock.modulable_crate.tooltip=Modulable Crate tooltip
 
 
 ## Recipe properties
+tkcysa.recipe.HEAT_INPUT=Heat input: %d J
+tkcysa.recipe.HEAT_OUTPUT=Heat output: %d J
 tkcysa.recipe.coil=Coil: %s
 tkcya.recipe.tool.uses=Tool uses: %d
 
