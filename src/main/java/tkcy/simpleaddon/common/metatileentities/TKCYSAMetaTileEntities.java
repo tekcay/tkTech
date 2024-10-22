@@ -43,6 +43,7 @@ public class TKCYSAMetaTileEntities {
     public static SteamDustMixer STEAM_DUST_MIXER;
     public static SteamMelter STEAM_MELTER;
     public static ToolLogicMetaTileEntity PARTS_WORKER_MTE;
+    public static BurnerMetatileEntity BURNER;
     public static SimpleMachineMetaTileEntity[] CLUSTER_MILLS = new SimpleMachineMetaTileEntity[5];
     public static SimpleMachineMetaTileEntity[] COMPONENT_ASSEMBLER_MTE = new SimpleMachineMetaTileEntity[6];
     public static SimpleMachineMetaTileEntity[] ROLLING_MILL = new SimpleMachineMetaTileEntity[6];
@@ -110,5 +111,7 @@ public class TKCYSAMetaTileEntities {
                 StorageModule::initModulableLargeTank);
         MaterialMetaTileEntity.registerMaterialMetaTileEntity(StorageModule.TANK_MATERIALS, MODULABLE_TANK_VALVES, 4220,
                 StorageModule::initValve);
+
+        BURNER = registerMetaTileEntity(4300, new BurnerMetatileEntity(tkcysa("burner")));
     }
 }

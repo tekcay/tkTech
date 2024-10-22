@@ -18,7 +18,7 @@ import tkcy.simpleaddon.api.capabilities.DefaultContainer;
 @Getter
 public abstract class DefaultContainerMetatileEntity extends MetaTileEntity implements IDataInfoProvider {
 
-    private DefaultContainer internContainer;
+    private DefaultContainer internalContainer;
 
     protected DefaultContainerMetatileEntity(ResourceLocation metaTileEntityId) {
         super(metaTileEntityId);
@@ -26,23 +26,23 @@ public abstract class DefaultContainerMetatileEntity extends MetaTileEntity impl
 
     protected abstract void doSomething();
 
-    @Override
-    public void update() {
-        super.update();
-        if (this.isBlockRedstonePowered()) return;
-        if (getInternContainer().isEmpty()) return;
-
-        if (!getWorld().isRemote) {
-            doSomething();
-        }
-    }
+//    @Override
+//    public void update() {
+//        super.update();
+//        if (this.isBlockRedstonePowered()) return;
+//        if (getInternalContainer() != null && getInternalContainer().isEmpty()) return;
+//
+//        if (!getWorld().isRemote) {
+//            doSomething();
+//        }
+//    }
 
     @NotNull
     @Override
     public List<ITextComponent> getDataInfo() {
         List<ITextComponent> list = new ObjectArrayList<>();
-        list.add(new TextComponentTranslation("behavior.tricorder.value", getInternContainer().getValue(),
-                getInternContainer().getBaseUnit()));
+        list.add(new TextComponentTranslation("behavior.tricorder.value", getInternalContainer().getValue(),
+                getInternalContainer().getBaseUnit()));
         return list;
     }
 }

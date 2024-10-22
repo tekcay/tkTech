@@ -14,7 +14,7 @@ public class CapabilityContainersTesting {
                 .outputHeat(30)
                 .input(OrePrefix.dust, Charcoal)
                 .fluidOutputs(CarbonDioxide.getFluid(1000))
-                .duration(1000)
+                .duration(60)
                 .EUt(1)
                 .buildAndRegister();
 
@@ -22,7 +22,7 @@ public class CapabilityContainersTesting {
                 .inputHeat(30)
                 .input(OrePrefix.dust, Charcoal)
                 .fluidOutputs(CarbonDioxide.getFluid(1000))
-                .duration(1000)
+                .duration(60)
                 .EUt(1)
                 .buildAndRegister();
     }

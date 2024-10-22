@@ -11,14 +11,14 @@ public abstract class ConsumerContainerMetatileEntity extends DefaultContainerMe
     }
 
     protected void consume(int amount) {
-        getInternContainer().increaseValue(amount);
+        getInternalContainer().increaseValue(amount);
     }
 
     @Override
     public void update() {
         super.update();
         if (this.isBlockRedstonePowered()) return;
-        if (getInternContainer().isEmpty()) return;
+        if (getInternalContainer().isEmpty()) return;
 
         if (!getWorld().isRemote) {
             consume(-10);
