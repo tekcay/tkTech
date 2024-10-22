@@ -9,9 +9,7 @@ import crafttweaker.annotations.ZenRegister;
 import lombok.experimental.UtilityClass;
 import stanhebben.zenscript.annotations.ZenExpansion;
 import stanhebben.zenscript.annotations.ZenProperty;
-import tkcy.simpleaddon.api.recipes.builders.CoilTypeRecipeBuilder;
-import tkcy.simpleaddon.api.recipes.builders.NoEnergyRecipeBuilder;
-import tkcy.simpleaddon.api.recipes.builders.ToolRecipeBuilder;
+import tkcy.simpleaddon.api.recipes.builders.*;
 import tkcy.simpleaddon.modules.toolmodule.WorkingTool;
 
 @UtilityClass
@@ -96,5 +94,15 @@ public final class TKCYSARecipeMaps {
     @WorkingTool
     @ZenProperty
     public static final RecipeMap<ToolRecipeBuilder> ANVIL_RECIPES = new ToolRecipeMap<>(
-            "anvil_recipes", 2, 2, 0, 0, new ToolRecipeBuilder(), false);
+            "anvil_recipes", 2, 2, 0, 2, new ToolRecipeBuilder(), false);
+
+    @WorkingTool
+    @ZenProperty
+    public static final RecipeMap<HeatOutputRecipeBuilder> HEATING_RECIPES = new RecipeMap<>(
+            "heating_recipes", 2, 1, 1, 1, new HeatOutputRecipeBuilder(), false);
+
+    @WorkingTool
+    @ZenProperty
+    public static final RecipeMap<HeatInputRecipeBuilder> HEATING_RECIPES2 = new RecipeMap<>(
+            "heating_recipes2", 2, 1, 1, 1, new HeatInputRecipeBuilder(), false);
 }

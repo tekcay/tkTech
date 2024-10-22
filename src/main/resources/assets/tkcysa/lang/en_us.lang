@@ -210,6 +210,7 @@ recipemap.primitive_dust_mixing.name=Primtive Dust Mixing
 recipemap.primitive_smelting.name=Primitive Smelting
 recipemap.rolling.name=Roll Bending
 recipemap.anvil_recipes.name=Anvil Recipes
+recipemap.heating_recipes.name=Heating Recipes
 
 # Ore Prefixes
 item.material.oreprefix.cathode=%s Cathode

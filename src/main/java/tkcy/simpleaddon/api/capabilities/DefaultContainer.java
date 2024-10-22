@@ -21,9 +21,11 @@ public interface DefaultContainer {
     default boolean isTypeOf(ContainerType containerType) {
         return containerType == getContainerType();
     }
+
     default boolean isEmpty() {
         return getValue() == getMinValue();
     }
+
     default boolean isFull() {
         return getValue() == getMaxValue();
     }

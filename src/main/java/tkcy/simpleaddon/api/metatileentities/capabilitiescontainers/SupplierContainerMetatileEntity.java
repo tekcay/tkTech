@@ -1,16 +1,19 @@
 package tkcy.simpleaddon.api.metatileentities.capabilitiescontainers;
 
-import gregtech.api.metatileentity.MetaTileEntity;
-import lombok.Getter;
+import java.util.List;
+
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
+
+import gregtech.api.metatileentity.MetaTileEntity;
+
+import lombok.Getter;
 import tkcy.simpleaddon.api.capabilities.DefaultContainer;
 import tkcy.simpleaddon.api.capabilities.helpers.AdjacentCapabilityHelper;
 
-import java.util.List;
-
 @Getter
-public abstract class SupplierContainerMetatileEntity extends DefaultContainerMetatileEntity implements AdjacentCapabilityHelper {
+public abstract class SupplierContainerMetatileEntity extends DefaultContainerMetatileEntity
+                                                      implements AdjacentCapabilityHelper {
 
     private DefaultContainer receiverContainer;
     private List<EnumFacing> emittingSide;
@@ -25,6 +28,4 @@ public abstract class SupplierContainerMetatileEntity extends DefaultContainerMe
     public MetaTileEntity getThisMetatileEntity() {
         return this;
     }
-
-
 }

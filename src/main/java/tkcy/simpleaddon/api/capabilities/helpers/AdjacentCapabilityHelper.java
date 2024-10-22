@@ -1,10 +1,12 @@
 package tkcy.simpleaddon.api.capabilities.helpers;
 
-import gregtech.api.metatileentity.MetaTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
+
 import org.jetbrains.annotations.Nullable;
+
+import gregtech.api.metatileentity.MetaTileEntity;
 
 public interface AdjacentCapabilityHelper {
 

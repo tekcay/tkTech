@@ -10,5 +10,4 @@ public class CapabilitiesModule {
         PRESSURE,
         ROTATION
     }
-
 }

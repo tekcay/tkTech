@@ -45,6 +45,8 @@ public final class TKCYSARecipeLoader {
 
         removeGTCEuElectrolyzsis();
         removeGTCEuElectrolyzerMTEs();
+
+        CapabilityContainersTesting.test();
     }
 
     private static void harderStuff() {

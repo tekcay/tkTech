@@ -1,10 +1,13 @@
 package tkcy.simpleaddon.api.recipes.properties;
 
-import gregtech.api.recipes.recipeproperties.RecipeProperty;
+import static tkcy.simpleaddon.api.recipes.properties.RecipePropertiesKeys.HEAT_OUTPUT;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
+
 import org.jetbrains.annotations.NotNull;
-import static tkcy.simpleaddon.api.recipes.properties.RecipePropertiesKeys.HEAT_OUTPUT;
+
+import gregtech.api.recipes.recipeproperties.RecipeProperty;
 
 public class HeatOutputRecipeProperty extends RecipeProperty<Integer> {
 
