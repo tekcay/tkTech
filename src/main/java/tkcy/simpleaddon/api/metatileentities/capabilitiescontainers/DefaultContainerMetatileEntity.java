@@ -26,16 +26,13 @@ public abstract class DefaultContainerMetatileEntity extends MetaTileEntity impl
 
     protected abstract void doSomething();
 
-//    @Override
-//    public void update() {
-//        super.update();
-//        if (this.isBlockRedstonePowered()) return;
-//        if (getInternalContainer() != null && getInternalContainer().isEmpty()) return;
-//
-//        if (!getWorld().isRemote) {
-//            doSomething();
-//        }
-//    }
+    @Override
+    public void update() {
+        super.update();
+        if (getOffsetTimer() % 10 == 0) {
+            doSomething();
+        }
+    }
 
     @NotNull
     @Override

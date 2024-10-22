@@ -6,7 +6,13 @@ import codechicken.lib.vec.Matrix4;
 import gregtech.api.capability.impl.FluidTankList;
 import gregtech.api.capability.impl.NotifiableItemStackHandler;
 import gregtech.api.gui.GuiTextures;
-import gregtech.api.gui.widgets.*;
+import gregtech.api.gui.ModularUI;
+import gregtech.api.gui.widgets.LabelWidget;
+import gregtech.api.gui.widgets.ProgressWidget;
+import gregtech.api.gui.widgets.SlotWidget;
+import gregtech.api.gui.widgets.TankWidget;
+import gregtech.api.metatileentity.MetaTileEntity;
+import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
 import gregtech.client.renderer.ICubeRenderer;
 import gregtech.client.renderer.texture.Textures;
 import gregtech.client.renderer.texture.cube.SimpleSidedCubeRenderer;
@@ -14,11 +20,6 @@ import gregtech.client.utils.RenderUtil;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
-
-import gregtech.api.gui.ModularUI;
-import gregtech.api.metatileentity.MetaTileEntity;
-import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
-
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -26,57 +27,39 @@ import net.minecraftforge.items.IItemHandlerModifiable;
 import org.jetbrains.annotations.Nullable;
 import tkcy.simpleaddon.api.capabilities.HeatContainer;
 import tkcy.simpleaddon.api.capabilities.HeatMachine;
-import tkcy.simpleaddon.api.capabilities.TKCYSATileCapabilities;
-import tkcy.simpleaddon.api.capabilities.helpers.AdjacentCapabilityHelper;
 import tkcy.simpleaddon.api.capabilities.impl.HeatContainerImpl;
-import tkcy.simpleaddon.api.metatileentities.capabilitiescontainers.SupplierContainerMetatileEntity;
+import tkcy.simpleaddon.api.metatileentities.capabilitiescontainers.consumers.ConsumerContainerMetatileEntity;
 import tkcy.simpleaddon.api.recipes.logic.HeatLogic;
 import tkcy.simpleaddon.api.recipes.recipemaps.TKCYSARecipeMaps;
 
 
-public class BurnerMetatileEntity extends SupplierContainerMetatileEntity implements AdjacentCapabilityHelper, HeatMachine {
+public class MelterMetatileEntity extends ConsumerContainerMetatileEntity implements HeatMachine {
 
     private final HeatContainer heatContainer;
     private final HeatLogic workableHandler;
+    private final ICubeRenderer renderer;
 
-    public BurnerMetatileEntity(ResourceLocation metaTileEntityId) {
+    public MelterMetatileEntity(ResourceLocation metaTileEntityId) {
         super(metaTileEntityId);
-        this.workableHandler = new HeatLogic(this, TKCYSARecipeMaps.HEATING_RECIPES, false);
+        this.workableHandler = new HeatLogic(this, TKCYSARecipeMaps.HEATING_RECIPES2, true);
         this.heatContainer = new HeatContainerImpl(this, 0, 40000);
+        this.renderer = Textures.FURNACE_OVERLAY;
     }
 
     @Override
     public MetaTileEntity createMetaTileEntity(IGregTechTileEntity tileEntity) {
-        return new BurnerMetatileEntity(metaTileEntityId);
+        return new MelterMetatileEntity(metaTileEntityId);
     }
 
     @Override
-    protected void doSomething() {
-        tryToEmit(getEmittingFace());
-    }
-
-    @Override
-    public void tryToEmit(EnumFacing emittingSide) {
-        if (heatContainer.isEmpty()) return;
-        HeatContainer adjacentHeatContainer = getAdjacentCapabilityContainer(TKCYSATileCapabilities.CAPABILITY_HEAT_CONTAINER);
-        if (adjacentHeatContainer != null) {
-            int currentHeat = heatContainer.getValue();
-            adjacentHeatContainer.increaseValue(currentHeat);
-            heatContainer.increaseValue(-currentHeat);
-        }
-    }
-
-    @Override
-    public EnumFacing getEmittingFace() {
-        return EnumFacing.UP;
-    }
+    protected void doSomething() {    }
 
     @Override
     public void renderMetaTileEntity(CCRenderState renderState, Matrix4 translation, IVertexOperation[] pipeline) {
         super.renderMetaTileEntity(renderState, translation, pipeline);
 
         getBaseRenderer().render(renderState, translation, pipeline);
-        Textures.FURNACE_OVERLAY.renderOrientedState(renderState, translation, pipeline, getFrontFacing(), false,
+        Textures.COKE_OVEN_OVERLAY.renderOrientedState(renderState, translation, pipeline, getFrontFacing(), false,
                 false);
         Textures.STEAM_VENT_OVERLAY.renderSided(EnumFacing.UP, renderState,
                 RenderUtil.adjustTrans(translation, EnumFacing.UP, 2), pipeline);

@@ -8,6 +8,9 @@ import net.minecraft.util.ResourceLocation;
 import gregtech.api.metatileentity.MetaTileEntity;
 
 import lombok.Getter;
+import net.minecraftforge.common.capabilities.Capability;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import tkcy.simpleaddon.api.capabilities.DefaultContainer;
 import tkcy.simpleaddon.api.capabilities.helpers.AdjacentCapabilityHelper;
 
@@ -16,7 +19,6 @@ public abstract class SupplierContainerMetatileEntity extends DefaultContainerMe
                                                       implements AdjacentCapabilityHelper {
 
     private DefaultContainer receiverContainer;
-    private List<EnumFacing> emittingSide;
 
     protected SupplierContainerMetatileEntity(ResourceLocation metaTileEntityId) {
         super(metaTileEntityId);

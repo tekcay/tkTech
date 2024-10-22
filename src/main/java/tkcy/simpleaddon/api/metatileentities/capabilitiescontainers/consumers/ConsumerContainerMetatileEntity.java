@@ -9,19 +9,4 @@ public abstract class ConsumerContainerMetatileEntity extends DefaultContainerMe
     protected ConsumerContainerMetatileEntity(ResourceLocation metaTileEntityId) {
         super(metaTileEntityId);
     }
-
-    protected void consume(int amount) {
-        getInternalContainer().increaseValue(amount);
-    }
-
-    @Override
-    public void update() {
-        super.update();
-        if (this.isBlockRedstonePowered()) return;
-        if (getInternalContainer().isEmpty()) return;
-
-        if (!getWorld().isRemote) {
-            consume(-10);
-        }
-    }
 }

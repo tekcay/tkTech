@@ -4,22 +4,28 @@ import gregtech.api.capability.impl.AbstractRecipeLogic;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.recipes.Recipe;
 import gregtech.api.recipes.RecipeMap;
+import gregtech.api.recipes.recipeproperties.RecipeProperty;
 import org.jetbrains.annotations.Nullable;
 import tkcy.simpleaddon.api.capabilities.HeatContainer;
 import tkcy.simpleaddon.api.capabilities.HeatMachine;
+import tkcy.simpleaddon.api.recipes.properties.HeatInputRecipeProperty;
 import tkcy.simpleaddon.api.recipes.properties.HeatOutputRecipeProperty;
 
-public class HeatConsumingLogic extends AbstractRecipeLogic implements HeatMachine {
+public class HeatLogic extends AbstractRecipeLogic implements HeatMachine {
 
     private int heatRecipeValue;
+    private final boolean consumesHeat;
+    private final RecipeProperty<Integer> recipeProperty;
 
-    public HeatConsumingLogic(MetaTileEntity tileEntity, RecipeMap<?> recipeMap) {
+    public HeatLogic(MetaTileEntity tileEntity, RecipeMap<?> recipeMap, boolean consumesHeat) {
         super(tileEntity, recipeMap);
+        this.consumesHeat = consumesHeat;
+        this.recipeProperty = consumesHeat ? HeatInputRecipeProperty.getInstance() : HeatOutputRecipeProperty.getInstance();
     }
 
     public void setHeatRecipeValue(Recipe recipe) {
-        if (recipe.getRecipePropertyStorage() != null && recipe.hasProperty(HeatOutputRecipeProperty.getInstance())) {
-            this.heatRecipeValue = recipe.getProperty(HeatOutputRecipeProperty.getInstance(), 0);
+        if (recipe.getRecipePropertyStorage() != null && recipe.hasProperty(recipeProperty)) {
+            this.heatRecipeValue = recipe.getProperty(recipeProperty, 0);
         } else this.heatRecipeValue = 0;
     }
 
@@ -33,7 +39,7 @@ public class HeatConsumingLogic extends AbstractRecipeLogic implements HeatMachi
     protected void completeRecipe() {
         super.completeRecipe();
         if (getHeatContainer() != null) {
-            getHeatContainer().increaseValue(heatRecipeValue);
+            getHeatContainer().increaseValue(consumesHeat ? - heatRecipeValue : heatRecipeValue);
         }
     }
 
