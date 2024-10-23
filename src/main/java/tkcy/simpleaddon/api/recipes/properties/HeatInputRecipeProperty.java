@@ -2,19 +2,18 @@ package tkcy.simpleaddon.api.recipes.properties;
 
 import static tkcy.simpleaddon.api.recipes.properties.RecipePropertiesKeys.HEAT_INPUT;
 
-import gregtech.api.recipes.RecipeBuilder;
-import gregtech.api.util.EnumValidationResult;
+import java.util.function.Predicate;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 
 import org.jetbrains.annotations.NotNull;
 
+import gregtech.api.recipes.RecipeBuilder;
 import gregtech.api.recipes.recipeproperties.RecipeProperty;
-import tkcy.simpleaddon.api.recipes.builders.HeatOutputRecipeBuilder;
-import tkcy.simpleaddon.api.utils.TKCYSALog;
-import tkcy.simpleaddon.modules.toolmodule.ToolsModule;
+import gregtech.api.util.EnumValidationResult;
 
-import java.util.function.Predicate;
+import tkcy.simpleaddon.api.utils.TKCYSALog;
 
 public class HeatInputRecipeProperty extends RecipeProperty<Integer> implements RecipePropertyHelper<Integer> {
 

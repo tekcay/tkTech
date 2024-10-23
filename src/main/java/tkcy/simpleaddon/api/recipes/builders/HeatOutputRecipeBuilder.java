@@ -1,17 +1,17 @@
 package tkcy.simpleaddon.api.recipes.builders;
 
-import gregtech.api.recipes.recipeproperties.RecipeProperty;
-import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.jetbrains.annotations.NotNull;
 
 import gregtech.api.recipes.Recipe;
 import gregtech.api.recipes.RecipeBuilder;
 import gregtech.api.recipes.RecipeMap;
+import gregtech.api.recipes.recipeproperties.RecipeProperty;
 import gregtech.api.util.EnumValidationResult;
 import gregtech.api.util.GTLog;
 import gregtech.api.util.ValidationResult;
 
+import lombok.NoArgsConstructor;
 import tkcy.simpleaddon.api.recipes.properties.HeatOutputRecipeProperty;
 import tkcy.simpleaddon.api.recipes.properties.RecipePropertiesKeys;
 

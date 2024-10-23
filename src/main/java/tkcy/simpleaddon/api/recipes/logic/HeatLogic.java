@@ -1,11 +1,13 @@
 package tkcy.simpleaddon.api.recipes.logic;
 
+import org.jetbrains.annotations.Nullable;
+
 import gregtech.api.capability.impl.AbstractRecipeLogic;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.recipes.Recipe;
 import gregtech.api.recipes.RecipeMap;
 import gregtech.api.recipes.recipeproperties.RecipeProperty;
-import org.jetbrains.annotations.Nullable;
+
 import tkcy.simpleaddon.api.capabilities.HeatContainer;
 import tkcy.simpleaddon.api.capabilities.machines.HeatMachine;
 import tkcy.simpleaddon.api.recipes.properties.HeatInputRecipeProperty;
@@ -20,7 +22,8 @@ public class HeatLogic extends AbstractRecipeLogic implements HeatMachine {
     public HeatLogic(MetaTileEntity tileEntity, RecipeMap<?> recipeMap, boolean consumesHeat) {
         super(tileEntity, recipeMap);
         this.consumesHeat = consumesHeat;
-        this.recipeProperty = consumesHeat ? HeatInputRecipeProperty.getInstance() : HeatOutputRecipeProperty.getInstance();
+        this.recipeProperty = consumesHeat ? HeatInputRecipeProperty.getInstance() :
+                HeatOutputRecipeProperty.getInstance();
     }
 
     public void setHeatRecipeValue(Recipe recipe) {
@@ -39,7 +42,7 @@ public class HeatLogic extends AbstractRecipeLogic implements HeatMachine {
     protected void completeRecipe() {
         super.completeRecipe();
         if (getHeatContainer() != null) {
-            getHeatContainer().increaseValue(consumesHeat ? - heatRecipeValue : heatRecipeValue);
+            getHeatContainer().increaseValue(consumesHeat ? -heatRecipeValue : heatRecipeValue);
         }
     }
 
@@ -67,6 +70,7 @@ public class HeatLogic extends AbstractRecipeLogic implements HeatMachine {
     public long getMaxVoltage() {
         return Integer.MAX_VALUE;
     }
+
     @Nullable
     @Override
     public HeatContainer getHeatContainer() {

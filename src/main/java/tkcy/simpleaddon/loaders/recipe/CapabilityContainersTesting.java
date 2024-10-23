@@ -1,14 +1,14 @@
 package tkcy.simpleaddon.loaders.recipe;
 
-import gregtech.api.unification.ore.OrePrefix;
-import tkcy.simpleaddon.api.recipes.recipemaps.TKCYSARecipeMaps;
-
 import static gregtech.api.unification.material.Materials.*;
+
+import gregtech.api.unification.ore.OrePrefix;
+
+import tkcy.simpleaddon.api.recipes.recipemaps.TKCYSARecipeMaps;
 
 public class CapabilityContainersTesting {
 
     public static void test() {
-
         TKCYSARecipeMaps.HEATING_RECIPES.recipeBuilder()
                 .outputHeat(30)
                 .input(OrePrefix.dust, Charcoal)

@@ -1,39 +1,40 @@
 package tkcy.simpleaddon.common.metatileentities;
 
-import codechicken.lib.render.CCRenderState;
-import codechicken.lib.render.pipeline.IVertexOperation;
-import codechicken.lib.vec.Matrix4;
-import gregtech.api.capability.impl.FluidTankList;
-import gregtech.api.capability.impl.NotifiableItemStackHandler;
-import gregtech.api.gui.GuiTextures;
-import gregtech.api.gui.widgets.*;
-import gregtech.client.renderer.texture.Textures;
-import gregtech.client.renderer.texture.cube.SimpleSidedCubeRenderer;
-import gregtech.client.utils.RenderUtil;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
-
-import gregtech.api.gui.ModularUI;
-import gregtech.api.metatileentity.MetaTileEntity;
-import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
-
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.IItemHandlerModifiable;
+
 import org.jetbrains.annotations.Nullable;
+
+import gregtech.api.capability.impl.FluidTankList;
+import gregtech.api.capability.impl.NotifiableItemStackHandler;
+import gregtech.api.gui.GuiTextures;
+import gregtech.api.gui.ModularUI;
+import gregtech.api.gui.widgets.*;
+import gregtech.api.metatileentity.MetaTileEntity;
+import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
+import gregtech.client.renderer.texture.Textures;
+import gregtech.client.renderer.texture.cube.SimpleSidedCubeRenderer;
+import gregtech.client.utils.RenderUtil;
+
+import codechicken.lib.render.CCRenderState;
+import codechicken.lib.render.pipeline.IVertexOperation;
+import codechicken.lib.vec.Matrix4;
 import tkcy.simpleaddon.api.capabilities.HeatContainer;
-import tkcy.simpleaddon.api.capabilities.machines.HeatMachine;
 import tkcy.simpleaddon.api.capabilities.TKCYSATileCapabilities;
 import tkcy.simpleaddon.api.capabilities.helpers.AdjacentCapabilityHelper;
 import tkcy.simpleaddon.api.capabilities.impl.HeatContainerImpl;
+import tkcy.simpleaddon.api.capabilities.machines.HeatMachine;
 import tkcy.simpleaddon.api.metatileentities.capabilitiescontainers.SupplierContainerMetatileEntity;
 import tkcy.simpleaddon.api.recipes.logic.HeatLogic;
 import tkcy.simpleaddon.api.recipes.recipemaps.TKCYSARecipeMaps;
 
-
-public class BurnerMetatileEntity extends SupplierContainerMetatileEntity implements AdjacentCapabilityHelper, HeatMachine {
+public class BurnerMetatileEntity extends SupplierContainerMetatileEntity
+                                  implements AdjacentCapabilityHelper, HeatMachine {
 
     private final HeatContainer heatContainer;
     private final HeatLogic workableHandler;
@@ -57,7 +58,8 @@ public class BurnerMetatileEntity extends SupplierContainerMetatileEntity implem
     @Override
     public void tryToEmit(EnumFacing emittingSide) {
         if (heatContainer.isEmpty()) return;
-        HeatContainer adjacentHeatContainer = getAdjacentCapabilityContainer(TKCYSATileCapabilities.CAPABILITY_HEAT_CONTAINER);
+        HeatContainer adjacentHeatContainer = getAdjacentCapabilityContainer(
+                TKCYSATileCapabilities.CAPABILITY_HEAT_CONTAINER);
         if (adjacentHeatContainer != null) {
             int currentHeat = heatContainer.getValue();
             adjacentHeatContainer.increaseValue(currentHeat);
@@ -80,10 +82,10 @@ public class BurnerMetatileEntity extends SupplierContainerMetatileEntity implem
         Textures.STEAM_VENT_OVERLAY.renderSided(EnumFacing.UP, renderState,
                 RenderUtil.adjustTrans(translation, EnumFacing.UP, 2), pipeline);
 
-        //renderer.renderOrientedState(renderState, translation, pipeline, getFrontFacing(), workableHandler.isActive(),
-          //      workableHandler.isWorkingEnabled());
+        // renderer.renderOrientedState(renderState, translation, pipeline, getFrontFacing(),
+        // workableHandler.isActive(),
+        // workableHandler.isWorkingEnabled());
     }
-
 
     @Override
     public ModularUI createUI(EntityPlayer player) {
@@ -126,10 +128,12 @@ public class BurnerMetatileEntity extends SupplierContainerMetatileEntity implem
     protected IItemHandlerModifiable createImportItemHandler() {
         return new NotifiableItemStackHandler(this, 1, this, false);
     }
-        @Override
-        protected IItemHandlerModifiable createExportItemHandler() {
-            return new NotifiableItemStackHandler(this, 1, this, true);
+
+    @Override
+    protected IItemHandlerModifiable createExportItemHandler() {
+        return new NotifiableItemStackHandler(this, 1, this, true);
     }
+
     @Override
     protected FluidTankList createImportFluidHandler() {
         return new FluidTankList(false, new FluidTank(2000));

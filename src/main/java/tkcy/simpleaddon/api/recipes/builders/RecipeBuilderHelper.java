@@ -6,14 +6,12 @@ import gregtech.api.recipes.recipeproperties.RecipePropertyStorage;
 
 public interface RecipeBuilderHelper {
 
-
     /**
      * @return WARNING!! The instance must be used!
      */
     RecipeProperty<Integer> getRecipeProperty();
 
     default void build(IRecipePropertyStorage recipePropertyStorage) {
-
         if (recipePropertyStorage == null) recipePropertyStorage = new RecipePropertyStorage();
         if (recipePropertyStorage.hasRecipeProperty(getRecipeProperty())) {
             if (recipePropertyStorage.getRecipePropertyValue(getRecipeProperty(), 0) <= 0) {

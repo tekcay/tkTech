@@ -18,7 +18,7 @@ public abstract class DefaultContainerImpl extends MTETrait implements DefaultCo
     private final int minValue;
     protected int value;
 
-    protected DefaultContainerImpl(MetaTileEntity metaTileEntity, int minValue, int maxValue) {
+    protected DefaultContainerImpl(@NotNull MetaTileEntity metaTileEntity, int minValue, int maxValue) {
         super(metaTileEntity);
         this.minValue = minValue;
         this.maxValue = maxValue;
