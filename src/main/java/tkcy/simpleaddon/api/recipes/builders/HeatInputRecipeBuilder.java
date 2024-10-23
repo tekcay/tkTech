@@ -3,20 +3,19 @@ package tkcy.simpleaddon.api.recipes.builders;
 import gregtech.api.recipes.Recipe;
 import gregtech.api.recipes.RecipeBuilder;
 import gregtech.api.recipes.RecipeMap;
-import gregtech.api.recipes.recipeproperties.RecipePropertyStorage;
+import gregtech.api.recipes.recipeproperties.RecipeProperty;
 import gregtech.api.util.EnumValidationResult;
 import gregtech.api.util.GTLog;
 import gregtech.api.util.ValidationResult;
+import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.jetbrains.annotations.NotNull;
 import tkcy.simpleaddon.api.recipes.properties.HeatInputRecipeProperty;
-import tkcy.simpleaddon.api.recipes.properties.HeatOutputRecipeProperty;
 import tkcy.simpleaddon.api.recipes.properties.RecipePropertiesKeys;
 
-public class HeatInputRecipeBuilder extends RecipeBuilder<HeatInputRecipeBuilder> {
+@NoArgsConstructor
+public class HeatInputRecipeBuilder extends RecipeBuilder<HeatInputRecipeBuilder> implements RecipeBuilderHelper {
 
-    @SuppressWarnings("unused")
-    public HeatInputRecipeBuilder() {}
 
     @SuppressWarnings("unused")
     public HeatInputRecipeBuilder(Recipe recipe, RecipeMap<HeatInputRecipeBuilder> recipeMap) {
@@ -45,14 +44,7 @@ public class HeatInputRecipeBuilder extends RecipeBuilder<HeatInputRecipeBuilder
 
     @Override
     public ValidationResult<Recipe> build() {
-        if (this.recipePropertyStorage == null) this.recipePropertyStorage = new RecipePropertyStorage();
-        if (this.recipePropertyStorage.hasRecipeProperty(HeatInputRecipeProperty.getInstance())) {
-            if (this.recipePropertyStorage.getRecipePropertyValue(HeatInputRecipeProperty.getInstance(), 0) <= 0) {
-                this.recipePropertyStorage.store(HeatInputRecipeProperty.getInstance(), 0);
-            }
-        } else {
-            this.recipePropertyStorage.store(HeatInputRecipeProperty.getInstance(), 0);
-        }
+        build(this.recipePropertyStorage);
         return super.build();
     }
 
@@ -76,5 +68,10 @@ public class HeatInputRecipeBuilder extends RecipeBuilder<HeatInputRecipeBuilder
                 .appendSuper(super.toString())
                 .append("", getHeat())
                 .toString();
+    }
+
+    @Override
+    public RecipeProperty<Integer> getRecipeProperty() {
+        return HeatInputRecipeProperty.getInstance();
     }
 }

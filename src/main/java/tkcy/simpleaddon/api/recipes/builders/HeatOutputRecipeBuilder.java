@@ -1,12 +1,13 @@
 package tkcy.simpleaddon.api.recipes.builders;
 
+import gregtech.api.recipes.recipeproperties.RecipeProperty;
+import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.jetbrains.annotations.NotNull;
 
 import gregtech.api.recipes.Recipe;
 import gregtech.api.recipes.RecipeBuilder;
 import gregtech.api.recipes.RecipeMap;
-import gregtech.api.recipes.recipeproperties.RecipePropertyStorage;
 import gregtech.api.util.EnumValidationResult;
 import gregtech.api.util.GTLog;
 import gregtech.api.util.ValidationResult;
@@ -14,10 +15,8 @@ import gregtech.api.util.ValidationResult;
 import tkcy.simpleaddon.api.recipes.properties.HeatOutputRecipeProperty;
 import tkcy.simpleaddon.api.recipes.properties.RecipePropertiesKeys;
 
-public class HeatOutputRecipeBuilder extends RecipeBuilder<HeatOutputRecipeBuilder> {
-
-    @SuppressWarnings("unused")
-    public HeatOutputRecipeBuilder() {}
+@NoArgsConstructor
+public class HeatOutputRecipeBuilder extends RecipeBuilder<HeatOutputRecipeBuilder> implements RecipeBuilderHelper {
 
     @SuppressWarnings("unused")
     public HeatOutputRecipeBuilder(Recipe recipe, RecipeMap<HeatOutputRecipeBuilder> recipeMap) {
@@ -45,12 +44,6 @@ public class HeatOutputRecipeBuilder extends RecipeBuilder<HeatOutputRecipeBuild
     }
 
     @Override
-    public ValidationResult<Recipe> build() {
-        RecipeBuilderHelpers.build(this.recipePropertyStorage, HeatOutputRecipeProperty.getInstance());
-        return super.build();
-    }
-
-    @Override
     public boolean applyProperty(@NotNull String key, Object value) {
         if (key.equals(RecipePropertiesKeys.HEAT_OUTPUT.name())) {
             this.outputHeat(((Number) value).intValue());
@@ -70,5 +63,16 @@ public class HeatOutputRecipeBuilder extends RecipeBuilder<HeatOutputRecipeBuild
                 .appendSuper(super.toString())
                 .append("", getHeat())
                 .toString();
+    }
+
+    @Override
+    public ValidationResult<Recipe> build() {
+        build(this.recipePropertyStorage);
+        return super.build();
+    }
+
+    @Override
+    public RecipeProperty<Integer> getRecipeProperty() {
+        return HeatOutputRecipeProperty.getInstance();
     }
 }
