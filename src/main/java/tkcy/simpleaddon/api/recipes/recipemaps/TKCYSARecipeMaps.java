@@ -98,11 +98,11 @@ public final class TKCYSARecipeMaps {
 
     @WorkingTool
     @ZenProperty
-    public static final RecipeMap<HeatOutputRecipeBuilder> HEATING_RECIPES = new RecipeMap<>(
+    public static final RecipeMap<HeatOutputRecipeBuilder> HEAT_PRODUCING_RECIPES = new RecipeMap<>(
             "heating_recipes", 2, 1, 1, 1, new HeatOutputRecipeBuilder(), false);
 
     @WorkingTool
     @ZenProperty
-    public static final RecipeMap<HeatInputRecipeBuilder> HEATING_RECIPES2 = new RecipeMap<>(
+    public static final RecipeMap<HeatInputRecipeBuilder> HEATING_CONSUMING_RECIPES = new RecipeMap<>(
             "heating_recipes2", 2, 1, 1, 1, new HeatInputRecipeBuilder(), false);
 }

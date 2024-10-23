@@ -9,7 +9,8 @@ import tkcy.simpleaddon.api.utils.units.CommonUnits;
 public enum RecipePropertiesKeys {
 
     HEAT_INPUT(CommonUnits.joule.getUnit()),
-    HEAT_OUTPUT(CommonUnits.joule.getUnit());
+    HEAT_OUTPUT(CommonUnits.joule.getUnit()),
+    TEMPERATURE(CommonUnits.kelvin.getUnit());
 
     private final String unit;
 }

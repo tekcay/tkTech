@@ -1,12 +1,11 @@
 package tkcy.simpleaddon.api.recipes.builders;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
+import gregtech.api.recipes.recipeproperties.PrimitiveProperty;
 import org.jetbrains.annotations.NotNull;
 
 import gregtech.api.recipes.Recipe;
 import gregtech.api.recipes.RecipeBuilder;
 import gregtech.api.recipes.RecipeMap;
-import gregtech.api.recipes.recipeproperties.RecipeProperty;
 import gregtech.api.util.EnumValidationResult;
 import gregtech.api.util.GTLog;
 import gregtech.api.util.ValidationResult;
@@ -16,7 +15,7 @@ import tkcy.simpleaddon.api.recipes.properties.HeatOutputRecipeProperty;
 import tkcy.simpleaddon.api.recipes.properties.RecipePropertiesKeys;
 
 @NoArgsConstructor
-public class HeatOutputRecipeBuilder extends RecipeBuilder<HeatOutputRecipeBuilder> implements RecipeBuilderHelper {
+public class HeatOutputRecipeBuilder extends RecipeBuilder<HeatOutputRecipeBuilder> {
 
     @SuppressWarnings("unused")
     public HeatOutputRecipeBuilder(Recipe recipe, RecipeMap<HeatOutputRecipeBuilder> recipeMap) {
@@ -52,27 +51,11 @@ public class HeatOutputRecipeBuilder extends RecipeBuilder<HeatOutputRecipeBuild
         return super.applyProperty(key, value);
     }
 
-    public int getHeat() {
-        return this.recipePropertyStorage == null ? 0 :
-                this.recipePropertyStorage.getRecipePropertyValue(HeatOutputRecipeProperty.getInstance(), 0);
-    }
-
-    @Override
-    public String toString() {
-        return new ToStringBuilder(this)
-                .appendSuper(super.toString())
-                .append("", getHeat())
-                .toString();
-    }
-
     @Override
     public ValidationResult<Recipe> build() {
-        build(this.recipePropertyStorage);
+        RecipeBuilderHelper.build(this.recipePropertyStorage, HeatOutputRecipeProperty.getInstance());
+        this.EUt(1);
+        applyProperty(PrimitiveProperty.getInstance(), true);
         return super.build();
-    }
-
-    @Override
-    public RecipeProperty<Integer> getRecipeProperty() {
-        return HeatOutputRecipeProperty.getInstance();
     }
 }

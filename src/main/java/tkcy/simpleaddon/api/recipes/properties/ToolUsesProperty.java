@@ -40,7 +40,7 @@ public class ToolUsesProperty extends RecipeProperty<Integer> implements RecipeP
     @Override
     public RecipeBuilder<?> testAndApplyPropertyValue(Integer valueToTest, EnumValidationResult recipeStatus,
                                                       RecipeBuilder<?> recipeBuilder) {
-        if (!this.testSuppliedValue().test(valueToTest)) {
+        if (!this.isValueValid().test(valueToTest)) {
             TKCYSALog.logger.error(this::getErrorMessage, new IllegalArgumentException());
             recipeStatus = EnumValidationResult.INVALID;
         }
@@ -49,8 +49,8 @@ public class ToolUsesProperty extends RecipeProperty<Integer> implements RecipeP
     }
 
     @Override
-    public Predicate<Integer> testSuppliedValue() {
-        return value -> value >= this.getDefaultValue();
+    public Predicate<Integer> isValueValid() {
+        return value -> value > this.getDefaultValue();
     }
 
     @Override
@@ -66,5 +66,13 @@ public class ToolUsesProperty extends RecipeProperty<Integer> implements RecipeP
     @Override
     public RecipeProperty<Integer> getPropertyInstance() {
         return this;
+    }
+
+
+    @Override
+    public boolean canDrawInfo(Object value) {
+        if (value instanceof Integer heat) {
+            return isValueValid().test(heat);
+        } else return false;
     }
 }

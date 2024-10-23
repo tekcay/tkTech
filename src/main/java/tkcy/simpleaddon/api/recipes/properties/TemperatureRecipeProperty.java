@@ -1,6 +1,6 @@
 package tkcy.simpleaddon.api.recipes.properties;
 
-import static tkcy.simpleaddon.api.recipes.properties.RecipePropertiesKeys.HEAT_INPUT;
+import static tkcy.simpleaddon.api.recipes.properties.RecipePropertiesKeys.TEMPERATURE;
 
 import java.util.function.Predicate;
 
@@ -15,29 +15,32 @@ import gregtech.api.util.EnumValidationResult;
 
 import tkcy.simpleaddon.api.utils.TKCYSALog;
 
-public class HeatInputRecipeProperty extends RecipeProperty<Integer> implements RecipePropertyHelper<Integer> {
+public class TemperatureRecipeProperty extends RecipeProperty<Integer> implements RecipePropertyHelper<Integer> {
 
     @Override
     public String getKey() {
-        return HEAT_INPUT.name();
+        return TEMPERATURE.name();
     }
 
-    public static HeatInputRecipeProperty INSTANCE;
+    public static TemperatureRecipeProperty INSTANCE;
 
-    private HeatInputRecipeProperty() {
-        super(HEAT_INPUT.name(), Integer.class);
+    private TemperatureRecipeProperty() {
+        super(TEMPERATURE.name(), Integer.class);
     }
 
-    public static RecipePropertyHelper<Integer> getInstance() {
+    public static TemperatureRecipeProperty getInstance() {
         if (INSTANCE == null) {
-            INSTANCE = new HeatInputRecipeProperty();
+            INSTANCE = new TemperatureRecipeProperty();
         }
         return INSTANCE;
     }
 
     @Override
     public void drawInfo(@NotNull Minecraft minecraft, int x, int y, int color, Object value) {
-        minecraft.fontRenderer.drawString(I18n.format("tkcysa.recipe." + this.getKey(), castValue(value)), x, y, color);
+        if (canDrawInfo(value)) {
+            minecraft.fontRenderer.drawString(I18n.format("tkcysa.recipe." + this.getKey(), castValue(value)), x, y,
+                    color);
+        }
     }
 
     @Override
@@ -58,8 +61,8 @@ public class HeatInputRecipeProperty extends RecipeProperty<Integer> implements 
 
     @Override
     public boolean canDrawInfo(Object value) {
-        if (value instanceof Integer inputHeat) {
-            return isValueValid().test(inputHeat);
+        if (value instanceof Integer heat) {
+            return isValueValid().test(heat);
         } else return false;
     }
 

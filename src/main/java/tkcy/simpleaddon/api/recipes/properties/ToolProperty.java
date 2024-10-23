@@ -38,7 +38,7 @@ public class ToolProperty extends RecipeProperty<ToolsModule.GtTool>
     @Override
     public RecipeBuilder<?> testAndApplyPropertyValue(ToolsModule.GtTool valueToTest, EnumValidationResult recipeStatus,
                                                       RecipeBuilder<?> recipeBuilder) {
-        if (!this.testSuppliedValue().test(valueToTest)) {
+        if (!this.isValueValid().test(valueToTest)) {
             TKCYSALog.logger.error(this::getErrorMessage, new IllegalArgumentException());
             recipeStatus = EnumValidationResult.INVALID;
         }
@@ -48,7 +48,7 @@ public class ToolProperty extends RecipeProperty<ToolsModule.GtTool>
     }
 
     @Override
-    public Predicate<ToolsModule.GtTool> testSuppliedValue() {
+    public Predicate<ToolsModule.GtTool> isValueValid() {
         return ToolsModule.GT_TOOLS::contains;
     }
 
@@ -65,5 +65,10 @@ public class ToolProperty extends RecipeProperty<ToolsModule.GtTool>
     @Override
     public RecipeProperty<ToolsModule.GtTool> getPropertyInstance() {
         return this;
+    }
+
+    @Override
+    public boolean canDrawInfo(Object value) {
+        return true;
     }
 }

@@ -16,6 +16,7 @@ public interface DefaultContainer {
     }
 
     boolean increaseValue(int amount);
+
     void setValue(int amount);
 
     CapabilityModule.ContainerType getContainerType();

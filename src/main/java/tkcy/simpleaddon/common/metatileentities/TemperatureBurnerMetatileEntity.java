@@ -36,12 +36,13 @@ import tkcy.simpleaddon.api.capabilities.helpers.MultipleContainerWrapper;
 import tkcy.simpleaddon.api.capabilities.impl.HeatContainerImpl;
 import tkcy.simpleaddon.api.capabilities.impl.TemperatureContainerImpl;
 import tkcy.simpleaddon.api.metatileentities.capabilitiescontainers.SupplierContainerMetatileEntity;
+import tkcy.simpleaddon.api.metatileentities.capabilitiescontainers.consumers.ConsumerContainerMetatileEntity;
 import tkcy.simpleaddon.api.recipes.logic.HeatLogic;
 import tkcy.simpleaddon.api.recipes.recipemaps.TKCYSARecipeMaps;
 import tkcy.simpleaddon.modules.capabilitiesmodule.CapabilityModule;
 import tkcy.simpleaddon.modules.capabilitiesmodule.Machines;
 
-public class TemperatureBurnerMetatileEntity extends SupplierContainerMetatileEntity
+public class TemperatureBurnerMetatileEntity extends ConsumerContainerMetatileEntity
                                              implements AdjacentCapabilityHelper, Machines.HeatMachine,
                                              Machines.TemperatureMachine {
 
@@ -51,7 +52,7 @@ public class TemperatureBurnerMetatileEntity extends SupplierContainerMetatileEn
 
     public TemperatureBurnerMetatileEntity(ResourceLocation metaTileEntityId) {
         super(metaTileEntityId);
-        this.workableHandler = new HeatLogic(this, TKCYSARecipeMaps.HEATING_RECIPES, false);
+        this.workableHandler = new HeatLogic(this, TKCYSARecipeMaps.HEATING_CONSUMING_RECIPES, true);
         this.containerWrapper = new MultipleContainerWrapper.MultipleContainerWrapperBuilder()
                 .addContainer(new HeatContainerImpl(this, 0, 40000))
                 .addContainer(new TemperatureContainerImpl(this, 298, 1000))
@@ -65,28 +66,25 @@ public class TemperatureBurnerMetatileEntity extends SupplierContainerMetatileEn
 
     @Override
     protected void doSomething() {
-        tryToEmit(getEmittingFace());
-    }
+        if (getOffsetTimer() % 20 == 0) {
+            if (getHeatContainer() == null || getHeatContainer().isEmpty()) return;
+            int currentHeat = getHeatContainer().getValue();
 
-    @Override
-    public void tryToEmit(EnumFacing emittingSide) {
-        if (getHeatContainer() == null || getHeatContainer().isEmpty()) return;
-        int currentHeat = getHeatContainer().getValue();
+            if (getTemperatureContainer() != null) {
+                getTemperatureContainer().setValue(currentHeat);
 
-        if (getTemperatureContainer() != null) {
-            getTemperatureContainer().setValue(currentHeat);
-        }
-        HeatContainer adjacentHeatContainer = getAdjacentCapabilityContainer(
-                TKCYSATileCapabilities.CAPABILITY_HEAT_CONTAINER);
-        if (adjacentHeatContainer != null) {
-            adjacentHeatContainer.increaseValue(currentHeat);
-            getHeatContainer().increaseValue(-currentHeat);
+            }
         }
     }
 
     @Override
     public EnumFacing getEmittingFace() {
         return EnumFacing.UP;
+    }
+
+    @Override
+    public MetaTileEntity getThisMetatileEntity() {
+        return this;
     }
 
     @Override

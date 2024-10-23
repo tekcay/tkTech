@@ -6,18 +6,18 @@ import gregtech.api.capability.impl.AbstractRecipeLogic;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.recipes.Recipe;
 import gregtech.api.recipes.RecipeMap;
-import gregtech.api.recipes.recipeproperties.RecipeProperty;
 
 import tkcy.simpleaddon.api.capabilities.HeatContainer;
 import tkcy.simpleaddon.api.recipes.properties.HeatInputRecipeProperty;
 import tkcy.simpleaddon.api.recipes.properties.HeatOutputRecipeProperty;
+import tkcy.simpleaddon.api.recipes.properties.RecipePropertyHelper;
 import tkcy.simpleaddon.modules.capabilitiesmodule.Machines;
 
 public class HeatLogic extends AbstractRecipeLogic implements Machines.HeatMachine {
 
     private int heatRecipeValue;
     private final boolean consumesHeat;
-    private final RecipeProperty<Integer> recipeProperty;
+    private final RecipePropertyHelper<Integer> recipeProperty;
 
     public HeatLogic(MetaTileEntity tileEntity, RecipeMap<?> recipeMap, boolean consumesHeat) {
         super(tileEntity, recipeMap);
@@ -27,9 +27,9 @@ public class HeatLogic extends AbstractRecipeLogic implements Machines.HeatMachi
     }
 
     public void setHeatRecipeValue(Recipe recipe) {
-        if (recipe.getRecipePropertyStorage() != null && recipe.hasProperty(recipeProperty)) {
-            this.heatRecipeValue = recipe.getProperty(recipeProperty, 0);
-        } else this.heatRecipeValue = 0;
+        if (recipe.getRecipePropertyStorage() != null) {
+            this.heatRecipeValue = recipeProperty.getValueFromRecipe(recipe);
+        }
     }
 
     @Override

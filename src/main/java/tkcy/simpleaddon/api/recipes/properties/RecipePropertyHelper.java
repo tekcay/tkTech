@@ -12,7 +12,7 @@ public interface RecipePropertyHelper<T> {
     RecipeBuilder<?> testAndApplyPropertyValue(T valueToTest, EnumValidationResult recipeStatus,
                                                RecipeBuilder<?> recipeBuilder);
 
-    Predicate<T> testSuppliedValue();
+    Predicate<T> isValueValid();
 
     T getDefaultValue();
 
@@ -20,7 +20,11 @@ public interface RecipePropertyHelper<T> {
 
     RecipeProperty<T> getPropertyInstance();
 
+    boolean canDrawInfo(Object value);
+
     default T getValueFromRecipe(Recipe recipe) {
-        return recipe.getProperty(this.getPropertyInstance(), this.getDefaultValue());
+        if (recipe.hasProperty(getPropertyInstance())) {
+            return recipe.getProperty(getPropertyInstance(), getDefaultValue());
+        } else return getDefaultValue();
     }
 }

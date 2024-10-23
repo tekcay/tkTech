@@ -1,24 +1,48 @@
 package tkcy.simpleaddon.api.recipes.builders;
 
+import java.util.List;
+
 import gregtech.api.recipes.recipeproperties.IRecipePropertyStorage;
 import gregtech.api.recipes.recipeproperties.RecipeProperty;
 import gregtech.api.recipes.recipeproperties.RecipePropertyStorage;
 
-public interface RecipeBuilderHelper {
+import lombok.experimental.UtilityClass;
+import tkcy.simpleaddon.api.recipes.properties.RecipePropertyHelper;
 
-    /**
-     * @return WARNING!! The instance must be used!
-     */
-    RecipeProperty<Integer> getRecipeProperty();
+@UtilityClass
+public class RecipeBuilderHelper {
 
-    default void build(IRecipePropertyStorage recipePropertyStorage) {
-        if (recipePropertyStorage == null) recipePropertyStorage = new RecipePropertyStorage();
-        if (recipePropertyStorage.hasRecipeProperty(getRecipeProperty())) {
-            if (recipePropertyStorage.getRecipePropertyValue(getRecipeProperty(), 0) <= 0) {
-                recipePropertyStorage.store(getRecipeProperty(), 0);
-            }
-        } else {
-            recipePropertyStorage.store(getRecipeProperty(), 0);
+    @SafeVarargs
+    public static <T> void build(IRecipePropertyStorage recipePropertyStorage,
+                                 RecipePropertyHelper<T>... recipeProperties) {
+        for (RecipePropertyHelper<T> helper : recipeProperties) {
+            build(recipePropertyStorage, helper);
         }
+    }
+
+    public static <T> void build(IRecipePropertyStorage recipePropertyStorage,
+                                 List<RecipePropertyHelper<T>> recipeProperties) {
+        for (RecipePropertyHelper<T> helper : recipeProperties) {
+            build(recipePropertyStorage, helper);
+        }
+    }
+
+    private static <T> void build(IRecipePropertyStorage recipePropertyStorage,
+                                  RecipePropertyHelper<T> recipePropertyHelper) {
+        if (recipePropertyStorage == null) {
+            recipePropertyStorage = new RecipePropertyStorage();
+        }
+
+        T defaultValue = recipePropertyHelper.getDefaultValue();
+        RecipeProperty<T> instance = recipePropertyHelper.getPropertyInstance();
+
+        if (recipePropertyStorage.hasRecipeProperty(instance)) {
+
+            T value = recipePropertyStorage.getRecipePropertyValue(instance, defaultValue);
+
+            if (recipePropertyHelper.isValueValid().test(value)) {
+                recipePropertyStorage.store(instance, defaultValue);
+            }
+        } else recipePropertyStorage.store(instance, defaultValue);
     }
 }

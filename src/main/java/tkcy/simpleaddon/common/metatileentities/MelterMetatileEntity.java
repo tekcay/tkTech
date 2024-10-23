@@ -47,7 +47,7 @@ public class MelterMetatileEntity extends ConsumerContainerMetatileEntity implem
 
     public MelterMetatileEntity(ResourceLocation metaTileEntityId) {
         super(metaTileEntityId);
-        this.workableHandler = new HeatLogic(this, TKCYSARecipeMaps.HEATING_RECIPES2, true);
+        this.workableHandler = new HeatLogic(this, TKCYSARecipeMaps.HEATING_CONSUMING_RECIPES, true);
         this.containerWrapper = new MultipleContainerWrapper.MultipleContainerWrapperBuilder()
                 .addContainer(new HeatContainerImpl(this, 0, 40000))
                 .build();

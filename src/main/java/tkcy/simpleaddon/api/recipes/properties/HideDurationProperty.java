@@ -47,7 +47,7 @@ public class HideDurationProperty extends RecipeProperty<Boolean> implements Rec
     }
 
     @Override
-    public Predicate<Boolean> testSuppliedValue() {
+    public Predicate<Boolean> isValueValid() {
         return value -> value == getDefaultValue();
     }
 
@@ -64,5 +64,10 @@ public class HideDurationProperty extends RecipeProperty<Boolean> implements Rec
     @Override
     public RecipeProperty<Boolean> getPropertyInstance() {
         return this;
+    }
+
+    @Override
+    public boolean canDrawInfo(Object value) {
+        return true;
     }
 }

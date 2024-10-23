@@ -45,7 +45,7 @@ public class BurnerMetatileEntity extends SupplierContainerMetatileEntity
 
     public BurnerMetatileEntity(ResourceLocation metaTileEntityId) {
         super(metaTileEntityId);
-        this.workableHandler = new HeatLogic(this, TKCYSARecipeMaps.HEATING_RECIPES, false);
+        this.workableHandler = new HeatLogic(this, TKCYSARecipeMaps.HEAT_PRODUCING_RECIPES, false);
         this.containerWrapper = new MultipleContainerWrapper.MultipleContainerWrapperBuilder()
                 .addContainer(new HeatContainerImpl(this, 0, 40000))
                 .build();
