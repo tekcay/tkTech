@@ -7,7 +7,7 @@ import gregtech.api.recipes.RecipeMap;
 import gregtech.api.recipes.recipeproperties.RecipeProperty;
 import org.jetbrains.annotations.Nullable;
 import tkcy.simpleaddon.api.capabilities.HeatContainer;
-import tkcy.simpleaddon.api.capabilities.HeatMachine;
+import tkcy.simpleaddon.api.capabilities.machines.HeatMachine;
 import tkcy.simpleaddon.api.recipes.properties.HeatInputRecipeProperty;
 import tkcy.simpleaddon.api.recipes.properties.HeatOutputRecipeProperty;
 

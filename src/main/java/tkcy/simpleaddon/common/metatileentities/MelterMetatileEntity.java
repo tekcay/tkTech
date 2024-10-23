@@ -26,7 +26,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import org.jetbrains.annotations.Nullable;
 import tkcy.simpleaddon.api.capabilities.HeatContainer;
-import tkcy.simpleaddon.api.capabilities.HeatMachine;
+import tkcy.simpleaddon.api.capabilities.machines.HeatMachine;
 import tkcy.simpleaddon.api.capabilities.impl.HeatContainerImpl;
 import tkcy.simpleaddon.api.metatileentities.capabilitiescontainers.consumers.ConsumerContainerMetatileEntity;
 import tkcy.simpleaddon.api.recipes.logic.HeatLogic;

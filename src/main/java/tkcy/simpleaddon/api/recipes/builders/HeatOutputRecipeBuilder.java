@@ -46,14 +46,7 @@ public class HeatOutputRecipeBuilder extends RecipeBuilder<HeatOutputRecipeBuild
 
     @Override
     public ValidationResult<Recipe> build() {
-        if (this.recipePropertyStorage == null) this.recipePropertyStorage = new RecipePropertyStorage();
-        if (this.recipePropertyStorage.hasRecipeProperty(HeatOutputRecipeProperty.getInstance())) {
-            if (this.recipePropertyStorage.getRecipePropertyValue(HeatOutputRecipeProperty.getInstance(), 0) <= 0) {
-                this.recipePropertyStorage.store(HeatOutputRecipeProperty.getInstance(), 0);
-            }
-        } else {
-            this.recipePropertyStorage.store(HeatOutputRecipeProperty.getInstance(), 0);
-        }
+        RecipeBuilderHelpers.build(this.recipePropertyStorage, HeatOutputRecipeProperty.getInstance());
         return super.build();
     }
 
