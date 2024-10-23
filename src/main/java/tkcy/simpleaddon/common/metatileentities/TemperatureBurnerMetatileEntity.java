@@ -14,7 +14,10 @@ import gregtech.api.capability.impl.FluidTankList;
 import gregtech.api.capability.impl.NotifiableItemStackHandler;
 import gregtech.api.gui.GuiTextures;
 import gregtech.api.gui.ModularUI;
-import gregtech.api.gui.widgets.*;
+import gregtech.api.gui.widgets.LabelWidget;
+import gregtech.api.gui.widgets.ProgressWidget;
+import gregtech.api.gui.widgets.SlotWidget;
+import gregtech.api.gui.widgets.TankWidget;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
 import gregtech.client.renderer.texture.Textures;
@@ -27,33 +30,37 @@ import codechicken.lib.vec.Matrix4;
 import lombok.Getter;
 import tkcy.simpleaddon.api.capabilities.HeatContainer;
 import tkcy.simpleaddon.api.capabilities.TKCYSATileCapabilities;
+import tkcy.simpleaddon.api.capabilities.TemperatureContainer;
 import tkcy.simpleaddon.api.capabilities.helpers.AdjacentCapabilityHelper;
 import tkcy.simpleaddon.api.capabilities.helpers.MultipleContainerWrapper;
 import tkcy.simpleaddon.api.capabilities.impl.HeatContainerImpl;
+import tkcy.simpleaddon.api.capabilities.impl.TemperatureContainerImpl;
 import tkcy.simpleaddon.api.metatileentities.capabilitiescontainers.SupplierContainerMetatileEntity;
 import tkcy.simpleaddon.api.recipes.logic.HeatLogic;
 import tkcy.simpleaddon.api.recipes.recipemaps.TKCYSARecipeMaps;
 import tkcy.simpleaddon.modules.capabilitiesmodule.CapabilityModule;
 import tkcy.simpleaddon.modules.capabilitiesmodule.Machines;
 
-@Getter
-public class BurnerMetatileEntity extends SupplierContainerMetatileEntity
-                                  implements AdjacentCapabilityHelper, Machines.HeatMachine {
+public class TemperatureBurnerMetatileEntity extends SupplierContainerMetatileEntity
+                                             implements AdjacentCapabilityHelper, Machines.HeatMachine,
+                                             Machines.TemperatureMachine {
 
+    @Getter
     private final MultipleContainerWrapper containerWrapper;
     private final HeatLogic workableHandler;
 
-    public BurnerMetatileEntity(ResourceLocation metaTileEntityId) {
+    public TemperatureBurnerMetatileEntity(ResourceLocation metaTileEntityId) {
         super(metaTileEntityId);
         this.workableHandler = new HeatLogic(this, TKCYSARecipeMaps.HEATING_RECIPES, false);
         this.containerWrapper = new MultipleContainerWrapper.MultipleContainerWrapperBuilder()
                 .addContainer(new HeatContainerImpl(this, 0, 40000))
+                .addContainer(new TemperatureContainerImpl(this, 298, 1000))
                 .build();
     }
 
     @Override
     public MetaTileEntity createMetaTileEntity(IGregTechTileEntity tileEntity) {
-        return new BurnerMetatileEntity(metaTileEntityId);
+        return new TemperatureBurnerMetatileEntity(metaTileEntityId);
     }
 
     @Override
@@ -63,11 +70,15 @@ public class BurnerMetatileEntity extends SupplierContainerMetatileEntity
 
     @Override
     public void tryToEmit(EnumFacing emittingSide) {
-        if (getHeatContainer().isEmpty()) return;
+        if (getHeatContainer() == null || getHeatContainer().isEmpty()) return;
+        int currentHeat = getHeatContainer().getValue();
+
+        if (getTemperatureContainer() != null) {
+            getTemperatureContainer().setValue(currentHeat);
+        }
         HeatContainer adjacentHeatContainer = getAdjacentCapabilityContainer(
                 TKCYSATileCapabilities.CAPABILITY_HEAT_CONTAINER);
         if (adjacentHeatContainer != null) {
-            int currentHeat = getHeatContainer().getValue();
             adjacentHeatContainer.increaseValue(currentHeat);
             getHeatContainer().increaseValue(-currentHeat);
         }
@@ -154,5 +165,10 @@ public class BurnerMetatileEntity extends SupplierContainerMetatileEntity
     @Nullable
     public HeatContainer getHeatContainer() {
         return (HeatContainer) this.containerWrapper.getContainer(CapabilityModule.ContainerType.HEAT);
+    }
+
+    @Override
+    public @Nullable TemperatureContainer getTemperatureContainer() {
+        return (TemperatureContainer) this.containerWrapper.getContainer(CapabilityModule.ContainerType.TEMPERATURE);
     }
 }

@@ -5,6 +5,7 @@ import org.jetbrains.annotations.Nullable;
 import tkcy.simpleaddon.api.capabilities.HeatContainer;
 import tkcy.simpleaddon.api.capabilities.PressureContainer;
 import tkcy.simpleaddon.api.capabilities.RotationContainer;
+import tkcy.simpleaddon.api.capabilities.TemperatureContainer;
 
 public class Machines {
 
@@ -12,6 +13,12 @@ public class Machines {
 
         @Nullable
         HeatContainer getHeatContainer();
+    }
+
+    public interface TemperatureMachine {
+
+        @Nullable
+        TemperatureContainer getTemperatureContainer();
     }
 
     public interface PressureMachine {

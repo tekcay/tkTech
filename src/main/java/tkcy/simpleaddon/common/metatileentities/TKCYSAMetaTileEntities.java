@@ -45,6 +45,7 @@ public class TKCYSAMetaTileEntities {
     public static ToolLogicMetaTileEntity PARTS_WORKER_MTE;
     public static BurnerMetatileEntity BURNER;
     public static MelterMetatileEntity MELTER;
+    public static TemperatureBurnerMetatileEntity TEMPERATURE_MELTER;
     public static SimpleMachineMetaTileEntity[] CLUSTER_MILLS = new SimpleMachineMetaTileEntity[5];
     public static SimpleMachineMetaTileEntity[] COMPONENT_ASSEMBLER_MTE = new SimpleMachineMetaTileEntity[6];
     public static SimpleMachineMetaTileEntity[] ROLLING_MILL = new SimpleMachineMetaTileEntity[6];
@@ -115,5 +116,7 @@ public class TKCYSAMetaTileEntities {
 
         BURNER = registerMetaTileEntity(4300, new BurnerMetatileEntity(tkcysa("burner")));
         MELTER = registerMetaTileEntity(4301, new MelterMetatileEntity(tkcysa("melter")));
+        TEMPERATURE_MELTER = registerMetaTileEntity(4302,
+                new TemperatureBurnerMetatileEntity(tkcysa("temperature_melter")));
     }
 }

@@ -28,23 +28,29 @@ import gregtech.client.utils.RenderUtil;
 import codechicken.lib.render.CCRenderState;
 import codechicken.lib.render.pipeline.IVertexOperation;
 import codechicken.lib.vec.Matrix4;
+import lombok.Getter;
 import tkcy.simpleaddon.api.capabilities.HeatContainer;
+import tkcy.simpleaddon.api.capabilities.helpers.MultipleContainerWrapper;
 import tkcy.simpleaddon.api.capabilities.impl.HeatContainerImpl;
 import tkcy.simpleaddon.api.metatileentities.capabilitiescontainers.consumers.ConsumerContainerMetatileEntity;
 import tkcy.simpleaddon.api.recipes.logic.HeatLogic;
 import tkcy.simpleaddon.api.recipes.recipemaps.TKCYSARecipeMaps;
+import tkcy.simpleaddon.modules.capabilitiesmodule.CapabilityModule;
 import tkcy.simpleaddon.modules.capabilitiesmodule.Machines;
 
 public class MelterMetatileEntity extends ConsumerContainerMetatileEntity implements Machines.HeatMachine {
 
-    private final HeatContainer heatContainer;
+    @Getter
+    private final MultipleContainerWrapper containerWrapper;
     private final HeatLogic workableHandler;
     private final ICubeRenderer renderer;
 
     public MelterMetatileEntity(ResourceLocation metaTileEntityId) {
         super(metaTileEntityId);
         this.workableHandler = new HeatLogic(this, TKCYSARecipeMaps.HEATING_RECIPES2, true);
-        this.heatContainer = new HeatContainerImpl(this, 0, 40000);
+        this.containerWrapper = new MultipleContainerWrapper.MultipleContainerWrapperBuilder()
+                .addContainer(new HeatContainerImpl(this, 0, 40000))
+                .build();
         this.renderer = Textures.FURNACE_OVERLAY;
     }
 
@@ -131,11 +137,6 @@ public class MelterMetatileEntity extends ConsumerContainerMetatileEntity implem
     @Override
     @Nullable
     public HeatContainer getHeatContainer() {
-        return heatContainer;
-    }
-
-    @Override
-    public HeatContainer getInternalContainer() {
-        return heatContainer;
+        return (HeatContainer) this.containerWrapper.getContainer(CapabilityModule.ContainerType.HEAT);
     }
 }

@@ -34,6 +34,12 @@ public abstract class DefaultContainerImpl extends MTETrait implements DefaultCo
     }
 
     @Override
+    public void setValue(int amount) {
+        value = amount;
+        this.metaTileEntity.markDirty();
+    }
+
+    @Override
     @NotNull
     public NBTTagCompound serializeNBT() {
         NBTTagCompound tagCompound = new NBTTagCompound();
