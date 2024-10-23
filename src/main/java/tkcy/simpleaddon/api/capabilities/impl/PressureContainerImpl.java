@@ -7,7 +7,7 @@ import org.jetbrains.annotations.Nullable;
 
 import gregtech.api.metatileentity.MetaTileEntity;
 
-import tkcy.simpleaddon.api.capabilities.ContainerType;
+import tkcy.simpleaddon.modules.capabilitiesmodule.ContainerType;
 import tkcy.simpleaddon.api.capabilities.PressureContainer;
 import tkcy.simpleaddon.api.capabilities.TKCYSATileCapabilities;
 

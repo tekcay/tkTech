@@ -1,4 +1,4 @@
-package tkcy.simpleaddon.api.capabilities;
+package tkcy.simpleaddon.api.capabilities.helpers;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,6 +7,8 @@ import org.jetbrains.annotations.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import tkcy.simpleaddon.api.capabilities.DefaultContainer;
+import tkcy.simpleaddon.modules.capabilitiesmodule.ContainerType;
 
 @AllArgsConstructor
 @Getter

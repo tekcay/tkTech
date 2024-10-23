@@ -6,7 +6,7 @@ import org.jetbrains.annotations.NotNull;
 
 import gregtech.api.metatileentity.MetaTileEntity;
 
-import tkcy.simpleaddon.api.capabilities.ContainerType;
+import tkcy.simpleaddon.modules.capabilitiesmodule.ContainerType;
 import tkcy.simpleaddon.api.capabilities.HeatContainer;
 import tkcy.simpleaddon.api.capabilities.TKCYSATileCapabilities;
 
@@ -17,7 +17,8 @@ public class HeatContainerImpl extends DefaultContainerImpl implements HeatConta
     }
 
     @Override
-    public @NotNull String getName() {
+    @NotNull
+    public String getName() {
         return ContainerType.HEAT.name();
     }
 

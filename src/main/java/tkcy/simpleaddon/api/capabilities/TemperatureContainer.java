@@ -3,11 +3,11 @@ package tkcy.simpleaddon.api.capabilities;
 import tkcy.simpleaddon.api.utils.units.CommonUnits;
 import tkcy.simpleaddon.modules.capabilitiesmodule.ContainerType;
 
-public interface HeatContainer extends DefaultContainer {
+public interface TemperatureContainer extends DefaultContainer {
 
     @Override
     default ContainerType getContainerType() {
-        return ContainerType.HEAT;
+        return ContainerType.TEMPERATURE;
     }
 
     @Override
@@ -17,11 +17,11 @@ public interface HeatContainer extends DefaultContainer {
 
     @Override
     default int getDefaultValue() {
-        return 0;
+        return 298;
     }
 
     @Override
     default CommonUnits getBaseUnit() {
-        return CommonUnits.joule;
+        return CommonUnits.kelvin;
     }
 }
