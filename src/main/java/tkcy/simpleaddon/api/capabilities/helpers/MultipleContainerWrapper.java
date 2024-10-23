@@ -8,7 +8,7 @@ import org.jetbrains.annotations.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import tkcy.simpleaddon.api.capabilities.DefaultContainer;
-import tkcy.simpleaddon.modules.capabilitiesmodule.ContainerType;
+import tkcy.simpleaddon.modules.capabilitiesmodule.CapabilityModule;
 
 @AllArgsConstructor
 @Getter
@@ -17,7 +17,7 @@ public class MultipleContainerWrapper {
     @Getter
     private List<DefaultContainer> containers;
 
-    public boolean hasTypeContainer(ContainerType type) {
+    public boolean hasTypeContainer(CapabilityModule.ContainerType type) {
         return this.containers.stream()
                 .anyMatch(defaultContainer -> defaultContainer.isTypeOf(type));
     }
@@ -31,7 +31,7 @@ public class MultipleContainerWrapper {
         }
 
         public MultipleContainerWrapperBuilder addContainer(@NotNull DefaultContainer defaultContainer) {
-            ContainerType.fillContainerList(this.containers, defaultContainer);
+            CapabilityModule.ContainerType.fillContainerList(this.containers, defaultContainer);
             return this;
         }
 

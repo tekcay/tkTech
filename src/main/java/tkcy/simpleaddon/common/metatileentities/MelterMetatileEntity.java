@@ -30,12 +30,12 @@ import codechicken.lib.render.pipeline.IVertexOperation;
 import codechicken.lib.vec.Matrix4;
 import tkcy.simpleaddon.api.capabilities.HeatContainer;
 import tkcy.simpleaddon.api.capabilities.impl.HeatContainerImpl;
-import tkcy.simpleaddon.api.capabilities.machines.HeatMachine;
 import tkcy.simpleaddon.api.metatileentities.capabilitiescontainers.consumers.ConsumerContainerMetatileEntity;
 import tkcy.simpleaddon.api.recipes.logic.HeatLogic;
 import tkcy.simpleaddon.api.recipes.recipemaps.TKCYSARecipeMaps;
+import tkcy.simpleaddon.modules.capabilitiesmodule.Machines;
 
-public class MelterMetatileEntity extends ConsumerContainerMetatileEntity implements HeatMachine {
+public class MelterMetatileEntity extends ConsumerContainerMetatileEntity implements Machines.HeatMachine {
 
     private final HeatContainer heatContainer;
     private final HeatLogic workableHandler;

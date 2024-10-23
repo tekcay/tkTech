@@ -7,26 +7,26 @@ import org.jetbrains.annotations.Nullable;
 
 import gregtech.api.metatileentity.MetaTileEntity;
 
-import tkcy.simpleaddon.api.capabilities.RotationContainer;
+import tkcy.simpleaddon.api.capabilities.RotationPowerContainer;
 import tkcy.simpleaddon.api.capabilities.TKCYSATileCapabilities;
 import tkcy.simpleaddon.modules.capabilitiesmodule.CapabilityModule;
 
-public class RotationContainerImpl extends DefaultContainerImpl implements RotationContainer {
+public class RotationPowerContainerImpl extends DefaultContainerImpl implements RotationPowerContainer {
 
-    public RotationContainerImpl(@NotNull MetaTileEntity metaTileEntity, int minValue, int maxValue) {
+    public RotationPowerContainerImpl(@NotNull MetaTileEntity metaTileEntity, int minValue, int maxValue) {
         super(metaTileEntity, minValue, maxValue);
     }
 
     @Override
     public @NotNull String getName() {
-        return CapabilityModule.ContainerType.ROTATION.name();
+        return CapabilityModule.ContainerType.ROTATION_POWER.name();
     }
 
     @Nullable
     @Override
     public <T> T getCapability(Capability<T> capability) {
-        if (capability == TKCYSATileCapabilities.CAPABILITY_ROTATION_CONTAINER) {
-            return TKCYSATileCapabilities.CAPABILITY_ROTATION_CONTAINER.cast(this);
+        if (capability == TKCYSATileCapabilities.CAPABILITY_ROTATION_POWER_CONTAINER) {
+            return TKCYSATileCapabilities.CAPABILITY_ROTATION_POWER_CONTAINER.cast(this);
         }
         return null;
     }

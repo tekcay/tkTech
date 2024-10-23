@@ -15,7 +15,8 @@ public enum CommonUnits {
     ampere("A"),
     volt("V"),
     bar("bar"),
-    roundPerMinute("rpm");
+    roundPerMinute("rpm"),
+    newtonMeter("Nm");
 
     final String unit;
 

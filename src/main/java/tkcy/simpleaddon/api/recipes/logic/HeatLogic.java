@@ -9,11 +9,11 @@ import gregtech.api.recipes.RecipeMap;
 import gregtech.api.recipes.recipeproperties.RecipeProperty;
 
 import tkcy.simpleaddon.api.capabilities.HeatContainer;
-import tkcy.simpleaddon.api.capabilities.machines.HeatMachine;
 import tkcy.simpleaddon.api.recipes.properties.HeatInputRecipeProperty;
 import tkcy.simpleaddon.api.recipes.properties.HeatOutputRecipeProperty;
+import tkcy.simpleaddon.modules.capabilitiesmodule.Machines;
 
-public class HeatLogic extends AbstractRecipeLogic implements HeatMachine {
+public class HeatLogic extends AbstractRecipeLogic implements Machines.HeatMachine {
 
     private int heatRecipeValue;
     private final boolean consumesHeat;
@@ -74,6 +74,6 @@ public class HeatLogic extends AbstractRecipeLogic implements HeatMachine {
     @Nullable
     @Override
     public HeatContainer getHeatContainer() {
-        return ((HeatMachine) metaTileEntity).getHeatContainer();
+        return ((Machines.HeatMachine) metaTileEntity).getHeatContainer();
     }
 }

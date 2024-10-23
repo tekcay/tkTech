@@ -1,7 +1,7 @@
 package tkcy.simpleaddon.api.capabilities;
 
 import tkcy.simpleaddon.api.utils.units.CommonUnits;
-import tkcy.simpleaddon.modules.capabilitiesmodule.ContainerType;
+import tkcy.simpleaddon.modules.capabilitiesmodule.CapabilityModule;
 
 public interface DefaultContainer {
 
@@ -11,15 +11,17 @@ public interface DefaultContainer {
 
     int getMaxValue();
 
-    int getMinValue();
+    default int getMinValue() {
+        return 0;
+    }
 
     boolean increaseValue(int amount);
 
-    ContainerType getContainerType();
+    CapabilityModule.ContainerType getContainerType();
 
     CommonUnits getBaseUnit();
 
-    default boolean isTypeOf(ContainerType containerType) {
+    default boolean isTypeOf(CapabilityModule.ContainerType containerType) {
         return containerType == getContainerType();
     }
 

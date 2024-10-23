@@ -7,9 +7,9 @@ import org.jetbrains.annotations.Nullable;
 
 import gregtech.api.metatileentity.MetaTileEntity;
 
-import tkcy.simpleaddon.modules.capabilitiesmodule.ContainerType;
 import tkcy.simpleaddon.api.capabilities.PressureContainer;
 import tkcy.simpleaddon.api.capabilities.TKCYSATileCapabilities;
+import tkcy.simpleaddon.modules.capabilitiesmodule.CapabilityModule;
 
 public class PressureContainerImpl extends DefaultContainerImpl implements PressureContainer {
 
@@ -19,7 +19,7 @@ public class PressureContainerImpl extends DefaultContainerImpl implements Press
 
     @Override
     public @NotNull String getName() {
-        return ContainerType.PRESSURE.name();
+        return CapabilityModule.ContainerType.PRESSURE.name();
     }
 
     @Nullable

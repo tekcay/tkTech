@@ -28,13 +28,13 @@ import tkcy.simpleaddon.api.capabilities.HeatContainer;
 import tkcy.simpleaddon.api.capabilities.TKCYSATileCapabilities;
 import tkcy.simpleaddon.api.capabilities.helpers.AdjacentCapabilityHelper;
 import tkcy.simpleaddon.api.capabilities.impl.HeatContainerImpl;
-import tkcy.simpleaddon.api.capabilities.machines.HeatMachine;
 import tkcy.simpleaddon.api.metatileentities.capabilitiescontainers.SupplierContainerMetatileEntity;
 import tkcy.simpleaddon.api.recipes.logic.HeatLogic;
 import tkcy.simpleaddon.api.recipes.recipemaps.TKCYSARecipeMaps;
+import tkcy.simpleaddon.modules.capabilitiesmodule.Machines;
 
 public class BurnerMetatileEntity extends SupplierContainerMetatileEntity
-                                  implements AdjacentCapabilityHelper, HeatMachine {
+                                  implements AdjacentCapabilityHelper, Machines.HeatMachine {
 
     private final HeatContainer heatContainer;
     private final HeatLogic workableHandler;
