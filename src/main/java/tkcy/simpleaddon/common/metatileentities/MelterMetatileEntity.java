@@ -35,7 +35,7 @@ import tkcy.simpleaddon.api.capabilities.impl.HeatContainerImpl;
 import tkcy.simpleaddon.api.metatileentities.capabilitiescontainers.consumers.ConsumerContainerMetatileEntity;
 import tkcy.simpleaddon.api.recipes.logic.HeatLogic;
 import tkcy.simpleaddon.api.recipes.recipemaps.TKCYSARecipeMaps;
-import tkcy.simpleaddon.modules.capabilitiesmodule.CapabilityModule;
+import tkcy.simpleaddon.modules.capabilitiesmodule.ContainerType;
 import tkcy.simpleaddon.modules.capabilitiesmodule.Machines;
 
 public class MelterMetatileEntity extends ConsumerContainerMetatileEntity implements Machines.HeatMachine {
@@ -49,7 +49,7 @@ public class MelterMetatileEntity extends ConsumerContainerMetatileEntity implem
         super(metaTileEntityId);
         this.workableHandler = new HeatLogic(this, TKCYSARecipeMaps.HEATING_CONSUMING_RECIPES, true);
         this.containerWrapper = new MultipleContainerWrapper.MultipleContainerWrapperBuilder()
-                .addContainer(new HeatContainerImpl(this, 0, 40000))
+                .addContainer(new HeatContainerImpl(this, 40000))
                 .build();
         this.renderer = Textures.FURNACE_OVERLAY;
     }
@@ -137,6 +137,6 @@ public class MelterMetatileEntity extends ConsumerContainerMetatileEntity implem
     @Override
     @Nullable
     public HeatContainer getHeatContainer() {
-        return (HeatContainer) this.containerWrapper.getContainer(CapabilityModule.ContainerType.HEAT);
+        return (HeatContainer) this.containerWrapper.getContainer(ContainerType.HEAT);
     }
 }

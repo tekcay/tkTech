@@ -9,11 +9,11 @@ import java.util.function.Consumer;
 
 import org.jetbrains.annotations.NotNull;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.experimental.UtilityClass;
 import tkcy.simpleaddon.api.capabilities.DefaultContainer;
 import tkcy.simpleaddon.api.capabilities.helpers.MultipleContainerWrapper;
 
+@UtilityClass
 public class CapabilityModule {
 
     /**
@@ -23,18 +23,10 @@ public class CapabilityModule {
     @Target({ ElementType.TYPE, ElementType.FIELD, ElementType.METHOD })
     public @interface Capabilities {}
 
-    @Getter
-    @AllArgsConstructor
-    public enum ContainerType {
+    private static int containerTypeIndex = 0;
 
-        HEAT(0),
-        PRESSURE(1),
-        ROTATION(2),
-        TEMPERATURE(3),
-        TORQUE(4),
-        ROTATION_POWER(5);
-
-        private final int index;
+    public static int setIndex() {
+        return containerTypeIndex++;
     }
 
     public static DefaultContainer getContainer(@NotNull DefaultContainer[] containers,
@@ -58,15 +50,14 @@ public class CapabilityModule {
      * <br>
      * The purpose of this is to easily retrieve a container by its index.
      * 
-     * @return an empty {@code DefaultContainer[]} which length corresponds to the {@link ContainerType} enum length -
-     *         1.
+     * @return an empty {@code DefaultContainer[]} which length corresponds to the {@link ContainerType} enum
+     *         length - 1.
      */
     public static DefaultContainer[] initContainerTypeList() {
         return new DefaultContainer[ContainerType.values().length - 1];
     }
 
     public static void doStuff(Consumer<ContainerType> consumer) {
-        Arrays.stream(ContainerType.values())
-                .forEach(consumer);
+        Arrays.stream(ContainerType.values()).forEach(consumer);
     }
 }

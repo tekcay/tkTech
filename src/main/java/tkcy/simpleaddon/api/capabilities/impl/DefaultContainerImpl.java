@@ -10,18 +10,26 @@ import gregtech.api.metatileentity.MetaTileEntity;
 
 import lombok.Getter;
 import tkcy.simpleaddon.api.capabilities.DefaultContainer;
+import tkcy.simpleaddon.modules.capabilitiesmodule.ContainerType;
 
 @Getter
 public abstract class DefaultContainerImpl extends MTETrait implements DefaultContainer {
 
     private final int maxValue;
-    private final int minValue;
+    private int minValue;
     protected int value;
 
-    protected DefaultContainerImpl(@NotNull MetaTileEntity metaTileEntity, int minValue, int maxValue) {
+    protected DefaultContainerImpl(@NotNull MetaTileEntity metaTileEntity, int maxValue) {
         super(metaTileEntity);
-        this.minValue = minValue;
         this.maxValue = maxValue;
+        this.value = getDefaultValue();
+    }
+
+    protected DefaultContainerImpl(@NotNull MetaTileEntity metaTileEntity, int maxValue,
+                                   int minValue) {
+        super(metaTileEntity);
+        this.maxValue = maxValue;
+        this.minValue = minValue;
         this.value = getDefaultValue();
     }
 

@@ -9,17 +9,17 @@ import gregtech.api.metatileentity.MetaTileEntity;
 
 import tkcy.simpleaddon.api.capabilities.RotationContainer;
 import tkcy.simpleaddon.api.capabilities.TKCYSATileCapabilities;
-import tkcy.simpleaddon.modules.capabilitiesmodule.CapabilityModule;
+import tkcy.simpleaddon.modules.capabilitiesmodule.ContainerType;
 
 public class RotationContainerImpl extends DefaultContainerImpl implements RotationContainer {
 
-    public RotationContainerImpl(@NotNull MetaTileEntity metaTileEntity, int minValue, int maxValue) {
-        super(metaTileEntity, minValue, maxValue);
+    public RotationContainerImpl(@NotNull MetaTileEntity metaTileEntity, int maxValue) {
+        super(metaTileEntity, maxValue);
     }
 
     @Override
     public @NotNull String getName() {
-        return CapabilityModule.ContainerType.ROTATION.name();
+        return ContainerType.ROTATION.name();
     }
 
     @Nullable

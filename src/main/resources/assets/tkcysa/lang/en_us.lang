@@ -300,4 +300,6 @@ tkcya.recipe.tool.uses=Tool uses: %d
 behavior.tricorder.love=LOVE
 behavior.tricorder.fluid.amount=Fluid amount: %d L
 behavior.tricorder.fluid.name=Fluid name: %s
-behavior.tricorder.value=%d %s
+behavior.tricorder.container.value=%s
+behavior.tricorder.container.max_value=%s
+behavior.tricorder.container.min_value=%s

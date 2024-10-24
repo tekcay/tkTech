@@ -8,18 +8,17 @@ import gregtech.api.metatileentity.MetaTileEntity;
 
 import tkcy.simpleaddon.api.capabilities.TKCYSATileCapabilities;
 import tkcy.simpleaddon.api.capabilities.TorqueContainer;
-import tkcy.simpleaddon.modules.capabilitiesmodule.CapabilityModule;
+import tkcy.simpleaddon.modules.capabilitiesmodule.ContainerType;
 
 public class TorqueContainerImpl extends DefaultContainerImpl implements TorqueContainer {
 
-    public TorqueContainerImpl(@NotNull MetaTileEntity metaTileEntity, int minValue, int maxValue) {
-        super(metaTileEntity, minValue, maxValue);
+    public TorqueContainerImpl(@NotNull MetaTileEntity metaTileEntity, int maxValue) {
+        super(metaTileEntity, maxValue);
     }
 
     @Override
-    @NotNull
-    public String getName() {
-        return CapabilityModule.ContainerType.TORQUE.name();
+    public @NotNull String getName() {
+        return ContainerType.TORQUE.name();
     }
 
     @Override

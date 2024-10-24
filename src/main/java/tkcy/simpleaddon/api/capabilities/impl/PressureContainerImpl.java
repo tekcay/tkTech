@@ -9,17 +9,17 @@ import gregtech.api.metatileentity.MetaTileEntity;
 
 import tkcy.simpleaddon.api.capabilities.PressureContainer;
 import tkcy.simpleaddon.api.capabilities.TKCYSATileCapabilities;
-import tkcy.simpleaddon.modules.capabilitiesmodule.CapabilityModule;
+import tkcy.simpleaddon.modules.capabilitiesmodule.ContainerType;
 
 public class PressureContainerImpl extends DefaultContainerImpl implements PressureContainer {
 
-    public PressureContainerImpl(@NotNull MetaTileEntity metaTileEntity, int minValue, int maxValue) {
-        super(metaTileEntity, minValue, maxValue);
+    public PressureContainerImpl(@NotNull MetaTileEntity metaTileEntity, int maxValue, int minValue) {
+        super(metaTileEntity, maxValue, minValue);
     }
 
     @Override
     public @NotNull String getName() {
-        return CapabilityModule.ContainerType.PRESSURE.name();
+        return ContainerType.PRESSURE.name();
     }
 
     @Nullable

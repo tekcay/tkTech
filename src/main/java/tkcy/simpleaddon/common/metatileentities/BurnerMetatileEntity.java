@@ -33,7 +33,7 @@ import tkcy.simpleaddon.api.capabilities.impl.HeatContainerImpl;
 import tkcy.simpleaddon.api.metatileentities.capabilitiescontainers.SupplierContainerMetatileEntity;
 import tkcy.simpleaddon.api.recipes.logic.HeatLogic;
 import tkcy.simpleaddon.api.recipes.recipemaps.TKCYSARecipeMaps;
-import tkcy.simpleaddon.modules.capabilitiesmodule.CapabilityModule;
+import tkcy.simpleaddon.modules.capabilitiesmodule.ContainerType;
 import tkcy.simpleaddon.modules.capabilitiesmodule.Machines;
 
 @Getter
@@ -47,7 +47,7 @@ public class BurnerMetatileEntity extends SupplierContainerMetatileEntity
         super(metaTileEntityId);
         this.workableHandler = new HeatLogic(this, TKCYSARecipeMaps.HEAT_PRODUCING_RECIPES, false);
         this.containerWrapper = new MultipleContainerWrapper.MultipleContainerWrapperBuilder()
-                .addContainer(new HeatContainerImpl(this, 0, 40000))
+                .addContainer(new HeatContainerImpl(this, 40000))
                 .build();
     }
 
@@ -153,6 +153,6 @@ public class BurnerMetatileEntity extends SupplierContainerMetatileEntity
     @Override
     @Nullable
     public HeatContainer getHeatContainer() {
-        return (HeatContainer) this.containerWrapper.getContainer(CapabilityModule.ContainerType.HEAT);
+        return (HeatContainer) this.containerWrapper.getContainer(ContainerType.HEAT);
     }
 }

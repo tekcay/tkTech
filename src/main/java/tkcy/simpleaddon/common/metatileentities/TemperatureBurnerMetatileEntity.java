@@ -29,17 +29,15 @@ import codechicken.lib.render.pipeline.IVertexOperation;
 import codechicken.lib.vec.Matrix4;
 import lombok.Getter;
 import tkcy.simpleaddon.api.capabilities.HeatContainer;
-import tkcy.simpleaddon.api.capabilities.TKCYSATileCapabilities;
 import tkcy.simpleaddon.api.capabilities.TemperatureContainer;
 import tkcy.simpleaddon.api.capabilities.helpers.AdjacentCapabilityHelper;
 import tkcy.simpleaddon.api.capabilities.helpers.MultipleContainerWrapper;
 import tkcy.simpleaddon.api.capabilities.impl.HeatContainerImpl;
 import tkcy.simpleaddon.api.capabilities.impl.TemperatureContainerImpl;
-import tkcy.simpleaddon.api.metatileentities.capabilitiescontainers.SupplierContainerMetatileEntity;
 import tkcy.simpleaddon.api.metatileentities.capabilitiescontainers.consumers.ConsumerContainerMetatileEntity;
 import tkcy.simpleaddon.api.recipes.logic.HeatLogic;
 import tkcy.simpleaddon.api.recipes.recipemaps.TKCYSARecipeMaps;
-import tkcy.simpleaddon.modules.capabilitiesmodule.CapabilityModule;
+import tkcy.simpleaddon.modules.capabilitiesmodule.ContainerType;
 import tkcy.simpleaddon.modules.capabilitiesmodule.Machines;
 
 public class TemperatureBurnerMetatileEntity extends ConsumerContainerMetatileEntity
@@ -54,8 +52,8 @@ public class TemperatureBurnerMetatileEntity extends ConsumerContainerMetatileEn
         super(metaTileEntityId);
         this.workableHandler = new HeatLogic(this, TKCYSARecipeMaps.HEATING_CONSUMING_RECIPES, true);
         this.containerWrapper = new MultipleContainerWrapper.MultipleContainerWrapperBuilder()
-                .addContainer(new HeatContainerImpl(this, 0, 40000))
-                .addContainer(new TemperatureContainerImpl(this, 298, 1000))
+                .addContainer(new HeatContainerImpl(this, 40000))
+                .addContainer(new TemperatureContainerImpl(this, 1000, 298))
                 .build();
     }
 
@@ -162,11 +160,11 @@ public class TemperatureBurnerMetatileEntity extends ConsumerContainerMetatileEn
     @Override
     @Nullable
     public HeatContainer getHeatContainer() {
-        return (HeatContainer) this.containerWrapper.getContainer(CapabilityModule.ContainerType.HEAT);
+        return (HeatContainer) this.containerWrapper.getContainer(ContainerType.HEAT);
     }
 
     @Override
     public @Nullable TemperatureContainer getTemperatureContainer() {
-        return (TemperatureContainer) this.containerWrapper.getContainer(CapabilityModule.ContainerType.TEMPERATURE);
+        return (TemperatureContainer) this.containerWrapper.getContainer(ContainerType.TEMPERATURE);
     }
 }

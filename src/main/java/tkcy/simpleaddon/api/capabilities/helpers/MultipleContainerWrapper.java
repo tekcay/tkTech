@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import tkcy.simpleaddon.api.capabilities.DefaultContainer;
 import tkcy.simpleaddon.modules.capabilitiesmodule.CapabilityModule;
+import tkcy.simpleaddon.modules.capabilitiesmodule.ContainerType;
 
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
@@ -15,11 +16,11 @@ public class MultipleContainerWrapper {
     @Getter
     private DefaultContainer[] containers;
 
-    public boolean hasTypeContainer(CapabilityModule.ContainerType type) {
+    public boolean hasTypeContainer(ContainerType type) {
         return this.containers[type.getIndex()] != null;
     }
 
-    public DefaultContainer getContainer(CapabilityModule.ContainerType type) {
+    public DefaultContainer getContainer(ContainerType type) {
         return CapabilityModule.getContainer(this, type);
     }
 

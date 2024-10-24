@@ -43,8 +43,8 @@ public abstract class DefaultContainerMetatileEntity extends MetaTileEntity impl
 
         Arrays.stream(getContainerWrapper().getContainers())
                 .filter(Objects::nonNull)
-                .forEach(defaultContainer -> list.add(new TextComponentTranslation("behavior.tricorder.value",
-                        defaultContainer.getValue(), defaultContainer.getBaseUnit())));
+                .forEach(defaultContainer -> list.add(new TextComponentTranslation(
+                        "behavior.tricorder.container.value", defaultContainer.printValue())));
         return list;
     }
 }

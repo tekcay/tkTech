@@ -1,13 +1,13 @@
 package tkcy.simpleaddon.api.capabilities;
 
 import tkcy.simpleaddon.api.utils.units.CommonUnits;
-import tkcy.simpleaddon.modules.capabilitiesmodule.CapabilityModule;
+import tkcy.simpleaddon.modules.capabilitiesmodule.ContainerType;
 
 public interface PressureContainer extends DefaultContainer {
 
     @Override
-    default CapabilityModule.ContainerType getContainerType() {
-        return CapabilityModule.ContainerType.PRESSURE;
+    default ContainerType getContainerType() {
+        return ContainerType.PRESSURE;
     }
 
     @Override

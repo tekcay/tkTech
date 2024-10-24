@@ -68,7 +68,6 @@ public class ToolUsesProperty extends RecipeProperty<Integer> implements RecipeP
         return this;
     }
 
-
     @Override
     public boolean canDrawInfo(Object value) {
         if (value instanceof Integer heat) {

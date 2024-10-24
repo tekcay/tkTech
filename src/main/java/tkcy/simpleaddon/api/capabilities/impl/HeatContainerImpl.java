@@ -8,18 +8,17 @@ import gregtech.api.metatileentity.MetaTileEntity;
 
 import tkcy.simpleaddon.api.capabilities.HeatContainer;
 import tkcy.simpleaddon.api.capabilities.TKCYSATileCapabilities;
-import tkcy.simpleaddon.modules.capabilitiesmodule.CapabilityModule;
+import tkcy.simpleaddon.modules.capabilitiesmodule.ContainerType;
 
 public class HeatContainerImpl extends DefaultContainerImpl implements HeatContainer {
 
-    public HeatContainerImpl(@NotNull MetaTileEntity metaTileEntity, int minValue, int maxValue) {
-        super(metaTileEntity, minValue, maxValue);
+    public HeatContainerImpl(@NotNull MetaTileEntity metaTileEntity, int maxValue) {
+        super(metaTileEntity,  maxValue);
     }
 
     @Override
-    @NotNull
-    public String getName() {
-        return CapabilityModule.ContainerType.HEAT.name();
+    public @NotNull String getName() {
+        return ContainerType.HEAT.name();
     }
 
     @Override

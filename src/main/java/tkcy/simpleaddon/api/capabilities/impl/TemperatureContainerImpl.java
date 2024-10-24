@@ -8,18 +8,21 @@ import gregtech.api.metatileentity.MetaTileEntity;
 
 import tkcy.simpleaddon.api.capabilities.TKCYSATileCapabilities;
 import tkcy.simpleaddon.api.capabilities.TemperatureContainer;
-import tkcy.simpleaddon.modules.capabilitiesmodule.CapabilityModule;
+import tkcy.simpleaddon.modules.capabilitiesmodule.ContainerType;
 
 public class TemperatureContainerImpl extends DefaultContainerImpl implements TemperatureContainer {
 
-    public TemperatureContainerImpl(@NotNull MetaTileEntity metaTileEntity, int minValue, int maxValue) {
-        super(metaTileEntity, minValue, maxValue);
+    public TemperatureContainerImpl(@NotNull MetaTileEntity metaTileEntity, int maxValue) {
+        super(metaTileEntity, maxValue);
+    }
+
+    public TemperatureContainerImpl(@NotNull MetaTileEntity metaTileEntity, int maxValue, int minValue) {
+        super(metaTileEntity, maxValue, minValue);
     }
 
     @Override
-    @NotNull
-    public String getName() {
-        return CapabilityModule.ContainerType.TEMPERATURE.name();
+    public @NotNull String getName() {
+        return ContainerType.TEMPERATURE.name();
     }
 
     @Override
