@@ -7,6 +7,7 @@ import gregtech.api.recipes.recipeproperties.RecipeProperty;
 import gregtech.api.recipes.recipeproperties.RecipePropertyStorage;
 
 import lombok.experimental.UtilityClass;
+import tkcy.simpleaddon.api.InternalAnnotations;
 import tkcy.simpleaddon.api.recipes.properties.RecipePropertyHelper;
 
 @UtilityClass
@@ -27,6 +28,7 @@ public class RecipeBuilderHelper {
         }
     }
 
+    @InternalAnnotations.ToFix(value = "line 46")
     private static <T> void build(IRecipePropertyStorage recipePropertyStorage,
                                   RecipePropertyHelper<T> recipePropertyHelper) {
         if (recipePropertyStorage == null) {
