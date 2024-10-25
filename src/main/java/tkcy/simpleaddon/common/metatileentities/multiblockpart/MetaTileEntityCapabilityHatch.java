@@ -18,15 +18,10 @@ import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
 import gregtech.api.metatileentity.multiblock.IMultiblockAbilityPart;
 import gregtech.api.metatileentity.multiblock.MultiblockAbility;
-import gregtech.client.renderer.ICubeRenderer;
-import gregtech.client.renderer.texture.Textures;
 import gregtech.client.renderer.texture.cube.OrientedOverlayRenderer;
-import gregtech.client.utils.RenderUtil;
+import gregtech.client.renderer.texture.cube.SimpleOverlayRenderer;
 import gregtech.common.metatileentities.multi.multiblockpart.MetaTileEntityMultiblockPart;
 
-import codechicken.lib.render.CCRenderState;
-import codechicken.lib.render.pipeline.IVertexOperation;
-import codechicken.lib.vec.Matrix4;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import lombok.Getter;
 import tkcy.simpleaddon.api.capabilities.DefaultContainer;
@@ -52,18 +47,9 @@ public abstract class MetaTileEntityCapabilityHatch<T extends DefaultContainer> 
 
     protected abstract OrientedOverlayRenderer getFrontOverlay();
 
-    protected abstract ICubeRenderer getMainTexture();
+    protected abstract SimpleOverlayRenderer getBackgroundTexture();
 
-    @Override
-    public void renderMetaTileEntity(CCRenderState renderState, Matrix4 translation, IVertexOperation[] pipeline) {
-        super.renderMetaTileEntity(renderState, translation, pipeline);
-
-        getMainTexture().render(renderState, translation, pipeline);
-        getFrontOverlay().renderOrientedState(renderState, translation, pipeline, getFrontFacing(), isActive(),
-                true);
-        Textures.STEAM_VENT_OVERLAY.renderSided(EnumFacing.UP, renderState,
-                RenderUtil.adjustTrans(translation, EnumFacing.UP, 2), pipeline);
-    }
+    protected abstract SimpleOverlayRenderer getOverlayTexture();
 
     @Override
     protected ModularUI createUI(EntityPlayer entityPlayer) {

@@ -5,6 +5,7 @@ import static gregtech.common.metatileentities.MetaTileEntities.registerSimpleMe
 import static tkcy.simpleaddon.api.utils.TKCYSAUtil.tkcysa;
 
 import gregtech.api.metatileentity.SimpleMachineMetaTileEntity;
+import gregtech.api.unification.material.Materials;
 import gregtech.api.util.GTUtility;
 import gregtech.client.renderer.texture.Textures;
 
@@ -121,6 +122,7 @@ public class TKCYSAMetaTileEntities {
         TEMPERATURE_MELTER = registerMetaTileEntity(4302,
                 new TemperatureBurnerMetatileEntity(tkcysa("temperature_melter")));
 
-        HEAT_HATCH = registerMetaTileEntity(4303, new MetaTileEntityHeatHatch(tkcysa("heat_hatch"), true, 1));
+        HEAT_HATCH = registerMetaTileEntity(4303,
+                new MetaTileEntityHeatHatch(tkcysa("heat_hatch"), true, 1, Materials.Aluminium, Materials.Copper));
     }
 }
