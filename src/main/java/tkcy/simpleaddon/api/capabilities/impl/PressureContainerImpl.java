@@ -8,8 +8,6 @@ import org.jetbrains.annotations.Nullable;
 import gregtech.api.metatileentity.MetaTileEntity;
 
 import tkcy.simpleaddon.api.capabilities.PressureContainer;
-import tkcy.simpleaddon.api.capabilities.TKCYSATileCapabilities;
-import tkcy.simpleaddon.modules.capabilitiesmodule.ContainerType;
 
 public class PressureContainerImpl extends DefaultContainerImpl implements PressureContainer {
 
@@ -17,16 +15,11 @@ public class PressureContainerImpl extends DefaultContainerImpl implements Press
         super(metaTileEntity, maxValue, minValue);
     }
 
-    @Override
-    public @NotNull String getName() {
-        return ContainerType.PRESSURE.name();
-    }
-
     @Nullable
     @Override
     public <T> T getCapability(Capability<T> capability) {
-        if (capability == TKCYSATileCapabilities.CAPABILITY_PRESSURE_CONTAINER) {
-            return TKCYSATileCapabilities.CAPABILITY_PRESSURE_CONTAINER.cast(this);
+        if (capability == getContainerTypeWrapper().getCapability()) {
+            return getContainerTypeWrapper().getCapability().cast(this);
         }
         return null;
     }

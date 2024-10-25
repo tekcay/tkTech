@@ -5,9 +5,9 @@ import net.minecraftforge.common.capabilities.CapabilityInject;
 
 import gregtech.api.capability.SimpleCapabilityManager;
 
-import tkcy.simpleaddon.modules.capabilitiesmodule.CapabilityModule;
+import tkcy.simpleaddon.modules.capabilitiesmodule.CapabilityContainerModule;
 
-@CapabilityModule.Capabilities
+@CapabilityContainerModule.Capabilities
 public class TKCYSATileCapabilities {
 
     @CapabilityInject(HeatContainer.class)

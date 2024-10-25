@@ -1,11 +1,13 @@
 package tkcy.simpleaddon.api.capabilities;
 
 import tkcy.simpleaddon.api.utils.units.CommonUnits;
-import tkcy.simpleaddon.modules.capabilitiesmodule.ContainerType;
+import tkcy.simpleaddon.modules.capabilitiesmodule.ContainerTypeWrapper;
 
 public interface DefaultContainer {
 
-    int getDefaultValue();
+    default int getDefaultValue() {
+        return 0;
+    }
 
     int getValue();
 
@@ -19,12 +21,12 @@ public interface DefaultContainer {
 
     void setValue(int amount);
 
-    ContainerType getContainerType();
+    ContainerTypeWrapper<? extends DefaultContainer> getContainerTypeWrapper();
 
     CommonUnits getBaseUnit();
 
-    default boolean isTypeOf(ContainerType containerType) {
-        return containerType == getContainerType();
+    default boolean isTypeOf(ContainerTypeWrapper<? extends DefaultContainer> containerType) {
+        return containerType == getContainerTypeWrapper();
     }
 
     default boolean isEmpty() {

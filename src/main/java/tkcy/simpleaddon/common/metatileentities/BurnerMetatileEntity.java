@@ -63,9 +63,11 @@ public class BurnerMetatileEntity extends SupplierContainerMetatileEntity
 
     @Override
     public void tryToEmit(EnumFacing emittingSide) {
-        if (getHeatContainer().isEmpty()) return;
+        if (getHeatContainer() == null || getHeatContainer().isEmpty()) return;
+
         HeatContainer adjacentHeatContainer = getAdjacentCapabilityContainer(
                 TKCYSATileCapabilities.CAPABILITY_HEAT_CONTAINER);
+
         if (adjacentHeatContainer != null) {
             int currentHeat = getHeatContainer().getValue();
             adjacentHeatContainer.increaseValue(currentHeat);

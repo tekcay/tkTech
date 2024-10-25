@@ -20,7 +20,6 @@ import gregtech.common.metatileentities.multi.multiblockpart.MetaTileEntityMulti
 
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import tkcy.simpleaddon.api.capabilities.DefaultContainer;
-import tkcy.simpleaddon.modules.capabilitiesmodule.ContainerType;
 import tkcy.simpleaddon.modules.capabilitiesmodule.ContainerTypeWrapper;
 
 public abstract class MetaTileEntityCapabilityHatch<T extends DefaultContainer> extends MetaTileEntityMultiblockPart
@@ -28,14 +27,17 @@ public abstract class MetaTileEntityCapabilityHatch<T extends DefaultContainer> 
 
     private final boolean isInput;
     private final ContainerTypeWrapper<T> containerType;
-    private T container;
+    private final T container;
 
-    protected MetaTileEntityCapabilityHatch(ResourceLocation metaTileEntityId, ContainerType containerType,
+    protected MetaTileEntityCapabilityHatch(ResourceLocation metaTileEntityId, ContainerTypeWrapper<T> containerType,
                                             boolean isInput, int tier) {
         super(metaTileEntityId, tier);
         this.isInput = isInput;
-        this.containerType = (ContainerTypeWrapper<T>) containerType.getContainerTypeWrapper();
+        this.containerType = containerType;
+        this.container = initializeContainer();
     }
+
+    public abstract T initializeContainer();
 
     @Override
     protected ModularUI createUI(EntityPlayer entityPlayer) {

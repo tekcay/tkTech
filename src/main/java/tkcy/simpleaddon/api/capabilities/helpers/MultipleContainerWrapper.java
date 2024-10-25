@@ -1,27 +1,39 @@
 package tkcy.simpleaddon.api.capabilities.helpers;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import tkcy.simpleaddon.api.capabilities.DefaultContainer;
-import tkcy.simpleaddon.modules.capabilitiesmodule.CapabilityModule;
+import tkcy.simpleaddon.modules.capabilitiesmodule.CapabilityContainerModule;
 import tkcy.simpleaddon.modules.capabilitiesmodule.ContainerType;
 
-@AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
 public class MultipleContainerWrapper {
 
     @Getter
     private DefaultContainer[] containers;
 
-    public boolean hasTypeContainer(ContainerType type) {
-        return this.containers[type.getIndex()] != null;
+    @Nullable
+    public DefaultContainer getContainer(ContainerType containerType) {
+        return CapabilityContainerModule.getContainer(this, containerType);
     }
 
-    public DefaultContainer getContainer(ContainerType type) {
-        return CapabilityModule.getContainer(this, type);
+    /**
+     * Provides an empty array to be filled later via
+     * {@link CapabilityContainerModule#fillContainerList(DefaultContainer[], DefaultContainer)} by
+     * {@link DefaultContainer}s that will be used.
+     * <br>
+     * The purpose of this is to easily retrieve a container by its id.
+     * 
+     * @return an empty {@code DefaultContainer[]} which length corresponds to the {@link ContainerType} enum
+     *         length - 1.
+     */
+    private static DefaultContainer[] initContainerTypeList() {
+        return new DefaultContainer[ContainerType.values().length - 1];
     }
 
     public static class MultipleContainerWrapperBuilder {
@@ -29,11 +41,11 @@ public class MultipleContainerWrapper {
         private final DefaultContainer[] containers;
 
         public MultipleContainerWrapperBuilder() {
-            this.containers = CapabilityModule.initContainerTypeList();
+            this.containers = initContainerTypeList();
         }
 
         public MultipleContainerWrapperBuilder addContainer(@NotNull DefaultContainer defaultContainer) {
-            CapabilityModule.fillContainerList(this.containers, defaultContainer);
+            CapabilityContainerModule.fillContainerList(this.containers, defaultContainer);
             return this;
         }
 

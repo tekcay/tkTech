@@ -1,28 +1,27 @@
 package tkcy.simpleaddon.modules.capabilitiesmodule;
 
+import lombok.AccessLevel;
 import lombok.Getter;
-import tkcy.simpleaddon.api.capabilities.*;
 
-@CapabilityModule.Capabilities
-@Getter
+@Getter(value = AccessLevel.PACKAGE)
 public enum ContainerType {
 
-    HEAT(ContainerTypeWrapper.HEAT_WRAPPER),
-    ROTATION(ContainerTypeWrapper.ROTATION_WRAPPER),
-    ROTATION_POWER(ContainerTypeWrapper.ROTATION_POWER_WRAPPER),
-    TEMPERATURE(),
-    TORQUE(),
-    PRESSURE(ContainerTypeWrapper.PRESSURE_WRAPPER);
+    HEAT,
+    ROTATION,
+    ROTATION_POWER,
+    TEMPERATURE,
+    TORQUE,
+    PRESSURE;
+
+    private final int id;
 
     ContainerType() {
-        this.index = CapabilityModule.setIndex();
+        this.id = setIndex();
     }
 
-    ContainerType(ContainerTypeWrapper<? extends DefaultContainer> containerTypeWrapper) {
-        this.containerTypeWrapper = containerTypeWrapper;
-        this.index = CapabilityModule.setIndex();
-    }
+    private static int containerTypeId = 0;
 
-    private final int index;
-    private ContainerTypeWrapper<? extends DefaultContainer> containerTypeWrapper;
+    private static int setIndex() {
+        return containerTypeId++;
+    }
 }

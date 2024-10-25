@@ -1,18 +1,13 @@
 package tkcy.simpleaddon.api.capabilities;
 
 import tkcy.simpleaddon.api.utils.units.CommonUnits;
-import tkcy.simpleaddon.modules.capabilitiesmodule.ContainerType;
+import tkcy.simpleaddon.modules.capabilitiesmodule.ContainerTypeWrapper;
 
 public interface HeatContainer extends DefaultContainer {
 
     @Override
-    default ContainerType getContainerType() {
-        return ContainerType.HEAT;
-    }
-
-    @Override
-    default int getDefaultValue() {
-        return 0;
+    default ContainerTypeWrapper<HeatContainer> getContainerTypeWrapper() {
+        return ContainerTypeWrapper.HEAT_WRAPPER;
     }
 
     @Override

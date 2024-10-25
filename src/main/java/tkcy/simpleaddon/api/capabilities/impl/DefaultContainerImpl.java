@@ -10,7 +10,6 @@ import gregtech.api.metatileentity.MetaTileEntity;
 
 import lombok.Getter;
 import tkcy.simpleaddon.api.capabilities.DefaultContainer;
-import tkcy.simpleaddon.modules.capabilitiesmodule.ContainerType;
 
 @Getter
 public abstract class DefaultContainerImpl extends MTETrait implements DefaultContainer {
@@ -25,12 +24,17 @@ public abstract class DefaultContainerImpl extends MTETrait implements DefaultCo
         this.value = getDefaultValue();
     }
 
-    protected DefaultContainerImpl(@NotNull MetaTileEntity metaTileEntity, int maxValue,
-                                   int minValue) {
+    protected DefaultContainerImpl(@NotNull MetaTileEntity metaTileEntity, int maxValue, int minValue) {
         super(metaTileEntity);
         this.maxValue = maxValue;
         this.minValue = minValue;
         this.value = getDefaultValue();
+    }
+
+    @Override
+    @NotNull
+    public String getName() {
+        return getContainerTypeWrapper().getName();
     }
 
     @Override

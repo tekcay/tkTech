@@ -2,10 +2,10 @@ package tkcy.simpleaddon.api.capabilities;
 
 import gregtech.api.metatileentity.multiblock.MultiblockAbility;
 
-import tkcy.simpleaddon.modules.capabilitiesmodule.CapabilityModule;
+import tkcy.simpleaddon.modules.capabilitiesmodule.CapabilityContainerModule;
 import tkcy.simpleaddon.modules.capabilitiesmodule.ContainerType;
 
-@CapabilityModule.Capabilities
+@CapabilityContainerModule.Capabilities
 @SuppressWarnings("InstantiationOfUtilityClass")
 public class TKCYSAMultiblockAbility {
 

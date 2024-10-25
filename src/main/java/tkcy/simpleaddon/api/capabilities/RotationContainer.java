@@ -1,18 +1,13 @@
 package tkcy.simpleaddon.api.capabilities;
 
 import tkcy.simpleaddon.api.utils.units.CommonUnits;
-import tkcy.simpleaddon.modules.capabilitiesmodule.ContainerType;
+import tkcy.simpleaddon.modules.capabilitiesmodule.ContainerTypeWrapper;
 
 public interface RotationContainer extends DefaultContainer {
 
     @Override
-    default ContainerType getContainerType() {
-        return ContainerType.ROTATION;
-    }
-
-    @Override
-    default int getDefaultValue() {
-        return 0;
+    default ContainerTypeWrapper<RotationContainer> getContainerTypeWrapper() {
+        return ContainerTypeWrapper.ROTATION_WRAPPER;
     }
 
     @Override

@@ -28,7 +28,9 @@ public class RecipeBuilderHelper {
         }
     }
 
-    @InternalAnnotations.ToFix(value = "line 46")
+    @InternalAnnotations.NotBreakingBug(value = "            if (recipePropertyHelper.isValueValid().test(value)) {\n" +
+            "                recipePropertyStorage.store(instance, defaultValue);\n" +
+            "            }")
     private static <T> void build(IRecipePropertyStorage recipePropertyStorage,
                                   RecipePropertyHelper<T> recipePropertyHelper) {
         if (recipePropertyStorage == null) {

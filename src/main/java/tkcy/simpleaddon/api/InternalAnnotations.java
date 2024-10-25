@@ -9,7 +9,15 @@ public class InternalAnnotations {
 
     @Retention(value = RetentionPolicy.CLASS)
     @Target(value = ElementType.METHOD)
-    public @interface ToFix {
+    public @interface NotBreakingBug {
+
+        String value();
+    }
+
+    @Retention(value = RetentionPolicy.CLASS)
+    @Target(value = ElementType.METHOD)
+    public @interface WarningCanBreak {
+
         String value();
     }
 }

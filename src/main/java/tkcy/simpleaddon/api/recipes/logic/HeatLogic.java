@@ -33,9 +33,18 @@ public class HeatLogic extends AbstractRecipeLogic implements Machines.HeatMachi
     }
 
     @Override
+    protected void trySearchNewRecipe() {
+        if (getHeatContainer() == null) return;
+        if (consumesHeat && getHeatContainer().isEmpty()) return;
+        super.trySearchNewRecipe();
+    }
+
+    @Override
+    @SuppressWarnings(value = "all")
     public void setupRecipe(Recipe recipe) {
-        super.setupRecipe(recipe);
         this.setHeatRecipeValue(recipe);
+        if (consumesHeat && getHeatContainer().getValue() < this.heatRecipeValue) return;
+        super.setupRecipe(recipe);
     }
 
     @Override
