@@ -36,7 +36,7 @@ public class CapabilityContainerModule {
     public static DefaultContainer getContainer(@NotNull MultipleContainerWrapper wrapper,
                                                 ContainerType containerType) {
         if (hasTypeContainer(wrapper.getContainers(), containerType))
-        return getContainer(wrapper.getContainers(), containerType);
+            return getContainer(wrapper.getContainers(), containerType);
         else return null;
     }
 

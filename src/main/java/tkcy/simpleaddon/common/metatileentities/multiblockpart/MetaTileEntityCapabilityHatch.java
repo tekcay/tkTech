@@ -14,14 +14,25 @@ import org.jetbrains.annotations.Nullable;
 
 import gregtech.api.gui.ModularUI;
 import gregtech.api.metatileentity.IDataInfoProvider;
+import gregtech.api.metatileentity.MetaTileEntity;
+import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
 import gregtech.api.metatileentity.multiblock.IMultiblockAbilityPart;
 import gregtech.api.metatileentity.multiblock.MultiblockAbility;
+import gregtech.client.renderer.ICubeRenderer;
+import gregtech.client.renderer.texture.Textures;
+import gregtech.client.renderer.texture.cube.OrientedOverlayRenderer;
+import gregtech.client.utils.RenderUtil;
 import gregtech.common.metatileentities.multi.multiblockpart.MetaTileEntityMultiblockPart;
 
+import codechicken.lib.render.CCRenderState;
+import codechicken.lib.render.pipeline.IVertexOperation;
+import codechicken.lib.vec.Matrix4;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
+import lombok.Getter;
 import tkcy.simpleaddon.api.capabilities.DefaultContainer;
 import tkcy.simpleaddon.modules.capabilitiesmodule.ContainerTypeWrapper;
 
+@Getter
 public abstract class MetaTileEntityCapabilityHatch<T extends DefaultContainer> extends MetaTileEntityMultiblockPart
                                                    implements IMultiblockAbilityPart<T>, IDataInfoProvider {
 
@@ -37,7 +48,22 @@ public abstract class MetaTileEntityCapabilityHatch<T extends DefaultContainer> 
         this.container = initializeContainer();
     }
 
-    public abstract T initializeContainer();
+    protected abstract T initializeContainer();
+
+    protected abstract OrientedOverlayRenderer getFrontOverlay();
+
+    protected abstract ICubeRenderer getMainTexture();
+
+    @Override
+    public void renderMetaTileEntity(CCRenderState renderState, Matrix4 translation, IVertexOperation[] pipeline) {
+        super.renderMetaTileEntity(renderState, translation, pipeline);
+
+        getMainTexture().render(renderState, translation, pipeline);
+        getFrontOverlay().renderOrientedState(renderState, translation, pipeline, getFrontFacing(), isActive(),
+                true);
+        Textures.STEAM_VENT_OVERLAY.renderSided(EnumFacing.UP, renderState,
+                RenderUtil.adjustTrans(translation, EnumFacing.UP, 2), pipeline);
+    }
 
     @Override
     protected ModularUI createUI(EntityPlayer entityPlayer) {
@@ -45,9 +71,19 @@ public abstract class MetaTileEntityCapabilityHatch<T extends DefaultContainer> 
     }
 
     @Override
+    public MetaTileEntity createMetaTileEntity(IGregTechTileEntity tileEntity) {
+        return this;
+    }
+
+    @Override
     public MultiblockAbility<T> getAbility() {
         return this.isInput ? this.containerType.getInputMultiblockAbility() :
                 this.containerType.getOutputMultiblockAbility();
+    }
+
+    @Override
+    public void registerAbilities(List<T> abilityList) {
+        abilityList.add(this.container);
     }
 
     @Override

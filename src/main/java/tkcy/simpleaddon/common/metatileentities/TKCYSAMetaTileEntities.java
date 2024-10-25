@@ -17,6 +17,7 @@ import tkcy.simpleaddon.api.utils.TKCYSAUtil;
 import tkcy.simpleaddon.common.metatileentities.electric.*;
 import tkcy.simpleaddon.common.metatileentities.multiblockpart.BrickFluidHatch;
 import tkcy.simpleaddon.common.metatileentities.multiblockpart.BrickItemBus;
+import tkcy.simpleaddon.common.metatileentities.multiblockpart.MetaTileEntityHeatHatch;
 import tkcy.simpleaddon.common.metatileentities.multiprimitive.*;
 import tkcy.simpleaddon.common.metatileentities.primitive.AnvilMetatileEntity;
 import tkcy.simpleaddon.common.metatileentities.primitive.PrimitiveCasting;
@@ -54,6 +55,7 @@ public class TKCYSAMetaTileEntities {
             .size()];
     public static ModulableTank[] MODULABLE_TANKS = new ModulableTank[StorageModule.TANK_MATERIALS.size()];
     public static ModulableTank[] MODULABLE_LARGE_TANKS = new ModulableTank[StorageModule.TANK_MATERIALS.size()];
+    public static MetaTileEntityHeatHatch HEAT_HATCH;
 
     public static void init() {
         PRIMITIVE_ROASTING_OVEN = registerMetaTileEntity(4000,
@@ -118,5 +120,7 @@ public class TKCYSAMetaTileEntities {
         MELTER = registerMetaTileEntity(4301, new MelterMetatileEntity(tkcysa("melter")));
         TEMPERATURE_MELTER = registerMetaTileEntity(4302,
                 new TemperatureBurnerMetatileEntity(tkcysa("temperature_melter")));
+
+        HEAT_HATCH = registerMetaTileEntity(4303, new MetaTileEntityHeatHatch(tkcysa("heat_hatch"), true, 1));
     }
 }
