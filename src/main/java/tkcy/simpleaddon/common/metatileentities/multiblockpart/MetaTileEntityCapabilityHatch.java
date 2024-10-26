@@ -18,8 +18,6 @@ import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
 import gregtech.api.metatileentity.multiblock.IMultiblockAbilityPart;
 import gregtech.api.metatileentity.multiblock.MultiblockAbility;
-import gregtech.client.renderer.texture.cube.OrientedOverlayRenderer;
-import gregtech.client.renderer.texture.cube.SimpleOverlayRenderer;
 import gregtech.common.metatileentities.multi.multiblockpart.MetaTileEntityMultiblockPart;
 
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
@@ -44,12 +42,7 @@ public abstract class MetaTileEntityCapabilityHatch<T extends DefaultContainer> 
     }
 
     protected abstract T initializeContainer();
-
-    protected abstract OrientedOverlayRenderer getFrontOverlay();
-
-    protected abstract SimpleOverlayRenderer getBackgroundTexture();
-
-    protected abstract SimpleOverlayRenderer getOverlayTexture();
+    protected abstract List<EnumFacing> capabilitySides();
 
     @Override
     protected ModularUI createUI(EntityPlayer entityPlayer) {
@@ -75,7 +68,7 @@ public abstract class MetaTileEntityCapabilityHatch<T extends DefaultContainer> 
     @Override
     @Nullable
     public <U> U getCapability(@NotNull Capability<U> capability, EnumFacing side) {
-        if (capability.equals(this.containerType.getCapability())) {
+        if (capabilitySides().contains(side) && capability.equals(this.containerType.getCapability())) {
             return this.containerType.getCapability().cast(this.container);
         }
         return null;

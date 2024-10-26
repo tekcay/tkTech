@@ -27,8 +27,16 @@ public class RenderingUtils {
                                             Matrix4 translation,
                                             IVertexOperation[] pipeline) {
         IVertexOperation[] colourPipeline = getColourPipeline(pipeline, material);
-        Arrays.stream(EnumFacing.HORIZONTALS).forEach(enumFacing -> texture.renderSided(enumFacing, renderState,
-                translation, colourPipeline));
+        Arrays.stream(EnumFacing.HORIZONTALS).forEach(enumFacing -> renderSideColour(texture, material, enumFacing,
+                renderState, translation, colourPipeline));
+    }
+
+    public static void renderSideColour(SimpleOverlayRenderer texture, Material material, EnumFacing side,
+                                        CCRenderState renderState,
+                                        Matrix4 translation,
+                                        IVertexOperation[] pipeline) {
+        IVertexOperation[] colourPipeline = getColourPipeline(pipeline, material);
+        texture.renderSided(side, renderState, translation, colourPipeline);
     }
 
     public static IVertexOperation[] getColourPipeline(IVertexOperation[] pipeline, Material material) {
