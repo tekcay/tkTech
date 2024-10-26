@@ -22,6 +22,10 @@ public class MultipleContainerWrapper {
         return CapabilityContainerModule.getContainer(this, containerType);
     }
 
+    public boolean hasTypeContainer(ContainerType containerType) {
+        return CapabilityContainerModule.hasTypeContainer(this.containers, containerType);
+    }
+
     /**
      * Provides an empty array to be filled later via
      * {@link CapabilityContainerModule#fillContainerList(DefaultContainer[], DefaultContainer)} by

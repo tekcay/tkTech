@@ -4,8 +4,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidTank;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.IItemHandlerModifiable;
 
 import org.jetbrains.annotations.Nullable;
@@ -20,10 +18,8 @@ import gregtech.api.gui.widgets.SlotWidget;
 import gregtech.api.gui.widgets.TankWidget;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
-import gregtech.client.renderer.ICubeRenderer;
+import gregtech.api.unification.material.Material;
 import gregtech.client.renderer.texture.Textures;
-import gregtech.client.renderer.texture.cube.SimpleSidedCubeRenderer;
-import gregtech.client.utils.RenderUtil;
 
 import codechicken.lib.render.CCRenderState;
 import codechicken.lib.render.pipeline.IVertexOperation;
@@ -35,6 +31,8 @@ import tkcy.simpleaddon.api.capabilities.impl.HeatContainerImpl;
 import tkcy.simpleaddon.api.metatileentities.capabilitiescontainers.consumers.ConsumerContainerMetatileEntity;
 import tkcy.simpleaddon.api.recipes.logic.HeatLogic;
 import tkcy.simpleaddon.api.recipes.recipemaps.TKCYSARecipeMaps;
+import tkcy.simpleaddon.api.render.TKCYSATextures;
+import tkcy.simpleaddon.api.utils.rendering.RenderingUtils;
 import tkcy.simpleaddon.modules.capabilitiesmodule.ContainerType;
 import tkcy.simpleaddon.modules.capabilitiesmodule.Machines;
 
@@ -43,20 +41,22 @@ public class MelterMetatileEntity extends ConsumerContainerMetatileEntity implem
     @Getter
     private final MultipleContainerWrapper containerWrapper;
     private final HeatLogic workableHandler;
-    private final ICubeRenderer renderer;
+    private final Material brickMaterial;
+    private final Material heatPlateMaterial;
 
-    public MelterMetatileEntity(ResourceLocation metaTileEntityId) {
+    public MelterMetatileEntity(ResourceLocation metaTileEntityId, Material brickMaterial, Material heatPlateMaterial) {
         super(metaTileEntityId);
+        this.brickMaterial = brickMaterial;
+        this.heatPlateMaterial = heatPlateMaterial;
         this.workableHandler = new HeatLogic(this, TKCYSARecipeMaps.HEATING_CONSUMING_RECIPES, true);
         this.containerWrapper = new MultipleContainerWrapper.MultipleContainerWrapperBuilder()
                 .addContainer(new HeatContainerImpl(this, 40000))
                 .build();
-        this.renderer = Textures.FURNACE_OVERLAY;
     }
 
     @Override
     public MetaTileEntity createMetaTileEntity(IGregTechTileEntity tileEntity) {
-        return new MelterMetatileEntity(metaTileEntityId);
+        return new MelterMetatileEntity(metaTileEntityId, brickMaterial, heatPlateMaterial);
     }
 
     @Override
@@ -66,15 +66,15 @@ public class MelterMetatileEntity extends ConsumerContainerMetatileEntity implem
     public void renderMetaTileEntity(CCRenderState renderState, Matrix4 translation, IVertexOperation[] pipeline) {
         super.renderMetaTileEntity(renderState, translation, pipeline);
 
-        getBaseRenderer().render(renderState, translation, pipeline);
-        Textures.COKE_OVEN_OVERLAY.renderOrientedState(renderState, translation, pipeline, getFrontFacing(), false,
-                false);
-        Textures.STEAM_VENT_OVERLAY.renderSided(EnumFacing.UP, renderState,
-                RenderUtil.adjustTrans(translation, EnumFacing.UP, 2), pipeline);
+        RenderingUtils.renderAllSidesColour(Textures.COKE_BRICKS, brickMaterial, renderState, translation, pipeline);
 
-        // renderer.renderOrientedState(renderState, translation, pipeline, getFrontFacing(),
-        // workableHandler.isActive(),
-        // workableHandler.isWorkingEnabled());
+        Textures.FURNACE_OVERLAY.renderOrientedState(renderState, translation, pipeline, getFrontFacing(), isActive(),
+                true);
+
+        RenderingUtils.renderSideColour(TKCYSATextures.HEATING_PLATE, heatPlateMaterial, EnumFacing.DOWN, renderState,
+                translation, pipeline);
+
+        TKCYSATextures.HEATING_PLATE_FRAME.renderSided(EnumFacing.DOWN, renderState, translation, pipeline);
     }
 
     @Override
@@ -107,11 +107,6 @@ public class MelterMetatileEntity extends ConsumerContainerMetatileEntity implem
                         .setBackgroundTexture(GuiTextures.PRIMITIVE_SLOT))
 
                 .bindPlayerInventory(entityPlayer.inventory, GuiTextures.SLOT, 0);
-    }
-
-    @SideOnly(Side.CLIENT)
-    protected SimpleSidedCubeRenderer getBaseRenderer() {
-        return Textures.STEAM_BRICKED_CASING_STEEL;
     }
 
     @Override

@@ -8,6 +8,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import org.jetbrains.annotations.NotNull;
+
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
 import gregtech.api.unification.material.Material;
@@ -42,11 +44,6 @@ public class MetaTileEntityHeatHatch extends MetaTileEntityCapabilityHatch<HeatC
     }
 
     @Override
-    protected List<EnumFacing> capabilitySides() {
-        return Collections.singletonList(getFrontFacing());
-    }
-
-    @Override
     @SideOnly(Side.CLIENT)
     public int getPaintingColorForRendering() {
         return getPaintingColorForRendering(backgroundMaterial);
@@ -62,19 +59,26 @@ public class MetaTileEntityHeatHatch extends MetaTileEntityCapabilityHatch<HeatC
     public void renderMetaTileEntity(CCRenderState renderState, Matrix4 translation, IVertexOperation[] pipeline) {
         super.renderMetaTileEntity(renderState, translation, pipeline);
 
-        RenderingUtils.renderAllSidesColour(TKCYSATextures.HEAT_HATCH_BACKGROUND, backgroundMaterial, renderState,
-                translation, pipeline);
+        RenderingUtils.renderSidesColour(TKCYSATextures.HEAT_HATCH_BACKGROUND, backgroundMaterial, renderState,
+                translation, pipeline, EnumFacing.HORIZONTALS);
 
-        RenderingUtils.renderAllSidesColour(TKCYSATextures.HEATING_HATCH_0, heatExchangerMaterial, renderState,
-                translation, pipeline);
+        RenderingUtils.renderSidesColour(TKCYSATextures.HEATING_HATCH_0, heatExchangerMaterial, renderState,
+                translation, pipeline, EnumFacing.HORIZONTALS);
 
         TKCYSATextures.HEATING_PLATE_FRAME.renderSided(getFrontFacing(), renderState, translation, pipeline);
-        RenderingUtils.renderSideColour(TKCYSATextures.HEATING_PLATE, heatExchangerMaterial, getFrontFacing(),
-                renderState, translation, pipeline);
+
+        RenderingUtils.renderSidesColour(TKCYSATextures.HEATING_PLATE, heatExchangerMaterial, renderState, translation,
+                pipeline, getFrontFacing());
     }
 
     @Override
     public int getPaintingColorForRendering(Material material) {
         return material.getMaterialRGB();
+    }
+
+    @Override
+    @NotNull
+    public List<EnumFacing> getCapabilitySides() {
+        return Collections.singletonList(getFrontFacing());
     }
 }

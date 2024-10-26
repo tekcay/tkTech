@@ -13,21 +13,22 @@ import gregtech.client.renderer.texture.cube.SimpleOverlayRenderer;
 import codechicken.lib.render.CCRenderState;
 import codechicken.lib.render.pipeline.ColourMultiplier;
 import codechicken.lib.render.pipeline.IVertexOperation;
+import codechicken.lib.vec.Cuboid6;
 import codechicken.lib.vec.Matrix4;
 
 public class RenderingUtils {
 
-    public static void renderAllSides(SimpleOverlayRenderer texture, CCRenderState renderState, Matrix4 translation,
-                                      IVertexOperation[] pipeline) {
-        Arrays.stream(EnumFacing.HORIZONTALS).forEach(enumFacing -> texture.renderSided(enumFacing, renderState,
-                translation, pipeline));
-    }
-
     public static void renderAllSidesColour(SimpleOverlayRenderer texture, Material material, CCRenderState renderState,
                                             Matrix4 translation,
                                             IVertexOperation[] pipeline) {
+        texture.render(renderState, translation, getColourPipeline(pipeline, material), Cuboid6.full);
+    }
+
+    public static void renderSidesColour(SimpleOverlayRenderer texture, Material material, CCRenderState renderState,
+                                         Matrix4 translation,
+                                         IVertexOperation[] pipeline, EnumFacing... faces) {
         IVertexOperation[] colourPipeline = getColourPipeline(pipeline, material);
-        Arrays.stream(EnumFacing.HORIZONTALS).forEach(enumFacing -> renderSideColour(texture, material, enumFacing,
+        Arrays.stream(faces).forEach(enumFacing -> renderSideColour(texture, material, enumFacing,
                 renderState, translation, colourPipeline));
     }
 

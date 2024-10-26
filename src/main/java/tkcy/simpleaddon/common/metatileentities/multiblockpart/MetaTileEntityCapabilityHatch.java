@@ -23,11 +23,13 @@ import gregtech.common.metatileentities.multi.multiblockpart.MetaTileEntityMulti
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import lombok.Getter;
 import tkcy.simpleaddon.api.capabilities.DefaultContainer;
+import tkcy.simpleaddon.api.capabilities.SidesCapabilityMetatileEntity;
 import tkcy.simpleaddon.modules.capabilitiesmodule.ContainerTypeWrapper;
 
 @Getter
 public abstract class MetaTileEntityCapabilityHatch<T extends DefaultContainer> extends MetaTileEntityMultiblockPart
-                                                   implements IMultiblockAbilityPart<T>, IDataInfoProvider {
+                                                   implements IMultiblockAbilityPart<T>, SidesCapabilityMetatileEntity,
+                                                   IDataInfoProvider {
 
     private final boolean isInput;
     private final ContainerTypeWrapper<T> containerType;
@@ -42,7 +44,6 @@ public abstract class MetaTileEntityCapabilityHatch<T extends DefaultContainer> 
     }
 
     protected abstract T initializeContainer();
-    protected abstract List<EnumFacing> capabilitySides();
 
     @Override
     protected ModularUI createUI(EntityPlayer entityPlayer) {
@@ -68,7 +69,7 @@ public abstract class MetaTileEntityCapabilityHatch<T extends DefaultContainer> 
     @Override
     @Nullable
     public <U> U getCapability(@NotNull Capability<U> capability, EnumFacing side) {
-        if (capabilitySides().contains(side) && capability.equals(this.containerType.getCapability())) {
+        if (getCapabilitySides().contains(side) && capability.equals(this.containerType.getCapability())) {
             return this.containerType.getCapability().cast(this.container);
         }
         return null;

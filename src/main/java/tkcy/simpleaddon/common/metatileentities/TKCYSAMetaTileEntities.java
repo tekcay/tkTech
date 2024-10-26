@@ -47,7 +47,7 @@ public class TKCYSAMetaTileEntities {
     public static ToolLogicMetaTileEntity PARTS_WORKER_MTE;
     public static BurnerMetatileEntity BURNER;
     public static MelterMetatileEntity MELTER;
-    public static TemperatureBurnerMetatileEntity TEMPERATURE_MELTER;
+    public static TemperatureMelterMetatileEntity TEMPERATURE_MELTER;
     public static SimpleMachineMetaTileEntity[] CLUSTER_MILLS = new SimpleMachineMetaTileEntity[5];
     public static SimpleMachineMetaTileEntity[] COMPONENT_ASSEMBLER_MTE = new SimpleMachineMetaTileEntity[6];
     public static SimpleMachineMetaTileEntity[] ROLLING_MILL = new SimpleMachineMetaTileEntity[6];
@@ -117,12 +117,14 @@ public class TKCYSAMetaTileEntities {
         MaterialMetaTileEntity.registerMaterialMetaTileEntity(StorageModule.TANK_MATERIALS, MODULABLE_TANK_VALVES, 4220,
                 StorageModule::initValve);
 
-        BURNER = registerMetaTileEntity(4300, new BurnerMetatileEntity(tkcysa("burner")));
-        MELTER = registerMetaTileEntity(4301, new MelterMetatileEntity(tkcysa("melter")));
+        BURNER = registerMetaTileEntity(4300,
+                new BurnerMetatileEntity(tkcysa("burner"), Materials.Brick, Materials.Copper));
+        MELTER = registerMetaTileEntity(4301,
+                new MelterMetatileEntity(tkcysa("melter"), Materials.Brick, Materials.Copper));
         TEMPERATURE_MELTER = registerMetaTileEntity(4302,
-                new TemperatureBurnerMetatileEntity(tkcysa("temperature_melter")));
+                new TemperatureMelterMetatileEntity(tkcysa("temperature_melter"), Materials.Brick, Materials.Copper));
 
         HEAT_HATCH = registerMetaTileEntity(4303,
-                new MetaTileEntityHeatHatch(tkcysa("heat_hatch"), true, 1, Materials.Aluminium, Materials.Copper));
+                new MetaTileEntityHeatHatch(tkcysa("heat_hatch"), true, 1, Materials.Brick, Materials.Copper));
     }
 }
