@@ -87,7 +87,8 @@ public class BurnerMetatileEntity extends SupplierContainerMetatileEntity
     public void renderMetaTileEntity(CCRenderState renderState, Matrix4 translation, IVertexOperation[] pipeline) {
         super.renderMetaTileEntity(renderState, translation, pipeline);
 
-        RenderingUtils.renderAllSidesColour(Textures.COKE_BRICKS, brickMaterial, renderState, translation, pipeline);
+        RenderingUtils.renderAllSidesColour(TKCYSATextures.BRICK_SMALL, brickMaterial, renderState, translation,
+                pipeline);
 
         Textures.FURNACE_OVERLAY.renderOrientedState(renderState, translation, pipeline, getFrontFacing(), isActive(),
                 false);

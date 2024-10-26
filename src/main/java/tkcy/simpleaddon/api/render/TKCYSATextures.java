@@ -25,6 +25,8 @@ public class TKCYSATextures {
             "hatches/heat/front/heating_plate_gray_scale");
     public static SimpleOverlayRenderer HEATING_PLATE_FRAME = new SimpleOverlayRenderer(
             "hatches/heat/front/frame");
+    public static SimpleOverlayRenderer BRICK_SMALL = new SimpleOverlayRenderer(
+            "bricks/brick_small");
 
     public static void preInit() {
         // ROLLING_MILL_OVERLAY = new OrientedOverlayRenderer("machines/rolling_mill");
