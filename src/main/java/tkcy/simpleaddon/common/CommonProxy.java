@@ -43,7 +43,7 @@ import tkcy.simpleaddon.modules.alloyingmodule.AlloyingModule;
 public class CommonProxy {
 
     @SubscribeEvent
-    public void registerMTERegistry(MTEManager.MTERegistryEvent event) {
+    public static void registerMTERegistry(MTEManager.MTERegistryEvent event) {
         GregTechAPI.mteManager.createRegistry(MODID);
     }
 
