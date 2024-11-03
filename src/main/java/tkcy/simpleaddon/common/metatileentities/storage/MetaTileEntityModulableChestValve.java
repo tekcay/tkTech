@@ -42,9 +42,7 @@ public class MetaTileEntityModulableChestValve extends MetaTileEntityModulableVa
     }
 
     @Override
-    protected void autoOutputInventory(IItemHandler handler) {
-        GTTransferUtils.moveInventoryItems(this.itemInventory, handler);
-    }
+    protected void autoOutputInventory(IItemHandler handler) {}
 
     @Override
     public MetaTileEntity createMetaTileEntity(IGregTechTileEntity tileEntity) {
