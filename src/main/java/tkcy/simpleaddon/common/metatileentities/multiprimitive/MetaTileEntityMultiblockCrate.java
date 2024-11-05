@@ -54,8 +54,8 @@ public class MetaTileEntityMultiblockCrate extends MetaTileEntityMultiblockStora
     }
 
     @Override
-    protected void setLayerCapacity(boolean isLarge) {
-        this.layerCapacity = (int) Math.pow(10, 4) * (isLarge ? 21 : 1);
+    protected int getLayerCapacity() {
+        return (int) Math.pow(10, 4) * super.getLayerCapacity();
     }
 
     @Override

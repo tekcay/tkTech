@@ -44,8 +44,8 @@ public class MetaTileEntityMultiblockTank extends MetaTileEntityMultiblockStorag
     }
 
     @Override
-    protected void setLayerCapacity(boolean isLarge) {
-        this.layerCapacity = (int) Math.pow(10, 6) * (isLarge ? 21 : 1);
+    protected int getLayerCapacity() {
+        return (int) Math.pow(10, 6) * super.getLayerCapacity();
     }
 
     private void setFluidPipeProperties() {

@@ -1,6 +1,5 @@
 package tkcy.simpleaddon.common.metatileentities.multiprimitive;
 
-import static gregtech.api.util.RelativeDirection.*;
 import static tkcy.simpleaddon.modules.storagemodule.StorageModule.getLargeTankPattern;
 import static tkcy.simpleaddon.modules.storagemodule.StorageModule.getTankPattern;
 
@@ -62,13 +61,11 @@ public abstract class MetaTileEntityMultiblockStorage<ContentHandler, ContentTyp
     protected int totalCapacity;
     private int height;
     protected final boolean isLarge;
-    protected int layerCapacity;
 
     public MetaTileEntityMultiblockStorage(ResourceLocation metaTileEntityId, Material material, boolean isLarge) {
         super(metaTileEntityId);
         this.material = material;
         this.isLarge = isLarge;
-        setLayerCapacity(isLarge);
         initializeInventory();
     }
 
@@ -76,16 +73,12 @@ public abstract class MetaTileEntityMultiblockStorage<ContentHandler, ContentTyp
     protected void formStructure(PatternMatchContext context) {
         super.formStructure(context);
         this.height = context.getOrDefault(RepetitiveSide.getHeightMarker(), 0) + 1;
-        this.totalCapacity = this.layerCapacity * this.height;
+        this.totalCapacity = getLayerCapacity() * this.height;
     }
 
-    @Override
-    public void invalidateStructure() {
-        super.invalidateStructure();
-        // reset();
+    protected int getLayerCapacity() {
+        return (isLarge ? 21 : 1);
     }
-
-    protected abstract void setLayerCapacity(boolean isLarge);
 
     protected abstract Capability<ContentHandler> getCapability();
 
@@ -196,7 +189,7 @@ public abstract class MetaTileEntityMultiblockStorage<ContentHandler, ContentTyp
     }
 
     public String getCapacityPerLayerFormatted() {
-        return UnitsConversions.convertAndFormatToSizeOfOrder(getBaseContentUnit(), this.layerCapacity);
+        return UnitsConversions.convertAndFormatToSizeOfOrder(getBaseContentUnit(), getLayerCapacity());
     }
 
     @Override
