@@ -7,6 +7,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum MetricPrefix {
 
+    none(' ', 0),
     femto('f', -15),
     pico('p', -12),
     nano('n', -9),
@@ -22,8 +23,20 @@ public enum MetricPrefix {
     final char prefix;
     final int exponent;
 
+    public int getNextExponent() {
+        return this.getExponent() + 3;
+    }
+
+    public int getPreviousExponent() {
+        return this.getExponent() - 3;
+    }
+
+    public boolean isNone() {
+        return this == none;
+    }
+
     @Override
     public String toString() {
-        return String.valueOf(this.prefix);
+        return this == none ? "" : String.valueOf(this.prefix);
     }
 }

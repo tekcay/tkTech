@@ -36,14 +36,16 @@ public class StorageUtils<T> {
     }
 
     public String getContentFormatted() {
-        return isEmpty() ? "Empty" : String.format("%s of %s",
-                UnitsConversions.convertAndFormatToSizeOfOrder(this.contentAmount, this.baseContentUnit),
+        if (isEmpty()) return "Empty";
+
+        return String.format("%s%s%s",
+                UnitsConversions.convertAndFormatToSizeOfOrder(this.baseContentUnit, this.contentAmount),
+                mte.getLinkingWordForContentDisplay(),
                 this.contentLocalizedName);
     }
 
     protected String getFillPercentage() {
-        return isEmpty() ? "Empty" :
-                Numbers.getQuotientPercentage(this.contentAmount, this.maxAmount) + "% filled";
+        return isEmpty() ? "" : Numbers.getQuotientPercentage(this.contentAmount, this.maxAmount) + "% filled";
     }
 
     public TextComponentTranslation getFillPercentageTextTranslation() {
@@ -52,7 +54,7 @@ public class StorageUtils<T> {
 
     public TextComponentTranslation getCapacityTextTranslation() {
         return new TextComponentTranslation(this.mte.getCapacityTranslationKey(),
-                UnitsConversions.convertAndFormatToSizeOfOrder(this.maxAmount, this.baseContentUnit));
+                UnitsConversions.convertAndFormatToSizeOfOrder(this.baseContentUnit, this.maxAmount));
     }
 
     public TextComponentTranslation getContentTextTranslation() {

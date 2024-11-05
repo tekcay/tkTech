@@ -15,6 +15,7 @@ import tkcy.simpleaddon.api.utils.MaterialHelper;
 public class AlloyingModule {
 
     public static List<Material> alloysMaterials = new ArrayList<>();
+    public static List<Material> missingFluidPropertyMaterial = new ArrayList<>();
 
     static {
         alloysMaterials.add(Bronze);
@@ -49,6 +50,11 @@ public class AlloyingModule {
         alloysMaterials.add(IndiumTinBariumTitaniumCuprate);
         alloysMaterials.add(YttriumBariumCuprate);
 
+    }
+
+    static {
+        missingFluidPropertyMaterial.add(Barium);
+        missingFluidPropertyMaterial.add(Electrotine);
     }
 
     public static void setAlloyFluidTemperature() {

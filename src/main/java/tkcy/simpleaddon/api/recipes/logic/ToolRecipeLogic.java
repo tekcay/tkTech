@@ -225,8 +225,8 @@ public class ToolRecipeLogic extends PrimitiveLogic {
             compound.setInteger(NBTLabel.CURRENT_TOOL_USES.name(), this.progressTime);
             compound.setInteger(NBTLabel.RECIPE_TOOL_USES.name(), this.maxProgressTime);
 
-            NBTHelpers.serializeItemOutputs.accept(compound, this.itemOutputs, NBTLabel.ITEM_OUTPUTS.name());
-            NBTHelpers.serializeFluidOutputs.accept(compound, this.fluidOutputs, NBTLabel.FLUID_OUTPUTS.name());
+            NBTHelpers.itemStacksSerializer.accept(compound, this.itemOutputs, NBTLabel.ITEM_OUTPUTS.name());
+            NBTHelpers.fluidStacksSerializer.accept(compound, this.fluidOutputs, NBTLabel.FLUID_OUTPUTS.name());
         }
         return compound;
     }
@@ -240,8 +240,8 @@ public class ToolRecipeLogic extends PrimitiveLogic {
         if (progressTime > 0) {
             this.isActive = true;
             this.maxProgressTime = compound.getInteger(NBTLabel.RECIPE_TOOL_USES.name());
-            this.itemOutputs = NBTHelpers.getDeserializedItemOutputs(compound, NBTLabel.ITEM_OUTPUTS);
-            this.fluidOutputs = NBTHelpers.getDeserializedFluidOutputs(compound, NBTLabel.FLUID_OUTPUTS);
+            this.itemOutputs = NBTHelpers.getDeserializedItemStacks(compound, NBTLabel.ITEM_OUTPUTS);
+            this.fluidOutputs = NBTHelpers.getDeserializedFluidStacks(compound, NBTLabel.FLUID_OUTPUTS);
         }
     }
 
