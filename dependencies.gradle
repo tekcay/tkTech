@@ -28,12 +28,12 @@ dependencies {
     // therefore we manually deobf the regular jar
     implementation rfg.deobf("curse.maven:codechicken-lib-1-8-242818:2779848") // CCL 3.2.3.358
     // manually deobf the jar to prevent extra configuration for handling obf/deobf separation
-    implementation rfg.deobf("curse.maven:gregtech-ce-unofficial-557242:5322654-deobf-5322655-sources-5322656") //2.8.8
+    implementation rfg.deobf("curse.maven:gregtech-ce-unofficial-557242:5519022-deobf-5519023-sources-5519024") //2.8.10
 
     // Soft Dependencies
     implementation "CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-4.1.20.684"
     implementation rfg.deobf("curse.maven:ctm-267602:2915363") // CTM 1.0.2.31
-    implementation rfg.deobf("curse.maven:groovyscript-687577:5219945") // GRS 1.0.1
+    implementation rfg.deobf("curse.maven:groovyscript-687577:5635093") // GRS 1.1.3
 
     compileOnly "org.projectlombok:lombok:${lombok_version}"
     annotationProcessor "org.projectlombok:lombok:${lombok_version}"
