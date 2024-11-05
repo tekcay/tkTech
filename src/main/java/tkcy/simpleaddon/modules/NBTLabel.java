@@ -8,7 +8,8 @@ public enum NBTLabel {
     FLUID_OUTPUTS,
     ITEM_INVENTORY,
     ITEM_QUANTITY,
-    SLOT_INDEX;
+    SLOT_INDEX,
+    TOTAL_CAPACITY;
 
     @Override
     public String toString() {
