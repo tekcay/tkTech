@@ -128,8 +128,10 @@ public class TKCYSAMetaTileEntities {
         MaterialMetaTileEntity.registerMaterialMetaTileEntity(StorageModule.TANK_MATERIALS, MODULABLE_TANK_VALVES, 4220,
                 StorageModule::initTankValve);
 
-        MaterialMetaTileEntity.registerMaterialMetaTileEntity(StorageModule.CRATE_MATERIALS, MODULABLE_CRATE_VALVES,
-                4230, StorageModule::initCrateValve);
+        /*
+         * MaterialMetaTileEntity.registerMaterialMetaTileEntity(StorageModule.CRATE_MATERIALS, MODULABLE_CRATE_VALVES,
+         * 4230, StorageModule::initCrateValve);
+         */
 
         MaterialMetaTileEntity.registerMaterialMetaTileEntity(StorageModule.CRATE_MATERIALS, MODULABLE_CRATES,
                 4240, StorageModule::initModulableCrate);

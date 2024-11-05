@@ -40,7 +40,8 @@ public interface MetaTileEntityStorageFormat<T> {
     Function<T, Integer> getContentAmountProvider();
 
     /**
-     * This is what it is displayed between {@link #getBaseContentUnit()} and the result of {@link #getContentLocalizedNameProvider()} in {@link StorageUtils#getContentFormatted()}.
+     * This is what it is displayed between {@link #getBaseContentUnit()} and the result of
+     * {@link #getContentLocalizedNameProvider()} in {@link StorageUtils#getContentFormatted()}.
      * <br>
      * Basically:
      * <br>

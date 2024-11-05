@@ -139,6 +139,4 @@ public class MetaTileEntityMultiblockTank extends MetaTileEntityMultiblockStorag
     public FluidStack getContent() {
         return this.fluidInventory.drain(Integer.MAX_VALUE, false);
     }
-
-
 }

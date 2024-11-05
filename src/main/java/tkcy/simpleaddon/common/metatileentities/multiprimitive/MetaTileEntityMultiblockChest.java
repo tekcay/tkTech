@@ -4,11 +4,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.function.Function;
 
-import gregtech.api.util.GTUtility;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -25,6 +23,7 @@ import gregtech.api.pattern.PatternMatchContext;
 import gregtech.api.pattern.TraceabilityPredicate;
 import gregtech.api.unification.material.Material;
 import gregtech.api.util.GTTransferUtils;
+import gregtech.api.util.GTUtility;
 
 import lombok.Getter;
 import tkcy.simpleaddon.api.capabilities.TKCYSAMultiblockAbilities;
@@ -140,6 +139,4 @@ public class MetaTileEntityMultiblockChest extends MetaTileEntityMultiblockStora
     public CommonUnits getBaseContentUnit() {
         return CommonUnits.stack;
     }
-
-
 }
