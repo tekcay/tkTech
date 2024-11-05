@@ -277,6 +277,8 @@ tkcysa.multiblock.modulable_tank.bucket_equivalent=%s
 tkcysa.multiblock.modulable_storage.layer_infos=§e%s §fper layer, up to §b%d §flayers.
 
 tkcysa.multiblock.modulable_tank.tooltip=A multiblock tank which capacity can be increased with extra-layers.
+tkcysa.multiblock.modulable_chest.tooltip.1=A multiblock chest which capacity can be increased with extra-layers.
+tkcysa.multiblock.modulable_chest.tooltip.2=No GUI (for now), only visible via the crafting station or AE2 for example.
 tkcysa.multiblock.modulable_pressurized_tank.tooltip=Modulable Pressurized Tank toolip
 tkcysa.multiblock.modulable_crate.tooltip=Modulable Crate tooltip
 

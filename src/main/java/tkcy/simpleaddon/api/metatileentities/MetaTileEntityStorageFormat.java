@@ -38,4 +38,13 @@ public interface MetaTileEntityStorageFormat<T> {
     Function<T, String> getContentLocalizedNameProvider();
 
     Function<T, Integer> getContentAmountProvider();
+
+    /**
+     * This is what it is displayed between {@link #getBaseContentUnit()} and the result of {@link #getContentLocalizedNameProvider()} in {@link StorageUtils#getContentFormatted()}.
+     * <br>
+     * Basically:
+     * <br>
+     * {@literal <amount><unit>}<b>LinkingWord</b>{@literal <content type>.}
+     */
+    String getLinkingWordForContentDisplay();
 }

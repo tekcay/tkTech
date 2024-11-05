@@ -166,21 +166,6 @@ public class MetaTileEntityMultiblockCrate extends MetaTileEntityMultiblockStora
     }
 
     @Override
-    public String getPercentageTranslationKey() {
-        return "tkcysa.multiblock.modulable_storage.fill.percentage";
-    }
-
-    @Override
-    public String getCapacityTranslationKey() {
-        return "tkcysa.multiblock.modulable_storage.capacity";
-    }
-
-    @Override
-    public String getContentTextTranslationKey() {
-        return "tkcysa.multiblock.modulable_storage.content";
-    }
-
-    @Override
     public NBTTagCompound writeToNBT(NBTTagCompound data) {
         super.writeToNBT(data);
 

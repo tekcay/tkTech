@@ -38,8 +38,9 @@ public class StorageUtils<T> {
     public String getContentFormatted() {
         if (isEmpty()) return "Empty";
 
-        return String.format("%s of %s",
+        return String.format("%s%s%s",
                 UnitsConversions.convertAndFormatToSizeOfOrder(this.baseContentUnit, this.contentAmount),
+                mte.getLinkingWordForContentDisplay(),
                 this.contentLocalizedName);
     }
 

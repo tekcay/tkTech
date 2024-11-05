@@ -224,4 +224,24 @@ public abstract class MetaTileEntityMultiblockStorage<ContentHandler, ContentTyp
     public StorageUtils<ContentType> getStorageUtil() {
         return new StorageUtils<>(this);
     }
+
+    @Override
+    public String getPercentageTranslationKey() {
+        return "tkcysa.multiblock.modulable_storage.fill.percentage";
+    }
+
+    @Override
+    public String getCapacityTranslationKey() {
+        return "tkcysa.multiblock.modulable_storage.capacity";
+    }
+
+    @Override
+    public String getContentTextTranslationKey() {
+        return "tkcysa.multiblock.modulable_storage.content";
+    }
+
+    @Override
+    public String getLinkingWordForContentDisplay() {
+        return " of ";
+    }
 }

@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.function.Function;
 
+import gregtech.api.util.GTUtility;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -32,7 +33,7 @@ import tkcy.simpleaddon.api.utils.units.CommonUnits;
 import tkcy.simpleaddon.modules.storagemodule.StorageModule;
 
 @StorageModule.StorageModulable
-public class MetaTileEntityMultiblockChest extends MetaTileEntityMultiblockStorage<IItemHandler, ItemStack> {
+public class MetaTileEntityMultiblockChest extends MetaTileEntityMultiblockStorage<IItemHandler, List<ItemStack>> {
 
     @Getter
     private GTItemStackHandler storage;
@@ -101,30 +102,38 @@ public class MetaTileEntityMultiblockChest extends MetaTileEntityMultiblockStora
     @Override
     public void addInformation(ItemStack stack, @Nullable World player, @NotNull List<String> tooltip,
                                boolean advanced) {
-        tooltip.add(I18n.format("tkcysa.multiblock.modulable_tank.tooltip"));
+        tooltip.add(I18n.format("tkcysa.multiblock.modulable_chest.tooltip.1"));
+        tooltip.add(I18n.format("tkcysa.multiblock.modulable_chest.tooltip.2"));
         tooltip.add(I18n.format("tkcysa.multiblock.modulable_storage.layer_infos",
                 getCapacityPerLayerFormatted(), getMaxSideLength()));
     }
 
     @Override
-    public Function<ItemStack, String> getContentLocalizedNameProvider() {
-        return itemStack -> "bla";
+    public Function<List<ItemStack>, String> getContentLocalizedNameProvider() {
+        return itemStacks -> "used";
     }
 
     @Override
-    public Function<ItemStack, Integer> getContentAmountProvider() {
-        return itemStack -> 3;
+    public String getLinkingWordForContentDisplay() {
+        return " ";
     }
 
     @Override
-    public StorageUtils<ItemStack> getStorageUtil() {
+    public Function<List<ItemStack>, Integer> getContentAmountProvider() {
+        return itemStacks -> Math.toIntExact(getTotalCapacity() - itemStacks.stream()
+                .filter(ItemStack::isEmpty)
+                .count());
+    }
+
+    @Override
+    public StorageUtils<List<ItemStack>> getStorageUtil() {
         return new StorageUtils<>(this);
     }
 
     @Override
     @Nullable
-    public ItemStack getContent() {
-        return ItemStack.EMPTY;
+    public List<ItemStack> getContent() {
+        return GTUtility.itemHandlerToList(this.storage);
     }
 
     @Override
@@ -132,21 +141,5 @@ public class MetaTileEntityMultiblockChest extends MetaTileEntityMultiblockStora
         return CommonUnits.stack;
     }
 
-    @Override
-    public String getPercentageTranslationKey() {
-        return null;
-    }
 
-    @Override
-    public String getCapacityTranslationKey() {
-        return null;
-    }
-
-    @Override
-    public String getContentTextTranslationKey() {
-        return null;
-    }
-
-    @Override
-    public void displayInfos(List<ITextComponent> textList) {}
 }
