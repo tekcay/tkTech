@@ -2,8 +2,6 @@ package tkcy.simpleaddon.common.metatileentities.storage;
 
 import java.util.List;
 
-import gregtech.api.metatileentity.MetaTileEntity;
-import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
@@ -13,6 +11,8 @@ import org.jetbrains.annotations.NotNull;
 
 import gregtech.api.capability.impl.FluidHandlerProxy;
 import gregtech.api.capability.impl.FluidTankList;
+import gregtech.api.metatileentity.MetaTileEntity;
+import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
 import gregtech.api.metatileentity.multiblock.IMultiblockAbilityPart;
 import gregtech.api.metatileentity.multiblock.MultiblockAbility;
 import gregtech.api.metatileentity.multiblock.MultiblockControllerBase;
@@ -65,8 +65,6 @@ public class MetaTileEntityModulableTankValve extends MetaTileEntityModulableVal
     public void registerAbilities(@NotNull List<IFluidHandler> abilityList) {
         abilityList.add(this.getImportFluids());
     }
-
-
 
     @Override
     public MetaTileEntity createMetaTileEntity(IGregTechTileEntity tileEntity) {

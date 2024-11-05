@@ -62,7 +62,7 @@ public class MetaTileEntityMultiblockCrate extends MetaTileEntityMultiblockStora
     protected void initializeInventory() {
         if (this.getMaterial() == null) return;
         super.initializeInventory();
-        this.storedStackHandler = new ModulableSingleItemStackHandler(this, totalCapacity);
+        this.storedStackHandler = new ModulableSingleItemStackHandler(this, getTotalCapacity());
         itemInventory = this.storedStackHandler;
         importItems = new ItemHandlerList(getAbilities(MultiblockAbility.IMPORT_ITEMS));
         exportItems = new ItemHandlerList(getAbilities(MultiblockAbility.EXPORT_ITEMS));
@@ -70,7 +70,7 @@ public class MetaTileEntityMultiblockCrate extends MetaTileEntityMultiblockStora
 
     @Override
     public MetaTileEntity createMetaTileEntity(IGregTechTileEntity tileEntity) {
-        return new MetaTileEntityMultiblockCrate(metaTileEntityId, getMaterial(), isLarge);
+        return new MetaTileEntityMultiblockCrate(metaTileEntityId, getMaterial(), isLarge());
     }
 
     protected boolean isImportHandlerWorkable() {

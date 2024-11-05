@@ -64,7 +64,7 @@ public class MetaTileEntityMultiblockTank extends MetaTileEntityMultiblockStorag
 
         setFluidPipeProperties();
 
-        this.tank = new FilteredFluidHandler(this.totalCapacity);
+        this.tank = new FilteredFluidHandler(getTotalCapacity());
         this.tank.setFilter(new PropertyFluidFilter(
                 this.fluidPipeProperties.getMaxFluidTemperature(),
                 false,
@@ -78,12 +78,12 @@ public class MetaTileEntityMultiblockTank extends MetaTileEntityMultiblockStorag
 
     @Override
     public MetaTileEntity createMetaTileEntity(IGregTechTileEntity tileEntity) {
-        return new MetaTileEntityMultiblockTank(metaTileEntityId, getMaterial(), isLarge);
+        return new MetaTileEntityMultiblockTank(metaTileEntityId, getMaterial(), isLarge());
     }
 
     @Override
     protected void updateFormedValid() {
-        this.tank.setCapacity(this.totalCapacity);
+        this.tank.setCapacity(getTotalCapacity());
     }
 
     @Override

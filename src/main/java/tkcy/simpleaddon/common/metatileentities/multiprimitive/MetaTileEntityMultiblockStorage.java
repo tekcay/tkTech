@@ -49,18 +49,17 @@ import tkcy.simpleaddon.api.utils.units.UnitsConversions;
 import tkcy.simpleaddon.common.block.TKCYSAMetaBlocks;
 import tkcy.simpleaddon.modules.storagemodule.StorageModule;
 
+@Getter
 @StorageModule.StorageModulable
 public abstract class MetaTileEntityMultiblockStorage<ContentHandler, ContentType> extends MultiblockWithDisplayBase
                                                      implements RepetitiveSide, BlockMaterialMetaTileEntityPaint,
                                                      MaterialMetaTileEntity,
                                                      MetaTileEntityStorageFormat<ContentType> {
 
-    @Getter
     private final Material material;
-    @Getter
-    protected int totalCapacity;
+    private final boolean isLarge;
+    private int totalCapacity;
     private int height;
-    protected final boolean isLarge;
 
     public MetaTileEntityMultiblockStorage(ResourceLocation metaTileEntityId, Material material, boolean isLarge) {
         super(metaTileEntityId);

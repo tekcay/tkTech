@@ -1,6 +1,5 @@
 package tkcy.simpleaddon.modules;
 
-
 import java.util.function.Consumer;
 
 import net.minecraft.item.ItemStack;

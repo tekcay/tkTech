@@ -15,8 +15,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import gregtech.api.gui.ModularUI;
-import gregtech.api.metatileentity.MetaTileEntity;
-import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
 import gregtech.api.metatileentity.multiblock.IMultiblockAbilityPart;
 import gregtech.api.metatileentity.multiblock.MultiblockControllerBase;
 import gregtech.api.unification.material.Material;
@@ -100,6 +98,7 @@ public abstract class MetaTileEntityModulableValve<T> extends MetaTileEntityMult
     protected abstract void autoOutputInventory(T handler);
 
     protected abstract Capability<T> getCapability();
+
     protected abstract boolean doesAutoOutput();
 
     @Override

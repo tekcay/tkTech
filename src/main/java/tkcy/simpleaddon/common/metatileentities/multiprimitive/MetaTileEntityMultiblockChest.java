@@ -1,14 +1,9 @@
 package tkcy.simpleaddon.common.metatileentities.multiprimitive;
 
-import gregtech.api.capability.impl.ItemHandlerList;
-import gregtech.api.items.itemhandlers.GTItemStackHandler;
-import gregtech.api.metatileentity.MetaTileEntity;
-import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
-import gregtech.api.pattern.PatternMatchContext;
-import gregtech.api.pattern.TraceabilityPredicate;
-import gregtech.api.unification.material.Material;
-import gregtech.api.util.GTTransferUtils;
-import lombok.Getter;
+import java.util.Collections;
+import java.util.List;
+import java.util.function.Function;
+
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -17,16 +12,24 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import gregtech.api.capability.impl.ItemHandlerList;
+import gregtech.api.items.itemhandlers.GTItemStackHandler;
+import gregtech.api.metatileentity.MetaTileEntity;
+import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
+import gregtech.api.pattern.PatternMatchContext;
+import gregtech.api.pattern.TraceabilityPredicate;
+import gregtech.api.unification.material.Material;
+import gregtech.api.util.GTTransferUtils;
+
+import lombok.Getter;
 import tkcy.simpleaddon.api.capabilities.TKCYSAMultiblockAbilities;
 import tkcy.simpleaddon.api.utils.StorageUtils;
 import tkcy.simpleaddon.api.utils.units.CommonUnits;
 import tkcy.simpleaddon.modules.storagemodule.StorageModule;
-
-import java.util.Collections;
-import java.util.List;
-import java.util.function.Function;
 
 @StorageModule.StorageModulable
 public class MetaTileEntityMultiblockChest extends MetaTileEntityMultiblockStorage<IItemHandler, ItemStack> {
@@ -54,7 +57,7 @@ public class MetaTileEntityMultiblockChest extends MetaTileEntityMultiblockStora
     @Override
     protected void formStructure(PatternMatchContext context) {
         super.formStructure(context);
-        if (this.storage.getSlots() != totalCapacity) {
+        if (this.storage.getSlots() != getTotalCapacity()) {
             resizeStorageHandler();
         }
     }
@@ -65,16 +68,16 @@ public class MetaTileEntityMultiblockChest extends MetaTileEntityMultiblockStora
     }
 
     private void resizeStorageHandler() {
-        GTItemStackHandler tempoHandler = new GTItemStackHandler(this, totalCapacity);
+        GTItemStackHandler tempoHandler = new GTItemStackHandler(this, getTotalCapacity());
         GTTransferUtils.moveInventoryItems(this.storage, tempoHandler);
-        this.storage.setSize(totalCapacity);
+        this.storage.setSize(getTotalCapacity());
         GTTransferUtils.moveInventoryItems(tempoHandler, this.storage);
         initHandlers();
     }
 
     @Override
     public MetaTileEntity createMetaTileEntity(IGregTechTileEntity tileEntity) {
-        return new MetaTileEntityMultiblockChest(metaTileEntityId, getMaterial(), isLarge);
+        return new MetaTileEntityMultiblockChest(metaTileEntityId, getMaterial(), isLarge());
     }
 
     @Override
