@@ -23,12 +23,17 @@
  */
 dependencies {
 
+    api("com.cleanroommc:modularui:2.4.3") { transitive = false }
+
     // Hard Dependencies
     // the CCL deobf jar uses very old MCP mappings, making it error at runtime in runClient/runServer
     // therefore we manually deobf the regular jar
     implementation rfg.deobf("curse.maven:codechicken-lib-1-8-242818:2779848") // CCL 3.2.3.358
     // manually deobf the jar to prevent extra configuration for handling obf/deobf separation
-    implementation rfg.deobf("curse.maven:gregtech-ce-unofficial-557242:5519022-deobf-5519023-sources-5519024") //2.8.10
+
+    //implementation rfg.deobf("curse.maven:gregtech-ce-unofficial-557242:5322654-deobf-5322655-sources-5322656") //2.8.8
+
+    implementation files('libs/gregtech-tk-fork-0.1-dev.jar') //tk fork
 
     // Soft Dependencies
     implementation "CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-4.1.20.684"

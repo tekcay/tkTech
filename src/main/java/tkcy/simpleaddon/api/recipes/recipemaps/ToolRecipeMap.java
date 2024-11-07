@@ -28,11 +28,14 @@ public class ToolRecipeMap<T extends ToolRecipeBuilder> extends RecipeMap<ToolRe
                                                  FluidTankList importFluids, FluidTankList exportFluids, int yoffset) {
         ModularUI.Builder builder = ModularUI.builder(GuiTextures.BACKGROUND, 176, 80);
         // ModularUI.Builder builder = ModularUI.defaultBuilder(yOffset);
-        builder.widget(new RecipeProgressWidget(200, 78, 7, 20, 20, progressBarTexture, moveType, this));
+        builder.widget(new RecipeProgressWidget(200, 78, 7, 20, 20, recipeMapUI.progressBarTexture(),
+                recipeMapUI.progressBarMoveType(), this));
         addInventorySlotGroup(builder, importItems, importFluids, false, -16);
         addInventorySlotGroup(builder, exportItems, exportFluids, true, -16);
 
-        if (this.specialTexture != null && this.specialTexturePosition != null) addSpecialTexture(builder);
+        if (recipeMapUI.specialTexture() != null && recipeMapUI.specialTexturePosition() != null) {
+            addSpecialTexture(builder);
+        }
         return builder;
     }
 }

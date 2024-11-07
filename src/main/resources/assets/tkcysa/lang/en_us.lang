@@ -1,142 +1,142 @@
 ##ChromiteChain
-gregtech.material.sodium_dichromate=Sodium Dichromate
-gregtech.material.sodium_chromate=Sodium Chromate
-gregtech.material.chromium_oxide=Chromium Oxide
-gregtech.material.sodium_carbonate=Sodium Carbonate
-gregtech.material.sodium_sulfate=Sodium Sulfate
-gregtech.material.potassium_sulfate=Potassium Sulfate
+tkcysa.material.sodium_dichromate=Sodium Dichromate
+tkcysa.material.sodium_chromate=Sodium Chromate
+tkcysa.material.chromium_oxide=Chromium Oxide
+tkcysa.material.sodium_carbonate=Sodium Carbonate
+tkcysa.material.sodium_sulfate=Sodium Sulfate
+tkcysa.material.potassium_sulfate=Potassium Sulfate
 
 ##AluminiumChain
-gregtech.material.aluminium_fluoride=Aluminium Fluoride
-gregtech.material.alumina=Alumina
-gregtech.material.aluminium_hydroxide=Aluminium Hydroxide
+tkcysa.material.aluminium_fluoride=Aluminium Fluoride
+tkcysa.material.alumina=Alumina
+tkcysa.material.aluminium_hydroxide=Aluminium Hydroxide
 
-gregtech.material.potassium_aluminate=Potassium Aluminate
-gregtech.material.sodium_aluminate=Sodium Aluminate
+tkcysa.material.potassium_aluminate=Potassium Aluminate
+tkcysa.material.sodium_aluminate=Sodium Aluminate
 
-gregtech.material.bauxite_residue=Bauxite Residue
+tkcysa.material.bauxite_residue=Bauxite Residue
 
-gregtech.material.potash_treated_bauxite=Potash Treated Bauxite
-gregtech.material.soda_treated_bauxite=Soda Treated Bauxite
-gregtech.material.treated_sodium_aluminate=Treated Sodium Aluminate
-gregtech.material.treated_potassium_aluminate=Treated Potassium Aluminate
-gregtech.material.dried_treated_potassium_aluminate=Dried Treated Potassium Aluminate
-gregtech.material.dried_treated_sodium_aluminate=Dried Treated Sodium Aluminate
+tkcysa.material.potash_treated_bauxite=Potash Treated Bauxite
+tkcysa.material.soda_treated_bauxite=Soda Treated Bauxite
+tkcysa.material.treated_sodium_aluminate=Treated Sodium Aluminate
+tkcysa.material.treated_potassium_aluminate=Treated Potassium Aluminate
+tkcysa.material.dried_treated_potassium_aluminate=Dried Treated Potassium Aluminate
+tkcysa.material.dried_treated_sodium_aluminate=Dried Treated Sodium Aluminate
 
-gregtech.material.cryolite=Cryolite
-gregtech.material.hexafluorosilic_acid=Hexafluorosilic Acid
+tkcysa.material.cryolite=Cryolite
+tkcysa.material.hexafluorosilic_acid=Hexafluorosilic Acid
 
 ##GoldChain
-gregtech.material.precious_metal=Precious Metal
-gregtech.material.gold_alloy=Gold Alloy
-gregtech.material.gold_leach=Gold Leach
-gregtech.material.copper_leach=Copper Leach
-gregtech.material.chloroauric_acid=Chloroauric Acid
-gregtech.material.potassium_metabisulfite=Potassium Metasulfite
-gregtech.material.potassium_hydroxide=Potassium Hydroxide
+tkcysa.material.precious_metal=Precious Metal
+tkcysa.material.gold_alloy=Gold Alloy
+tkcysa.material.gold_leach=Gold Leach
+tkcysa.material.copper_leach=Copper Leach
+tkcysa.material.chloroauric_acid=Chloroauric Acid
+tkcysa.material.potassium_metabisulfite=Potassium Metasulfite
+tkcysa.material.potassium_hydroxide=Potassium Hydroxide
 
 ##Roasting
-gregtech.material.kesterite=Kesterite
-gregtech.material.stannite=Stannite
-gregtech.material.aresenopyrite=Arsenopyrite
-gregtech.material.molybdenum_trioxde=Molybdenum Trioxide
+tkcysa.material.kesterite=Kesterite
+tkcysa.material.stannite=Stannite
+tkcysa.material.aresenopyrite=Arsenopyrite
+tkcysa.material.molybdenum_trioxde=Molybdenum Trioxide
 
 ##RoastingOutput
-gregtech.material.cuprite=Cuprite
-gregtech.material.roasted.tetrahedrite=Roasted Tetrahedrite
-gregtech.material.roasted.stannite=Roasted Stannite
-gregtech.material.roasted.kesterite=Roasted Kesterite
-gregtech.material.roasted.arsenopyrite=Roasted Arsenopyrite
-gregtech.material.roasted.pyrite=Roasted Pyrite
-gregtech.material.roasted.cobaltite=Roasted Cobaltite
-gregtech.material.roasted.galena=Roasted Galena
-gregtech.material.roasted.chalcopyrite=Roasted Chalcopyrite
-gregtech.material.roasted.bornite=Roasted Bornite
+tkcysa.material.cuprite=Cuprite
+tkcysa.material.roasted.tetrahedrite=Roasted Tetrahedrite
+tkcysa.material.roasted.stannite=Roasted Stannite
+tkcysa.material.roasted.kesterite=Roasted Kesterite
+tkcysa.material.roasted.arsenopyrite=Roasted Arsenopyrite
+tkcysa.material.roasted.pyrite=Roasted Pyrite
+tkcysa.material.roasted.cobaltite=Roasted Cobaltite
+tkcysa.material.roasted.galena=Roasted Galena
+tkcysa.material.roasted.chalcopyrite=Roasted Chalcopyrite
+tkcysa.material.roasted.bornite=Roasted Bornite
 
 ##Iron
-gregtech.material.pig_iron=Pig Iron
+tkcysa.material.pig_iron=Pig Iron
 
 ##Tungsten
-gregtech.material.tungsten_oxide=Tungsten Oxide
+tkcysa.material.tungsten_oxide=Tungsten Oxide
 
 ##Zinc
-gregtech.material.zinc_leaching_solution=Zinc Leaching Solution
-gregtech.material.zinc_sulfate=Zinc Sulfate
+tkcysa.material.zinc_leaching_solution=Zinc Leaching Solution
+tkcysa.material.zinc_sulfate=Zinc Sulfate
 
 ##Germanium
-gregtech.material.zinc_leaching_residue=Zinc Leaching Residue
-gregtech.material.iron_sulfate=Iron Sulfate
-gregtech.material.germanium_sulfide=Germanium Sulfide
-gregtech.material.germanium_oxide=Germanium Oxide
-gregtech.material.germanium_tetrachloride=Germanium Tetrachloride
-gregtech.material.argyrodite=Argyroditee
+tkcysa.material.zinc_leaching_residue=Zinc Leaching Residue
+tkcysa.material.iron_sulfate=Iron Sulfate
+tkcysa.material.germanium_sulfide=Germanium Sulfide
+tkcysa.material.germanium_oxide=Germanium Oxide
+tkcysa.material.germanium_tetrachloride=Germanium Tetrachloride
+tkcysa.material.argyrodite=Argyroditee
 
 ## Fluorine
-gregtech.material.potassium_bifluoride=Potassium Bifluoride
-gregtech.material.fluorite=Fluorite
-gregtech.material.calcium_sulfate=Calcium Sulfate
-gregtech.material.lithium_fluoride=Lithium Fluoride
-gregtech.material.sodium_fluoride=Sodium Fluoride
-gregtech.material.potassium_fluoride=Potassium Fluoride
-gregtech.material.lithium_hydroxide=Lithium Hydroxide
-gregtech.material.hydrogen_fluoride=Hydrogen Fluoride
+tkcysa.material.potassium_bifluoride=Potassium Bifluoride
+tkcysa.material.fluorite=Fluorite
+tkcysa.material.calcium_sulfate=Calcium Sulfate
+tkcysa.material.lithium_fluoride=Lithium Fluoride
+tkcysa.material.sodium_fluoride=Sodium Fluoride
+tkcysa.material.potassium_fluoride=Potassium Fluoride
+tkcysa.material.lithium_hydroxide=Lithium Hydroxide
+tkcysa.material.hydrogen_fluoride=Hydrogen Fluoride
 
 ##Arsenic
-gregtech.material.arsenopyrite=Arsenopyrite
+tkcysa.material.arsenopyrite=Arsenopyrite
 
 ## Manganese
-gregtech.material.treated_spessartine=Treated Spessartine
-gregtech.material.dry_oxalic_acid=Dry Oxalic Acid
-gregtech.material.oxalic_acid=Oxalic Acid
-gregtech.material.dimethyl_oxalate=Dimethyl Oxalate
-gregtech.material.diethyl_oxalate=Diethyl Oxalate
-gregtech.material.crude_oxalic_acid=Crude Oxalic Acid
-gregtech.material.crude_dimethyl_oxalate=Crude Dimethyl Oxalate
-gregtech.material.crude_diethyl_oxalate=Crude Diethyl Oxalate
+tkcysa.material.treated_spessartine=Treated Spessartine
+tkcysa.material.dry_oxalic_acid=Dry Oxalic Acid
+tkcysa.material.oxalic_acid=Oxalic Acid
+tkcysa.material.dimethyl_oxalate=Dimethyl Oxalate
+tkcysa.material.diethyl_oxalate=Diethyl Oxalate
+tkcysa.material.crude_oxalic_acid=Crude Oxalic Acid
+tkcysa.material.crude_dimethyl_oxalate=Crude Dimethyl Oxalate
+tkcysa.material.crude_diethyl_oxalate=Crude Diethyl Oxalate
 
 ## Platinum group
-gregtech.material.treated_platinum_group_sludge=Treated Platinum Group Sludge
-gregtech.material.rhodium_hydroxide=Rhodium Hydroxide
-gregtech.material.chlororhodic_acid=Chlororhodic Acid
-gregtech.material.rhodium_precipitate=Rhodium Precipitate
-gregtech.material.treated_rhodium_precipitate=Treated Rhodium Precipitate
-gregtech.material.rhodium_hot=Hot Rhodium
+tkcysa.material.treated_platinum_group_sludge=Treated Platinum Group Sludge
+tkcysa.material.rhodium_hydroxide=Rhodium Hydroxide
+tkcysa.material.chlororhodic_acid=Chlororhodic Acid
+tkcysa.material.rhodium_precipitate=Rhodium Precipitate
+tkcysa.material.treated_rhodium_precipitate=Treated Rhodium Precipitate
+tkcysa.material.rhodium_hot=Hot Rhodium
 
 ##Alloys
-gregtech.material.galvanized_steel=Galvanized Steel
-gregtech.material.monel=Monel
-gregtech.material.bt_6=BT6
-gregtech.material.hastelloy_n=Hastelloy N
-gregtech.material.inconel_600=Inconel-600
-gregtech.material.inconel_690=Inconel-690
-gregtech.material.eglin_steel=Eglin Steel
-gregtech.material.af_1410=AF_1410
-gregtech.material.aermet_100=AerMet 100
-gregtech.material.hy_180=HY 180
-gregtech.material.hp_4920=HP 4920
-gregtech.material.stellite_star_j=Stellite Star J
-gregtech.material.mangalloy=Mangalloy
-gregtech.material.talonite=Talonite
-gregtech.material.nitinol=Nitinol
-gregtech.material.nitinol_60=Nitinol-60
-gregtech.material.tc_4=Ti-6Al-4V
-gregtech.material.aluminium_5052=Aluminium 5052
-gregtech.material.aluminium_6061=Aluminium 6061
+tkcysa.material.galvanized_steel=Galvanized Steel
+tkcysa.material.monel=Monel
+tkcysa.material.bt_6=BT6
+tkcysa.material.hastelloy_n=Hastelloy N
+tkcysa.material.inconel_600=Inconel-600
+tkcysa.material.inconel_690=Inconel-690
+tkcysa.material.eglin_steel=Eglin Steel
+tkcysa.material.af_1410=AF_1410
+tkcysa.material.aermet_100=AerMet 100
+tkcysa.material.hy_180=HY 180
+tkcysa.material.hp_4920=HP 4920
+tkcysa.material.stellite_star_j=Stellite Star J
+tkcysa.material.mangalloy=Mangalloy
+tkcysa.material.talonite=Talonite
+tkcysa.material.nitinol=Nitinol
+tkcysa.material.nitinol_60=Nitinol-60
+tkcysa.material.tc_4=Ti-6Al-4V
+tkcysa.material.aluminium_5052=Aluminium 5052
+tkcysa.material.aluminium_6061=Aluminium 6061
 
 ##Chemicals
-gregtech.material.sodium_nitrite=Sodium Nitrite
-gregtech.material.sodium_nitrite_solution=Sodium Nitrite Solution
-gregtech.material.liquid_dinitrogen_trioxide=Liquid Dinitrogen Trioxide
+tkcysa.material.sodium_nitrite=Sodium Nitrite
+tkcysa.material.sodium_nitrite_solution=Sodium Nitrite Solution
+tkcysa.material.liquid_dinitrogen_trioxide=Liquid Dinitrogen Trioxide
 
 ##Misc materials
-gregtech.material.ceramic=Ceramic
-gregtech.material.mica_pulp=Mica Based
+tkcysa.material.ceramic=Ceramic
+tkcysa.material.mica_pulp=Mica Based
 
 
 ##Methane cracking
-gregtech.material.severely_steam_cracked_methane=Severely Steam Cracked Methane
-gregtech.material.moderately_steam_cracked_methane=Moderately Steam Cracked Methane
-gregtech.material.lightly_steam_cracked_methane=Lightly Steam Cracked Methane
+tkcysa.material.severely_steam_cracked_methane=Severely Steam Cracked Methane
+tkcysa.material.moderately_steam_cracked_methane=Moderately Steam Cracked Methane
+tkcysa.material.lightly_steam_cracked_methane=Lightly Steam Cracked Methane
 
 ##MTEs
 tkcysa.machine.primitive_roasting_oven.name=Primitive Roasting Oven
