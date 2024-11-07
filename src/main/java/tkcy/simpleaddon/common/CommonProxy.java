@@ -5,6 +5,7 @@ import static tkcy.simpleaddon.TekCaySimpleAddon.MODID;
 import java.util.Objects;
 import java.util.function.Function;
 
+import gregtech.api.unification.material.event.MaterialRegistryEvent;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
@@ -45,6 +46,11 @@ public class CommonProxy {
     @SubscribeEvent
     public static void registerMTERegistry(MTEManager.MTERegistryEvent event) {
         GregTechAPI.mteManager.createRegistry(MODID);
+    }
+
+    @SubscribeEvent
+    public static void createMaterialRegistry(MaterialRegistryEvent event) {
+        GregTechAPI.materialManager.createRegistry(MODID);
     }
 
     @SubscribeEvent

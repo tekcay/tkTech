@@ -33,7 +33,7 @@ dependencies {
 
     //implementation rfg.deobf("curse.maven:gregtech-ce-unofficial-557242:5322654-deobf-5322655-sources-5322656") //2.8.8
 
-    implementation files('libs/gregtech-tk-fork-1.12.2-0.1-dev.jar') //tk fork
+    implementation files('libs/gregtech-tk-fork-0.1-dev.jar') //tk fork
 
     // Soft Dependencies
     implementation "CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-4.1.20.684"
