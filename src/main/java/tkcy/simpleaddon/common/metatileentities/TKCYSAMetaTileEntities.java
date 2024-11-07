@@ -22,6 +22,8 @@ import tkcy.simpleaddon.common.metatileentities.primitive.AnvilMetatileEntity;
 import tkcy.simpleaddon.common.metatileentities.primitive.PrimitiveCasting;
 import tkcy.simpleaddon.common.metatileentities.steam.SteamDustMixer;
 import tkcy.simpleaddon.common.metatileentities.steam.SteamMelter;
+import tkcy.simpleaddon.common.metatileentities.storage.MetaTileEntityModulableChestValve;
+import tkcy.simpleaddon.common.metatileentities.storage.MetaTileEntityModulableCrateValve;
 import tkcy.simpleaddon.common.metatileentities.storage.MetaTileEntityModulableTankValve;
 import tkcy.simpleaddon.modules.storagemodule.StorageModule;
 
@@ -49,8 +51,23 @@ public class TKCYSAMetaTileEntities {
 
     public static MetaTileEntityModulableTankValve[] MODULABLE_TANK_VALVES = new MetaTileEntityModulableTankValve[StorageModule.TANK_MATERIALS
             .size()];
-    public static ModulableTank[] MODULABLE_TANKS = new ModulableTank[StorageModule.TANK_MATERIALS.size()];
-    public static ModulableTank[] MODULABLE_LARGE_TANKS = new ModulableTank[StorageModule.TANK_MATERIALS.size()];
+    public static MetaTileEntityModulableCrateValve[] MODULABLE_CRATE_VALVES = new MetaTileEntityModulableCrateValve[StorageModule.CRATE_MATERIALS
+            .size()];
+    public static MetaTileEntityModulableChestValve[] MODULABLE_CHEST_VALVES = new MetaTileEntityModulableChestValve[StorageModule.CRATE_MATERIALS
+            .size()];
+
+    public static MetaTileEntityMultiblockTank[] MODULABLE_TANKS = new MetaTileEntityMultiblockTank[StorageModule.TANK_MATERIALS
+            .size()];
+    public static MetaTileEntityMultiblockTank[] MODULABLE_LARGE_TANKS = new MetaTileEntityMultiblockTank[StorageModule.TANK_MATERIALS
+            .size()];
+    public static MetaTileEntityMultiblockCrate[] MODULABLE_CRATES = new MetaTileEntityMultiblockCrate[StorageModule.CRATE_MATERIALS
+            .size()];
+    public static MetaTileEntityMultiblockCrate[] MODULABLE_LARGE_CRATES = new MetaTileEntityMultiblockCrate[StorageModule.CRATE_MATERIALS
+            .size()];
+    public static MetaTileEntityMultiblockChest[] MODULABLE_CHESTS = new MetaTileEntityMultiblockChest[StorageModule.CRATE_MATERIALS
+            .size()];
+    public static MetaTileEntityMultiblockChest[] MODULABLE_LARGE_CHESTS = new MetaTileEntityMultiblockChest[StorageModule.CRATE_MATERIALS
+            .size()];
 
     public static void init() {
         PRIMITIVE_ROASTING_OVEN = registerMetaTileEntity(4000,
@@ -109,6 +126,26 @@ public class TKCYSAMetaTileEntities {
         MaterialMetaTileEntity.registerMaterialMetaTileEntity(StorageModule.TANK_MATERIALS, MODULABLE_LARGE_TANKS, 4210,
                 StorageModule::initModulableLargeTank);
         MaterialMetaTileEntity.registerMaterialMetaTileEntity(StorageModule.TANK_MATERIALS, MODULABLE_TANK_VALVES, 4220,
-                StorageModule::initValve);
+                StorageModule::initTankValve);
+
+        /*
+         * MaterialMetaTileEntity.registerMaterialMetaTileEntity(StorageModule.CRATE_MATERIALS, MODULABLE_CRATE_VALVES,
+         * 4230, StorageModule::initCrateValve);
+         */
+
+        MaterialMetaTileEntity.registerMaterialMetaTileEntity(StorageModule.CRATE_MATERIALS, MODULABLE_CRATES,
+                4240, StorageModule::initModulableCrate);
+
+        MaterialMetaTileEntity.registerMaterialMetaTileEntity(StorageModule.CRATE_MATERIALS, MODULABLE_LARGE_CRATES,
+                4250, StorageModule::initModulableLargeCrate);
+
+        MaterialMetaTileEntity.registerMaterialMetaTileEntity(StorageModule.CRATE_MATERIALS, MODULABLE_CHESTS,
+                4260, StorageModule::initModulableChest);
+
+        MaterialMetaTileEntity.registerMaterialMetaTileEntity(StorageModule.CRATE_MATERIALS, MODULABLE_LARGE_CHESTS,
+                4270, StorageModule::initModulableLargeChest);
+
+        MaterialMetaTileEntity.registerMaterialMetaTileEntity(StorageModule.CRATE_MATERIALS, MODULABLE_CHEST_VALVES,
+                4280, StorageModule::initChestValve);
     }
 }

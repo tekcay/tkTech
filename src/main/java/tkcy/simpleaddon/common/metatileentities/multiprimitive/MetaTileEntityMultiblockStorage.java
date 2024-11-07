@@ -1,15 +1,13 @@
 package tkcy.simpleaddon.common.metatileentities.multiprimitive;
 
-import static gregtech.api.util.RelativeDirection.*;
-import static gregtech.api.util.RelativeDirection.UP;
+import static tkcy.simpleaddon.modules.storagemodule.StorageModule.getLargeTankPattern;
+import static tkcy.simpleaddon.modules.storagemodule.StorageModule.getTankPattern;
 
 import java.util.List;
 import java.util.function.Function;
 
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
@@ -19,35 +17,21 @@ import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.event.HoverEvent;
-import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import org.lwjgl.input.Keyboard;
 
-import gregtech.api.capability.impl.FilteredFluidHandler;
-import gregtech.api.capability.impl.FluidTankList;
-import gregtech.api.capability.impl.PropertyFluidFilter;
 import gregtech.api.metatileentity.MetaTileEntity;
-import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
 import gregtech.api.metatileentity.multiblock.IMultiblockPart;
 import gregtech.api.metatileentity.multiblock.MultiblockWithDisplayBase;
 import gregtech.api.pattern.BlockPattern;
-import gregtech.api.pattern.FactoryBlockPattern;
 import gregtech.api.pattern.PatternMatchContext;
+import gregtech.api.pattern.TraceabilityPredicate;
 import gregtech.api.unification.material.Material;
-import gregtech.api.unification.material.Materials;
-import gregtech.api.unification.material.properties.FluidPipeProperties;
-import gregtech.api.unification.material.properties.PropertyKey;
 import gregtech.client.renderer.ICubeRenderer;
 import gregtech.client.renderer.texture.Textures;
-import gregtech.common.blocks.BlockSteamCasing;
-import gregtech.common.blocks.MetaBlocks;
 
 import codechicken.lib.raytracer.CuboidRayTraceResult;
 import codechicken.lib.render.CCRenderState;
@@ -60,113 +44,67 @@ import tkcy.simpleaddon.api.metatileentities.MetaTileEntityStorageFormat;
 import tkcy.simpleaddon.api.metatileentities.RepetitiveSide;
 import tkcy.simpleaddon.api.predicates.TKCYSAPredicates;
 import tkcy.simpleaddon.api.render.TKCYSATextures;
-import tkcy.simpleaddon.api.utils.MaterialHelper;
 import tkcy.simpleaddon.api.utils.StorageUtils;
-import tkcy.simpleaddon.api.utils.units.CommonUnits;
 import tkcy.simpleaddon.api.utils.units.UnitsConversions;
 import tkcy.simpleaddon.common.block.TKCYSAMetaBlocks;
 import tkcy.simpleaddon.modules.storagemodule.StorageModule;
 
+@Getter
 @StorageModule.StorageModulable
-public class ModulableTank extends MultiblockWithDisplayBase
-                           implements RepetitiveSide, BlockMaterialMetaTileEntityPaint, MaterialMetaTileEntity,
-                           MetaTileEntityStorageFormat<FluidStack> {
+public abstract class MetaTileEntityMultiblockStorage<ContentHandler, ContentType> extends MultiblockWithDisplayBase
+                                                     implements RepetitiveSide, BlockMaterialMetaTileEntityPaint,
+                                                     MaterialMetaTileEntity,
+                                                     MetaTileEntityStorageFormat<ContentType> {
 
-    @Getter
     private final Material material;
-    private int height;
     private final boolean isLarge;
-    private final int layerCapacity;
     private int totalCapacity;
-    private FluidPipeProperties fluidPipeProperties;
-    private FilteredFluidHandler tank;
+    private int height;
 
-    public ModulableTank(ResourceLocation metaTileEntityId, Material material, boolean isLarge) {
+    public MetaTileEntityMultiblockStorage(ResourceLocation metaTileEntityId, Material material, boolean isLarge) {
         super(metaTileEntityId);
         this.material = material;
         this.isLarge = isLarge;
-        this.layerCapacity = (int) Math.pow(10, 6) * (isLarge ? 21 : 1);
         initializeInventory();
-    }
-
-    private void setFluidPipeProperties() {
-        this.fluidPipeProperties = MaterialHelper.getMaterialProperty(this.material, PropertyKey.FLUID_PIPE);
     }
 
     @Override
     protected void formStructure(PatternMatchContext context) {
         super.formStructure(context);
         this.height = context.getOrDefault(RepetitiveSide.getHeightMarker(), 0) + 1;
-        this.totalCapacity = this.layerCapacity * this.height;
+        this.totalCapacity = getLayerCapacity() * this.height;
     }
 
-    @Override
-    protected void initializeInventory() {
-        if (this.material == null) return;
-        super.initializeInventory();
-
-        setFluidPipeProperties();
-
-        this.tank = new FilteredFluidHandler(this.totalCapacity);
-        this.tank.setFilter(new PropertyFluidFilter(
-                this.fluidPipeProperties.getMaxFluidTemperature(),
-                false,
-                this.fluidPipeProperties.isAcidProof(),
-                false,
-                false));
-
-        this.exportFluids = this.importFluids = new FluidTankList(true, this.tank);
-        this.fluidInventory = this.tank;
+    protected int getLayerCapacity() {
+        return (isLarge ? 21 : 1);
     }
 
-    @Override
-    public MetaTileEntity createMetaTileEntity(IGregTechTileEntity tileEntity) {
-        return new ModulableTank(metaTileEntityId, material, isLarge);
-    }
+    protected abstract Capability<ContentHandler> getCapability();
 
-    @Override
-    protected void updateFormedValid() {
-        this.tank.setCapacity(this.totalCapacity);
-    }
+    protected abstract ContentHandler getHandler();
+
+    protected abstract TraceabilityPredicate getTransferPredicate();
 
     @NotNull
     @Override
     protected BlockPattern createStructurePattern() {
-        return (this.isLarge ? getLargeTankPattern() : getTankPattern())
+        return (this.isLarge ? getLargeTankPattern(this) : getTankPattern(this))
                 .where('S', selfPredicate())
                 .where(' ', any())
                 .where('A', air())
                 .where('I', TKCYSAPredicates.isAir(RepetitiveSide.getHeightMarker()))
                 .where('X',
                         TKCYSAPredicates.iBlockStatePredicate(getSideBlockBlockState())
-                                .or(TKCYSAPredicates.metaTileEntityPredicate(StorageModule.getValve(this.material))
+                                .or(getTransferPredicate()
                                         .setMaxGlobalLimited(4)))
                 .build();
-    }
-
-    private FactoryBlockPattern getLargeTankPattern() {
-        return FactoryBlockPattern.start(RIGHT, FRONT, UP)
-                .aisle("  XXX  ", " XXXXX ", "XXXXXXX", "XXXXXXX", "XXXXXXX", " XXXXX ", "  XXX  ")
-                .aisle("  XSX  ", " XAAAX ", "XAAAAAX", "XAAAAAX", "XAAAAAX", " XAAAX ", "  XXX  ")
-                .aisle("  XXX  ", " XAAAX ", "XAAAAAX", "XAAIAAX", "XAAAAAX", " XAAAX ", "  XXX  ")
-                .setRepeatable(getMinSideLength(), getMaxSideLength())
-                .aisle("  XXX  ", " XXXXX ", "XXXXXXX", "XXXXXXX", "XXXXXXX", " XXXXX ", "  XXX  ");
-    }
-
-    private FactoryBlockPattern getTankPattern() {
-        return FactoryBlockPattern.start(RIGHT, FRONT, UP)
-                .aisle("XXX", "XXX", "XXX")
-                .aisle("XSX", "X X", "XXX")
-                .aisle("XXX", "XIX", "XXX").setRepeatable(getMinSideLength(), getMaxSideLength())
-                .aisle("XXX", "XXX", "XXX");
     }
 
     @SideOnly(Side.CLIENT)
     @Override
     @NotNull
     public ICubeRenderer getBaseTexture(IMultiblockPart sourcePart) {
-        if (this.material == Materials.TreatedWood) return Textures.WOOD_WALL;
-        else return TKCYSATextures.WALL_TEXTURE;
+        return TKCYSATextures.WALL_TEXTURE;
     }
 
     @Override
@@ -177,8 +115,7 @@ public class ModulableTank extends MultiblockWithDisplayBase
     @Override
     public boolean onRightClick(EntityPlayer playerIn, EnumHand hand, EnumFacing facing,
                                 CuboidRayTraceResult hitResult) {
-        if (!isStructureFormed())
-            return false;
+        if (!isStructureFormed()) return false;
         return super.onRightClick(playerIn, hand, facing, hitResult);
     }
 
@@ -213,19 +150,16 @@ public class ModulableTank extends MultiblockWithDisplayBase
 
     @Override
     public <T> T getCapability(Capability<T> capability, EnumFacing side) {
-        if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
-            if (isStructureFormed()) {
-                return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(this.fluidInventory);
-            } else {
-                return null;
-            }
+        if (capability == getCapability()) {
+            if (isStructureFormed()) return getCapability().cast(getHandler());
+            else return null;
         }
         return super.getCapability(capability, side);
     }
 
     @Override
     public int getMinSideLength() {
-        return 1;
+        return 0;
     }
 
     @Override
@@ -235,16 +169,7 @@ public class ModulableTank extends MultiblockWithDisplayBase
 
     @Override
     public IBlockState getSideBlockBlockState() {
-        if (this.material == Materials.TreatedWood)
-            return MetaBlocks.STEAM_CASING.getState(BlockSteamCasing.SteamCasingType.WOOD_WALL);
-        else {
-            return TKCYSAMetaBlocks.WALLS.get(this.material).getBlock(this.material);
-        }
-    }
-
-    @Override
-    public CommonUnits getBaseContentUnit() {
-        return CommonUnits.liter;
+        return TKCYSAMetaBlocks.WALLS.get(this.material).getBlock(this.material);
     }
 
     @Override
@@ -263,30 +188,12 @@ public class ModulableTank extends MultiblockWithDisplayBase
     }
 
     public String getCapacityPerLayerFormatted() {
-        return UnitsConversions.convertAndFormatToSizeOfOrder(this.layerCapacity, getBaseContentUnit());
-    }
-
-    @Override
-    public void addInformation(ItemStack stack, @Nullable World player, @NotNull List<String> tooltip,
-                               boolean advanced) {
-        tooltip.add(I18n.format("tkcysa.multiblock.modulable_tank.tooltip"));
-        tooltip.add(I18n.format(
-                "tkcysa.multiblock.modulable_storage.layer_infos", getCapacityPerLayerFormatted(), getMaxSideLength()));
-
-        if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)) {
-            tooltip.add(I18n.format("gregtech.fluid_pipe.max_temperature",
-                    this.fluidPipeProperties.getMaxFluidTemperature()));
-            if (this.fluidPipeProperties.isAcidProof()) {
-                tooltip.add(I18n.format("gregtech.fluid_pipe.acid_proof"));
-            }
-        } else {
-            tooltip.add(I18n.format("gregtech.tooltip.fluid_pipe_hold_shift"));
-        }
+        return UnitsConversions.convertAndFormatToSizeOfOrder(getBaseContentUnit(), getLayerCapacity());
     }
 
     @Override
     public void displayInfos(List<ITextComponent> textList) {
-        StorageUtils<FluidStack> stackStorageUtil = getStorageUtil();
+        StorageUtils<ContentType> stackStorageUtil = getStorageUtil();
 
         textList.add(stackStorageUtil.getCapacityTextTranslation());
         textList.add(stackStorageUtil.getContentTextTranslation());
@@ -296,16 +203,6 @@ public class ModulableTank extends MultiblockWithDisplayBase
     @Override
     public int getMaxCapacity() {
         return this.totalCapacity;
-    }
-
-    @Override
-    public Function<FluidStack, String> getContentLocalizedNameProvider() {
-        return FluidStack::getLocalizedName;
-    }
-
-    @Override
-    public Function<FluidStack, Integer> getContentAmountProvider() {
-        return fluidStack -> fluidStack.amount;
     }
 
     @Override
@@ -324,14 +221,8 @@ public class ModulableTank extends MultiblockWithDisplayBase
     }
 
     @Override
-    public StorageUtils<FluidStack> getStorageUtil() {
+    public StorageUtils<ContentType> getStorageUtil() {
         return new StorageUtils<>(this);
-    }
-
-    @Override
-    @Nullable
-    public FluidStack getContent() {
-        return this.fluidInventory.drain(Integer.MAX_VALUE, false);
     }
 
     @Override
@@ -347,5 +238,10 @@ public class ModulableTank extends MultiblockWithDisplayBase
     @Override
     public String getContentTextTranslationKey() {
         return "tkcysa.multiblock.modulable_storage.content";
+    }
+
+    @Override
+    public String getLinkingWordForContentDisplay() {
+        return " of ";
     }
 }

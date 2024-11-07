@@ -193,6 +193,36 @@ tkcysa.machine.modulable_large_tank.stainless_steel.name=Large Tank Stainless St
 tkcysa.machine.modulable_large_tank.galvanized_steel.name=Large Tank Galvanized Steel
 tkcysa.machine.modulable_large_tank.tungsten_carbide.name=Large Tank Tungsten Carbide
 
+tkcysa.machine.modulable_crate_valve.steel.name=Valve Crate Steel
+tkcysa.machine.modulable_crate_valve.stainless_steel.name=Valve Crate Stainless Steel
+tkcysa.machine.modulable_crate_valve.galvanized_steel.name=Valve Crate Galvanized Steel
+tkcysa.machine.modulable_crate_valve.tungsten_carbide.name=Valve Crate Tungsten Carbide
+
+tkcysa.machine.modulable_crate.steel.name=Crate Steel
+tkcysa.machine.modulable_crate.stainless_steel.name=Crate Stainless Steel
+tkcysa.machine.modulable_crate.galvanized_steel.name=Crate Galvanized Steel
+tkcysa.machine.modulable_crate.tungsten_carbide.name=Crate Tungsten Carbide
+
+tkcysa.machine.modulable_large_crate.steel.name=Large Crate Steel
+tkcysa.machine.modulable_large_crate.stainless_steel.name=Large Crate Stainless Steel
+tkcysa.machine.modulable_large_crate.galvanized_steel.name=Large Crate Galvanized Steel
+tkcysa.machine.modulable_large_crate.tungsten_carbide.name=Large Crate Tungsten Carbide
+
+tkcysa.machine.modulable_chest_valve.steel.name=Valve Chest Steel
+tkcysa.machine.modulable_chest_valve.stainless_steel.name=Valve Chest Stainless Steel
+tkcysa.machine.modulable_chest_valve.galvanized_steel.name=Valve Chest Galvanized Steel
+tkcysa.machine.modulable_chest_valve.tungsten_carbide.name=Valve Chest Tungsten Carbide
+
+tkcysa.machine.modulable_chest.steel.name=Chest Steel
+tkcysa.machine.modulable_chest.stainless_steel.name=Chest Stainless Steel
+tkcysa.machine.modulable_chest.galvanized_steel.name=Chest Galvanized Steel
+tkcysa.machine.modulable_chest.tungsten_carbide.name=Chest Tungsten Carbide
+
+tkcysa.machine.modulable_large_chest.steel.name=Large Chest Steel
+tkcysa.machine.modulable_large_chest.stainless_steel.name=Large Chest Stainless Steel
+tkcysa.machine.modulable_large_chest.galvanized_steel.name=Large Chest Galvanized Steel
+tkcysa.machine.modulable_large_chest.tungsten_carbide.name=Large Chest Tungsten Carbide
+
 ##RecipesMaps
 recipemap.primitive_roasting.name=Primtive Roasting
 recipemap.advanced_electrolysis.name=Electrolyzis
@@ -277,6 +307,8 @@ tkcysa.multiblock.modulable_tank.bucket_equivalent=%s
 tkcysa.multiblock.modulable_storage.layer_infos=§e%s §fper layer, up to §b%d §flayers.
 
 tkcysa.multiblock.modulable_tank.tooltip=A multiblock tank which capacity can be increased with extra-layers.
+tkcysa.multiblock.modulable_chest.tooltip.1=A multiblock chest which capacity can be increased with extra-layers.
+tkcysa.multiblock.modulable_chest.tooltip.2=No GUI (for now), only visible via the crafting station or AE2 for example.
 tkcysa.multiblock.modulable_pressurized_tank.tooltip=Modulable Pressurized Tank toolip
 tkcysa.multiblock.modulable_crate.tooltip=Modulable Crate tooltip
 
@@ -293,6 +325,5 @@ tkcya.recipe.tool.uses=Tool uses: %d
 
 
 
-behavior.tricorder.love=LOVE
-behavior.tricorder.fluid.amount=Fluid amount: %d L
-behavior.tricorder.fluid.name=Fluid name: %s
+behavior.tricorder.itemStack=Stack : %s %d %s
+behavior.tricorder.size=slots : %s %d
