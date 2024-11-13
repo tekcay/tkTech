@@ -2,6 +2,7 @@ package tkcy.simpleaddon.api.recipes.builders;
 
 import java.util.Arrays;
 
+import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.jetbrains.annotations.NotNull;
 
@@ -15,9 +16,9 @@ import gregtech.common.blocks.BlockWireCoil;
 import tkcy.simpleaddon.api.recipes.properties.CoilTypeProperty;
 import tkcy.simpleaddon.api.utils.TKCYSALog;
 
+@NoArgsConstructor
 public class CoilTypeRecipeBuilder extends RecipeBuilder<CoilTypeRecipeBuilder> {
 
-    public CoilTypeRecipeBuilder() {}
 
     @SuppressWarnings("unused")
     public CoilTypeRecipeBuilder(Recipe recipe, RecipeMap<CoilTypeRecipeBuilder> recipeMap) {
@@ -28,27 +29,14 @@ public class CoilTypeRecipeBuilder extends RecipeBuilder<CoilTypeRecipeBuilder> 
         super(recipeBuilder);
     }
 
+    @Override
     public CoilTypeRecipeBuilder copy() {
         return new CoilTypeRecipeBuilder(this);
     }
 
-    @Override
-    public boolean applyProperty(@NotNull String key, Object value) {
-        if (key.equals(CoilTypeProperty.KEY)) {
-            this.coil(((BlockWireCoil.CoilType) value));
-            return true;
-        }
-        return super.applyProperty(key, value);
-    }
-
     public CoilTypeRecipeBuilder coil(BlockWireCoil.CoilType coil) {
-        if (!Arrays.asList(BlockWireCoil.CoilType.values()).contains(coil)) {
-            TKCYSALog.logger.error("Coil type must be declared in the BlockWireCoil.CoilType enum!",
-                    new IllegalArgumentException());
-            recipeStatus = EnumValidationResult.INVALID;
-        }
-        this.applyProperty(CoilTypeProperty.getInstance(), coil);
-        return this;
+        CoilTypeProperty property = CoilTypeProperty.getInstance();
+        return (CoilTypeRecipeBuilder) property.testAndApplyPropertyValue(coil, this.recipeStatus, this);
     }
 
     public static BlockWireCoil.CoilType getDefaultValue() {
@@ -63,7 +51,7 @@ public class CoilTypeRecipeBuilder extends RecipeBuilder<CoilTypeRecipeBuilder> 
     @NotNull
     public BlockWireCoil.CoilType getCoilType() {
         return this.recipePropertyStorage == null ? getDefaultValue() :
-                this.recipePropertyStorage.getRecipePropertyValue(CoilTypeProperty.getInstance(),
+                this.recipePropertyStorage.get(CoilTypeProperty.getInstance(),
                         getDefaultValue());
     }
 
