@@ -1,13 +1,13 @@
 package tkcy.simpleaddon.api.recipes.logic;
 
-import static gregtech.api.recipes.logic.OverclockingLogic.standardOverclockingLogic;
-
 import org.jetbrains.annotations.NotNull;
 
 import gregtech.api.GTValues;
 import gregtech.api.capability.impl.MultiblockRecipeLogic;
 import gregtech.api.metatileentity.multiblock.RecipeMapMultiblockController;
-import gregtech.api.recipes.recipeproperties.IRecipePropertyStorage;
+import gregtech.api.recipes.logic.OCParams;
+import gregtech.api.recipes.logic.OCResult;
+import gregtech.api.recipes.properties.RecipePropertyStorage;
 
 /**
  * Recipe Logic for a Multiblock that does not require power.
@@ -34,8 +34,8 @@ public class NoEnergyLogic extends MultiblockRecipeLogic {
     }
 
     @Override
-    protected boolean drawEnergy(int recipeEUt, boolean simulate) {
-        return true; // spoof energy being drawn
+    protected boolean drawEnergy(long recipeEUt, boolean simulate) {
+        return false;
     }
 
     @Override
@@ -43,19 +43,11 @@ public class NoEnergyLogic extends MultiblockRecipeLogic {
         return 1L;
     }
 
-    @NotNull
     @Override
-    protected int[] runOverclockingLogic(@NotNull IRecipePropertyStorage propertyStorage, int recipeEUt,
-                                         long maxVoltage, int recipeDuration, int amountOC) {
-        return standardOverclockingLogic(
-                1,
-                this.getMaxVoltage(),
-                recipeDuration,
-                amountOC,
-                this.getOverclockingDurationDivisor(),
-                this.getOverclockingVoltageMultiplier()
-
-        );
+    protected void runOverclockingLogic(@NotNull OCParams ocParams, @NotNull OCResult ocResult,
+                                        @NotNull RecipePropertyStorage propertyStorage, long maxVoltage) {
+        ocParams.setEut(1L);
+        super.runOverclockingLogic(ocParams, ocResult, propertyStorage, maxVoltage);
     }
 
     @Override
@@ -66,6 +58,7 @@ public class NoEnergyLogic extends MultiblockRecipeLogic {
     /**
      * Used to reset cached values in the Recipe Logic on structure deform
      */
+    @Override
     public void invalidate() {
         previousRecipe = null;
         progressTime = 0;

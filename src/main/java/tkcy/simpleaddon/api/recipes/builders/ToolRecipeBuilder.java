@@ -1,29 +1,22 @@
 package tkcy.simpleaddon.api.recipes.builders;
 
-import org.jetbrains.annotations.NotNull;
-
 import gregtech.api.recipes.Recipe;
 import gregtech.api.recipes.RecipeBuilder;
 import gregtech.api.recipes.RecipeMap;
-import gregtech.api.recipes.recipeproperties.EmptyRecipePropertyStorage;
-import gregtech.api.recipes.recipeproperties.PrimitiveProperty;
+import gregtech.api.recipes.properties.impl.PrimitiveProperty;
 import gregtech.api.util.ValidationResult;
 
+import lombok.NoArgsConstructor;
 import tkcy.simpleaddon.api.recipes.properties.HideDurationProperty;
 import tkcy.simpleaddon.api.recipes.properties.ToolProperty;
 import tkcy.simpleaddon.api.recipes.properties.ToolUsesProperty;
-import tkcy.simpleaddon.modules.RecipePropertiesKey;
 import tkcy.simpleaddon.modules.toolmodule.ToolsModule;
 import tkcy.simpleaddon.modules.toolmodule.WorkingTool;
 
 @WorkingTool
+@NoArgsConstructor
 @SuppressWarnings("unused")
 public class ToolRecipeBuilder extends RecipeBuilder<ToolRecipeBuilder> {
-
-    @SuppressWarnings("unused")
-    public ToolRecipeBuilder() {
-        recipePropertyStorage = EmptyRecipePropertyStorage.INSTANCE.copy();
-    }
 
     @SuppressWarnings("unused")
     public ToolRecipeBuilder(Recipe recipe, RecipeMap<ToolRecipeBuilder> recipeMap) {
@@ -47,19 +40,6 @@ public class ToolRecipeBuilder extends RecipeBuilder<ToolRecipeBuilder> {
     public ToolRecipeBuilder toolUses(int uses) {
         ToolUsesProperty toolUsesProperty = ToolUsesProperty.getInstance();
         return (ToolRecipeBuilder) toolUsesProperty.testAndApplyPropertyValue(uses, this.recipeStatus, this);
-    }
-
-    @Override
-    public boolean applyProperty(@NotNull String key, Object value) {
-        if (key.equals(RecipePropertiesKey.TOOL_KEY)) {
-            this.tool((ToolsModule.GtTool) value);
-            return true;
-        }
-        if (key.equals(RecipePropertiesKey.TOOL_USAGE_KEY)) {
-            this.toolUses((Integer) value);
-            return true;
-        }
-        return super.applyProperty(key, value);
     }
 
     @Override

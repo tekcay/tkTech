@@ -23,7 +23,7 @@
  */
 dependencies {
 
-    api("com.cleanroommc:modularui:2.4.3") { transitive = false }
+    api("com.cleanroommc:modularui:2.5.0-rc1") { transitive = false }
 
     // Hard Dependencies
     // the CCL deobf jar uses very old MCP mappings, making it error at runtime in runClient/runServer
