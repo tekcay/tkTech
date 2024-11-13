@@ -1,18 +1,15 @@
 package tkcy.simpleaddon.api.recipes.builders;
 
-import gregtech.api.recipes.properties.impl.PrimitiveProperty;
-import lombok.NoArgsConstructor;
-import org.jetbrains.annotations.NotNull;
-
 import gregtech.api.recipes.Recipe;
 import gregtech.api.recipes.RecipeBuilder;
 import gregtech.api.recipes.RecipeMap;
+import gregtech.api.recipes.properties.impl.PrimitiveProperty;
 import gregtech.api.util.ValidationResult;
 
+import lombok.NoArgsConstructor;
 import tkcy.simpleaddon.api.recipes.properties.HideDurationProperty;
 import tkcy.simpleaddon.api.recipes.properties.ToolProperty;
 import tkcy.simpleaddon.api.recipes.properties.ToolUsesProperty;
-import tkcy.simpleaddon.modules.RecipePropertiesKey;
 import tkcy.simpleaddon.modules.toolmodule.ToolsModule;
 import tkcy.simpleaddon.modules.toolmodule.WorkingTool;
 

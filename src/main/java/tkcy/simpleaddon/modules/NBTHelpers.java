@@ -36,17 +36,20 @@ public class NBTHelpers {
     }
 
     public static TriConsumer<NBTTagCompound, List<ItemStack>, NBTLabel> itemStacksSerializer = (nbtTagCompound,
-                                                                                                      itemStacks,
-                                                                                                      nbtLabel) -> nbtTagCompound
-                                                                                                              .setTag(nbtLabel.name(),
-                                                                                                                      getSerializedItemsTag(
-                                                                                                                              itemStacks));
+                                                                                                 itemStacks,
+                                                                                                 nbtLabel) -> nbtTagCompound
+                                                                                                         .setTag(nbtLabel
+                                                                                                                 .name(),
+                                                                                                                 getSerializedItemsTag(
+                                                                                                                         itemStacks));
 
-    public static TriConsumer<NBTTagCompound, List<FluidStack>, NBTLabel> fluidStacksSerializer =
-            (nbtTagCompound,
-             fluidStacks,
-             nbtLabel) -> nbtTagCompound
-                    .setTag(nbtLabel.name(), getSerializedFluidsTag(fluidStacks));
+    public static TriConsumer<NBTTagCompound, List<FluidStack>, NBTLabel> fluidStacksSerializer = (nbtTagCompound,
+                                                                                                   fluidStacks,
+                                                                                                   nbtLabel) -> nbtTagCompound
+                                                                                                           .setTag(nbtLabel
+                                                                                                                   .name(),
+                                                                                                                   getSerializedFluidsTag(
+                                                                                                                           fluidStacks));
 
     public static NonNullList<ItemStack> getDeserializedItemStacks(@NotNull NBTTagCompound compound,
                                                                    @NotNull NBTLabel nbtLabel) {

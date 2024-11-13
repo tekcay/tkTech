@@ -1,8 +1,5 @@
 package tkcy.simpleaddon.api.recipes.builders;
 
-import java.util.Arrays;
-
-import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.jetbrains.annotations.NotNull;
 
@@ -10,15 +7,13 @@ import gregtech.api.recipes.Recipe;
 import gregtech.api.recipes.RecipeBuilder;
 import gregtech.api.recipes.RecipeMap;
 import gregtech.api.unification.material.Material;
-import gregtech.api.util.EnumValidationResult;
 import gregtech.common.blocks.BlockWireCoil;
 
+import lombok.NoArgsConstructor;
 import tkcy.simpleaddon.api.recipes.properties.CoilTypeProperty;
-import tkcy.simpleaddon.api.utils.TKCYSALog;
 
 @NoArgsConstructor
 public class CoilTypeRecipeBuilder extends RecipeBuilder<CoilTypeRecipeBuilder> {
-
 
     @SuppressWarnings("unused")
     public CoilTypeRecipeBuilder(Recipe recipe, RecipeMap<CoilTypeRecipeBuilder> recipeMap) {

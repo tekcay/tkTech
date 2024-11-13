@@ -2,16 +2,17 @@ package tkcy.simpleaddon.api.recipes.properties;
 
 import java.util.function.Predicate;
 
-import gregtech.api.recipes.properties.RecipeProperty;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
-
-import gregtech.api.recipes.RecipeBuilder;
-import gregtech.api.util.EnumValidationResult;
-
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagInt;
+
 import org.jetbrains.annotations.NotNull;
+
+import gregtech.api.recipes.RecipeBuilder;
+import gregtech.api.recipes.properties.RecipeProperty;
+import gregtech.api.util.EnumValidationResult;
+
 import tkcy.simpleaddon.api.utils.TKCYSALog;
 import tkcy.simpleaddon.modules.RecipePropertiesKey;
 import tkcy.simpleaddon.modules.toolmodule.WorkingTool;

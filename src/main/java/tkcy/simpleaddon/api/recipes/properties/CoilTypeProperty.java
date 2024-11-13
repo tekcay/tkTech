@@ -1,24 +1,26 @@
 package tkcy.simpleaddon.api.recipes.properties;
 
-import gregtech.api.recipes.RecipeBuilder;
-import gregtech.api.recipes.properties.RecipeProperty;
-import gregtech.api.util.EnumValidationResult;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.I18n;
-
-import gregtech.api.unification.material.Material;
-import gregtech.common.blocks.BlockWireCoil;
-
-import net.minecraft.nbt.NBTBase;
-import net.minecraft.nbt.NBTTagString;
-import org.jetbrains.annotations.NotNull;
-import tkcy.simpleaddon.api.utils.TKCYSALog;
-import tkcy.simpleaddon.modules.RecipePropertiesKey;
-
 import java.util.Arrays;
 import java.util.function.Predicate;
 
-public class CoilTypeProperty extends RecipeProperty<BlockWireCoil.CoilType> implements RecipePropertyHelper<BlockWireCoil.CoilType> {
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.I18n;
+import net.minecraft.nbt.NBTBase;
+import net.minecraft.nbt.NBTTagString;
+
+import org.jetbrains.annotations.NotNull;
+
+import gregtech.api.recipes.RecipeBuilder;
+import gregtech.api.recipes.properties.RecipeProperty;
+import gregtech.api.unification.material.Material;
+import gregtech.api.util.EnumValidationResult;
+import gregtech.common.blocks.BlockWireCoil;
+
+import tkcy.simpleaddon.api.utils.TKCYSALog;
+import tkcy.simpleaddon.modules.RecipePropertiesKey;
+
+public class CoilTypeProperty extends RecipeProperty<BlockWireCoil.CoilType>
+                              implements RecipePropertyHelper<BlockWireCoil.CoilType> {
 
     public static final String KEY = RecipePropertiesKey.COIL_KEY;
     private static CoilTypeProperty INSTANCE;
@@ -58,7 +60,9 @@ public class CoilTypeProperty extends RecipeProperty<BlockWireCoil.CoilType> imp
     }
 
     @Override
-    public RecipeBuilder<?> testAndApplyPropertyValue(BlockWireCoil.CoilType valueToTest, EnumValidationResult recipeStatus, RecipeBuilder<?> recipeBuilder) {
+    public RecipeBuilder<?> testAndApplyPropertyValue(BlockWireCoil.CoilType valueToTest,
+                                                      EnumValidationResult recipeStatus,
+                                                      RecipeBuilder<?> recipeBuilder) {
         if (!this.testSuppliedValue().test(valueToTest)) {
             TKCYSALog.logger.error(this::getErrorMessage, new IllegalArgumentException());
             recipeStatus = EnumValidationResult.INVALID;
