@@ -6,11 +6,13 @@ import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.items.IItemHandlerModifiable;
 
+import org.jetbrains.annotations.MustBeInvokedByOverriders;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -144,7 +146,7 @@ public class ToolRecipeLogic extends PrimitiveLogic {
                 metaTileEntity.getFluidOutputLimit());
 
         if (recipe != null && tryConsumeRecipeInputs(recipe)) {
-            setupRecipe(recipe);
+            setupToolRecipe(recipe);
             return true;
         }
         return false;
@@ -200,8 +202,7 @@ public class ToolRecipeLogic extends PrimitiveLogic {
     }
 
     // Removed parallel stuff
-    @Override
-    protected void setupRecipe(Recipe recipe) {
+    protected void setupToolRecipe(@NotNull Recipe recipe) {
         initToolUses();
         setRecipeToolUses(recipe);
         this.tool = ToolProperty.getInstance().getValueFromRecipe(recipe);
@@ -225,8 +226,8 @@ public class ToolRecipeLogic extends PrimitiveLogic {
             compound.setInteger(NBTLabel.CURRENT_TOOL_USES.name(), this.progressTime);
             compound.setInteger(NBTLabel.RECIPE_TOOL_USES.name(), this.maxProgressTime);
 
-            NBTHelpers.itemStacksSerializer.accept(compound, this.itemOutputs, NBTLabel.ITEM_OUTPUTS.name());
-            NBTHelpers.fluidStacksSerializer.accept(compound, this.fluidOutputs, NBTLabel.FLUID_OUTPUTS.name());
+            NBTHelpers.itemStacksSerializer.accept(compound, this.itemOutputs, NBTLabel.ITEM_OUTPUTS);
+            NBTHelpers.fluidStacksSerializer.accept(compound, this.fluidOutputs, NBTLabel.FLUID_OUTPUTS);
         }
         return compound;
     }
@@ -243,13 +244,6 @@ public class ToolRecipeLogic extends PrimitiveLogic {
             this.itemOutputs = NBTHelpers.getDeserializedItemStacks(compound, NBTLabel.ITEM_OUTPUTS);
             this.fluidOutputs = NBTHelpers.getDeserializedFluidStacks(compound, NBTLabel.FLUID_OUTPUTS);
         }
-    }
-
-    @Override
-    protected boolean setupAndConsumeRecipeInputs(@NotNull Recipe recipe,
-                                                  @NotNull IItemHandlerModifiable importInventory,
-                                                  @NotNull IMultipleTankHandler importFluids) {
-        return true;
     }
 
     @Override

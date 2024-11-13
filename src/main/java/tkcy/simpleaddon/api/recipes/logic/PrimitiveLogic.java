@@ -33,8 +33,8 @@ public class PrimitiveLogic extends AbstractRecipeLogic implements IWorkable, IP
     }
 
     @Override
-    protected boolean drawEnergy(int recipeEUt, boolean simulate) {
-        return true;
+    protected boolean drawEnergy(long recipeEUt, boolean simulate) {
+        return false;
     }
 
     @Override
