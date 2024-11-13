@@ -5,7 +5,6 @@ import static tkcy.simpleaddon.TekCaySimpleAddon.MODID;
 import java.util.Objects;
 import java.util.function.Function;
 
-import gregtech.api.unification.material.event.MaterialRegistryEvent;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
@@ -23,6 +22,7 @@ import gregtech.api.GregTechAPI;
 import gregtech.api.items.toolitem.IGTTool;
 import gregtech.api.metatileentity.registry.MTEManager;
 import gregtech.api.unification.material.event.MaterialEvent;
+import gregtech.api.unification.material.event.MaterialRegistryEvent;
 import gregtech.api.unification.material.event.PostMaterialEvent;
 import gregtech.common.blocks.MaterialItemBlock;
 

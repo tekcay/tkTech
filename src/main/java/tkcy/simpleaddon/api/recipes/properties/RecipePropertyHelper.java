@@ -4,7 +4,7 @@ import java.util.function.Predicate;
 
 import gregtech.api.recipes.Recipe;
 import gregtech.api.recipes.RecipeBuilder;
-import gregtech.api.recipes.recipeproperties.RecipeProperty;
+import gregtech.api.recipes.properties.RecipeProperty;
 import gregtech.api.util.EnumValidationResult;
 
 public interface RecipePropertyHelper<T> {
@@ -18,9 +18,9 @@ public interface RecipePropertyHelper<T> {
 
     String getErrorMessage();
 
-    RecipeProperty<T> getPropertyInstance();
+    RecipeProperty<T> getProperty();
 
     default T getValueFromRecipe(Recipe recipe) {
-        return recipe.getProperty(this.getPropertyInstance(), this.getDefaultValue());
+        return recipe.getProperty(this.getProperty(), this.getDefaultValue());
     }
 }

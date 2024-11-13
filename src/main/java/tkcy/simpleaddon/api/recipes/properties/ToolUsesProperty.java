@@ -2,13 +2,16 @@ package tkcy.simpleaddon.api.recipes.properties;
 
 import java.util.function.Predicate;
 
+import gregtech.api.recipes.properties.RecipeProperty;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 
 import gregtech.api.recipes.RecipeBuilder;
-import gregtech.api.recipes.recipeproperties.RecipeProperty;
 import gregtech.api.util.EnumValidationResult;
 
+import net.minecraft.nbt.NBTBase;
+import net.minecraft.nbt.NBTTagInt;
+import org.jetbrains.annotations.NotNull;
 import tkcy.simpleaddon.api.utils.TKCYSALog;
 import tkcy.simpleaddon.modules.RecipePropertiesKey;
 import tkcy.simpleaddon.modules.toolmodule.WorkingTool;
@@ -17,18 +20,28 @@ import tkcy.simpleaddon.modules.toolmodule.WorkingTool;
 public class ToolUsesProperty extends RecipeProperty<Integer> implements RecipePropertyHelper<Integer> {
 
     public static final String KEY = RecipePropertiesKey.TOOL_USAGE_KEY;
-
     private static ToolUsesProperty INSTANCE;
 
     private ToolUsesProperty() {
         super(KEY, Integer.class);
     }
 
+    @NotNull
     public static ToolUsesProperty getInstance() {
         if (INSTANCE == null) {
             INSTANCE = new ToolUsesProperty();
         }
         return INSTANCE;
+    }
+
+    @Override
+    public @NotNull NBTBase serialize(@NotNull Object value) {
+        return new NBTTagInt(castValue(value));
+    }
+
+    @Override
+    public @NotNull Object deserialize(@NotNull NBTBase nbt) {
+        return ((NBTTagInt) nbt).getInt();
     }
 
     @Override
@@ -64,7 +77,7 @@ public class ToolUsesProperty extends RecipeProperty<Integer> implements RecipeP
     }
 
     @Override
-    public RecipeProperty<Integer> getPropertyInstance() {
+    public RecipeProperty<Integer> getProperty() {
         return this;
     }
 }

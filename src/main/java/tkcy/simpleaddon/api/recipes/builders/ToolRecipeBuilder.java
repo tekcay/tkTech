@@ -1,5 +1,6 @@
 package tkcy.simpleaddon.api.recipes.builders;
 
+import gregtech.api.recipes.properties.impl.PrimitiveProperty;
 import org.jetbrains.annotations.NotNull;
 
 import gregtech.api.recipes.Recipe;

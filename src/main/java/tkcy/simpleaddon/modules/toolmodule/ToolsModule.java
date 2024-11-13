@@ -46,7 +46,6 @@ public class ToolsModule {
 
         @Getter
         private final String toolClassName;
-
         @Getter
         private final IGTTool tool;
 
