@@ -1,12 +1,13 @@
 package tkcy.simpleaddon.loaders.recipe.handlers.harderstuff;
 
 import static gregtech.api.GTValues.*;
+import static gregtech.api.recipes.RecipeMaps.MIXER_RECIPES;
 import static gregtech.api.unification.material.Materials.*;
 import static gregtech.api.unification.ore.OrePrefix.*;
 import static gregtech.common.items.MetaItems.*;
 import static gregtech.common.metatileentities.MetaTileEntities.HULL;
 import static tkcy.simpleaddon.api.recipes.recipemaps.TKCYSARecipeMaps.COMPONENT_ASSEMBING;
-import static tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials.GalvanizedSteel;
+import static tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials.*;
 import static tkcy.simpleaddon.api.unification.ore.TKCYSAOrePrefix.curvedPlate;
 import static tkcy.simpleaddon.common.item.TKCYSAMetaItems.*;
 import static tkcy.simpleaddon.common.metatileentities.TKCYSAMetaTileEntities.COMPONENT_ASSEMBLER_MTE;
@@ -21,6 +22,7 @@ import gregtech.api.unification.material.Materials;
 import gregtech.api.unification.stack.UnificationEntry;
 
 import lombok.experimental.UtilityClass;
+import tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials;
 
 @UtilityClass
 public class HarderComponents {
@@ -35,7 +37,35 @@ public class HarderComponents {
         fieldGenerators();
         emitters();
         sensors();
+        sensorsEmittersMixers();
         fluidRegulators();
+    }
+
+    private static void sensorsEmittersMixers() {
+        MIXER_RECIPES.recipeBuilder().duration(600).EUt(VA[MV])
+                .input(dust, Gallium)
+                .input(dust, Phosphorus)
+                .fluidInputs(Oxygen.getFluid(2000))
+                .circuitMeta(4)
+                .output(dust, GalliumPhosphate)
+                .buildAndRegister();
+
+        MIXER_RECIPES.recipeBuilder().duration(600).EUt(VA[HV])
+                .input(dust, Lithium)
+                .input(dust, Niobium)
+                .fluidInputs(Oxygen.getFluid(3000))
+                .circuitMeta(4)
+                .output(dust, LithiumNiobate)
+                .buildAndRegister();
+
+        MIXER_RECIPES.recipeBuilder().duration(600).EUt(VA[EV])
+                .input(dust, Lead, 2)
+                .input(dust, Zirconium)
+                .input(dust, Titanium)
+                .fluidInputs(Oxygen.getFluid(6000))
+                .circuitMeta(4)
+                .output(dust, LeadZirconateTitanate)
+                .buildAndRegister();
     }
 
     private static void addULVComponentsShapedRecipes() {
@@ -448,7 +478,7 @@ public class HarderComponents {
                 .input(stick, Electrum)
                 .input(curvedPlate, Aluminium, 4)
                 .input(circuit, MarkerMaterials.Tier.MV, 2)
-                .input(gemFlawless, Diamond)
+                .input(gemFlawless, Emerald)
                 .fluidInputs(input)
                 .outputs(SENSOR_MV.getStackForm())
                 .duration(100).EUt(VA[MV]).buildAndRegister();
@@ -457,7 +487,7 @@ public class HarderComponents {
                 .input(stick, Chrome)
                 .input(curvedPlate, StainlessSteel, 4)
                 .input(circuit, MarkerMaterials.Tier.HV, 2)
-                .input(gem, Emerald)
+                .input(gemExquisite, TKCYSAMaterials.GalliumPhosphate)
                 .fluidInputs(input)
                 .outputs(SENSOR_HV.getStackForm())
                 .duration(100).EUt(VA[HV]).buildAndRegister();
@@ -466,7 +496,7 @@ public class HarderComponents {
                 .input(stick, Platinum)
                 .input(curvedPlate, Titanium, 4)
                 .input(circuit, MarkerMaterials.Tier.EV, 2)
-                .input(lens, Platinum)
+                .input(gemExquisite, TKCYSAMaterials.LithiumNiobate)
                 .fluidInputs(input)
                 .outputs(SENSOR_EV.getStackForm())
                 .duration(100).EUt(VA[EV]).buildAndRegister();
@@ -475,7 +505,7 @@ public class HarderComponents {
                 .input(stick, Iridium)
                 .input(curvedPlate, TungstenSteel, 4)
                 .input(circuit, MarkerMaterials.Tier.IV, 2)
-                .input(lens, Palladium)
+                .input(gemExquisite, TKCYSAMaterials.LeadZirconateTitanate)
                 .fluidInputs(input)
                 .outputs(SENSOR_IV.getStackForm())
                 .duration(100).EUt(VA[IV]).buildAndRegister();
@@ -496,7 +526,7 @@ public class HarderComponents {
                 .input(stick, Electrum, 4)
                 .input(cableGtDouble, Copper, 2)
                 .input(circuit, MarkerMaterials.Tier.MV, 2)
-                .input(gemFlawless, Diamond)
+                .input(gemFlawless, Emerald)
                 .circuitMeta(1)
                 .fluidInputs(input)
                 .outputs(EMITTER_MV.getStackForm())
@@ -506,7 +536,7 @@ public class HarderComponents {
                 .input(stick, Chrome, 4)
                 .input(cableGtQuadruple, Gold, 2)
                 .input(circuit, MarkerMaterials.Tier.HV, 2)
-                .input(gem, Emerald)
+                .input(gemExquisite, TKCYSAMaterials.GalliumPhosphate)
                 .circuitMeta(1)
                 .fluidInputs(input)
                 .outputs(EMITTER_HV.getStackForm())
@@ -516,7 +546,7 @@ public class HarderComponents {
                 .input(stick, Platinum, 4)
                 .input(cableGtOctal, Aluminium, 2)
                 .input(circuit, MarkerMaterials.Tier.EV, 2)
-                .input(lens, Platinum)
+                .input(gemExquisite, TKCYSAMaterials.LithiumNiobate)
                 .circuitMeta(1)
                 .fluidInputs(input)
                 .outputs(EMITTER_EV.getStackForm())
@@ -526,7 +556,7 @@ public class HarderComponents {
                 .input(stick, Iridium, 4)
                 .input(cableGtHex, Tungsten, 2)
                 .input(circuit, MarkerMaterials.Tier.IV, 2)
-                .input(lens, Palladium)
+                .input(gemExquisite, TKCYSAMaterials.LeadZirconateTitanate)
                 .circuitMeta(1)
                 .fluidInputs(input)
                 .outputs(EMITTER_IV.getStackForm())
