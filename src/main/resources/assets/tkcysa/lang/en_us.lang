@@ -138,6 +138,11 @@ tkcysa.material.severely_steam_cracked_methane=Severely Steam Cracked Methane
 tkcysa.material.moderately_steam_cracked_methane=Moderately Steam Cracked Methane
 tkcysa.material.lightly_steam_cracked_methane=Lightly Steam Cracked Methane
 
+##Sensors materials
+tkcysa.material.lead_zirconate_titanate=Lead Zirconate Titanate
+tkcysa.material.lithium_niobate=Lithium Niobate
+tkcysa.material.gallium_phosphate=Gallium Phosphate
+
 ##MTEs
 tkcysa.machine.primitive_roasting_oven.name=Primitive Roasting Oven
 tkcysa.machine.electrolyzer.name=Electrolyzer

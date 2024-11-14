@@ -38,6 +38,7 @@ public class TKCYSAMaterials {
 
         id = MiscMaterials.register(id);
         id = Chemicals.register(id);
+        id = SensorsMaterials.register(id);
 
         MaterialsFormula.init();
 
@@ -163,4 +164,9 @@ public class TKCYSAMaterials {
     public static Material LightlySteamCrackedMethane;
     public static Material ModeratelySteamCrackedMethane;
     public static Material SeverelySteamCrackedMethane;
+
+    //Sensors materials
+    public static Material GalliumPhosphate;
+    public static Material LithiumNiobate;
+    public static Material LeadZirconateTitanate;
 }
