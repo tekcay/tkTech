@@ -165,7 +165,7 @@ public class TKCYSAMaterials {
     public static Material ModeratelySteamCrackedMethane;
     public static Material SeverelySteamCrackedMethane;
 
-    //Sensors materials
+    // Sensors materials
     public static Material GalliumPhosphate;
     public static Material LithiumNiobate;
     public static Material LeadZirconateTitanate;

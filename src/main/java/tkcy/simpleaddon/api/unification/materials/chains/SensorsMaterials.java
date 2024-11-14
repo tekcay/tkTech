@@ -2,13 +2,13 @@ package tkcy.simpleaddon.api.unification.materials.chains;
 
 import gregtech.api.unification.material.Material;
 import gregtech.api.unification.material.Materials;
+
 import tkcy.simpleaddon.api.unification.materials.TKCYSAMaterials;
 import tkcy.simpleaddon.api.utils.TKCYSAUtil;
 
 public class SensorsMaterials {
 
     public static int register(int id) {
-
         TKCYSAMaterials.GalliumPhosphate = new Material.Builder(id++, TKCYSAUtil.tkcysa("gallium_phosphate"))
                 .dust()
                 .gem()
