@@ -163,6 +163,8 @@ public class MaterialHelper {
                 fluidPipeProperties.isGasProof(),
                 fluidPipeProperties.isAcidProof(),
                 fluidPipeProperties.isCryoProof(),
-                fluidPipeProperties.isPlasmaProof());
+                fluidPipeProperties.isPlasmaProof(),
+                fluidPipeProperties.isBaseProof(),
+                fluidPipeProperties.isFluorideProof());
     }
 }
