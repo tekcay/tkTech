@@ -18,7 +18,6 @@ import org.lwjgl.input.Keyboard;
 
 import gregtech.api.capability.impl.FilteredFluidHandler;
 import gregtech.api.capability.impl.FluidTankList;
-import gregtech.api.capability.impl.PropertyFluidFilter;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
 import gregtech.api.pattern.TraceabilityPredicate;
@@ -65,13 +64,7 @@ public class MetaTileEntityMultiblockTank extends MetaTileEntityMultiblockStorag
         setFluidPipeProperties();
 
         this.tank = new FilteredFluidHandler(getTotalCapacity());
-        this.tank.setFilter(new PropertyFluidFilter(
-                this.fluidPipeProperties.getMaxFluidTemperature(),
-                false,
-                this.fluidPipeProperties.isAcidProof(),
-                false,
-                false));
-
+        this.tank.setFilter(MaterialHelper.getPropertyFluidFilter(getMaterial()));
         this.exportFluids = this.importFluids = new FluidTankList(true, this.tank);
         this.fluidInventory = this.tank;
     }
