@@ -1,10 +1,12 @@
 package tkcy.simpleaddon.api.metatileentities.cleanroom;
 
+import org.jetbrains.annotations.NotNull;
+
 import gregtech.api.metatileentity.multiblock.CleanroomType;
 import gregtech.api.unification.material.Material;
 import gregtech.api.unification.material.Materials;
+
 import lombok.Getter;
-import org.jetbrains.annotations.NotNull;
 
 @Getter
 public class AdvancedCleanroomType extends CleanroomType {

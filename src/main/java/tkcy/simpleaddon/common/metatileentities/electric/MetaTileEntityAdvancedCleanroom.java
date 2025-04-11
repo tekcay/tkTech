@@ -1,9 +1,19 @@
 package tkcy.simpleaddon.common.metatileentities.electric;
 
+import java.util.*;
+
+import net.minecraft.network.PacketBuffer;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraftforge.fluids.FluidStack;
+
+import org.jetbrains.annotations.NotNull;
+
 import gregtech.api.GTValues;
 import gregtech.api.block.ICleanroomFilter;
 import gregtech.api.capability.*;
-import gregtech.api.capability.impl.CleanroomLogic;
 import gregtech.api.capability.impl.FluidTankList;
 import gregtech.api.gui.GuiTextures;
 import gregtech.api.gui.Widget;
@@ -16,23 +26,14 @@ import gregtech.api.pattern.*;
 import gregtech.api.util.LocalizationUtils;
 import gregtech.api.util.TextComponentUtil;
 import gregtech.common.metatileentities.multi.electric.MetaTileEntityCleanroom;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentString;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraftforge.fluids.FluidStack;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+
 import tkcy.simpleaddon.api.capabilities.TKCYSADataCodes;
+import tkcy.simpleaddon.api.logic.AdvancedCleanroomLogic;
 import tkcy.simpleaddon.api.metatileentities.cleanroom.AdvancedCleanroomType;
 import tkcy.simpleaddon.api.metatileentities.cleanroom.IAdvancedCleanroomProvider;
 
-import java.util.*;
-
 public class MetaTileEntityAdvancedCleanroom extends MetaTileEntityCleanroom
-                                     implements IAdvancedCleanroomProvider, IWorkable, IDataInfoProvider {
+                                             implements IAdvancedCleanroomProvider, IWorkable, IDataInfoProvider {
 
     private int cleanAmount;
 
@@ -40,13 +41,13 @@ public class MetaTileEntityAdvancedCleanroom extends MetaTileEntityCleanroom
     private IMultipleTankHandler inputFluidInventory;
 
     private ICleanroomFilter cleanroomFilter;
-    private final CleanroomLogic cleanroomLogic;
+    private final AdvancedCleanroomLogic cleanroomLogic;
     private final Collection<ICleanroomReceiver> cleanroomReceivers = new HashSet<>();
     private int cleanroomTypeIndex;
 
     public MetaTileEntityAdvancedCleanroom(ResourceLocation metaTileEntityId) {
         super(metaTileEntityId);
-        this.cleanroomLogic = new CleanroomLogic(this, GTValues.LV);
+        this.cleanroomLogic = new AdvancedCleanroomLogic(this);
     }
 
     @Override
@@ -135,9 +136,10 @@ public class MetaTileEntityAdvancedCleanroom extends MetaTileEntityCleanroom
         if (getAvailableCleanroomTypes() != null && getAvailableCleanroomTypes().length > 1) {
             return new ImageCycleButtonWidget(x, y, width, height, GuiTextures.BUTTON_MULTI_MAP,
                     getAvailableCleanroomTypes().length, this::getCleanroomTypeIndex, this::setCleanroomTypeIndex)
-                    .shouldUseBaseBackground().singleTexture()
-                    .setTooltipHoverString(i -> LocalizationUtils
-                            .format("tkcysa.multiblock.advanced_cleanroom.gas.header", getCleanroomType().getIntertGasMaterial().getLocalizedName()));
+                            .shouldUseBaseBackground().singleTexture()
+                            .setTooltipHoverString(i -> LocalizationUtils
+                                    .format("tkcysa.multiblock.advanced_cleanroom.gas.header",
+                                            getCleanroomType().getIntertGasMaterial().getLocalizedName()));
         }
         return super.getFlexButton(x, y, width, height);
     }
@@ -204,11 +206,10 @@ public class MetaTileEntityAdvancedCleanroom extends MetaTileEntityCleanroom
     }
 
     @Override
-    @Nullable
-    public FluidStack drainGas(boolean simulate) {
+    public boolean drainGas(boolean simulate) {
         int gasToDrain = isClean() ? gasAmountToDrainWhenClean() : gasAmountToDrain();
-        return fluidInventory.drain(gasToDrain, false);
-
+        FluidStack drainedStack = fluidInventory.drain(gasToDrain, false);
+        return drainedStack != null && drainedStack.amount == gasToDrain;
     }
 
     @Override
