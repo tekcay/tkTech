@@ -21,11 +21,5 @@ public class PropertiesAddition {
 
     public static void init() {
         // Germanium
-        Germanium.setProperty(PropertyKey.DUST, new DustProperty());
-        Germanium.setProperty(PropertyKey.INGOT, new IngotProperty());
-        addFluidProperty(Germanium, 938 + 273);
-        addFluidProperty(Barium, 727 + 273);
-
-        Carbon.setProperty(PropertyKey.INGOT, new IngotProperty());
     }
 }
