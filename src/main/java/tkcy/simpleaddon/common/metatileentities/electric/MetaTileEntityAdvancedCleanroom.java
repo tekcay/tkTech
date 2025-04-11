@@ -2,8 +2,19 @@ package tkcy.simpleaddon.common.metatileentities.electric;
 
 import java.util.*;
 
+import gregtech.api.GregTechAPI;
+import gregtech.api.capability.impl.EnergyContainerList;
+import gregtech.api.util.BlockInfo;
+import gregtech.common.ConfigHolder;
 import gregtech.common.blocks.BlockCleanroomCasing;
+import gregtech.common.blocks.BlockGlassCasing;
+import gregtech.common.blocks.MetaBlocks;
+import gregtech.common.metatileentities.MetaTileEntities;
+import net.minecraft.block.BlockDoor;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Blocks;
 import net.minecraft.network.PacketBuffer;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
@@ -32,8 +43,9 @@ import tkcy.simpleaddon.api.capabilities.TKCYSADataCodes;
 import tkcy.simpleaddon.api.logic.AdvancedCleanroomLogic;
 import tkcy.simpleaddon.api.metatileentities.cleanroom.AdvancedCleanroomType;
 import tkcy.simpleaddon.api.metatileentities.cleanroom.IAdvancedCleanroomProvider;
+import tkcy.simpleaddon.api.metatileentities.cleanroom.MetaTileEntityCleanroomBase;
 
-public class MetaTileEntityAdvancedCleanroom extends MetaTileEntityCleanroom
+public class MetaTileEntityAdvancedCleanroom extends MetaTileEntityCleanroomBase
                                              implements IAdvancedCleanroomProvider, IWorkable, IDataInfoProvider {
 
     private int cleanAmount;
@@ -59,6 +71,17 @@ public class MetaTileEntityAdvancedCleanroom extends MetaTileEntityCleanroom
     }
 
     @Override
+    protected void resetTileAbilities() {
+        super.resetTileAbilities();
+        this.inputFluidInventory = new FluidTankList(true);
+    }
+
+    @Override
+    protected boolean doesHandleFilter() {
+        return false;
+    }
+
+    @Override
     public void invalidateStructure() {
         super.invalidateStructure();
         this.inputFluidInventory = new FluidTankList(true);
@@ -68,77 +91,27 @@ public class MetaTileEntityAdvancedCleanroom extends MetaTileEntityCleanroom
     public TraceabilityPredicate autoAbilities() {
         return super.autoAbilities().or(abilities(MultiblockAbility.IMPORT_FLUIDS)).setMaxGlobalLimited(2);
     }
-
-    @Override
-    protected void addDisplayText(List<ITextComponent> textList) {
-        MultiblockDisplayText.builder(textList, isStructureFormed())
-                .setWorkingStatus(cleanroomLogic.isWorkingEnabled(), cleanroomLogic.isActive())
-                .addEnergyUsageLine(energyContainer)
-                .addCustom(tl -> {
-                    // Cleanliness status line
-                    if (isStructureFormed()) {
-                        ITextComponent cleanState;
-                        if (isClean()) {
-                            cleanState = TextComponentUtil.translationWithColor(
-                                    TextFormatting.GREEN,
-                                    "gregtech.multiblock.cleanroom.clean_state",
-                                    this.cleanAmount);
-                        } else {
-                            cleanState = TextComponentUtil.translationWithColor(
-                                    TextFormatting.DARK_RED,
-                                    "gregtech.multiblock.cleanroom.dirty_state",
-                                    this.cleanAmount);
-                        }
-
-                        tl.add(TextComponentUtil.translationWithColor(
-                                TextFormatting.GRAY,
-                                "gregtech.multiblock.cleanroom.clean_status",
-                                cleanState));
-                    }
-                })
-                .addCustom(tl -> {
-                    if (!cleanroomLogic.isVoltageHighEnough()) {
-                        ITextComponent energyNeeded = new TextComponentString(
-                                GTValues.VNF[getEnergyTier()]);
-                        tl.add(TextComponentUtil.translationWithColor(TextFormatting.YELLOW,
-                                "gregtech.multiblock.cleanroom.low_tier", energyNeeded));
-                    }
-                })
-                .addEnergyUsageExactLine(isClean() ? 4 : GTValues.VA[getEnergyTier()])
-                .addWorkingStatusLine()
-                .addProgressLine(getProgressPercent() / 100.0);
+    @NotNull
+    protected TraceabilityPredicate filterPredicate() {
+        return states(getCasingState());
     }
 
     @Override
     protected void addWarningText(List<ITextComponent> textList) {
-        MultiblockDisplayText.builder(textList, isStructureFormed(), false)
-                .addLowPowerLine(!drainEnergy(true))
-                .addCustom(tl -> {
-                    if (isStructureFormed() && !isClean()) {
-                        tl.add(TextComponentUtil.translationWithColor(
-                                TextFormatting.YELLOW,
-                                "gregtech.multiblock.cleanroom.warning_contaminated"));
-                    }
-                })
-                .addMaintenanceProblemLines(getMaintenanceProblems());
+        super.addWarningText(textList);
     }
 
     @Override
     protected @NotNull Widget getFlexButton(int x, int y, int width, int height) {
-        if (getAvailableCleanroomTypes() != null && getAvailableCleanroomTypes().length > 1) {
             return new ImageCycleButtonWidget(x, y, width, height, GuiTextures.BUTTON_MULTI_MAP,
-                    getAvailableCleanroomTypes().length, this::getCleanroomTypeIndex, this::setCleanroomTypeIndex)
+                    AdvancedCleanroomType.ADVANCED_CLEANROOM_TYPES.size(),
+                    this::getCleanroomTypeIndex,
+                    this::setCleanroomTypeIndex)
                             .shouldUseBaseBackground().singleTexture()
                             .setTooltipHoverString(i -> LocalizationUtils
                                     .format("tkcysa.multiblock.advanced_cleanroom.gas.header",
-                                            getCleanroomType().getIntertGasMaterial().getLocalizedName()));
-        }
-        return super.getFlexButton(x, y, width, height);
-    }
-
-    @Override
-    public boolean isClean() {
-        return this.cleanAmount >= CLEAN_AMOUNT_THRESHOLD;
+                                            getCleanroomType().getIntertGasMaterial().getLocalizedName(),
+                                            gasAmountToDrain()));
     }
 
     @Override
@@ -157,7 +130,7 @@ public class MetaTileEntityAdvancedCleanroom extends MetaTileEntityCleanroom
 
     @Override
     public long energyToDrain() {
-        return getRoomVolume() * 2L;
+        return isClean() ? energyToDrainWhenClean() : getRoomVolume() * 2L;
     }
 
     @Override
@@ -167,20 +140,12 @@ public class MetaTileEntityAdvancedCleanroom extends MetaTileEntityCleanroom
 
     @Override
     public int gasAmountToDrain() {
-        return getRoomVolume() * 2;
+        return isClean() ? gasAmountToDrainWhenClean() : getRoomVolume() * 2;
     }
 
     @Override
     public int getRoomVolume() {
         return getMaxProgress();
-    }
-
-    @Override
-    public AdvancedCleanroomType[] getAvailableCleanroomTypes() {
-        return new AdvancedCleanroomType[] {
-                AdvancedCleanroomType.NITROGEN_CLEANROOM,
-                AdvancedCleanroomType.ARGON_CLEANROOM
-        };
     }
 
     @Override
@@ -198,6 +163,15 @@ public class MetaTileEntityAdvancedCleanroom extends MetaTileEntityCleanroom
     }
 
     @Override
+    public void addGasConsumptionInfos(List<ITextComponent> textComponents) {
+        textComponents.add(TextComponentUtil.translationWithColor(
+                TextFormatting.YELLOW,
+                "tkcysa.multiblock.advanced_cleanroom.gas_consumption_infos",
+                gasAmountToDrain(),
+                getCleanroomType().getIntertGasMaterial().getLocalizedName()));
+    }
+
+    @Override
     public boolean drainGas(boolean simulate) {
         int gasToDrain = isClean() ? gasAmountToDrainWhenClean() : gasAmountToDrain();
         FluidStack fluidStackToDrain = getCleanroomType().getIntertGasMaterial().getFluid(gasToDrain);
@@ -206,14 +180,33 @@ public class MetaTileEntityAdvancedCleanroom extends MetaTileEntityCleanroom
     }
 
     @Override
-    public boolean drainEnergy(boolean simulate) {
-        long energyToDrain = isClean() ? energyToDrainWhenClean() : energyToDrain();
-        long resultEnergy = energyContainer.getEnergyStored() - energyToDrain;
-        if (resultEnergy >= 0L && resultEnergy <= energyContainer.getEnergyCapacity()) {
-            if (!simulate)
-                energyContainer.changeEnergy(-energyToDrain);
-            return true;
-        }
-        return false;
+    public List<MultiblockShapeInfo> getMatchingShapes() {
+        ArrayList<MultiblockShapeInfo> shapeInfo = new ArrayList<>();
+        MultiblockShapeInfo.Builder builder = MultiblockShapeInfo.builder()
+                .aisle("XXXXX", "XIHLX", "XXDXX", "XXXXX", "XXXXX")
+                .aisle("XXXXX", "X   X", "G   G", "X   X", "XFFFX")
+                .aisle("XXXXX", "X   X", "G   G", "X   X", "XFSFX")
+                .aisle("XXXXX", "X   X", "G   G", "X   X", "XFFFX")
+                .aisle("XMXEX", "XXOXX", "XXRXX", "XXXXX", "XXXXX")
+                .where('X', MetaBlocks.CLEANROOM_CASING.getState(BlockCleanroomCasing.CasingType.PLASCRETE))
+                .where('G', MetaBlocks.TRANSPARENT_CASING.getState(BlockGlassCasing.CasingType.CLEANROOM_GLASS))
+                .where('S', MetaTileEntities.CLEANROOM, EnumFacing.SOUTH)
+                .where(' ', Blocks.AIR.getDefaultState())
+                .where('E', MetaTileEntities.ENERGY_INPUT_HATCH[GTValues.LV], EnumFacing.SOUTH)
+                .where('I', MetaTileEntities.PASSTHROUGH_HATCH_ITEM, EnumFacing.NORTH)
+                .where('L', MetaTileEntities.PASSTHROUGH_HATCH_FLUID, EnumFacing.NORTH)
+                .where('H', MetaTileEntities.HULL[GTValues.HV], EnumFacing.NORTH)
+                .where('D', MetaTileEntities.DIODES[GTValues.HV], EnumFacing.NORTH)
+                .where('M',
+                        () -> ConfigHolder.machines.enableMaintenance ? MetaTileEntities.MAINTENANCE_HATCH :
+                                MetaBlocks.CLEANROOM_CASING.getState(BlockCleanroomCasing.CasingType.PLASCRETE),
+                        EnumFacing.SOUTH)
+                .where('O',
+                        Blocks.IRON_DOOR.getDefaultState().withProperty(BlockDoor.FACING, EnumFacing.NORTH)
+                                .withProperty(BlockDoor.HALF, BlockDoor.EnumDoorHalf.LOWER))
+                .where('R', Blocks.IRON_DOOR.getDefaultState().withProperty(BlockDoor.FACING, EnumFacing.NORTH)
+                        .withProperty(BlockDoor.HALF, BlockDoor.EnumDoorHalf.UPPER));
+
+        return shapeInfo;
     }
 }

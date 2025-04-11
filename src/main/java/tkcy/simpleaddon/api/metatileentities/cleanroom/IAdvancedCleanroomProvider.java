@@ -1,6 +1,9 @@
 package tkcy.simpleaddon.api.metatileentities.cleanroom;
 
 import gregtech.api.metatileentity.multiblock.ICleanroomProvider;
+import net.minecraft.util.text.ITextComponent;
+
+import java.util.List;
 
 public interface IAdvancedCleanroomProvider extends ICleanroomProvider {
 
@@ -22,13 +25,12 @@ public interface IAdvancedCleanroomProvider extends ICleanroomProvider {
 
     int getRoomVolume();
 
-    AdvancedCleanroomType[] getAvailableCleanroomTypes();
-
     int getCleanroomTypeIndex();
 
     void setCleanroomTypeIndex(int index);
+    void addGasConsumptionInfos(List<ITextComponent> textComponents);
 
     default AdvancedCleanroomType getCleanroomType() {
-        return getAvailableCleanroomTypes()[getCleanroomTypeIndex()];
+        return AdvancedCleanroomType.ADVANCED_CLEANROOM_TYPES.get(getCleanroomTypeIndex());
     }
 }
