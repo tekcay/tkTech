@@ -2,6 +2,7 @@ package tkcy.simpleaddon.common.metatileentities.electric;
 
 import java.util.*;
 
+import gregtech.common.blocks.BlockCleanroomCasing;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
@@ -36,13 +37,9 @@ public class MetaTileEntityAdvancedCleanroom extends MetaTileEntityCleanroom
                                              implements IAdvancedCleanroomProvider, IWorkable, IDataInfoProvider {
 
     private int cleanAmount;
-
     private IEnergyContainer energyContainer;
     private IMultipleTankHandler inputFluidInventory;
-
-    private ICleanroomFilter cleanroomFilter;
     private final AdvancedCleanroomLogic cleanroomLogic;
-    private final Collection<ICleanroomReceiver> cleanroomReceivers = new HashSet<>();
     private int cleanroomTypeIndex;
 
     public MetaTileEntityAdvancedCleanroom(ResourceLocation metaTileEntityId) {
@@ -70,11 +67,6 @@ public class MetaTileEntityAdvancedCleanroom extends MetaTileEntityCleanroom
     @Override
     public TraceabilityPredicate autoAbilities() {
         return super.autoAbilities().or(abilities(MultiblockAbility.IMPORT_FLUIDS)).setMaxGlobalLimited(2);
-    }
-
-    @NotNull
-    protected TraceabilityPredicate filterPredicate() {
-        return states(getCasingState());
     }
 
     @Override
@@ -107,7 +99,7 @@ public class MetaTileEntityAdvancedCleanroom extends MetaTileEntityCleanroom
                 .addCustom(tl -> {
                     if (!cleanroomLogic.isVoltageHighEnough()) {
                         ITextComponent energyNeeded = new TextComponentString(
-                                GTValues.VNF[cleanroomFilter.getMinTier()]);
+                                GTValues.VNF[getEnergyTier()]);
                         tl.add(TextComponentUtil.translationWithColor(TextFormatting.YELLOW,
                                 "gregtech.multiblock.cleanroom.low_tier", energyNeeded));
                     }
@@ -208,7 +200,8 @@ public class MetaTileEntityAdvancedCleanroom extends MetaTileEntityCleanroom
     @Override
     public boolean drainGas(boolean simulate) {
         int gasToDrain = isClean() ? gasAmountToDrainWhenClean() : gasAmountToDrain();
-        FluidStack drainedStack = fluidInventory.drain(gasToDrain, false);
+        FluidStack fluidStackToDrain = getCleanroomType().getIntertGasMaterial().getFluid(gasToDrain);
+        FluidStack drainedStack = fluidInventory.drain(fluidStackToDrain, false);
         return drainedStack != null && drainedStack.amount == gasToDrain;
     }
 
