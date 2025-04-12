@@ -183,6 +183,7 @@ tkcysa.machine.rolling_mill.ev.name=Rolling Mill EV
 tkcysa.machine.rolling_mill.iv.name=Rolling Mill IV
 
 tkcysa.machine.anvil.name=Anvil
+tkcysa.machine.basic_electronic.name=Basic Electronic Worker
 
 tkcysa.machine.modulable_tank_valve.steel.name=Valve Tank Steel
 tkcysa.machine.modulable_tank_valve.stainless_steel.name=Valve Tank Stainless Steel

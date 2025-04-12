@@ -19,6 +19,7 @@ import tkcy.simpleaddon.common.metatileentities.multiblockpart.BrickFluidHatch;
 import tkcy.simpleaddon.common.metatileentities.multiblockpart.BrickItemBus;
 import tkcy.simpleaddon.common.metatileentities.multiprimitive.*;
 import tkcy.simpleaddon.common.metatileentities.primitive.AnvilMetatileEntity;
+import tkcy.simpleaddon.common.metatileentities.primitive.BasicElectronicMetatileEntity;
 import tkcy.simpleaddon.common.metatileentities.primitive.PrimitiveCasting;
 import tkcy.simpleaddon.common.metatileentities.steam.SteamDustMixer;
 import tkcy.simpleaddon.common.metatileentities.steam.SteamMelter;
@@ -46,6 +47,7 @@ public class TKCYSAMetaTileEntities {
     public static SteamMelter STEAM_MELTER;
     public static ToolLogicMetaTileEntity PARTS_WORKER_MTE;
     public static MetaTileEntityAdvancedCleanroom ADVANCED_CLEANROOM;
+    public static BasicElectronicMetatileEntity BASIC_ELECTRONIC;
     public static SimpleMachineMetaTileEntity[] CLUSTER_MILLS = new SimpleMachineMetaTileEntity[5];
     public static SimpleMachineMetaTileEntity[] COMPONENT_ASSEMBLER_MTE = new SimpleMachineMetaTileEntity[6];
     public static SimpleMachineMetaTileEntity[] ROLLING_MILL = new SimpleMachineMetaTileEntity[6];
@@ -123,6 +125,7 @@ public class TKCYSAMetaTileEntities {
                 new AnvilMetatileEntity(tkcysa("anvil")));
         ADVANCED_CLEANROOM = registerMetaTileEntity(4105,
                 new MetaTileEntityAdvancedCleanroom(tkcysa("advanced_cleanroom")));
+        BASIC_ELECTRONIC = registerMetaTileEntity(4106, new BasicElectronicMetatileEntity(tkcysa("basic_electronic")));
 
         MaterialMetaTileEntity.registerMaterialMetaTileEntity(StorageModule.TANK_MATERIALS, MODULABLE_TANKS, 4200,
                 StorageModule::initModulableTank);

@@ -1,9 +1,11 @@
 package tkcy.simpleaddon.common.metatileentities.primitive;
 
+import gregtech.api.capability.impl.FluidTankList;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.items.IItemHandlerModifiable;
 
 import org.apache.commons.lang3.ArrayUtils;
@@ -30,6 +32,8 @@ import tkcy.simpleaddon.api.machines.ToolLogicMetaTileEntity;
 import tkcy.simpleaddon.api.recipes.recipemaps.TKCYSARecipeMaps;
 import tkcy.simpleaddon.modules.toolmodule.ToolsModule;
 
+import static tkcy.simpleaddon.api.utils.GuiUtils.FONT_HEIGHT;
+
 public class BasicElectronicMetatileEntity extends ToolLogicMetaTileEntity implements IOnSolderingIronClick {
 
     public BasicElectronicMetatileEntity(ResourceLocation metaTileEntityId) {
@@ -43,12 +47,17 @@ public class BasicElectronicMetatileEntity extends ToolLogicMetaTileEntity imple
 
     @Override
     protected IItemHandlerModifiable createImportItemHandler() {
-        return new NotifiableItemStackHandler(this, 8, this, false);
+        return new NotifiableItemStackHandler(this, 9, this, false);
     }
 
     @Override
     protected IItemHandlerModifiable createExportItemHandler() {
         return new GTItemStackHandler(this, 1);
+    }
+
+    @Override
+    protected FluidTankList createImportFluidHandler() {
+        return new FluidTankList(false, new FluidTank(2000));
     }
 
     @Override
@@ -77,13 +86,10 @@ public class BasicElectronicMetatileEntity extends ToolLogicMetaTileEntity imple
 
     @Override
     protected ModularUI.Builder createUITemplate(EntityPlayer entityPlayer) {
-        return ModularUI.builder(GuiTextures.PRIMITIVE_BACKGROUND, 176, 166)
-                .shouldColor(false)
-                .widget(new LabelWidget(5, 5, getMetaFullName()))
-                .slot(this.importItems, 0, 60, 30, GuiTextures.PRIMITIVE_SLOT)
-                .progressBar(this.logic::getProgressPercent, 100, 30, 18, 18, GuiTextures.PROGRESS_BAR_BENDING,
-                        ProgressWidget.MoveType.HORIZONTAL, this.recipeMap)
-                .bindPlayerInventory(entityPlayer.inventory, GuiTextures.SLOT, 0);
+        return recipeMap.getRecipeMapUI()
+                .createUITemplate(logic::getProgressPercent, importItems, exportItems, importFluids, exportFluids,
+                        FONT_HEIGHT)
+                .widget(new LabelWidget(5, 5, getMetaFullName()));
     }
 
     @Override
