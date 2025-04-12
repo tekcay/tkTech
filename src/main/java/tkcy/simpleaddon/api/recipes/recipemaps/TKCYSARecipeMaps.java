@@ -97,4 +97,9 @@ public final class TKCYSARecipeMaps {
     @ZenProperty
     public static final RecipeMap<ToolRecipeBuilder> ANVIL_RECIPES = new ToolRecipeMap<>(
             "anvil_recipes", 2, 2, 0, 0, new ToolRecipeBuilder(), false);
+
+    @WorkingTool
+    @ZenProperty
+    public static final RecipeMap<ToolRecipeBuilder> BASIC_ELECTRONIC_RECIPES = new ToolRecipeMap<>(
+            "basic_electronic_recipes", 9, 1, 1, 0, new ToolRecipeBuilder(), false);
 }
