@@ -20,6 +20,12 @@ public class AdvancedCleanroomLogic extends CleanroomLogic {
     }
 
     protected boolean consumeGas(boolean simulate) {
-        return ((IAdvancedCleanroomProvider) metaTileEntity).drainGas(simulate);
+        return IAdvancedCleanroomProvider.getInstance(metaTileEntity).drainGas(simulate);
+    }
+
+    @Override
+    public boolean isWorking() {
+        IAdvancedCleanroomProvider cleanroom = IAdvancedCleanroomProvider.getInstance(metaTileEntity);
+        return isActive() && cleanroom.hasEnoughGas() && cleanroom.hasEnoughEnergy();
     }
 }

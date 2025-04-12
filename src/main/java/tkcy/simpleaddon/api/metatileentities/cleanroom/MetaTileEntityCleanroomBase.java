@@ -89,6 +89,7 @@ public abstract class MetaTileEntityCleanroomBase extends MultiblockWithDisplayB
 
     protected ICleanroomFilter cleanroomFilter;
     protected CleanroomLogic cleanroomLogic;
+    protected boolean hasEnoughEnergy = false;
     protected final Collection<ICleanroomReceiver> cleanroomReceivers = new HashSet<>();
 
     public MetaTileEntityCleanroomBase(ResourceLocation metaTileEntityId) {
@@ -496,14 +497,17 @@ public abstract class MetaTileEntityCleanroomBase extends MultiblockWithDisplayB
                 })
                 .addEnergyUsageExactLine(isClean() ? energyToDrainWhenClean() : energyToDrain())
                 .addCustom(this::addGasConsumptionInfos)
-                .addWorkingStatusLine()
+                .addCustom(l -> {
+                    if (!cleanroomLogic.isWorking()) return;
+                    l.add(TextComponentUtil.translationWithColor(TextFormatting.GREEN, "gregtech.multiblock.running"));
+                })
                 .addProgressLine(getProgressPercent() / 100.0);
     }
 
     @Override
     protected void addWarningText(List<ITextComponent> textList) {
         MultiblockDisplayText.builder(textList, isStructureFormed(), false)
-                .addLowPowerLine(!drainEnergy(true))
+                .addLowPowerLine(hasEnoughEnergy())
                 .addCustom(tl -> {
                     if (isStructureFormed() && !isClean()) {
                         tl.add(TextComponentUtil.translationWithColor(
@@ -625,13 +629,20 @@ public abstract class MetaTileEntityCleanroomBase extends MultiblockWithDisplayB
         return energyContainer.getInputPerSec();
     }
 
+    @Override
+    public boolean hasEnoughEnergy() {
+        return hasEnoughEnergy;
+    }
+
     public boolean drainEnergy(boolean simulate) {
         long resultEnergy = energyContainer.getEnergyStored() - energyToDrain();
         if (resultEnergy >= 0L && resultEnergy <= energyContainer.getEnergyCapacity()) {
+            hasEnoughEnergy = true;
             if (!simulate)
                 energyContainer.changeEnergy(-energyToDrain());
             return true;
         }
+        hasEnoughEnergy = false;
         return false;
     }
 

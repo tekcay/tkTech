@@ -32,8 +32,9 @@ import tkcy.simpleaddon.api.metatileentities.cleanroom.MetaTileEntityCleanroomBa
 public class MetaTileEntityAdvancedCleanroom extends MetaTileEntityCleanroomBase
                                              implements IAdvancedCleanroomProvider, IWorkable, IDataInfoProvider {
 
-    private IMultipleTankHandler inputFluidInventory;
-    private int cleanroomTypeIndex;
+    protected IMultipleTankHandler inputFluidInventory;
+    protected int cleanroomTypeIndex;
+    protected boolean hasEnoughGas = false;
 
     public MetaTileEntityAdvancedCleanroom(ResourceLocation metaTileEntityId) {
         super(metaTileEntityId);
@@ -75,7 +76,24 @@ public class MetaTileEntityAdvancedCleanroom extends MetaTileEntityCleanroomBase
 
     @Override
     protected void addWarningText(List<ITextComponent> textList) {
-        super.addWarningText(textList);
+        MultiblockDisplayText.builder(textList, isStructureFormed(), false)
+                .addLowPowerLine(!hasEnoughEnergy())
+                .addCustom(tl -> {
+                    if (isStructureFormed() && !isClean()) {
+                        tl.add(TextComponentUtil.translationWithColor(
+                                TextFormatting.RED,
+                                "gregtech.multiblock.cleanroom.warning_contaminated"));
+                    }
+                })
+                .addMaintenanceProblemLines(getMaintenanceProblems())
+                .addCustom(l -> {
+                    if (isStructureFormed() && !hasEnoughGas()) {
+                        l.add(TextComponentUtil.translationWithColor(
+                                getCleanroomType().getDisplayColor(),
+                                "tkcysa.multiblock.advanced_cleanroom.not_enough_gas",
+                                        getCleanroomType().getIntertGasMaterial().getLocalizedName()));
+                    }
+                });
     }
 
     @Override
@@ -143,11 +161,29 @@ public class MetaTileEntityAdvancedCleanroom extends MetaTileEntityCleanroomBase
 
     @Override
     public void addGasConsumptionInfos(List<ITextComponent> textComponents) {
-        textComponents.add(TextComponentUtil.translationWithColor(
-                TextFormatting.YELLOW,
-                "tkcysa.multiblock.advanced_cleanroom.gas_consumption_infos",
-                gasAmountToDrain(),
-                getCleanroomType().getIntertGasMaterial().getLocalizedName()));
+        ITextComponent gasMaterial = TextComponentUtil.stringWithColor(
+                getCleanroomType().getDisplayColor(),
+                getCleanroomType().getIntertGasMaterial().getLocalizedName());
+
+        if (cleanroomLogic.isWorking()) {
+            textComponents.add(TextComponentUtil.translationWithColor(
+                    TextFormatting.YELLOW,
+                    "tkcysa.multiblock.advanced_cleanroom.gas_consumption_infos",
+                    TextComponentUtil.stringWithColor(TextFormatting.WHITE, gasAmountToDrain() + "L/t"),
+                    gasMaterial));
+        } else {
+            textComponents.add(TextComponentUtil.translationWithColor(
+                    TextFormatting.DARK_RED,
+                    "tkcysa.multiblock.advanced_cleanroom.gas_require_infos",
+                    TextComponentUtil.stringWithColor(TextFormatting.RED, gasAmountToDrain() + "L/t"),
+                    gasMaterial));
+
+        }
+    }
+
+    @Override
+    public boolean hasEnoughGas() {
+        return hasEnoughGas;
     }
 
     @Override
@@ -155,6 +191,7 @@ public class MetaTileEntityAdvancedCleanroom extends MetaTileEntityCleanroomBase
         int gasToDrain = isClean() ? gasAmountToDrainWhenClean() : gasAmountToDrain();
         FluidStack fluidStackToDrain = getCleanroomType().getIntertGasMaterial().getFluid(gasToDrain);
         FluidStack drainedStack = inputFluidInventory.drain(fluidStackToDrain, false);
-        return drainedStack != null && drainedStack.amount == gasToDrain;
+        hasEnoughGas = drainedStack != null && drainedStack.amount == gasToDrain;
+        return hasEnoughGas;
     }
 }

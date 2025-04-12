@@ -4,9 +4,14 @@ import java.util.List;
 
 import net.minecraft.util.text.ITextComponent;
 
+import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.multiblock.ICleanroomProvider;
 
 public interface IAdvancedCleanroomProvider extends ICleanroomProvider {
+
+    static IAdvancedCleanroomProvider getInstance(MetaTileEntity metaTileEntity) {
+        return (IAdvancedCleanroomProvider) metaTileEntity;
+    }
 
     /**
      * Consumes gas from the cleanroom
@@ -31,6 +36,10 @@ public interface IAdvancedCleanroomProvider extends ICleanroomProvider {
     void setCleanroomTypeIndex(int index);
 
     void addGasConsumptionInfos(List<ITextComponent> textComponents);
+
+    boolean hasEnoughGas();
+
+    boolean hasEnoughEnergy();
 
     default AdvancedCleanroomType getCleanroomType() {
         return AdvancedCleanroomType.ADVANCED_CLEANROOM_TYPES.get(getCleanroomTypeIndex());
