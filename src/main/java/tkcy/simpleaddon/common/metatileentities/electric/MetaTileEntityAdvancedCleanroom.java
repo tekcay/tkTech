@@ -49,6 +49,7 @@ public class MetaTileEntityAdvancedCleanroom extends MetaTileEntityCleanroomBase
     @Override
     protected void initializeAbilities() {
         super.initializeAbilities();
+        this.cleanroomType = getCleanroomType();
         this.inputFluidInventory = new FluidTankList(true, getAbilities(MultiblockAbility.IMPORT_FLUIDS));
     }
 
@@ -91,7 +92,7 @@ public class MetaTileEntityAdvancedCleanroom extends MetaTileEntityCleanroomBase
                         l.add(TextComponentUtil.translationWithColor(
                                 getCleanroomType().getDisplayColor(),
                                 "tkcysa.multiblock.advanced_cleanroom.not_enough_gas",
-                                        getCleanroomType().getIntertGasMaterial().getLocalizedName()));
+                                getCleanroomType().getIntertGasMaterial().getLocalizedName()));
                     }
                 });
     }
@@ -113,7 +114,8 @@ public class MetaTileEntityAdvancedCleanroom extends MetaTileEntityCleanroomBase
     public void receiveCustomData(int dataId, PacketBuffer buf) {
         super.receiveCustomData(dataId, buf);
         if (dataId == TKCYSADataCodes.CLEANROOM_TYPE_INDEX) {
-            cleanroomTypeIndex = buf.readByte();
+            this.cleanroomTypeIndex = buf.readByte();
+            cleanroomType = getCleanroomType();
             scheduleRenderUpdate();
         }
     }

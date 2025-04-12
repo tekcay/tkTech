@@ -325,6 +325,9 @@ tkcysa.multiblock.advanced_cleanroom.not_enough_gas=Not enough %s!
 tkcysa.recipe.coil=Coil: %s
 tkcya.recipe.tool.uses=Tool uses: %d
 
+gregtech.recipe.cleanroom_nitrogen.display_name=Nitrogen Cleanroom
+gregtech.recipe.cleanroom_argon.display_name=Argon Cleanroom
+
 
 
 ##RecipeCategories

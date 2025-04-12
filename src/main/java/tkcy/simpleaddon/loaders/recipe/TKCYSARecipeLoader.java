@@ -42,6 +42,7 @@ public final class TKCYSARecipeLoader {
         harderStuff();
         chains();
         BrickMTEs.init();
+        RecipesTests.register();
 
         removeGTCEuElectrolyzsis();
         removeGTCEuElectrolyzerMTEs();
