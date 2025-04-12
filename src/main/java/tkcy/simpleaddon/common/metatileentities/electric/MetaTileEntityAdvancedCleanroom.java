@@ -2,10 +2,17 @@ package tkcy.simpleaddon.common.metatileentities.electric;
 
 import java.util.*;
 
+import appeng.core.AEConfig;
+import appeng.core.features.AEFeature;
+import gregtech.api.util.Mods;
+import gregtech.client.utils.TooltipHelper;
+import net.minecraft.client.resources.I18n;
+import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
 
 import org.jetbrains.annotations.NotNull;
@@ -23,6 +30,7 @@ import gregtech.api.pattern.*;
 import gregtech.api.util.LocalizationUtils;
 import gregtech.api.util.TextComponentUtil;
 
+import org.jetbrains.annotations.Nullable;
 import tkcy.simpleaddon.api.capabilities.TKCYSADataCodes;
 import tkcy.simpleaddon.api.logic.AdvancedCleanroomLogic;
 import tkcy.simpleaddon.api.metatileentities.cleanroom.AdvancedCleanroomType;
@@ -180,6 +188,32 @@ public class MetaTileEntityAdvancedCleanroom extends MetaTileEntityCleanroomBase
                     TextComponentUtil.stringWithColor(TextFormatting.RED, gasAmountToDrain() + "L/t"),
                     gasMaterial));
 
+        }
+    }
+
+    @Override
+    public void addInformation(ItemStack stack, @Nullable World player, List<String> tooltip, boolean advanced) {
+        tooltip.add(I18n.format("tkcysa.machine.cleanroom.tooltip"));
+        tooltip.add(I18n.format("tkcysa.machine.cleanroom.tooltip.1"));
+        tooltip.add(I18n.format("tkcysa.machine.cleanroom.tooltip.2"));
+        tooltip.add(I18n.format("gregtech.machine.cleanroom.tooltip.3"));
+        tooltip.add(I18n.format("gregtech.machine.cleanroom.tooltip.4"));
+
+        if (TooltipHelper.isCtrlDown()) {
+            tooltip.add("");
+            tooltip.add(I18n.format("gregtech.machine.cleanroom.tooltip.5"));
+            tooltip.add(I18n.format("gregtech.machine.cleanroom.tooltip.6"));
+            tooltip.add(I18n.format("gregtech.machine.cleanroom.tooltip.7"));
+            tooltip.add(I18n.format("gregtech.machine.cleanroom.tooltip.8"));
+            tooltip.add(I18n.format("gregtech.machine.cleanroom.tooltip.9"));
+            if (Mods.AppliedEnergistics2.isModLoaded()) {
+                tooltip.add(I18n.format(AEConfig.instance().isFeatureEnabled(AEFeature.CHANNELS) ?
+                        "gregtech.machine.cleanroom.tooltip.ae2.channels" :
+                        "gregtech.machine.cleanroom.tooltip.ae2.no_channels"));
+            }
+            tooltip.add("");
+        } else {
+            tooltip.add(I18n.format("gregtech.machine.cleanroom.tooltip.hold_ctrl"));
         }
     }
 

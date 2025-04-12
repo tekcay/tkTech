@@ -154,6 +154,7 @@ tkcysa.machine.hydrogenation_unit.name=Hydrogenation Unit
 tkcysa.machine.cracking_unit.name=Cracking Unit
 tkcysa.machine.steam_dust_mixer.name=Steam Dust Mixer
 tkcysa.machine.steam_melter.name=Steam Melter
+tkcysa.machine.advanced_cleanroom.name=Advanced Cleanroom
 
 tkcysa.machine.fluid_primitive_blast_furnace.name=Fluid Primitive Blast Furnace
 tkcysa.machine.primitive_casting.name=Primitive Casting
@@ -303,6 +304,9 @@ tkcya.tool_machine.parts.tooltip=§fUsed to make §e%s
 
 tkcysa.machine.parallel.tooltip=Every additional %d layers add one parallel point
 
+tkcysa.machine.cleanroom.tooltip=Not your vanilla cleanroom
+tkcysa.machine.cleanroom.tooltip.1=Place machines inside to run inert-gas cleanroom recipes.
+tkcysa.machine.cleanroom.tooltip.2=Uses both EU/t and gas based on cleanroom size.
 
 ##Modulable Storage
 tkcysa.multiblock.modulable_storage.content=%s
