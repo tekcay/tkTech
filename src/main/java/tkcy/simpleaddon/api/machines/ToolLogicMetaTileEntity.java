@@ -1,7 +1,6 @@
 package tkcy.simpleaddon.api.machines;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
@@ -15,17 +14,14 @@ import net.minecraftforge.items.IItemHandlerModifiable;
 import org.jetbrains.annotations.Nullable;
 
 import gregtech.api.capability.IMultipleTankHandler;
-import gregtech.api.capability.impl.NotifiableItemStackHandler;
 import gregtech.api.gui.ModularUI;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.recipes.Recipe;
 import gregtech.api.recipes.RecipeMap;
-import gregtech.api.unification.ore.OrePrefix;
 import gregtech.client.renderer.texture.cube.SimpleOverlayRenderer;
 
 import tkcy.simpleaddon.api.recipes.builders.ToolRecipeBuilder;
 import tkcy.simpleaddon.api.recipes.logic.ToolRecipeLogic;
-import tkcy.simpleaddon.api.utils.StringsHelper;
 import tkcy.simpleaddon.modules.toolmodule.ToolsModule;
 import tkcy.simpleaddon.modules.toolmodule.WorkingTool;
 
@@ -50,18 +46,15 @@ public abstract class ToolLogicMetaTileEntity extends MetaTileEntity {
      */
     @Override
     public int getItemOutputLimit() {
-        return -1;
-    }
-
-    @Override
-    protected IItemHandlerModifiable createImportItemHandler() {
-        return new NotifiableItemStackHandler(this, this.recipeMap.getMaxInputs(), this, false);
+        if (doOutputInWorld()) {
+            return -1;
+        } else return this.recipeMap.getMaxOutputs();
     }
 
     @Override
     public void addInformation(ItemStack stack, @Nullable World player, List<String> tooltip, boolean advanced) {
         tooltip.add(I18n.format("tkcya.tool_machine.sneak_right_click_with_tool.tooltip.1", getWorkingGtTool()));
-        tooltip.add(I18n.format("tkcya.tool_machine.parts.tooltip", addPartsOrePrefixInformation()));
+        addExtraTooltip(stack, player, tooltip, advanced);
         super.addInformation(stack, player, tooltip, advanced);
     }
 
@@ -70,17 +63,9 @@ public abstract class ToolLogicMetaTileEntity extends MetaTileEntity {
         return createUITemplate(player).build(getHolder(), player);
     }
 
-    protected String addPartsOrePrefixInformation() {
-        return getPartsOrePrefixes().stream()
-                .map(OrePrefix::name)
-                .map(StringsHelper::convertCamelToTitleCase)
-                .collect(Collectors.joining("s, ")) + "s.";
+    protected boolean doOutputInWorld() {
+        return false;
     }
-
-    /**
-     * Returns the orePrefix of all the parts that can be made via this metaTileEntity recipes.
-     */
-    protected abstract List<OrePrefix> getPartsOrePrefixes();
 
     @SideOnly(Side.CLIENT)
     protected abstract SimpleOverlayRenderer getBaseRenderer();
@@ -88,4 +73,6 @@ public abstract class ToolLogicMetaTileEntity extends MetaTileEntity {
     protected abstract ToolsModule.GtTool getWorkingGtTool();
 
     protected abstract ModularUI.Builder createUITemplate(EntityPlayer entityPlayer);
+
+    protected void addExtraTooltip(ItemStack stack, @Nullable World player, List<String> tooltip, boolean advanced) {}
 }

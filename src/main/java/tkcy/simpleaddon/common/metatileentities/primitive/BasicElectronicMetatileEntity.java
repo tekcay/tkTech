@@ -1,19 +1,12 @@
 package tkcy.simpleaddon.common.metatileentities.primitive;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
 import net.minecraftforge.items.IItemHandlerModifiable;
 
 import org.apache.commons.lang3.ArrayUtils;
-import org.jetbrains.annotations.Nullable;
 
 import gregtech.api.capability.impl.NotifiableItemStackHandler;
 import gregtech.api.gui.GuiTextures;
@@ -23,7 +16,6 @@ import gregtech.api.gui.widgets.ProgressWidget;
 import gregtech.api.items.itemhandlers.GTItemStackHandler;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
-import gregtech.api.unification.ore.OrePrefix;
 import gregtech.api.util.GTUtility;
 import gregtech.client.renderer.texture.Textures;
 import gregtech.client.renderer.texture.cube.SimpleOverlayRenderer;
@@ -33,30 +25,30 @@ import codechicken.lib.render.CCRenderState;
 import codechicken.lib.render.pipeline.ColourMultiplier;
 import codechicken.lib.render.pipeline.IVertexOperation;
 import codechicken.lib.vec.Matrix4;
-import tkcy.simpleaddon.api.machines.IUnificationToolMachine;
+import tkcy.simpleaddon.api.machines.IOnSolderingIronClick;
 import tkcy.simpleaddon.api.machines.ToolLogicMetaTileEntity;
 import tkcy.simpleaddon.api.recipes.recipemaps.TKCYSARecipeMaps;
 import tkcy.simpleaddon.modules.toolmodule.ToolsModule;
 
-public class AnvilMetatileEntity extends ToolLogicMetaTileEntity implements IUnificationToolMachine {
+public class BasicElectronicMetatileEntity extends ToolLogicMetaTileEntity implements IOnSolderingIronClick {
 
-    public AnvilMetatileEntity(ResourceLocation metaTileEntityId) {
-        super(metaTileEntityId, TKCYSARecipeMaps.ANVIL_RECIPES);
+    public BasicElectronicMetatileEntity(ResourceLocation metaTileEntityId) {
+        super(metaTileEntityId, TKCYSARecipeMaps.BASIC_ELECTRONIC_RECIPES);
     }
 
     @Override
     protected ToolsModule.GtTool getWorkingGtTool() {
-        return ToolsModule.GtTool.HARD_HAMMER;
-    }
-
-    @Override
-    protected IItemHandlerModifiable createExportItemHandler() {
-        return new GTItemStackHandler(this, 2);
+        return ToolsModule.GtTool.SOLDERING_IRON;
     }
 
     @Override
     protected IItemHandlerModifiable createImportItemHandler() {
-        return new NotifiableItemStackHandler(this, 1, this, false);
+        return new NotifiableItemStackHandler(this, 8, this, false);
+    }
+
+    @Override
+    protected IItemHandlerModifiable createExportItemHandler() {
+        return new GTItemStackHandler(this, 1);
     }
 
     @Override
@@ -80,26 +72,7 @@ public class AnvilMetatileEntity extends ToolLogicMetaTileEntity implements IUni
 
     @Override
     public MetaTileEntity createMetaTileEntity(IGregTechTileEntity tileEntity) {
-        return new AnvilMetatileEntity(metaTileEntityId);
-    }
-
-    @Override
-    public List<OrePrefix> getPartsOrePrefixes() {
-        return new ArrayList<>() {
-
-            {
-                add(OrePrefix.plate);
-                add(OrePrefix.plateDouble);
-            }
-        };
-    }
-
-    @Override
-    public boolean onHardHammerClick(EntityPlayer playerIn, EnumHand hand, EnumFacing facing,
-                                     CuboidRayTraceResult hitResult) {
-        if (!playerIn.isSneaking()) return false;
-        this.logic.startWorking(getWorkingGtTool());
-        return true;
+        return new BasicElectronicMetatileEntity(this.metaTileEntityId);
     }
 
     @Override
@@ -114,12 +87,10 @@ public class AnvilMetatileEntity extends ToolLogicMetaTileEntity implements IUni
     }
 
     @Override
-    protected boolean doOutputInWorld() {
+    public boolean onSolderingIronClick(EntityPlayer playerIn, EnumHand hand, EnumFacing wrenchSide,
+                                        CuboidRayTraceResult hitResult) {
+        if (!playerIn.isSneaking()) return false;
+        this.logic.startWorking(getWorkingGtTool());
         return true;
-    }
-
-    @Override
-    protected void addExtraTooltip(ItemStack stack, @Nullable World player, List<String> tooltip, boolean advanced) {
-        tooltip.add(I18n.format("tkcya.tool_machine.parts.tooltip", addPartsOrePrefixInformation()));
     }
 }

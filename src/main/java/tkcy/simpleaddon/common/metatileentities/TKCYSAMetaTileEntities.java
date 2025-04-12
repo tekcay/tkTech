@@ -120,7 +120,7 @@ public class TKCYSAMetaTileEntities {
         STEAM_DUST_MIXER = registerMetaTileEntity(4102, new SteamDustMixer(tkcysa("steam_dust_mixer")));
         STEAM_MELTER = registerMetaTileEntity(4103, new SteamMelter(tkcysa("steam_melter")));
         PARTS_WORKER_MTE = registerMetaTileEntity(4104,
-                new AnvilMetatileEntity(tkcysa("anvil"), TKCYSARecipeMaps.ANVIL_RECIPES));
+                new AnvilMetatileEntity(tkcysa("anvil")));
         ADVANCED_CLEANROOM = registerMetaTileEntity(4105,
                 new MetaTileEntityAdvancedCleanroom(tkcysa("advanced_cleanroom")));
 
