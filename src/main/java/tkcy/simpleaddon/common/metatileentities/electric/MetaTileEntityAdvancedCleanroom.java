@@ -33,12 +33,11 @@ public class MetaTileEntityAdvancedCleanroom extends MetaTileEntityCleanroomBase
                                              implements IAdvancedCleanroomProvider, IWorkable, IDataInfoProvider {
 
     private IMultipleTankHandler inputFluidInventory;
-    private final AdvancedCleanroomLogic cleanroomLogic;
     private int cleanroomTypeIndex;
 
     public MetaTileEntityAdvancedCleanroom(ResourceLocation metaTileEntityId) {
         super(metaTileEntityId);
-        this.cleanroomLogic = new AdvancedCleanroomLogic(this);
+        cleanroomLogic = new AdvancedCleanroomLogic(this);
     }
 
     @Override
@@ -135,6 +134,8 @@ public class MetaTileEntityAdvancedCleanroom extends MetaTileEntityCleanroomBase
     public void setCleanroomTypeIndex(int index) {
         this.cleanroomTypeIndex = index;
         if (!getWorld().isRemote) {
+            this.cleanroomType = getCleanroomType();
+            setCleanAmount(0);
             writeCustomData(TKCYSADataCodes.CLEANROOM_TYPE_INDEX, buf -> buf.writeByte(index));
             markDirty();
         }

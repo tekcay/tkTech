@@ -88,7 +88,7 @@ public abstract class MetaTileEntityCleanroomBase extends MultiblockWithDisplayB
     protected IEnergyContainer energyContainer;
 
     protected ICleanroomFilter cleanroomFilter;
-    protected final CleanroomLogic cleanroomLogic;
+    protected CleanroomLogic cleanroomLogic;
     protected final Collection<ICleanroomReceiver> cleanroomReceivers = new HashSet<>();
 
     public MetaTileEntityCleanroomBase(ResourceLocation metaTileEntityId) {
