@@ -1,6 +1,8 @@
 package tkcy.simpleaddon.api.metatileentities.cleanroom;
 
-import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.jetbrains.annotations.NotNull;
 
 import gregtech.api.metatileentity.multiblock.CleanroomType;
@@ -8,10 +10,6 @@ import gregtech.api.unification.material.Material;
 import gregtech.api.unification.material.Materials;
 
 import lombok.Getter;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 @Getter
 public class AdvancedCleanroomType extends CleanroomType {

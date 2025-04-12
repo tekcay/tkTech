@@ -1,10 +1,34 @@
 package tkcy.simpleaddon.api.metatileentities.cleanroom;
 
-import appeng.core.AEConfig;
-import appeng.core.features.AEFeature;
-import codechicken.lib.render.CCRenderState;
-import codechicken.lib.render.pipeline.IVertexOperation;
-import codechicken.lib.vec.Matrix4;
+import java.util.*;
+
+import net.minecraft.block.BlockDoor;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.resources.I18n;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.PacketBuffer;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.NonNullList;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.world.World;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import gregtech.api.GTValues;
 import gregtech.api.GregTechAPI;
 import gregtech.api.block.ICleanroomFilter;
@@ -36,36 +60,15 @@ import gregtech.common.metatileentities.multi.electric.MetaTileEntityFluidDrill;
 import gregtech.common.metatileentities.multi.electric.MetaTileEntityLargeMiner;
 import gregtech.common.metatileentities.multi.electric.centralmonitor.MetaTileEntityCentralMonitor;
 import gregtech.core.sound.GTSoundEvents;
-import net.minecraft.block.BlockDoor;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentString;
-import net.minecraft.util.text.TextComponentTranslation;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.world.World;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
-import java.util.*;
+import appeng.core.AEConfig;
+import appeng.core.features.AEFeature;
+import codechicken.lib.render.CCRenderState;
+import codechicken.lib.render.pipeline.IVertexOperation;
+import codechicken.lib.vec.Matrix4;
 
 public abstract class MetaTileEntityCleanroomBase extends MultiblockWithDisplayBase
-                                     implements IAdvancedCleanroomProvider, IWorkable, IDataInfoProvider {
+                                                  implements IAdvancedCleanroomProvider, IWorkable, IDataInfoProvider {
 
     public static final int CLEAN_AMOUNT_THRESHOLD = 90;
     public static final int MIN_CLEAN_AMOUNT = 0;
@@ -110,6 +113,7 @@ public abstract class MetaTileEntityCleanroomBase extends MultiblockWithDisplayB
         if (doesHandleFilter()) {
             this.cleanroomFilter = context.get("FilterType");
             this.cleanroomType = cleanroomFilter.getCleanroomType();
+            this.cleanroomLogic.setMinEnergyTier(cleanroomFilter.getMinTier());
         }
 
         // max progress is based on the dimensions of the structure: (x^3)-(x^2)
@@ -117,7 +121,6 @@ public abstract class MetaTileEntityCleanroomBase extends MultiblockWithDisplayB
         // minimum of 100 is a 5x5x5 cleanroom: 125-25=100 ticks
         this.cleanroomLogic.setMaxProgress(Math.max(100,
                 ((lDist + rDist + 1) * (bDist + fDist + 1) * hDist) - ((lDist + rDist + 1) * (bDist + fDist + 1))));
-        this.cleanroomLogic.setMinEnergyTier(cleanroomFilter.getMinTier());
     }
 
     @Override
