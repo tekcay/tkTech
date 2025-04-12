@@ -1,9 +1,10 @@
 {
-  "package": "tkcy.simpleaddon.mixins.gregtech",
-  "refmap": "mixins.tkcysa.refmap.json",
-  "target": "@env(DEFAULT)",
-  "minVersion": "0.8",
-  "compatibilityLevel": "JAVA_8",
-  "mixins": [
+  "package" : "tkcy.simpleaddon.mixins.gregtech",
+  "refmap" : "mixins.tkcysa.refmap.json",
+  "target" : "@env(DEFAULT)",
+  "minVersion" : "0.8",
+  "compatibilityLevel" : "JAVA_8",
+  "mixins" : [
+    "MixinToolClickMetaTileEntity"
   ]
 }

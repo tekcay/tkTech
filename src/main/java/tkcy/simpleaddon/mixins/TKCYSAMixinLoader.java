@@ -20,7 +20,7 @@ public class TKCYSAMixinLoader implements ILateMixinLoader {
     @Override
     public List<String> getMixinConfigs() {
         return modMixins.stream()
-                .map(mod -> "mixins.gtb." + mod + ".json")
+                .map(mod -> "mixins.tkcysa." + mod + ".json")
                 .collect(Collectors.toList());
     }
 
