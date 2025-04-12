@@ -154,6 +154,7 @@ tkcysa.machine.hydrogenation_unit.name=Hydrogenation Unit
 tkcysa.machine.cracking_unit.name=Cracking Unit
 tkcysa.machine.steam_dust_mixer.name=Steam Dust Mixer
 tkcysa.machine.steam_melter.name=Steam Melter
+tkcysa.machine.advanced_cleanroom.name=Advanced Cleanroom
 
 tkcysa.machine.fluid_primitive_blast_furnace.name=Fluid Primitive Blast Furnace
 tkcysa.machine.primitive_casting.name=Primitive Casting
@@ -303,6 +304,9 @@ tkcya.tool_machine.parts.tooltip=§fUsed to make §e%s
 
 tkcysa.machine.parallel.tooltip=Every additional %d layers add one parallel point
 
+tkcysa.machine.cleanroom.tooltip=Not your vanilla cleanroom
+tkcysa.machine.cleanroom.tooltip.1=Place machines inside to run inert-gas cleanroom recipes.
+tkcysa.machine.cleanroom.tooltip.2=Uses both EU/t and gas based on cleanroom size.
 
 ##Modulable Storage
 tkcysa.multiblock.modulable_storage.content=%s
@@ -317,10 +321,16 @@ tkcysa.multiblock.modulable_chest.tooltip.2=No GUI (for now), only visible via t
 tkcysa.multiblock.modulable_pressurized_tank.tooltip=Modulable Pressurized Tank toolip
 tkcysa.multiblock.modulable_crate.tooltip=Modulable Crate tooltip
 
+tkcysa.multiblock.advanced_cleanroom.gas_consumption_infos=Consumes %s of %s
+tkcysa.multiblock.advanced_cleanroom.gas_require_infos=Requires %s of %s
+tkcysa.multiblock.advanced_cleanroom.not_enough_gas=Not enough %s!
 
 ## Recipe properties
 tkcysa.recipe.coil=Coil: %s
 tkcya.recipe.tool.uses=Tool uses: %d
+
+gregtech.recipe.cleanroom_nitrogen.display_name=Nitrogen Cleanroom
+gregtech.recipe.cleanroom_argon.display_name=Argon Cleanroom
 
 
 
@@ -332,3 +342,6 @@ tkcya.recipe.tool.uses=Tool uses: %d
 
 behavior.tricorder.itemStack=Stack : %s %d %s
 behavior.tricorder.size=slots : %s %d
+
+#Button headers
+tkcysa.multiblock.advanced_cleanroom.gas.header=Inert gas: %s

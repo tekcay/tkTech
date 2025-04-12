@@ -45,6 +45,7 @@ public class TKCYSAMetaTileEntities {
     public static SteamDustMixer STEAM_DUST_MIXER;
     public static SteamMelter STEAM_MELTER;
     public static ToolLogicMetaTileEntity PARTS_WORKER_MTE;
+    public static MetaTileEntityAdvancedCleanroom ADVANCED_CLEANROOM;
     public static SimpleMachineMetaTileEntity[] CLUSTER_MILLS = new SimpleMachineMetaTileEntity[5];
     public static SimpleMachineMetaTileEntity[] COMPONENT_ASSEMBLER_MTE = new SimpleMachineMetaTileEntity[6];
     public static SimpleMachineMetaTileEntity[] ROLLING_MILL = new SimpleMachineMetaTileEntity[6];
@@ -120,6 +121,8 @@ public class TKCYSAMetaTileEntities {
         STEAM_MELTER = registerMetaTileEntity(4103, new SteamMelter(tkcysa("steam_melter")));
         PARTS_WORKER_MTE = registerMetaTileEntity(4104,
                 new AnvilMetatileEntity(tkcysa("anvil"), TKCYSARecipeMaps.ANVIL_RECIPES));
+        ADVANCED_CLEANROOM = registerMetaTileEntity(4105,
+                new MetaTileEntityAdvancedCleanroom(tkcysa("advanced_cleanroom")));
 
         MaterialMetaTileEntity.registerMaterialMetaTileEntity(StorageModule.TANK_MATERIALS, MODULABLE_TANKS, 4200,
                 StorageModule::initModulableTank);

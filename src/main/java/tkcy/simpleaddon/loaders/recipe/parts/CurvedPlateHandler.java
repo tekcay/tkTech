@@ -8,8 +8,6 @@ import gregtech.api.recipes.ModHandler;
 import gregtech.api.unification.OreDictUnifier;
 import gregtech.api.unification.material.Material;
 import gregtech.api.unification.material.Materials;
-import gregtech.api.unification.material.properties.IngotProperty;
-import gregtech.api.unification.material.properties.PropertyKey;
 import gregtech.api.unification.ore.OrePrefix;
 import gregtech.api.unification.stack.UnificationEntry;
 import gregtech.loaders.recipe.MetaTileEntityLoader;
@@ -23,7 +21,7 @@ import tkcy.simpleaddon.common.metatileentities.TKCYSAMetaTileEntities;
 public class CurvedPlateHandler {
 
     public static void init() {
-        TKCYSAOrePrefix.curvedPlate.addProcessingHandler(PropertyKey.INGOT, CurvedPlateHandler::processCurvedPlate);
+        TKCYSAOrePrefix.curvedPlate.addProcessingHandler(CurvedPlateHandler::processCurvedPlate);
         rollingMill();
     }
 
@@ -38,7 +36,7 @@ public class CurvedPlateHandler {
                 'H', HULL);
     }
 
-    private static void processCurvedPlate(OrePrefix orePrefix, Material material, IngotProperty ingotProperty) {
+    private static void processCurvedPlate(OrePrefix orePrefix, Material material) {
         ModHandler.addShapedRecipe(String.format("%s_%s", material.getUnlocalizedName(), curvedPlate.name()),
                 OreDictUnifier.get(curvedPlate, material),
                 " h ", " P ", "   ",
