@@ -14,8 +14,8 @@ public interface IOnSolderingIronClick {
      * @return true if something happened, so the tool will get damaged and animation will be played
      */
     default boolean onSolderingIronClick(EntityPlayer playerIn, EnumHand hand,
-                                 EnumFacing wrenchSide,
-                                 CuboidRayTraceResult hitResult) {
+                                         EnumFacing wrenchSide,
+                                         CuboidRayTraceResult hitResult) {
         return true;
     }
 }

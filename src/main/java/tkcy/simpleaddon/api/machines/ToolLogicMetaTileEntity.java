@@ -9,14 +9,11 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraftforge.items.IItemHandlerModifiable;
 
 import org.jetbrains.annotations.Nullable;
 
-import gregtech.api.capability.IMultipleTankHandler;
 import gregtech.api.gui.ModularUI;
 import gregtech.api.metatileentity.MetaTileEntity;
-import gregtech.api.recipes.Recipe;
 import gregtech.api.recipes.RecipeMap;
 import gregtech.client.renderer.texture.cube.SimpleOverlayRenderer;
 
@@ -31,7 +28,8 @@ public abstract class ToolLogicMetaTileEntity extends MetaTileEntity {
     protected final ToolRecipeLogic logic;
     protected final RecipeMap<ToolRecipeBuilder> recipeMap;
 
-    public ToolLogicMetaTileEntity(ResourceLocation metaTileEntityId, RecipeMap<ToolRecipeBuilder> recipeMap, boolean doOutputInWorld) {
+    public ToolLogicMetaTileEntity(ResourceLocation metaTileEntityId, RecipeMap<ToolRecipeBuilder> recipeMap,
+                                   boolean doOutputInWorld) {
         super(metaTileEntityId);
         this.recipeMap = recipeMap;
         this.logic = new ToolRecipeLogic(this, recipeMap, doOutputInWorld);

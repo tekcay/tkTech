@@ -9,8 +9,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHand;
 import net.minecraftforge.items.IItemHandler;
 
-import gregtech.api.util.GTTransferUtils;
 import org.jetbrains.annotations.NotNull;
+
+import gregtech.api.util.GTTransferUtils;
 
 /**
  * A metatileentity that can transfer an itemStack from the player hand by right-clicking.
@@ -32,7 +33,8 @@ public interface IRightClickItemTransfer {
     /**
      * @return {@code true} if a transfer happened
      */
-    default boolean tryTransferHandStackToInput(@NotNull EntityPlayer player, EnumHand hand, @NotNull IItemHandler machineInput) {
+    default boolean tryTransferHandStackToInput(@NotNull EntityPlayer player, EnumHand hand,
+                                                @NotNull IItemHandler machineInput) {
         ItemStack heldStack = player.getHeldItem(hand).copy();
         ItemStack remainder = GTTransferUtils.insertItem(machineInput, heldStack, false);
 
@@ -40,7 +42,6 @@ public interface IRightClickItemTransfer {
 
         player.getHeldItem(hand).shrink(heldStack.getCount() - remainder.getCount());
         return true;
-
     }
 
     /**
@@ -81,7 +82,7 @@ public interface IRightClickItemTransfer {
     }
 
     default void transferHandStackToInputTooltip(@NotNull List<String> tooltip) {
-            tooltip.add(I18n.format("tkcysa.metatileentity.transfer_hand_stack_to_input.tooltip"));
+        tooltip.add(I18n.format("tkcysa.metatileentity.transfer_hand_stack_to_input.tooltip"));
     }
 
     default void transferOutputToPlayerTooltip(@NotNull List<String> tooltip) {

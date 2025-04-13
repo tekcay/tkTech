@@ -33,7 +33,8 @@ import tkcy.simpleaddon.api.machines.ToolLogicMetaTileEntity;
 import tkcy.simpleaddon.api.recipes.recipemaps.TKCYSARecipeMaps;
 import tkcy.simpleaddon.modules.toolmodule.ToolsModule;
 
-public class BasicElectronicMetatileEntity extends ToolLogicMetaTileEntity implements IOnSolderingIronClick, IRightClickItemTransfer {
+public class BasicElectronicMetatileEntity extends ToolLogicMetaTileEntity
+                                           implements IOnSolderingIronClick, IRightClickItemTransfer {
 
     public BasicElectronicMetatileEntity(ResourceLocation metaTileEntityId) {
         super(metaTileEntityId, TKCYSARecipeMaps.BASIC_ELECTRONIC_RECIPES, false);

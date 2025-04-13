@@ -37,7 +37,8 @@ public class ToolRecipeLogic extends PrimitiveLogic {
     protected List<FluidStack> fluidStackListInventory;
     protected final boolean doOutputInWorld;
 
-    public ToolRecipeLogic(ToolLogicMetaTileEntity tileEntity, @NotNull RecipeMap<?> recipeMap, boolean doOutputInWorld) {
+    public ToolRecipeLogic(ToolLogicMetaTileEntity tileEntity, @NotNull RecipeMap<?> recipeMap,
+                           boolean doOutputInWorld) {
         super(tileEntity, recipeMap);
         this.doOutputInWorld = doOutputInWorld;
         this.itemStackListInventory = new ArrayList<>();

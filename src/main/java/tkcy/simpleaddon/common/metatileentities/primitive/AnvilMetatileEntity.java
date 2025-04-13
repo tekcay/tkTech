@@ -40,7 +40,8 @@ import tkcy.simpleaddon.api.machines.ToolLogicMetaTileEntity;
 import tkcy.simpleaddon.api.recipes.recipemaps.TKCYSARecipeMaps;
 import tkcy.simpleaddon.modules.toolmodule.ToolsModule;
 
-public class AnvilMetatileEntity extends ToolLogicMetaTileEntity implements IUnificationToolMachine, IRightClickItemTransfer {
+public class AnvilMetatileEntity extends ToolLogicMetaTileEntity
+                                 implements IUnificationToolMachine, IRightClickItemTransfer {
 
     public AnvilMetatileEntity(ResourceLocation metaTileEntityId) {
         super(metaTileEntityId, TKCYSARecipeMaps.ANVIL_RECIPES, true);
