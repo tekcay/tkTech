@@ -59,13 +59,12 @@ public abstract class MixinToolClickMetaTileEntity implements IOnSolderingIronCl
     @Inject(method = "onToolClick", at = @At(value = "TAIL", ordinal = 0), cancellable = true)
     public void onToolClick(EntityPlayer playerIn, @NotNull Set<String> toolClasses, EnumHand hand,
                             CuboidRayTraceResult hitResult, CallbackInfoReturnable<Boolean> callback) {
-
+        boolean result = false;
         EnumFacing gridSideHit = CoverRayTracer.determineGridSideHit(hitResult);
         if (toolClasses.contains(TKCYSAToolClasses.SOLDERING_IRON)) {
-            callback.setReturnValue(
-                    onSolderingIronClick(playerIn, hand, gridSideHit, hitResult));
+            result = onSolderingIronClick(playerIn, hand, gridSideHit, hitResult);
         }
-        callback.setReturnValue(false);
+        callback.setReturnValue(result);
     }
 
     @Inject(method = "onRightClick", at = @At(value = "HEAD", ordinal = 0), cancellable = true)

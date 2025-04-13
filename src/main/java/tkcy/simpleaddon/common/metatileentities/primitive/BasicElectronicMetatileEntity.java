@@ -88,7 +88,8 @@ public class BasicElectronicMetatileEntity extends ToolLogicMetaTileEntity imple
         return recipeMap.getRecipeMapUI()
                 .createUITemplate(logic::getProgressPercent, importItems, exportItems, importFluids, exportFluids,
                         FONT_HEIGHT)
-                .widget(new LabelWidget(5, 5, getMetaFullName()));
+                .widget(new LabelWidget(5, 5, getMetaFullName()))
+                .bindPlayerInventory(entityPlayer.inventory, 92);
     }
 
     @Override
