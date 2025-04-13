@@ -3,6 +3,7 @@ package tkcy.simpleaddon.api.machines;
 import java.util.List;
 import java.util.stream.IntStream;
 
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHand;
@@ -73,5 +74,23 @@ public interface IRightClickItemTransfer {
             else playerIn.inventory.addItemStackToInventory(foundStack);
         }
         return false;
+    }
+
+    default boolean showSpecialRightClickTooltips() {
+        return true;
+    }
+
+    default void transferHandStackToInputTooltip(@NotNull List<String> tooltip) {
+            tooltip.add(I18n.format("tkcysa.metatileentity.transfer_hand_stack_to_input.tooltip"));
+    }
+
+    default void transferOutputToPlayerTooltip(@NotNull List<String> tooltip) {
+        if (doesTransferOutputToPlayer())
+            tooltip.add(I18n.format("tkcysa.metatileentity.transfer_output_to_player.tooltip"));
+    }
+
+    default void transferInputToPlayerTooltip(@NotNull List<String> tooltip) {
+        if (doesTransferInputToPlayer())
+            tooltip.add(I18n.format("tkcysa.metatileentity.transfer_input_to_player.tooltip"));
     }
 }
