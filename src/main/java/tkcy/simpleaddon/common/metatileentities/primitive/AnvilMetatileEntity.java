@@ -13,6 +13,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.items.IItemHandlerModifiable;
 
 import org.apache.commons.lang3.ArrayUtils;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import gregtech.api.capability.impl.NotifiableItemStackHandler;
@@ -33,15 +34,16 @@ import codechicken.lib.render.CCRenderState;
 import codechicken.lib.render.pipeline.ColourMultiplier;
 import codechicken.lib.render.pipeline.IVertexOperation;
 import codechicken.lib.vec.Matrix4;
+import tkcy.simpleaddon.api.machines.IRightClickItemTransfer;
 import tkcy.simpleaddon.api.machines.IUnificationToolMachine;
 import tkcy.simpleaddon.api.machines.ToolLogicMetaTileEntity;
 import tkcy.simpleaddon.api.recipes.recipemaps.TKCYSARecipeMaps;
 import tkcy.simpleaddon.modules.toolmodule.ToolsModule;
 
-public class AnvilMetatileEntity extends ToolLogicMetaTileEntity implements IUnificationToolMachine {
+public class AnvilMetatileEntity extends ToolLogicMetaTileEntity implements IUnificationToolMachine, IRightClickItemTransfer {
 
     public AnvilMetatileEntity(ResourceLocation metaTileEntityId) {
-        super(metaTileEntityId, TKCYSARecipeMaps.ANVIL_RECIPES);
+        super(metaTileEntityId, TKCYSARecipeMaps.ANVIL_RECIPES, true);
     }
 
     @Override
@@ -84,7 +86,7 @@ public class AnvilMetatileEntity extends ToolLogicMetaTileEntity implements IUni
     }
 
     @Override
-    public List<OrePrefix> getPartsOrePrefixes() {
+    public @NotNull List<OrePrefix> getPartsOrePrefixes() {
         return new ArrayList<>() {
 
             {
@@ -103,6 +105,11 @@ public class AnvilMetatileEntity extends ToolLogicMetaTileEntity implements IUni
     }
 
     @Override
+    protected boolean openGUIOnRightClick() {
+        return false;
+    }
+
+    @Override
     protected ModularUI.Builder createUITemplate(EntityPlayer entityPlayer) {
         return ModularUI.builder(GuiTextures.PRIMITIVE_BACKGROUND, 176, 166)
                 .shouldColor(false)
@@ -114,12 +121,17 @@ public class AnvilMetatileEntity extends ToolLogicMetaTileEntity implements IUni
     }
 
     @Override
-    protected boolean doOutputInWorld() {
+    protected void addExtraTooltip(ItemStack stack, @Nullable World player, List<String> tooltip, boolean advanced) {
+        tooltip.add(I18n.format("tkcya.tool_machine.parts.tooltip", addPartsOrePrefixInformation()));
+    }
+
+    @Override
+    public boolean doesTransferHandStackToInput() {
         return true;
     }
 
     @Override
-    protected void addExtraTooltip(ItemStack stack, @Nullable World player, List<String> tooltip, boolean advanced) {
-        tooltip.add(I18n.format("tkcya.tool_machine.parts.tooltip", addPartsOrePrefixInformation()));
+    public boolean doesTransferInputToPlayer() {
+        return true;
     }
 }

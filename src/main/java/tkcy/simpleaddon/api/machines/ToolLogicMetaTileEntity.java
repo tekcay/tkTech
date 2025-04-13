@@ -31,24 +31,10 @@ public abstract class ToolLogicMetaTileEntity extends MetaTileEntity {
     protected final ToolRecipeLogic logic;
     protected final RecipeMap<ToolRecipeBuilder> recipeMap;
 
-    public ToolLogicMetaTileEntity(ResourceLocation metaTileEntityId, RecipeMap<ToolRecipeBuilder> recipeMap) {
+    public ToolLogicMetaTileEntity(ResourceLocation metaTileEntityId, RecipeMap<ToolRecipeBuilder> recipeMap, boolean doOutputInWorld) {
         super(metaTileEntityId);
         this.recipeMap = recipeMap;
-        this.logic = new ToolRecipeLogic(this, recipeMap);
-    }
-
-    /**
-     * This is used for recipe trimming during
-     * {@link ToolRecipeLogic#prepareRecipe(Recipe, IItemHandlerModifiable, IMultipleTankHandler)}.
-     * </br>
-     * As we want to spawn items instead of transferring to output inventory, we use -1 (see
-     * {@link Recipe#trimRecipeOutputs(Recipe, RecipeMap, int, int)})
-     */
-    @Override
-    public int getItemOutputLimit() {
-        if (doOutputInWorld()) {
-            return -1;
-        } else return this.recipeMap.getMaxOutputs();
+        this.logic = new ToolRecipeLogic(this, recipeMap, doOutputInWorld);
     }
 
     @Override
@@ -61,10 +47,6 @@ public abstract class ToolLogicMetaTileEntity extends MetaTileEntity {
     @Override
     protected ModularUI createUI(EntityPlayer player) {
         return createUITemplate(player).build(getHolder(), player);
-    }
-
-    protected boolean doOutputInWorld() {
-        return false;
     }
 
     @SideOnly(Side.CLIENT)

@@ -1,6 +1,7 @@
 package tkcy.simpleaddon.common.metatileentities.primitive;
 
-import gregtech.api.capability.impl.FluidTankList;
+import static tkcy.simpleaddon.api.utils.GuiUtils.FONT_HEIGHT;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -10,11 +11,10 @@ import net.minecraftforge.items.IItemHandlerModifiable;
 
 import org.apache.commons.lang3.ArrayUtils;
 
+import gregtech.api.capability.impl.FluidTankList;
 import gregtech.api.capability.impl.NotifiableItemStackHandler;
-import gregtech.api.gui.GuiTextures;
 import gregtech.api.gui.ModularUI;
 import gregtech.api.gui.widgets.LabelWidget;
-import gregtech.api.gui.widgets.ProgressWidget;
 import gregtech.api.items.itemhandlers.GTItemStackHandler;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
@@ -28,16 +28,15 @@ import codechicken.lib.render.pipeline.ColourMultiplier;
 import codechicken.lib.render.pipeline.IVertexOperation;
 import codechicken.lib.vec.Matrix4;
 import tkcy.simpleaddon.api.machines.IOnSolderingIronClick;
+import tkcy.simpleaddon.api.machines.IRightClickItemTransfer;
 import tkcy.simpleaddon.api.machines.ToolLogicMetaTileEntity;
 import tkcy.simpleaddon.api.recipes.recipemaps.TKCYSARecipeMaps;
 import tkcy.simpleaddon.modules.toolmodule.ToolsModule;
 
-import static tkcy.simpleaddon.api.utils.GuiUtils.FONT_HEIGHT;
-
-public class BasicElectronicMetatileEntity extends ToolLogicMetaTileEntity implements IOnSolderingIronClick {
+public class BasicElectronicMetatileEntity extends ToolLogicMetaTileEntity implements IOnSolderingIronClick, IRightClickItemTransfer {
 
     public BasicElectronicMetatileEntity(ResourceLocation metaTileEntityId) {
-        super(metaTileEntityId, TKCYSARecipeMaps.BASIC_ELECTRONIC_RECIPES);
+        super(metaTileEntityId, TKCYSARecipeMaps.BASIC_ELECTRONIC_RECIPES, false);
     }
 
     @Override
@@ -97,6 +96,11 @@ public class BasicElectronicMetatileEntity extends ToolLogicMetaTileEntity imple
                                         CuboidRayTraceResult hitResult) {
         if (!playerIn.isSneaking()) return false;
         this.logic.startWorking(getWorkingGtTool());
+        return true;
+    }
+
+    @Override
+    public boolean doesTransferOutputToPlayer() {
         return true;
     }
 }

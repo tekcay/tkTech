@@ -1,12 +1,20 @@
 package tkcy.simpleaddon.mixins.gregtech;
 
+import java.util.List;
 import java.util.Set;
 
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.items.IItemHandlerModifiable;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -20,9 +28,10 @@ import gregtech.api.metatileentity.MetaTileEntity;
 import codechicken.lib.raytracer.CuboidRayTraceResult;
 import tkcy.simpleaddon.api.items.toolitem.TKCYSAToolClasses;
 import tkcy.simpleaddon.api.machines.IOnSolderingIronClick;
+import tkcy.simpleaddon.api.machines.IRightClickItemTransfer;
 
 @Mixin(value = MetaTileEntity.class, remap = false)
-public abstract class MixinToolClickMetaTileEntity implements IOnSolderingIronClick {
+public abstract class MixinToolClickMetaTileEntity implements IOnSolderingIronClick, IRightClickItemTransfer {
 
     @Shadow
     public abstract boolean onToolClick(EntityPlayer playerIn, @NotNull Set<String> toolClasses, EnumHand hand,
@@ -31,17 +40,53 @@ public abstract class MixinToolClickMetaTileEntity implements IOnSolderingIronCl
     @Shadow
     public abstract Cover getCoverAtSide(EnumFacing gridSideHit);
 
+    @Shadow
+    public abstract IItemHandlerModifiable getImportItems();
+
+    @Shadow
+    public abstract IItemHandlerModifiable getExportItems();
+
+    @Shadow
+    public abstract boolean hasAnyCover();
+
+    @Shadow
+    public abstract boolean onRightClick(EntityPlayer playerIn, EnumHand hand, EnumFacing facing, CuboidRayTraceResult hitResult);
+
     @Inject(method = "onToolClick", at = @At(value = "TAIL", ordinal = 0), cancellable = true)
     public void onToolClick(EntityPlayer playerIn, @NotNull Set<String> toolClasses, EnumHand hand,
                             CuboidRayTraceResult hitResult, CallbackInfoReturnable<Boolean> callback) {
-        // the side hit from the machine grid
 
         EnumFacing gridSideHit = CoverRayTracer.determineGridSideHit(hitResult);
-        Cover cover = gridSideHit == null ? null : getCoverAtSide(gridSideHit);
         if (toolClasses.contains(TKCYSAToolClasses.SOLDERING_IRON)) {
             callback.setReturnValue(
                     onSolderingIronClick(playerIn, hand, gridSideHit, hitResult));
         }
         callback.setReturnValue(false);
+    }
+
+    @Inject(method = "onRightClick", at = @At(value = "HEAD", ordinal = 0), cancellable = true)
+    public void onRightClickOverload(@NotNull EntityPlayer playerIn, EnumHand hand, EnumFacing facing,
+                                     CuboidRayTraceResult hitResult, CallbackInfoReturnable<Boolean> callback) {
+
+         if (!playerIn.isSneaking()) {
+
+             ItemStack heldStack = playerIn.getHeldItem(hand);
+             boolean didTransferHappened = false;
+
+             if (heldStack.isEmpty()) {
+
+                 if (doesTransferOutputToPlayer()) {
+                     didTransferHappened = tryTransferOutputToPlayer(playerIn, getExportItems());
+
+                 } else if (doesTransferInputToPlayer()) {
+                     didTransferHappened = tryTransferInputToPlayer(playerIn, getImportItems());
+
+                 }
+
+             } else if (doesTransferHandStackToInput()) {
+                 didTransferHappened = tryTransferHandStackToInput(playerIn, hand, getImportItems());
+             }
+             if (didTransferHappened) callback.setReturnValue(true);
+         }
     }
 }

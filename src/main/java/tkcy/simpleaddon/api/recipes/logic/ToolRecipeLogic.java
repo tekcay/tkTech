@@ -35,9 +35,11 @@ public class ToolRecipeLogic extends PrimitiveLogic {
     protected ToolsModule.GtTool tool;
     protected List<ItemStack> itemStackListInventory;
     protected List<FluidStack> fluidStackListInventory;
+    protected final boolean doOutputInWorld;
 
-    public ToolRecipeLogic(ToolLogicMetaTileEntity tileEntity, @NotNull RecipeMap<?> recipeMap) {
+    public ToolRecipeLogic(ToolLogicMetaTileEntity tileEntity, @NotNull RecipeMap<?> recipeMap, boolean doOutputInWorld) {
         super(tileEntity, recipeMap);
+        this.doOutputInWorld = doOutputInWorld;
         this.itemStackListInventory = new ArrayList<>();
         this.fluidStackListInventory = new ArrayList<>();
     }
@@ -75,8 +77,10 @@ public class ToolRecipeLogic extends PrimitiveLogic {
 
     @Override
     protected void outputRecipeOutputs() {
-        spawnOutputStacks();
-        GTTransferUtils.addFluidsToFluidHandler(getOutputTank(), false, this.fluidOutputs);
+        if (doOutputInWorld) {
+            spawnOutputStacks();
+            GTTransferUtils.addFluidsToFluidHandler(getOutputTank(), false, this.fluidOutputs);
+        } else super.outputRecipeOutputs();
     }
 
     /**
