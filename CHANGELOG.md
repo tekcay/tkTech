@@ -5,10 +5,13 @@
 ## v0.3
 
 ### Features
+- added the basic electronic worker, a machine to make electronic parts using a soldering iron ([#51](https://github.com/tekcay/tkcy-simple-addon/pull/51))
+- added advanced cleanroom which consumes gas and provides 2 new `CleanroomType`s ([#50](https://github.com/tekcay/tkcy-simple-addon/pull/50))
 - added casings, walls and coils orePrefix material blocks generated *via* a `MaterialFlag` ([#26](https://github.com/tekcay/tkcy-simple-addon/pull/26))
 - added modulable multiblock tanks ([#41](https://github.com/tekcay/tkcy-simple-addon/pull/41))
 
 ### Internal changes
+- added mixins (credits go to [Supercritical](https://github.com/SymmetricDevs/Supercritical) and [InventoryBogoSorter](https://github.com/CleanroomMC/InventoryBogoSorter) by inheritance ([#51](https://github.com/tekcay/tkcy-simple-addon/pull/51))
 - updated GTCEu dependency from 2.8.8 to 2.8.10 ([#44](https://github.com/tekcay/tkcy-simple-addon/pull/44))
 - updated GroovyScript from 1.0.1 to 1.1.3 ([#44](https://github.com/tekcay/tkcy-simple-addon/pull/44))
 - updated `FluidProperties` addition to an already registered `Material` ([#44](https://github.com/tekcay/tkcy-simple-addon/pull/44))

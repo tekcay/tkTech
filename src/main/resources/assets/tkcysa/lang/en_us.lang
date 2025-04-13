@@ -183,6 +183,7 @@ tkcysa.machine.rolling_mill.ev.name=Rolling Mill EV
 tkcysa.machine.rolling_mill.iv.name=Rolling Mill IV
 
 tkcysa.machine.anvil.name=Anvil
+tkcysa.machine.basic_electronic.name=Basic Electronic Worker
 
 tkcysa.machine.modulable_tank_valve.steel.name=Valve Tank Steel
 tkcysa.machine.modulable_tank_valve.stainless_steel.name=Valve Tank Stainless Steel
@@ -307,6 +308,11 @@ tkcysa.machine.parallel.tooltip=Every additional %d layers add one parallel poin
 tkcysa.machine.cleanroom.tooltip=Not your vanilla cleanroom
 tkcysa.machine.cleanroom.tooltip.1=Place machines inside to run inert-gas cleanroom recipes.
 tkcysa.machine.cleanroom.tooltip.2=Uses both EU/t and gas based on cleanroom size.
+
+tkcysa.metatilentity.special_right.show_tooltips=Hold CTRL to show special Right-click behavior
+tkcysa.metatileentity.transfer_output_to_player.tooltip=§dRight-click§7 with an §fempty hand§7 to get the machine §6output
+tkcysa.metatileentity.transfer_input_to_player.tooltip=§dRight-click§7 with an §fempty hand§7 to get the machine §ainput
+tkcysa.metatileentity.transfer_hand_stack_to_input.tooltip=§dRight-click§7 to put your §fheld item§7 to the machine §ainput
 
 ##Modulable Storage
 tkcysa.multiblock.modulable_storage.content=%s

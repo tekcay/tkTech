@@ -2,10 +2,6 @@ package tkcy.simpleaddon.common.metatileentities.electric;
 
 import java.util.*;
 
-import appeng.core.AEConfig;
-import appeng.core.features.AEFeature;
-import gregtech.api.util.Mods;
-import gregtech.client.utils.TooltipHelper;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
@@ -16,6 +12,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import gregtech.api.capability.*;
 import gregtech.api.capability.impl.FluidTankList;
@@ -28,9 +25,12 @@ import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
 import gregtech.api.metatileentity.multiblock.*;
 import gregtech.api.pattern.*;
 import gregtech.api.util.LocalizationUtils;
+import gregtech.api.util.Mods;
 import gregtech.api.util.TextComponentUtil;
+import gregtech.client.utils.TooltipHelper;
 
-import org.jetbrains.annotations.Nullable;
+import appeng.core.AEConfig;
+import appeng.core.features.AEFeature;
 import tkcy.simpleaddon.api.capabilities.TKCYSADataCodes;
 import tkcy.simpleaddon.api.logic.AdvancedCleanroomLogic;
 import tkcy.simpleaddon.api.metatileentities.cleanroom.AdvancedCleanroomType;
