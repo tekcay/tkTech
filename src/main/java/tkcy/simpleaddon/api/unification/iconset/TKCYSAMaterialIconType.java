@@ -3,6 +3,7 @@ package tkcy.simpleaddon.api.unification.iconset;
 import gregtech.api.unification.material.info.MaterialIconType;
 
 import lombok.experimental.UtilityClass;
+import org.jetbrains.annotations.Nullable;
 
 @UtilityClass
 public class TKCYSAMaterialIconType {
@@ -24,11 +25,12 @@ public class TKCYSAMaterialIconType {
     public static MaterialIconType zpmComponents = new MaterialIconType("zpmComponents");
     public static MaterialIconType uvComponents = new MaterialIconType("uvComponents");
 
-    //
+    // Tools
     public static MaterialIconType toolTipSolderingIron = new MaterialIconType("toolTipSolderingIron");
 
     // Blocks
     public static MaterialIconType casing = new MaterialIconType("casing");
     public static MaterialIconType wall = new MaterialIconType("wall");
     public static MaterialIconType coil = new MaterialIconType("coil");
+    public static MaterialIconType strippedWood = new MaterialIconType("stripped_wood");
 }
