@@ -3,6 +3,7 @@ package tkcy.simpleaddon.mixins.gregtech;
 import java.util.List;
 import java.util.Set;
 
+import gregtech.api.items.toolitem.ToolClasses;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -27,11 +28,12 @@ import gregtech.client.utils.TooltipHelper;
 
 import codechicken.lib.raytracer.CuboidRayTraceResult;
 import tkcy.simpleaddon.api.items.toolitem.TKCYSAToolClasses;
+import tkcy.simpleaddon.api.machines.IOnAxeClick;
 import tkcy.simpleaddon.api.machines.IOnSolderingIronClick;
 import tkcy.simpleaddon.api.machines.IRightClickItemTransfer;
 
 @Mixin(value = MetaTileEntity.class, remap = false)
-public abstract class MixinToolClickMetaTileEntity implements IOnSolderingIronClick, IRightClickItemTransfer {
+public abstract class MixinToolClickMetaTileEntity implements IOnSolderingIronClick, IOnAxeClick, IRightClickItemTransfer {
 
     @Shadow
     public abstract boolean onToolClick(EntityPlayer playerIn, @NotNull Set<String> toolClasses, EnumHand hand,
@@ -58,8 +60,12 @@ public abstract class MixinToolClickMetaTileEntity implements IOnSolderingIronCl
                             CuboidRayTraceResult hitResult, CallbackInfoReturnable<Boolean> callback) {
         boolean result = false;
         EnumFacing gridSideHit = CoverRayTracer.determineGridSideHit(hitResult);
+
         if (toolClasses.contains(TKCYSAToolClasses.SOLDERING_IRON)) {
             result = onSolderingIronClick(playerIn, hand, gridSideHit, hitResult);
+        }
+        if (toolClasses.contains(ToolClasses.AXE)) {
+            result = onAxeClick(playerIn, hand, gridSideHit, hitResult);
         }
         callback.setReturnValue(result);
     }

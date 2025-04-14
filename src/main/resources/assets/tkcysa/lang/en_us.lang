@@ -184,6 +184,7 @@ tkcysa.machine.rolling_mill.iv.name=Rolling Mill IV
 
 tkcysa.machine.anvil.name=Anvil
 tkcysa.machine.basic_electronic.name=Basic Electronic Worker
+tkcysa.machine.wood_workshop.name=Wood Workshop
 
 tkcysa.machine.modulable_tank_valve.steel.name=Valve Tank Steel
 tkcysa.machine.modulable_tank_valve.stainless_steel.name=Valve Tank Stainless Steel
@@ -247,6 +248,7 @@ recipemap.primitive_dust_mixing.name=Primtive Dust Mixing
 recipemap.primitive_smelting.name=Primitive Smelting
 recipemap.rolling.name=Roll Bending
 recipemap.anvil_recipes.name=Anvil Recipes
+recipemap.wood_workshop_recipes.name=Wood Recipes
 
 # Ore Prefixes
 item.material.oreprefix.cathode=%s Cathode

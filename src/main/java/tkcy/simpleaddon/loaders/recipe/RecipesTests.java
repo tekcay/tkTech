@@ -10,8 +10,12 @@ import gregtech.api.recipes.RecipeMaps;
 import gregtech.api.unification.material.Materials;
 import gregtech.api.unification.ore.OrePrefix;
 
+import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
 import tkcy.simpleaddon.api.metatileentities.cleanroom.AdvancedCleanroomType;
 import tkcy.simpleaddon.api.recipes.recipemaps.TKCYSARecipeMaps;
+import tkcy.simpleaddon.common.block.BlockStrippedWood;
+import tkcy.simpleaddon.common.block.TKCYSAMetaBlocks;
 import tkcy.simpleaddon.modules.toolmodule.ToolsModule;
 
 public class RecipesTests {
@@ -45,6 +49,16 @@ public class RecipesTests {
                 .tool(ToolsModule.GtTool.SOLDERING_IRON)
                 .toolUses(7)
                 .output(ELECTRONIC_CIRCUIT_LV)
+                .buildAndRegister();
+
+        /**
+         * To add as a mixin in {@link gregtech.loaders.recipe.WoodRecipeLoader} ?
+         */
+        TKCYSARecipeMaps.WOOD_WORKSHOP_RECIPES.recipeBuilder()
+                .inputs(new ItemStack(Blocks.LOG))
+                .outputs(TKCYSAMetaBlocks.STRIPPED_WOOD.getItemVariant(BlockStrippedWood.StrippedWoodType.OAK_STRIPPED))
+                .tool(ToolsModule.GtTool.AXE)
+                .toolUses(7)
                 .buildAndRegister();
     }
 }
