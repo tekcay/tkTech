@@ -1,10 +1,12 @@
 package tkcy.simpleaddon.common;
 
+import static gregtech.common.blocks.MetaBlocks.BOILER_CASING;
 import static tkcy.simpleaddon.TekCaySimpleAddon.MODID;
 
 import java.util.Objects;
 import java.util.function.Function;
 
+import gregtech.api.block.VariantItemBlock;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
@@ -71,6 +73,8 @@ public class CommonProxy {
             registry.register(blockMaterialWall);
         for (BlockMaterialCoil blockMaterialCoil : TKCYSAMetaBlocks.COIL_BLOCKS)
             registry.register(blockMaterialCoil);
+
+        registry.register(TKCYSAMetaBlocks.STRIPPED_WOOD);
     }
 
     @SubscribeEvent(priority = EventPriority.NORMAL)
@@ -94,6 +98,8 @@ public class CommonProxy {
         for (BlockMaterialCoil block : TKCYSAMetaBlocks.COIL_BLOCKS) {
             registry.register(createItemBlock(block, b -> new MaterialItemBlock(b, TKCYSAOrePrefix.coil)));
         }
+
+        registry.register(createItemBlock(TKCYSAMetaBlocks.STRIPPED_WOOD, VariantItemBlock::new));
     }
 
     private static <T extends Block> ItemBlock createItemBlock(T block, Function<T, ItemBlock> producer) {

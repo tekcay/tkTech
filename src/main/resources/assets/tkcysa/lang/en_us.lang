@@ -338,6 +338,15 @@ tkcya.recipe.tool.uses=Tool uses: %d
 gregtech.recipe.cleanroom_nitrogen.display_name=Nitrogen Cleanroom
 gregtech.recipe.cleanroom_argon.display_name=Argon Cleanroom
 
+## Blocks
+tile.stripped_wood.oak_stripped.name=Stripped Oak Log
+tile.stripped_wood.dark_oak_stripped.name=Stripped Dark Oak Log
+tile.stripped_wood.acacia_stripped.name=Stripped Acacia Log
+tile.stripped_wood.spruce_stripped.name=Stripped Spruce Log
+tile.stripped_wood.jungle_stripped.name=Stripped Jungle Log
+tile.stripped_wood.birch_stripped.name=Stripped Birch Log
+tile.stripped_wood.rubber_stripped.name=Stripped Rubber Log
+
 
 
 ##RecipeCategories
