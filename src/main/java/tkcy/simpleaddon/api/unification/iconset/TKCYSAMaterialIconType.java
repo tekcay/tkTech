@@ -3,7 +3,6 @@ package tkcy.simpleaddon.api.unification.iconset;
 import gregtech.api.unification.material.info.MaterialIconType;
 
 import lombok.experimental.UtilityClass;
-import org.jetbrains.annotations.Nullable;
 
 @UtilityClass
 public class TKCYSAMaterialIconType {

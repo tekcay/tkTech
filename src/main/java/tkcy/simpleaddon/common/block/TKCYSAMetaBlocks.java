@@ -1,9 +1,9 @@
 package tkcy.simpleaddon.common.block;
 
+import static gregtech.client.model.modelfactories.MaterialBlockModelLoader.registerItemModel;
+
 import java.util.*;
 
-import gregtech.common.blocks.BlockBoilerCasing;
-import gregtech.common.blocks.MetaBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
@@ -19,14 +19,13 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import org.jetbrains.annotations.NotNull;
 
 import gregtech.api.unification.material.Material;
+import gregtech.common.blocks.MetaBlocks;
 
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.experimental.UtilityClass;
 import tkcy.simpleaddon.api.unification.flags.TKCYSAMaterialFlags;
 import tkcy.simpleaddon.api.unification.ore.TKCYSAOrePrefix;
 import tkcy.simpleaddon.api.utils.BlockMaterialBaseRegisteringHelpers;
-
-import static gregtech.client.model.modelfactories.MaterialBlockModelLoader.registerItemModel;
 
 @UtilityClass
 public class TKCYSAMetaBlocks {
