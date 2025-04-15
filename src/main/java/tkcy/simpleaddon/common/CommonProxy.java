@@ -1,12 +1,10 @@
 package tkcy.simpleaddon.common;
 
-import static gregtech.common.blocks.MetaBlocks.BOILER_CASING;
 import static tkcy.simpleaddon.TekCaySimpleAddon.MODID;
 
 import java.util.Objects;
 import java.util.function.Function;
 
-import gregtech.api.block.VariantItemBlock;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
@@ -21,6 +19,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.registries.IForgeRegistry;
 
 import gregtech.api.GregTechAPI;
+import gregtech.api.block.VariantItemBlock;
 import gregtech.api.items.toolitem.IGTTool;
 import gregtech.api.metatileentity.registry.MTEManager;
 import gregtech.api.unification.material.event.MaterialEvent;

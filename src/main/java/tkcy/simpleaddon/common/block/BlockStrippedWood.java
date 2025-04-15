@@ -1,9 +1,5 @@
 package tkcy.simpleaddon.common.block;
 
-import gregtech.api.block.IStateHarvestLevel;
-import gregtech.api.block.VariantBlock;
-import gregtech.api.items.toolitem.ToolClasses;
-import lombok.AllArgsConstructor;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -11,7 +7,14 @@ import net.minecraft.entity.EntityLiving.SpawnPlacementType;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
+
 import org.jetbrains.annotations.NotNull;
+
+import gregtech.api.block.IStateHarvestLevel;
+import gregtech.api.block.VariantBlock;
+import gregtech.api.items.toolitem.ToolClasses;
+
+import lombok.AllArgsConstructor;
 
 public class BlockStrippedWood extends VariantBlock<BlockStrippedWood.StrippedWoodType> {
 

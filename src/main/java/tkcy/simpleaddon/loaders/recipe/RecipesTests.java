@@ -6,12 +6,12 @@ import static gregtech.api.unification.ore.OrePrefix.plate;
 import static gregtech.common.items.MetaItems.*;
 import static gregtech.common.items.MetaItems.BASIC_CIRCUIT_BOARD;
 
+import net.minecraft.init.Blocks;
+
 import gregtech.api.recipes.RecipeMaps;
 import gregtech.api.unification.material.Materials;
 import gregtech.api.unification.ore.OrePrefix;
 
-import net.minecraft.init.Blocks;
-import net.minecraft.item.ItemStack;
 import tkcy.simpleaddon.api.metatileentities.cleanroom.AdvancedCleanroomType;
 import tkcy.simpleaddon.api.recipes.recipemaps.TKCYSARecipeMaps;
 import tkcy.simpleaddon.common.block.BlockStrippedWood;
@@ -55,10 +55,14 @@ public class RecipesTests {
          * To add as a mixin in {@link gregtech.loaders.recipe.WoodRecipeLoader} ?
          */
         TKCYSARecipeMaps.WOOD_WORKSHOP_RECIPES.recipeBuilder()
-                .inputs(new ItemStack(Blocks.LOG))
-                .outputs(TKCYSAMetaBlocks.STRIPPED_WOOD.getItemVariant(BlockStrippedWood.StrippedWoodType.OAK_STRIPPED))
+                .inputBlockInWorld(Blocks.LOG)
+                .outputBlockInWorld(
+                        TKCYSAMetaBlocks.STRIPPED_WOOD.getState(BlockStrippedWood.StrippedWoodType.OAK_STRIPPED))
                 .tool(ToolsModule.GtTool.AXE)
                 .toolUses(7)
+                .output(OrePrefix.dust, Wood)
+                .hideDuration()
+                .useAndDisplayEnergy(false)
                 .buildAndRegister();
     }
 }

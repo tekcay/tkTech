@@ -7,10 +7,9 @@ import gregtech.api.recipes.RecipeBuilder;
 import gregtech.api.recipes.properties.RecipeProperty;
 import gregtech.api.util.EnumValidationResult;
 
-public interface RecipePropertyHelper<T> {
+import tkcy.simpleaddon.api.utils.TKCYSALog;
 
-    RecipeBuilder<?> testAndApplyPropertyValue(T valueToTest, EnumValidationResult recipeStatus,
-                                               RecipeBuilder<?> recipeBuilder);
+public interface RecipePropertyHelper<T> {
 
     Predicate<T> testSuppliedValue();
 
@@ -22,5 +21,15 @@ public interface RecipePropertyHelper<T> {
 
     default T getValueFromRecipe(Recipe recipe) {
         return recipe.getProperty(this.getProperty(), this.getDefaultValue());
+    }
+
+    default RecipeBuilder<?> testAndApplyPropertyValue(T valueToTest, EnumValidationResult recipeStatus,
+                                                       RecipeBuilder<?> recipeBuilder) {
+        if (!this.testSuppliedValue().test(valueToTest)) {
+            TKCYSALog.logger.error(this::getErrorMessage, new IllegalArgumentException());
+            recipeStatus = EnumValidationResult.INVALID;
+        }
+        recipeBuilder.applyProperty(getProperty(), valueToTest);
+        return recipeBuilder;
     }
 }

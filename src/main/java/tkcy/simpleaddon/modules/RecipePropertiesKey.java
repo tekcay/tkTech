@@ -12,4 +12,6 @@ public class RecipePropertiesKey {
     public static final String TOOL_KEY = "tool";
     public static final String COIL_KEY = "coil";
     public static final String HIDE_DURATION_KEY = "hideDuration";
+    public static final String INPUT_BLOCK_STATE_KEY = "inputBlockStateKey";
+    public static final String OUTPUT_BLOCK_STATE_KEY = "outputBlockStateKey";
 }
