@@ -1,6 +1,7 @@
 package tkcy.simpleaddon.api.recipes.helpers;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import net.minecraft.item.ItemStack;
@@ -37,6 +38,13 @@ public class RecipeSearchHelpers {
     @WorkingTool
     @Nullable
     public static Recipe findRecipeWithTool(@NotNull RecipeMap<?> recipeMap, @NotNull ToolsModule.GtTool gtTool,
+                                            @NotNull ItemStack itemStack) {
+        return findRecipeWithTool(recipeMap, gtTool, Collections.singletonList(itemStack), null);
+    }
+
+    @WorkingTool
+    @Nullable
+    public static Recipe findRecipeWithTool(@NotNull RecipeMap<?> recipeMap, @NotNull ToolsModule.GtTool gtTool,
                                             @NotNull List<ItemStack> inputItemStacks,
                                             List<FluidStack> inputFluidStacks) {
         return recipeMap.getRecipeList().stream()
@@ -53,12 +61,17 @@ public class RecipeSearchHelpers {
      * by the used tool.
      */
     @WorkingTool
-    public static List<ItemStack> getAppendedInputsTool(@NotNull IItemHandlerModifiable inputInventory,
+    public static List<ItemStack> getAppendedInputsTool(@NotNull IItemHandlerModifiable handlerInventory,
                                                         @NotNull ToolsModule.GtTool gtTool) {
-        List<ItemStack> list = new ArrayList<>();
-        list.add(gtTool.getToolStack());
-        list.addAll(GTUtility.itemHandlerToList(inputInventory));
+        List<ItemStack> list = GTUtility.itemHandlerToList(handlerInventory);
+        appendStacksTool(list, gtTool);
         return list;
+    }
+
+    @WorkingTool
+    public static void appendStacksTool(@NotNull List<ItemStack> itemStacks,
+                                        @NotNull ToolsModule.GtTool gtTool) {
+        itemStacks.add(gtTool.getToolStack());
     }
 
     /**

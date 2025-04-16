@@ -3,6 +3,7 @@ package tkcy.simpleaddon.modules.toolmodule;
 import java.util.*;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -16,12 +17,23 @@ import lombok.experimental.UtilityClass;
 import tkcy.simpleaddon.api.items.toolitem.TKCYSAToolClasses;
 import tkcy.simpleaddon.api.utils.StringsHelper;
 import tkcy.simpleaddon.common.item.TKCYSAToolItems;
+import tkcy.simpleaddon.modules.NBTLabel;
 
 @UtilityClass
 public class ToolsModule {
 
     public static final List<GtTool> GT_TOOLS = new ArrayList<>();
 
+    public static void serializeTool(NBTTagCompound mainTagCompound, GtTool gtTool) {
+        gtTool.serialize(mainTagCompound);
+    }
+
+    public static GtTool deserializeTool(NBTTagCompound mainTagCompound) {
+        int ordinal = mainTagCompound.getInteger(NBTLabel.TOOL_ORDINAL.toString());
+        return GtTool.values()[ordinal];
+    }
+
+    @Getter
     public enum GtTool {
 
         SWORD(ToolClasses.SWORD, ToolItems.SWORD),
@@ -44,9 +56,7 @@ public class ToolsModule {
         PLUNGER(ToolClasses.PLUNGER, ToolItems.PLUNGER),
         SOLDERING_IRON(TKCYSAToolClasses.SOLDERING_IRON, TKCYSAToolItems.SOLDERING_IRON);
 
-        @Getter
         private final String toolClassName;
-        @Getter
         private final IGTTool tool;
 
         GtTool(String toolClassName, IGTTool igtTool) {
@@ -62,6 +72,10 @@ public class ToolsModule {
 
         public ItemStack getToolStack() {
             return new ItemStack(this.tool.get());
+        }
+
+        public void serialize(NBTTagCompound mainTagCompound) {
+            mainTagCompound.setInteger(NBTLabel.TOOL_ORDINAL.toString(), this.ordinal());
         }
     }
 
