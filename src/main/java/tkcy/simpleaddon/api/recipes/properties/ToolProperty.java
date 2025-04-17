@@ -19,7 +19,7 @@ import tkcy.simpleaddon.modules.toolmodule.WorkingTool;
 
 @WorkingTool
 public class ToolProperty extends RecipeProperty<ToolsModule.GtTool>
-                          implements RecipePropertyHelper<ToolsModule.GtTool> {
+                          implements IRecipePropertyHelper<ToolsModule.GtTool> {
 
     public static final String KEY = RecipePropertiesKey.TOOL_KEY;
     private static ToolProperty INSTANCE;

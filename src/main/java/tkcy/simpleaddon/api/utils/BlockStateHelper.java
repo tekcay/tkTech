@@ -21,6 +21,7 @@ public class BlockStateHelper {
         Block block = Block.getBlockFromItem(blockStack.getItem());
         return block.equals(Blocks.AIR) ? null : block.getDefaultState();
     }
+
     /**
      * @return {@code null} if {@link Blocks#AIR} is found.
      */

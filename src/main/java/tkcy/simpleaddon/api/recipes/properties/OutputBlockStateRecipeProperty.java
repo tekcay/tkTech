@@ -18,21 +18,20 @@ import gregtech.api.recipes.properties.RecipeProperty;
 import tkcy.simpleaddon.api.utils.BlockStateHelper;
 import tkcy.simpleaddon.modules.RecipePropertiesKey;
 
-public class InputBlockStateRecipeProperty extends RecipeProperty<IBlockState>
-                                           implements IRecipePropertyHelper<IBlockState> {
+public class OutputBlockStateRecipeProperty extends RecipeProperty<IBlockState>
+                                            implements IRecipePropertyHelper<IBlockState> {
 
-    public static final String KEY = RecipePropertiesKey.INPUT_BLOCK_STATE_KEY;
-    private static InputBlockStateRecipeProperty INSTANCE;
+    public static final String KEY = RecipePropertiesKey.OUTPUT_BLOCK_STATE_KEY;
+    private static OutputBlockStateRecipeProperty INSTANCE;
 
-    private InputBlockStateRecipeProperty() {
+    private OutputBlockStateRecipeProperty() {
         super(KEY, IBlockState.class);
     }
 
     @NotNull
-    public static InputBlockStateRecipeProperty getInstance() {
+    public static OutputBlockStateRecipeProperty getInstance() {
         if (INSTANCE == null) {
-            INSTANCE = new InputBlockStateRecipeProperty();
-            // NEEDED ? GregTechAPI.RECIPE_PROPERTIES.register(KEY, INSTANCE);
+            INSTANCE = new OutputBlockStateRecipeProperty();
         }
         return INSTANCE;
     }

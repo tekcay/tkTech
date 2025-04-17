@@ -9,15 +9,13 @@ import net.minecraft.nbt.NBTTagInt;
 
 import org.jetbrains.annotations.NotNull;
 
-import gregtech.api.recipes.RecipeBuilder;
 import gregtech.api.recipes.properties.RecipeProperty;
-import gregtech.api.util.EnumValidationResult;
 
 import tkcy.simpleaddon.modules.RecipePropertiesKey;
 import tkcy.simpleaddon.modules.toolmodule.WorkingTool;
 
 @WorkingTool
-public class ToolUsesProperty extends RecipeProperty<Integer> implements RecipePropertyHelper<Integer> {
+public class ToolUsesProperty extends RecipeProperty<Integer> implements IRecipePropertyHelper<Integer> {
 
     public static final String KEY = RecipePropertiesKey.TOOL_USAGE_KEY;
     private static ToolUsesProperty INSTANCE;

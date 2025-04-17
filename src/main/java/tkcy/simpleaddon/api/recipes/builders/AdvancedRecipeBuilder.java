@@ -2,6 +2,8 @@ package tkcy.simpleaddon.api.recipes.builders;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 
 import gregtech.api.recipes.Recipe;
 import gregtech.api.recipes.RecipeBuilder;
@@ -10,10 +12,7 @@ import gregtech.api.recipes.properties.impl.PrimitiveProperty;
 import gregtech.api.util.ValidationResult;
 
 import lombok.NoArgsConstructor;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import tkcy.simpleaddon.api.recipes.properties.*;
-import tkcy.simpleaddon.api.utils.BlockStateHelper;
 import tkcy.simpleaddon.modules.toolmodule.ToolsModule;
 
 @NoArgsConstructor
@@ -36,9 +35,6 @@ public class AdvancedRecipeBuilder extends RecipeBuilder<AdvancedRecipeBuilder> 
         return new AdvancedRecipeBuilder(this);
     }
 
-
-
-
     public AdvancedRecipeBuilder inputBlockInWorld(IBlockState blockState) {
         Block block = blockState.getBlock();
         ItemStack input = Item.getItemFromBlock(block).getDefaultInstance();
@@ -56,7 +52,6 @@ public class AdvancedRecipeBuilder extends RecipeBuilder<AdvancedRecipeBuilder> 
         InputBlockStateRecipeProperty recipeProperty = InputBlockStateRecipeProperty.getInstance();
         return (AdvancedRecipeBuilder) recipeProperty.testAndApplyPropertyValue(blockState, this.recipeStatus, this);
     }
-
 
     public AdvancedRecipeBuilder outputBlockInWorld(IBlockState blockState) {
         Block block = blockState.getBlock();

@@ -17,7 +17,6 @@ import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.recipes.RecipeMap;
 import gregtech.client.renderer.texture.cube.SimpleOverlayRenderer;
 
-import tkcy.simpleaddon.api.recipes.builders.ToolRecipeBuilder;
 import tkcy.simpleaddon.api.recipes.logic.ToolRecipeLogic;
 import tkcy.simpleaddon.modules.toolmodule.ToolsModule;
 import tkcy.simpleaddon.modules.toolmodule.WorkingTool;
@@ -26,9 +25,9 @@ import tkcy.simpleaddon.modules.toolmodule.WorkingTool;
 public abstract class ToolLogicMetaTileEntity extends MetaTileEntity {
 
     protected final ToolRecipeLogic logic;
-    protected final RecipeMap<ToolRecipeBuilder> recipeMap;
+    protected final RecipeMap<?> recipeMap;
 
-    public ToolLogicMetaTileEntity(ResourceLocation metaTileEntityId, RecipeMap<ToolRecipeBuilder> recipeMap,
+    public ToolLogicMetaTileEntity(ResourceLocation metaTileEntityId, RecipeMap<?> recipeMap,
                                    boolean doOutputInWorld) {
         super(metaTileEntityId);
         this.recipeMap = recipeMap;

@@ -14,7 +14,7 @@ import gregtech.api.util.EnumValidationResult;
 
 import tkcy.simpleaddon.modules.RecipePropertiesKey;
 
-public class HideDurationProperty extends RecipeProperty<Boolean> implements RecipePropertyHelper<Boolean> {
+public class HideDurationProperty extends RecipeProperty<Boolean> implements IRecipePropertyHelper<Boolean> {
 
     public static final String KEY = RecipePropertiesKey.HIDE_DURATION_KEY;
     private static HideDurationProperty INSTANCE;

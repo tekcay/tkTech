@@ -64,12 +64,19 @@ public class WorldInteractionsHelper {
         world.setBlockState(blockPos, block);
     }
 
-    public static void placeBlockInWorld(@NotNull ItemStack itemStack, @NotNull World world, @NotNull BlockPos blockPos,
-                                         boolean forceReplace) {
+    /**
+     * @return {@code true} if it worked.
+     */
+    public static boolean placeBlockInWorld(@Nullable ItemStack itemStack, @NotNull World world,
+                                            @NotNull BlockPos blockPos,
+                                            boolean forceReplace) {
+        if (itemStack == null) return false;
         IBlockState blockState = BlockStateHelper.itemStackToBlockState(itemStack);
         if (blockState != null && (canPlaceBlockInWorld(world, blockPos) || forceReplace)) {
             world.setBlockState(blockPos, blockState);
+            return true;
         }
+        return false;
     }
 
     public static void removeBlockInWorld(@NotNull World world, @NotNull BlockPos blockPos) {
