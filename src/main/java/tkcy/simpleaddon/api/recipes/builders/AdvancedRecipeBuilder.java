@@ -13,6 +13,7 @@ import gregtech.api.util.ValidationResult;
 
 import lombok.NoArgsConstructor;
 import tkcy.simpleaddon.api.recipes.properties.*;
+import tkcy.simpleaddon.api.utils.BlockStateHelper;
 import tkcy.simpleaddon.modules.toolmodule.ToolsModule;
 
 @NoArgsConstructor
@@ -36,21 +37,19 @@ public class AdvancedRecipeBuilder extends RecipeBuilder<AdvancedRecipeBuilder> 
     }
 
     public AdvancedRecipeBuilder inputBlockInWorld(IBlockState blockState) {
-        Block block = blockState.getBlock();
-        ItemStack input = Item.getItemFromBlock(block).getDefaultInstance();
-        return inputBlockInWorld(input, blockState);
+        ItemStack itemStack = BlockStateHelper.blockStateToItemStack(blockState);
+        return inputBlockInWorld(itemStack);
     }
 
     public AdvancedRecipeBuilder inputBlockInWorld(Block block) {
         ItemStack input = Item.getItemFromBlock(block).getDefaultInstance();
-        IBlockState blockState = block.getDefaultState();
-        return inputBlockInWorld(input, blockState);
+        return inputBlockInWorld(input);
     }
 
-    private AdvancedRecipeBuilder inputBlockInWorld(ItemStack itemStack, IBlockState blockState) {
+    private AdvancedRecipeBuilder inputBlockInWorld(ItemStack itemStack) {
         this.inputs(itemStack);
         InputBlockStateRecipeProperty recipeProperty = InputBlockStateRecipeProperty.getInstance();
-        return (AdvancedRecipeBuilder) recipeProperty.testAndApplyPropertyValue(blockState, this.recipeStatus, this);
+        return (AdvancedRecipeBuilder) recipeProperty.testAndApplyPropertyValue(itemStack, this.recipeStatus, this);
     }
 
     public AdvancedRecipeBuilder outputBlockInWorld(IBlockState blockState) {

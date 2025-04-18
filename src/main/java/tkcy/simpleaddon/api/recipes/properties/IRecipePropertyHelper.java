@@ -2,6 +2,7 @@ package tkcy.simpleaddon.api.recipes.properties;
 
 import java.util.function.Predicate;
 
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import gregtech.api.recipes.Recipe;
@@ -21,8 +22,12 @@ public interface IRecipePropertyHelper<T> {
 
     RecipeProperty<T> getProperty();
 
-    default T getValueFromRecipe(Recipe recipe) {
+    default T getValueFromRecipe(@NotNull Recipe recipe) {
         return recipe.getProperty(this.getProperty(), this.getDefaultValue());
+    }
+
+    default boolean areValueEquals(T recipeValue, Object valueToTest) {
+        return recipeValue.equals(valueToTest);
     }
 
     /**
@@ -44,13 +49,13 @@ public interface IRecipePropertyHelper<T> {
     default boolean hasRecipePropertyValue(Recipe recipe, T value) {
         if (value == null) return false;
         T recipeValue = this.getValueFromRecipe(recipe, true);
-        return recipeValue != null && recipeValue.equals(value);
+        return recipeValue != null && areValueEquals(recipeValue, value);
     }
 
     default boolean hasRecipePropertyUncastedValue(Recipe recipe, Object value) {
         if (value == null) return false;
         T recipeValue = this.getValueFromRecipe(recipe, true);
-        return recipeValue != null && recipeValue.equals(value);
+        return recipeValue != null && areValueEquals(recipeValue, value);
     }
 
     default RecipeBuilder<?> testAndApplyPropertyValue(T valueToTest, EnumValidationResult recipeStatus,

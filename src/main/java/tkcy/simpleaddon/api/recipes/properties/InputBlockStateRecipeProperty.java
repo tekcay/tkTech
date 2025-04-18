@@ -18,58 +18,63 @@ import gregtech.api.recipes.properties.RecipeProperty;
 import tkcy.simpleaddon.api.utils.BlockStateHelper;
 import tkcy.simpleaddon.modules.RecipePropertiesKey;
 
-public class InputBlockStateRecipeProperty extends RecipeProperty<IBlockState>
-                                           implements IRecipePropertyHelper<IBlockState> {
+public class InputBlockStateRecipeProperty extends RecipeProperty<ItemStack>
+                                           implements IRecipePropertyHelper<ItemStack> {
 
     public static final String KEY = RecipePropertiesKey.INPUT_BLOCK_STATE_KEY;
     private static InputBlockStateRecipeProperty INSTANCE;
 
     private InputBlockStateRecipeProperty() {
-        super(KEY, IBlockState.class);
+        super(KEY, ItemStack.class);
     }
 
     @NotNull
     public static InputBlockStateRecipeProperty getInstance() {
         if (INSTANCE == null) {
             INSTANCE = new InputBlockStateRecipeProperty();
-            // NEEDED ? GregTechAPI.RECIPE_PROPERTIES.register(KEY, INSTANCE);
         }
         return INSTANCE;
     }
 
     @Override
     public @NotNull NBTBase serialize(@NotNull Object value) {
-        IBlockState blockState = castValue(value);
-        ItemStack blockStack = Item.getItemFromBlock(blockState.getBlock()).getDefaultInstance();
+        ItemStack blockStack = castValue(value);
         return blockStack.serializeNBT();
     }
 
     @Override
     public @NotNull Object deserialize(@NotNull NBTBase nbt) {
-        ItemStack blockStack = new ItemStack((NBTTagCompound) nbt);
-        return BlockStateHelper.itemStackToBlockState(blockStack);
+        return new ItemStack((NBTTagCompound) nbt);
     }
 
     @Override
     public void drawInfo(Minecraft minecraft, int x, int y, int color, Object value) {}
 
     @Override
-    public Predicate<IBlockState> testSuppliedValue() {
-        return Objects::nonNull;
+    public Predicate<ItemStack> testSuppliedValue() {
+        return itemStack -> {
+            IBlockState block = BlockStateHelper.itemStackToBlockState(itemStack);
+            return block != null;
+        };
     }
 
     @Override
-    public IBlockState getDefaultValue() {
-        return Blocks.AIR.getDefaultState();
+    public ItemStack getDefaultValue() {
+        return ItemStack.EMPTY;
     }
 
     @Override
     public String getErrorMessage() {
-        return "BlockStateRecipeProperty must be provided a not null IBlockState";
+        return "BlockStateRecipeProperty must be provided with an ItemStack that a corresponding Block!";
     }
 
     @Override
-    public RecipeProperty<IBlockState> getProperty() {
+    public RecipeProperty<ItemStack> getProperty() {
         return this;
+    }
+
+    @Override
+    public boolean areValueEquals(ItemStack recipeValue, Object valueToTest) {
+        return recipeValue.isItemEqual(castValue(valueToTest));
     }
 }
