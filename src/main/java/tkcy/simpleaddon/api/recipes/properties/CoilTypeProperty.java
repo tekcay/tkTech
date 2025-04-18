@@ -83,7 +83,7 @@ public class CoilTypeProperty extends RecipeProperty<BlockWireCoil.CoilType>
 
     @Override
     public String getErrorMessage() {
-        return "Not valid CoildType!";
+        return "Not valid CoilType!";
     }
 
     @Override

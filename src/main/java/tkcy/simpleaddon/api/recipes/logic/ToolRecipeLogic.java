@@ -137,7 +137,7 @@ public class ToolRecipeLogic extends PrimitiveLogic {
     @SuppressWarnings(value = "all")
     @Nullable
     protected Recipe researchRecipe() {
-        return RecipeSearchHelpers.findRecipeWithTool(getRecipeMap(), this.tool, this.itemStackListInventory,
+        return RecipeSearchHelpers.findRecipeWithToolp(getRecipeMap(), this.tool, this.itemStackListInventory,
                 this.fluidStackListInventory);
     }
 
