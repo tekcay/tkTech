@@ -1,10 +1,29 @@
 package tkcy.simpleaddon.common.metatileentities.primitive;
 
-import codechicken.lib.raytracer.CuboidRayTraceResult;
-import codechicken.lib.render.CCRenderState;
-import codechicken.lib.render.pipeline.ColourMultiplier;
-import codechicken.lib.render.pipeline.IVertexOperation;
-import codechicken.lib.vec.Matrix4;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Supplier;
+
+import gregtech.api.items.toolitem.ItemGTAxe;
+import gregtech.api.items.toolitem.ItemGTTool;
+import gregtech.api.items.toolitem.ToolClasses;
+import gregtech.api.items.toolitem.ToolHelper;
+import gregtech.core.sound.GTSoundEvents;
+import net.minecraft.client.resources.I18n;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemAxe;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.*;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import net.minecraftforge.items.IItemHandlerModifiable;
+
+import org.apache.commons.lang3.ArrayUtils;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import gregtech.api.capability.IEnergyContainer;
 import gregtech.api.capability.impl.NotifiableItemStackHandler;
 import gregtech.api.gui.GuiTextures;
 import gregtech.api.gui.ModularUI;
@@ -13,38 +32,37 @@ import gregtech.api.gui.widgets.ProgressWidget;
 import gregtech.api.items.itemhandlers.GTItemStackHandler;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
-import gregtech.api.unification.material.Materials;
+import gregtech.api.recipes.RecipeMap;
 import gregtech.api.unification.ore.OrePrefix;
 import gregtech.api.util.GTUtility;
 import gregtech.client.renderer.texture.Textures;
 import gregtech.client.renderer.texture.cube.SimpleOverlayRenderer;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
-import net.minecraftforge.items.IItemHandlerModifiable;
-import org.apache.commons.lang3.ArrayUtils;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+
+import codechicken.lib.raytracer.CuboidRayTraceResult;
+import codechicken.lib.render.CCRenderState;
+import codechicken.lib.render.pipeline.ColourMultiplier;
+import codechicken.lib.render.pipeline.IVertexOperation;
+import codechicken.lib.vec.Matrix4;
+import lombok.Getter;
+import lombok.Setter;
 import tkcy.simpleaddon.api.machines.IOnAxeClick;
-import tkcy.simpleaddon.api.machines.IRightClickItemTransfer;
 import tkcy.simpleaddon.api.machines.IUnificationToolMachine;
 import tkcy.simpleaddon.api.machines.ToolLogicMetaTileEntity;
+import tkcy.simpleaddon.api.recipes.logic.IInWorldRecipeLogic;
+import tkcy.simpleaddon.api.recipes.logic.IToolRecipeLogic;
+import tkcy.simpleaddon.api.recipes.logic.OnBlockRecipeLogic;
 import tkcy.simpleaddon.api.recipes.recipemaps.TKCYSARecipeMaps;
 import tkcy.simpleaddon.api.unification.ore.TKCYSAOrePrefix;
 import tkcy.simpleaddon.modules.toolmodule.ToolsModule;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class MetaTileEntityWoodWorkshop extends ToolLogicMetaTileEntity
-                                 implements IUnificationToolMachine, IOnAxeClick {
+                                        implements IUnificationToolMachine, IOnAxeClick {
+
+    private final Logic logic;
 
     public MetaTileEntityWoodWorkshop(ResourceLocation metaTileEntityId) {
-        super(metaTileEntityId, TKCYSARecipeMaps.ANVIL_RECIPES, true);
+        super(metaTileEntityId, TKCYSARecipeMaps.WOOD_WORKSHOP_RECIPES, true);
+        this.logic = new Logic(this, null, TKCYSARecipeMaps.WOOD_WORKSHOP_RECIPES);
     }
 
     @Override
@@ -59,7 +77,7 @@ public class MetaTileEntityWoodWorkshop extends ToolLogicMetaTileEntity
 
     @Override
     protected IItemHandlerModifiable createImportItemHandler() {
-        return new NotifiableItemStackHandler(this, 1, this, false);
+        return new NotifiableItemStackHandler(this, 2, this, false);
     }
 
     @Override
@@ -99,9 +117,9 @@ public class MetaTileEntityWoodWorkshop extends ToolLogicMetaTileEntity
 
     @Override
     public boolean onAxeClick(EntityPlayer playerIn, EnumHand hand, EnumFacing facing,
-                                     CuboidRayTraceResult hitResult) {
+                              CuboidRayTraceResult hitResult) {
         if (!playerIn.isSneaking()) return false;
-        this.logic.startWorking(getWorkingGtTool());
+        this.logic.runToolRecipeLogic(getWorkingGtTool());
         return true;
     }
 
@@ -124,5 +142,41 @@ public class MetaTileEntityWoodWorkshop extends ToolLogicMetaTileEntity
     @Override
     protected void addExtraTooltip(ItemStack stack, @Nullable World player, List<String> tooltip, boolean advanced) {
         tooltip.add(I18n.format("tkcya.tool_machine.parts.tooltip", addPartsOrePrefixInformation()));
+    }
+
+    @Getter
+    @Setter
+    private class Logic extends OnBlockRecipeLogic implements IInWorldRecipeLogic, IToolRecipeLogic {
+
+        private int toolUses;
+        private ToolsModule.GtTool currentTool;
+        private ToolsModule.GtTool recipeTool;
+        private ItemStack inputRecipeInWorldBlockStack;
+        private ItemStack outputRecipeInWorldBlockStack;
+
+        public Logic(MetaTileEntity tileEntity, Supplier<IEnergyContainer> energyContainer,
+                     RecipeMap<?>... recipeMaps) {
+            super(tileEntity, energyContainer, recipeMaps);
+        }
+
+        @Override
+        public boolean doesSpawnOutputItems() {
+            return true;
+        }
+
+        @Override
+        public boolean doesRemoveBlock() {
+            return true;
+        }
+
+        @Nullable
+        public BlockPos getInputBlockPos() {
+            return getPos().up();
+        }
+
+        @Nullable
+        public BlockPos getOutputBlockPos() {
+            return getInputBlockPos();
+        }
     }
 }

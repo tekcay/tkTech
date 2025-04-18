@@ -3,6 +3,7 @@ package tkcy.simpleaddon.api.recipes.helpers;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
@@ -18,6 +19,7 @@ import gregtech.api.recipes.ingredients.GTRecipeInput;
 import gregtech.api.util.GTUtility;
 
 import lombok.experimental.UtilityClass;
+import tkcy.simpleaddon.api.recipes.properties.IRecipePropertyHelper;
 import tkcy.simpleaddon.api.recipes.properties.ToolProperty;
 import tkcy.simpleaddon.api.recipes.properties.ToolUsesProperty;
 import tkcy.simpleaddon.api.utils.TKCYSALog;
@@ -72,6 +74,44 @@ public class RecipeSearchHelpers {
     public static void appendStacksTool(@NotNull List<ItemStack> itemStacks,
                                         @NotNull ToolsModule.GtTool gtTool) {
         itemStacks.add(gtTool.getToolStack());
+    }
+
+    @Nullable
+    public static Recipe findFirstRecipeWithProperties(@NotNull RecipeMap<?> recipeMap,
+                                                       @NotNull Map<IRecipePropertyHelper<?>, ?> recipePropertiesToValue) {
+        return recipeMap.getRecipeList()
+                .stream()
+                .filter(recipe -> doesRecipeMatchProperties(recipe, recipePropertiesToValue))
+                .findFirst()
+                .orElse(null);
+    }
+
+    public static boolean doesRecipeMatchProperties(@NotNull Recipe recipe,
+                                                    @NotNull Map<IRecipePropertyHelper<?>, ?> recipePropertiesToValue) {
+        for (Map.Entry<IRecipePropertyHelper<?>, ?> entry : recipePropertiesToValue.entrySet()) {
+            IRecipePropertyHelper<?> recipeProperty = entry.getKey();
+            if (!recipeProperty.hasRecipePropertyUncastedValue(recipe, entry.getValue())) return false;
+        }
+        return true;
+    }
+
+    @Nullable
+    public static Recipe findFirstRecipeWithProperties(@NotNull RecipeMap<?> recipeMap,
+                                                       @NotNull Map<IRecipePropertyHelper<?>, ?> recipePropertiesToValue,
+                                                       List<ItemStack> itemStacksInput,
+                                                       List<FluidStack> fluidStacksInput, long voltage) {
+        Recipe recipe = recipeMap.findRecipe(voltage, itemStacksInput, fluidStacksInput);
+        boolean doesMatch = false;
+
+        for (Map.Entry<IRecipePropertyHelper<?>, ?> entry : recipePropertiesToValue.entrySet()) {
+
+            IRecipePropertyHelper<?> recipeProperty = entry.getKey();
+            doesMatch = recipeProperty.hasRecipePropertyUncastedValue(recipe, entry.getValue());
+            if (!doesMatch) break;
+        }
+        if (doesMatch) return recipe;
+
+        return null;
     }
 
     /**

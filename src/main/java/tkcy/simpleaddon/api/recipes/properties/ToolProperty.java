@@ -58,7 +58,7 @@ public class ToolProperty extends RecipeProperty<ToolsModule.GtTool>
             recipeStatus = EnumValidationResult.INVALID;
         }
         recipeBuilder.applyProperty(this, valueToTest);
-        recipeBuilder.notConsumable(valueToTest.getToolStack());
+        recipeBuilder.inputs(valueToTest.getToolStack());
         return recipeBuilder;
     }
 

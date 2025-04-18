@@ -7,8 +7,10 @@ import gregtech.api.recipes.RecipeBuilder;
 import gregtech.api.recipes.RecipeMap;
 
 import lombok.NoArgsConstructor;
+import net.minecraft.item.ItemStack;
 import tkcy.simpleaddon.api.recipes.properties.InputBlockStateRecipeProperty;
 import tkcy.simpleaddon.api.recipes.properties.OutputBlockStateRecipeProperty;
+import tkcy.simpleaddon.api.utils.BlockStateHelper;
 import tkcy.simpleaddon.modules.toolmodule.WorkingTool;
 
 @WorkingTool
@@ -31,8 +33,10 @@ public class InWorldBlockRecipeBuilder extends RecipeBuilder<InWorldBlockRecipeB
     }
 
     public InWorldBlockRecipeBuilder inputBlockInWorld(IBlockState blockState) {
+        ItemStack inWorldStateStack = BlockStateHelper.blockStateToItemStack(blockState);
         InputBlockStateRecipeProperty recipeProperty = InputBlockStateRecipeProperty.getInstance();
-        return (InWorldBlockRecipeBuilder) recipeProperty.testAndApplyPropertyValue(blockState, this.recipeStatus,
+
+        return (InWorldBlockRecipeBuilder) recipeProperty.testAndApplyPropertyValue(inWorldStateStack, this.recipeStatus,
                 this);
     }
 

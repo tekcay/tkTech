@@ -1,0 +1,385 @@
+package tkcy.simpleaddon.api.recipes.logic;
+
+import static gregtech.api.recipes.logic.OverclockingLogic.subTickNonParallelOC;
+
+import java.util.*;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
+
+import gregtech.api.recipes.ingredients.GTRecipeInput;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.items.IItemHandlerModifiable;
+
+import net.minecraftforge.items.ItemHandlerHelper;
+import org.jetbrains.annotations.MustBeInvokedByOverriders;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import gregtech.api.GTValues;
+import gregtech.api.capability.IEnergyContainer;
+import gregtech.api.capability.IMultipleTankHandler;
+import gregtech.api.capability.impl.AbstractRecipeLogic;
+import gregtech.api.metatileentity.MetaTileEntity;
+import gregtech.api.recipes.Recipe;
+import gregtech.api.recipes.RecipeMap;
+import gregtech.api.recipes.logic.OCParams;
+import gregtech.api.recipes.logic.OCResult;
+import gregtech.api.recipes.properties.RecipePropertyStorage;
+import gregtech.api.util.GTTransferUtils;
+import gregtech.api.util.GTUtility;
+
+import tkcy.simpleaddon.api.recipes.helpers.RecipeSearchHelpers;
+import tkcy.simpleaddon.api.recipes.properties.IRecipePropertyHelper;
+import tkcy.simpleaddon.api.utils.item.ItemHandlerHelpers;
+import tkcy.simpleaddon.modules.toolmodule.ToolsModule;
+
+public abstract class OnBlockRecipeLogic extends AbstractRecipeLogic implements IExtraRecipeLogic {
+
+    private boolean useEnergy;
+    protected Supplier<IEnergyContainer> energyContainer;
+    private List<ItemStack> itemStacksToConsume;
+    private final Map<IRecipePropertyHelper<?>, Object> recipeParameters = new HashMap<>();
+
+    public OnBlockRecipeLogic(MetaTileEntity tileEntity, Supplier<IEnergyContainer> energyContainer,
+                              RecipeMap<?>... recipeMaps) {
+        super(tileEntity, recipeMaps[0]);
+        if (useEnergy) {
+            setMaximumOverclockVoltage(getMaxVoltage());
+            this.energyContainer = energyContainer;
+        }
+    }
+
+    private boolean useToolLogic() {
+        return this instanceof IToolRecipeLogic;
+    }
+
+    private boolean useInWorldLogic() {
+        return this instanceof IInWorldRecipeLogic;
+    }
+
+    @Override
+    public void update() {
+        if (!useToolLogic()) super.update();
+    }
+
+    public void runToolRecipeLogic(ToolsModule.GtTool gtTool) {
+        if (!useToolLogic()) return;
+        IToolRecipeLogic toolLogic = IToolRecipeLogic.getToolRecipeLogic(this);
+        toolLogic.setCurrentTool(gtTool);
+        this.setActive(true);
+
+        if (progressTime > 0) {
+            this.canRecipeProgress = toolLogic.canToolRecipeLogicProgress(gtTool) &&
+                    canProgressRecipe();
+            updateRecipeProgress();
+            if (progressTime == maxProgressTime) {
+                completeRecipe();
+                return;
+            }
+        }
+
+        if (progressTime == 0) {
+            trySearchNewRecipe();
+        }
+    }
+
+    @Override
+    protected void trySearchNewRecipe() {
+        updateRecipeParameters(this.recipeParameters);
+        super.trySearchNewRecipe();
+    }
+
+    @Override
+    public void updateRecipeParameters(@NotNull Map<IRecipePropertyHelper<?>, Object> recipeParameters) {
+        if (useToolLogic()) {
+            IToolRecipeLogic toolLogic = IToolRecipeLogic.getToolRecipeLogic(this);
+            toolLogic.updateRecipeToolParameters(recipeParameters);
+        }
+        if (useInWorldLogic()) {
+            IInWorldRecipeLogic inWorldLogic = IInWorldRecipeLogic.getInWorldRecipeLogic(this);
+            inWorldLogic.updateRecipeInWorldParameters(recipeParameters);
+        }
+    }
+
+    @Override
+    public @NotNull AbstractRecipeLogic getLogic() {
+        return this;
+    }
+
+    @Override
+    protected boolean canProgressRecipe() {
+        boolean canProgress = super.canProgressRecipe();
+        if (canProgress && useInWorldLogic()) {
+            return IInWorldRecipeLogic.getInWorldRecipeLogic(this).canInWorldRecipeProgress();
+        }
+        return canProgress;
+    }
+
+    @Override
+    public @NotNull List<ItemStack> getInputItemStacks() {
+        List<ItemStack> inputItemStacks = new ArrayList<>();
+
+        if (useInWorldLogic()) {
+            ItemStack inWorldStack = IInWorldRecipeLogic.getInWorldRecipeLogic(this).getInWorldInputStack();
+            if (inWorldStack != null) inputItemStacks.add(inWorldStack);
+        }
+
+        if (useToolLogic()) {
+            // RecipeSearchHelpers.appendStacksTool(inputItemStacks, tool);
+        }
+        return inputItemStacks;
+    }
+
+    @Override
+    public @NotNull List<ItemStack> getItemStacksToConsume(@NotNull Recipe recipe) {
+
+        List<ItemStack> recipeInputStacks = new ArrayList<>();
+
+/*
+
+                recipe.getInputs()
+                .stream()
+                .map(GTRecipeInput::getInputStacks)
+                .flatMap(Arrays::stream)
+                        .forEach(recipeInputStacks::add);
+
+        if (useInWorldLogic()) {
+            IInWorldRecipeLogic logic = IInWorldRecipeLogic.getInWorldRecipeLogic(this);
+            if (logic.doesNeedInWorldBlock()) {
+                ItemStack inWorldStack = logic.getInputRecipeInWorldBlockStack();
+                recipeInputStacks.remove(inWorldStack);
+            }
+        }
+*/
+
+        return recipeInputStacks;
+    }
+
+    @Override
+    @Nullable
+    protected Recipe findRecipe(long maxVoltage, IItemHandlerModifiable inputs, IMultipleTankHandler fluidInputs) {
+        RecipeMap<?> map = getRecipeMap();
+        if (map == null || !isRecipeMapValid(map)) {
+            return null;
+        }
+
+        List<FluidStack> fluidStacks = getFluidStackListInventory();
+        updateRecipeParameters(this.recipeParameters);
+        return RecipeSearchHelpers.findFirstRecipeWithProperties(getRecipeMap(), this.recipeParameters);
+    }
+
+    private List<FluidStack> getFluidStackListInventory() {
+        return GTUtility.fluidHandlerToList(getInputTank());
+    }
+
+    @Override
+    protected boolean checkPreviousRecipe() {
+        return super.checkPreviousRecipe();
+    }
+
+    /**
+     * Compared to {@link AbstractRecipeLogic#trySearchNewRecipe()}:
+     * </br>
+     * Does not use {@link AbstractRecipeLogic#findRecipe(long, IItemHandlerModifiable, IMultipleTankHandler)}
+     * but {@link #//findRecipe()} as inputs are not *only made of the handlers content.
+     *//*
+    @Override
+    protected void trySearchNewRecipe() {
+        Recipe currentRecipe;
+        // see if the last recipe we used still works
+        if (checkPreviousRecipe()) {
+            currentRecipe = this.previousRecipe;
+            // If there is no active recipe, then we need to find one.
+        } else {
+            currentRecipe = findRecipe();
+        }
+        // If a recipe was found, then inputs were valid. Cache found recipe.
+        if (currentRecipe != null) {
+            this.previousRecipe = currentRecipe;
+        }
+        this.invalidInputsForRecipes = (currentRecipe == null);
+
+        // proceed if we have a usable recipe.
+        if (currentRecipe != null && checkRecipe(currentRecipe)) {
+            prepareRecipe(currentRecipe);
+        }
+    }*/
+
+    @Override
+    protected void outputRecipeOutputs() {
+        if (useInWorldLogic()) {
+            IInWorldRecipeLogic.getInWorldRecipeLogic(this).outputRecipeStacks(itemOutputs);
+            GTTransferUtils.addFluidsToFluidHandler(getOutputTank(), false, fluidOutputs);
+        } else super.outputRecipeOutputs();
+    }
+
+    /**
+     * Skips {@link #prepareRecipe(Recipe recipe, IItemHandlerModifiable inputInventory,
+     * IMultipleTankHandler inputFluidInventory)} because parallel logic is not used
+     * and recipe is found using {@link #getInputItemStacks()}, not the inventory handler.
+     */
+    @Override
+    public boolean prepareRecipe(Recipe recipe) {
+        recipe = Recipe.trimRecipeOutputs(recipe, getRecipeMap(), metaTileEntity.getItemOutputLimit(),
+                metaTileEntity.getFluidOutputLimit());
+
+        if (useInWorldLogic()) {
+            IInWorldRecipeLogic logic = IInWorldRecipeLogic.getInWorldRecipeLogic(this);
+
+            if (logic.doesNeedInWorldBlock()) {
+
+            ItemStack input = logic.getInputRecipeInWorldBlockStack(recipe);
+            if (input == null) return false;
+            input.setCount(1);
+            logic.setInputRecipeInWorldBlockStack(input);
+
+            if (logic.addInWorldInputToInventory(getInputInventory(), true)) {
+                logic.addInWorldInputToInventory(getInputInventory(), false);
+            } else return false;
+        }
+        }
+
+        if (useToolLogic()) {
+            IToolRecipeLogic logic = IToolRecipeLogic.getToolRecipeLogic(this);
+            logic.setRecipeTool(recipe);
+            logic.setRecipeToolUses(recipe);
+            if (logic.addToolStackToInventory(getInputInventory(), true)) {
+                logic.addToolStackToInventory(getInputInventory(), false);
+            } else return false;
+        }
+
+        if (recipe != null) {
+            recipe = setupAndConsumeRecipeInputs(recipe, getInputInventory(), getInputTank());
+            if (recipe != null) {
+                setupRecipe(recipe);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public void invalidate() {
+        super.invalidate();
+        if (useInWorldLogic()) {
+            IInWorldRecipeLogic logic = IInWorldRecipeLogic.getInWorldRecipeLogic(this);
+            logic.setOutputRecipeInWorldBlockStack(null);
+            logic.setInputRecipeInWorldBlockStack(null);
+        }
+
+        if (useToolLogic()) {
+            IToolRecipeLogic logic = IToolRecipeLogic.getToolRecipeLogic(this);
+            logic.setRecipeTool((ToolsModule.GtTool) null);
+            logic.setCurrentTool(null);
+            logic.setToolUses(0);
+        }
+
+        this.recipeParameters.clear();
+    }
+
+/*
+    protected boolean tryConsumeRecipeInputs(@NotNull Recipe recipe) {
+        IMultipleTankHandler exportFluids = getOutputTank();
+
+        // We have already trimmed fluid outputs at this time
+        if (!metaTileEntity.canVoidRecipeFluidOutputs() &&
+                !GTTransferUtils.addFluidsToFluidHandler(exportFluids, true, recipe.getAllFluidOutputs())) {
+            this.isOutputsFull = true;
+            return false;
+        }
+
+        if (checkOutputSpaceItems(recipe, getOutputInventory()) && checkOutputSpaceFluids(recipe, getOutputTank())) {
+
+            this.isOutputsFull = false;
+            if (recipe.matches(true, getInputInventory(), getInputTank())) {
+                this.metaTileEntity.addNotifiedInput(importInventory);
+                return recipe;
+            }
+        }
+
+        List<ItemStack> stacksToConsume = getItemStacksToConsume(recipe);
+        if (stacksToConsume.isEmpty()) return false;
+
+        this.isOutputsFull = false;
+        if (ItemHandlerHelpers.removeStack(getInputInventory(), stacksToConsume, false)) {
+            this.metaTileEntity.addNotifiedInput(getInputInventory());
+            return true;
+        }
+
+        return false;
+    }
+*/
+
+    @NotNull
+    @Override
+    public NBTTagCompound serializeNBT() {
+        NBTTagCompound tagCompound = super.serializeNBT();
+        if (useInWorldLogic()) {
+            IInWorldRecipeLogic.getInWorldRecipeLogic(this).serializeInWorldRecipeLogic(tagCompound);
+        }
+        if (useToolLogic()) {
+            IToolRecipeLogic.getToolRecipeLogic(this).serializeToolRecipeLogic(tagCompound);
+        }
+        return tagCompound;
+    }
+
+    @Override
+    public void deserializeNBT(@NotNull NBTTagCompound compound) {
+        super.deserializeNBT(compound);
+        if (useInWorldLogic()) {
+            IInWorldRecipeLogic.getInWorldRecipeLogic(this).deserializeInWorldRecipeLogic(compound);
+        }
+        if (useToolLogic()) {
+            IToolRecipeLogic.getToolRecipeLogic(this).deserializeToolRecipeLogic(compound);
+        }
+    }
+
+    // Energy stuff
+
+    @Override
+    protected long getEnergyInputPerSecond() {
+        return useEnergy ? energyContainer.get().getInputPerSec() : Integer.MAX_VALUE;
+    }
+
+    @Override
+    protected long getEnergyStored() {
+        return useEnergy ? energyContainer.get().getEnergyStored() : Integer.MAX_VALUE;
+    }
+
+    @Override
+    protected long getEnergyCapacity() {
+        return useEnergy ? energyContainer.get().getEnergyCapacity() : Integer.MAX_VALUE;
+    }
+
+    @Override
+    protected boolean drawEnergy(long recipeEUt, boolean simulate) {
+        if (!useEnergy) return true;
+        long resultEnergy = getEnergyStored() - recipeEUt;
+        if (resultEnergy >= 0L && resultEnergy <= getEnergyCapacity()) {
+            if (!simulate) energyContainer.get().changeEnergy(-recipeEUt);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public long getMaximumOverclockVoltage() {
+        return useEnergy ? super.getMaximumOverclockVoltage() : GTValues.V[GTValues.LV];
+    }
+
+    @Override
+    public long getMaxVoltage() {
+        return useEnergy ? Math.max(energyContainer.get().getInputVoltage(), energyContainer.get().getOutputVoltage()) :
+                GTValues.LV;
+    }
+
+    @Override
+    protected void runOverclockingLogic(@NotNull OCParams ocParams, @NotNull OCResult ocResult,
+                                        @NotNull RecipePropertyStorage propertyStorage, long maxVoltage) {
+        subTickNonParallelOC(ocParams, ocResult, maxVoltage, getOverclockingDurationFactor(),
+                getOverclockingVoltageFactor());
+    }
+}
