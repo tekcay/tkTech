@@ -18,7 +18,7 @@ import gregtech.api.recipes.properties.RecipeProperty;
 import tkcy.simpleaddon.api.utils.BlockStateHelper;
 import tkcy.simpleaddon.modules.RecipePropertiesKey;
 
-public class InputBlockStateRecipeProperty extends RecipeProperty<ItemStack>
+public class InputBlockStateRecipeProperty extends BlockStateStackRecipeProperty
                                            implements IRecipePropertyHelper<ItemStack> {
 
     public static final String KEY = RecipePropertiesKey.INPUT_BLOCK_STATE_KEY;
@@ -34,47 +34,5 @@ public class InputBlockStateRecipeProperty extends RecipeProperty<ItemStack>
             INSTANCE = new InputBlockStateRecipeProperty();
         }
         return INSTANCE;
-    }
-
-    @Override
-    public @NotNull NBTBase serialize(@NotNull Object value) {
-        ItemStack blockStack = castValue(value);
-        return blockStack.serializeNBT();
-    }
-
-    @Override
-    public @NotNull Object deserialize(@NotNull NBTBase nbt) {
-        return new ItemStack((NBTTagCompound) nbt);
-    }
-
-    @Override
-    public void drawInfo(Minecraft minecraft, int x, int y, int color, Object value) {}
-
-    @Override
-    public Predicate<ItemStack> testSuppliedValue() {
-        return itemStack -> {
-            IBlockState block = BlockStateHelper.itemStackToBlockState(itemStack);
-            return block != null;
-        };
-    }
-
-    @Override
-    public ItemStack getDefaultValue() {
-        return ItemStack.EMPTY;
-    }
-
-    @Override
-    public String getErrorMessage() {
-        return "BlockStateRecipeProperty must be provided with an ItemStack that a corresponding Block!";
-    }
-
-    @Override
-    public RecipeProperty<ItemStack> getProperty() {
-        return this;
-    }
-
-    @Override
-    public boolean areValueEquals(ItemStack recipeValue, Object valueToTest) {
-        return recipeValue.isItemEqual(castValue(valueToTest));
     }
 }

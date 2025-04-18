@@ -53,21 +53,19 @@ public class AdvancedRecipeBuilder extends RecipeBuilder<AdvancedRecipeBuilder> 
     }
 
     public AdvancedRecipeBuilder outputBlockInWorld(IBlockState blockState) {
-        Block block = blockState.getBlock();
-        ItemStack output = Item.getItemFromBlock(block).getDefaultInstance();
-        return outputBlockInWorld(output, blockState);
+        ItemStack itemStack = BlockStateHelper.blockStateToItemStack(blockState);
+        return outputs(itemStack);
     }
 
     public AdvancedRecipeBuilder outputBlockInWorld(Block block) {
         ItemStack output = Item.getItemFromBlock(block).getDefaultInstance();
-        IBlockState blockState = block.getDefaultState();
-        return outputBlockInWorld(output, blockState);
+        return outputs(output);
     }
 
-    private AdvancedRecipeBuilder outputBlockInWorld(ItemStack itemStack, IBlockState blockState) {
+    private AdvancedRecipeBuilder outputBlockInWorld(ItemStack itemStack) {
         this.outputs(itemStack);
         OutputBlockStateRecipeProperty recipeProperty = OutputBlockStateRecipeProperty.getInstance();
-        return (AdvancedRecipeBuilder) recipeProperty.testAndApplyPropertyValue(blockState, this.recipeStatus, this);
+        return (AdvancedRecipeBuilder) recipeProperty.testAndApplyPropertyValue(itemStack, this.recipeStatus, this);
     }
 
     public AdvancedRecipeBuilder tool(ToolsModule.GtTool gtTool) {

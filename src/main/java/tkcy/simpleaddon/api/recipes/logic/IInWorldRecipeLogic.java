@@ -121,8 +121,7 @@ public interface IInWorldRecipeLogic extends IExtraRecipeLogic {
     @Nullable
     default ItemStack getOutputRecipeInWorldBlockStack(@NotNull Recipe recipe) {
         if (getOutputBlockPos() != null) {
-            IBlockState blockState = OutputBlockStateRecipeProperty.getInstance().getValueFromRecipe(recipe);
-            return BlockStateHelper.blockStateToItemStack(blockState);
+            return OutputBlockStateRecipeProperty.getInstance().getValueFromRecipe(recipe);
         } else return null;
     }
 
