@@ -40,7 +40,6 @@ public abstract class OnBlockRecipeLogic extends AbstractRecipeLogic implements 
 
     private boolean useEnergy;
     protected Supplier<IEnergyContainer> energyContainer;
-    private List<ItemStack> itemStacksToConsume;
     private final Map<IRecipePropertyHelper<?>, Object> recipeParameters = new HashMap<>();
 
     public OnBlockRecipeLogic(MetaTileEntity tileEntity, Supplier<IEnergyContainer> energyContainer,
@@ -84,6 +83,11 @@ public abstract class OnBlockRecipeLogic extends AbstractRecipeLogic implements 
         if (progressTime == 0) {
             trySearchNewRecipe();
         }
+
+        if (super.wasActiveAndNeedsUpdate) {
+            super.wasActiveAndNeedsUpdate = false;
+            setActive(false);
+        }
     }
 
     @Override
@@ -119,21 +123,6 @@ public abstract class OnBlockRecipeLogic extends AbstractRecipeLogic implements 
     }
 
     @Override
-    public @NotNull List<ItemStack> getInputItemStacks() {
-        List<ItemStack> inputItemStacks = new ArrayList<>();
-
-        if (useInWorldLogic()) {
-            ItemStack inWorldStack = IInWorldRecipeLogic.getInWorldRecipeLogic(this).getInWorldInputStack();
-            if (inWorldStack != null) inputItemStacks.add(inWorldStack);
-        }
-
-        if (useToolLogic()) {
-            // RecipeSearchHelpers.appendStacksTool(inputItemStacks, tool);
-        }
-        return inputItemStacks;
-    }
-
-    @Override
     @Nullable
     protected Recipe findRecipe(long maxVoltage, IItemHandlerModifiable inputs, IMultipleTankHandler fluidInputs) {
         RecipeMap<?> map = getRecipeMap();
@@ -155,34 +144,6 @@ public abstract class OnBlockRecipeLogic extends AbstractRecipeLogic implements 
         return super.checkPreviousRecipe();
     }
 
-    /**
-     * Compared to {@link AbstractRecipeLogic#trySearchNewRecipe()}:
-     * </br>
-     * Does not use {@link AbstractRecipeLogic#findRecipe(long, IItemHandlerModifiable, IMultipleTankHandler)}
-     * but {@link #//findRecipe()} as inputs are not *only made of the handlers content.
-     *//*
-    @Override
-    protected void trySearchNewRecipe() {
-        Recipe currentRecipe;
-        // see if the last recipe we used still works
-        if (checkPreviousRecipe()) {
-            currentRecipe = this.previousRecipe;
-            // If there is no active recipe, then we need to find one.
-        } else {
-            currentRecipe = findRecipe();
-        }
-        // If a recipe was found, then inputs were valid. Cache found recipe.
-        if (currentRecipe != null) {
-            this.previousRecipe = currentRecipe;
-        }
-        this.invalidInputsForRecipes = (currentRecipe == null);
-
-        // proceed if we have a usable recipe.
-        if (currentRecipe != null && checkRecipe(currentRecipe)) {
-            prepareRecipe(currentRecipe);
-        }
-    }*/
-
     @Override
     protected void outputRecipeOutputs() {
         if (useInWorldLogic()) {
@@ -194,7 +155,8 @@ public abstract class OnBlockRecipeLogic extends AbstractRecipeLogic implements 
     /**
      * Skips {@link #prepareRecipe(Recipe recipe, IItemHandlerModifiable inputInventory,
      * IMultipleTankHandler inputFluidInventory)} because parallel logic is not used
-     * and recipe is found using {@link #getInputItemStacks()}, not the inventory handler.
+     * and some recipe inputs are added to the input inventory right before
+     * {@link Recipe#matches(boolean, IItemHandlerModifiable, IMultipleTankHandler)} is called.
      */
     @Override
     public boolean prepareRecipe(Recipe recipe) {
@@ -258,39 +220,6 @@ public abstract class OnBlockRecipeLogic extends AbstractRecipeLogic implements 
 
         this.recipeParameters.clear();
     }
-
-/*
-    protected boolean tryConsumeRecipeInputs(@NotNull Recipe recipe) {
-        IMultipleTankHandler exportFluids = getOutputTank();
-
-        // We have already trimmed fluid outputs at this time
-        if (!metaTileEntity.canVoidRecipeFluidOutputs() &&
-                !GTTransferUtils.addFluidsToFluidHandler(exportFluids, true, recipe.getAllFluidOutputs())) {
-            this.isOutputsFull = true;
-            return false;
-        }
-
-        if (checkOutputSpaceItems(recipe, getOutputInventory()) && checkOutputSpaceFluids(recipe, getOutputTank())) {
-
-            this.isOutputsFull = false;
-            if (recipe.matches(true, getInputInventory(), getInputTank())) {
-                this.metaTileEntity.addNotifiedInput(importInventory);
-                return recipe;
-            }
-        }
-
-        List<ItemStack> stacksToConsume = getItemStacksToConsume(recipe);
-        if (stacksToConsume.isEmpty()) return false;
-
-        this.isOutputsFull = false;
-        if (ItemHandlerHelpers.removeStack(getInputInventory(), stacksToConsume, false)) {
-            this.metaTileEntity.addNotifiedInput(getInputInventory());
-            return true;
-        }
-
-        return false;
-    }
-*/
 
     @NotNull
     @Override

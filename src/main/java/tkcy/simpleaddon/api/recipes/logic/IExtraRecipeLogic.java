@@ -18,12 +18,6 @@ public interface IExtraRecipeLogic {
     @NotNull
     AbstractRecipeLogic getLogic();
 
-    /**
-     * @return list of itemStacks to find a recipe with.
-     */
-    @NotNull
-    List<ItemStack> getInputItemStacks();
-
     void updateRecipeParameters(@NotNull Map<IRecipePropertyHelper<?>, Object> recipeParameters);
 
     @NotNull
