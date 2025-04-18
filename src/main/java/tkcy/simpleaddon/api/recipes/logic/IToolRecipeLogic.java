@@ -2,17 +2,16 @@ package tkcy.simpleaddon.api.recipes.logic;
 
 import java.util.Map;
 
-import gregtech.api.capability.IMultipleTankHandler;
-import gregtech.api.util.GTTransferUtils;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
+
 import org.jetbrains.annotations.NotNull;
 
-import gregtech.api.capability.impl.AbstractRecipeLogic;
+import gregtech.api.capability.IMultipleTankHandler;
 import gregtech.api.recipes.Recipe;
+import gregtech.api.util.GTTransferUtils;
 
 import tkcy.simpleaddon.api.recipes.builders.ToolRecipeBuilder;
 import tkcy.simpleaddon.api.recipes.properties.IRecipePropertyHelper;
@@ -33,10 +32,13 @@ public interface IToolRecipeLogic extends IExtraRecipeLogic {
     }
 
     void setRecipeTool(ToolsModule.GtTool recipeTool);
+
     void setCurrentTool(ToolsModule.GtTool recipeTool);
+
     void setToolUses(int toolUses);
 
     ToolsModule.GtTool getRecipeTool();
+
     ToolsModule.GtTool getCurrentTool();
 
     int getToolUses();
@@ -52,7 +54,8 @@ public interface IToolRecipeLogic extends IExtraRecipeLogic {
     }
 
     /**
-     * Sets {@code maxProgress} from the {@link ToolUsesProperty} in the {@link ToolRecipeBuilder}. Just used for the label.
+     * Sets {@code maxProgress} from the {@link ToolUsesProperty} in the {@link ToolRecipeBuilder}. Just used for the
+     * label.
      */
     default void setRecipeToolUses(Recipe recipe) {
         getLogic().setMaxProgress(ToolUsesProperty.getInstance().getValueFromRecipe(recipe));
@@ -80,7 +83,9 @@ public interface IToolRecipeLogic extends IExtraRecipeLogic {
     }
 
     /**
-     * Little hackery to the standard input consumption logic in used (see {@link Recipe#matches(boolean, IItemHandlerModifiable, IMultipleTankHandler)}).
+     * Little hackery to the standard input consumption logic in used (see
+     * {@link Recipe#matches(boolean, IItemHandlerModifiable, IMultipleTankHandler)}).
+     * 
      * @param inputInventory
      * @param simulate
      * @return

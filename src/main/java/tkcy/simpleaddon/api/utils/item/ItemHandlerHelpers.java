@@ -5,7 +5,6 @@ import java.util.function.Function;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-import gregtech.api.util.GTTransferUtils;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.IItemHandler;
 
@@ -25,7 +24,7 @@ public class ItemHandlerHelpers {
         return temp;
     }
 
-    //Untested
+    // Untested
     public boolean removeStack(IItemHandler handler, List<ItemStack> stacksToRemove, boolean simulate) {
         for (int slot = 0; slot < handler.getSlots(); slot++) {
             ItemStack handlerStack = handler.getStackInSlot(slot);
@@ -40,6 +39,5 @@ public class ItemHandlerHelpers {
         }
 
         return stacksToRemove.isEmpty();
-
     }
 }

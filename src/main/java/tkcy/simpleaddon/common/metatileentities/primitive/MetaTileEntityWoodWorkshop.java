@@ -4,16 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 
-import gregtech.api.gui.widgets.ClickButtonWidget;
-import gregtech.api.items.toolitem.ItemGTAxe;
-import gregtech.api.items.toolitem.ItemGTTool;
-import gregtech.api.items.toolitem.ToolClasses;
-import gregtech.api.items.toolitem.ToolHelper;
-import gregtech.core.sound.GTSoundEvents;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
@@ -28,6 +20,7 @@ import gregtech.api.capability.IEnergyContainer;
 import gregtech.api.capability.impl.NotifiableItemStackHandler;
 import gregtech.api.gui.GuiTextures;
 import gregtech.api.gui.ModularUI;
+import gregtech.api.gui.widgets.ClickButtonWidget;
 import gregtech.api.gui.widgets.LabelWidget;
 import gregtech.api.gui.widgets.ProgressWidget;
 import gregtech.api.items.itemhandlers.GTItemStackHandler;
@@ -136,7 +129,8 @@ public class MetaTileEntityWoodWorkshop extends ToolLogicMetaTileEntity
                 .widget(new LabelWidget(5, 5, getMetaFullName()))
                 .slot(this.importItems, 0, 60, 30, GuiTextures.PRIMITIVE_SLOT)
                 .slot(this.importItems, 1, 30, 30, GuiTextures.PRIMITIVE_SLOT)
-                .widget(new ClickButtonWidget(30, 60, 30, 20, "T", clickData -> logic.runToolRecipeLogic(ToolsModule.GtTool.AXE)))
+                .widget(new ClickButtonWidget(30, 60, 30, 20, "T",
+                        clickData -> logic.runToolRecipeLogic(ToolsModule.GtTool.AXE)))
                 .widget(new ClickButtonWidget(90, 60, 30, 20, "E", clickData -> entityPlayer.jump()))
                 .progressBar(this.logic::getProgressPercent, 100, 30, 18, 18, GuiTextures.PROGRESS_BAR_BENDING,
                         ProgressWidget.MoveType.HORIZONTAL, this.recipeMap)

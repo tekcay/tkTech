@@ -3,18 +3,17 @@ package tkcy.simpleaddon.api.recipes.logic;
 import java.util.List;
 import java.util.Map;
 
-import gregtech.api.capability.IMultipleTankHandler;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import gregtech.api.capability.IMultipleTankHandler;
 import gregtech.api.capability.impl.AbstractRecipeLogic;
 import gregtech.api.recipes.Recipe;
 import gregtech.api.util.GTTransferUtils;
@@ -22,7 +21,6 @@ import gregtech.api.util.GTTransferUtils;
 import tkcy.simpleaddon.api.recipes.properties.IRecipePropertyHelper;
 import tkcy.simpleaddon.api.recipes.properties.InputBlockStateRecipeProperty;
 import tkcy.simpleaddon.api.recipes.properties.OutputBlockStateRecipeProperty;
-import tkcy.simpleaddon.api.utils.BlockStateHelper;
 import tkcy.simpleaddon.api.utils.BooleanHelper;
 import tkcy.simpleaddon.api.utils.TKCYSALog;
 import tkcy.simpleaddon.api.utils.WorldInteractionsHelper;
@@ -36,9 +34,9 @@ public interface IInWorldRecipeLogic extends IExtraRecipeLogic {
     }
 
     static void resetInWorldLogic(IExtraRecipeLogic logic) {
-            IInWorldRecipeLogic inWorldRecipeLogic = getInWorldRecipeLogic(logic);
-            ((IInWorldRecipeLogic) logic).resetInWorldLogic();
-        }
+        IInWorldRecipeLogic inWorldRecipeLogic = getInWorldRecipeLogic(logic);
+        ((IInWorldRecipeLogic) logic).resetInWorldLogic();
+    }
 
     boolean doesSpawnOutputItems();
 
@@ -66,14 +64,17 @@ public interface IInWorldRecipeLogic extends IExtraRecipeLogic {
     }
 
     /**
-     * Little hackery to the standard input consumption logic in used (see {@link Recipe#matches(boolean, IItemHandlerModifiable, IMultipleTankHandler)}).
+     * Little hackery to the standard input consumption logic in used (see
+     * {@link Recipe#matches(boolean, IItemHandlerModifiable, IMultipleTankHandler)}).
+     * 
      * @param inputInventory
      * @param simulate
      * @return
      */
     default boolean addInWorldInputToInventory(IItemHandler inputInventory, boolean simulate) {
         if (doesNeedInWorldBlock()) {
-            ItemStack itemStack = GTTransferUtils.insertItem(inputInventory, getInputRecipeInWorldBlockStack(), simulate);
+            ItemStack itemStack = GTTransferUtils.insertItem(inputInventory, getInputRecipeInWorldBlockStack(),
+                    simulate);
             return itemStack == null || itemStack.isEmpty();
         }
         return true;
@@ -136,9 +137,10 @@ public interface IInWorldRecipeLogic extends IExtraRecipeLogic {
     }
 
     /**
-     * Used if {@link #doesPlaceOutputBlock()}. As the block to place in world is stored both  as itemStack in
+     * Used if {@link #doesPlaceOutputBlock()}. As the block to place in world is stored both as itemStack in
      * {@link AbstractRecipeLogic#itemOutputs} and in {@link #getOutputRecipeInWorldBlockStack()}, it must be removed
      * from {@code itemOutputs}.
+     * 
      * @param itemOutputs
      * @return
      */
@@ -151,7 +153,6 @@ public interface IInWorldRecipeLogic extends IExtraRecipeLogic {
             }
         }
         return false;
-
     }
 
     /**
@@ -186,8 +187,6 @@ public interface IInWorldRecipeLogic extends IExtraRecipeLogic {
         if (doesSpawnOutputItems()) {
             WorldInteractionsHelper.spawnStacks(getMetaTileEntity(), outputItemStacks);
         } else GTTransferUtils.addItemsToItemHandler(getMetaTileEntity().getExportItems(), false, outputItemStacks);
-
-
     }
 
     @SuppressWarnings("ConstantConditions")

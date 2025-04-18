@@ -1,19 +1,21 @@
 package tkcy.simpleaddon.api.recipes.properties;
 
-import gregtech.api.recipes.properties.RecipeProperty;
+import java.util.function.Predicate;
+
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
-import org.jetbrains.annotations.NotNull;
-import tkcy.simpleaddon.api.utils.BlockStateHelper;
-import tkcy.simpleaddon.modules.RecipePropertiesKey;
 
-import java.util.function.Predicate;
+import org.jetbrains.annotations.NotNull;
+
+import gregtech.api.recipes.properties.RecipeProperty;
+
+import tkcy.simpleaddon.api.utils.BlockStateHelper;
 
 public abstract class BlockStateStackRecipeProperty extends RecipeProperty<ItemStack>
-                                           implements IRecipePropertyHelper<ItemStack> {
+                                                    implements IRecipePropertyHelper<ItemStack> {
 
     protected BlockStateStackRecipeProperty(String key, Class<ItemStack> type) {
         super(key, type);

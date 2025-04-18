@@ -1,10 +1,6 @@
 package tkcy.simpleaddon.api.recipes.logic;
 
-import java.util.List;
 import java.util.Map;
-
-import gregtech.api.recipes.Recipe;
-import net.minecraft.item.ItemStack;
 
 import org.jetbrains.annotations.NotNull;
 

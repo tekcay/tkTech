@@ -3,7 +3,6 @@ package tkcy.simpleaddon.mixins.gregtech;
 import java.util.List;
 import java.util.Set;
 
-import gregtech.api.items.toolitem.ToolClasses;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -23,6 +22,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import gregtech.api.cover.Cover;
 import gregtech.api.cover.CoverRayTracer;
+import gregtech.api.items.toolitem.ToolClasses;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.client.utils.TooltipHelper;
 
@@ -33,7 +33,8 @@ import tkcy.simpleaddon.api.machines.IOnSolderingIronClick;
 import tkcy.simpleaddon.api.machines.IRightClickItemTransfer;
 
 @Mixin(value = MetaTileEntity.class, remap = false)
-public abstract class MixinToolClickMetaTileEntity implements IOnSolderingIronClick, IOnAxeClick, IRightClickItemTransfer {
+public abstract class MixinToolClickMetaTileEntity implements IOnSolderingIronClick, IOnAxeClick,
+                                                   IRightClickItemTransfer {
 
     @Shadow
     public abstract boolean onToolClick(EntityPlayer playerIn, @NotNull Set<String> toolClasses, EnumHand hand,

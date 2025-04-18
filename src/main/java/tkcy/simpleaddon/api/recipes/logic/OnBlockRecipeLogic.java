@@ -4,17 +4,12 @@ import static gregtech.api.recipes.logic.OverclockingLogic.subTickNonParallelOC;
 
 import java.util.*;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
-import gregtech.api.recipes.ingredients.GTRecipeInput;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.items.IItemHandlerModifiable;
 
-import net.minecraftforge.items.ItemHandlerHelper;
-import org.jetbrains.annotations.MustBeInvokedByOverriders;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -33,7 +28,6 @@ import gregtech.api.util.GTUtility;
 
 import tkcy.simpleaddon.api.recipes.helpers.RecipeSearchHelpers;
 import tkcy.simpleaddon.api.recipes.properties.IRecipePropertyHelper;
-import tkcy.simpleaddon.api.utils.item.ItemHandlerHelpers;
 import tkcy.simpleaddon.modules.toolmodule.ToolsModule;
 
 public abstract class OnBlockRecipeLogic extends AbstractRecipeLogic implements IExtraRecipeLogic {
@@ -168,16 +162,15 @@ public abstract class OnBlockRecipeLogic extends AbstractRecipeLogic implements 
 
             if (logic.doesNeedInWorldBlock()) {
 
-            ItemStack input = logic.getInputRecipeInWorldBlockStack(recipe);
-            if (input == null) return false;
-            input.setCount(1);
-            logic.setInputRecipeInWorldBlockStack(input);
+                ItemStack input = logic.getInputRecipeInWorldBlockStack(recipe);
+                if (input == null) return false;
+                input.setCount(1);
+                logic.setInputRecipeInWorldBlockStack(input);
 
-
-            if (logic.addInWorldInputToInventory(getInputInventory(), true)) {
-                logic.addInWorldInputToInventory(getInputInventory(), false);
-            } else return false;
-        }
+                if (logic.addInWorldInputToInventory(getInputInventory(), true)) {
+                    logic.addInWorldInputToInventory(getInputInventory(), false);
+                } else return false;
+            }
             if (logic.doesPlaceOutputBlock()) {
                 ItemStack stackToOutput = logic.getOutputRecipeInWorldBlockStack(recipe);
                 logic.setOutputRecipeInWorldBlockStack(stackToOutput);
