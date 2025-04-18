@@ -7,6 +7,7 @@ import java.util.function.Supplier;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.items.IItemHandlerModifiable;
 
@@ -60,27 +61,32 @@ public abstract class OnBlockRecipeLogic extends AbstractRecipeLogic implements 
 
     public void runToolRecipeLogic(ToolsModule.GtTool gtTool) {
         if (!useToolLogic()) return;
-        IToolRecipeLogic toolLogic = IToolRecipeLogic.getToolRecipeLogic(this);
-        toolLogic.setCurrentTool(gtTool);
-        this.setActive(true);
+        World world = getMetaTileEntity().getWorld();
+        if (world != null && !world.isRemote) {
+            if (workingEnabled) {
+                IToolRecipeLogic toolLogic = IToolRecipeLogic.getToolRecipeLogic(this);
+                toolLogic.setCurrentTool(gtTool);
+                this.setActive(true);
 
-        if (progressTime > 0) {
-            this.canRecipeProgress = toolLogic.canToolRecipeLogicProgress(gtTool) &&
-                    canProgressRecipe();
-            updateRecipeProgress();
-            if (progressTime == maxProgressTime) {
-                completeRecipe();
-                return;
+                if (progressTime > 0) {
+                    this.canRecipeProgress = toolLogic.canToolRecipeLogicProgress(gtTool) &&
+                            canProgressRecipe();
+                    updateRecipeProgress();
+                    if (progressTime == maxProgressTime) {
+                        completeRecipe();
+                        return;
+                    }
+                }
+
+                if (progressTime == 0) {
+                    trySearchNewRecipe();
+                }
             }
-        }
 
-        if (progressTime == 0) {
-            trySearchNewRecipe();
-        }
-
-        if (super.wasActiveAndNeedsUpdate) {
-            super.wasActiveAndNeedsUpdate = false;
-            setActive(false);
+            if (super.wasActiveAndNeedsUpdate) {
+                super.wasActiveAndNeedsUpdate = false;
+                setActive(false);
+            }
         }
     }
 
@@ -201,7 +207,6 @@ public abstract class OnBlockRecipeLogic extends AbstractRecipeLogic implements 
         super.invalidate();
         if (useInWorldLogic()) IInWorldRecipeLogic.resetInWorldLogic(this);
         if (useToolLogic()) IToolRecipeLogic.resetToolLogic(this);
-
         this.recipeParameters.clear();
     }
 
@@ -210,6 +215,7 @@ public abstract class OnBlockRecipeLogic extends AbstractRecipeLogic implements 
         super.completeRecipe();
         if (useInWorldLogic()) IInWorldRecipeLogic.resetInWorldLogic(this);
         if (useToolLogic()) IToolRecipeLogic.resetToolLogic(this);
+        this.recipeParameters.clear();
     }
 
     @NotNull
