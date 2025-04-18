@@ -23,8 +23,13 @@ import tkcy.simpleaddon.modules.toolmodule.ToolsModule;
 public interface IToolRecipeLogic extends IExtraRecipeLogic {
 
     @NotNull
-    static IToolRecipeLogic getToolRecipeLogic(AbstractRecipeLogic abstractRecipeLogic) {
+    static IToolRecipeLogic getToolRecipeLogic(IExtraRecipeLogic abstractRecipeLogic) {
         return (IToolRecipeLogic) abstractRecipeLogic;
+    }
+
+    static void resetToolLogic(IExtraRecipeLogic recipeLogic) {
+        IToolRecipeLogic toolRecipeLogic = getToolRecipeLogic(recipeLogic);
+        toolRecipeLogic.resetToolLogic();
     }
 
     void setRecipeTool(ToolsModule.GtTool recipeTool);
@@ -35,6 +40,12 @@ public interface IToolRecipeLogic extends IExtraRecipeLogic {
     ToolsModule.GtTool getCurrentTool();
 
     int getToolUses();
+
+    default void resetToolLogic() {
+        setRecipeTool((ToolsModule.GtTool) null);
+        setCurrentTool(null);
+        setToolUses(0);
+    }
 
     default boolean canToolRecipeLogicProgress(ToolsModule.GtTool tool) {
         return tool == getRecipeTool();

@@ -31,9 +31,14 @@ import tkcy.simpleaddon.modules.NBTLabel;
 public interface IInWorldRecipeLogic extends IExtraRecipeLogic {
 
     @NotNull
-    static IInWorldRecipeLogic getInWorldRecipeLogic(AbstractRecipeLogic abstractRecipeLogic) {
+    static IInWorldRecipeLogic getInWorldRecipeLogic(IExtraRecipeLogic abstractRecipeLogic) {
         return (IInWorldRecipeLogic) abstractRecipeLogic;
     }
+
+    static void resetInWorldLogic(IExtraRecipeLogic logic) {
+            IInWorldRecipeLogic inWorldRecipeLogic = getInWorldRecipeLogic(logic);
+            ((IInWorldRecipeLogic) logic).resetInWorldLogic();
+        }
 
     boolean doesSpawnOutputItems();
 
@@ -54,6 +59,11 @@ public interface IInWorldRecipeLogic extends IExtraRecipeLogic {
 
     @Nullable
     BlockPos getOutputBlockPos();
+
+    default void resetInWorldLogic() {
+        setOutputRecipeInWorldBlockStack(null);
+        setInputRecipeInWorldBlockStack(null);
+    }
 
     /**
      * Little hackery to the standard input consumption logic in used (see {@link Recipe#matches(boolean, IItemHandlerModifiable, IMultipleTankHandler)}).
@@ -126,6 +136,25 @@ public interface IInWorldRecipeLogic extends IExtraRecipeLogic {
     }
 
     /**
+     * Used if {@link #doesPlaceOutputBlock()}. As the block to place in world is stored both  as itemStack in
+     * {@link AbstractRecipeLogic#itemOutputs} and in {@link #getOutputRecipeInWorldBlockStack()}, it must be removed
+     * from {@code itemOutputs}.
+     * @param itemOutputs
+     * @return
+     */
+    default boolean removeInWorldOutputFromNormalOutput(@NotNull List<ItemStack> itemOutputs) {
+        if (getOutputRecipeInWorldBlockStack() == null) return false;
+        for (ItemStack itemStack : itemOutputs) {
+            if (itemStack.isItemEqual(getOutputRecipeInWorldBlockStack())) {
+                itemOutputs.remove(itemStack);
+                return true;
+            }
+        }
+        return false;
+
+    }
+
+    /**
      * if {@link #doesPlaceOutputBlock()} but the {@code outputBlockPos} is occupied by another block, it calls
      * {@link AbstractRecipeLogic#invalidateOutputs()}.
      */
@@ -137,16 +166,13 @@ public interface IInWorldRecipeLogic extends IExtraRecipeLogic {
             TKCYSALog.logger.warn("IInWorldRecipeLogic: called invalidateOutputs()");
             return;
         }
-
-        if (doesSpawnOutputItems()) {
-            WorldInteractionsHelper.spawnStacks(getMetaTileEntity(), outputItemStacks);
-        } else GTTransferUtils.addItemsToItemHandler(getMetaTileEntity().getExportItems(), false, outputItemStacks);
-
         if (doesRemoveBlock()) {
             WorldInteractionsHelper.removeBlockInWorld(getWorld(), getOutputBlockPos());
         }
 
         if (doesPlaceOutputBlock()) {
+            if (!removeInWorldOutputFromNormalOutput(outputItemStacks)) return;
+
             if (!WorldInteractionsHelper.canPlaceBlockInWorld(getWorld(), getOutputBlockPos())) {
                 getLogic().invalidateOutputs();
             }
@@ -156,6 +182,12 @@ public interface IInWorldRecipeLogic extends IExtraRecipeLogic {
                 getLogic().invalidateOutputs();
             }
         }
+
+        if (doesSpawnOutputItems()) {
+            WorldInteractionsHelper.spawnStacks(getMetaTileEntity(), outputItemStacks);
+        } else GTTransferUtils.addItemsToItemHandler(getMetaTileEntity().getExportItems(), false, outputItemStacks);
+
+
     }
 
     @SuppressWarnings("ConstantConditions")
@@ -185,8 +217,8 @@ public interface IInWorldRecipeLogic extends IExtraRecipeLogic {
         }
 
         if (doesPlaceOutputBlock()) {
-            NBTTagCompound inputTag = compound.getCompoundTag(NBTLabel.OUTPUT_IN_WORLD_STACK.toString());
-            setOutputRecipeInWorldBlockStack(new ItemStack(inputTag));
+            NBTTagCompound outputTag = compound.getCompoundTag(NBTLabel.OUTPUT_IN_WORLD_STACK.toString());
+            setOutputRecipeInWorldBlockStack(new ItemStack(outputTag));
         }
     }
 

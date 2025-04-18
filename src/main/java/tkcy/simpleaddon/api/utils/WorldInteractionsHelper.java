@@ -57,7 +57,7 @@ public class WorldInteractionsHelper {
     }
 
     public static boolean canPlaceBlockInWorld(@NotNull World world, @NotNull BlockPos blockPos) {
-        return BlockStateHelper.getBlockAtBlockPos(blockPos, world) != null;
+        return BlockStateHelper.getBlockAtBlockPos(blockPos, world) == null;
     }
 
     public static void placeBlockInWorld(@NotNull IBlockState block, @NotNull World world, @NotNull BlockPos blockPos) {

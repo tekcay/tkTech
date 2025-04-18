@@ -54,12 +54,12 @@ public class AdvancedRecipeBuilder extends RecipeBuilder<AdvancedRecipeBuilder> 
 
     public AdvancedRecipeBuilder outputBlockInWorld(IBlockState blockState) {
         ItemStack itemStack = BlockStateHelper.blockStateToItemStack(blockState);
-        return outputs(itemStack);
+        return outputBlockInWorld(itemStack);
     }
 
     public AdvancedRecipeBuilder outputBlockInWorld(Block block) {
         ItemStack output = Item.getItemFromBlock(block).getDefaultInstance();
-        return outputs(output);
+        return outputBlockInWorld(output);
     }
 
     private AdvancedRecipeBuilder outputBlockInWorld(ItemStack itemStack) {

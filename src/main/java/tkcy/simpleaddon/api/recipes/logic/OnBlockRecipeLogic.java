@@ -173,6 +173,7 @@ public abstract class OnBlockRecipeLogic extends AbstractRecipeLogic implements 
             input.setCount(1);
             logic.setInputRecipeInWorldBlockStack(input);
 
+
             if (logic.addInWorldInputToInventory(getInputInventory(), true)) {
                 logic.addInWorldInputToInventory(getInputInventory(), false);
             } else return false;
@@ -205,20 +206,17 @@ public abstract class OnBlockRecipeLogic extends AbstractRecipeLogic implements 
     @Override
     public void invalidate() {
         super.invalidate();
-        if (useInWorldLogic()) {
-            IInWorldRecipeLogic logic = IInWorldRecipeLogic.getInWorldRecipeLogic(this);
-            logic.setOutputRecipeInWorldBlockStack(null);
-            logic.setInputRecipeInWorldBlockStack(null);
-        }
-
-        if (useToolLogic()) {
-            IToolRecipeLogic logic = IToolRecipeLogic.getToolRecipeLogic(this);
-            logic.setRecipeTool((ToolsModule.GtTool) null);
-            logic.setCurrentTool(null);
-            logic.setToolUses(0);
-        }
+        if (useInWorldLogic()) IInWorldRecipeLogic.resetInWorldLogic(this);
+        if (useToolLogic()) IToolRecipeLogic.resetToolLogic(this);
 
         this.recipeParameters.clear();
+    }
+
+    @Override
+    protected void completeRecipe() {
+        super.completeRecipe();
+        if (useInWorldLogic()) IInWorldRecipeLogic.resetInWorldLogic(this);
+        if (useToolLogic()) IToolRecipeLogic.resetToolLogic(this);
     }
 
     @NotNull
