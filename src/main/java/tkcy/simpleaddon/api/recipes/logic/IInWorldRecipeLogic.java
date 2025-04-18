@@ -161,6 +161,8 @@ public interface IInWorldRecipeLogic extends IExtraRecipeLogic {
 
     @SuppressWarnings("ConstantConditions")
     default void serializeInWorldRecipeLogic(@NotNull NBTTagCompound compound) throws IllegalArgumentException {
+        if (!getLogic().isWorking()) return;
+
         if (isNotValid()) {
             TKCYSALog.logger
                     .error("IInWorldRecipeLogic: serializeInWorldRecipeLogic() failed because logic !isValid()!");

@@ -215,6 +215,10 @@ public abstract class OnBlockRecipeLogic extends AbstractRecipeLogic implements 
                 logic.addInWorldInputToInventory(getInputInventory(), false);
             } else return false;
         }
+            if (logic.doesPlaceOutputBlock()) {
+                ItemStack stackToOutput = logic.getOutputRecipeInWorldBlockStack(recipe);
+                logic.setOutputRecipeInWorldBlockStack(stackToOutput);
+            }
         }
 
         if (useToolLogic()) {
@@ -292,6 +296,7 @@ public abstract class OnBlockRecipeLogic extends AbstractRecipeLogic implements 
     @Override
     public NBTTagCompound serializeNBT() {
         NBTTagCompound tagCompound = super.serializeNBT();
+        if (!isWorking()) return new NBTTagCompound();
         if (useInWorldLogic()) {
             IInWorldRecipeLogic.getInWorldRecipeLogic(this).serializeInWorldRecipeLogic(tagCompound);
         }

@@ -125,7 +125,7 @@ public class MetaTileEntityWoodWorkshop extends ToolLogicMetaTileEntity
 
     @Override
     protected boolean openGUIOnRightClick() {
-        return false;
+        return true;
     }
 
     @Override
@@ -134,6 +134,7 @@ public class MetaTileEntityWoodWorkshop extends ToolLogicMetaTileEntity
                 .shouldColor(false)
                 .widget(new LabelWidget(5, 5, getMetaFullName()))
                 .slot(this.importItems, 0, 60, 30, GuiTextures.PRIMITIVE_SLOT)
+                .slot(this.importItems, 1, 30, 30, GuiTextures.PRIMITIVE_SLOT)
                 .progressBar(this.logic::getProgressPercent, 100, 30, 18, 18, GuiTextures.PROGRESS_BAR_BENDING,
                         ProgressWidget.MoveType.HORIZONTAL, this.recipeMap)
                 .bindPlayerInventory(entityPlayer.inventory, GuiTextures.SLOT, 0);

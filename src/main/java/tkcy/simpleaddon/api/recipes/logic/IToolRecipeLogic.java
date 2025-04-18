@@ -55,6 +55,7 @@ public interface IToolRecipeLogic extends IExtraRecipeLogic {
     }
 
     default void serializeToolRecipeLogic(NBTTagCompound compound) {
+        if (!getLogic().isWorking()) return;
         getRecipeTool().serialize(compound);
     }
 
