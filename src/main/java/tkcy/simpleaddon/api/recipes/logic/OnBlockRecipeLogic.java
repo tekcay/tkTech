@@ -134,31 +134,6 @@ public abstract class OnBlockRecipeLogic extends AbstractRecipeLogic implements 
     }
 
     @Override
-    public @NotNull List<ItemStack> getItemStacksToConsume(@NotNull Recipe recipe) {
-
-        List<ItemStack> recipeInputStacks = new ArrayList<>();
-
-/*
-
-                recipe.getInputs()
-                .stream()
-                .map(GTRecipeInput::getInputStacks)
-                .flatMap(Arrays::stream)
-                        .forEach(recipeInputStacks::add);
-
-        if (useInWorldLogic()) {
-            IInWorldRecipeLogic logic = IInWorldRecipeLogic.getInWorldRecipeLogic(this);
-            if (logic.doesNeedInWorldBlock()) {
-                ItemStack inWorldStack = logic.getInputRecipeInWorldBlockStack();
-                recipeInputStacks.remove(inWorldStack);
-            }
-        }
-*/
-
-        return recipeInputStacks;
-    }
-
-    @Override
     @Nullable
     protected Recipe findRecipe(long maxVoltage, IItemHandlerModifiable inputs, IMultipleTankHandler fluidInputs) {
         RecipeMap<?> map = getRecipeMap();

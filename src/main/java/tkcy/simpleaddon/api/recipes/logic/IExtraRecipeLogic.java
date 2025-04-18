@@ -19,16 +19,10 @@ public interface IExtraRecipeLogic {
     AbstractRecipeLogic getLogic();
 
     /**
-     * @return list of itemStacks to find a recipe with. Might not match with {@link #getItemStacksToConsume(Recipe recipe))}.
+     * @return list of itemStacks to find a recipe with.
      */
     @NotNull
     List<ItemStack> getInputItemStacks();
-
-    /**
-     * @return the itemStacks that will effectively be consumed. Might not match with {@link #getInputItemStacks()}.
-     */
-    @NotNull
-    List<ItemStack> getItemStacksToConsume(@NotNull Recipe recipe);
 
     void updateRecipeParameters(@NotNull Map<IRecipePropertyHelper<?>, Object> recipeParameters);
 
