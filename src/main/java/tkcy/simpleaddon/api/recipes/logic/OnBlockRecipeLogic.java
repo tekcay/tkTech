@@ -63,28 +63,28 @@ public abstract class OnBlockRecipeLogic extends AbstractRecipeLogic implements 
         if (!useToolLogic()) return;
         World world = getMetaTileEntity().getWorld();
         if (world != null && !world.isRemote) {
-            if (workingEnabled) {
+            if (isWorkingEnabled()) {
                 IToolRecipeLogic toolLogic = IToolRecipeLogic.getToolRecipeLogic(this);
                 toolLogic.setCurrentTool(gtTool);
-                this.setActive(true);
+                setActive(true);
 
-                if (progressTime > 0) {
-                    this.canRecipeProgress = toolLogic.canToolRecipeLogicProgress(gtTool) &&
+                if (getProgress() > 0) {
+                    canRecipeProgress = toolLogic.canToolRecipeLogicProgress(gtTool) &&
                             canProgressRecipe();
                     updateRecipeProgress();
-                    if (progressTime == maxProgressTime) {
+                    if (getProgress() == getMaxProgress()) {
                         completeRecipe();
                         return;
                     }
                 }
 
-                if (progressTime == 0) {
+                if (getProgress() == 0 && shouldSearchForRecipes()) {
                     trySearchNewRecipe();
                 }
             }
 
-            if (super.wasActiveAndNeedsUpdate) {
-                super.wasActiveAndNeedsUpdate = false;
+            if (wasActiveAndNeedsUpdate) {
+                wasActiveAndNeedsUpdate = false;
                 setActive(false);
             }
         }
@@ -217,12 +217,11 @@ public abstract class OnBlockRecipeLogic extends AbstractRecipeLogic implements 
         if (useToolLogic()) IToolRecipeLogic.resetToolLogic(this);
         this.recipeParameters.clear();
     }
-
     @NotNull
     @Override
     public NBTTagCompound serializeNBT() {
         NBTTagCompound tagCompound = super.serializeNBT();
-        if (!isWorking()) return new NBTTagCompound();
+        if (!isWorking()) return tagCompound;
         if (useInWorldLogic()) {
             IInWorldRecipeLogic.getInWorldRecipeLogic(this).serializeInWorldRecipeLogic(tagCompound);
         }
@@ -231,7 +230,6 @@ public abstract class OnBlockRecipeLogic extends AbstractRecipeLogic implements 
         }
         return tagCompound;
     }
-
     @Override
     public void deserializeNBT(@NotNull NBTTagCompound compound) {
         super.deserializeNBT(compound);
