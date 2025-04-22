@@ -61,16 +61,19 @@ public abstract class OnBlockRecipeLogic extends AbstractRecipeLogic implements 
 
     public void runToolRecipeLogic(ToolsModule.GtTool gtTool) {
         if (!useToolLogic()) return;
+        IToolRecipeLogic toolLogic = IToolRecipeLogic.getToolRecipeLogic(this);
+        toolLogic.setCurrentTool(gtTool);
+
         World world = getMetaTileEntity().getWorld();
         if (world != null && !world.isRemote) {
             if (isWorkingEnabled()) {
-                IToolRecipeLogic toolLogic = IToolRecipeLogic.getToolRecipeLogic(this);
-                toolLogic.setCurrentTool(gtTool);
                 setActive(true);
 
                 if (getProgress() > 0) {
-                    canRecipeProgress = toolLogic.canToolRecipeLogicProgress(gtTool) &&
-                            canProgressRecipe();
+                    if (!canProgressRecipe()) {
+                        invalidate();
+                        return;
+                    }
                     updateRecipeProgress();
                     if (getProgress() == getMaxProgress()) {
                         completeRecipe();
@@ -116,10 +119,14 @@ public abstract class OnBlockRecipeLogic extends AbstractRecipeLogic implements 
     @Override
     protected boolean canProgressRecipe() {
         boolean canProgress = super.canProgressRecipe();
-        if (canProgress && useInWorldLogic()) {
-            return IInWorldRecipeLogic.getInWorldRecipeLogic(this).canInWorldRecipeProgress();
+        if (!canProgress) return false;
+        if (useInWorldLogic()) {
+            if (!IInWorldRecipeLogic.getInWorldRecipeLogic(this).canInWorldRecipeProgress()) return false;
         }
-        return canProgress;
+        if (useToolLogic()) {
+            return IToolRecipeLogic.getToolRecipeLogic(this).canToolRecipeLogicProgress();
+        }
+        return true;
     }
 
     @Override

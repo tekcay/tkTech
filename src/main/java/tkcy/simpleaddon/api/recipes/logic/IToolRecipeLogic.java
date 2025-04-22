@@ -49,8 +49,8 @@ public interface IToolRecipeLogic extends IExtraRecipeLogic {
         setToolUses(0);
     }
 
-    default boolean canToolRecipeLogicProgress(ToolsModule.GtTool tool) {
-        return tool == getRecipeTool();
+    default boolean canToolRecipeLogicProgress() {
+        return getCurrentTool() == getRecipeTool();
     }
 
     /**
