@@ -46,6 +46,11 @@ public abstract class OnBlockRecipeLogic extends AbstractRecipeLogic implements 
         }
     }
 
+    @Override
+    public boolean consumesEnergy() {
+        return useEnergy;
+    }
+
     private boolean useToolLogic() {
         return this instanceof IToolRecipeLogic;
     }
@@ -217,6 +222,7 @@ public abstract class OnBlockRecipeLogic extends AbstractRecipeLogic implements 
         if (useToolLogic()) IToolRecipeLogic.resetToolLogic(this);
         this.recipeParameters.clear();
     }
+
     @NotNull
     @Override
     public NBTTagCompound serializeNBT() {
@@ -230,6 +236,7 @@ public abstract class OnBlockRecipeLogic extends AbstractRecipeLogic implements 
         }
         return tagCompound;
     }
+
     @Override
     public void deserializeNBT(@NotNull NBTTagCompound compound) {
         super.deserializeNBT(compound);
