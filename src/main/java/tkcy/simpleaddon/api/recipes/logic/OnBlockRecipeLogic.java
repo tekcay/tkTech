@@ -33,22 +33,16 @@ import tkcy.simpleaddon.modules.toolmodule.ToolsModule;
 
 public abstract class OnBlockRecipeLogic extends AbstractRecipeLogic implements IExtraRecipeLogic {
 
-    private boolean useEnergy;
     protected Supplier<IEnergyContainer> energyContainer;
     private final Map<IRecipePropertyHelper<?>, Object> recipeParameters = new HashMap<>();
 
     public OnBlockRecipeLogic(MetaTileEntity tileEntity, Supplier<IEnergyContainer> energyContainer,
                               RecipeMap<?>... recipeMaps) {
         super(tileEntity, recipeMaps[0]);
-        if (useEnergy) {
+        if (consumesEnergy()) {
             setMaximumOverclockVoltage(getMaxVoltage());
             this.energyContainer = energyContainer;
         }
-    }
-
-    @Override
-    public boolean consumesEnergy() {
-        return useEnergy;
     }
 
     private boolean useToolLogic() {
@@ -252,22 +246,22 @@ public abstract class OnBlockRecipeLogic extends AbstractRecipeLogic implements 
 
     @Override
     protected long getEnergyInputPerSecond() {
-        return useEnergy ? energyContainer.get().getInputPerSec() : Integer.MAX_VALUE;
+        return consumesEnergy() ? energyContainer.get().getInputPerSec() : Integer.MAX_VALUE;
     }
 
     @Override
     protected long getEnergyStored() {
-        return useEnergy ? energyContainer.get().getEnergyStored() : Integer.MAX_VALUE;
+        return consumesEnergy() ? energyContainer.get().getEnergyStored() : Integer.MAX_VALUE;
     }
 
     @Override
     protected long getEnergyCapacity() {
-        return useEnergy ? energyContainer.get().getEnergyCapacity() : Integer.MAX_VALUE;
+        return consumesEnergy() ? energyContainer.get().getEnergyCapacity() : Integer.MAX_VALUE;
     }
 
     @Override
     protected boolean drawEnergy(long recipeEUt, boolean simulate) {
-        if (!useEnergy) return true;
+        if (!consumesEnergy()) return true;
         long resultEnergy = getEnergyStored() - recipeEUt;
         if (resultEnergy >= 0L && resultEnergy <= getEnergyCapacity()) {
             if (!simulate) energyContainer.get().changeEnergy(-recipeEUt);
@@ -278,12 +272,13 @@ public abstract class OnBlockRecipeLogic extends AbstractRecipeLogic implements 
 
     @Override
     public long getMaximumOverclockVoltage() {
-        return useEnergy ? super.getMaximumOverclockVoltage() : GTValues.V[GTValues.LV];
+        return consumesEnergy() ? super.getMaximumOverclockVoltage() : GTValues.V[GTValues.LV];
     }
 
     @Override
     public long getMaxVoltage() {
-        return useEnergy ? Math.max(energyContainer.get().getInputVoltage(), energyContainer.get().getOutputVoltage()) :
+        return consumesEnergy() ?
+                Math.max(energyContainer.get().getInputVoltage(), energyContainer.get().getOutputVoltage()) :
                 GTValues.LV;
     }
 

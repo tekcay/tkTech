@@ -176,5 +176,10 @@ public class MetaTileEntityWoodWorkshop extends ToolLogicMetaTileEntity
         public BlockPos getOutputBlockPos() {
             return getInputBlockPos();
         }
+
+        @Override
+        public boolean consumesEnergy() {
+            return false;
+        }
     }
 }
