@@ -2,29 +2,27 @@ package tkcy.simpleaddon.common.metatileentities.primitive;
 
 import static tkcy.simpleaddon.api.utils.GuiUtils.FONT_HEIGHT;
 
-import gregtech.api.capability.IEnergyContainer;
-import gregtech.api.gui.widgets.ClickButtonWidget;
-import gregtech.api.recipes.RecipeMap;
-import lombok.Getter;
-import lombok.Setter;
+import java.util.function.Supplier;
+
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.items.IItemHandlerModifiable;
 
 import org.apache.commons.lang3.ArrayUtils;
 
+import gregtech.api.capability.IEnergyContainer;
 import gregtech.api.capability.impl.FluidTankList;
 import gregtech.api.capability.impl.NotifiableItemStackHandler;
 import gregtech.api.gui.ModularUI;
+import gregtech.api.gui.widgets.ClickButtonWidget;
 import gregtech.api.gui.widgets.LabelWidget;
 import gregtech.api.items.itemhandlers.GTItemStackHandler;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
+import gregtech.api.recipes.RecipeMap;
 import gregtech.api.util.GTUtility;
 import gregtech.client.renderer.texture.Textures;
 import gregtech.client.renderer.texture.cube.SimpleOverlayRenderer;
@@ -34,17 +32,15 @@ import codechicken.lib.render.CCRenderState;
 import codechicken.lib.render.pipeline.ColourMultiplier;
 import codechicken.lib.render.pipeline.IVertexOperation;
 import codechicken.lib.vec.Matrix4;
-import org.jetbrains.annotations.Nullable;
+import lombok.Getter;
+import lombok.Setter;
 import tkcy.simpleaddon.api.machines.IOnSolderingIronClick;
 import tkcy.simpleaddon.api.machines.IRightClickItemTransfer;
 import tkcy.simpleaddon.api.machines.ToolLogicMetaTileEntity;
-import tkcy.simpleaddon.api.recipes.logic.IInWorldRecipeLogic;
 import tkcy.simpleaddon.api.recipes.logic.IToolRecipeLogic;
 import tkcy.simpleaddon.api.recipes.logic.OnBlockRecipeLogic;
 import tkcy.simpleaddon.api.recipes.recipemaps.TKCYSARecipeMaps;
 import tkcy.simpleaddon.modules.toolmodule.ToolsModule;
-
-import java.util.function.Supplier;
 
 public class BasicElectronicMetatileEntity extends ToolLogicMetaTileEntity
                                            implements IOnSolderingIronClick, IRightClickItemTransfer {

@@ -2,11 +2,13 @@ package tkcy.simpleaddon.api.utils.item;
 
 import java.util.List;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.IItemHandlerModifiable;
 
 import lombok.experimental.UtilityClass;
 
@@ -39,5 +41,13 @@ public class ItemHandlerHelpers {
         }
 
         return stacksToRemove.isEmpty();
+    }
+
+    /**
+     * Close to {@link gregtech.api.util.GTUtility#itemHandlerToList(IItemHandlerModifiable)} except the returned list
+     * is not linked to the item handler and can be safely modified.
+     */
+    public static List<ItemStack> itemHandlerToList(IItemHandler itemHandler) {
+        return handlerToStacksInSlots.apply(itemHandler).collect(Collectors.toList());
     }
 }

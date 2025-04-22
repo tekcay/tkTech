@@ -29,6 +29,7 @@ import gregtech.api.util.GTUtility;
 
 import tkcy.simpleaddon.api.recipes.helpers.RecipeSearchHelpers;
 import tkcy.simpleaddon.api.recipes.properties.IRecipePropertyHelper;
+import tkcy.simpleaddon.api.utils.item.ItemHandlerHelpers;
 import tkcy.simpleaddon.modules.toolmodule.ToolsModule;
 
 public abstract class OnBlockRecipeLogic extends AbstractRecipeLogic implements IExtraRecipeLogic {
@@ -130,8 +131,22 @@ public abstract class OnBlockRecipeLogic extends AbstractRecipeLogic implements 
         }
 
         List<FluidStack> fluidStacks = getFluidStackListInventory();
+        List<ItemStack> itemStacks = ItemHandlerHelpers.itemHandlerToList(getInputInventory());
+
+        if (useInWorldLogic()) {
+            IInWorldRecipeLogic logic = IInWorldRecipeLogic.getInWorldRecipeLogic(this);
+            if (logic.doesNeedInWorldBlock()) {
+                itemStacks.add(logic.getInWorldInputStack());
+            }
+        }
+
+        if (useToolLogic()) {
+            IToolRecipeLogic logic = IToolRecipeLogic.getToolRecipeLogic(this);
+            itemStacks.add(logic.getCurrentTool().getToolStack());
+        }
         updateRecipeParameters(this.recipeParameters);
-        return RecipeSearchHelpers.findFirstRecipeWithProperties(getRecipeMap(), this.recipeParameters);
+        return RecipeSearchHelpers.findFirstRecipeWithProperties(getRecipeMap(), this.recipeParameters, itemStacks,
+                fluidStacks);
     }
 
     private List<FluidStack> getFluidStackListInventory() {

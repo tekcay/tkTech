@@ -86,6 +86,18 @@ public class RecipeSearchHelpers {
                 .orElse(null);
     }
 
+    @Nullable
+    public static Recipe findFirstRecipeWithProperties(@NotNull RecipeMap<?> recipeMap,
+                                                       @NotNull Map<IRecipePropertyHelper<?>, ?> recipePropertiesToValue,
+                                                       List<ItemStack> inputs, List<FluidStack> fluidsInput) {
+        return recipeMap.getRecipeList()
+                .stream()
+                .filter(recipe -> doesRecipeMatchProperties(recipe, recipePropertiesToValue))
+                .filter(recipe -> recipe.matches(false, inputs, fluidsInput))
+                .findFirst()
+                .orElse(null);
+    }
+
     public static boolean doesRecipeMatchProperties(@NotNull Recipe recipe,
                                                     @NotNull Map<IRecipePropertyHelper<?>, ?> recipePropertiesToValue) {
         for (Map.Entry<IRecipePropertyHelper<?>, ?> entry : recipePropertiesToValue.entrySet()) {
