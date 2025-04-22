@@ -29,11 +29,12 @@ import gregtech.client.utils.TooltipHelper;
 import codechicken.lib.raytracer.CuboidRayTraceResult;
 import tkcy.simpleaddon.api.items.toolitem.TKCYSAToolClasses;
 import tkcy.simpleaddon.api.machines.IOnAxeClick;
+import tkcy.simpleaddon.api.machines.IOnSawClick;
 import tkcy.simpleaddon.api.machines.IOnSolderingIronClick;
 import tkcy.simpleaddon.api.machines.IRightClickItemTransfer;
 
 @Mixin(value = MetaTileEntity.class, remap = false)
-public abstract class MixinToolClickMetaTileEntity implements IOnSolderingIronClick, IOnAxeClick,
+public abstract class MixinToolClickMetaTileEntity implements IOnSolderingIronClick, IOnAxeClick, IOnSawClick,
                                                    IRightClickItemTransfer {
 
     @Shadow
@@ -67,6 +68,9 @@ public abstract class MixinToolClickMetaTileEntity implements IOnSolderingIronCl
         }
         if (toolClasses.contains(ToolClasses.AXE)) {
             result = onAxeClick(playerIn, hand, gridSideHit, hitResult);
+        }
+        if (toolClasses.contains(ToolClasses.SAW)) {
+            result = onSawClick(playerIn, hand, gridSideHit, hitResult);
         }
         callback.setReturnValue(result);
     }

@@ -66,5 +66,16 @@ public class RecipesTests {
                 .hideDuration()
                 .useAndDisplayEnergy(false)
                 .buildAndRegister();
+
+        TKCYSARecipeMaps.WOOD_WORKSHOP_RECIPES.recipeBuilder()
+                .inputBlockInWorld(
+                        TKCYSAMetaBlocks.STRIPPED_WOOD.getState(BlockStrippedWood.StrippedWoodType.OAK_STRIPPED))
+                .outputBlockInWorld(Blocks.PLANKS)
+                .tool(ToolsModule.GtTool.SAW)
+                .toolUses(7)
+                .output(OrePrefix.dust, Wood)
+                .hideDuration()
+                .useAndDisplayEnergy(false)
+                .buildAndRegister();
     }
 }

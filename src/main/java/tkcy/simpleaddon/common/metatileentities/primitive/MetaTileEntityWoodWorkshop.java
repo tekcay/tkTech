@@ -40,6 +40,7 @@ import codechicken.lib.vec.Matrix4;
 import lombok.Getter;
 import lombok.Setter;
 import tkcy.simpleaddon.api.machines.IOnAxeClick;
+import tkcy.simpleaddon.api.machines.IOnSawClick;
 import tkcy.simpleaddon.api.machines.IUnificationToolMachine;
 import tkcy.simpleaddon.api.machines.ToolLogicMetaTileEntity;
 import tkcy.simpleaddon.api.recipes.logic.IInWorldRecipeLogic;
@@ -50,7 +51,7 @@ import tkcy.simpleaddon.api.unification.ore.TKCYSAOrePrefix;
 import tkcy.simpleaddon.modules.toolmodule.ToolsModule;
 
 public class MetaTileEntityWoodWorkshop extends ToolLogicMetaTileEntity
-                                        implements IUnificationToolMachine, IOnAxeClick {
+                                        implements IUnificationToolMachine, IOnAxeClick, IOnSawClick {
 
     private final Logic logic;
 
@@ -103,8 +104,8 @@ public class MetaTileEntityWoodWorkshop extends ToolLogicMetaTileEntity
         return new ArrayList<>() {
 
             {
-                add(OrePrefix.log);
                 add(TKCYSAOrePrefix.strippedWood);
+                add(OrePrefix.plank);
             }
         };
     }
@@ -114,6 +115,14 @@ public class MetaTileEntityWoodWorkshop extends ToolLogicMetaTileEntity
                               CuboidRayTraceResult hitResult) {
         if (!playerIn.isSneaking()) return false;
         this.logic.runToolRecipeLogic(getWorkingGtTool());
+        return true;
+    }
+
+    @Override
+    public boolean onSawClick(EntityPlayer playerIn, EnumHand hand, EnumFacing facing,
+                              CuboidRayTraceResult hitResult) {
+        if (!playerIn.isSneaking()) return false;
+        this.logic.runToolRecipeLogic(ToolsModule.GtTool.SAW);
         return true;
     }
 
