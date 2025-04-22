@@ -93,7 +93,7 @@ public interface IToolRecipeLogic extends IExtraRecipeLogic {
     default boolean addToolStackToInventory(IItemHandler inputInventory, boolean simulate) {
         ToolsModule.GtTool tool = getRecipeTool();
         if (tool == null) return false;
-        ItemStack transferredStack = GTTransferUtils.insertItem(inputInventory, tool.getToolStack(), false);
+        ItemStack transferredStack = GTTransferUtils.insertItem(inputInventory, tool.getToolStack(), simulate);
         return transferredStack.isEmpty();
     }
 }

@@ -101,8 +101,8 @@ public final class TKCYSARecipeMaps {
 
     @WorkingTool
     @ZenProperty
-    public static final RecipeMap<ToolRecipeBuilder> BASIC_ELECTRONIC_RECIPES = new ToolRecipeMap<>(
-            "basic_electronic_recipes", 10, 1, 1, 0, new ToolRecipeBuilder(), false);
+    public static final RecipeMap<AdvancedRecipeBuilder> BASIC_ELECTRONIC_RECIPES = new RecipeMap<>(
+            "basic_electronic_recipes", 10, 1, 1, 0, new AdvancedRecipeBuilder(), false);
     @WorkingTool
     @ZenProperty
     public static final RecipeMap<AdvancedRecipeBuilder> WOOD_WORKSHOP_RECIPES = new RecipeMap<>(

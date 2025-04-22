@@ -48,6 +48,8 @@ public class RecipesTests {
                 .fluidInputs(Tin.getFluid(288))
                 .tool(ToolsModule.GtTool.SOLDERING_IRON)
                 .toolUses(7)
+                .hideDuration()
+                .useAndDisplayEnergy(false)
                 .output(ELECTRONIC_CIRCUIT_LV)
                 .buildAndRegister();
 
