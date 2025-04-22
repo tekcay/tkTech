@@ -32,17 +32,13 @@ import gregtech.api.util.GTUtility;
 import gregtech.client.renderer.texture.Textures;
 import gregtech.client.renderer.texture.cube.SimpleOverlayRenderer;
 
-import codechicken.lib.raytracer.CuboidRayTraceResult;
 import codechicken.lib.render.CCRenderState;
 import codechicken.lib.render.pipeline.ColourMultiplier;
 import codechicken.lib.render.pipeline.IVertexOperation;
 import codechicken.lib.vec.Matrix4;
 import lombok.Getter;
 import lombok.Setter;
-import tkcy.simpleaddon.api.machines.IOnAxeClick;
-import tkcy.simpleaddon.api.machines.IOnSawClick;
-import tkcy.simpleaddon.api.machines.IUnificationToolMachine;
-import tkcy.simpleaddon.api.machines.ToolLogicMetaTileEntity;
+import tkcy.simpleaddon.api.machines.*;
 import tkcy.simpleaddon.api.recipes.logic.IInWorldRecipeLogic;
 import tkcy.simpleaddon.api.recipes.logic.IToolRecipeLogic;
 import tkcy.simpleaddon.api.recipes.logic.OnBlockRecipeLogic;
@@ -51,7 +47,7 @@ import tkcy.simpleaddon.api.unification.ore.TKCYSAOrePrefix;
 import tkcy.simpleaddon.modules.toolmodule.ToolsModule;
 
 public class MetaTileEntityWoodWorkshop extends ToolLogicMetaTileEntity
-                                        implements IUnificationToolMachine, IOnAxeClick, IOnSawClick {
+                                        implements IUnificationToolMachine, IOnAnyToolClick {
 
     private final Logic logic;
 
@@ -111,18 +107,19 @@ public class MetaTileEntityWoodWorkshop extends ToolLogicMetaTileEntity
     }
 
     @Override
-    public boolean onAxeClick(EntityPlayer playerIn, EnumHand hand, EnumFacing facing,
-                              CuboidRayTraceResult hitResult) {
-        if (!playerIn.isSneaking()) return false;
-        this.logic.runToolRecipeLogic(getWorkingGtTool());
+    public boolean onAnyToolClick(ToolsModule.GtTool tool, boolean isPlayerSneaking) {
+        if (!isPlayerSneaking) return false;
+        this.logic.runToolRecipeLogic(tool);
         return true;
     }
 
     @Override
-    public boolean onSawClick(EntityPlayer playerIn, EnumHand hand, EnumFacing facing,
-                              CuboidRayTraceResult hitResult) {
-        if (!playerIn.isSneaking()) return false;
-        this.logic.runToolRecipeLogic(ToolsModule.GtTool.SAW);
+    public void onAnyToolClickTooltip(List<String> tooltips) {
+        tooltips.add(I18n.format("tkcysa.metatileentity.on_any_tool_click.sneak.invalidate.tooltip"));
+    }
+
+    @Override
+    public boolean showAnyToolClickTooltip() {
         return true;
     }
 

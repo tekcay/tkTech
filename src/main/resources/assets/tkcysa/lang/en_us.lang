@@ -316,6 +316,7 @@ tkcysa.metatilentity.special_right.show_tooltips=Hold CTRL to show special Right
 tkcysa.metatileentity.transfer_output_to_player.tooltip=§dRight-click§7 with an §fempty hand§7 to get the machine §6output
 tkcysa.metatileentity.transfer_input_to_player.tooltip=§dRight-click§7 with an §fempty hand§7 to get the machine §ainput
 tkcysa.metatileentity.transfer_hand_stack_to_input.tooltip=§dRight-click§7 to put your §fheld item§7 to the machine §ainput
+tkcysa.metatileentity.on_any_tool_click.sneak.invalidate.tooltip=Sneak-right click with the wrong tool §cinvalidates§r the recipe
 
 ##Modulable Storage
 tkcysa.multiblock.modulable_storage.content=%s

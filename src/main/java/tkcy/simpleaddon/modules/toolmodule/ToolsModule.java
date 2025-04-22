@@ -89,6 +89,16 @@ public class ToolsModule {
     }
 
     @Nullable
+    public static GtTool getGtTool(@NotNull Set<String> toolClasses) {
+        for (GtTool gtTool : GT_TOOLS) {
+            if (toolClasses.contains(gtTool.toolClassName)) {
+                return gtTool;
+            }
+        }
+        return null;
+    }
+
+    @Nullable
     public static GtTool getGtTool(String toolClassName) {
         for (GtTool tool : GT_TOOLS) {
             if (tool.toolClassName.equals(toolClassName)) {

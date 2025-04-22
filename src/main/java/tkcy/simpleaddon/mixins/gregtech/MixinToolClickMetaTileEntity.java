@@ -20,7 +20,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import gregtech.api.cover.Cover;
 import gregtech.api.cover.CoverRayTracer;
 import gregtech.api.items.toolitem.ToolClasses;
 import gregtech.api.metatileentity.MetaTileEntity;
@@ -28,21 +27,13 @@ import gregtech.client.utils.TooltipHelper;
 
 import codechicken.lib.raytracer.CuboidRayTraceResult;
 import tkcy.simpleaddon.api.items.toolitem.TKCYSAToolClasses;
-import tkcy.simpleaddon.api.machines.IOnAxeClick;
-import tkcy.simpleaddon.api.machines.IOnSawClick;
-import tkcy.simpleaddon.api.machines.IOnSolderingIronClick;
-import tkcy.simpleaddon.api.machines.IRightClickItemTransfer;
+import tkcy.simpleaddon.api.machines.*;
+import tkcy.simpleaddon.modules.toolmodule.ToolsModule;
 
 @Mixin(value = MetaTileEntity.class, remap = false)
 public abstract class MixinToolClickMetaTileEntity implements IOnSolderingIronClick, IOnAxeClick, IOnSawClick,
+                                                   IOnAnyToolClick,
                                                    IRightClickItemTransfer {
-
-    @Shadow
-    public abstract boolean onToolClick(EntityPlayer playerIn, @NotNull Set<String> toolClasses, EnumHand hand,
-                                        CuboidRayTraceResult hitResult);
-
-    @Shadow
-    public abstract Cover getCoverAtSide(EnumFacing gridSideHit);
 
     @Shadow
     public abstract IItemHandlerModifiable getImportItems();
@@ -50,29 +41,27 @@ public abstract class MixinToolClickMetaTileEntity implements IOnSolderingIronCl
     @Shadow
     public abstract IItemHandlerModifiable getExportItems();
 
-    @Shadow
-    public abstract boolean hasAnyCover();
-
-    @Shadow
-    public abstract boolean onRightClick(EntityPlayer playerIn, EnumHand hand, EnumFacing facing,
-                                         CuboidRayTraceResult hitResult);
-
-    @Inject(method = "onToolClick", at = @At(value = "TAIL", ordinal = 0), cancellable = true)
-    public void onToolClick(EntityPlayer playerIn, @NotNull Set<String> toolClasses, EnumHand hand,
-                            CuboidRayTraceResult hitResult, CallbackInfoReturnable<Boolean> callback) {
+    @Inject(method = "onToolClick", at = @At(value = "HEAD", ordinal = 0), cancellable = true)
+    public void extraToolClick(EntityPlayer playerIn, @NotNull Set<String> toolClasses, EnumHand hand,
+                               CuboidRayTraceResult hitResult, CallbackInfoReturnable<Boolean> callback) {
         boolean result = false;
         EnumFacing gridSideHit = CoverRayTracer.determineGridSideHit(hitResult);
 
+        ToolsModule.GtTool tool = ToolsModule.getGtTool(toolClasses);
+        if (tool != null) onAnyToolClick(tool, playerIn.isSneaking());
+
         if (toolClasses.contains(TKCYSAToolClasses.SOLDERING_IRON)) {
             result = onSolderingIronClick(playerIn, hand, gridSideHit, hitResult);
+            callback.setReturnValue(result);
         }
         if (toolClasses.contains(ToolClasses.AXE)) {
             result = onAxeClick(playerIn, hand, gridSideHit, hitResult);
+            callback.setReturnValue(result);
         }
         if (toolClasses.contains(ToolClasses.SAW)) {
             result = onSawClick(playerIn, hand, gridSideHit, hitResult);
+            callback.setReturnValue(result);
         }
-        callback.setReturnValue(result);
     }
 
     @Inject(method = "onRightClick", at = @At(value = "HEAD", ordinal = 0), cancellable = true)
@@ -100,9 +89,10 @@ public abstract class MixinToolClickMetaTileEntity implements IOnSolderingIronCl
         }
     }
 
-    @Inject(method = "addInformation", at = @At(value = "TAIL", ordinal = 0), cancellable = true)
+    @Inject(method = "addInformation", at = @At(value = "TAIL"))
     public void addSpecialRightClickInformation(ItemStack stack, @Nullable World world, @NotNull List<String> tooltip,
                                                 boolean advanced, CallbackInfo ci) {
+        if (showAnyToolClickTooltip()) onAnyToolClickTooltip(tooltip);
         if (showSpecialRightClickTooltips()) {
             if (TooltipHelper.isCtrlDown()) {
                 if (doesTransferHandStackToInput()) transferHandStackToInputTooltip(tooltip);

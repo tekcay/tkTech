@@ -120,6 +120,11 @@ public class BasicElectronicMetatileEntity extends ToolLogicMetaTileEntity
         return true;
     }
 
+    @Override
+    public boolean showSpecialRightClickTooltips() {
+        return true;
+    }
+
     @Getter
     @Setter
     private class Logic extends OnBlockRecipeLogic implements IToolRecipeLogic {
