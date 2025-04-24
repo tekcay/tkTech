@@ -1,3 +1,4 @@
+/*
 package tkcy.simpleaddon.api.recipes.logic;
 
 import java.util.List;
@@ -25,6 +26,8 @@ import tkcy.simpleaddon.api.utils.BooleanHelper;
 import tkcy.simpleaddon.api.utils.TKCYSALog;
 import tkcy.simpleaddon.api.utils.WorldInteractionsHelper;
 import tkcy.simpleaddon.modules.NBTLabel;
+
+import static gregtech.api.util.GTUtility.getMetaTileEntity;
 
 public interface IInWorldRecipeLogic extends IExtraRecipeLogic {
 
@@ -63,14 +66,16 @@ public interface IInWorldRecipeLogic extends IExtraRecipeLogic {
         setInputRecipeInWorldBlockStack(null);
     }
 
-    /**
+    */
+/**
      * Little hackery to the standard input consumption logic in used (see
      * {@link Recipe#matches(boolean, IItemHandlerModifiable, IMultipleTankHandler)}).
      * 
      * @param inputInventory
      * @param simulate
      * @return
-     */
+     *//*
+
     default boolean addInWorldInputToInventory(IItemHandler inputInventory, boolean simulate) {
         if (doesNeedInWorldBlock()) {
             ItemStack itemStack = GTTransferUtils.insertItem(inputInventory, getInputRecipeInWorldBlockStack(),
@@ -89,7 +94,7 @@ public interface IInWorldRecipeLogic extends IExtraRecipeLogic {
 
     @NotNull
     default World getWorld() {
-        return getMetaTileEntity().getWorld();
+        return  getMetaTileEntity().getWorld();
     }
 
     default boolean doesPlaceOutputBlock() {
@@ -110,7 +115,6 @@ public interface IInWorldRecipeLogic extends IExtraRecipeLogic {
     default boolean canInWorldRecipeProgress() {
         return isInWorldInputValid();
     }
-
     @SuppressWarnings("ConstantConditions")
     default boolean isInWorldInputValid() {
         if (!doesNeedInWorldBlock()) return true;
@@ -136,14 +140,16 @@ public interface IInWorldRecipeLogic extends IExtraRecipeLogic {
         } else return null;
     }
 
-    /**
+    */
+/**
      * Used if {@link #doesPlaceOutputBlock()}. As the block to place in world is stored both as itemStack in
      * {@link AbstractRecipeLogic#itemOutputs} and in {@link #getOutputRecipeInWorldBlockStack()}, it must be removed
      * from {@code itemOutputs}.
      * 
      * @param itemOutputs
      * @return
-     */
+     *//*
+
     default boolean removeInWorldOutputFromNormalOutput(@NotNull List<ItemStack> itemOutputs) {
         if (getOutputRecipeInWorldBlockStack() == null) return false;
         for (ItemStack itemStack : itemOutputs) {
@@ -155,10 +161,12 @@ public interface IInWorldRecipeLogic extends IExtraRecipeLogic {
         return false;
     }
 
-    /**
+    */
+/**
      * if {@link #doesPlaceOutputBlock()} but the {@code outputBlockPos} is occupied by another block, it calls
      * {@link AbstractRecipeLogic#invalidateOutputs()}.
-     */
+     *//*
+
     @SuppressWarnings("ConstantConditions")
     default void outputRecipeStacks(List<ItemStack> outputItemStacks) {
         if (isNotValid()) {
@@ -226,3 +234,4 @@ public interface IInWorldRecipeLogic extends IExtraRecipeLogic {
             recipeParameters.put(InputBlockStateRecipeProperty.getInstance(), getInWorldInputStack());
     }
 }
+*/

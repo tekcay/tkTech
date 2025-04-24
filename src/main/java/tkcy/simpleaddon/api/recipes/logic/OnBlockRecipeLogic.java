@@ -24,44 +24,40 @@ import gregtech.api.recipes.RecipeMap;
 import gregtech.api.recipes.logic.OCParams;
 import gregtech.api.recipes.logic.OCResult;
 import gregtech.api.recipes.properties.RecipePropertyStorage;
-import gregtech.api.util.GTTransferUtils;
 import gregtech.api.util.GTUtility;
 
 import tkcy.simpleaddon.api.recipes.helpers.RecipeSearchHelpers;
+import tkcy.simpleaddon.api.recipes.logic.newway.*;
 import tkcy.simpleaddon.api.recipes.properties.IRecipePropertyHelper;
 import tkcy.simpleaddon.api.utils.item.ItemHandlerHelpers;
 import tkcy.simpleaddon.modules.toolmodule.ToolsModule;
 
-public abstract class OnBlockRecipeLogic extends AbstractRecipeLogic implements IExtraRecipeLogic {
+public abstract class OnBlockRecipeLogic extends AbstractRecipeLogic
+                                         implements IExtraRecipeLogic, IRecipePropertiesValueMap, IToolRecipeLogic {
 
     protected Supplier<IEnergyContainer> energyContainer;
     private final Map<IRecipePropertyHelper<?>, Object> recipeParameters = new HashMap<>();
+    private final IRecipeLogic recipeLogic;
 
     public OnBlockRecipeLogic(MetaTileEntity tileEntity, Supplier<IEnergyContainer> energyContainer,
                               RecipeMap<?>... recipeMaps) {
         super(tileEntity, recipeMaps[0]);
+        this.recipeLogic = setRecipeLogic();
         if (consumesEnergy()) {
             setMaximumOverclockVoltage(getMaxVoltage());
             this.energyContainer = energyContainer;
         }
     }
 
-    private boolean useToolLogic() {
-        return this instanceof IToolRecipeLogic;
-    }
-
-    private boolean useInWorldLogic() {
-        return this instanceof IInWorldRecipeLogic;
+    @Override
+    public void update() {
+        if (!recipeLogic.hasRecipeLogicType(RecipeLogicType.TOOL)) super.update();
     }
 
     @Override
-    public void update() {
-        if (!useToolLogic()) super.update();
-    }
-
     public void runToolRecipeLogic(ToolsModule.GtTool gtTool) {
-        if (!useToolLogic()) return;
-        IToolRecipeLogic toolLogic = IToolRecipeLogic.getToolRecipeLogic(this);
+        IRecipeLogic logic = recipeLogic.getInstance(RecipeLogicType.TOOL);
+        if (!(logic instanceof ToolLogic toolLogic)) return;
         toolLogic.setCurrentTool(gtTool);
 
         World world = getMetaTileEntity().getWorld();
@@ -101,32 +97,14 @@ public abstract class OnBlockRecipeLogic extends AbstractRecipeLogic implements 
 
     @Override
     public void updateRecipeParameters(@NotNull Map<IRecipePropertyHelper<?>, Object> recipeParameters) {
-        if (useToolLogic()) {
-            IToolRecipeLogic toolLogic = IToolRecipeLogic.getToolRecipeLogic(this);
-            toolLogic.updateRecipeToolParameters(recipeParameters);
-        }
-        if (useInWorldLogic()) {
-            IInWorldRecipeLogic inWorldLogic = IInWorldRecipeLogic.getInWorldRecipeLogic(this);
-            inWorldLogic.updateRecipeInWorldParameters(recipeParameters);
-        }
-    }
-
-    @Override
-    public @NotNull AbstractRecipeLogic getLogic() {
-        return this;
+        recipeLogic.updateRecipeParameters(recipeParameters);
     }
 
     @Override
     protected boolean canProgressRecipe() {
         boolean canProgress = super.canProgressRecipe();
         if (!canProgress) return false;
-        if (useInWorldLogic()) {
-            if (!IInWorldRecipeLogic.getInWorldRecipeLogic(this).canInWorldRecipeProgress()) return false;
-        }
-        if (useToolLogic()) {
-            return IToolRecipeLogic.getToolRecipeLogic(this).canToolRecipeLogicProgress();
-        }
-        return true;
+        return recipeLogic.canRecipeLogicProgress();
     }
 
     @Override
@@ -137,39 +115,25 @@ public abstract class OnBlockRecipeLogic extends AbstractRecipeLogic implements 
             return null;
         }
 
-        List<FluidStack> fluidStacks = getFluidStackListInventory();
+        List<FluidStack> fluidStacks = GTUtility.fluidHandlerToList(getInputTank());
         List<ItemStack> itemStacks = ItemHandlerHelpers.itemHandlerToList(getInputInventory());
 
-        if (useInWorldLogic()) {
-            IInWorldRecipeLogic logic = IInWorldRecipeLogic.getInWorldRecipeLogic(this);
-            if (logic.doesNeedInWorldBlock()) {
-                itemStacks.add(logic.getInWorldInputStack());
-            }
-        }
-
-        if (useToolLogic()) {
-            IToolRecipeLogic logic = IToolRecipeLogic.getToolRecipeLogic(this);
-            itemStacks.add(logic.getCurrentTool().getToolStack());
-        }
+        recipeLogic.appendToInputsForRecipeSearch(itemStacks, fluidStacks);
         updateRecipeParameters(this.recipeParameters);
-        return RecipeSearchHelpers.findFirstRecipeWithProperties(getRecipeMap(), this.recipeParameters, itemStacks,
+        return RecipeSearchHelpers.findFirstRecipeWithProperties(
+                getRecipeMap(),
+                this.recipeParameters,
+                itemStacks,
                 fluidStacks);
-    }
-
-    private List<FluidStack> getFluidStackListInventory() {
-        return GTUtility.fluidHandlerToList(getInputTank());
-    }
-
-    @Override
-    protected boolean checkPreviousRecipe() {
-        return super.checkPreviousRecipe();
     }
 
     @Override
     protected void outputRecipeOutputs() {
-        if (useInWorldLogic()) {
-            IInWorldRecipeLogic.getInWorldRecipeLogic(this).outputRecipeStacks(itemOutputs);
-            GTTransferUtils.addFluidsToFluidHandler(getOutputTank(), false, fluidOutputs);
+        if (recipeLogic.hasRecipeLogicType(RecipeLogicType.IN_WORLD)) {
+            IRecipeLogic inWorldLogic = recipeLogic.getInstance(RecipeLogicType.IN_WORLD);
+            if (inWorldLogic != null) {
+                inWorldLogic.outputRecipeOutputs(itemOutputs, fluidOutputs, getOutputInventory(), getOutputTank());
+            }
         } else super.outputRecipeOutputs();
     }
 
@@ -184,34 +148,7 @@ public abstract class OnBlockRecipeLogic extends AbstractRecipeLogic implements 
         recipe = Recipe.trimRecipeOutputs(recipe, getRecipeMap(), metaTileEntity.getItemOutputLimit(),
                 metaTileEntity.getFluidOutputLimit());
 
-        if (useInWorldLogic()) {
-            IInWorldRecipeLogic logic = IInWorldRecipeLogic.getInWorldRecipeLogic(this);
-
-            if (logic.doesNeedInWorldBlock()) {
-
-                ItemStack input = logic.getInputRecipeInWorldBlockStack(recipe);
-                if (input == null) return false;
-                input.setCount(1);
-                logic.setInputRecipeInWorldBlockStack(input);
-
-                if (logic.addInWorldInputToInventory(getInputInventory(), true)) {
-                    logic.addInWorldInputToInventory(getInputInventory(), false);
-                } else return false;
-            }
-            if (logic.doesPlaceOutputBlock()) {
-                ItemStack stackToOutput = logic.getOutputRecipeInWorldBlockStack(recipe);
-                logic.setOutputRecipeInWorldBlockStack(stackToOutput);
-            }
-        }
-
-        if (useToolLogic()) {
-            IToolRecipeLogic logic = IToolRecipeLogic.getToolRecipeLogic(this);
-            logic.setRecipeTool(recipe);
-            logic.setRecipeToolUses(recipe);
-            if (logic.addToolStackToInventory(getInputInventory(), true)) {
-                logic.addToolStackToInventory(getInputInventory(), false);
-            } else return false;
-        }
+        recipeLogic.prepareRecipe(recipe, getInputInventory());
 
         if (recipe != null) {
             recipe = setupAndConsumeRecipeInputs(recipe, getInputInventory(), getInputTank());
@@ -226,16 +163,14 @@ public abstract class OnBlockRecipeLogic extends AbstractRecipeLogic implements 
     @Override
     public void invalidate() {
         super.invalidate();
-        if (useInWorldLogic()) IInWorldRecipeLogic.resetInWorldLogic(this);
-        if (useToolLogic()) IToolRecipeLogic.resetToolLogic(this);
+        recipeLogic.resetLogic();
         this.recipeParameters.clear();
     }
 
     @Override
     protected void completeRecipe() {
         super.completeRecipe();
-        if (useInWorldLogic()) IInWorldRecipeLogic.resetInWorldLogic(this);
-        if (useToolLogic()) IToolRecipeLogic.resetToolLogic(this);
+        recipeLogic.resetLogic();
         this.recipeParameters.clear();
     }
 
@@ -244,24 +179,14 @@ public abstract class OnBlockRecipeLogic extends AbstractRecipeLogic implements 
     public NBTTagCompound serializeNBT() {
         NBTTagCompound tagCompound = super.serializeNBT();
         if (!isWorking()) return tagCompound;
-        if (useInWorldLogic()) {
-            IInWorldRecipeLogic.getInWorldRecipeLogic(this).serializeInWorldRecipeLogic(tagCompound);
-        }
-        if (useToolLogic()) {
-            IToolRecipeLogic.getToolRecipeLogic(this).serializeToolRecipeLogic(tagCompound);
-        }
+        recipeLogic.serializeRecipeLogic(tagCompound);
         return tagCompound;
     }
 
     @Override
     public void deserializeNBT(@NotNull NBTTagCompound compound) {
         super.deserializeNBT(compound);
-        if (useInWorldLogic()) {
-            IInWorldRecipeLogic.getInWorldRecipeLogic(this).deserializeInWorldRecipeLogic(compound);
-        }
-        if (useToolLogic()) {
-            IToolRecipeLogic.getToolRecipeLogic(this).deserializeToolRecipeLogic(compound);
-        }
+        recipeLogic.deserializeRecipeLogic(compound);
     }
 
     // Energy stuff

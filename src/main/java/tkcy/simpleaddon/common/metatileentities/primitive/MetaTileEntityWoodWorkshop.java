@@ -8,7 +8,6 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.*;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.items.IItemHandlerModifiable;
 
@@ -39,9 +38,11 @@ import codechicken.lib.vec.Matrix4;
 import lombok.Getter;
 import lombok.Setter;
 import tkcy.simpleaddon.api.machines.*;
-import tkcy.simpleaddon.api.recipes.logic.IInWorldRecipeLogic;
-import tkcy.simpleaddon.api.recipes.logic.IToolRecipeLogic;
 import tkcy.simpleaddon.api.recipes.logic.OnBlockRecipeLogic;
+import tkcy.simpleaddon.api.recipes.logic.newway.IRecipeLogic;
+import tkcy.simpleaddon.api.recipes.logic.newway.InWorldRecipeLogic;
+import tkcy.simpleaddon.api.recipes.logic.newway.RecipeLogicsContainer;
+import tkcy.simpleaddon.api.recipes.logic.newway.ToolLogic;
 import tkcy.simpleaddon.api.recipes.recipemaps.TKCYSARecipeMaps;
 import tkcy.simpleaddon.api.unification.ore.TKCYSAOrePrefix;
 import tkcy.simpleaddon.modules.toolmodule.ToolsModule;
@@ -150,7 +151,7 @@ public class MetaTileEntityWoodWorkshop extends ToolLogicMetaTileEntity
 
     @Getter
     @Setter
-    private class Logic extends OnBlockRecipeLogic implements IInWorldRecipeLogic, IToolRecipeLogic {
+    private class Logic extends OnBlockRecipeLogic {
 
         private int toolUses;
         private ToolsModule.GtTool currentTool;
@@ -164,23 +165,14 @@ public class MetaTileEntityWoodWorkshop extends ToolLogicMetaTileEntity
         }
 
         @Override
-        public boolean doesSpawnOutputItems() {
-            return true;
-        }
-
-        @Override
-        public boolean doesRemoveBlock() {
-            return true;
-        }
-
-        @Nullable
-        public BlockPos getInputBlockPos() {
-            return getPos().up();
-        }
-
-        @Nullable
-        public BlockPos getOutputBlockPos() {
-            return getInputBlockPos();
+        public @NotNull IRecipeLogic setRecipeLogic() {
+            InWorldRecipeLogic inWorldRecipeLogic = InWorldRecipeLogic.Builder.init()
+                    .doesNeedInWorldBlock(getPos().up())
+                    .doesPlaceOutputBlock(getPos().up())
+                    .baseLogic(this)
+                    .build();
+            ToolLogic toolLogic = new ToolLogic(this);
+            return new RecipeLogicsContainer(this, inWorldRecipeLogic, toolLogic);
         }
 
         @Override

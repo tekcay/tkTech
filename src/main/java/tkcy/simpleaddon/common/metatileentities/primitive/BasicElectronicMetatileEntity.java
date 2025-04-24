@@ -12,6 +12,7 @@ import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.items.IItemHandlerModifiable;
 
 import org.apache.commons.lang3.ArrayUtils;
+import org.jetbrains.annotations.NotNull;
 
 import gregtech.api.capability.IEnergyContainer;
 import gregtech.api.capability.impl.FluidTankList;
@@ -39,6 +40,9 @@ import tkcy.simpleaddon.api.machines.IRightClickItemTransfer;
 import tkcy.simpleaddon.api.machines.ToolLogicMetaTileEntity;
 import tkcy.simpleaddon.api.recipes.logic.IToolRecipeLogic;
 import tkcy.simpleaddon.api.recipes.logic.OnBlockRecipeLogic;
+import tkcy.simpleaddon.api.recipes.logic.newway.IRecipeLogic;
+import tkcy.simpleaddon.api.recipes.logic.newway.RecipeLogicsContainer;
+import tkcy.simpleaddon.api.recipes.logic.newway.ToolLogic;
 import tkcy.simpleaddon.api.recipes.recipemaps.TKCYSARecipeMaps;
 import tkcy.simpleaddon.modules.toolmodule.ToolsModule;
 
@@ -49,7 +53,7 @@ public class BasicElectronicMetatileEntity extends ToolLogicMetaTileEntity
 
     public BasicElectronicMetatileEntity(ResourceLocation metaTileEntityId) {
         super(metaTileEntityId, TKCYSARecipeMaps.BASIC_ELECTRONIC_RECIPES, false);
-        this.logic = new BasicElectronicMetatileEntity.Logic(this, null, TKCYSARecipeMaps.BASIC_ELECTRONIC_RECIPES);
+        this.logic = new Logic(this, null, TKCYSARecipeMaps.BASIC_ELECTRONIC_RECIPES);
     }
 
     @Override
@@ -127,7 +131,7 @@ public class BasicElectronicMetatileEntity extends ToolLogicMetaTileEntity
 
     @Getter
     @Setter
-    private class Logic extends OnBlockRecipeLogic implements IToolRecipeLogic {
+    private static class Logic extends OnBlockRecipeLogic implements IToolRecipeLogic {
 
         private int toolUses;
         private ToolsModule.GtTool currentTool;
@@ -141,6 +145,11 @@ public class BasicElectronicMetatileEntity extends ToolLogicMetaTileEntity
         @Override
         public boolean consumesEnergy() {
             return false;
+        }
+
+        @Override
+        public @NotNull IRecipeLogic setRecipeLogic() {
+            return new RecipeLogicsContainer(this, new ToolLogic(this));
         }
     }
 }
