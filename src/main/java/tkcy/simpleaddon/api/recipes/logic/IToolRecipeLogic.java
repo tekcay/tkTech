@@ -12,7 +12,8 @@ public interface IToolRecipeLogic {
     void runToolRecipeLogic(ToolsModule.GtTool tool);
 
     @Nullable
-    default ToolLogic getToolLogic(IRecipeLogic recipeLogic) {
+    default ToolLogic getToolLogic(@Nullable IRecipeLogic recipeLogic) {
+        if (recipeLogic == null) return null;
         IRecipeLogic logic = recipeLogic.getInstance(RecipeLogicType.TOOL);
         if (logic instanceof ToolLogic) {
             return (ToolLogic) logic;

@@ -151,7 +151,7 @@ public class MetaTileEntityWoodWorkshop extends ToolLogicMetaTileEntity
 
     @Getter
     @Setter
-    private class Logic extends OnBlockRecipeLogic {
+    private static class Logic extends OnBlockRecipeLogic {
 
         private int toolUses;
         private ToolsModule.GtTool currentTool;
@@ -166,10 +166,9 @@ public class MetaTileEntityWoodWorkshop extends ToolLogicMetaTileEntity
 
         @Override
         public @NotNull IRecipeLogic setRecipeLogic() {
-            InWorldRecipeLogic inWorldRecipeLogic = InWorldRecipeLogic.Builder.init()
-                    .doesNeedInWorldBlock(getPos().up())
-                    .doesPlaceOutputBlock(getPos().up())
-                    .baseLogic(this)
+            InWorldRecipeLogic inWorldRecipeLogic = new InWorldRecipeLogic.Builder(this)
+                    .doesNeedInWorldBlock(mte -> mte.getPos().up())
+                    .doesPlaceOutputBlock(mte -> mte.getPos().up())
                     .build();
             ToolLogic toolLogic = new ToolLogic(this);
             return new RecipeLogicsContainer(this, inWorldRecipeLogic, toolLogic);

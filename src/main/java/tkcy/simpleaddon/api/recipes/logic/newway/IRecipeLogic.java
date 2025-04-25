@@ -18,11 +18,18 @@ import gregtech.api.recipes.Recipe;
 
 public interface IRecipeLogic extends IRecipePropertiesValueMap {
 
+    /**
+     * Adds itemStacks that are not in the inventory but in the recipe properties of the provided {@code recipe}.
+     * This happens after those recipe properties were ensured.
+     * @param recipe
+     * @param inputInventory the {@code handler} to add the missing stacks to.
+     * @return whether it succeeded.
+     */
+    boolean prepareRecipe(@NotNull Recipe recipe, IItemHandler inputInventory);
+
     boolean hasRecipeLogicType(RecipeLogicType recipeLogicType);
 
     boolean canRecipeLogicProgress();
-
-    boolean prepareRecipe(@NotNull Recipe recipe, IItemHandler inputInventory);
 
     void resetLogic();
 

@@ -2,13 +2,18 @@ package tkcy.simpleaddon.api.recipes.logic.newway;
 
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 
+import gregtech.api.metatileentity.MetaTileEntity;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.items.IItemHandler;
 
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -33,17 +38,20 @@ public class InWorldRecipeLogic implements IRecipeLogic, IRecipePropertiesValueM
 
     private ItemStack inputRecipeInWorldBlockStack;
     private ItemStack outputRecipeInWorldBlockStack;
-    private final BlockPos inputBlockPos;
-    private final BlockPos outputBlockPos;
     private final AbstractRecipeLogic abstractRecipeLogic;
     private final boolean doesNeedInWorldBlock;
     private final boolean doesPlaceOutputBlock;
     private final boolean doesRemoveBlock;
     private final boolean doesSpawnOutputItems;
 
+    @Getter(AccessLevel.NONE)
+    private final Function<MetaTileEntity, BlockPos>  inputBlockPos;
+    @Getter(AccessLevel.NONE)
+    private final Function<MetaTileEntity, BlockPos>  outputBlockPos;
+
     private InWorldRecipeLogic(AbstractRecipeLogic abstractRecipeLogic, boolean doesNeedInWorldBlock,
                                boolean doesPlaceOutputBlock, boolean doesRemoveBlock, boolean doesSpawnOutputItems,
-                               BlockPos inputBlockPos, BlockPos outputBlockPos) {
+                               Function<MetaTileEntity, BlockPos> inputBlockPos, Function<MetaTileEntity, BlockPos> outputBlockPos) {
         this.abstractRecipeLogic = abstractRecipeLogic;
         this.doesNeedInWorldBlock = doesNeedInWorldBlock;
         this.doesPlaceOutputBlock = doesPlaceOutputBlock;
@@ -51,6 +59,19 @@ public class InWorldRecipeLogic implements IRecipeLogic, IRecipePropertiesValueM
         this.doesSpawnOutputItems = doesSpawnOutputItems;
         this.inputBlockPos = inputBlockPos;
         this.outputBlockPos = outputBlockPos;
+    }
+
+    public BlockPos getOutputBlockPos() {
+        return this.inputBlockPos.apply(getMetaTileEntity());
+    }
+
+    public BlockPos getInputBlockPos() {
+        return this.outputBlockPos.apply(getMetaTileEntity());
+    }
+
+
+    public MetaTileEntity getMetaTileEntity() {
+        return abstractRecipeLogic.getMetaTileEntity();
     }
 
     public boolean isNotValid() {
@@ -92,55 +113,6 @@ public class InWorldRecipeLogic implements IRecipeLogic, IRecipePropertiesValueM
         } else return null;
     }
 
-    public static class Builder {
-
-        private BlockPos inputBlockPos = null;
-        private BlockPos outputBlockPos = null;
-        private AbstractRecipeLogic abstractRecipeLogic;
-        private boolean doesNeedInWorldBlock = false;
-        private boolean doesPlaceOutputBlock = false;
-        private boolean doesRemoveBlock = false;
-        private boolean doesSpawnOutputItems = false;
-
-        public static Builder init() {
-            return new Builder();
-        }
-
-        public Builder baseLogic(@NotNull AbstractRecipeLogic abstractRecipeLogic) {
-            this.abstractRecipeLogic = abstractRecipeLogic;
-            return this;
-        }
-
-        public Builder doesNeedInWorldBlock(@NotNull BlockPos inputBlockPos) {
-            this.doesNeedInWorldBlock = true;
-            this.inputBlockPos = inputBlockPos;
-            return this;
-        }
-
-        public Builder doesNeedInWorldBlock(@NotNull BlockPos inputBlockPos, boolean doesRemoveBlock) {
-            this.doesNeedInWorldBlock = true;
-            this.inputBlockPos = inputBlockPos;
-            this.doesRemoveBlock = doesRemoveBlock;
-            return this;
-        }
-
-        public Builder doesPlaceOutputBlock(@NotNull BlockPos outputBlockPos) {
-            this.doesPlaceOutputBlock = true;
-            this.outputBlockPos = outputBlockPos;
-            return this;
-        }
-
-        public Builder doesSpawnOutputItems() {
-            this.doesSpawnOutputItems = true;
-            return this;
-        }
-
-        public InWorldRecipeLogic build() {
-            return new InWorldRecipeLogic(abstractRecipeLogic, doesNeedInWorldBlock, doesPlaceOutputBlock,
-                    doesRemoveBlock, doesSpawnOutputItems, inputBlockPos, outputBlockPos);
-        }
-    }
-
     /**
      * Used if {@link #doesPlaceOutputBlock}. As the block to place in world is stored both as itemStack in
      * {@link AbstractRecipeLogic#itemOutputs} and in {@link #getOutputRecipeInWorldBlockStack()}, it must be removed
@@ -164,7 +136,17 @@ public class InWorldRecipeLogic implements IRecipeLogic, IRecipePropertiesValueM
 
     @Override
     public boolean prepareRecipe(@NotNull Recipe recipe, IItemHandler inputInventory) {
-        return false;
+        ItemStack toAdd = getInputRecipeInWorldBlockStack(recipe);
+        ItemStack remainder = GTTransferUtils.insertItem(inputInventory, toAdd, true);
+        if (remainder != null && !remainder.isEmpty()) return false;
+
+        GTTransferUtils.insertItem(inputInventory, toAdd, false);
+        setInputRecipeInWorldBlockStack(toAdd);
+
+        @Nullable ItemStack toOutput = getOutputRecipeInWorldBlockStack(recipe);
+        setOutputRecipeInWorldBlockStack(toOutput);
+
+        return true;
     }
 
     @Override
@@ -213,7 +195,9 @@ public class InWorldRecipeLogic implements IRecipeLogic, IRecipePropertiesValueM
     }
 
     @Override
-    public void appendToInputsForRecipeSearch(List<ItemStack> handlerStacks, List<FluidStack> handlerFluidStacks) {}
+    public void appendToInputsForRecipeSearch(List<ItemStack> handlerStacks, List<FluidStack> handlerFluidStacks) {
+        if (doesNeedInWorldBlock) handlerStacks.add(getInWorldInputStack());
+    }
 
     /**
      * if {@link #doesPlaceOutputBlock} but the {@code outputBlockPos} is occupied by another block, it calls
@@ -261,5 +245,49 @@ public class InWorldRecipeLogic implements IRecipeLogic, IRecipePropertiesValueM
     @Override
     public boolean hasRecipeLogicType(RecipeLogicType recipeLogicType) {
         return recipeLogicType == RecipeLogicType.IN_WORLD;
+    }
+
+    public static class Builder {
+
+        private Function<MetaTileEntity, BlockPos> inputBlockPos = null;
+        private Function<MetaTileEntity, BlockPos> outputBlockPos = null;
+        private final AbstractRecipeLogic abstractRecipeLogic;
+        private boolean doesNeedInWorldBlock = false;
+        private boolean doesPlaceOutputBlock = false;
+        private boolean doesRemoveBlock = false;
+        private boolean doesSpawnOutputItems = false;
+
+        public Builder (@NotNull AbstractRecipeLogic abstractRecipeLogic) {
+            this.abstractRecipeLogic = abstractRecipeLogic;
+        }
+
+        public Builder doesNeedInWorldBlock(@NotNull Function<MetaTileEntity, BlockPos> inputBlockPos) {
+            this.doesNeedInWorldBlock = true;
+            this.inputBlockPos = inputBlockPos;
+            return this;
+        }
+
+        public Builder doesNeedInWorldBlock(@NotNull Function<MetaTileEntity, BlockPos> inputBlockPos, boolean doesRemoveBlock) {
+            this.doesNeedInWorldBlock = true;
+            this.inputBlockPos = inputBlockPos;
+            this.doesRemoveBlock = doesRemoveBlock;
+            return this;
+        }
+
+        public Builder doesPlaceOutputBlock(@NotNull Function<MetaTileEntity, BlockPos> outputBlockPos) {
+            this.doesPlaceOutputBlock = true;
+            this.outputBlockPos = outputBlockPos;
+            return this;
+        }
+
+        public Builder doesSpawnOutputItems() {
+            this.doesSpawnOutputItems = true;
+            return this;
+        }
+
+        public InWorldRecipeLogic build() {
+            return new InWorldRecipeLogic(abstractRecipeLogic, doesNeedInWorldBlock, doesPlaceOutputBlock,
+                    doesRemoveBlock, doesSpawnOutputItems, inputBlockPos, outputBlockPos);
+        }
     }
 }

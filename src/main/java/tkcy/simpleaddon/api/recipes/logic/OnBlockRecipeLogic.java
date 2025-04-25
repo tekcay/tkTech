@@ -56,8 +56,8 @@ public abstract class OnBlockRecipeLogic extends AbstractRecipeLogic
 
     @Override
     public void runToolRecipeLogic(ToolsModule.GtTool gtTool) {
-        IRecipeLogic logic = recipeLogic.getInstance(RecipeLogicType.TOOL);
-        if (!(logic instanceof ToolLogic toolLogic)) return;
+        ToolLogic toolLogic = getToolLogic(recipeLogic);
+        if (toolLogic == null) return;
         toolLogic.setCurrentTool(gtTool);
 
         World world = getMetaTileEntity().getWorld();
@@ -77,7 +77,7 @@ public abstract class OnBlockRecipeLogic extends AbstractRecipeLogic
                     }
                 }
 
-                if (getProgress() == 0 && shouldSearchForRecipes()) {
+                if (getProgress() == 0) {
                     trySearchNewRecipe();
                 }
             }
