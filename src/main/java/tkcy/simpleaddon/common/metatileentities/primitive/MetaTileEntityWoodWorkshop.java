@@ -169,6 +169,8 @@ public class MetaTileEntityWoodWorkshop extends ToolLogicMetaTileEntity
             InWorldRecipeLogic inWorldRecipeLogic = new InWorldRecipeLogic.Builder(this)
                     .doesNeedInWorldBlock(mte -> mte.getPos().up())
                     .doesPlaceOutputBlock(mte -> mte.getPos().up())
+                    .doesRemoveInputBlock()
+                    .doesSpawnOutputItems()
                     .build();
             ToolLogic toolLogic = new ToolLogic(this);
             return new RecipeLogicsContainer(this, inWorldRecipeLogic, toolLogic);

@@ -6,14 +6,12 @@ import java.util.function.Function;
 
 import gregtech.api.metatileentity.MetaTileEntity;
 import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.items.IItemHandler;
 
-import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -95,7 +93,7 @@ public class InWorldRecipeLogic implements IRecipeLogic, IRecipePropertiesValueM
         ItemStack inWorldStackRecipe = getInputRecipeInWorldBlockStack();
         ItemStack inWorldStack = getInWorldInputStack();
 
-        if (BooleanHelper.doesAnyMatch(ItemStack::isEmpty, inWorldStack, inWorldStackRecipe)) return false;
+        if (BooleanHelper.doesAnyMatch(itemStack -> itemStack == null || itemStack.isEmpty(), inWorldStack, inWorldStackRecipe)) return false;
         return inWorldStack.isItemEqual(inWorldStackRecipe);
     }
 
@@ -254,7 +252,7 @@ public class InWorldRecipeLogic implements IRecipeLogic, IRecipePropertiesValueM
         private final AbstractRecipeLogic abstractRecipeLogic;
         private boolean doesNeedInWorldBlock = false;
         private boolean doesPlaceOutputBlock = false;
-        private boolean doesRemoveBlock = false;
+        private boolean doesRemoveInputBlock = false;
         private boolean doesSpawnOutputItems = false;
 
         public Builder (@NotNull AbstractRecipeLogic abstractRecipeLogic) {
@@ -264,13 +262,6 @@ public class InWorldRecipeLogic implements IRecipeLogic, IRecipePropertiesValueM
         public Builder doesNeedInWorldBlock(@NotNull Function<MetaTileEntity, BlockPos> inputBlockPos) {
             this.doesNeedInWorldBlock = true;
             this.inputBlockPos = inputBlockPos;
-            return this;
-        }
-
-        public Builder doesNeedInWorldBlock(@NotNull Function<MetaTileEntity, BlockPos> inputBlockPos, boolean doesRemoveBlock) {
-            this.doesNeedInWorldBlock = true;
-            this.inputBlockPos = inputBlockPos;
-            this.doesRemoveBlock = doesRemoveBlock;
             return this;
         }
 
@@ -285,9 +276,14 @@ public class InWorldRecipeLogic implements IRecipeLogic, IRecipePropertiesValueM
             return this;
         }
 
+        public Builder doesRemoveInputBlock() {
+            this.doesRemoveInputBlock = true;
+            return this;
+        }
+
         public InWorldRecipeLogic build() {
             return new InWorldRecipeLogic(abstractRecipeLogic, doesNeedInWorldBlock, doesPlaceOutputBlock,
-                    doesRemoveBlock, doesSpawnOutputItems, inputBlockPos, outputBlockPos);
+                    doesRemoveInputBlock, doesSpawnOutputItems, inputBlockPos, outputBlockPos);
         }
     }
 }

@@ -5,6 +5,7 @@ import static gregtech.api.recipes.logic.OverclockingLogic.subTickNonParallelOC;
 import java.util.*;
 import java.util.function.Supplier;
 
+import gregtech.common.items.ToolItems;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
@@ -63,7 +64,6 @@ public abstract class OnBlockRecipeLogic extends AbstractRecipeLogic
         World world = getMetaTileEntity().getWorld();
         if (world != null && !world.isRemote) {
             if (isWorkingEnabled()) {
-                setActive(true);
 
                 if (getProgress() > 0) {
                     if (!canProgressRecipe()) {
@@ -73,7 +73,6 @@ public abstract class OnBlockRecipeLogic extends AbstractRecipeLogic
                     updateRecipeProgress();
                     if (getProgress() == getMaxProgress()) {
                         completeRecipe();
-                        return;
                     }
                 }
 

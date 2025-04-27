@@ -80,7 +80,7 @@ public class ToolLogic implements IRecipeLogic, IRecipePropertiesValueMap {
         if (addToolStackToInventory(inputInventory, true)) {
             addToolStackToInventory(inputInventory, false);
         } else return false;
-        return false;
+        return true;
     }
 
     @Override
