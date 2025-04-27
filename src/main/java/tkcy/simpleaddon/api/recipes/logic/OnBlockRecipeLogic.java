@@ -74,9 +74,7 @@ public abstract class OnBlockRecipeLogic extends AbstractRecipeLogic
                     if (getProgress() == getMaxProgress()) {
                         completeRecipe();
                     }
-                }
-
-                if (getProgress() == 0) {
+                } else if (getProgress() == 0) {
                     trySearchNewRecipe();
                 }
             }
