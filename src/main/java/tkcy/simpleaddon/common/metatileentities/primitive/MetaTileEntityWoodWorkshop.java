@@ -44,13 +44,10 @@ import tkcy.simpleaddon.api.unification.ore.TKCYSAOrePrefix;
 import tkcy.simpleaddon.modules.toolmodule.ToolsModule;
 
 public class MetaTileEntityWoodWorkshop extends ToolLogicMetaTileEntity
-                                        implements IUnificationToolMachine, IOnAnyToolClick, IOnSawClick {
-
-    private final Logic logic;
+                                        implements IUnificationToolMachine, IOnSawClick {
 
     public MetaTileEntityWoodWorkshop(ResourceLocation metaTileEntityId) {
-        super(metaTileEntityId, TKCYSARecipeMaps.WOOD_WORKSHOP_RECIPES, true);
-        this.logic = new Logic(this, null, TKCYSARecipeMaps.WOOD_WORKSHOP_RECIPES);
+        super(metaTileEntityId);
     }
 
     @Override
@@ -104,39 +101,8 @@ public class MetaTileEntityWoodWorkshop extends ToolLogicMetaTileEntity
     }
 
     @Override
-    public void onAnyToolClick(ToolsModule.GtTool tool, boolean isPlayerSneaking) {
-        if (!isPlayerSneaking) return;
-        this.logic.runToolRecipeLogic(tool);
-    }
-
-    @Override
-    public void onAnyToolClickTooltip(List<String> tooltips) {
-        tooltips.add(I18n.format("tkcysa.metatileentity.on_any_tool_click.sneak.invalidate.tooltip"));
-    }
-
-    @Override
-    public boolean showAnyToolClickTooltip() {
-        return true;
-    }
-
-    @Override
-    protected boolean openGUIOnRightClick() {
-        return true;
-    }
-
-    @Override
-    protected ModularUI.Builder createUITemplate(EntityPlayer entityPlayer) {
-        return ModularUI.builder(GuiTextures.PRIMITIVE_BACKGROUND, 176, 166)
-                .shouldColor(false)
-                .widget(new LabelWidget(5, 5, getMetaFullName()))
-                .slot(this.importItems, 0, 60, 30, GuiTextures.PRIMITIVE_SLOT)
-                .slot(this.importItems, 1, 30, 30, GuiTextures.PRIMITIVE_SLOT)
-                .widget(new ClickButtonWidget(30, 60, 30, 20, "T",
-                        clickData -> logic.runToolRecipeLogic(ToolsModule.GtTool.SAW)))
-                .widget(new ClickButtonWidget(90, 60, 30, 20, "E", clickData -> logic.serializeNBT()))
-                .progressBar(this.logic::getProgressPercent, 100, 30, 18, 18, GuiTextures.PROGRESS_BAR_BENDING,
-                        ProgressWidget.MoveType.HORIZONTAL, this.recipeMap)
-                .bindPlayerInventory(entityPlayer.inventory, GuiTextures.SLOT, 0);
+    protected OnBlockRecipeLogic initRecipeLogic() {
+        return new Logic(this, null, TKCYSARecipeMaps.WOOD_WORKSHOP_RECIPES);
     }
 
     @Override
@@ -148,7 +114,7 @@ public class MetaTileEntityWoodWorkshop extends ToolLogicMetaTileEntity
     public boolean onSawClick(EntityPlayer playerIn, EnumHand hand, EnumFacing wrenchSide,
                               CuboidRayTraceResult hitResult) {
         if (playerIn.isSneaking()) {
-            ToolLogic toolLogic = logic.getToolLogic();
+            ToolLogic toolLogic = getLogic().getToolLogic();
             if (toolLogic != null && toolLogic.getRecipeTool() == ToolsModule.GtTool.SAW) {
                 playSawClickSound(playerIn);
             }

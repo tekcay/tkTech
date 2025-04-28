@@ -2,6 +2,7 @@ package tkcy.simpleaddon.common.metatileentities.primitive;
 
 import static tkcy.simpleaddon.api.utils.GuiUtils.FONT_HEIGHT;
 
+import java.util.List;
 import java.util.function.Supplier;
 
 import net.minecraft.entity.player.EntityPlayer;
@@ -47,13 +48,10 @@ import tkcy.simpleaddon.api.recipes.recipemaps.TKCYSARecipeMaps;
 import tkcy.simpleaddon.modules.toolmodule.ToolsModule;
 
 public class BasicElectronicMetatileEntity extends ToolLogicMetaTileEntity
-                                           implements IOnSolderingIronClick, IRightClickItemTransfer {
-
-    private final Logic logic;
+                                           implements IRightClickItemTransfer {
 
     public BasicElectronicMetatileEntity(ResourceLocation metaTileEntityId) {
-        super(metaTileEntityId, TKCYSARecipeMaps.BASIC_ELECTRONIC_RECIPES, false);
-        this.logic = new Logic(this, null, TKCYSARecipeMaps.BASIC_ELECTRONIC_RECIPES);
+        super(metaTileEntityId);
     }
 
     @Override
@@ -101,22 +99,28 @@ public class BasicElectronicMetatileEntity extends ToolLogicMetaTileEntity
     }
 
     @Override
+    protected boolean openGUIOnRightClick() {
+        return true;
+    }
+
+    @Override
+    protected ModularUI createUI(EntityPlayer player) {
+        return createUITemplate(player).build(getHolder(), player);
+    }
+
     protected ModularUI.Builder createUITemplate(EntityPlayer entityPlayer) {
-        return recipeMap.getRecipeMapUI()
-                .createUITemplate(logic::getProgressPercent, importItems, exportItems, importFluids, exportFluids,
+        return getRecipeMap().getRecipeMapUI()
+                .createUITemplate(getLogic()::getProgressPercent, importItems, exportItems, importFluids, exportFluids,
                         FONT_HEIGHT)
                 .widget(new LabelWidget(5, 5, getMetaFullName()))
                 .widget(new ClickButtonWidget(30, 60, 30, 20, "T",
-                        clickData -> logic.runToolRecipeLogic(ToolsModule.GtTool.SOLDERING_IRON)))
+                        clickData -> getLogic().runToolRecipeLogic(ToolsModule.GtTool.SOLDERING_IRON)))
                 .bindPlayerInventory(entityPlayer.inventory, 92);
     }
 
     @Override
-    public boolean onSolderingIronClick(EntityPlayer playerIn, EnumHand hand, EnumFacing wrenchSide,
-                                        CuboidRayTraceResult hitResult) {
-        if (!playerIn.isSneaking()) return false;
-        this.logic.runToolRecipeLogic(getWorkingGtTool());
-        return true;
+    protected OnBlockRecipeLogic initRecipeLogic() {
+        return new Logic(this, null, TKCYSARecipeMaps.BASIC_ELECTRONIC_RECIPES);
     }
 
     @Override
@@ -129,13 +133,7 @@ public class BasicElectronicMetatileEntity extends ToolLogicMetaTileEntity
         return true;
     }
 
-    @Getter
-    @Setter
     private static class Logic extends OnBlockRecipeLogic implements IToolRecipeLogic {
-
-        private int toolUses;
-        private ToolsModule.GtTool currentTool;
-        private ToolsModule.GtTool recipeTool;
 
         public Logic(MetaTileEntity tileEntity, Supplier<IEnergyContainer> energyContainer,
                      RecipeMap<?>... recipeMaps) {

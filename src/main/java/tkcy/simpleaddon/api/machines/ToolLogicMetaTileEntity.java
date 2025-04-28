@@ -2,6 +2,7 @@ package tkcy.simpleaddon.api.machines;
 
 import java.util.List;
 
+import lombok.Getter;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -17,21 +18,20 @@ import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.recipes.RecipeMap;
 import gregtech.client.renderer.texture.cube.SimpleOverlayRenderer;
 
+import tkcy.simpleaddon.api.recipes.logic.OnBlockRecipeLogic;
 import tkcy.simpleaddon.api.recipes.logic.ToolRecipeLogic;
 import tkcy.simpleaddon.modules.toolmodule.ToolsModule;
 import tkcy.simpleaddon.modules.toolmodule.WorkingTool;
 
+@Getter
 @WorkingTool
-public abstract class ToolLogicMetaTileEntity extends MetaTileEntity {
+public abstract class ToolLogicMetaTileEntity extends MetaTileEntity implements IOnAnyToolClick {
 
-    protected final ToolRecipeLogic logic;
-    protected final RecipeMap<?> recipeMap;
+    private final OnBlockRecipeLogic logic;
 
-    public ToolLogicMetaTileEntity(ResourceLocation metaTileEntityId, RecipeMap<?> recipeMap,
-                                   boolean doOutputInWorld) {
+    public ToolLogicMetaTileEntity(ResourceLocation metaTileEntityId) {
         super(metaTileEntityId);
-        this.recipeMap = recipeMap;
-        this.logic = new ToolRecipeLogic(this, recipeMap, doOutputInWorld);
+        this.logic = initRecipeLogic();
     }
 
     @Override
@@ -42,16 +42,32 @@ public abstract class ToolLogicMetaTileEntity extends MetaTileEntity {
     }
 
     @Override
-    protected ModularUI createUI(EntityPlayer player) {
-        return createUITemplate(player).build(getHolder(), player);
+    public boolean showAnyToolClickTooltip() {
+        return true;
     }
+
+    @Override
+    public void onAnyToolClick(ToolsModule.GtTool tool, boolean isPlayerSneaking) {
+        if (!isPlayerSneaking) return;
+        this.logic.runToolRecipeLogic(tool);
+    }
+
+    @Override
+    public void onAnyToolClickTooltip(List<String> tooltips) {
+        tooltips.add(I18n.format("tkcysa.metatileentity.on_any_tool_click.sneak.invalidate.tooltip"));
+    }
+
+    @Override
+    protected boolean openGUIOnRightClick() {
+        return false;
+    }
+
+    protected void addExtraTooltip(ItemStack stack, @Nullable World player, List<String> tooltip, boolean advanced) {}
 
     @SideOnly(Side.CLIENT)
     protected abstract SimpleOverlayRenderer getBaseRenderer();
 
     protected abstract ToolsModule.GtTool getWorkingGtTool();
 
-    protected abstract ModularUI.Builder createUITemplate(EntityPlayer entityPlayer);
-
-    protected void addExtraTooltip(ItemStack stack, @Nullable World player, List<String> tooltip, boolean advanced) {}
+    protected abstract OnBlockRecipeLogic initRecipeLogic();
 }

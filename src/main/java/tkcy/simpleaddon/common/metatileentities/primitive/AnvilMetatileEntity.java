@@ -2,13 +2,17 @@ package tkcy.simpleaddon.common.metatileentities.primitive;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Supplier;
 
+import gregtech.api.capability.IEnergyContainer;
+import gregtech.api.recipes.RecipeMap;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraftforge.items.IItemHandlerModifiable;
 
@@ -37,6 +41,11 @@ import codechicken.lib.vec.Matrix4;
 import tkcy.simpleaddon.api.machines.IRightClickItemTransfer;
 import tkcy.simpleaddon.api.machines.IUnificationToolMachine;
 import tkcy.simpleaddon.api.machines.ToolLogicMetaTileEntity;
+import tkcy.simpleaddon.api.recipes.logic.IToolRecipeLogic;
+import tkcy.simpleaddon.api.recipes.logic.OnBlockRecipeLogic;
+import tkcy.simpleaddon.api.recipes.logic.newway.IRecipeLogicContainer;
+import tkcy.simpleaddon.api.recipes.logic.newway.RecipeLogicsContainer;
+import tkcy.simpleaddon.api.recipes.logic.newway.ToolLogic;
 import tkcy.simpleaddon.api.recipes.recipemaps.TKCYSARecipeMaps;
 import tkcy.simpleaddon.modules.toolmodule.ToolsModule;
 
@@ -44,7 +53,7 @@ public class AnvilMetatileEntity extends ToolLogicMetaTileEntity
                                  implements IUnificationToolMachine, IRightClickItemTransfer {
 
     public AnvilMetatileEntity(ResourceLocation metaTileEntityId) {
-        super(metaTileEntityId, TKCYSARecipeMaps.ANVIL_RECIPES, true);
+        super(metaTileEntityId);
     }
 
     @Override
@@ -59,7 +68,7 @@ public class AnvilMetatileEntity extends ToolLogicMetaTileEntity
 
     @Override
     protected IItemHandlerModifiable createImportItemHandler() {
-        return new NotifiableItemStackHandler(this, 1, this, false);
+        return new NotifiableItemStackHandler(this, 2, this, false);
     }
 
     @Override
@@ -87,9 +96,19 @@ public class AnvilMetatileEntity extends ToolLogicMetaTileEntity
     }
 
     @Override
+    public void onAnyToolClick(ToolsModule.GtTool tool, boolean isPlayerSneaking) {}
+
+    @Override
+    public boolean onHardHammerClick(EntityPlayer playerIn, EnumHand hand, EnumFacing facing,
+                                                  CuboidRayTraceResult hitResult) {
+        if (!playerIn.isSneaking()) return false;
+        getLogic().runToolRecipeLogic(ToolsModule.GtTool.HARD_HAMMER);
+        return true;
+    }
+
+    @Override
     public @NotNull List<OrePrefix> getPartsOrePrefixes() {
         return new ArrayList<>() {
-
             {
                 add(OrePrefix.plate);
                 add(OrePrefix.plateDouble);
@@ -98,27 +117,8 @@ public class AnvilMetatileEntity extends ToolLogicMetaTileEntity
     }
 
     @Override
-    public boolean onHardHammerClick(EntityPlayer playerIn, EnumHand hand, EnumFacing facing,
-                                     CuboidRayTraceResult hitResult) {
-        if (!playerIn.isSneaking()) return false;
-        this.logic.startWorking(getWorkingGtTool());
-        return true;
-    }
-
-    @Override
-    protected boolean openGUIOnRightClick() {
-        return false;
-    }
-
-    @Override
-    protected ModularUI.Builder createUITemplate(EntityPlayer entityPlayer) {
-        return ModularUI.builder(GuiTextures.PRIMITIVE_BACKGROUND, 176, 166)
-                .shouldColor(false)
-                .widget(new LabelWidget(5, 5, getMetaFullName()))
-                .slot(this.importItems, 0, 60, 30, GuiTextures.PRIMITIVE_SLOT)
-                .progressBar(this.logic::getProgressPercent, 100, 30, 18, 18, GuiTextures.PROGRESS_BAR_BENDING,
-                        ProgressWidget.MoveType.HORIZONTAL, this.recipeMap)
-                .bindPlayerInventory(entityPlayer.inventory, GuiTextures.SLOT, 0);
+    protected OnBlockRecipeLogic initRecipeLogic() {
+        return new Logic(this, null, TKCYSARecipeMaps.ANVIL_RECIPES);
     }
 
     @Override
@@ -134,5 +134,23 @@ public class AnvilMetatileEntity extends ToolLogicMetaTileEntity
     @Override
     public boolean doesTransferInputToPlayer() {
         return true;
+    }
+
+    private static class Logic extends OnBlockRecipeLogic implements IToolRecipeLogic {
+
+        public Logic(MetaTileEntity tileEntity, Supplier<IEnergyContainer> energyContainer,
+                     RecipeMap<?>... recipeMaps) {
+            super(tileEntity, energyContainer, recipeMaps);
+        }
+
+        @Override
+        public boolean consumesEnergy() {
+            return false;
+        }
+
+        @Override
+        public @NotNull IRecipeLogicContainer setRecipeLogicContainer() {
+            return new RecipeLogicsContainer(this, new ToolLogic(this));
+        }
     }
 }

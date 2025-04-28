@@ -43,9 +43,10 @@ public class PlatesHandler {
                 .input(ingot, material, 2)
                 .output(orePrefix, material)
                 .output(dustSmall, material, 4)
-                .duration(10)
                 .tool(ToolsModule.GtTool.HARD_HAMMER)
                 .toolUses(1 + (int) material.getMass() / 20)
+                .hideDuration()
+                .hideEnergy()
                 .buildAndRegister();
 
         if (!plateDouble.doGenerateItem(material)) return;
@@ -56,7 +57,8 @@ public class PlatesHandler {
                 .input(orePrefix, material, 3)
                 .output(OrePrefix.plateDouble, material)
                 .output(dustSmall, material, 4)
-                .duration(20)
+                .hideDuration()
+                .hideEnergy()
                 .buildAndRegister();
     }
 }

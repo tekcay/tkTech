@@ -83,8 +83,8 @@ public class AdvancedRecipeBuilder extends RecipeBuilder<AdvancedRecipeBuilder> 
         return this;
     }
 
-    public AdvancedRecipeBuilder useAndDisplayEnergy(boolean useAndDisplayEnergy) {
-        this.useAndDisplayEnergy = useAndDisplayEnergy;
+    public AdvancedRecipeBuilder hideEnergy() {
+        this.useAndDisplayEnergy = false;
         return this;
     }
 

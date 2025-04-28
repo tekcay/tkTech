@@ -49,7 +49,7 @@ public class RecipesTests {
                 .tool(ToolsModule.GtTool.SOLDERING_IRON)
                 .toolUses(7)
                 .hideDuration()
-                .useAndDisplayEnergy(false)
+                .hideEnergy()
                 .output(ELECTRONIC_CIRCUIT_LV)
                 .buildAndRegister();
 
@@ -64,7 +64,7 @@ public class RecipesTests {
                 .toolUses(7)
                 .output(OrePrefix.dust, Wood)
                 .hideDuration()
-                .useAndDisplayEnergy(false)
+                .hideEnergy()
                 .buildAndRegister();
 
         TKCYSARecipeMaps.WOOD_WORKSHOP_RECIPES.recipeBuilder()
@@ -75,7 +75,7 @@ public class RecipesTests {
                 .toolUses(7)
                 .output(OrePrefix.dust, Wood)
                 .hideDuration()
-                .useAndDisplayEnergy(false)
+                .hideEnergy()
                 .buildAndRegister();
     }
 }
