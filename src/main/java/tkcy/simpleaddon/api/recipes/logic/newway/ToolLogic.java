@@ -27,7 +27,7 @@ import tkcy.simpleaddon.modules.toolmodule.ToolsModule;
 
 @Setter
 @Getter
-public class ToolLogic implements IRecipeLogic, IRecipePropertiesValueMap {
+public class ToolLogic implements IRecipeLogicContainer, IRecipePropertiesValueMap {
 
     private int toolUses;
     private ToolsModule.GtTool currentTool;
@@ -56,10 +56,8 @@ public class ToolLogic implements IRecipeLogic, IRecipePropertiesValueMap {
     /**
      * Little hackery to the standard input consumption logic in used (see
      * {@link Recipe#matches(boolean, IItemHandlerModifiable, IMultipleTankHandler)}).
-     *
-     * @param inputInventory
-     * @param simulate
-     * @return
+     * 
+     * @return {@code true} if it worked.
      */
     protected boolean addToolStackToInventory(IItemHandler inputInventory, boolean simulate) {
         ToolsModule.GtTool tool = getRecipeTool();

@@ -4,8 +4,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
-import gregtech.api.metatileentity.MetaTileEntity;
-import lombok.AccessLevel;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
@@ -17,9 +15,11 @@ import org.jetbrains.annotations.Nullable;
 
 import gregtech.api.capability.IMultipleTankHandler;
 import gregtech.api.capability.impl.AbstractRecipeLogic;
+import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.recipes.Recipe;
 import gregtech.api.util.GTTransferUtils;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import tkcy.simpleaddon.api.recipes.properties.IRecipePropertyHelper;
@@ -32,7 +32,7 @@ import tkcy.simpleaddon.modules.NBTLabel;
 
 @Getter
 @Setter
-public class InWorldRecipeLogic implements IRecipeLogic, IRecipePropertiesValueMap {
+public class InWorldRecipeLogic implements IRecipeLogicContainer, IRecipePropertiesValueMap {
 
     private ItemStack inputRecipeInWorldBlockStack;
     private ItemStack outputRecipeInWorldBlockStack;
@@ -43,13 +43,14 @@ public class InWorldRecipeLogic implements IRecipeLogic, IRecipePropertiesValueM
     private final boolean doesSpawnOutputItems;
 
     @Getter(AccessLevel.NONE)
-    private final Function<MetaTileEntity, BlockPos>  inputBlockPos;
+    private final Function<MetaTileEntity, BlockPos> inputBlockPos;
     @Getter(AccessLevel.NONE)
-    private final Function<MetaTileEntity, BlockPos>  outputBlockPos;
+    private final Function<MetaTileEntity, BlockPos> outputBlockPos;
 
     private InWorldRecipeLogic(AbstractRecipeLogic abstractRecipeLogic, boolean doesNeedInWorldBlock,
                                boolean doesPlaceOutputBlock, boolean doesRemoveBlock, boolean doesSpawnOutputItems,
-                               Function<MetaTileEntity, BlockPos> inputBlockPos, Function<MetaTileEntity, BlockPos> outputBlockPos) {
+                               Function<MetaTileEntity, BlockPos> inputBlockPos,
+                               Function<MetaTileEntity, BlockPos> outputBlockPos) {
         this.abstractRecipeLogic = abstractRecipeLogic;
         this.doesNeedInWorldBlock = doesNeedInWorldBlock;
         this.doesPlaceOutputBlock = doesPlaceOutputBlock;
@@ -66,7 +67,6 @@ public class InWorldRecipeLogic implements IRecipeLogic, IRecipePropertiesValueM
     public BlockPos getInputBlockPos() {
         return this.outputBlockPos.apply(getMetaTileEntity());
     }
-
 
     public MetaTileEntity getMetaTileEntity() {
         return abstractRecipeLogic.getMetaTileEntity();
@@ -93,7 +93,9 @@ public class InWorldRecipeLogic implements IRecipeLogic, IRecipePropertiesValueM
         ItemStack inWorldStackRecipe = getInputRecipeInWorldBlockStack();
         ItemStack inWorldStack = getInWorldInputStack();
 
-        if (BooleanHelper.doesAnyMatch(itemStack -> itemStack == null || itemStack.isEmpty(), inWorldStack, inWorldStackRecipe)) return false;
+        if (BooleanHelper.doesAnyMatch(itemStack -> itemStack == null || itemStack.isEmpty(), inWorldStack,
+                inWorldStackRecipe))
+            return false;
         return inWorldStack.isItemEqual(inWorldStackRecipe);
     }
 
@@ -141,7 +143,8 @@ public class InWorldRecipeLogic implements IRecipeLogic, IRecipePropertiesValueM
         GTTransferUtils.insertItem(inputInventory, toAdd, false);
         setInputRecipeInWorldBlockStack(toAdd);
 
-        @Nullable ItemStack toOutput = getOutputRecipeInWorldBlockStack(recipe);
+        @Nullable
+        ItemStack toOutput = getOutputRecipeInWorldBlockStack(recipe);
         setOutputRecipeInWorldBlockStack(toOutput);
 
         return true;
@@ -255,7 +258,7 @@ public class InWorldRecipeLogic implements IRecipeLogic, IRecipePropertiesValueM
         private boolean doesRemoveInputBlock = false;
         private boolean doesSpawnOutputItems = false;
 
-        public Builder (@NotNull AbstractRecipeLogic abstractRecipeLogic) {
+        public Builder(@NotNull AbstractRecipeLogic abstractRecipeLogic) {
             this.abstractRecipeLogic = abstractRecipeLogic;
         }
 

@@ -2,10 +2,13 @@ package tkcy.simpleaddon.api.recipes.logic;
 
 import org.jetbrains.annotations.NotNull;
 
-import tkcy.simpleaddon.api.recipes.logic.newway.IRecipeLogic;
+import tkcy.simpleaddon.api.recipes.logic.newway.IRecipeLogicContainer;
 
 public interface IExtraRecipeLogic {
 
     @NotNull
-    IRecipeLogic setRecipeLogic();
+    IRecipeLogicContainer setRecipeLogicContainer();
+
+    @NotNull
+    IRecipeLogicContainer getRecipeLogicContainer();
 }

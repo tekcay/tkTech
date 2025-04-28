@@ -16,11 +16,12 @@ import gregtech.api.capability.impl.AbstractRecipeLogic;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.recipes.Recipe;
 
-public interface IRecipeLogic extends IRecipePropertiesValueMap {
+public interface IRecipeLogicContainer extends IRecipePropertiesValueMap {
 
     /**
      * Adds itemStacks that are not in the inventory but in the recipe properties of the provided {@code recipe}.
      * This happens after those recipe properties were ensured.
+     * 
      * @param recipe
      * @param inputInventory the {@code handler} to add the missing stacks to.
      * @return whether it succeeded.
@@ -46,7 +47,7 @@ public interface IRecipeLogic extends IRecipePropertiesValueMap {
     AbstractRecipeLogic getAbstractRecipeLogic();
 
     @Nullable
-    IRecipeLogic getInstance(RecipeLogicType recipeLogicType);
+    IRecipeLogicContainer getInstance(RecipeLogicType recipeLogicType);
 
     default MetaTileEntity getMetaTileEntity() {
         return getAbstractRecipeLogic().getMetaTileEntity();

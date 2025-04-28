@@ -5,7 +5,6 @@ import static gregtech.api.recipes.logic.OverclockingLogic.subTickNonParallelOC;
 import java.util.*;
 import java.util.function.Supplier;
 
-import gregtech.common.items.ToolItems;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
@@ -27,6 +26,7 @@ import gregtech.api.recipes.logic.OCResult;
 import gregtech.api.recipes.properties.RecipePropertyStorage;
 import gregtech.api.util.GTUtility;
 
+import lombok.Getter;
 import tkcy.simpleaddon.api.recipes.helpers.RecipeSearchHelpers;
 import tkcy.simpleaddon.api.recipes.logic.newway.*;
 import tkcy.simpleaddon.api.recipes.properties.IRecipePropertyHelper;
@@ -38,12 +38,13 @@ public abstract class OnBlockRecipeLogic extends AbstractRecipeLogic
 
     protected Supplier<IEnergyContainer> energyContainer;
     private final Map<IRecipePropertyHelper<?>, Object> recipeParameters = new HashMap<>();
-    private final IRecipeLogic recipeLogic;
+    @Getter
+    private final IRecipeLogicContainer recipeLogicContainer;
 
     public OnBlockRecipeLogic(MetaTileEntity tileEntity, Supplier<IEnergyContainer> energyContainer,
                               RecipeMap<?>... recipeMaps) {
         super(tileEntity, recipeMaps[0]);
-        this.recipeLogic = setRecipeLogic();
+        this.recipeLogicContainer = setRecipeLogicContainer();
         if (consumesEnergy()) {
             setMaximumOverclockVoltage(getMaxVoltage());
             this.energyContainer = energyContainer;
@@ -52,12 +53,12 @@ public abstract class OnBlockRecipeLogic extends AbstractRecipeLogic
 
     @Override
     public void update() {
-        if (!recipeLogic.hasRecipeLogicType(RecipeLogicType.TOOL)) super.update();
+        if (!recipeLogicContainer.hasRecipeLogicType(RecipeLogicType.TOOL)) super.update();
     }
 
     @Override
     public void runToolRecipeLogic(ToolsModule.GtTool gtTool) {
-        ToolLogic toolLogic = getToolLogic(recipeLogic);
+        ToolLogic toolLogic = getToolLogic();
         if (toolLogic == null) return;
         toolLogic.setCurrentTool(gtTool);
 
@@ -94,14 +95,14 @@ public abstract class OnBlockRecipeLogic extends AbstractRecipeLogic
 
     @Override
     public void updateRecipeParameters(@NotNull Map<IRecipePropertyHelper<?>, Object> recipeParameters) {
-        recipeLogic.updateRecipeParameters(recipeParameters);
+        recipeLogicContainer.updateRecipeParameters(recipeParameters);
     }
 
     @Override
     protected boolean canProgressRecipe() {
         boolean canProgress = super.canProgressRecipe();
         if (!canProgress) return false;
-        return recipeLogic.canRecipeLogicProgress();
+        return recipeLogicContainer.canRecipeLogicProgress();
     }
 
     @Override
@@ -115,7 +116,7 @@ public abstract class OnBlockRecipeLogic extends AbstractRecipeLogic
         List<FluidStack> fluidStacks = GTUtility.fluidHandlerToList(getInputTank());
         List<ItemStack> itemStacks = ItemHandlerHelpers.itemHandlerToList(getInputInventory());
 
-        recipeLogic.appendToInputsForRecipeSearch(itemStacks, fluidStacks);
+        recipeLogicContainer.appendToInputsForRecipeSearch(itemStacks, fluidStacks);
         updateRecipeParameters(this.recipeParameters);
         return RecipeSearchHelpers.findFirstRecipeWithProperties(
                 getRecipeMap(),
@@ -126,11 +127,9 @@ public abstract class OnBlockRecipeLogic extends AbstractRecipeLogic
 
     @Override
     protected void outputRecipeOutputs() {
-        if (recipeLogic.hasRecipeLogicType(RecipeLogicType.IN_WORLD)) {
-            IRecipeLogic inWorldLogic = recipeLogic.getInstance(RecipeLogicType.IN_WORLD);
-            if (inWorldLogic != null) {
-                inWorldLogic.outputRecipeOutputs(itemOutputs, fluidOutputs, getOutputInventory(), getOutputTank());
-            }
+        IRecipeLogicContainer inWorldLogic = getRecipeLogicContainer().getInstance(RecipeLogicType.IN_WORLD);
+        if (inWorldLogic != null) {
+            inWorldLogic.outputRecipeOutputs(itemOutputs, fluidOutputs, getOutputInventory(), getOutputTank());
         } else super.outputRecipeOutputs();
     }
 
@@ -145,7 +144,7 @@ public abstract class OnBlockRecipeLogic extends AbstractRecipeLogic
         recipe = Recipe.trimRecipeOutputs(recipe, getRecipeMap(), metaTileEntity.getItemOutputLimit(),
                 metaTileEntity.getFluidOutputLimit());
 
-        recipeLogic.prepareRecipe(recipe, getInputInventory());
+        recipeLogicContainer.prepareRecipe(recipe, getInputInventory());
 
         if (recipe != null) {
             recipe = setupAndConsumeRecipeInputs(recipe, getInputInventory(), getInputTank());
@@ -160,14 +159,14 @@ public abstract class OnBlockRecipeLogic extends AbstractRecipeLogic
     @Override
     public void invalidate() {
         super.invalidate();
-        recipeLogic.resetLogic();
+        recipeLogicContainer.resetLogic();
         this.recipeParameters.clear();
     }
 
     @Override
     protected void completeRecipe() {
         super.completeRecipe();
-        recipeLogic.resetLogic();
+        recipeLogicContainer.resetLogic();
         this.recipeParameters.clear();
     }
 
@@ -176,14 +175,14 @@ public abstract class OnBlockRecipeLogic extends AbstractRecipeLogic
     public NBTTagCompound serializeNBT() {
         NBTTagCompound tagCompound = super.serializeNBT();
         if (!isWorking()) return tagCompound;
-        recipeLogic.serializeRecipeLogic(tagCompound);
+        recipeLogicContainer.serializeRecipeLogic(tagCompound);
         return tagCompound;
     }
 
     @Override
     public void deserializeNBT(@NotNull NBTTagCompound compound) {
         super.deserializeNBT(compound);
-        recipeLogic.deserializeRecipeLogic(compound);
+        recipeLogicContainer.deserializeRecipeLogic(compound);
     }
 
     // Energy stuff

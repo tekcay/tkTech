@@ -20,12 +20,12 @@ import tkcy.simpleaddon.api.recipes.properties.IRecipePropertyHelper;
 
 @Getter
 @AllArgsConstructor
-public class RecipeLogicsContainer implements IRecipeLogic, IRecipePropertiesValueMap {
+public class RecipeLogicsContainer implements IRecipeLogicContainer, IRecipePropertiesValueMap {
 
     private final AbstractRecipeLogic abstractRecipeLogic;
-    private final Set<IRecipeLogic> recipeLogics;
+    private final Set<IRecipeLogicContainer> recipeLogics;
 
-    public RecipeLogicsContainer(AbstractRecipeLogic abstractRecipeLogic, IRecipeLogic... recipeLogics) {
+    public RecipeLogicsContainer(AbstractRecipeLogic abstractRecipeLogic, IRecipeLogicContainer... recipeLogics) {
         this.abstractRecipeLogic = abstractRecipeLogic;
         this.recipeLogics = new HashSet<>(Arrays.asList(recipeLogics));
     }
@@ -33,7 +33,7 @@ public class RecipeLogicsContainer implements IRecipeLogic, IRecipePropertiesVal
     @Override
     public boolean canRecipeLogicProgress() {
         return recipeLogics.stream()
-                .allMatch(IRecipeLogic::canRecipeLogicProgress);
+                .allMatch(IRecipeLogicContainer::canRecipeLogicProgress);
     }
 
     @Override
@@ -44,7 +44,7 @@ public class RecipeLogicsContainer implements IRecipeLogic, IRecipePropertiesVal
 
     @Override
     public void resetLogic() {
-        recipeLogics.forEach(IRecipeLogic::resetLogic);
+        recipeLogics.forEach(IRecipeLogicContainer::resetLogic);
     }
 
     @Override
@@ -71,7 +71,7 @@ public class RecipeLogicsContainer implements IRecipeLogic, IRecipePropertiesVal
     }
 
     @Override
-    public @Nullable IRecipeLogic getInstance(RecipeLogicType recipeLogicType) {
+    public @Nullable IRecipeLogicContainer getInstance(RecipeLogicType recipeLogicType) {
         return recipeLogics.stream()
                 .filter(iRecipeLogic -> iRecipeLogic.hasRecipeLogicType(recipeLogicType))
                 .findFirst()

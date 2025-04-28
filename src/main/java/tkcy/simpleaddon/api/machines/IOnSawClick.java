@@ -1,14 +1,11 @@
 package tkcy.simpleaddon.api.machines;
 
-import gregtech.api.items.toolitem.IGTTool;
-import gregtech.api.items.toolitem.ItemGTTool;
-import gregtech.api.items.toolitem.ToolBuilder;
-import gregtech.api.items.toolitem.ToolHelper;
-import gregtech.api.metatileentity.MetaTileEntity;
-import gregtech.common.items.ToolItems;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+
+import gregtech.api.items.toolitem.ToolHelper;
+import gregtech.common.items.ToolItems;
 
 import codechicken.lib.raytracer.CuboidRayTraceResult;
 
@@ -22,11 +19,10 @@ public interface IOnSawClick {
     default boolean onSawClick(EntityPlayer playerIn, EnumHand hand,
                                EnumFacing wrenchSide,
                                CuboidRayTraceResult hitResult) {
-        playSawClick(playerIn);
         return true;
     }
 
-    default void playSawClick(EntityPlayer player) {
-        ToolHelper.playToolSound(ToolItems.SAW.getRaw(), player);
+    default void playSawClickSound(EntityPlayer player) {
+        ToolHelper.playToolSound(ToolItems.FILE.getRaw(), player);
     }
 }

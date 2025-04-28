@@ -31,24 +31,20 @@ import gregtech.api.util.GTUtility;
 import gregtech.client.renderer.texture.Textures;
 import gregtech.client.renderer.texture.cube.SimpleOverlayRenderer;
 
+import codechicken.lib.raytracer.CuboidRayTraceResult;
 import codechicken.lib.render.CCRenderState;
 import codechicken.lib.render.pipeline.ColourMultiplier;
 import codechicken.lib.render.pipeline.IVertexOperation;
 import codechicken.lib.vec.Matrix4;
-import lombok.Getter;
-import lombok.Setter;
 import tkcy.simpleaddon.api.machines.*;
 import tkcy.simpleaddon.api.recipes.logic.OnBlockRecipeLogic;
-import tkcy.simpleaddon.api.recipes.logic.newway.IRecipeLogic;
-import tkcy.simpleaddon.api.recipes.logic.newway.InWorldRecipeLogic;
-import tkcy.simpleaddon.api.recipes.logic.newway.RecipeLogicsContainer;
-import tkcy.simpleaddon.api.recipes.logic.newway.ToolLogic;
+import tkcy.simpleaddon.api.recipes.logic.newway.*;
 import tkcy.simpleaddon.api.recipes.recipemaps.TKCYSARecipeMaps;
 import tkcy.simpleaddon.api.unification.ore.TKCYSAOrePrefix;
 import tkcy.simpleaddon.modules.toolmodule.ToolsModule;
 
 public class MetaTileEntityWoodWorkshop extends ToolLogicMetaTileEntity
-                                        implements IUnificationToolMachine, IOnAnyToolClick {
+                                        implements IUnificationToolMachine, IOnAnyToolClick, IOnSawClick {
 
     private final Logic logic;
 
@@ -137,7 +133,7 @@ public class MetaTileEntityWoodWorkshop extends ToolLogicMetaTileEntity
                 .slot(this.importItems, 0, 60, 30, GuiTextures.PRIMITIVE_SLOT)
                 .slot(this.importItems, 1, 30, 30, GuiTextures.PRIMITIVE_SLOT)
                 .widget(new ClickButtonWidget(30, 60, 30, 20, "T",
-                        clickData -> logic.runToolRecipeLogic(ToolsModule.GtTool.AXE)))
+                        clickData -> logic.runToolRecipeLogic(ToolsModule.GtTool.SAW)))
                 .widget(new ClickButtonWidget(90, 60, 30, 20, "E", clickData -> logic.serializeNBT()))
                 .progressBar(this.logic::getProgressPercent, 100, 30, 18, 18, GuiTextures.PROGRESS_BAR_BENDING,
                         ProgressWidget.MoveType.HORIZONTAL, this.recipeMap)
@@ -149,15 +145,19 @@ public class MetaTileEntityWoodWorkshop extends ToolLogicMetaTileEntity
         tooltip.add(I18n.format("tkcya.tool_machine.parts.tooltip", addPartsOrePrefixInformation()));
     }
 
-    @Getter
-    @Setter
-    private static class Logic extends OnBlockRecipeLogic {
+    @Override
+    public boolean onSawClick(EntityPlayer playerIn, EnumHand hand, EnumFacing wrenchSide,
+                              CuboidRayTraceResult hitResult) {
+        if (playerIn.isSneaking()) {
+            ToolLogic toolLogic = logic.getToolLogic();
+            if (toolLogic != null && toolLogic.getRecipeTool() == ToolsModule.GtTool.SAW) {
+                playSawClickSound(playerIn);
+            }
+        }
+        return true;
+    }
 
-        private int toolUses;
-        private ToolsModule.GtTool currentTool;
-        private ToolsModule.GtTool recipeTool;
-        private ItemStack inputRecipeInWorldBlockStack;
-        private ItemStack outputRecipeInWorldBlockStack;
+    private static class Logic extends OnBlockRecipeLogic {
 
         public Logic(MetaTileEntity tileEntity, Supplier<IEnergyContainer> energyContainer,
                      RecipeMap<?>... recipeMaps) {
@@ -165,7 +165,7 @@ public class MetaTileEntityWoodWorkshop extends ToolLogicMetaTileEntity
         }
 
         @Override
-        public @NotNull IRecipeLogic setRecipeLogic() {
+        public @NotNull IRecipeLogicContainer setRecipeLogicContainer() {
             InWorldRecipeLogic inWorldRecipeLogic = new InWorldRecipeLogic.Builder(this)
                     .doesNeedInWorldBlock(mte -> mte.getPos().up())
                     .doesPlaceOutputBlock(mte -> mte.getPos().up())

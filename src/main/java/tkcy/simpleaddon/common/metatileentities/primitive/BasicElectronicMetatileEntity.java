@@ -40,7 +40,7 @@ import tkcy.simpleaddon.api.machines.IRightClickItemTransfer;
 import tkcy.simpleaddon.api.machines.ToolLogicMetaTileEntity;
 import tkcy.simpleaddon.api.recipes.logic.IToolRecipeLogic;
 import tkcy.simpleaddon.api.recipes.logic.OnBlockRecipeLogic;
-import tkcy.simpleaddon.api.recipes.logic.newway.IRecipeLogic;
+import tkcy.simpleaddon.api.recipes.logic.newway.IRecipeLogicContainer;
 import tkcy.simpleaddon.api.recipes.logic.newway.RecipeLogicsContainer;
 import tkcy.simpleaddon.api.recipes.logic.newway.ToolLogic;
 import tkcy.simpleaddon.api.recipes.recipemaps.TKCYSARecipeMaps;
@@ -148,7 +148,7 @@ public class BasicElectronicMetatileEntity extends ToolLogicMetaTileEntity
         }
 
         @Override
-        public @NotNull IRecipeLogic setRecipeLogic() {
+        public @NotNull IRecipeLogicContainer setRecipeLogicContainer() {
             return new RecipeLogicsContainer(this, new ToolLogic(this));
         }
     }
