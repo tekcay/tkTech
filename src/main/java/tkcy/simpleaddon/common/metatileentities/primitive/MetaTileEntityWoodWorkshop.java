@@ -104,10 +104,9 @@ public class MetaTileEntityWoodWorkshop extends ToolLogicMetaTileEntity
     }
 
     @Override
-    public boolean onAnyToolClick(ToolsModule.GtTool tool, boolean isPlayerSneaking) {
-        if (!isPlayerSneaking) return false;
+    public void onAnyToolClick(ToolsModule.GtTool tool, boolean isPlayerSneaking) {
+        if (!isPlayerSneaking) return;
         this.logic.runToolRecipeLogic(tool);
-        return true;
     }
 
     @Override
