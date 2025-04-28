@@ -2,6 +2,8 @@ package tkcy.simpleaddon.common.metatileentities.primitive;
 
 import static tkcy.simpleaddon.api.utils.GuiUtils.FONT_HEIGHT;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.function.Supplier;
 
 import net.minecraft.entity.player.EntityPlayer;
@@ -49,8 +51,8 @@ public class BasicElectronicMetatileEntity extends ToolLogicMetaTileEntity
     }
 
     @Override
-    protected ToolsModule.GtTool getWorkingGtTool() {
-        return ToolsModule.GtTool.SOLDERING_IRON;
+    protected List<ToolsModule.GtTool> getWorkingGtTool() {
+        return Collections.singletonList(ToolsModule.GtTool.SOLDERING_IRON);
     }
 
     @Override

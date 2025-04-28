@@ -303,8 +303,8 @@ tkcysa.casting.tooltip=§e%s §fmolds handle fluids up to §c%dK
 tkcysa.steam_melter.tooltip.1=Melts metal dusts into their fluid form.
 tkcysa.steam_melter.tooltip.2=Auto-outputs on the bottom face.
 
-tkcya.tool_machine.sneak_right_click_with_tool.tooltip.1=§aSneak-right click§7 with a §b%d §7to run recipes.
-tkcya.tool_machine.parts.tooltip=§fUsed to make §e%s
+tkcya.tool_machine.sneak_right_click_with_tool.tooltip.1=§aSneak-right click§7 with §b%d §7to run recipes.
+tkcya.tool_machine.parts.tooltip=§fUse to make §e%s
 
 tkcysa.machine.parallel.tooltip=Every additional %d layers add one parallel point
 

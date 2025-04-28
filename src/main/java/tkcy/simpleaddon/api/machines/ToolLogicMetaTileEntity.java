@@ -1,6 +1,7 @@
 package tkcy.simpleaddon.api.machines;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
@@ -32,7 +33,12 @@ public abstract class ToolLogicMetaTileEntity extends MetaTileEntity implements 
 
     @Override
     public void addInformation(ItemStack stack, @Nullable World player, List<String> tooltip, boolean advanced) {
-        tooltip.add(I18n.format("tkcya.tool_machine.sneak_right_click_with_tool.tooltip.1", getWorkingGtTool()));
+        String tools = getWorkingGtTool()
+                .stream()
+                .map(ToolsModule.GtTool::toString)
+                .collect(Collectors.joining(", "));
+
+        tooltip.add(I18n.format("tkcya.tool_machine.sneak_right_click_with_tool.tooltip.1", tools));
         addExtraTooltip(stack, player, tooltip, advanced);
         super.addInformation(stack, player, tooltip, advanced);
     }
@@ -63,7 +69,7 @@ public abstract class ToolLogicMetaTileEntity extends MetaTileEntity implements 
     @SideOnly(Side.CLIENT)
     protected abstract SimpleOverlayRenderer getBaseRenderer();
 
-    protected abstract ToolsModule.GtTool getWorkingGtTool();
+    protected abstract List<ToolsModule.GtTool> getWorkingGtTool();
 
     protected abstract OnBlockRecipeLogic initRecipeLogic();
 }

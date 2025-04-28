@@ -1,6 +1,7 @@
 package tkcy.simpleaddon.common.metatileentities.primitive;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.function.Supplier;
 
@@ -53,8 +54,8 @@ public class AnvilMetatileEntity extends ToolLogicMetaTileEntity
     }
 
     @Override
-    protected ToolsModule.GtTool getWorkingGtTool() {
-        return ToolsModule.GtTool.HARD_HAMMER;
+    protected List<ToolsModule.GtTool> getWorkingGtTool() {
+        return Collections.singletonList(ToolsModule.GtTool.HARD_HAMMER);
     }
 
     @Override
@@ -130,6 +131,11 @@ public class AnvilMetatileEntity extends ToolLogicMetaTileEntity
 
     @Override
     public boolean doesTransferInputToPlayer() {
+        return true;
+    }
+
+    @Override
+    public boolean showSpecialRightClickTooltips() {
         return true;
     }
 

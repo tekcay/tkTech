@@ -48,8 +48,14 @@ public class MetaTileEntityWoodWorkshop extends ToolLogicMetaTileEntity
     }
 
     @Override
-    protected ToolsModule.GtTool getWorkingGtTool() {
-        return ToolsModule.GtTool.AXE;
+    protected List<ToolsModule.GtTool> getWorkingGtTool() {
+        return new ArrayList<>() {
+
+            {
+                add(ToolsModule.GtTool.AXE);
+                add(ToolsModule.GtTool.SAW);
+            }
+        };
     }
 
     @Override
