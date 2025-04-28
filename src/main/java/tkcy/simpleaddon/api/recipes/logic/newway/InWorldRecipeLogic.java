@@ -136,17 +136,20 @@ public class InWorldRecipeLogic implements IRecipeLogicContainer, IRecipePropert
 
     @Override
     public boolean prepareRecipe(@NotNull Recipe recipe, IItemHandler inputInventory) {
-        ItemStack toAdd = getInputRecipeInWorldBlockStack(recipe);
-        ItemStack remainder = GTTransferUtils.insertItem(inputInventory, toAdd, true);
-        if (remainder != null && !remainder.isEmpty()) return false;
+        if (doesNeedInWorldBlock) {
+            ItemStack toAdd = getInputRecipeInWorldBlockStack(recipe);
+            ItemStack remainder = GTTransferUtils.insertItem(inputInventory, toAdd, true);
+            if (remainder != null && !remainder.isEmpty()) return false;
 
-        GTTransferUtils.insertItem(inputInventory, toAdd, false);
-        setInputRecipeInWorldBlockStack(toAdd);
+            GTTransferUtils.insertItem(inputInventory, toAdd, false);
+            setInputRecipeInWorldBlockStack(toAdd);
+        }
 
-        @Nullable
-        ItemStack toOutput = getOutputRecipeInWorldBlockStack(recipe);
-        setOutputRecipeInWorldBlockStack(toOutput);
-
+        if (doesPlaceOutputBlock) {
+            @Nullable
+            ItemStack toOutput = getOutputRecipeInWorldBlockStack(recipe);
+            setOutputRecipeInWorldBlockStack(toOutput);
+        }
         return true;
     }
 

@@ -44,6 +44,7 @@ import tkcy.simpleaddon.api.machines.ToolLogicMetaTileEntity;
 import tkcy.simpleaddon.api.recipes.logic.IToolRecipeLogic;
 import tkcy.simpleaddon.api.recipes.logic.OnBlockRecipeLogic;
 import tkcy.simpleaddon.api.recipes.logic.newway.IRecipeLogicContainer;
+import tkcy.simpleaddon.api.recipes.logic.newway.InWorldRecipeLogic;
 import tkcy.simpleaddon.api.recipes.logic.newway.RecipeLogicsContainer;
 import tkcy.simpleaddon.api.recipes.logic.newway.ToolLogic;
 import tkcy.simpleaddon.api.recipes.recipemaps.TKCYSARecipeMaps;
@@ -150,7 +151,10 @@ public class AnvilMetatileEntity extends ToolLogicMetaTileEntity
 
         @Override
         public @NotNull IRecipeLogicContainer setRecipeLogicContainer() {
-            return new RecipeLogicsContainer(this, new ToolLogic(this));
+            InWorldRecipeLogic inWorldRecipeLogic = new InWorldRecipeLogic.Builder(this)
+                    .doesSpawnOutputItems()
+                    .build();
+            return new RecipeLogicsContainer(this, new ToolLogic(this), inWorldRecipeLogic);
         }
     }
 }
