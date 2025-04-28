@@ -12,7 +12,6 @@ import stanhebben.zenscript.annotations.ZenProperty;
 import tkcy.simpleaddon.api.recipes.builders.AdvancedRecipeBuilder;
 import tkcy.simpleaddon.api.recipes.builders.CoilTypeRecipeBuilder;
 import tkcy.simpleaddon.api.recipes.builders.NoEnergyRecipeBuilder;
-import tkcy.simpleaddon.api.recipes.builders.ToolRecipeBuilder;
 import tkcy.simpleaddon.modules.toolmodule.WorkingTool;
 
 @UtilityClass

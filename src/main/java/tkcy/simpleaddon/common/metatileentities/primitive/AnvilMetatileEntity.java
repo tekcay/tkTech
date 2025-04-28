@@ -4,15 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 
-import gregtech.api.capability.IEnergyContainer;
-import gregtech.api.recipes.RecipeMap;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraftforge.items.IItemHandlerModifiable;
 
@@ -20,14 +17,12 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import gregtech.api.capability.IEnergyContainer;
 import gregtech.api.capability.impl.NotifiableItemStackHandler;
-import gregtech.api.gui.GuiTextures;
-import gregtech.api.gui.ModularUI;
-import gregtech.api.gui.widgets.LabelWidget;
-import gregtech.api.gui.widgets.ProgressWidget;
 import gregtech.api.items.itemhandlers.GTItemStackHandler;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
+import gregtech.api.recipes.RecipeMap;
 import gregtech.api.unification.ore.OrePrefix;
 import gregtech.api.util.GTUtility;
 import gregtech.client.renderer.texture.Textures;
@@ -101,7 +96,7 @@ public class AnvilMetatileEntity extends ToolLogicMetaTileEntity
 
     @Override
     public boolean onHardHammerClick(EntityPlayer playerIn, EnumHand hand, EnumFacing facing,
-                                                  CuboidRayTraceResult hitResult) {
+                                     CuboidRayTraceResult hitResult) {
         if (!playerIn.isSneaking()) return false;
         getLogic().runToolRecipeLogic(ToolsModule.GtTool.HARD_HAMMER);
         return true;
@@ -110,6 +105,7 @@ public class AnvilMetatileEntity extends ToolLogicMetaTileEntity
     @Override
     public @NotNull List<OrePrefix> getPartsOrePrefixes() {
         return new ArrayList<>() {
+
             {
                 add(OrePrefix.plate);
                 add(OrePrefix.plateDouble);

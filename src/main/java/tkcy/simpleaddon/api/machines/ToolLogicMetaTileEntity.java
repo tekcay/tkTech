@@ -2,9 +2,7 @@ package tkcy.simpleaddon.api.machines;
 
 import java.util.List;
 
-import lombok.Getter;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
@@ -13,13 +11,11 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import org.jetbrains.annotations.Nullable;
 
-import gregtech.api.gui.ModularUI;
 import gregtech.api.metatileentity.MetaTileEntity;
-import gregtech.api.recipes.RecipeMap;
 import gregtech.client.renderer.texture.cube.SimpleOverlayRenderer;
 
+import lombok.Getter;
 import tkcy.simpleaddon.api.recipes.logic.OnBlockRecipeLogic;
-import tkcy.simpleaddon.api.recipes.logic.ToolRecipeLogic;
 import tkcy.simpleaddon.modules.toolmodule.ToolsModule;
 import tkcy.simpleaddon.modules.toolmodule.WorkingTool;
 

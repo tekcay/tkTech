@@ -2,12 +2,10 @@ package tkcy.simpleaddon.common.metatileentities.primitive;
 
 import static tkcy.simpleaddon.api.utils.GuiUtils.FONT_HEIGHT;
 
-import java.util.List;
 import java.util.function.Supplier;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.items.IItemHandlerModifiable;
@@ -29,14 +27,10 @@ import gregtech.api.util.GTUtility;
 import gregtech.client.renderer.texture.Textures;
 import gregtech.client.renderer.texture.cube.SimpleOverlayRenderer;
 
-import codechicken.lib.raytracer.CuboidRayTraceResult;
 import codechicken.lib.render.CCRenderState;
 import codechicken.lib.render.pipeline.ColourMultiplier;
 import codechicken.lib.render.pipeline.IVertexOperation;
 import codechicken.lib.vec.Matrix4;
-import lombok.Getter;
-import lombok.Setter;
-import tkcy.simpleaddon.api.machines.IOnSolderingIronClick;
 import tkcy.simpleaddon.api.machines.IRightClickItemTransfer;
 import tkcy.simpleaddon.api.machines.ToolLogicMetaTileEntity;
 import tkcy.simpleaddon.api.recipes.logic.IToolRecipeLogic;
