@@ -1,4 +1,4 @@
-package tkcy.simpleaddon.api.recipes.logic.newway;
+package tkcy.simpleaddon.api.recipes.logic.impl;
 
 import java.util.List;
 import java.util.Map;
@@ -22,6 +22,9 @@ import gregtech.api.util.GTTransferUtils;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+import tkcy.simpleaddon.api.recipes.logic.IRecipeLogicContainer;
+import tkcy.simpleaddon.api.recipes.logic.IRecipePropertiesValueMap;
+import tkcy.simpleaddon.api.recipes.logic.RecipeLogicType;
 import tkcy.simpleaddon.api.recipes.properties.IRecipePropertyHelper;
 import tkcy.simpleaddon.api.recipes.properties.InputBlockStateRecipeProperty;
 import tkcy.simpleaddon.api.recipes.properties.OutputBlockStateRecipeProperty;

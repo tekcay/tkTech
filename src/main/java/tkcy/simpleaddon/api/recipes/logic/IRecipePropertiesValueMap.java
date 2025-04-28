@@ -1,4 +1,4 @@
-package tkcy.simpleaddon.api.recipes.logic.newway;
+package tkcy.simpleaddon.api.recipes.logic;
 
 import java.util.Map;
 

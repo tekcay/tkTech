@@ -33,11 +33,11 @@ import codechicken.lib.render.pipeline.IVertexOperation;
 import codechicken.lib.vec.Matrix4;
 import tkcy.simpleaddon.api.machines.IRightClickItemTransfer;
 import tkcy.simpleaddon.api.machines.ToolLogicMetaTileEntity;
+import tkcy.simpleaddon.api.recipes.logic.IRecipeLogicContainer;
 import tkcy.simpleaddon.api.recipes.logic.IToolRecipeLogic;
 import tkcy.simpleaddon.api.recipes.logic.OnBlockRecipeLogic;
-import tkcy.simpleaddon.api.recipes.logic.newway.IRecipeLogicContainer;
-import tkcy.simpleaddon.api.recipes.logic.newway.RecipeLogicsContainer;
-import tkcy.simpleaddon.api.recipes.logic.newway.ToolLogic;
+import tkcy.simpleaddon.api.recipes.logic.impl.RecipeLogicsContainer;
+import tkcy.simpleaddon.api.recipes.logic.impl.ToolLogic;
 import tkcy.simpleaddon.api.recipes.recipemaps.TKCYSARecipeMaps;
 import tkcy.simpleaddon.modules.toolmodule.ToolsModule;
 

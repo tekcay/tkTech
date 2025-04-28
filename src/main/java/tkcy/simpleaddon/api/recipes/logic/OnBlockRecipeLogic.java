@@ -28,7 +28,7 @@ import gregtech.api.util.GTUtility;
 
 import lombok.Getter;
 import tkcy.simpleaddon.api.recipes.helpers.RecipeSearchHelpers;
-import tkcy.simpleaddon.api.recipes.logic.newway.*;
+import tkcy.simpleaddon.api.recipes.logic.impl.ToolLogic;
 import tkcy.simpleaddon.api.recipes.properties.IRecipePropertyHelper;
 import tkcy.simpleaddon.api.utils.item.ItemHandlerHelpers;
 import tkcy.simpleaddon.modules.toolmodule.ToolsModule;

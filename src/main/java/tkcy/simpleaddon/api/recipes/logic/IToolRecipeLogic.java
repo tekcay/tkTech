@@ -2,8 +2,7 @@ package tkcy.simpleaddon.api.recipes.logic;
 
 import org.jetbrains.annotations.Nullable;
 
-import tkcy.simpleaddon.api.recipes.logic.newway.RecipeLogicType;
-import tkcy.simpleaddon.api.recipes.logic.newway.ToolLogic;
+import tkcy.simpleaddon.api.recipes.logic.impl.ToolLogic;
 import tkcy.simpleaddon.modules.toolmodule.ToolsModule;
 
 public interface IToolRecipeLogic {
