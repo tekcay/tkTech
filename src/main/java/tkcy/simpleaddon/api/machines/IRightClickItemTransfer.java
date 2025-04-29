@@ -78,7 +78,7 @@ public interface IRightClickItemTransfer {
     }
 
     default boolean showSpecialRightClickTooltips() {
-        return true;
+        return false;
     }
 
     default void transferHandStackToInputTooltip(@NotNull List<String> tooltip) {

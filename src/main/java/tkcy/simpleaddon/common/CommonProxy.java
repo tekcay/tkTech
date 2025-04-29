@@ -19,6 +19,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.registries.IForgeRegistry;
 
 import gregtech.api.GregTechAPI;
+import gregtech.api.block.VariantItemBlock;
 import gregtech.api.items.toolitem.IGTTool;
 import gregtech.api.metatileentity.registry.MTEManager;
 import gregtech.api.unification.material.event.MaterialEvent;
@@ -71,6 +72,8 @@ public class CommonProxy {
             registry.register(blockMaterialWall);
         for (BlockMaterialCoil blockMaterialCoil : TKCYSAMetaBlocks.COIL_BLOCKS)
             registry.register(blockMaterialCoil);
+
+        registry.register(TKCYSAMetaBlocks.STRIPPED_WOOD);
     }
 
     @SubscribeEvent(priority = EventPriority.NORMAL)
@@ -94,6 +97,8 @@ public class CommonProxy {
         for (BlockMaterialCoil block : TKCYSAMetaBlocks.COIL_BLOCKS) {
             registry.register(createItemBlock(block, b -> new MaterialItemBlock(b, TKCYSAOrePrefix.coil)));
         }
+
+        registry.register(createItemBlock(TKCYSAMetaBlocks.STRIPPED_WOOD, VariantItemBlock::new));
     }
 
     private static <T extends Block> ItemBlock createItemBlock(T block, Function<T, ItemBlock> producer) {

@@ -13,6 +13,7 @@ public class OrePrefixRegistry {
         addOrePrefix(TKCYSAOrePrefix.anode);
         addOrePrefix(TKCYSAOrePrefix.cathode);
         addOrePrefix(curvedPlate);
+        addOrePrefix(strippedWood);
 
         registerComponentsOres();
         registerToolOres();

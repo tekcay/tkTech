@@ -59,6 +59,8 @@ public final class TKCYSARecipeLoader {
             GalvanizedSteelRecipes.init();
             HarderMachineCasings.init();
         }
+        if (harderStuff.enableHarderWoodCrafting) HarderWood.register();
+        if (harderStuff.enableHarderCircuitsCrafting) HarderCircuits.register();
     }
 
     private static void chains() {

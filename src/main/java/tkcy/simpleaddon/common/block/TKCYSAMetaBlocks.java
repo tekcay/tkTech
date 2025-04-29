@@ -1,17 +1,25 @@
 package tkcy.simpleaddon.common.block;
 
+import static gregtech.client.model.modelfactories.MaterialBlockModelLoader.registerItemModel;
+
 import java.util.*;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.color.BlockColors;
 import net.minecraft.client.renderer.color.ItemColors;
+import net.minecraft.item.Item;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import org.jetbrains.annotations.NotNull;
 
 import gregtech.api.unification.material.Material;
+import gregtech.common.blocks.MetaBlocks;
 
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.experimental.UtilityClass;
@@ -29,6 +37,8 @@ public class TKCYSAMetaBlocks {
     public static final List<BlockMaterialCasing> CASINGS_BLOCKS = new ArrayList<>();
     public static final List<BlockMaterialWall> WALLS_BLOCKS = new ArrayList<>();
     public static final List<BlockMaterialCoil> COIL_BLOCKS = new ArrayList<>();
+
+    public static BlockStrippedWood STRIPPED_WOOD;
 
     public enum TranslationKeys {
         meta_block_casing,
@@ -51,6 +61,9 @@ public class TKCYSAMetaBlocks {
                 BlockMaterialCoil::create,
                 TranslationKeys.meta_block_coil,
                 material -> material.hasFlag(TKCYSAMaterialFlags.GENERATE_COIL));
+
+        STRIPPED_WOOD = new BlockStrippedWood();
+        STRIPPED_WOOD.setRegistryName("stripped_wood");
     }
 
     @SideOnly(Side.CLIENT)
@@ -58,6 +71,8 @@ public class TKCYSAMetaBlocks {
         for (BlockMaterialCasing blockMaterialCasing : CASINGS_BLOCKS) blockMaterialCasing.onModelRegister();
         for (BlockMaterialWall blockMaterialWall : WALLS_BLOCKS) blockMaterialWall.onModelRegister();
         for (BlockMaterialCoil blockMaterialCoil : COIL_BLOCKS) blockMaterialCoil.onModelRegister();
+
+        registerItemModel(STRIPPED_WOOD);
     }
 
     @SideOnly(Side.CLIENT)
@@ -80,5 +95,19 @@ public class TKCYSAMetaBlocks {
     private static <T extends Comparable<T>> @NotNull String getPropertyName(@NotNull IProperty<T> property,
                                                                              Comparable<?> value) {
         return property.getName((T) value);
+    }
+
+    /**
+     * From {@link MetaBlocks}.
+     */
+    @SideOnly(Side.CLIENT)
+    public static void registerItemModel(Block block) {
+        for (IBlockState state : block.getBlockState().getValidStates()) {
+            // noinspection ConstantConditions
+            ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block),
+                    block.getMetaFromState(state),
+                    new ModelResourceLocation(block.getRegistryName(),
+                            MetaBlocks.statePropertiesToString(state.getProperties())));
+        }
     }
 }

@@ -9,9 +9,9 @@ import crafttweaker.annotations.ZenRegister;
 import lombok.experimental.UtilityClass;
 import stanhebben.zenscript.annotations.ZenExpansion;
 import stanhebben.zenscript.annotations.ZenProperty;
+import tkcy.simpleaddon.api.recipes.builders.AdvancedRecipeBuilder;
 import tkcy.simpleaddon.api.recipes.builders.CoilTypeRecipeBuilder;
 import tkcy.simpleaddon.api.recipes.builders.NoEnergyRecipeBuilder;
-import tkcy.simpleaddon.api.recipes.builders.ToolRecipeBuilder;
 import tkcy.simpleaddon.modules.toolmodule.WorkingTool;
 
 @UtilityClass
@@ -95,11 +95,15 @@ public final class TKCYSARecipeMaps {
 
     @WorkingTool
     @ZenProperty
-    public static final RecipeMap<ToolRecipeBuilder> ANVIL_RECIPES = new ToolRecipeMap<>(
-            "anvil_recipes", 2, 2, 0, 0, new ToolRecipeBuilder(), false);
+    public static final RecipeMap<AdvancedRecipeBuilder> ANVIL_RECIPES = new RecipeMap<>(
+            "anvil_recipes", 2, 2, 0, 0, new AdvancedRecipeBuilder(), false);
 
     @WorkingTool
     @ZenProperty
-    public static final RecipeMap<ToolRecipeBuilder> BASIC_ELECTRONIC_RECIPES = new ToolRecipeMap<>(
-            "basic_electronic_recipes", 10, 1, 1, 0, new ToolRecipeBuilder(), false);
+    public static final RecipeMap<AdvancedRecipeBuilder> BASIC_ELECTRONIC_RECIPES = new RecipeMap<>(
+            "basic_electronic_recipes", 10, 1, 1, 0, new AdvancedRecipeBuilder(), false);
+    @WorkingTool
+    @ZenProperty
+    public static final RecipeMap<AdvancedRecipeBuilder> WOOD_WORKSHOP_RECIPES = new RecipeMap<>(
+            "wood_workshop_recipes", 2, 2, 0, 0, new AdvancedRecipeBuilder(), false);
 }

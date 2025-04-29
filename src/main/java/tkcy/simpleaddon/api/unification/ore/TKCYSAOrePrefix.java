@@ -62,4 +62,7 @@ public class TKCYSAOrePrefix {
             ENABLE_UNIFICATION, null);
     public static final OrePrefix coil = new OrePrefix("coil", M * 9, null, TKCYSAMaterialIconType.coil,
             ENABLE_UNIFICATION, null);
+    public static final OrePrefix strippedWood = new OrePrefix("strippedWood", M * 9, MarkerMaterials.Empty,
+            TKCYSAMaterialIconType.strippedWood,
+            SELF_REFERENCING, null);
 }

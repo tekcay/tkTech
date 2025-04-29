@@ -9,16 +9,13 @@ import net.minecraft.nbt.NBTTagInt;
 
 import org.jetbrains.annotations.NotNull;
 
-import gregtech.api.recipes.RecipeBuilder;
 import gregtech.api.recipes.properties.RecipeProperty;
-import gregtech.api.util.EnumValidationResult;
 
-import tkcy.simpleaddon.api.utils.TKCYSALog;
 import tkcy.simpleaddon.modules.RecipePropertiesKey;
 import tkcy.simpleaddon.modules.toolmodule.WorkingTool;
 
 @WorkingTool
-public class ToolUsesProperty extends RecipeProperty<Integer> implements RecipePropertyHelper<Integer> {
+public class ToolUsesProperty extends RecipeProperty<Integer> implements IRecipePropertyHelper<Integer> {
 
     public static final String KEY = RecipePropertiesKey.TOOL_USAGE_KEY;
     private static ToolUsesProperty INSTANCE;
@@ -49,17 +46,6 @@ public class ToolUsesProperty extends RecipeProperty<Integer> implements RecipeP
     public void drawInfo(Minecraft minecraft, int x, int y, int color, Object value) {
         Integer uses = castValue(value);
         minecraft.fontRenderer.drawString(I18n.format("tkcya.recipe.tool.uses", uses), x, y, color);
-    }
-
-    @Override
-    public RecipeBuilder<?> testAndApplyPropertyValue(Integer valueToTest, EnumValidationResult recipeStatus,
-                                                      RecipeBuilder<?> recipeBuilder) {
-        if (!this.testSuppliedValue().test(valueToTest)) {
-            TKCYSALog.logger.error(this::getErrorMessage, new IllegalArgumentException());
-            recipeStatus = EnumValidationResult.INVALID;
-        }
-        recipeBuilder.applyProperty(this, valueToTest);
-        return recipeBuilder;
     }
 
     @Override

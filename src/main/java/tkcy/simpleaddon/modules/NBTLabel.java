@@ -9,7 +9,13 @@ public enum NBTLabel {
     ITEM_INVENTORY,
     ITEM_QUANTITY,
     SLOT_INDEX,
-    TOTAL_CAPACITY;
+    TOTAL_CAPACITY,
+    BLOCK_POS_X,
+    BLOCK_POS_Y,
+    BLOCK_POS_Z,
+    TOOL_ORDINAL,
+    INPUT_IN_WORLD_STACK,
+    OUTPUT_IN_WORLD_STACK;
 
     @Override
     public String toString() {

@@ -45,5 +45,7 @@ public class TKCYSAConfigHolder {
         public boolean enableHarderFineWires = true;
         public boolean enableHarderRotors = true;
         public boolean enablePrimitiveCrafting = true;
+        public boolean enableHarderWoodCrafting = true;
+        public boolean enableHarderCircuitsCrafting = true;
     }
 }

@@ -20,7 +20,7 @@ import tkcy.simpleaddon.api.utils.TKCYSALog;
 import tkcy.simpleaddon.modules.RecipePropertiesKey;
 
 public class CoilTypeProperty extends RecipeProperty<BlockWireCoil.CoilType>
-                              implements RecipePropertyHelper<BlockWireCoil.CoilType> {
+                              implements IRecipePropertyHelper<BlockWireCoil.CoilType> {
 
     public static final String KEY = RecipePropertiesKey.COIL_KEY;
     private static CoilTypeProperty INSTANCE;
@@ -83,7 +83,7 @@ public class CoilTypeProperty extends RecipeProperty<BlockWireCoil.CoilType>
 
     @Override
     public String getErrorMessage() {
-        return "Not valid CoildType!";
+        return "Not valid CoilType!";
     }
 
     @Override

@@ -184,6 +184,7 @@ tkcysa.machine.rolling_mill.iv.name=Rolling Mill IV
 
 tkcysa.machine.anvil.name=Anvil
 tkcysa.machine.basic_electronic.name=Basic Electronic Worker
+tkcysa.machine.wood_workshop.name=Wood Workshop
 
 tkcysa.machine.modulable_tank_valve.steel.name=Valve Tank Steel
 tkcysa.machine.modulable_tank_valve.stainless_steel.name=Valve Tank Stainless Steel
@@ -247,6 +248,7 @@ recipemap.primitive_dust_mixing.name=Primtive Dust Mixing
 recipemap.primitive_smelting.name=Primitive Smelting
 recipemap.rolling.name=Roll Bending
 recipemap.anvil_recipes.name=Anvil Recipes
+recipemap.wood_workshop_recipes.name=Wood Recipes
 
 # Ore Prefixes
 item.material.oreprefix.cathode=%s Cathode
@@ -257,6 +259,7 @@ item.material.oreprefix.curved_plate=%s Curved Plate
 item.material.oreprefix.casing=%s Casing
 item.material.oreprefix.wall=%s Wall
 item.material.oreprefix.coil=%s Coil
+item.material.oreprefix.stripped_wood=%s Stripped Log
 # MetaItems
 metaitem.mica.sheet.name=Mica Based Sheet
 metaitem.mica_insulator.sheet.name=Mica Insulator Sheet
@@ -300,8 +303,8 @@ tkcysa.casting.tooltip=§e%s §fmolds handle fluids up to §c%dK
 tkcysa.steam_melter.tooltip.1=Melts metal dusts into their fluid form.
 tkcysa.steam_melter.tooltip.2=Auto-outputs on the bottom face.
 
-tkcya.tool_machine.sneak_right_click_with_tool.tooltip.1=§aSneak-right click§7 with a §b%d §7to run recipes.
-tkcya.tool_machine.parts.tooltip=§fUsed to make §e%s
+tkcya.tool_machine.sneak_right_click_with_tool.tooltip.1=§aSneak-right click§7 with §b%d §7to run recipes.
+tkcya.tool_machine.parts.tooltip=§fUse to make §e%s
 
 tkcysa.machine.parallel.tooltip=Every additional %d layers add one parallel point
 
@@ -313,6 +316,7 @@ tkcysa.metatilentity.special_right.show_tooltips=Hold CTRL to show special Right
 tkcysa.metatileentity.transfer_output_to_player.tooltip=§dRight-click§7 with an §fempty hand§7 to get the machine §6output
 tkcysa.metatileentity.transfer_input_to_player.tooltip=§dRight-click§7 with an §fempty hand§7 to get the machine §ainput
 tkcysa.metatileentity.transfer_hand_stack_to_input.tooltip=§dRight-click§7 to put your §fheld item§7 to the machine §ainput
+tkcysa.metatileentity.on_any_tool_click.sneak.invalidate.tooltip=Sneak-right click with the wrong tool §cinvalidates§r the recipe
 
 ##Modulable Storage
 tkcysa.multiblock.modulable_storage.content=%s
@@ -337,6 +341,15 @@ tkcya.recipe.tool.uses=Tool uses: %d
 
 gregtech.recipe.cleanroom_nitrogen.display_name=Nitrogen Cleanroom
 gregtech.recipe.cleanroom_argon.display_name=Argon Cleanroom
+
+## Blocks
+tile.stripped_wood.oak_stripped.name=Stripped Oak Log
+tile.stripped_wood.dark_oak_stripped.name=Stripped Dark Oak Log
+tile.stripped_wood.acacia_stripped.name=Stripped Acacia Log
+tile.stripped_wood.spruce_stripped.name=Stripped Spruce Log
+tile.stripped_wood.jungle_stripped.name=Stripped Jungle Log
+tile.stripped_wood.birch_stripped.name=Stripped Birch Log
+tile.stripped_wood.rubber_stripped.name=Stripped Rubber Log
 
 
 

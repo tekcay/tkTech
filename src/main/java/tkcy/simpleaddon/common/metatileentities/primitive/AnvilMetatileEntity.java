@@ -1,7 +1,9 @@
 package tkcy.simpleaddon.common.metatileentities.primitive;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.function.Supplier;
 
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
@@ -16,14 +18,12 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import gregtech.api.capability.IEnergyContainer;
 import gregtech.api.capability.impl.NotifiableItemStackHandler;
-import gregtech.api.gui.GuiTextures;
-import gregtech.api.gui.ModularUI;
-import gregtech.api.gui.widgets.LabelWidget;
-import gregtech.api.gui.widgets.ProgressWidget;
 import gregtech.api.items.itemhandlers.GTItemStackHandler;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
+import gregtech.api.recipes.RecipeMap;
 import gregtech.api.unification.ore.OrePrefix;
 import gregtech.api.util.GTUtility;
 import gregtech.client.renderer.texture.Textures;
@@ -37,6 +37,12 @@ import codechicken.lib.vec.Matrix4;
 import tkcy.simpleaddon.api.machines.IRightClickItemTransfer;
 import tkcy.simpleaddon.api.machines.IUnificationToolMachine;
 import tkcy.simpleaddon.api.machines.ToolLogicMetaTileEntity;
+import tkcy.simpleaddon.api.recipes.logic.IRecipeLogicContainer;
+import tkcy.simpleaddon.api.recipes.logic.IToolRecipeLogic;
+import tkcy.simpleaddon.api.recipes.logic.OnBlockRecipeLogic;
+import tkcy.simpleaddon.api.recipes.logic.impl.InWorldRecipeLogic;
+import tkcy.simpleaddon.api.recipes.logic.impl.RecipeLogicsContainer;
+import tkcy.simpleaddon.api.recipes.logic.impl.ToolLogic;
 import tkcy.simpleaddon.api.recipes.recipemaps.TKCYSARecipeMaps;
 import tkcy.simpleaddon.modules.toolmodule.ToolsModule;
 
@@ -44,12 +50,12 @@ public class AnvilMetatileEntity extends ToolLogicMetaTileEntity
                                  implements IUnificationToolMachine, IRightClickItemTransfer {
 
     public AnvilMetatileEntity(ResourceLocation metaTileEntityId) {
-        super(metaTileEntityId, TKCYSARecipeMaps.ANVIL_RECIPES, true);
+        super(metaTileEntityId);
     }
 
     @Override
-    protected ToolsModule.GtTool getWorkingGtTool() {
-        return ToolsModule.GtTool.HARD_HAMMER;
+    protected List<ToolsModule.GtTool> getWorkingGtTool() {
+        return Collections.singletonList(ToolsModule.GtTool.HARD_HAMMER);
     }
 
     @Override
@@ -59,7 +65,7 @@ public class AnvilMetatileEntity extends ToolLogicMetaTileEntity
 
     @Override
     protected IItemHandlerModifiable createImportItemHandler() {
-        return new NotifiableItemStackHandler(this, 1, this, false);
+        return new NotifiableItemStackHandler(this, 2, this, false);
     }
 
     @Override
@@ -87,6 +93,17 @@ public class AnvilMetatileEntity extends ToolLogicMetaTileEntity
     }
 
     @Override
+    public void onAnyToolClick(ToolsModule.GtTool tool, boolean isPlayerSneaking) {}
+
+    @Override
+    public boolean onHardHammerClick(EntityPlayer playerIn, EnumHand hand, EnumFacing facing,
+                                     CuboidRayTraceResult hitResult) {
+        if (!playerIn.isSneaking()) return false;
+        getLogic().runToolRecipeLogic(ToolsModule.GtTool.HARD_HAMMER);
+        return true;
+    }
+
+    @Override
     public @NotNull List<OrePrefix> getPartsOrePrefixes() {
         return new ArrayList<>() {
 
@@ -98,27 +115,8 @@ public class AnvilMetatileEntity extends ToolLogicMetaTileEntity
     }
 
     @Override
-    public boolean onHardHammerClick(EntityPlayer playerIn, EnumHand hand, EnumFacing facing,
-                                     CuboidRayTraceResult hitResult) {
-        if (!playerIn.isSneaking()) return false;
-        this.logic.startWorking(getWorkingGtTool());
-        return true;
-    }
-
-    @Override
-    protected boolean openGUIOnRightClick() {
-        return false;
-    }
-
-    @Override
-    protected ModularUI.Builder createUITemplate(EntityPlayer entityPlayer) {
-        return ModularUI.builder(GuiTextures.PRIMITIVE_BACKGROUND, 176, 166)
-                .shouldColor(false)
-                .widget(new LabelWidget(5, 5, getMetaFullName()))
-                .slot(this.importItems, 0, 60, 30, GuiTextures.PRIMITIVE_SLOT)
-                .progressBar(this.logic::getProgressPercent, 100, 30, 18, 18, GuiTextures.PROGRESS_BAR_BENDING,
-                        ProgressWidget.MoveType.HORIZONTAL, this.recipeMap)
-                .bindPlayerInventory(entityPlayer.inventory, GuiTextures.SLOT, 0);
+    protected OnBlockRecipeLogic initRecipeLogic() {
+        return new Logic(this, null, TKCYSARecipeMaps.ANVIL_RECIPES);
     }
 
     @Override
@@ -134,5 +132,31 @@ public class AnvilMetatileEntity extends ToolLogicMetaTileEntity
     @Override
     public boolean doesTransferInputToPlayer() {
         return true;
+    }
+
+    @Override
+    public boolean showSpecialRightClickTooltips() {
+        return true;
+    }
+
+    private static class Logic extends OnBlockRecipeLogic implements IToolRecipeLogic {
+
+        public Logic(MetaTileEntity tileEntity, Supplier<IEnergyContainer> energyContainer,
+                     RecipeMap<?>... recipeMaps) {
+            super(tileEntity, energyContainer, recipeMaps);
+        }
+
+        @Override
+        public boolean consumesEnergy() {
+            return false;
+        }
+
+        @Override
+        public @NotNull IRecipeLogicContainer setRecipeLogicContainer() {
+            InWorldRecipeLogic inWorldRecipeLogic = new InWorldRecipeLogic.Builder(this)
+                    .doesSpawnOutputItems()
+                    .build();
+            return new RecipeLogicsContainer(this, new ToolLogic(this), inWorldRecipeLogic);
+        }
     }
 }
