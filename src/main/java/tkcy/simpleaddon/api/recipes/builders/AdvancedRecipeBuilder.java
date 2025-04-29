@@ -46,7 +46,7 @@ public class AdvancedRecipeBuilder extends RecipeBuilder<AdvancedRecipeBuilder> 
         return inputBlockInWorld(input);
     }
 
-    private AdvancedRecipeBuilder inputBlockInWorld(ItemStack itemStack) {
+    public AdvancedRecipeBuilder inputBlockInWorld(ItemStack itemStack) {
         this.inputs(itemStack);
         InputBlockStateRecipeProperty recipeProperty = InputBlockStateRecipeProperty.getInstance();
         return (AdvancedRecipeBuilder) recipeProperty.testAndApplyPropertyValue(itemStack, this.recipeStatus, this);
@@ -62,7 +62,7 @@ public class AdvancedRecipeBuilder extends RecipeBuilder<AdvancedRecipeBuilder> 
         return outputBlockInWorld(output);
     }
 
-    private AdvancedRecipeBuilder outputBlockInWorld(ItemStack itemStack) {
+    public AdvancedRecipeBuilder outputBlockInWorld(ItemStack itemStack) {
         this.outputs(itemStack);
         OutputBlockStateRecipeProperty recipeProperty = OutputBlockStateRecipeProperty.getInstance();
         return (AdvancedRecipeBuilder) recipeProperty.testAndApplyPropertyValue(itemStack, this.recipeStatus, this);
