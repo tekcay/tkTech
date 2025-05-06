@@ -18,10 +18,7 @@ import tkcy.simpleaddon.common.metatileentities.electric.*;
 import tkcy.simpleaddon.common.metatileentities.multiblockpart.BrickFluidHatch;
 import tkcy.simpleaddon.common.metatileentities.multiblockpart.BrickItemBus;
 import tkcy.simpleaddon.common.metatileentities.multiprimitive.*;
-import tkcy.simpleaddon.common.metatileentities.primitive.AnvilMetatileEntity;
-import tkcy.simpleaddon.common.metatileentities.primitive.BasicElectronicMetatileEntity;
-import tkcy.simpleaddon.common.metatileentities.primitive.MetaTileEntityWoodWorkshop;
-import tkcy.simpleaddon.common.metatileentities.primitive.PrimitiveCasting;
+import tkcy.simpleaddon.common.metatileentities.primitive.*;
 import tkcy.simpleaddon.common.metatileentities.steam.SteamDustMixer;
 import tkcy.simpleaddon.common.metatileentities.steam.SteamMelter;
 import tkcy.simpleaddon.common.metatileentities.storage.MetaTileEntityModulableChestValve;
@@ -50,6 +47,7 @@ public class TKCYSAMetaTileEntities {
     public static MetaTileEntityAdvancedCleanroom ADVANCED_CLEANROOM;
     public static BasicElectronicMetatileEntity BASIC_ELECTRONIC;
     public static MetaTileEntityWoodWorkshop WOOD_WORKSHOP;
+    public static PrimitiveBath PRIMITIVE_BATH;
     public static SimpleMachineMetaTileEntity[] CLUSTER_MILLS = new SimpleMachineMetaTileEntity[5];
     public static SimpleMachineMetaTileEntity[] COMPONENT_ASSEMBLER_MTE = new SimpleMachineMetaTileEntity[6];
     public static SimpleMachineMetaTileEntity[] ROLLING_MILL = new SimpleMachineMetaTileEntity[6];
@@ -129,6 +127,7 @@ public class TKCYSAMetaTileEntities {
                 new MetaTileEntityAdvancedCleanroom(tkcysa("advanced_cleanroom")));
         BASIC_ELECTRONIC = registerMetaTileEntity(4106, new BasicElectronicMetatileEntity(tkcysa("basic_electronic")));
         WOOD_WORKSHOP = registerMetaTileEntity(4107, new MetaTileEntityWoodWorkshop(tkcysa("wood_workshop")));
+        PRIMITIVE_BATH = registerMetaTileEntity(4108, new PrimitiveBath(tkcysa("primitive_bath")));
 
         MaterialMetaTileEntity.registerMaterialMetaTileEntity(StorageModule.TANK_MATERIALS, MODULABLE_TANKS, 4200,
                 StorageModule::initModulableTank);
