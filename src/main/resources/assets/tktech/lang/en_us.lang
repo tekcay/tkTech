@@ -232,8 +232,8 @@ tktech.machine.modulable_large_chest.galvanized_steel.name=Large Chest Galvanize
 tktech.machine.modulable_large_chest.tungsten_carbide.name=Large Chest Tungsten Carbide
 
 ##RecipesMaps
-recipemap.primitive_roasting.name=Primtive Roasting
-recipemap.advanced_electrolysis.name=Electrolyzis
+recipemap.primitive_roasting.name=Primitive Roasting
+recipemap.advanced_electrolysis.name=Electrolysis
 recipemap.advanced_assembling.name=Assembling
 recipemap.fluid_primitive_blast.name=Fluid Blasting
 recipemap.casting.name=Casting
@@ -244,7 +244,7 @@ recipemap.cluster_mill.name=Cluster Mill
 recipemap.component_assembler.name=Component Assembler
 recipemap.hydrogenation.name=Hydrogenation
 recipemap.cracking.name=Cracking
-recipemap.primitive_dust_mixing.name=Primtive Dust Mixing
+recipemap.primitive_dust_mixing.name=Primitive Dust Mixing
 recipemap.primitive_smelting.name=Primitive Smelting
 recipemap.rolling.name=Roll Bending
 recipemap.anvil_recipes.name=Anvil Recipes
@@ -350,14 +350,6 @@ tile.stripped_wood.spruce_stripped.name=Stripped Spruce Log
 tile.stripped_wood.jungle_stripped.name=Stripped Jungle Log
 tile.stripped_wood.birch_stripped.name=Stripped Birch Log
 tile.stripped_wood.rubber_stripped.name=Stripped Rubber Log
-
-
-
-##RecipeCategories
-#tktech.recipe.category.galvanizing=Galvanizing
-
-
-
 
 behavior.tricorder.itemStack=Stack : %s %d %s
 behavior.tricorder.size=slots : %s %d
