@@ -15,6 +15,7 @@ import gregtech.integration.theoneprobe.provider.RecipeLogicInfoProvider;
 
 import mcjty.theoneprobe.api.IProbeHitData;
 import mcjty.theoneprobe.api.IProbeInfo;
+import tkcy.simpleaddon.api.recipes.logic.IHideEnergyRecipeLogic;
 import tkcy.simpleaddon.api.recipes.logic.OnBlockRecipeLogic;
 
 @Mixin(value = RecipeLogicInfoProvider.class, remap = false)
@@ -24,6 +25,9 @@ public abstract class MixinRecipeLogicTOPModule extends CapabilityInfoProvider<A
     public void removeEuInfo(@NotNull AbstractRecipeLogic capability, @NotNull IProbeInfo probeInfo,
                              @NotNull EntityPlayer player, @NotNull TileEntity tileEntity,
                              @NotNull IProbeHitData data, CallbackInfo callbackInfo) {
-        if (capability instanceof OnBlockRecipeLogic && !capability.consumesEnergy()) callbackInfo.cancel();
+        if (capability instanceof OnBlockRecipeLogic && !capability.consumesEnergy() ||
+                capability instanceof IHideEnergyRecipeLogic) {
+            callbackInfo.cancel();
+        }
     }
 }
