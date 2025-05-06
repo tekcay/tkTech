@@ -22,7 +22,7 @@ public final class TKCYSARecipeMaps {
     @ZenProperty
     public static final RecipeMap<NoEnergyRecipeBuilder> PRIMITIVE_ROASTING = new MinimalPrimitiveRecipeMap<>(
             "primitive_roasting",
-            1, 1, 0, 1, new NoEnergyRecipeBuilder(), false)
+            2, 2, 1, 2, new NoEnergyRecipeBuilder(), false)
                     .setSound(GTSoundEvents.FURNACE);
     @ZenProperty
     public static final RecipeMap<SimpleRecipeBuilder> ADVANCED_ELECTROLYSIS = new RecipeMap<>("advanced_electrolysis",
