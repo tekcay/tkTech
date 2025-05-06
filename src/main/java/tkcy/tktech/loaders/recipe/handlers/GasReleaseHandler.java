@@ -20,7 +20,7 @@ public class GasReleaseHandler {
     private static void generateRecipe(Material material) {
         TkTechRecipeMaps.GAS_RELEASE.recipeBuilder()
                 .fluidInputs(material.getFluid(100))
-                .duration(SECOND)
+                .duration(20)
                 .buildAndRegister();
     }
 }

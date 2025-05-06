@@ -29,7 +29,7 @@ public class Hydrogenation {
     private static void miscHydrogenations() {
         // N2 + 3 H2 -> NH3
         TkTechRecipeMaps.HYDROGENATION.recipeBuilder()
-                .duration(SECOND)
+                .duration(20)
                 .EUt(VA[HV])
                 .notConsumable(OrePrefix.dust, Iron)
                 .fluidInputs(Nitrogen.getFluid(50))
@@ -40,7 +40,7 @@ public class Hydrogenation {
 
     private static void oilDesulfurizationRecipes(Material sulfuricLayer, Material desulfurized) {
         TkTechRecipeMaps.HYDROGENATION.recipeBuilder()
-                .duration(SECOND)
+                .duration(20)
                 .EUt(VA[MV])
                 .fluidInputs(sulfuricLayer.getFluid(50))
                 .fluidInputs(Hydrogen.getFluid(400))

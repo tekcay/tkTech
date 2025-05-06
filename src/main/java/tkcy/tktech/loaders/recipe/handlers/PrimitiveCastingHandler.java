@@ -65,7 +65,7 @@ public class PrimitiveCastingHandler {
     }
 
     private static int getDuration(Material material, int fluidOreAmount) {
-        return Math.max(1, (int) (material.getMass() * fluidOreAmount / SECOND));
+        return Math.max(1, (int) (material.getMass() * fluidOreAmount / 20));
     }
 
     private static void sendErrorMessage(Material input, Material moldMaterial, OrePrefix orePrefix, int fluidAmount,
