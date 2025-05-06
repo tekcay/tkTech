@@ -32,7 +32,7 @@ import tkcy.tktech.api.utils.item.ItemHandlerHelpers;
 import tkcy.tktech.api.utils.item.ModulableSingleItemStackHandler;
 import tkcy.tktech.api.utils.units.CommonUnits;
 import tkcy.tktech.modules.NBTLabel;
-import tkcy.tktech.modules.TKCYSADataCodes;
+import tkcy.tktech.modules.TkTechDataCodes;
 import tkcy.tktech.modules.storagemodule.StorageModule;
 
 @StorageModule.StorageModulable
@@ -84,9 +84,9 @@ public class MetaTileEntityMultiblockCrate extends MetaTileEntityMultiblockStora
         this.storedQuantity = this.storedStackHandler.getContent().getCount();
         this.itemStackFilter = ItemHandlerHelpers.copyWithAmount(this.storedItemStack, 1);
 
-        writeCustomData(TKCYSADataCodes.UPDATE_ITEM_STACK,
-                TKCYSADataCodes.getItemStackWriter(this.itemStackFilter));
-        writeCustomData(TKCYSADataCodes.UPDATE_ITEM_COUNT, TKCYSADataCodes.getInt(this.storedQuantity));
+        writeCustomData(TkTechDataCodes.UPDATE_ITEM_STACK,
+                TkTechDataCodes.getItemStackWriter(this.itemStackFilter));
+        writeCustomData(TkTechDataCodes.UPDATE_ITEM_COUNT, TkTechDataCodes.getInt(this.storedQuantity));
     }
 
     @Override
@@ -195,14 +195,14 @@ public class MetaTileEntityMultiblockCrate extends MetaTileEntityMultiblockStora
     @Override
     public void receiveCustomData(int dataId, PacketBuffer buf) {
         super.receiveCustomData(dataId, buf);
-        if (dataId == TKCYSADataCodes.UPDATE_ITEM_STACK) {
+        if (dataId == TkTechDataCodes.UPDATE_ITEM_STACK) {
             try {
                 this.itemStackFilter = buf.readItemStack();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         }
-        if (dataId == TKCYSADataCodes.UPDATE_ITEM_COUNT) {
+        if (dataId == TkTechDataCodes.UPDATE_ITEM_COUNT) {
             this.storedQuantity = buf.readInt();
         }
     }

@@ -31,11 +31,11 @@ import gregtech.client.utils.TooltipHelper;
 
 import appeng.core.AEConfig;
 import appeng.core.features.AEFeature;
-import tkcy.tktech.api.capabilities.TkTechDataCodes;
 import tkcy.tktech.api.logic.AdvancedCleanroomLogic;
 import tkcy.tktech.api.metatileentities.cleanroom.AdvancedCleanroomType;
 import tkcy.tktech.api.metatileentities.cleanroom.IAdvancedCleanroomProvider;
 import tkcy.tktech.api.metatileentities.cleanroom.MetaTileEntityCleanroomBase;
+import tkcy.tktech.modules.TkTechDataCodes;
 
 public class MetaTileEntityAdvancedCleanroom extends MetaTileEntityCleanroomBase
                                              implements IAdvancedCleanroomProvider, IWorkable, IDataInfoProvider {
