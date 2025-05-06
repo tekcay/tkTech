@@ -125,7 +125,7 @@ public class MetaTileEntityWoodWorkshop extends ToolLogicMetaTileEntity
         return true;
     }
 
-    private static class Logic extends OnBlockRecipeLogic {
+    private static class Logic extends OnBlockRecipeLogic implements IHideEnergyRecipeLogic {
 
         public Logic(MetaTileEntity tileEntity, Supplier<IEnergyContainer> energyContainer,
                      RecipeMap<?>... recipeMaps) {

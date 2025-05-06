@@ -15,6 +15,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import gregtech.api.GTValues;
+import gregtech.api.metatileentity.MetaTileEntity;
+import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
 import gregtech.client.renderer.ICubeRenderer;
 import gregtech.client.renderer.texture.Textures;
 import gregtech.client.utils.RenderUtil;
@@ -30,6 +32,11 @@ public class PrimitiveCasting extends PrimitiveSingleBlock {
 
     public PrimitiveCasting(ResourceLocation metaTileEntityId) {
         super(metaTileEntityId, TKCYSARecipeMaps.CASTING, Textures.COKE_OVEN_OVERLAY);
+    }
+
+    @Override
+    public MetaTileEntity createMetaTileEntity(IGregTechTileEntity tileEntity) {
+        return new PrimitiveCasting(metaTileEntityId);
     }
 
     @Override

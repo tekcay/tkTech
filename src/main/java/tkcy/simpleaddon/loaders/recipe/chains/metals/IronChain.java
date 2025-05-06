@@ -16,29 +16,32 @@ import tkcy.simpleaddon.api.recipes.recipemaps.TKCYSARecipeMaps;
 public class IronChain {
 
     public static void init() {
-        primitive(BandedIron, dust, 5, 1, 2);
-        primitive(BrownLimonite, dust, 5, 1, 1);
-        primitive(YellowLimonite, dust, 5, 1, 1);
-        primitive(Magnetite, dust, 7, 3, 3);
-        primitive(BandedIron, crushed, 5, 1, 2);
-        primitive(BrownLimonite, crushed, 5, 1, 1);
-        primitive(YellowLimonite, crushed, 5, 1, 1);
-        primitive(Magnetite, crushed, 7, 3, 3);
+        primitive(BandedIron, 5, 1, 2);
+        primitive(BrownLimonite, 5, 1, 1);
+        primitive(YellowLimonite, 5, 1, 1);
+        primitive(Magnetite, 7, 3, 3);
 
         blast();
         pigIronToIron();
     }
 
-    private static void primitive(Material ore, OrePrefix prefix, int count, int carbonSourceCount, int pigIronCount) {
+    private static void primitive(Material material, int count, int carbonSourceCount, int pigIronCount) {
         TKCYSARecipeMaps.FLUID_PRIMITIVE_BLAST.recipeBuilder()
-                .input(prefix, ore, count)
-                .input(prefix, Coal, carbonSourceCount)
+                .input(crushed, material, count)
+                .input(dust, Coal, carbonSourceCount)
                 .fluidOutputs(PigIron.getFluid(GTValues.L * pigIronCount))
                 .duration(20 * 150)
                 .buildAndRegister();
 
         TKCYSARecipeMaps.FLUID_PRIMITIVE_BLAST.recipeBuilder()
-                .input(OrePrefix.ore, ore, count)
+                .input(dust, material, count)
+                .input(dust, Coal, carbonSourceCount)
+                .fluidOutputs(PigIron.getFluid(GTValues.L * pigIronCount))
+                .duration(20 * 150)
+                .buildAndRegister();
+
+        TKCYSARecipeMaps.FLUID_PRIMITIVE_BLAST.recipeBuilder()
+                .input(OrePrefix.ore, material, count)
                 .input(OrePrefix.gem, Coke, carbonSourceCount)
                 .fluidOutputs(PigIron.getFluid(GTValues.L * pigIronCount))
                 .duration(20 * 125)

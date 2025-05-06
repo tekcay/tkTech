@@ -24,12 +24,10 @@ import gregtech.api.gui.widgets.ProgressWidget;
 import gregtech.api.gui.widgets.SlotWidget;
 import gregtech.api.gui.widgets.TankWidget;
 import gregtech.api.metatileentity.MetaTileEntity;
-import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
 import gregtech.api.recipes.RecipeMap;
 import gregtech.client.renderer.ICubeRenderer;
 
-import tkcy.simpleaddon.api.recipes.logic.PrimitiveLogic;
-import tkcy.simpleaddon.common.metatileentities.primitive.PrimitiveCasting;
+import tkcy.simpleaddon.api.recipes.logic.*;
 
 public abstract class PrimitiveSingleBlock extends MetaTileEntity {
 
@@ -38,13 +36,8 @@ public abstract class PrimitiveSingleBlock extends MetaTileEntity {
 
     public PrimitiveSingleBlock(ResourceLocation metaTileEntityId, RecipeMap<?> recipeMap, ICubeRenderer renderer) {
         super(metaTileEntityId);
-        this.primitiveLogic = new PrimitiveLogic(this, recipeMap);
+        this.primitiveLogic = new Logic(this, recipeMap);
         this.renderer = renderer;
-    }
-
-    @Override
-    public MetaTileEntity createMetaTileEntity(IGregTechTileEntity tileEntity) {
-        return new PrimitiveCasting(metaTileEntityId);
     }
 
     @SideOnly(Side.CLIENT)
@@ -115,5 +108,42 @@ public abstract class PrimitiveSingleBlock extends MetaTileEntity {
             return null;
         }
         return super.getCapability(capability, side);
+    }
+
+    protected static class Logic extends AbstractRecipeLogic implements IHideEnergyRecipeLogic {
+
+        public Logic(MetaTileEntity tileEntity, RecipeMap<?> recipeMap) {
+            super(tileEntity, recipeMap);
+        }
+
+        @Override
+        protected long getEnergyInputPerSecond() {
+            return Integer.MAX_VALUE;
+        }
+
+        @Override
+        protected long getEnergyStored() {
+            return Integer.MAX_VALUE;
+        }
+
+        @Override
+        protected long getEnergyCapacity() {
+            return Integer.MAX_VALUE;
+        }
+
+        @Override
+        protected boolean drawEnergy(long l, boolean b) {
+            return true;
+        }
+
+        @Override
+        public long getMaxVoltage() {
+            return Integer.MAX_VALUE;
+        }
+
+        @Override
+        public boolean consumesEnergy() {
+            return false;
+        }
     }
 }

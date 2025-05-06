@@ -37,6 +37,7 @@ import codechicken.lib.vec.Matrix4;
 import tkcy.simpleaddon.api.machines.IRightClickItemTransfer;
 import tkcy.simpleaddon.api.machines.IUnificationToolMachine;
 import tkcy.simpleaddon.api.machines.ToolLogicMetaTileEntity;
+import tkcy.simpleaddon.api.recipes.logic.IHideEnergyRecipeLogic;
 import tkcy.simpleaddon.api.recipes.logic.IRecipeLogicContainer;
 import tkcy.simpleaddon.api.recipes.logic.IToolRecipeLogic;
 import tkcy.simpleaddon.api.recipes.logic.OnBlockRecipeLogic;
@@ -139,7 +140,7 @@ public class AnvilMetatileEntity extends ToolLogicMetaTileEntity
         return true;
     }
 
-    private static class Logic extends OnBlockRecipeLogic implements IToolRecipeLogic {
+    private static class Logic extends OnBlockRecipeLogic implements IToolRecipeLogic, IHideEnergyRecipeLogic {
 
         public Logic(MetaTileEntity tileEntity, Supplier<IEnergyContainer> energyContainer,
                      RecipeMap<?>... recipeMaps) {

@@ -36,14 +36,6 @@ public class GermaniumChain {
          * 
          */
 
-        // ZnO + 2H2SO4 = ZnSO4 + ZincLeachingResidue [Contains: (H2O)(H2SO4)]
-        CENTRIFUGE_RECIPES.recipeBuilder().duration(200)
-                .EUt(200)
-                .fluidInputs(ZincLeachingSolution.getFluid(1000))
-                .output(dustSmall, Zinc)
-                .fluidOutputs(ZincLeachingResidue.getFluid(1000))
-                .buildAndRegister();
-
         // ZincLeachingResidue [Contains: (H2O)(H2SO4)] = Zn + GeS2
         CENTRIFUGE_RECIPES.recipeBuilder().duration(200)
                 .EUt(1200)
