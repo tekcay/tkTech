@@ -106,4 +106,8 @@ public final class TKCYSARecipeMaps {
     @ZenProperty
     public static final RecipeMap<AdvancedRecipeBuilder> WOOD_WORKSHOP_RECIPES = new RecipeMap<>(
             "wood_workshop_recipes", 2, 2, 0, 0, new AdvancedRecipeBuilder(), false);
+    @ZenProperty
+    public static final RecipeMap<PrimitiveRecipeBuilder> PRIMITIVE_BATH_RECIPES = new MinimalPrimitiveRecipeMap<>(
+            "primitive_bath_recipes",
+            1, 1, 1, 0, new PrimitiveRecipeBuilder(), false);
 }
