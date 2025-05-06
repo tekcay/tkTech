@@ -1,7 +1,5 @@
 package tkcy.tktech.loaders.recipe.handlers;
 
-import static tkcy.tktech.api.TkTechValues.SECOND;
-
 import gregtech.api.GregTechAPI;
 import gregtech.api.unification.material.Material;
 

@@ -1,7 +1,6 @@
 package tkcy.tktech.loaders.recipe.alloys;
 
 import static gregtech.api.unification.material.Materials.Carbon;
-import static tkcy.tktech.api.TkTechValues.SECOND;
 import static tkcy.tktech.api.unification.flags.TkTechMaterialFlags.isAlloy;
 
 import net.minecraftforge.fluids.Fluid;
@@ -19,6 +18,7 @@ import gregtech.api.unification.stack.MaterialStack;
 import lombok.experimental.UtilityClass;
 import tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps;
 import tkcy.tktech.api.utils.MaterialHelper;
+import tkcy.tktech.api.utils.TimeUtil;
 import tkcy.tktech.modules.alloyingmodule.Alloying;
 
 @Alloying
@@ -57,7 +57,7 @@ public class AlloyingRecipes {
                                                          int componentAmount) {
         return recipeBuilder.fluidOutputs(output.getFluid(componentAmount * GTValues.L))
                 .notConsumable(OrePrefix.dust, output)
-                .duration(SECOND * componentAmount);
+                .duration(TimeUtil.seconds(componentAmount));
     }
 
     public static FluidStack generateFluidStackFromMaterialStack(@NotNull MaterialStack materialStack) {

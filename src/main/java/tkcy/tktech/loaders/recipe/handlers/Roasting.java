@@ -3,7 +3,6 @@ package tkcy.tktech.loaders.recipe.handlers;
 import static gregtech.api.GTValues.L;
 import static gregtech.api.unification.material.Materials.*;
 import static gregtech.api.unification.ore.OrePrefix.dust;
-import static tkcy.tktech.api.TkTechValues.SECOND;
 import static tkcy.tktech.api.unification.materials.TkTechMaterials.*;
 
 import gregtech.api.recipes.RecipeMaps;
@@ -12,6 +11,7 @@ import gregtech.api.unification.material.Material;
 import lombok.experimental.UtilityClass;
 import tkcy.tktech.api.recipes.helpers.RecipeRemovalHelper;
 import tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps;
+import tkcy.tktech.api.utils.TimeUtil;
 
 @UtilityClass
 public class Roasting {
@@ -75,7 +75,7 @@ public class Roasting {
 
     private static void cinnabar() {
         TkTechRecipeMaps.PRIMITIVE_ROASTING.recipeBuilder()
-                .duration(SECOND * 10)
+                .duration(TimeUtil.seconds(10))
                 .fluidInputs(Air.getFluid(4000))
                 .input(dust, Cinnabar)
                 .fluidOutputs(SulfurDioxide.getFluid(1000))
@@ -83,7 +83,7 @@ public class Roasting {
                 .buildAndRegister();
 
         TkTechRecipeMaps.PRIMITIVE_ROASTING.recipeBuilder()
-                .duration(SECOND * 8)
+                .duration(TimeUtil.seconds(8))
                 .fluidInputs(Oxygen.getFluid(1000))
                 .input(dust, Cinnabar)
                 .fluidOutputs(SulfurDioxide.getFluid(1000))

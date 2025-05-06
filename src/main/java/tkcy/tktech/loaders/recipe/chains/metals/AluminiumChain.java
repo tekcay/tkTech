@@ -3,7 +3,6 @@ package tkcy.tktech.loaders.recipe.chains.metals;
 import static gregtech.api.recipes.RecipeMaps.*;
 import static gregtech.api.unification.material.Materials.*;
 import static gregtech.api.unification.ore.OrePrefix.*;
-import static tkcy.tktech.api.TkTechValues.SECOND;
 import static tkcy.tktech.api.unification.materials.TkTechMaterials.*;
 import static tkcy.tktech.api.unification.ore.TkTechOrePrefix.anode;
 import static tkcy.tktech.api.unification.ore.TkTechOrePrefix.cathode;
@@ -13,6 +12,7 @@ import gregtech.api.recipes.RecipeMaps;
 
 import lombok.experimental.UtilityClass;
 import tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps;
+import tkcy.tktech.api.utils.TimeUtil;
 
 @UtilityClass
 public class AluminiumChain {
@@ -70,7 +70,7 @@ public class AluminiumChain {
                 .input(dustSmall, PotassiumHydroxide, 6)
                 .output(dust, PotashTreatedBauxite)
                 .fluidOutputs(DistilledWater.getFluid(200))
-                .duration(30 * SECOND)
+                .duration(TimeUtil.seconds(30))
                 .EUt(15)
                 .buildAndRegister();
 
@@ -81,7 +81,7 @@ public class AluminiumChain {
                 .input(dustSmall, SodiumHydroxide, 6)
                 .output(dust, SodaTreatedBauxite)
                 .fluidOutputs(DistilledWater.getFluid(200))
-                .duration(75 * SECOND)
+                .duration(TimeUtil.seconds(75))
                 .EUt(30)
                 .buildAndRegister();
 
@@ -92,7 +92,7 @@ public class AluminiumChain {
                 .input(dust, PotassiumAluminate, 4)
                 .fluidInputs(DistilledWater.getFluid(6000))
                 .fluidOutputs(TreatedPotassiumAluminate.getFluid(1000))
-                .duration(75 * SECOND)
+                .duration(TimeUtil.seconds(75))
                 .EUt(30)
                 .buildAndRegister();
 
@@ -101,7 +101,7 @@ public class AluminiumChain {
                 .input(dust, SodiumAluminate, 4)
                 .fluidInputs(DistilledWater.getFluid(6000))
                 .fluidOutputs(TreatedSodiumAluminate.getFluid(1000))
-                .duration(75 * SECOND)
+                .duration(TimeUtil.seconds(75))
                 .EUt(30)
                 .buildAndRegister();
 
@@ -111,7 +111,7 @@ public class AluminiumChain {
                 .fluidInputs(TreatedPotassiumAluminate.getFluid(1000))
                 .fluidOutputs(Steam.getFluid(8000))
                 .output(dust, DriedTreatedPotassiumAluminate)
-                .duration(75 * SECOND)
+                .duration(TimeUtil.seconds(75))
                 .EUt(60)
                 .buildAndRegister();
 
@@ -119,7 +119,7 @@ public class AluminiumChain {
                 .fluidInputs(TreatedSodiumAluminate.getFluid(1000))
                 .fluidOutputs(Steam.getFluid(8000))
                 .output(dust, DriedTreatedSodiumAluminate)
-                .duration(75 * SECOND)
+                .duration(TimeUtil.seconds(75))
                 .EUt(60)
                 .buildAndRegister();
 
@@ -129,7 +129,7 @@ public class AluminiumChain {
         EXTRACTOR_RECIPES.recipeBuilder()
                 .input(dust, AluminiumHydroxide, 2)
                 .fluidOutputs(Alumina.getFluid(GTValues.L))
-                .duration(75 * SECOND)
+                .duration(TimeUtil.seconds(75))
                 .EUt(30)
                 .buildAndRegister();
 
@@ -145,7 +145,7 @@ public class AluminiumChain {
                 .input(dust, Carbon, 3)
                 .output(dust, Aluminium, 4)
                 .fluidOutputs(CarbonDioxide.getFluid(3000))
-                .duration(75 * SECOND)
+                .duration(TimeUtil.seconds(75))
                 .EUt(60)
                 .buildAndRegister();
     }

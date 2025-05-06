@@ -2,7 +2,6 @@ package tkcy.tktech.loaders.recipe.handlers.harderstuff;
 
 import static gregtech.api.GTValues.*;
 import static gregtech.api.unification.material.Materials.*;
-import static tkcy.tktech.api.TkTechValues.SECOND;
 import static tkcy.tktech.modules.PetroChemModule.desulfurizedFuels;
 import static tkcy.tktech.modules.PetroChemModule.sulfuricLayers;
 

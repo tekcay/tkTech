@@ -4,7 +4,6 @@ import static gregtech.api.GTValues.*;
 import static gregtech.api.recipes.RecipeMaps.*;
 import static gregtech.api.unification.material.Materials.*;
 import static gregtech.api.unification.ore.OrePrefix.dust;
-import static tkcy.tktech.api.TkTechValues.SECOND;
 import static tkcy.tktech.api.unification.materials.TkTechMaterials.*;
 
 import java.util.Collections;
@@ -18,6 +17,7 @@ import gregtech.api.recipes.RecipeMaps;
 import gregtech.api.unification.OreDictUnifier;
 
 import lombok.experimental.UtilityClass;
+import tkcy.tktech.api.utils.TimeUtil;
 
 @UtilityClass
 public class PlatinumChain {
@@ -30,7 +30,7 @@ public class PlatinumChain {
 
     private static void platinum() {
         // Froth
-        RecipeMaps.CHEMICAL_BATH_RECIPES.recipeBuilder().duration(SECOND * 40).EUt(VA[MV])
+        RecipeMaps.CHEMICAL_BATH_RECIPES.recipeBuilder().duration(TimeUtil.seconds(40)).EUt(VA[MV])
                 .input(dust, PlatinumGroupSludge, 5)
                 .fluidInputs(AquaRegia.getFluid(1000))
                 .fluidOutputs(TreatedPlatinumGroupSludge.getFluid(5000))
@@ -45,7 +45,7 @@ public class PlatinumChain {
                 .output(dust, PlatinumSludgeResidue, 2)
                 .buildAndRegister();
 
-        RecipeMaps.BLAST_RECIPES.recipeBuilder().duration(SECOND * 120).EUt(VA[HV])
+        RecipeMaps.BLAST_RECIPES.recipeBuilder().duration(TimeUtil.seconds(120)).EUt(VA[HV])
                 .input(dust, PlatinumRaw, 3)
                 .output(dust, Platinum)
                 .fluidOutputs(Chlorine.getFluid(800))
@@ -55,7 +55,7 @@ public class PlatinumChain {
 
     private static void rhodium() {
         // Froth
-        CHEMICAL_RECIPES.recipeBuilder().duration(SECOND * 60).EUt(VA[LV])
+        CHEMICAL_RECIPES.recipeBuilder().duration(TimeUtil.seconds(60)).EUt(VA[LV])
                 .notConsumable(DistilledWater.getFluid(8000))
                 .fluidInputs(RhodiumSulfate.getFluid(1000))
                 .input(dust, SodiumHydroxide, 2)
@@ -63,14 +63,14 @@ public class PlatinumChain {
                 .buildAndRegister();
 
         // Rh(OH)2 + HCl -> H3RhCl6
-        CHEMICAL_RECIPES.recipeBuilder().duration(SECOND * 10).EUt(VA[LV])
+        CHEMICAL_RECIPES.recipeBuilder().duration(TimeUtil.seconds(10)).EUt(VA[LV])
                 .fluidInputs(RhodiumHydroxide.getFluid(1000))
                 .fluidInputs(HydrochloricAcid.getFluid(6000))
                 .fluidOutputs(ChlororhodicAcid.getFluid(1000))
                 .buildAndRegister();
 
         // H3RhCl6 + NH4Cl + NaNO2 -> Rh?
-        CHEMICAL_RECIPES.recipeBuilder().duration(SECOND * 70).EUt(VA[LV])
+        CHEMICAL_RECIPES.recipeBuilder().duration(TimeUtil.seconds(70)).EUt(VA[LV])
                 .fluidInputs(ChlororhodicAcid.getFluid(1000))
                 .fluidInputs(DistilledWater.getFluid(2000))
                 .notConsumable(DistilledWater.getFluid(6000))
@@ -79,18 +79,18 @@ public class PlatinumChain {
                 .output(dust, RhodiumPrecipitate)
                 .buildAndRegister();
 
-        MIXER_RECIPES.recipeBuilder().duration(SECOND * 20).EUt(VA[MV])
+        MIXER_RECIPES.recipeBuilder().duration(TimeUtil.seconds(20)).EUt(VA[MV])
                 .input(dust, RhodiumPrecipitate)
                 .fluidInputs(HydrochloricAcid.getFluid(4000))
                 .fluidOutputs(TreatedRhodiumPrecipitate.getFluid(1000))
                 .buildAndRegister();
 
-        FLUID_HEATER_RECIPES.recipeBuilder().duration(SECOND * 200).EUt(VA[HV])
+        FLUID_HEATER_RECIPES.recipeBuilder().duration(TimeUtil.seconds(200)).EUt(VA[HV])
                 .fluidInputs(TreatedRhodiumPrecipitate.getFluid(1000))
                 .fluidOutputs(HotRhodium.getFluid(L))
                 .buildAndRegister();
 
-        VACUUM_RECIPES.recipeBuilder().duration(SECOND * 200).EUt(VA[HV])
+        VACUUM_RECIPES.recipeBuilder().duration(TimeUtil.seconds(200)).EUt(VA[HV])
                 .fluidInputs(HotRhodium.getFluid(L))
                 .output(dust, Rhodium)
                 .buildAndRegister();
