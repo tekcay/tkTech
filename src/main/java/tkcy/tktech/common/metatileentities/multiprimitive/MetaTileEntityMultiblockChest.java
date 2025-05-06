@@ -101,9 +101,9 @@ public class MetaTileEntityMultiblockChest extends MetaTileEntityMultiblockStora
     @Override
     public void addInformation(ItemStack stack, @Nullable World player, @NotNull List<String> tooltip,
                                boolean advanced) {
-        tooltip.add(I18n.format("tkcysa.multiblock.modulable_chest.tooltip.1"));
-        tooltip.add(I18n.format("tkcysa.multiblock.modulable_chest.tooltip.2"));
-        tooltip.add(I18n.format("tkcysa.multiblock.modulable_storage.layer_infos",
+        tooltip.add(I18n.format("tktech.multiblock.modulable_chest.tooltip.1"));
+        tooltip.add(I18n.format("tktech.multiblock.modulable_chest.tooltip.2"));
+        tooltip.add(I18n.format("tktech.multiblock.modulable_storage.layer_infos",
                 getCapacityPerLayerFormatted(), getMaxSideLength()));
     }
 

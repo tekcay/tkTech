@@ -82,16 +82,16 @@ public interface IRightClickItemTransfer {
     }
 
     default void transferHandStackToInputTooltip(@NotNull List<String> tooltip) {
-        tooltip.add(I18n.format("tkcysa.metatileentity.transfer_hand_stack_to_input.tooltip"));
+        tooltip.add(I18n.format("tktech.metatileentity.transfer_hand_stack_to_input.tooltip"));
     }
 
     default void transferOutputToPlayerTooltip(@NotNull List<String> tooltip) {
         if (doesTransferOutputToPlayer())
-            tooltip.add(I18n.format("tkcysa.metatileentity.transfer_output_to_player.tooltip"));
+            tooltip.add(I18n.format("tktech.metatileentity.transfer_output_to_player.tooltip"));
     }
 
     default void transferInputToPlayerTooltip(@NotNull List<String> tooltip) {
         if (doesTransferInputToPlayer())
-            tooltip.add(I18n.format("tkcysa.metatileentity.transfer_input_to_player.tooltip"));
+            tooltip.add(I18n.format("tktech.metatileentity.transfer_input_to_player.tooltip"));
     }
 }

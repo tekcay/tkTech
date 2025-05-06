@@ -15,7 +15,7 @@ import tkcy.tktech.api.recipes.builders.NoEnergyRecipeBuilder;
 import tkcy.tktech.modules.toolmodule.WorkingTool;
 
 @UtilityClass
-@ZenExpansion("mods.tkcysa.recipe.RecipeMaps")
+@ZenExpansion("mods.tktech.recipe.RecipeMaps")
 @ZenRegister
 public final class TkTechRecipeMaps {
 

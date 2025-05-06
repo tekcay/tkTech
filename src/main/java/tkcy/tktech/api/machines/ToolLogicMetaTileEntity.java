@@ -56,7 +56,7 @@ public abstract class ToolLogicMetaTileEntity extends MetaTileEntity implements 
 
     @Override
     public void onAnyToolClickTooltip(List<String> tooltips) {
-        tooltips.add(I18n.format("tkcysa.metatileentity.on_any_tool_click.sneak.invalidate.tooltip"));
+        tooltips.add(I18n.format("tktech.metatileentity.on_any_tool_click.sneak.invalidate.tooltip"));
     }
 
     @Override

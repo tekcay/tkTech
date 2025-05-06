@@ -227,17 +227,17 @@ public abstract class MetaTileEntityMultiblockStorage<ContentHandler, ContentTyp
 
     @Override
     public String getPercentageTranslationKey() {
-        return "tkcysa.multiblock.modulable_storage.fill.percentage";
+        return "tktech.multiblock.modulable_storage.fill.percentage";
     }
 
     @Override
     public String getCapacityTranslationKey() {
-        return "tkcysa.multiblock.modulable_storage.capacity";
+        return "tktech.multiblock.modulable_storage.capacity";
     }
 
     @Override
     public String getContentTextTranslationKey() {
-        return "tkcysa.multiblock.modulable_storage.content";
+        return "tktech.multiblock.modulable_storage.content";
     }
 
     @Override

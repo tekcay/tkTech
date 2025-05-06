@@ -34,7 +34,7 @@ public class HarderCracking {
 
     private static void transferControllerShapedRecipe() {
         ModHandler.removeRecipeByOutput(MetaTileEntities.CRACKER.getStackForm());
-        ModHandler.addShapedRecipe(true, "tkcysa_cracking_unit",
+        ModHandler.addShapedRecipe(true, "tktech_cracking_unit",
                 TkTechMetaTileEntities.CRACKING_UNIT.getStackForm(),
                 "CEC", "PHP", "CEC",
                 'C', MetaBlocks.WIRE_COIL.getItemVariant(NICHROME),

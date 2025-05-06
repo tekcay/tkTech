@@ -33,7 +33,7 @@ public class TkTechToolItems {
     }
 
     public static void init() {
-        SOLDERING_IRON = tkcysaRegister(ItemGTTool.Builder.of(GTValues.MODID, TkTechToolClasses.SOLDERING_IRON)
+        SOLDERING_IRON = registerTool(ItemGTTool.Builder.of(GTValues.MODID, TkTechToolClasses.SOLDERING_IRON)
                 .toolStats(builder -> builder.crafting().damagePerAction(1))
                 .sound(GTSoundEvents.ELECTROLYZER)
                 .symbol('i')
@@ -41,13 +41,13 @@ public class TkTechToolItems {
                 .oreDict(TkTechToolOreDict.solderingIron));
     }
 
-    private static IGTTool tkcysaRegister(@NotNull ToolBuilder<?> builder) {
+    private static IGTTool registerTool(@NotNull ToolBuilder<?> builder) {
         IGTTool tool = builder.build();
         TKCYSA_TOOLS.add(tool);
         return tool;
     }
 
-    public static IGTTool tkcysaRegister(@NotNull IGTTool tool) {
+    public static IGTTool registerTool(@NotNull IGTTool tool) {
         TKCYSA_TOOLS.add(tool);
         return tool;
     }

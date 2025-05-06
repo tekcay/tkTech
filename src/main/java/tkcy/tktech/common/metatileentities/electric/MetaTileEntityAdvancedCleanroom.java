@@ -99,7 +99,7 @@ public class MetaTileEntityAdvancedCleanroom extends MetaTileEntityCleanroomBase
                     if (isStructureFormed() && !hasEnoughGas()) {
                         l.add(TextComponentUtil.translationWithColor(
                                 getCleanroomType().getDisplayColor(),
-                                "tkcysa.multiblock.advanced_cleanroom.not_enough_gas",
+                                "tktech.multiblock.advanced_cleanroom.not_enough_gas",
                                 getCleanroomType().getIntertGasMaterial().getLocalizedName()));
                     }
                 });
@@ -113,7 +113,7 @@ public class MetaTileEntityAdvancedCleanroom extends MetaTileEntityCleanroomBase
                 this::setCleanroomTypeIndex)
                         .shouldUseBaseBackground().singleTexture()
                         .setTooltipHoverString(i -> LocalizationUtils
-                                .format("tkcysa.multiblock.advanced_cleanroom.gas.header",
+                                .format("tktech.multiblock.advanced_cleanroom.gas.header",
                                         getCleanroomType().getIntertGasMaterial().getLocalizedName(),
                                         gasAmountToDrain()));
     }
@@ -178,13 +178,13 @@ public class MetaTileEntityAdvancedCleanroom extends MetaTileEntityCleanroomBase
         if (cleanroomLogic.isWorking()) {
             textComponents.add(TextComponentUtil.translationWithColor(
                     TextFormatting.YELLOW,
-                    "tkcysa.multiblock.advanced_cleanroom.gas_consumption_infos",
+                    "tktech.multiblock.advanced_cleanroom.gas_consumption_infos",
                     TextComponentUtil.stringWithColor(TextFormatting.WHITE, gasAmountToDrain() + "L/t"),
                     gasMaterial));
         } else {
             textComponents.add(TextComponentUtil.translationWithColor(
                     TextFormatting.DARK_RED,
-                    "tkcysa.multiblock.advanced_cleanroom.gas_require_infos",
+                    "tktech.multiblock.advanced_cleanroom.gas_require_infos",
                     TextComponentUtil.stringWithColor(TextFormatting.RED, gasAmountToDrain() + "L/t"),
                     gasMaterial));
 
@@ -193,9 +193,9 @@ public class MetaTileEntityAdvancedCleanroom extends MetaTileEntityCleanroomBase
 
     @Override
     public void addInformation(ItemStack stack, @Nullable World player, List<String> tooltip, boolean advanced) {
-        tooltip.add(I18n.format("tkcysa.machine.cleanroom.tooltip"));
-        tooltip.add(I18n.format("tkcysa.machine.cleanroom.tooltip.1"));
-        tooltip.add(I18n.format("tkcysa.machine.cleanroom.tooltip.2"));
+        tooltip.add(I18n.format("tktech.machine.cleanroom.tooltip"));
+        tooltip.add(I18n.format("tktech.machine.cleanroom.tooltip.1"));
+        tooltip.add(I18n.format("tktech.machine.cleanroom.tooltip.2"));
         tooltip.add(I18n.format("gregtech.machine.cleanroom.tooltip.3"));
         tooltip.add(I18n.format("gregtech.machine.cleanroom.tooltip.4"));
 

@@ -55,7 +55,7 @@ public class CoilTypeProperty extends RecipeProperty<BlockWireCoil.CoilType>
 
     @Override
     public void drawInfo(Minecraft minecraft, int x, int y, int color, Object value) {
-        minecraft.fontRenderer.drawString(I18n.format("tkcysa.recipe.coil",
+        minecraft.fontRenderer.drawString(I18n.format("tktech.recipe.coil",
                 getInfo(value)), x, y, color);
     }
 

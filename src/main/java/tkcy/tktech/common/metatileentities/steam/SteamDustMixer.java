@@ -90,8 +90,8 @@ public class SteamDustMixer extends SteamMetaTileEntity {
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, @Nullable World world, @NotNull List<String> tooltip,
                                boolean advanced) {
-        tooltip.add(I18n.format("tkcysa.steam_melter.tooltip.1"));
-        tooltip.add(I18n.format("tkcysa.steam_melter.tooltip.2"));
+        tooltip.add(I18n.format("tktech.steam_melter.tooltip.1"));
+        tooltip.add(I18n.format("tktech.steam_melter.tooltip.2"));
         CastingInfo.CASTING_INFOS.forEach(castingInfo -> CastingInfo.addToTooltip.accept(castingInfo, tooltip));
     }
 }

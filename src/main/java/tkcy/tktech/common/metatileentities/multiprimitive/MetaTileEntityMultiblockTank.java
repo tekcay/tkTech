@@ -97,9 +97,9 @@ public class MetaTileEntityMultiblockTank extends MetaTileEntityMultiblockStorag
     @Override
     public void addInformation(ItemStack stack, @Nullable World player, @NotNull List<String> tooltip,
                                boolean advanced) {
-        tooltip.add(I18n.format("tkcysa.multiblock.modulable_tank.tooltip"));
+        tooltip.add(I18n.format("tktech.multiblock.modulable_tank.tooltip"));
         tooltip.add(I18n.format(
-                "tkcysa.multiblock.modulable_storage.layer_infos", getCapacityPerLayerFormatted(), getMaxSideLength()));
+                "tktech.multiblock.modulable_storage.layer_infos", getCapacityPerLayerFormatted(), getMaxSideLength()));
 
         if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)) {
             tooltip.add(I18n.format("gregtech.fluid_pipe.max_temperature",

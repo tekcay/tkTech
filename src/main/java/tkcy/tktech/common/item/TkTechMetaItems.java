@@ -3,6 +3,7 @@ package tkcy.tktech.common.item;
 import gregtech.api.items.metaitem.MetaItem;
 
 import lombok.experimental.UtilityClass;
+import tkcy.tktech.TkTech;
 
 @UtilityClass
 public final class TkTechMetaItems {
@@ -20,6 +21,6 @@ public final class TkTechMetaItems {
 
     public static void init() {
         TkTechMetaItemRegistry metaItem1 = new TkTechMetaItemRegistry((short) 0);
-        metaItem1.setRegistryName("tkcysa");
+        metaItem1.setRegistryName(TkTech.MODID);
     }
 }

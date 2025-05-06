@@ -1,6 +1,6 @@
 {"parent": "item/generated", 
  "textures": 
-      {"layer0": "tkcysa:items/electrode/electrode",
-  "layer1": "tkcysa:items/electrode/plus"
+      {"layer0": "tktech:items/electrode/electrode",
+  "layer1": "tktech:items/electrode/plus"
  } 
  }

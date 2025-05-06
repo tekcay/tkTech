@@ -33,7 +33,7 @@ public interface RepetitiveSide {
     }
 
     default void addParallelTooltip(@NotNull List<String> tooltip) {
-        tooltip.add(I18n.format("tkcysa.machine.parallel.tooltip", getLayersPerParallel()));
+        tooltip.add(I18n.format("tktech.machine.parallel.tooltip", getLayersPerParallel()));
     }
 
     /**

@@ -23,7 +23,7 @@ public class TkTech {
 
     public static final String MODID = "tktech";
     public static final String NAME = "TkTech";
-    public static final String VERSION = tkcy.TKCYSAInternalTags.VERSION;
+    public static final String VERSION = tkcy.TkTechInternalTags.VERSION;
 
     @SidedProxy(modId = MODID,
                 clientSide = "tkcy.tktech.common.ClientProxy",

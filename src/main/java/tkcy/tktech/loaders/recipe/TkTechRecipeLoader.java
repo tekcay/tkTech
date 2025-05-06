@@ -83,7 +83,7 @@ public final class TkTechRecipeLoader {
     }
 
     /**
-     * Hidden in JEI via {@link //tkcy.simpleaddon.integration.jei.Removals}.
+     * Hidden in JEI via {@link tkcy.tktech.integration.jei.Removals}.
      */
     private static void removeGTCEuElectrolyzerMTEs() {
         Arrays.stream(MetaTileEntities.ELECTROLYZER)

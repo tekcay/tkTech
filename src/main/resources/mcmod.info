@@ -1,7 +1,7 @@
 [{
-  "modid": "tkcysa",
-  "name": "TeK CaY Simple Addon",
-  "description": "Chains addition and few wteaks",
+  "modid": "tktech",
+  "name": "TkTech",
+  "description": "Chains addition and few tweaks",
   "version": "${version}",
   "mcversion": "${mcversion}",
   "authorList": [

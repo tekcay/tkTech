@@ -90,11 +90,11 @@ public class PrimitiveCasting extends PrimitiveSingleBlock {
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, @Nullable World world, @NotNull List<String> tooltip,
                                boolean advanced) {
-        tooltip.add(I18n.format("tkcysa.casting.tooltip.1"));
-        tooltip.add(I18n.format("tkcysa.casting.tooltip.2"));
-        tooltip.add(I18n.format("tkcysa.casting.tooltip.3"));
-        tooltip.add(I18n.format("tkcysa.casting.tooltip.4"));
-        tooltip.add(I18n.format("tkcysa.casting.tooltip.5"));
+        tooltip.add(I18n.format("tktech.casting.tooltip.1"));
+        tooltip.add(I18n.format("tktech.casting.tooltip.2"));
+        tooltip.add(I18n.format("tktech.casting.tooltip.3"));
+        tooltip.add(I18n.format("tktech.casting.tooltip.4"));
+        tooltip.add(I18n.format("tktech.casting.tooltip.5"));
         CastingInfo.CASTING_INFOS.forEach(castingInfo -> CastingInfo.addToTooltip.accept(castingInfo, tooltip));
     }
 }

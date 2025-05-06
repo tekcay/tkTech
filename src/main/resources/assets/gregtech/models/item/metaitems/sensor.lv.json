@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "tkcysa:items/metaitems/sensor.lv"
+    "layer0": "tktech:items/metaitems/sensor.lv"
   }
 }

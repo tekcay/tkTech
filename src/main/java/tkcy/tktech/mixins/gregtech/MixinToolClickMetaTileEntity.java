@@ -99,7 +99,7 @@ public abstract class MixinToolClickMetaTileEntity implements IOnSolderingIronCl
                 if (doesTransferInputToPlayer()) transferInputToPlayerTooltip(tooltip);
                 if (doesTransferOutputToPlayer()) transferOutputToPlayerTooltip(tooltip);
             } else {
-                tooltip.add(I18n.format("tkcysa.metatilentity.special_right.show_tooltips"));
+                tooltip.add(I18n.format("tktech.metatilentity.special_right.show_tooltips"));
             }
         }
     }

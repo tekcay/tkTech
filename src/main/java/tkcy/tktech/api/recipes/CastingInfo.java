@@ -25,7 +25,7 @@ public class CastingInfo {
     private final int maxHandledTemperature;
 
     public static final BiConsumer<CastingInfo, List<String>> addToTooltip = (castingInfo, tooltip) -> tooltip
-            .add(I18n.format("tkcysa.casting.tooltip",
+            .add(I18n.format("tktech.casting.tooltip",
                     castingInfo.moldMaterial.getLocalizedName(),
                     castingInfo.maxHandledTemperature));
 

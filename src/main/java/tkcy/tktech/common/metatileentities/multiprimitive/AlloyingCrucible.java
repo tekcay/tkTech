@@ -73,6 +73,6 @@ public class AlloyingCrucible extends NoEnergyMultiController {
     public void addInformation(ItemStack stack, @Nullable World player, @NotNull List<String> tooltip,
                                boolean advanced) {
         super.addInformation(stack, player, tooltip, advanced);
-        tooltip.add(I18n.format("tkcysa.machine.alloying_crucible.1"));
+        tooltip.add(I18n.format("tktech.machine.alloying_crucible.1"));
     }
 }
