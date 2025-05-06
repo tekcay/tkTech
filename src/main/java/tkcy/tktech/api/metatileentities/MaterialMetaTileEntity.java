@@ -10,14 +10,14 @@ import net.minecraft.util.ResourceLocation;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.unification.material.Material;
 
-import tkcy.tktech.api.utils.TKCYSAUtil;
+import tkcy.tktech.api.utils.TkTechUtil;
 
 public interface MaterialMetaTileEntity {
 
     Material getMaterial();
 
     static ResourceLocation getMetaTileEntityId(String baseMetaTileEntity, Material material) {
-        return TKCYSAUtil.tkcysa(baseMetaTileEntity + material.getName());
+        return TkTechUtil.tktech(baseMetaTileEntity + material.getName());
     }
 
     static <T extends MetaTileEntity> void registerMaterialMetaTileEntity(List<Material> materials,

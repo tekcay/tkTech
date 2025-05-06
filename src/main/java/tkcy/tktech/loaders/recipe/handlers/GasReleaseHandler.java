@@ -1,12 +1,12 @@
 package tkcy.tktech.loaders.recipe.handlers;
 
-import static tkcy.tktech.api.TKCYSAValues.SECOND;
+import static tkcy.tktech.api.TkTechValues.SECOND;
 
 import gregtech.api.GregTechAPI;
 import gregtech.api.unification.material.Material;
 
 import lombok.experimental.UtilityClass;
-import tkcy.tktech.api.recipes.recipemaps.TKCYSARecipeMaps;
+import tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps;
 
 @UtilityClass
 public class GasReleaseHandler {
@@ -20,7 +20,7 @@ public class GasReleaseHandler {
     }
 
     private static void generateRecipe(Material material) {
-        TKCYSARecipeMaps.GAS_RELEASE.recipeBuilder()
+        TkTechRecipeMaps.GAS_RELEASE.recipeBuilder()
                 .fluidInputs(material.getFluid(100))
                 .duration(SECOND)
                 .buildAndRegister();

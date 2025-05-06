@@ -2,7 +2,7 @@ package tkcy.tktech.api.unification.flags;
 
 import static gregtech.api.unification.material.Materials.*;
 import static gregtech.api.unification.material.info.MaterialFlags.*;
-import static tkcy.tktech.api.unification.flags.TKCYSAMaterialFlags.*;
+import static tkcy.tktech.api.unification.flags.TkTechMaterialFlags.*;
 import static tkcy.tktech.modules.ComponentsModule.getLvAcceptedRubberMaterials;
 import static tkcy.tktech.modules.ElectrodeModule.electrodeMaterials;
 import static tkcy.tktech.modules.alloyingmodule.AlloyingModule.alloysMaterials;
@@ -13,7 +13,7 @@ import gregtech.api.unification.material.Material;
 import gregtech.api.unification.material.Materials;
 
 import lombok.experimental.UtilityClass;
-import tkcy.tktech.api.unification.materials.TKCYSAMaterials;
+import tkcy.tktech.api.unification.materials.TkTechMaterials;
 import tkcy.tktech.modules.PolymersModule;
 import tkcy.tktech.modules.storagemodule.StorageModule;
 
@@ -27,11 +27,11 @@ public class FlagsAddition {
                 GENERATE_SMALL_GEAR);
         Cinnabar.addFlags(DISABLE_DECOMPOSITION);
         Redstone.addFlags(DISABLE_DECOMPOSITION);
-        TKCYSAMaterialFlags.GENERATE_ALL.forEach(f -> {
+        TkTechMaterialFlags.GENERATE_ALL.forEach(f -> {
             Steel.addFlags(f);
             StainlessSteel.addFlags(f);
             TungstenCarbide.addFlags(f);
-            TKCYSAMaterials.GalvanizedSteel.addFlags(f);
+            TkTechMaterials.GalvanizedSteel.addFlags(f);
         });
 
         addStorageWallFlag();

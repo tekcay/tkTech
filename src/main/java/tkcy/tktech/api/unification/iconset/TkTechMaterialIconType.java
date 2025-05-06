@@ -5,7 +5,7 @@ import gregtech.api.unification.material.info.MaterialIconType;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
-public class TKCYSAMaterialIconType {
+public class TkTechMaterialIconType {
 
     public static final MaterialIconType electrode = new MaterialIconType("electrode");
 

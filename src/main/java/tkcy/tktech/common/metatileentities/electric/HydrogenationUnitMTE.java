@@ -16,12 +16,12 @@ import gregtech.client.renderer.texture.Textures;
 import gregtech.common.blocks.BlockHermeticCasing;
 import gregtech.common.blocks.MetaBlocks;
 
-import tkcy.tktech.api.recipes.recipemaps.TKCYSARecipeMaps;
+import tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps;
 
 public class HydrogenationUnitMTE extends RecipeMapMultiblockController {
 
     public HydrogenationUnitMTE(ResourceLocation metaTileEntityId) {
-        super(metaTileEntityId, TKCYSARecipeMaps.HYDROGENATION);
+        super(metaTileEntityId, TkTechRecipeMaps.HYDROGENATION);
     }
 
     @Override

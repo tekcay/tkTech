@@ -1,6 +1,6 @@
 package tkcy.tktech.common.metatileentities.multiprimitive;
 
-import static tkcy.tktech.api.predicates.TKCYSAPredicates.*;
+import static tkcy.tktech.api.predicates.TkTechPredicates.*;
 
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
@@ -17,12 +17,12 @@ import gregtech.client.renderer.ICubeRenderer;
 import gregtech.client.renderer.texture.Textures;
 
 import tkcy.tktech.api.machines.NoEnergyMultiController;
-import tkcy.tktech.api.recipes.recipemaps.TKCYSARecipeMaps;
+import tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps;
 
 public class FluidPrimitiveBlastFurnace extends NoEnergyMultiController {
 
     public FluidPrimitiveBlastFurnace(ResourceLocation metaTileEntityId) {
-        super(metaTileEntityId, TKCYSARecipeMaps.FLUID_PRIMITIVE_BLAST);
+        super(metaTileEntityId, TkTechRecipeMaps.FLUID_PRIMITIVE_BLAST);
     }
 
     @Override

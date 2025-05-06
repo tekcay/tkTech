@@ -15,7 +15,7 @@ import gregtech.api.unification.material.properties.PropertyKey;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
-public final class TKCYSAMaterialFlags {
+public final class TkTechMaterialFlags {
 
     /**
      * Use to disable alloy blast recipes from generating

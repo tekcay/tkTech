@@ -10,8 +10,8 @@ import gregtech.api.unification.ore.OrePrefix;
 import gregtech.loaders.recipe.MetaTileEntityLoader;
 
 import lombok.experimental.UtilityClass;
-import tkcy.tktech.api.recipes.recipemaps.TKCYSARecipeMaps;
-import tkcy.tktech.common.metatileentities.TKCYSAMetaTileEntities;
+import tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps;
+import tkcy.tktech.common.metatileentities.TkTechMetaTileEntities;
 
 @UtilityClass
 public class FoilHandler {
@@ -22,13 +22,13 @@ public class FoilHandler {
     }
 
     private static void addClusterMillRecipes() {
-        MetaTileEntityLoader.registerMachineRecipe(TKCYSAMetaTileEntities.CLUSTER_MILLS,
+        MetaTileEntityLoader.registerMachineRecipe(TkTechMetaTileEntities.CLUSTER_MILLS,
                 "MMM", "CHC", "MMM",
                 'M', MOTOR, 'C', CIRCUIT, 'H', HULL);
     }
 
     public static void processFoils(OrePrefix orePrefix, Material material, IngotProperty ingotProperty) {
-        TKCYSARecipeMaps.CLUSTER_MILL_RECIPES.recipeBuilder()
+        TkTechRecipeMaps.CLUSTER_MILL_RECIPES.recipeBuilder()
                 .input(OrePrefix.plate, material)
                 .output(OrePrefix.foil, material, 4)
                 .EUt(GTValues.VA[GTValues.LV])

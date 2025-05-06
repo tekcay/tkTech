@@ -2,7 +2,7 @@ package tkcy.tktech.loaders.recipe.parts;
 
 import static gregtech.api.unification.ore.OrePrefix.plate;
 import static gregtech.loaders.recipe.CraftingComponent.*;
-import static tkcy.tktech.api.unification.ore.TKCYSAOrePrefix.curvedPlate;
+import static tkcy.tktech.api.unification.ore.TkTechOrePrefix.curvedPlate;
 
 import gregtech.api.recipes.ModHandler;
 import gregtech.api.unification.OreDictUnifier;
@@ -13,20 +13,20 @@ import gregtech.api.unification.stack.UnificationEntry;
 import gregtech.loaders.recipe.MetaTileEntityLoader;
 
 import lombok.experimental.UtilityClass;
-import tkcy.tktech.api.recipes.recipemaps.TKCYSARecipeMaps;
-import tkcy.tktech.api.unification.ore.TKCYSAOrePrefix;
-import tkcy.tktech.common.metatileentities.TKCYSAMetaTileEntities;
+import tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps;
+import tkcy.tktech.api.unification.ore.TkTechOrePrefix;
+import tkcy.tktech.common.metatileentities.TkTechMetaTileEntities;
 
 @UtilityClass
 public class CurvedPlateHandler {
 
     public static void init() {
-        TKCYSAOrePrefix.curvedPlate.addProcessingHandler(CurvedPlateHandler::processCurvedPlate);
+        TkTechOrePrefix.curvedPlate.addProcessingHandler(CurvedPlateHandler::processCurvedPlate);
         rollingMill();
     }
 
     private static void rollingMill() {
-        MetaTileEntityLoader.registerMachineRecipe(TKCYSAMetaTileEntities.ROLLING_MILL,
+        MetaTileEntityLoader.registerMachineRecipe(TkTechMetaTileEntities.ROLLING_MILL,
                 "WPS", "PHC", "WPS",
                 'P', PISTON,
                 'S', CABLE,
@@ -42,7 +42,7 @@ public class CurvedPlateHandler {
                 " h ", " P ", "   ",
                 'P', new UnificationEntry(plate, material));
 
-        TKCYSARecipeMaps.ROLLING_RECIPES.recipeBuilder()
+        TkTechRecipeMaps.ROLLING_RECIPES.recipeBuilder()
                 .input(plate, material)
                 .output(curvedPlate, material)
                 .duration((int) material.getMass())

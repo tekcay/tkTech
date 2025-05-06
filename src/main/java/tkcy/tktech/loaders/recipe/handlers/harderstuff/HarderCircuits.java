@@ -7,14 +7,14 @@ import static gregtech.common.items.MetaItems.*;
 import static gregtech.common.items.MetaItems.ELECTRONIC_CIRCUIT_LV;
 
 import lombok.experimental.UtilityClass;
-import tkcy.tktech.api.recipes.recipemaps.TKCYSARecipeMaps;
+import tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps;
 import tkcy.tktech.modules.toolmodule.ToolsModule;
 
 @UtilityClass
 public class HarderCircuits {
 
     public static void register() {
-        TKCYSARecipeMaps.BASIC_ELECTRONIC_RECIPES.recipeBuilder()
+        TkTechRecipeMaps.BASIC_ELECTRONIC_RECIPES.recipeBuilder()
                 .input(RESISTOR, 2)
                 .input(BASIC_CIRCUIT_BOARD)
                 .input(VACUUM_TUBE)

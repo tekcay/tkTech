@@ -1,7 +1,7 @@
 package tkcy.tktech.api.unification.ore;
 
 import static gregtech.common.items.MetaItems.addOrePrefix;
-import static tkcy.tktech.api.unification.ore.TKCYSAOrePrefix.*;
+import static tkcy.tktech.api.unification.ore.TkTechOrePrefix.*;
 
 import lombok.experimental.UtilityClass;
 
@@ -9,9 +9,9 @@ import lombok.experimental.UtilityClass;
 public class OrePrefixRegistry {
 
     public static void register() {
-        addOrePrefix(TKCYSAOrePrefix.electrode);
-        addOrePrefix(TKCYSAOrePrefix.anode);
-        addOrePrefix(TKCYSAOrePrefix.cathode);
+        addOrePrefix(TkTechOrePrefix.electrode);
+        addOrePrefix(TkTechOrePrefix.anode);
+        addOrePrefix(TkTechOrePrefix.cathode);
         addOrePrefix(curvedPlate);
         addOrePrefix(strippedWood);
 

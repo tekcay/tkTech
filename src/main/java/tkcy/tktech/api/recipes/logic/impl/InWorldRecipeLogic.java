@@ -29,7 +29,7 @@ import tkcy.tktech.api.recipes.properties.IRecipePropertyHelper;
 import tkcy.tktech.api.recipes.properties.InputBlockStateRecipeProperty;
 import tkcy.tktech.api.recipes.properties.OutputBlockStateRecipeProperty;
 import tkcy.tktech.api.utils.BooleanHelper;
-import tkcy.tktech.api.utils.TKCYSALog;
+import tkcy.tktech.api.utils.TkTechLog;
 import tkcy.tktech.api.utils.WorldInteractionsHelper;
 import tkcy.tktech.modules.NBTLabel;
 
@@ -167,7 +167,7 @@ public class InWorldRecipeLogic implements IRecipeLogicContainer, IRecipePropert
         if (!abstractRecipeLogic.isWorking()) return;
 
         if (isNotValid()) {
-            TKCYSALog.logger
+            TkTechLog.logger
                     .error("IInWorldRecipeLogic: serializeInWorldRecipeLogic() failed because logic !isValid()!");
             return;
         }
@@ -214,9 +214,9 @@ public class InWorldRecipeLogic implements IRecipeLogicContainer, IRecipePropert
     public void outputRecipeOutputs(List<ItemStack> outputStacks, List<FluidStack> outputFluidStacks,
                                     IItemHandler outputInventory, IMultipleTankHandler outputFluidInventory) {
         if (isNotValid()) {
-            TKCYSALog.logger.error("IInWorldRecipeLogic: outputRecipeStacks() failed because logic !isValid()!");
+            TkTechLog.logger.error("IInWorldRecipeLogic: outputRecipeStacks() failed because logic !isValid()!");
             abstractRecipeLogic.invalidateOutputs();
-            TKCYSALog.logger.warn("IInWorldRecipeLogic: called invalidateOutputs()");
+            TkTechLog.logger.warn("IInWorldRecipeLogic: called invalidateOutputs()");
             return;
         }
 

@@ -14,9 +14,9 @@ import gregtech.common.items.ToolItems;
 
 import lombok.Getter;
 import lombok.experimental.UtilityClass;
-import tkcy.tktech.api.items.toolitem.TKCYSAToolClasses;
+import tkcy.tktech.api.items.toolitem.TkTechToolClasses;
 import tkcy.tktech.api.utils.StringsHelper;
-import tkcy.tktech.common.item.TKCYSAToolItems;
+import tkcy.tktech.common.item.TkTechToolItems;
 import tkcy.tktech.modules.NBTLabel;
 
 @UtilityClass
@@ -54,7 +54,7 @@ public class ToolsModule {
         KNIFE(ToolClasses.KNIFE, ToolItems.KNIFE),
         BUTCHERY_KNIFE(ToolClasses.BUTCHERY_KNIFE, ToolItems.BUTCHERY_KNIFE),
         PLUNGER(ToolClasses.PLUNGER, ToolItems.PLUNGER),
-        SOLDERING_IRON(TKCYSAToolClasses.SOLDERING_IRON, TKCYSAToolItems.SOLDERING_IRON);
+        SOLDERING_IRON(TkTechToolClasses.SOLDERING_IRON, TkTechToolItems.SOLDERING_IRON);
 
         private final String toolClassName;
         private final IGTTool tool;

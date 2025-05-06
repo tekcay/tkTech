@@ -7,19 +7,19 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 import org.jetbrains.annotations.NotNull;
 
-import tkcy.tktech.api.TKCYSAInternalTags;
-import tkcy.tktech.api.utils.TKCYSALog;
+import tkcy.tktech.api.TkTechInternalTags;
+import tkcy.tktech.api.utils.TkTechLog;
 import tkcy.tktech.common.CommonProxy;
-import tkcy.tktech.common.block.TKCYSAMetaBlocks;
-import tkcy.tktech.common.item.TKCYSAMetaItems;
-import tkcy.tktech.common.item.TKCYSAToolItems;
-import tkcy.tktech.common.metatileentities.TKCYSAMetaTileEntities;
+import tkcy.tktech.common.block.TkTechMetaBlocks;
+import tkcy.tktech.common.item.TkTechMetaItems;
+import tkcy.tktech.common.item.TkTechToolItems;
+import tkcy.tktech.common.metatileentities.TkTechMetaTileEntities;
 
-@Mod(modid = TekCaySimpleAddon.MODID,
-     name = TekCaySimpleAddon.NAME,
-     version = TekCaySimpleAddon.VERSION,
-     dependencies = TKCYSAInternalTags.DEP_VERSION_STRING)
-public class TekCaySimpleAddon {
+@Mod(modid = TkTech.MODID,
+     name = TkTech.NAME,
+     version = TkTech.VERSION,
+     dependencies = TkTechInternalTags.DEP_VERSION_STRING)
+public class TkTech {
 
     public static final String MODID = "tktech";
     public static final String NAME = "TkTech";
@@ -34,11 +34,11 @@ public class TekCaySimpleAddon {
     public void preInit(@NotNull FMLPreInitializationEvent event) {
         proxy.preLoad();
 
-        TKCYSALog.init(event.getModLog());
-        TKCYSAMetaBlocks.init();
-        TKCYSAMetaItems.init();
-        TKCYSAMetaTileEntities.init();
-        TKCYSAToolItems.init();
+        TkTechLog.init(event.getModLog());
+        TkTechMetaBlocks.init();
+        TkTechMetaItems.init();
+        TkTechMetaTileEntities.init();
+        TkTechToolItems.init();
     }
 
     @Mod.EventHandler

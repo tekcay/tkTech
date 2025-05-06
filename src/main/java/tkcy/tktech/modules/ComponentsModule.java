@@ -2,7 +2,7 @@ package tkcy.tktech.modules;
 
 import static gregtech.api.unification.material.Materials.*;
 import static gregtech.common.items.MetaItems.*;
-import static tkcy.tktech.api.unification.ore.TKCYSAOrePrefix.*;
+import static tkcy.tktech.api.unification.ore.TkTechOrePrefix.*;
 import static tkcy.tktech.api.utils.CollectionHelper.buildList;
 
 import java.util.ArrayList;

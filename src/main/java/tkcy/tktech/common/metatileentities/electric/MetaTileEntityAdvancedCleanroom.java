@@ -31,7 +31,7 @@ import gregtech.client.utils.TooltipHelper;
 
 import appeng.core.AEConfig;
 import appeng.core.features.AEFeature;
-import tkcy.tktech.api.capabilities.TKCYSADataCodes;
+import tkcy.tktech.api.capabilities.TkTechDataCodes;
 import tkcy.tktech.api.logic.AdvancedCleanroomLogic;
 import tkcy.tktech.api.metatileentities.cleanroom.AdvancedCleanroomType;
 import tkcy.tktech.api.metatileentities.cleanroom.IAdvancedCleanroomProvider;
@@ -121,7 +121,7 @@ public class MetaTileEntityAdvancedCleanroom extends MetaTileEntityCleanroomBase
     @Override
     public void receiveCustomData(int dataId, PacketBuffer buf) {
         super.receiveCustomData(dataId, buf);
-        if (dataId == TKCYSADataCodes.CLEANROOM_TYPE_INDEX) {
+        if (dataId == TkTechDataCodes.CLEANROOM_TYPE_INDEX) {
             this.cleanroomTypeIndex = buf.readByte();
             cleanroomType = getCleanroomType();
             scheduleRenderUpdate();
@@ -164,7 +164,7 @@ public class MetaTileEntityAdvancedCleanroom extends MetaTileEntityCleanroomBase
         if (!getWorld().isRemote) {
             this.cleanroomType = getCleanroomType();
             setCleanAmount(0);
-            writeCustomData(TKCYSADataCodes.CLEANROOM_TYPE_INDEX, buf -> buf.writeByte(index));
+            writeCustomData(TkTechDataCodes.CLEANROOM_TYPE_INDEX, buf -> buf.writeByte(index));
             markDirty();
         }
     }

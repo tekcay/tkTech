@@ -5,7 +5,7 @@ import gregtech.api.items.metaitem.MetaItem;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
-public final class TKCYSAMetaItems {
+public final class TkTechMetaItems {
 
     public static MetaItem<?>.MetaValueItem MICA_SHEET;
     public static MetaItem<?>.MetaValueItem MICA_INSULATOR_SHEET;
@@ -19,7 +19,7 @@ public final class TKCYSAMetaItems {
     public static MetaItem<?>.MetaValueItem ROBOT_ARM_ULV;
 
     public static void init() {
-        TKCYSAMetaItemRegistry metaItem1 = new TKCYSAMetaItemRegistry((short) 0);
+        TkTechMetaItemRegistry metaItem1 = new TkTechMetaItemRegistry((short) 0);
         metaItem1.setRegistryName("tkcysa");
     }
 }

@@ -8,6 +8,6 @@ import lombok.experimental.UtilityClass;
 public class OrePrefixAdditions {
 
     public static void init() {
-        TKCYSAOrePrefix.toolTipSolderingIron.processOreRegistration(Materials.Steel);
+        TkTechOrePrefix.toolTipSolderingIron.processOreRegistration(Materials.Steel);
     }
 }

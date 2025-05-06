@@ -4,7 +4,7 @@ import org.jetbrains.annotations.NotNull;
 
 import gregtech.common.blocks.properties.PropertyMaterial;
 
-import tkcy.tktech.api.unification.iconset.TKCYSAMaterialIconType;
+import tkcy.tktech.api.unification.iconset.TkTechMaterialIconType;
 
 public abstract class BlockMaterialCasing extends BlockMaterial {
 
@@ -19,6 +19,6 @@ public abstract class BlockMaterialCasing extends BlockMaterial {
     }
 
     private BlockMaterialCasing() {
-        super(TKCYSAMaterialIconType.casing);
+        super(TkTechMaterialIconType.casing);
     }
 }

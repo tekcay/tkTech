@@ -7,11 +7,11 @@ import gregtech.client.renderer.texture.cube.OrientedOverlayRenderer;
 import gregtech.client.renderer.texture.cube.SimpleOverlayRenderer;
 
 import lombok.experimental.UtilityClass;
-import tkcy.tktech.TekCaySimpleAddon;
+import tkcy.tktech.TkTech;
 
 @UtilityClass
-@Mod.EventBusSubscriber(modid = TekCaySimpleAddon.MODID, value = Side.CLIENT)
-public class TKCYSATextures {
+@Mod.EventBusSubscriber(modid = TkTech.MODID, value = Side.CLIENT)
+public class TkTechTextures {
 
     public static OrientedOverlayRenderer ROLLING_MILL_OVERLAY = new OrientedOverlayRenderer("machines/rolling_mill");
     public static SimpleOverlayRenderer WALL_TEXTURE = new SimpleOverlayRenderer("material_sets/dull/wall");

@@ -3,16 +3,16 @@ package tkcy.tktech.loaders.recipe.chains.metals;
 import static gregtech.api.recipes.RecipeMaps.*;
 import static gregtech.api.unification.material.Materials.*;
 import static gregtech.api.unification.ore.OrePrefix.*;
-import static tkcy.tktech.api.TKCYSAValues.SECOND;
-import static tkcy.tktech.api.unification.materials.TKCYSAMaterials.*;
-import static tkcy.tktech.api.unification.ore.TKCYSAOrePrefix.anode;
-import static tkcy.tktech.api.unification.ore.TKCYSAOrePrefix.cathode;
+import static tkcy.tktech.api.TkTechValues.SECOND;
+import static tkcy.tktech.api.unification.materials.TkTechMaterials.*;
+import static tkcy.tktech.api.unification.ore.TkTechOrePrefix.anode;
+import static tkcy.tktech.api.unification.ore.TkTechOrePrefix.cathode;
 
 import gregtech.api.GTValues;
 import gregtech.api.recipes.RecipeMaps;
 
 import lombok.experimental.UtilityClass;
-import tkcy.tktech.api.recipes.recipemaps.TKCYSARecipeMaps;
+import tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps;
 
 @UtilityClass
 public class AluminiumChain {
@@ -107,7 +107,7 @@ public class AluminiumChain {
 
         // DRYING
 
-        TKCYSARecipeMaps.DRYING.recipeBuilder()
+        TkTechRecipeMaps.DRYING.recipeBuilder()
                 .fluidInputs(TreatedPotassiumAluminate.getFluid(1000))
                 .fluidOutputs(Steam.getFluid(8000))
                 .output(dust, DriedTreatedPotassiumAluminate)
@@ -115,7 +115,7 @@ public class AluminiumChain {
                 .EUt(60)
                 .buildAndRegister();
 
-        TKCYSARecipeMaps.DRYING.recipeBuilder()
+        TkTechRecipeMaps.DRYING.recipeBuilder()
                 .fluidInputs(TreatedSodiumAluminate.getFluid(1000))
                 .fluidOutputs(Steam.getFluid(8000))
                 .output(dust, DriedTreatedSodiumAluminate)
@@ -136,7 +136,7 @@ public class AluminiumChain {
         // STEP 3
         // 2 Al2O3 + 3 C -> 4 Al + 3 CO2
 
-        TKCYSARecipeMaps.ADVANCED_ELECTROLYSIS.recipeBuilder()
+        TkTechRecipeMaps.ADVANCED_ELECTROLYSIS.recipeBuilder()
                 .fluidInputs(Alumina.getFluid(GTValues.L * 2))
                 .fluidInputs(AluminiumFluoride.getFluid(2))
                 .fluidInputs(Cryolite.getFluid(1))

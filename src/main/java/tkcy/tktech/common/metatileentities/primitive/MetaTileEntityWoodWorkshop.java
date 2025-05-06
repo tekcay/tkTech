@@ -36,8 +36,8 @@ import tkcy.tktech.api.recipes.logic.*;
 import tkcy.tktech.api.recipes.logic.impl.InWorldRecipeLogic;
 import tkcy.tktech.api.recipes.logic.impl.RecipeLogicsContainer;
 import tkcy.tktech.api.recipes.logic.impl.ToolLogic;
-import tkcy.tktech.api.recipes.recipemaps.TKCYSARecipeMaps;
-import tkcy.tktech.api.unification.ore.TKCYSAOrePrefix;
+import tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps;
+import tkcy.tktech.api.unification.ore.TkTechOrePrefix;
 import tkcy.tktech.modules.toolmodule.ToolsModule;
 
 public class MetaTileEntityWoodWorkshop extends ToolLogicMetaTileEntity
@@ -97,7 +97,7 @@ public class MetaTileEntityWoodWorkshop extends ToolLogicMetaTileEntity
         return new ArrayList<>() {
 
             {
-                add(TKCYSAOrePrefix.strippedWood);
+                add(TkTechOrePrefix.strippedWood);
                 add(OrePrefix.plank);
             }
         };
@@ -105,7 +105,7 @@ public class MetaTileEntityWoodWorkshop extends ToolLogicMetaTileEntity
 
     @Override
     protected OnBlockRecipeLogic initRecipeLogic() {
-        return new Logic(this, null, TKCYSARecipeMaps.WOOD_WORKSHOP_RECIPES);
+        return new Logic(this, null, TkTechRecipeMaps.WOOD_WORKSHOP_RECIPES);
     }
 
     @Override

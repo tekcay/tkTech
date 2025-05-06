@@ -2,13 +2,13 @@ package tkcy.tktech.loaders.recipe.chains.chemicals;
 
 import static gregtech.api.unification.material.Materials.*;
 import static gregtech.api.unification.ore.OrePrefix.dust;
-import static tkcy.tktech.api.TKCYSAValues.SECOND;
-import static tkcy.tktech.api.unification.materials.TKCYSAMaterials.*;
+import static tkcy.tktech.api.TkTechValues.SECOND;
+import static tkcy.tktech.api.unification.materials.TkTechMaterials.*;
 
 import gregtech.api.recipes.RecipeMaps;
 
 import lombok.experimental.UtilityClass;
-import tkcy.tktech.api.recipes.recipemaps.TKCYSARecipeMaps;
+import tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps;
 
 @UtilityClass
 public class OxalicAcidChain {
@@ -68,14 +68,14 @@ public class OxalicAcidChain {
                 .duration(SECOND * 60)
                 .buildAndRegister();
 
-        TKCYSARecipeMaps.DRYING.recipeBuilder()
+        TkTechRecipeMaps.DRYING.recipeBuilder()
                 .input(dust, CrudeOxalicAcid)
                 .output(dust, OxalicAcid)
                 .EUt(30)
                 .duration(SECOND * 60)
                 .buildAndRegister();
 
-        TKCYSARecipeMaps.DRYING.recipeBuilder()
+        TkTechRecipeMaps.DRYING.recipeBuilder()
                 .input(dust, OxalicAcid)
                 .output(dust, DryOxalicAcid)
                 .fluidOutputs(Steam.getFluid(2000))

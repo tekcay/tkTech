@@ -8,7 +8,7 @@ import net.minecraftforge.fluids.FluidStack;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 
-public final class TKCYSALog {
+public final class TkTechLog {
 
     public static Logger logger;
 
@@ -17,11 +17,11 @@ public final class TKCYSALog {
     }
 
     public static void logItemStackList(@NotNull List<ItemStack> itemStacks) {
-        itemStacks.forEach(TKCYSALog::logItemStack);
+        itemStacks.forEach(TkTechLog::logItemStack);
     }
 
     public static void logFluidStackList(@NotNull List<FluidStack> itemStacks) {
-        itemStacks.forEach(TKCYSALog::logFluidStack);
+        itemStacks.forEach(TkTechLog::logFluidStack);
     }
 
     public static void logItemStack(@NotNull ItemStack itemStack) {

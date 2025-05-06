@@ -4,8 +4,8 @@ import static gregtech.api.GTValues.*;
 import static gregtech.api.recipes.RecipeMaps.*;
 import static gregtech.api.unification.material.Materials.*;
 import static gregtech.common.blocks.BlockWireCoil.CoilType.NICHROME;
-import static tkcy.tktech.api.TKCYSAValues.SECOND;
-import static tkcy.tktech.api.unification.materials.TKCYSAMaterials.*;
+import static tkcy.tktech.api.TkTechValues.SECOND;
+import static tkcy.tktech.api.unification.materials.TkTechMaterials.*;
 import static tkcy.tktech.api.utils.CollectionHelper.buildMap;
 import static tkcy.tktech.modules.PetroChemModule.*;
 
@@ -21,8 +21,8 @@ import gregtech.common.items.MetaItems;
 import gregtech.common.metatileentities.MetaTileEntities;
 
 import lombok.experimental.UtilityClass;
-import tkcy.tktech.api.recipes.recipemaps.TKCYSARecipeMaps;
-import tkcy.tktech.common.metatileentities.TKCYSAMetaTileEntities;
+import tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps;
+import tkcy.tktech.common.metatileentities.TkTechMetaTileEntities;
 
 @UtilityClass
 public class HarderCracking {
@@ -35,7 +35,7 @@ public class HarderCracking {
     private static void transferControllerShapedRecipe() {
         ModHandler.removeRecipeByOutput(MetaTileEntities.CRACKER.getStackForm());
         ModHandler.addShapedRecipe(true, "tkcysa_cracking_unit",
-                TKCYSAMetaTileEntities.CRACKING_UNIT.getStackForm(),
+                TkTechMetaTileEntities.CRACKING_UNIT.getStackForm(),
                 "CEC", "PHP", "CEC",
                 'C', MetaBlocks.WIRE_COIL.getItemVariant(NICHROME),
                 'E', MetaItems.ELECTRIC_PUMP_HV, 'P',
@@ -67,7 +67,7 @@ public class HarderCracking {
     }
 
     private static void addLightlyHydroCrackedRecipes(Material input, Material output) {
-        TKCYSARecipeMaps.CRACKING.recipeBuilder()
+        TkTechRecipeMaps.CRACKING.recipeBuilder()
                 .EUt(VA[MV])
                 .duration(4 * SECOND)
                 .circuitMeta(1)
@@ -79,7 +79,7 @@ public class HarderCracking {
     }
 
     private static void addLightlySteamCrackedRecipes(Material input, Material output) {
-        TKCYSARecipeMaps.CRACKING.recipeBuilder()
+        TkTechRecipeMaps.CRACKING.recipeBuilder()
                 .EUt(VA[MV])
                 .duration(4 * SECOND)
                 .circuitMeta(1)
@@ -91,7 +91,7 @@ public class HarderCracking {
     }
 
     private static void addModeratelyHydroCrackedRecipes(Material input, Material output) {
-        TKCYSARecipeMaps.CRACKING.recipeBuilder()
+        TkTechRecipeMaps.CRACKING.recipeBuilder()
                 .EUt(300)
                 .duration(4 * SECOND)
                 .circuitMeta(2)
@@ -103,7 +103,7 @@ public class HarderCracking {
     }
 
     private static void addModeratelySteamCrackedRecipes(Material input, Material output) {
-        TKCYSARecipeMaps.CRACKING.recipeBuilder()
+        TkTechRecipeMaps.CRACKING.recipeBuilder()
                 .EUt(300)
                 .duration(4 * SECOND)
                 .circuitMeta(2)
@@ -115,7 +115,7 @@ public class HarderCracking {
     }
 
     private static void addSeverelyHydroCrackedRecipes(Material input, Material output) {
-        TKCYSARecipeMaps.CRACKING.recipeBuilder()
+        TkTechRecipeMaps.CRACKING.recipeBuilder()
                 .EUt(600)
                 .duration(4 * SECOND)
                 .circuitMeta(3)
@@ -127,7 +127,7 @@ public class HarderCracking {
     }
 
     private static void addSeverelySteamCrackedRecipes(Material input, Material output) {
-        TKCYSARecipeMaps.CRACKING.recipeBuilder()
+        TkTechRecipeMaps.CRACKING.recipeBuilder()
                 .EUt(600)
                 .duration(4 * SECOND)
                 .circuitMeta(3)

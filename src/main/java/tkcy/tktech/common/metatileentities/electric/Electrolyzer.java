@@ -19,12 +19,12 @@ import gregtech.api.pattern.FactoryBlockPattern;
 import gregtech.client.renderer.ICubeRenderer;
 import gregtech.client.renderer.texture.Textures;
 
-import tkcy.tktech.api.recipes.recipemaps.TKCYSARecipeMaps;
+import tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps;
 
 public class Electrolyzer extends RecipeMapMultiblockController {
 
     public Electrolyzer(ResourceLocation metaTileEntityId) {
-        super(metaTileEntityId, TKCYSARecipeMaps.ADVANCED_ELECTROLYSIS);
+        super(metaTileEntityId, TkTechRecipeMaps.ADVANCED_ELECTROLYSIS);
     }
 
     @Override

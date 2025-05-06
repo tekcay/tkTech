@@ -28,7 +28,7 @@ import codechicken.lib.vec.Matrix4;
 import lombok.Getter;
 import tkcy.tktech.api.metatileentities.BlockMaterialMetaTileEntityPaint;
 import tkcy.tktech.api.metatileentities.MaterialMetaTileEntity;
-import tkcy.tktech.api.render.TKCYSATextures;
+import tkcy.tktech.api.render.TkTechTextures;
 
 @Getter
 public abstract class MetaTileEntityModulableValve<T> extends MetaTileEntityMultiblockPart
@@ -44,7 +44,7 @@ public abstract class MetaTileEntityModulableValve<T> extends MetaTileEntityMult
 
     @Override
     public ICubeRenderer getBaseTexture() {
-        return TKCYSATextures.WALL_TEXTURE;
+        return TkTechTextures.WALL_TEXTURE;
     }
 
     @Override

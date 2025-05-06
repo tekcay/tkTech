@@ -6,11 +6,11 @@ import static gregtech.api.recipes.RecipeMaps.EXTRACTOR_RECIPES;
 import static gregtech.api.unification.material.Materials.*;
 import static gregtech.api.unification.ore.OrePrefix.dust;
 import static gregtech.api.unification.ore.OrePrefix.dustTiny;
-import static tkcy.tktech.api.unification.materials.TKCYSAMaterials.*;
+import static tkcy.tktech.api.unification.materials.TkTechMaterials.*;
 
 import lombok.experimental.UtilityClass;
-import tkcy.tktech.api.recipes.recipemaps.TKCYSARecipeMaps;
-import tkcy.tktech.api.unification.ore.TKCYSAOrePrefix;
+import tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps;
+import tkcy.tktech.api.unification.ore.TkTechOrePrefix;
 
 @UtilityClass
 public class FluorineChain {
@@ -75,10 +75,10 @@ public class FluorineChain {
                 .buildAndRegister();
 
         // KF.HF(l) + electrode + LiF -> H2 + F2
-        TKCYSARecipeMaps.ADVANCED_ELECTROLYSIS.recipeBuilder()
+        TkTechRecipeMaps.ADVANCED_ELECTROLYSIS.recipeBuilder()
                 .input(dustTiny, LithiumFluoride, 1)
-                .notConsumable(TKCYSAOrePrefix.anode, Carbon)
-                .notConsumable(TKCYSAOrePrefix.cathode, Steel)
+                .notConsumable(TkTechOrePrefix.anode, Carbon)
+                .notConsumable(TkTechOrePrefix.cathode, Steel)
                 .fluidInputs(PotassiumBifluoride.getFluid(1000))
                 .fluidOutputs(Hydrogen.getFluid(1000), Fluorine.getFluid(1000))
                 .duration(80)

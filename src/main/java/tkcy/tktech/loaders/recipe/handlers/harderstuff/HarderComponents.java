@@ -6,11 +6,11 @@ import static gregtech.api.unification.material.Materials.*;
 import static gregtech.api.unification.ore.OrePrefix.*;
 import static gregtech.common.items.MetaItems.*;
 import static gregtech.common.metatileentities.MetaTileEntities.HULL;
-import static tkcy.tktech.api.recipes.recipemaps.TKCYSARecipeMaps.COMPONENT_ASSEMBING;
-import static tkcy.tktech.api.unification.materials.TKCYSAMaterials.*;
-import static tkcy.tktech.api.unification.ore.TKCYSAOrePrefix.curvedPlate;
-import static tkcy.tktech.common.item.TKCYSAMetaItems.*;
-import static tkcy.tktech.common.metatileentities.TKCYSAMetaTileEntities.COMPONENT_ASSEMBLER_MTE;
+import static tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps.COMPONENT_ASSEMBING;
+import static tkcy.tktech.api.unification.materials.TkTechMaterials.*;
+import static tkcy.tktech.api.unification.ore.TkTechOrePrefix.curvedPlate;
+import static tkcy.tktech.common.item.TkTechMetaItems.*;
+import static tkcy.tktech.common.metatileentities.TkTechMetaTileEntities.COMPONENT_ASSEMBLER_MTE;
 import static tkcy.tktech.modules.ComponentsModule.*;
 
 import net.minecraftforge.fluids.FluidStack;
@@ -22,7 +22,7 @@ import gregtech.api.unification.material.Materials;
 import gregtech.api.unification.stack.UnificationEntry;
 
 import lombok.experimental.UtilityClass;
-import tkcy.tktech.api.unification.materials.TKCYSAMaterials;
+import tkcy.tktech.api.unification.materials.TkTechMaterials;
 
 @UtilityClass
 public class HarderComponents {
@@ -487,7 +487,7 @@ public class HarderComponents {
                 .input(stick, Chrome)
                 .input(curvedPlate, StainlessSteel, 4)
                 .input(circuit, MarkerMaterials.Tier.HV, 2)
-                .input(gemExquisite, TKCYSAMaterials.GalliumPhosphate)
+                .input(gemExquisite, TkTechMaterials.GalliumPhosphate)
                 .fluidInputs(input)
                 .outputs(SENSOR_HV.getStackForm())
                 .duration(100).EUt(VA[HV]).buildAndRegister();
@@ -496,7 +496,7 @@ public class HarderComponents {
                 .input(stick, Platinum)
                 .input(curvedPlate, Titanium, 4)
                 .input(circuit, MarkerMaterials.Tier.EV, 2)
-                .input(gemExquisite, TKCYSAMaterials.LithiumNiobate)
+                .input(gemExquisite, TkTechMaterials.LithiumNiobate)
                 .fluidInputs(input)
                 .outputs(SENSOR_EV.getStackForm())
                 .duration(100).EUt(VA[EV]).buildAndRegister();
@@ -505,7 +505,7 @@ public class HarderComponents {
                 .input(stick, Iridium)
                 .input(curvedPlate, TungstenSteel, 4)
                 .input(circuit, MarkerMaterials.Tier.IV, 2)
-                .input(gemExquisite, TKCYSAMaterials.LeadZirconateTitanate)
+                .input(gemExquisite, TkTechMaterials.LeadZirconateTitanate)
                 .fluidInputs(input)
                 .outputs(SENSOR_IV.getStackForm())
                 .duration(100).EUt(VA[IV]).buildAndRegister();
@@ -536,7 +536,7 @@ public class HarderComponents {
                 .input(stick, Chrome, 4)
                 .input(cableGtQuadruple, Gold, 2)
                 .input(circuit, MarkerMaterials.Tier.HV, 2)
-                .input(gemExquisite, TKCYSAMaterials.GalliumPhosphate)
+                .input(gemExquisite, TkTechMaterials.GalliumPhosphate)
                 .circuitMeta(1)
                 .fluidInputs(input)
                 .outputs(EMITTER_HV.getStackForm())
@@ -546,7 +546,7 @@ public class HarderComponents {
                 .input(stick, Platinum, 4)
                 .input(cableGtOctal, Aluminium, 2)
                 .input(circuit, MarkerMaterials.Tier.EV, 2)
-                .input(gemExquisite, TKCYSAMaterials.LithiumNiobate)
+                .input(gemExquisite, TkTechMaterials.LithiumNiobate)
                 .circuitMeta(1)
                 .fluidInputs(input)
                 .outputs(EMITTER_EV.getStackForm())
@@ -556,7 +556,7 @@ public class HarderComponents {
                 .input(stick, Iridium, 4)
                 .input(cableGtHex, Tungsten, 2)
                 .input(circuit, MarkerMaterials.Tier.IV, 2)
-                .input(gemExquisite, TKCYSAMaterials.LeadZirconateTitanate)
+                .input(gemExquisite, TkTechMaterials.LeadZirconateTitanate)
                 .circuitMeta(1)
                 .fluidInputs(input)
                 .outputs(EMITTER_IV.getStackForm())

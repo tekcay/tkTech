@@ -3,11 +3,11 @@ package tkcy.tktech.common;
 import net.minecraftforge.common.config.Config;
 
 import lombok.experimental.UtilityClass;
-import tkcy.tktech.TekCaySimpleAddon;
+import tkcy.tktech.TkTech;
 
 @UtilityClass
-@Config(modid = TekCaySimpleAddon.MODID)
-public class TKCYSAConfigHolder {
+@Config(modid = TkTech.MODID)
+public class TkTechConfigHolder {
 
     @Config.Comment("Config options applying to all chains")
     @Config.Name("Chains")

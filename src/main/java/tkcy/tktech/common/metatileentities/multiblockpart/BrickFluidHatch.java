@@ -12,7 +12,7 @@ import gregtech.client.renderer.ICubeRenderer;
 import gregtech.client.renderer.texture.Textures;
 import gregtech.common.metatileentities.multi.multiblockpart.MetaTileEntityFluidHatch;
 
-import tkcy.tktech.api.capabilities.TKCYSAMultiblockAbilities;
+import tkcy.tktech.api.capabilities.TkTechMultiblockAbilities;
 
 public class BrickFluidHatch extends MetaTileEntityFluidHatch {
 
@@ -36,6 +36,6 @@ public class BrickFluidHatch extends MetaTileEntityFluidHatch {
 
     @Override
     public MultiblockAbility<IFluidTank> getAbility() {
-        return TKCYSAMultiblockAbilities.BRICK_HATCH;
+        return TkTechMultiblockAbilities.BRICK_HATCH;
     }
 }

@@ -1,6 +1,6 @@
 package tkcy.tktech.common;
 
-import static tkcy.tktech.TekCaySimpleAddon.MODID;
+import static tkcy.tktech.TkTech.MODID;
 
 import java.util.Objects;
 import java.util.function.Function;
@@ -28,16 +28,16 @@ import gregtech.api.unification.material.event.PostMaterialEvent;
 import gregtech.common.blocks.MaterialItemBlock;
 
 import tkcy.tktech.api.unification.flags.FlagsAddition;
-import tkcy.tktech.api.unification.materials.TKCYSAMaterials;
+import tkcy.tktech.api.unification.materials.TkTechMaterials;
 import tkcy.tktech.api.unification.ore.OrePrefixRegistry;
-import tkcy.tktech.api.unification.ore.TKCYSAOrePrefix;
-import tkcy.tktech.api.utils.TKCYSALog;
+import tkcy.tktech.api.unification.ore.TkTechOrePrefix;
+import tkcy.tktech.api.utils.TkTechLog;
 import tkcy.tktech.common.block.BlockMaterialCasing;
 import tkcy.tktech.common.block.BlockMaterialCoil;
 import tkcy.tktech.common.block.BlockMaterialWall;
-import tkcy.tktech.common.block.TKCYSAMetaBlocks;
-import tkcy.tktech.common.item.TKCYSAToolItems;
-import tkcy.tktech.loaders.recipe.TKCYSARecipeLoader;
+import tkcy.tktech.common.block.TkTechMetaBlocks;
+import tkcy.tktech.common.item.TkTechToolItems;
+import tkcy.tktech.loaders.recipe.TkTechRecipeLoader;
 import tkcy.tktech.loaders.recipe.parts.OreProcessingsHandler;
 import tkcy.tktech.modules.alloyingmodule.AlloyingModule;
 
@@ -63,42 +63,42 @@ public class CommonProxy {
 
     @SubscribeEvent(priority = EventPriority.NORMAL)
     public static void registerBlocks(RegistryEvent.Register<Block> event) {
-        TKCYSALog.logger.info("Registering blocks...");
+        TkTechLog.logger.info("Registering blocks...");
         IForgeRegistry<Block> registry = event.getRegistry();
 
-        for (BlockMaterialCasing blockMaterialCasing : TKCYSAMetaBlocks.CASINGS_BLOCKS)
+        for (BlockMaterialCasing blockMaterialCasing : TkTechMetaBlocks.CASINGS_BLOCKS)
             registry.register(blockMaterialCasing);
-        for (BlockMaterialWall blockMaterialWall : TKCYSAMetaBlocks.WALLS_BLOCKS)
+        for (BlockMaterialWall blockMaterialWall : TkTechMetaBlocks.WALLS_BLOCKS)
             registry.register(blockMaterialWall);
-        for (BlockMaterialCoil blockMaterialCoil : TKCYSAMetaBlocks.COIL_BLOCKS)
+        for (BlockMaterialCoil blockMaterialCoil : TkTechMetaBlocks.COIL_BLOCKS)
             registry.register(blockMaterialCoil);
 
-        registry.register(TKCYSAMetaBlocks.STRIPPED_WOOD);
+        registry.register(TkTechMetaBlocks.STRIPPED_WOOD);
     }
 
     @SubscribeEvent(priority = EventPriority.NORMAL)
     public static void registerItems(RegistryEvent.Register<Item> event) {
-        TKCYSALog.logger.info("Registering Items...");
+        TkTechLog.logger.info("Registering Items...");
         IForgeRegistry<Item> registry = event.getRegistry();
 
-        for (IGTTool tool : TKCYSAToolItems.getAllTKCYSATools()) {
+        for (IGTTool tool : TkTechToolItems.getAllTKCYSATools()) {
             registry.register(tool.get());
         }
         AlloyingModule.setAlloyFluidTemperature();
 
-        for (BlockMaterialCasing block : TKCYSAMetaBlocks.CASINGS_BLOCKS) {
-            registry.register(createItemBlock(block, b -> new MaterialItemBlock(b, TKCYSAOrePrefix.casing)));
+        for (BlockMaterialCasing block : TkTechMetaBlocks.CASINGS_BLOCKS) {
+            registry.register(createItemBlock(block, b -> new MaterialItemBlock(b, TkTechOrePrefix.casing)));
         }
 
-        for (BlockMaterialWall block : TKCYSAMetaBlocks.WALLS_BLOCKS) {
-            registry.register(createItemBlock(block, b -> new MaterialItemBlock(b, TKCYSAOrePrefix.wall)));
+        for (BlockMaterialWall block : TkTechMetaBlocks.WALLS_BLOCKS) {
+            registry.register(createItemBlock(block, b -> new MaterialItemBlock(b, TkTechOrePrefix.wall)));
         }
 
-        for (BlockMaterialCoil block : TKCYSAMetaBlocks.COIL_BLOCKS) {
-            registry.register(createItemBlock(block, b -> new MaterialItemBlock(b, TKCYSAOrePrefix.coil)));
+        for (BlockMaterialCoil block : TkTechMetaBlocks.COIL_BLOCKS) {
+            registry.register(createItemBlock(block, b -> new MaterialItemBlock(b, TkTechOrePrefix.coil)));
         }
 
-        registry.register(createItemBlock(TKCYSAMetaBlocks.STRIPPED_WOOD, VariantItemBlock::new));
+        registry.register(createItemBlock(TkTechMetaBlocks.STRIPPED_WOOD, VariantItemBlock::new));
     }
 
     private static <T extends Block> ItemBlock createItemBlock(T block, Function<T, ItemBlock> producer) {
@@ -109,7 +109,7 @@ public class CommonProxy {
 
     @SubscribeEvent(priority = EventPriority.HIGH)
     public static void registerMaterials(MaterialEvent event) {
-        TKCYSAMaterials.init();
+        TkTechMaterials.init();
     }
 
     // this is called almost last, to make sure all mods registered their ore dictionary
@@ -117,15 +117,15 @@ public class CommonProxy {
     // it will also clear generated materials
     @SubscribeEvent(priority = EventPriority.LOW)
     public static void runEarlyMaterialHandlers(RegistryEvent.Register<IRecipe> event) {
-        TKCYSALog.logger.info("Running early material handlers...");
+        TkTechLog.logger.info("Running early material handlers...");
     }
 
     @SubscribeEvent
     public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {
-        TKCYSALog.logger.info("Registering recipe low...");
-        TKCYSAMetaBlocks.registerOreDict();
+        TkTechLog.logger.info("Registering recipe low...");
+        TkTechMetaBlocks.registerOreDict();
         OreProcessingsHandler.init();
-        TKCYSAToolItems.registerOreDict();
+        TkTechToolItems.registerOreDict();
     }
 
     @SubscribeEvent(priority = EventPriority.HIGH)
@@ -136,13 +136,13 @@ public class CommonProxy {
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void registerRecipesLowest(RegistryEvent.Register<IRecipe> event) {
-        TKCYSALog.logger.info("Registering and removing some GTCEu recipes...");
+        TkTechLog.logger.info("Registering and removing some GTCEu recipes...");
 
         // Main recipe registration
         // This is called AFTER GregTech registers recipes, so
         // anything here is safe to call removals in
 
-        TKCYSARecipeLoader.latestInit();
+        TkTechRecipeLoader.latestInit();
     }
 
     public void onLoad() {}

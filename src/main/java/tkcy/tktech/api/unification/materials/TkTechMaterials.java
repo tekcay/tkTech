@@ -5,7 +5,7 @@ import gregtech.api.unification.material.Material;
 import lombok.experimental.UtilityClass;
 import tkcy.tktech.api.unification.MaterialsFormula;
 import tkcy.tktech.api.unification.RoastingMaterials;
-import tkcy.tktech.api.unification.TKCYSAFirstDegreeMaterials;
+import tkcy.tktech.api.unification.TkTechFirstDegreeMaterials;
 import tkcy.tktech.api.unification.iconset.MaterialIconAddition;
 import tkcy.tktech.api.unification.materials.chains.*;
 import tkcy.tktech.api.unification.materials.other.Chemicals;
@@ -14,11 +14,11 @@ import tkcy.tktech.api.unification.materials.other.MiscMaterials;
 import tkcy.tktech.api.unification.properties.PropertiesAddition;
 
 @UtilityClass
-public class TKCYSAMaterials {
+public class TkTechMaterials {
 
     public static void init() {
         // 4000 - 4200
-        TKCYSAFirstDegreeMaterials.init();
+        TkTechFirstDegreeMaterials.init();
 
         // 4201
         int id = 4200;

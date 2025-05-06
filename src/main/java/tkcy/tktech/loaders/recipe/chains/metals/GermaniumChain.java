@@ -4,7 +4,7 @@ import static gregtech.api.recipes.RecipeMaps.*;
 import static gregtech.api.unification.material.Materials.*;
 import static gregtech.api.unification.ore.OrePrefix.*;
 import static gregtech.api.unification.ore.OrePrefix.dust;
-import static tkcy.tktech.api.unification.materials.TKCYSAMaterials.*;
+import static tkcy.tktech.api.unification.materials.TkTechMaterials.*;
 
 import lombok.experimental.UtilityClass;
 

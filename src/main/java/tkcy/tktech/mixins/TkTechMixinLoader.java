@@ -9,7 +9,7 @@ import com.google.common.collect.ImmutableList;
 
 import zone.rong.mixinbooter.ILateMixinLoader;
 
-public class TKCYSAMixinLoader implements ILateMixinLoader {
+public class TkTechMixinLoader implements ILateMixinLoader {
 
     public static final List<String> modMixins = ImmutableList.of("gregtech");
 

@@ -1,7 +1,7 @@
 package tkcy.tktech.api.unification;
 
 import static gregtech.api.unification.material.Materials.*;
-import static tkcy.tktech.api.unification.materials.TKCYSAMaterials.*;
+import static tkcy.tktech.api.unification.materials.TkTechMaterials.*;
 
 import lombok.experimental.UtilityClass;
 

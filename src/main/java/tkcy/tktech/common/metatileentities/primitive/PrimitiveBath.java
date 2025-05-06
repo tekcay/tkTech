@@ -21,12 +21,12 @@ import codechicken.lib.render.CCRenderState;
 import codechicken.lib.render.pipeline.IVertexOperation;
 import codechicken.lib.vec.Matrix4;
 import tkcy.tktech.api.machines.PrimitiveSingleBlock;
-import tkcy.tktech.api.recipes.recipemaps.TKCYSARecipeMaps;
+import tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps;
 
 public class PrimitiveBath extends PrimitiveSingleBlock {
 
     public PrimitiveBath(ResourceLocation metaTileEntityId) {
-        super(metaTileEntityId, TKCYSARecipeMaps.PRIMITIVE_BATH_RECIPES, Textures.COKE_OVEN_OVERLAY);
+        super(metaTileEntityId, TkTechRecipeMaps.PRIMITIVE_BATH_RECIPES, Textures.COKE_OVEN_OVERLAY);
     }
 
     @Override

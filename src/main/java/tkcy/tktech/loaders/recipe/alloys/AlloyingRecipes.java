@@ -1,8 +1,8 @@
 package tkcy.tktech.loaders.recipe.alloys;
 
 import static gregtech.api.unification.material.Materials.Carbon;
-import static tkcy.tktech.api.TKCYSAValues.SECOND;
-import static tkcy.tktech.api.unification.flags.TKCYSAMaterialFlags.isAlloy;
+import static tkcy.tktech.api.TkTechValues.SECOND;
+import static tkcy.tktech.api.unification.flags.TkTechMaterialFlags.isAlloy;
 
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
@@ -17,7 +17,7 @@ import gregtech.api.unification.ore.OrePrefix;
 import gregtech.api.unification.stack.MaterialStack;
 
 import lombok.experimental.UtilityClass;
-import tkcy.tktech.api.recipes.recipemaps.TKCYSARecipeMaps;
+import tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps;
 import tkcy.tktech.api.utils.MaterialHelper;
 import tkcy.tktech.modules.alloyingmodule.Alloying;
 
@@ -34,7 +34,7 @@ public class AlloyingRecipes {
 
     private static void generateRecipe(Material output) {
         int componentAmount = MaterialHelper.getAmountComponentsSum(output);
-        RecipeBuilder<?> recipeBuilder = TKCYSARecipeMaps.ALLOYING.recipeBuilder();
+        RecipeBuilder<?> recipeBuilder = TkTechRecipeMaps.ALLOYING.recipeBuilder();
 
         int carbonAmount = MaterialHelper.getCarbonAmountInMaterial(output);
 

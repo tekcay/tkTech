@@ -11,9 +11,9 @@ import gregtech.common.blocks.MetaBlocks;
 import gregtech.common.blocks.wood.BlockGregPlanks;
 
 import lombok.experimental.UtilityClass;
-import tkcy.tktech.api.recipes.recipemaps.TKCYSARecipeMaps;
+import tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps;
 import tkcy.tktech.common.block.BlockStrippedWood;
-import tkcy.tktech.common.block.TKCYSAMetaBlocks;
+import tkcy.tktech.common.block.TkTechMetaBlocks;
 import tkcy.tktech.modules.toolmodule.ToolsModule;
 
 /**
@@ -37,10 +37,10 @@ public class HarderWood {
     }
 
     private static void lk(ItemStack logStack, BlockStrippedWood.StrippedWoodType strippedWood, ItemStack plankStack) {
-        TKCYSARecipeMaps.WOOD_WORKSHOP_RECIPES.recipeBuilder()
+        TkTechRecipeMaps.WOOD_WORKSHOP_RECIPES.recipeBuilder()
                 .inputBlockInWorld(logStack)
                 .outputBlockInWorld(
-                        TKCYSAMetaBlocks.STRIPPED_WOOD.getItemVariant(strippedWood))
+                        TkTechMetaBlocks.STRIPPED_WOOD.getItemVariant(strippedWood))
                 .tool(ToolsModule.GtTool.AXE)
                 .toolUses(7)
                 .output(OrePrefix.dust, Wood)
@@ -48,9 +48,9 @@ public class HarderWood {
                 .hideEnergy()
                 .buildAndRegister();
 
-        TKCYSARecipeMaps.WOOD_WORKSHOP_RECIPES.recipeBuilder()
+        TkTechRecipeMaps.WOOD_WORKSHOP_RECIPES.recipeBuilder()
                 .inputBlockInWorld(
-                        TKCYSAMetaBlocks.STRIPPED_WOOD.getItemVariant(strippedWood))
+                        TkTechMetaBlocks.STRIPPED_WOOD.getItemVariant(strippedWood))
                 .outputBlockInWorld(plankStack)
                 .tool(ToolsModule.GtTool.SAW)
                 .toolUses(7)

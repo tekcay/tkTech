@@ -11,7 +11,7 @@ import gregtech.api.recipes.Recipe;
 
 import tkcy.tktech.api.recipes.properties.IRecipePropertyHelper;
 import tkcy.tktech.api.recipes.properties.ToolProperty;
-import tkcy.tktech.api.recipes.recipemaps.TKCYSARecipeMaps;
+import tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps;
 import tkcy.tktech.modules.toolmodule.ToolsModule;
 
 class RecipeSearchHelpersTest {
@@ -21,7 +21,7 @@ class RecipeSearchHelpersTest {
         Map<IRecipePropertyHelper<?>, Object> parameters = new HashMap<>();
         System.out.println("here");
         parameters.put(ToolProperty.getInstance(), ToolsModule.GtTool.AXE);
-        Recipe recipe = RecipeSearchHelpers.findFirstRecipeWithProperties(TKCYSARecipeMaps.WOOD_WORKSHOP_RECIPES,
+        Recipe recipe = RecipeSearchHelpers.findFirstRecipeWithProperties(TkTechRecipeMaps.WOOD_WORKSHOP_RECIPES,
                 parameters);
         System.out.println(recipe);
         assertNotNull(recipe);

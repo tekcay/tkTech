@@ -1,9 +1,9 @@
 package tkcy.tktech.loaders.recipe.handlers.harderstuff;
 
 import static gregtech.api.GTValues.*;
-import static tkcy.tktech.api.unification.materials.TKCYSAMaterials.CalciumSulfate;
-import static tkcy.tktech.api.unification.materials.TKCYSAMaterials.MicaPulp;
-import static tkcy.tktech.common.item.TKCYSAMetaItems.*;
+import static tkcy.tktech.api.unification.materials.TkTechMaterials.CalciumSulfate;
+import static tkcy.tktech.api.unification.materials.TkTechMaterials.MicaPulp;
+import static tkcy.tktech.common.item.TkTechMetaItems.*;
 
 import gregtech.api.GTValues;
 import gregtech.api.recipes.RecipeMaps;
@@ -14,7 +14,7 @@ import gregtech.common.blocks.MetaBlocks;
 import gregtech.common.items.MetaItems;
 
 import lombok.experimental.UtilityClass;
-import tkcy.tktech.api.recipes.recipemaps.TKCYSARecipeMaps;
+import tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps;
 
 @UtilityClass
 public class HarderCoilsRecipes {
@@ -60,7 +60,7 @@ public class HarderCoilsRecipes {
 
         // Mica insulator foil
 
-        TKCYSARecipeMaps.CLUSTER_MILL_RECIPES.recipeBuilder()
+        TkTechRecipeMaps.CLUSTER_MILL_RECIPES.recipeBuilder()
                 .input(MICA_INSULATOR_SHEET)
                 .output(MICA_INSULATOR_FOIL, 4)
                 .EUt(30)

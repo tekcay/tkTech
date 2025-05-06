@@ -3,8 +3,8 @@ package tkcy.tktech.loaders.recipe.alloys;
 import static gregtech.api.unification.material.Materials.Steel;
 import static gregtech.api.unification.material.Materials.Zinc;
 import static gregtech.api.unification.ore.OrePrefix.*;
-import static tkcy.tktech.api.recipes.recipemaps.TKCYSARecipeMaps.*;
-import static tkcy.tktech.api.unification.materials.TKCYSAMaterials.GalvanizedSteel;
+import static tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps.*;
+import static tkcy.tktech.api.unification.materials.TkTechMaterials.GalvanizedSteel;
 
 import java.util.ArrayList;
 import java.util.List;

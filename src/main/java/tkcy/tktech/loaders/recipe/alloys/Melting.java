@@ -15,8 +15,8 @@ import gregtech.common.blocks.BlockSteamCasing;
 import gregtech.common.blocks.MetaBlocks;
 
 import lombok.experimental.UtilityClass;
-import tkcy.tktech.api.recipes.recipemaps.TKCYSARecipeMaps;
-import tkcy.tktech.common.metatileentities.TKCYSAMetaTileEntities;
+import tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps;
+import tkcy.tktech.common.metatileentities.TkTechMetaTileEntities;
 import tkcy.tktech.modules.alloyingmodule.Alloying;
 
 @Alloying
@@ -24,7 +24,7 @@ import tkcy.tktech.modules.alloyingmodule.Alloying;
 public class Melting {
 
     public static void init() {
-        ModHandler.addShapedRecipe("tkcy_steam_melter", TKCYSAMetaTileEntities.STEAM_MELTER.getStackForm(),
+        ModHandler.addShapedRecipe("tkcy_steam_melter", TkTechMetaTileEntities.STEAM_MELTER.getStackForm(),
                 "BBB", "BHB", "BBB",
                 'B', new UnificationEntry(plate, Materials.Steel),
                 'H', MetaBlocks.STEAM_CASING.getItemVariant(BlockSteamCasing.SteamCasingType.STEEL_BRICKS_HULL));
@@ -41,7 +41,7 @@ public class Melting {
         primitiveMaterials.add(Materials.TinAlloy);
 
         for (Material material : primitiveMaterials) {
-            TKCYSARecipeMaps.PRIMITIVE_MELTING.recipeBuilder()
+            TkTechRecipeMaps.PRIMITIVE_MELTING.recipeBuilder()
                     .input(OrePrefix.dust, material)
                     .fluidOutputs(material.getFluid(GTValues.L))
                     .duration((int) material.getMass() + material.getFluid().getTemperature())

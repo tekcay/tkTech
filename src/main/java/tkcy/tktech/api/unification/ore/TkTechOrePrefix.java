@@ -9,60 +9,60 @@ import gregtech.api.unification.material.info.MaterialFlags;
 import gregtech.api.unification.ore.OrePrefix;
 
 import lombok.experimental.UtilityClass;
-import tkcy.tktech.api.unification.flags.TKCYSAMaterialFlags;
-import tkcy.tktech.api.unification.iconset.TKCYSAMaterialIconType;
+import tkcy.tktech.api.unification.flags.TkTechMaterialFlags;
+import tkcy.tktech.api.unification.iconset.TkTechMaterialIconType;
 
 @UtilityClass
-public class TKCYSAOrePrefix {
+public class TkTechOrePrefix {
 
-    public static final OrePrefix cathode = new OrePrefix("cathode", M, null, TKCYSAMaterialIconType.cathode,
+    public static final OrePrefix cathode = new OrePrefix("cathode", M, null, TkTechMaterialIconType.cathode,
             ENABLE_UNIFICATION,
-            mat -> mat.hasFlag(TKCYSAMaterialFlags.GENERATE_ELECTRODES));
+            mat -> mat.hasFlag(TkTechMaterialFlags.GENERATE_ELECTRODES));
 
-    public static final OrePrefix anode = new OrePrefix("anode", M, null, TKCYSAMaterialIconType.anode,
+    public static final OrePrefix anode = new OrePrefix("anode", M, null, TkTechMaterialIconType.anode,
             ENABLE_UNIFICATION,
-            mat -> mat.hasFlag(TKCYSAMaterialFlags.GENERATE_ELECTRODES));
+            mat -> mat.hasFlag(TkTechMaterialFlags.GENERATE_ELECTRODES));
 
-    public static final OrePrefix electrode = new OrePrefix("electrode", M, null, TKCYSAMaterialIconType.electrode,
+    public static final OrePrefix electrode = new OrePrefix("electrode", M, null, TkTechMaterialIconType.electrode,
             ENABLE_UNIFICATION,
-            mat -> mat.hasFlag(TKCYSAMaterialFlags.GENERATE_ELECTRODES));
+            mat -> mat.hasFlag(TkTechMaterialFlags.GENERATE_ELECTRODES));
 
     public static final OrePrefix curvedPlate = new OrePrefix("curved_plate", M, null,
-            TKCYSAMaterialIconType.curvedPlate,
+            TkTechMaterialIconType.curvedPlate,
             ENABLE_UNIFICATION,
             mat -> mat.hasFlag(MaterialFlags.GENERATE_ROTOR));
 
     // Components
     public static final OrePrefix lvComponents = new OrePrefix("lvComponents", -1, MarkerMaterials.Empty,
-            TKCYSAMaterialIconType.lvComponents, SELF_REFERENCING, null);
+            TkTechMaterialIconType.lvComponents, SELF_REFERENCING, null);
     public static final OrePrefix mvComponents = new OrePrefix("mvComponents", -1, MarkerMaterials.Empty,
-            TKCYSAMaterialIconType.mvComponents, SELF_REFERENCING, null);
+            TkTechMaterialIconType.mvComponents, SELF_REFERENCING, null);
     public static final OrePrefix hvComponents = new OrePrefix("hvComponents", -1, MarkerMaterials.Empty,
-            TKCYSAMaterialIconType.hvComponents, SELF_REFERENCING, null);
+            TkTechMaterialIconType.hvComponents, SELF_REFERENCING, null);
     public static final OrePrefix evComponents = new OrePrefix("evComponents", -1, MarkerMaterials.Empty,
-            TKCYSAMaterialIconType.evComponents, SELF_REFERENCING, null);
+            TkTechMaterialIconType.evComponents, SELF_REFERENCING, null);
     public static final OrePrefix ivComponents = new OrePrefix("ivComponents", -1, MarkerMaterials.Empty,
-            TKCYSAMaterialIconType.ivComponents, SELF_REFERENCING, null);
+            TkTechMaterialIconType.ivComponents, SELF_REFERENCING, null);
     public static final OrePrefix luvComponents = new OrePrefix("luvComponents", -1, MarkerMaterials.Empty,
-            TKCYSAMaterialIconType.luvComponents, SELF_REFERENCING, null);
+            TkTechMaterialIconType.luvComponents, SELF_REFERENCING, null);
     public static final OrePrefix zpmComponents = new OrePrefix("zpmComponents", -1, MarkerMaterials.Empty,
-            TKCYSAMaterialIconType.zpmComponents, SELF_REFERENCING, null);
+            TkTechMaterialIconType.zpmComponents, SELF_REFERENCING, null);
     public static final OrePrefix uvComponents = new OrePrefix("uvComponents", -1, MarkerMaterials.Empty,
-            TKCYSAMaterialIconType.uvComponents, SELF_REFERENCING, null);
+            TkTechMaterialIconType.uvComponents, SELF_REFERENCING, null);
 
     // Tools
     public static final OrePrefix toolTipSolderingIron = new OrePrefix("toolTipSolderingIron", 1, null,
-            TKCYSAMaterialIconType.toolTipSolderingIron, ENABLE_UNIFICATION,
-            mat -> mat.hasFlag(TKCYSAMaterialFlags.GENERATE_SOLDERING_IRON_TIP));
+            TkTechMaterialIconType.toolTipSolderingIron, ENABLE_UNIFICATION,
+            mat -> mat.hasFlag(TkTechMaterialFlags.GENERATE_SOLDERING_IRON_TIP));
 
     // OreBlocks
-    public static final OrePrefix casing = new OrePrefix("casing", M * 9, null, TKCYSAMaterialIconType.casing,
+    public static final OrePrefix casing = new OrePrefix("casing", M * 9, null, TkTechMaterialIconType.casing,
             ENABLE_UNIFICATION, null);
-    public static final OrePrefix wall = new OrePrefix("wall", M * 9, null, TKCYSAMaterialIconType.wall,
+    public static final OrePrefix wall = new OrePrefix("wall", M * 9, null, TkTechMaterialIconType.wall,
             ENABLE_UNIFICATION, null);
-    public static final OrePrefix coil = new OrePrefix("coil", M * 9, null, TKCYSAMaterialIconType.coil,
+    public static final OrePrefix coil = new OrePrefix("coil", M * 9, null, TkTechMaterialIconType.coil,
             ENABLE_UNIFICATION, null);
     public static final OrePrefix strippedWood = new OrePrefix("strippedWood", M * 9, MarkerMaterials.Empty,
-            TKCYSAMaterialIconType.strippedWood,
+            TkTechMaterialIconType.strippedWood,
             SELF_REFERENCING, null);
 }

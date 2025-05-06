@@ -19,12 +19,12 @@ import gregtech.client.renderer.texture.Textures;
 import gregtech.common.blocks.BlockMachineCasing;
 import gregtech.common.blocks.MetaBlocks;
 
-import tkcy.tktech.api.recipes.recipemaps.TKCYSARecipeMaps;
+import tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps;
 
 public class Dryer extends RecipeMapMultiblockController {
 
     public Dryer(ResourceLocation metaTileEntityId) {
-        super(metaTileEntityId, TKCYSARecipeMaps.DRYING);
+        super(metaTileEntityId, TkTechRecipeMaps.DRYING);
     }
 
     @Override

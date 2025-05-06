@@ -13,33 +13,33 @@ import gregtech.api.unification.stack.UnificationEntry;
 import gregtech.common.crafting.ToolHeadReplaceRecipe;
 
 import lombok.experimental.UtilityClass;
-import tkcy.tktech.api.unification.ore.TKCYSAOrePrefix;
-import tkcy.tktech.common.item.TKCYSAToolItems;
+import tkcy.tktech.api.unification.ore.TkTechOrePrefix;
+import tkcy.tktech.common.item.TkTechToolItems;
 
 @UtilityClass
 public class ToolsRecipes {
 
     public static void init() {
-        ToolHeadReplaceRecipe.setToolHeadForTool(TKCYSAOrePrefix.toolTipSolderingIron, TKCYSAToolItems.SOLDERING_IRON);
+        ToolHeadReplaceRecipe.setToolHeadForTool(TkTechOrePrefix.toolTipSolderingIron, TkTechToolItems.SOLDERING_IRON);
 
-        TKCYSAOrePrefix.toolTipSolderingIron.addProcessingHandler(PropertyKey.INGOT,
+        TkTechOrePrefix.toolTipSolderingIron.addProcessingHandler(PropertyKey.INGOT,
                 ToolsRecipes::processSolderingIronTool);
-        TKCYSAOrePrefix.toolTipSolderingIron.addProcessingHandler(PropertyKey.INGOT,
+        TkTechOrePrefix.toolTipSolderingIron.addProcessingHandler(PropertyKey.INGOT,
                 ToolsRecipes::processSolderingIronTip);
     }
 
     private static void processSolderingIronTool(OrePrefix orePrefix, Material material, IngotProperty ingotProperty) {
-        addToolRecipe(material, TKCYSAToolItems.SOLDERING_IRON, false,
+        addToolRecipe(material, TkTechToolItems.SOLDERING_IRON, false,
                 "TBf", "Rd ", "  P",
-                'T', new UnificationEntry(TKCYSAOrePrefix.toolTipSolderingIron, material),
+                'T', new UnificationEntry(TkTechOrePrefix.toolTipSolderingIron, material),
                 'P', new UnificationEntry(OrePrefix.plate, Materials.Rubber),
                 'R', new UnificationEntry(OrePrefix.stick, Materials.Iron),
                 'B', new UnificationEntry(OrePrefix.bolt, material));
     }
 
     private static void processSolderingIronTip(OrePrefix orePrefix, Material material, IngotProperty ingotProperty) {
-        ModHandler.addShapedRecipe(String.format("%s_%s", TKCYSAOrePrefix.toolTipSolderingIron.name(), material),
-                OreDictUnifier.get(TKCYSAOrePrefix.toolTipSolderingIron, material),
+        ModHandler.addShapedRecipe(String.format("%s_%s", TkTechOrePrefix.toolTipSolderingIron.name(), material),
+                OreDictUnifier.get(TkTechOrePrefix.toolTipSolderingIron, material),
                 "RB", "Bf",
                 'R', new UnificationEntry(OrePrefix.stick, Materials.Iron),
                 'B', new UnificationEntry(OrePrefix.bolt, material));

@@ -4,15 +4,15 @@ import static gregtech.api.GTValues.*;
 import static gregtech.api.recipes.RecipeMaps.*;
 import static gregtech.api.unification.material.Materials.*;
 import static gregtech.api.unification.ore.OrePrefix.dust;
-import static tkcy.tktech.api.TKCYSAValues.SECOND;
-import static tkcy.tktech.api.unification.materials.TKCYSAMaterials.*;
+import static tkcy.tktech.api.TkTechValues.SECOND;
+import static tkcy.tktech.api.unification.materials.TkTechMaterials.*;
 
 import gregtech.api.unification.material.Materials;
 import gregtech.api.unification.ore.OrePrefix;
 
 import lombok.experimental.UtilityClass;
-import tkcy.tktech.api.recipes.recipemaps.TKCYSARecipeMaps;
-import tkcy.tktech.api.unification.ore.TKCYSAOrePrefix;
+import tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps;
+import tkcy.tktech.api.unification.ore.TkTechOrePrefix;
 
 @UtilityClass
 public class MiscChemicals {
@@ -48,7 +48,7 @@ public class MiscChemicals {
                 .fluidOutputs(SodiumNitriteSolution.getFluid(2000))
                 .buildAndRegister();
 
-        TKCYSARecipeMaps.DRYING.recipeBuilder()
+        TkTechRecipeMaps.DRYING.recipeBuilder()
                 .duration(SECOND * 40)
                 .EUt(VA[MV])
                 .fluidInputs(SodiumNitriteSolution.getFluid(1000))
@@ -76,12 +76,12 @@ public class MiscChemicals {
                 .buildAndRegister();
 
         // 2 NaHSO4 -> Na2S2O8 + H2
-        TKCYSARecipeMaps.ADVANCED_ELECTROLYSIS.recipeBuilder()
+        TkTechRecipeMaps.ADVANCED_ELECTROLYSIS.recipeBuilder()
                 .EUt(600)
                 .duration(SECOND)
                 .input(OrePrefix.dust, Materials.SodiumBisulfate)
-                .notConsumable(TKCYSAOrePrefix.anode, Platinum)
-                .notConsumable(TKCYSAOrePrefix.cathode, Platinum)
+                .notConsumable(TkTechOrePrefix.anode, Platinum)
+                .notConsumable(TkTechOrePrefix.cathode, Platinum)
                 .notConsumable(Materials.DistilledWater.getFluid(5000))
                 .fluidInputs(Materials.DistilledWater.getFluid(1000))
                 .fluidOutputs(Materials.Hydrogen.getFluid(1000))

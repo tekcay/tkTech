@@ -1,6 +1,6 @@
 package tkcy.tktech.api;
 
-public final class TKCYSAValues {
+public final class TkTechValues {
 
     public static final String GREGIFICATION_MODID = "gregification";
     public static final String GCYS_MODID = "gcys";

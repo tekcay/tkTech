@@ -3,11 +3,11 @@ package tkcy.tktech.loaders.recipe.chains.metals;
 import static gregtech.api.recipes.RecipeMaps.BLAST_RECIPES;
 import static gregtech.api.unification.material.Materials.*;
 import static gregtech.api.unification.ore.OrePrefix.*;
-import static tkcy.tktech.api.recipes.recipemaps.TKCYSARecipeMaps.ADVANCED_ELECTROLYSIS;
-import static tkcy.tktech.api.recipes.recipemaps.TKCYSARecipeMaps.FLUID_PRIMITIVE_BLAST;
-import static tkcy.tktech.api.unification.materials.TKCYSAMaterials.ZincSulfate;
-import static tkcy.tktech.api.unification.ore.TKCYSAOrePrefix.anode;
-import static tkcy.tktech.api.unification.ore.TKCYSAOrePrefix.cathode;
+import static tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps.ADVANCED_ELECTROLYSIS;
+import static tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps.FLUID_PRIMITIVE_BLAST;
+import static tkcy.tktech.api.unification.materials.TkTechMaterials.ZincSulfate;
+import static tkcy.tktech.api.unification.ore.TkTechOrePrefix.anode;
+import static tkcy.tktech.api.unification.ore.TkTechOrePrefix.cathode;
 
 import gregtech.api.GTValues;
 

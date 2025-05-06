@@ -31,7 +31,7 @@ import gregtech.core.unification.material.internal.MaterialRegistryManager;
 import gregtech.modules.ModuleManager;
 
 import tkcy.tktech.api.unification.flags.FlagsAddition;
-import tkcy.tktech.api.unification.materials.TKCYSAMaterials;
+import tkcy.tktech.api.unification.materials.TkTechMaterials;
 
 public final class Bootstrap {
 
@@ -77,7 +77,7 @@ public final class Bootstrap {
         meta.modId = GTValues.MODID;
         Loader.instance().setupTestHarness(new DummyModContainer(meta));
 
-        TKCYSAMaterials.init();
+        TkTechMaterials.init();
         FlagsAddition.init();
 
         managerInternal.closeRegistries();

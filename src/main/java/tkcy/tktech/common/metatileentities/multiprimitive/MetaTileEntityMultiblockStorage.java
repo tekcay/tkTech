@@ -42,11 +42,11 @@ import tkcy.tktech.api.metatileentities.BlockMaterialMetaTileEntityPaint;
 import tkcy.tktech.api.metatileentities.MaterialMetaTileEntity;
 import tkcy.tktech.api.metatileentities.MetaTileEntityStorageFormat;
 import tkcy.tktech.api.metatileentities.RepetitiveSide;
-import tkcy.tktech.api.predicates.TKCYSAPredicates;
-import tkcy.tktech.api.render.TKCYSATextures;
+import tkcy.tktech.api.predicates.TkTechPredicates;
+import tkcy.tktech.api.render.TkTechTextures;
 import tkcy.tktech.api.utils.StorageUtils;
 import tkcy.tktech.api.utils.units.UnitsConversions;
-import tkcy.tktech.common.block.TKCYSAMetaBlocks;
+import tkcy.tktech.common.block.TkTechMetaBlocks;
 import tkcy.tktech.modules.storagemodule.StorageModule;
 
 @Getter
@@ -92,9 +92,9 @@ public abstract class MetaTileEntityMultiblockStorage<ContentHandler, ContentTyp
                 .where('S', selfPredicate())
                 .where(' ', any())
                 .where('A', air())
-                .where('I', TKCYSAPredicates.isAir(RepetitiveSide.getHeightMarker()))
+                .where('I', TkTechPredicates.isAir(RepetitiveSide.getHeightMarker()))
                 .where('X',
-                        TKCYSAPredicates.iBlockStatePredicate(getSideBlockBlockState())
+                        TkTechPredicates.iBlockStatePredicate(getSideBlockBlockState())
                                 .or(getTransferPredicate()
                                         .setMaxGlobalLimited(4)))
                 .build();
@@ -104,7 +104,7 @@ public abstract class MetaTileEntityMultiblockStorage<ContentHandler, ContentTyp
     @Override
     @NotNull
     public ICubeRenderer getBaseTexture(IMultiblockPart sourcePart) {
-        return TKCYSATextures.WALL_TEXTURE;
+        return TkTechTextures.WALL_TEXTURE;
     }
 
     @Override
@@ -169,7 +169,7 @@ public abstract class MetaTileEntityMultiblockStorage<ContentHandler, ContentTyp
 
     @Override
     public IBlockState getSideBlockBlockState() {
-        return TKCYSAMetaBlocks.WALLS.get(this.material).getBlock(this.material);
+        return TkTechMetaBlocks.WALLS.get(this.material).getBlock(this.material);
     }
 
     @Override

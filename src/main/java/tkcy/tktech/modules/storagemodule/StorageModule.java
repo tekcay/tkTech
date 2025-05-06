@@ -17,8 +17,8 @@ import gregtech.api.unification.material.Materials;
 import lombok.experimental.UtilityClass;
 import tkcy.tktech.api.metatileentities.MaterialMetaTileEntity;
 import tkcy.tktech.api.metatileentities.RepetitiveSide;
-import tkcy.tktech.api.unification.materials.TKCYSAMaterials;
-import tkcy.tktech.common.metatileentities.TKCYSAMetaTileEntities;
+import tkcy.tktech.api.unification.materials.TkTechMaterials;
+import tkcy.tktech.common.metatileentities.TkTechMetaTileEntities;
 import tkcy.tktech.common.metatileentities.multiprimitive.MetaTileEntityMultiblockChest;
 import tkcy.tktech.common.metatileentities.multiprimitive.MetaTileEntityMultiblockCrate;
 import tkcy.tktech.common.metatileentities.multiprimitive.MetaTileEntityMultiblockTank;
@@ -37,7 +37,7 @@ public class StorageModule {
         TANK_MATERIALS.add(Materials.Steel);
         TANK_MATERIALS.add(Materials.StainlessSteel);
         TANK_MATERIALS.add(Materials.TungstenCarbide);
-        TANK_MATERIALS.add(TKCYSAMaterials.GalvanizedSteel);
+        TANK_MATERIALS.add(TkTechMaterials.GalvanizedSteel);
     }
 
     public static final List<Material> CRATE_MATERIALS = new ArrayList<>();
@@ -47,17 +47,17 @@ public class StorageModule {
     }
 
     public static MetaTileEntityModulableTankValve getTankValve(Material material) {
-        return getMaterialMetaTileEntity(material, TANK_MATERIALS.size(), TKCYSAMetaTileEntities.MODULABLE_TANK_VALVES);
+        return getMaterialMetaTileEntity(material, TANK_MATERIALS.size(), TkTechMetaTileEntities.MODULABLE_TANK_VALVES);
     }
 
     public static MetaTileEntityModulableCrateValve getCrateValve(Material material) {
         return getMaterialMetaTileEntity(material, CRATE_MATERIALS.size(),
-                TKCYSAMetaTileEntities.MODULABLE_CRATE_VALVES);
+                TkTechMetaTileEntities.MODULABLE_CRATE_VALVES);
     }
 
     public static MetaTileEntityModulableChestValve getChestValve(Material material) {
         return getMaterialMetaTileEntity(material, CRATE_MATERIALS.size(),
-                TKCYSAMetaTileEntities.MODULABLE_CHEST_VALVES);
+                TkTechMetaTileEntities.MODULABLE_CHEST_VALVES);
     }
 
     @Nullable

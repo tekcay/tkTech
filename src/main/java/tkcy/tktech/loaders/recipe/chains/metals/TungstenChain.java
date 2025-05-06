@@ -1,7 +1,7 @@
 package tkcy.tktech.loaders.recipe.chains.metals;
 
 import static gregtech.api.unification.material.Materials.*;
-import static tkcy.tktech.api.unification.materials.TKCYSAMaterials.TungstenOxide;
+import static tkcy.tktech.api.unification.materials.TkTechMaterials.TungstenOxide;
 
 import gregtech.api.recipes.RecipeMaps;
 import gregtech.api.unification.ore.OrePrefix;

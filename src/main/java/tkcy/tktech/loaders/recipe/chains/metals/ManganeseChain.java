@@ -1,6 +1,6 @@
 package tkcy.tktech.loaders.recipe.chains.metals;
 
-import static tkcy.tktech.api.TKCYSAValues.SECOND;
+import static tkcy.tktech.api.TkTechValues.SECOND;
 
 import gregtech.api.GTValues;
 import gregtech.api.recipes.RecipeMaps;
@@ -8,9 +8,9 @@ import gregtech.api.unification.material.Materials;
 import gregtech.api.unification.ore.OrePrefix;
 
 import lombok.experimental.UtilityClass;
-import tkcy.tktech.api.recipes.recipemaps.TKCYSARecipeMaps;
-import tkcy.tktech.api.unification.materials.TKCYSAMaterials;
-import tkcy.tktech.api.unification.ore.TKCYSAOrePrefix;
+import tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps;
+import tkcy.tktech.api.unification.materials.TkTechMaterials;
+import tkcy.tktech.api.unification.ore.TkTechOrePrefix;
 
 @UtilityClass
 public class ManganeseChain {
@@ -40,10 +40,10 @@ public class ManganeseChain {
                 .duration(20 * SECOND)
                 .buildAndRegister();
 
-        TKCYSARecipeMaps.ADVANCED_ELECTROLYSIS.recipeBuilder()
+        TkTechRecipeMaps.ADVANCED_ELECTROLYSIS.recipeBuilder()
                 .input(OrePrefix.dust, Materials.Pyrolusite)
-                .notConsumable(TKCYSAOrePrefix.cathode, Materials.Manganese)
-                .notConsumable(TKCYSAOrePrefix.anode, Materials.Carbon)
+                .notConsumable(TkTechOrePrefix.cathode, Materials.Manganese)
+                .notConsumable(TkTechOrePrefix.anode, Materials.Carbon)
                 .notConsumable(Materials.DistilledWater.getFluid(2000))
                 .fluidOutputs(Materials.Oxygen.getFluid(1000))
                 .output(OrePrefix.dust, Materials.Manganese)
@@ -55,15 +55,15 @@ public class ManganeseChain {
 
         RecipeMaps.CHEMICAL_RECIPES.recipeBuilder()
                 .fluidInputs(Materials.SulfuricAcid.getFluid(1000))
-                .input(OrePrefix.dust, TKCYSAMaterials.OxalicAcid)
+                .input(OrePrefix.dust, TkTechMaterials.OxalicAcid)
                 .input(OrePrefix.dust, Materials.Spessartine)
-                .fluidOutputs(TKCYSAMaterials.TreatedSpessartine.getFluid(1000))
+                .fluidOutputs(TkTechMaterials.TreatedSpessartine.getFluid(1000))
                 .EUt(30)
                 .duration(SECOND * 20)
                 .buildAndRegister();
 
         RecipeMaps.CENTRIFUGE_RECIPES.recipeBuilder()
-                .fluidInputs(TKCYSAMaterials.TreatedSpessartine.getFluid(2000))
+                .fluidInputs(TkTechMaterials.TreatedSpessartine.getFluid(2000))
                 .output(OrePrefix.dust, Materials.Pyrolusite, 3)
                 .EUt(30)
                 .duration(SECOND * 20)

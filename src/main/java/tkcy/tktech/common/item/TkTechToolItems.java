@@ -17,13 +17,13 @@ import gregtech.api.unification.OreDictUnifier;
 import gregtech.core.sound.GTSoundEvents;
 
 import lombok.experimental.UtilityClass;
-import tkcy.tktech.api.items.toolitem.TKCYSAToolClasses;
-import tkcy.tktech.api.items.toolitem.TKCYSAToolOreDict;
+import tkcy.tktech.api.items.toolitem.TkTechToolClasses;
+import tkcy.tktech.api.items.toolitem.TkTechToolOreDict;
 import tkcy.tktech.modules.toolmodule.WorkingTool;
 
 @WorkingTool
 @UtilityClass
-public class TKCYSAToolItems {
+public class TkTechToolItems {
 
     private static final List<IGTTool> TKCYSA_TOOLS = new ArrayList<>();
     public static IGTTool SOLDERING_IRON;
@@ -33,12 +33,12 @@ public class TKCYSAToolItems {
     }
 
     public static void init() {
-        SOLDERING_IRON = tkcysaRegister(ItemGTTool.Builder.of(GTValues.MODID, TKCYSAToolClasses.SOLDERING_IRON)
+        SOLDERING_IRON = tkcysaRegister(ItemGTTool.Builder.of(GTValues.MODID, TkTechToolClasses.SOLDERING_IRON)
                 .toolStats(builder -> builder.crafting().damagePerAction(1))
                 .sound(GTSoundEvents.ELECTROLYZER)
                 .symbol('i')
-                .toolClasses(TKCYSAToolClasses.SOLDERING_IRON)
-                .oreDict(TKCYSAToolOreDict.solderingIron));
+                .toolClasses(TkTechToolClasses.SOLDERING_IRON)
+                .oreDict(TkTechToolOreDict.solderingIron));
     }
 
     private static IGTTool tkcysaRegister(@NotNull ToolBuilder<?> builder) {

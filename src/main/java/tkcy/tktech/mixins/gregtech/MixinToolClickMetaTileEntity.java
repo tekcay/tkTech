@@ -26,7 +26,7 @@ import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.client.utils.TooltipHelper;
 
 import codechicken.lib.raytracer.CuboidRayTraceResult;
-import tkcy.tktech.api.items.toolitem.TKCYSAToolClasses;
+import tkcy.tktech.api.items.toolitem.TkTechToolClasses;
 import tkcy.tktech.api.machines.*;
 import tkcy.tktech.modules.toolmodule.ToolsModule;
 
@@ -50,7 +50,7 @@ public abstract class MixinToolClickMetaTileEntity implements IOnSolderingIronCl
         ToolsModule.GtTool tool = ToolsModule.getGtTool(toolClasses);
         if (tool != null) onAnyToolClick(tool, playerIn.isSneaking());
 
-        if (toolClasses.contains(TKCYSAToolClasses.SOLDERING_IRON)) {
+        if (toolClasses.contains(TkTechToolClasses.SOLDERING_IRON)) {
             result = onSolderingIronClick(playerIn, hand, gridSideHit, hitResult);
             callback.setReturnValue(result);
         }

@@ -5,7 +5,7 @@ import tkcy.tktech.modules.toolmodule.WorkingTool;
 
 @WorkingTool
 @UtilityClass
-public class TKCYSAToolClasses {
+public class TkTechToolClasses {
 
     public static final String SOLDERING_IRON = "soldering_iron";
 }

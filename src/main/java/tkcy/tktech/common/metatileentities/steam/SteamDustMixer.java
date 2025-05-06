@@ -28,12 +28,12 @@ import gregtech.client.renderer.texture.Textures;
 import gregtech.client.renderer.texture.cube.SimpleSidedCubeRenderer;
 
 import tkcy.tktech.api.recipes.CastingInfo;
-import tkcy.tktech.api.recipes.recipemaps.TKCYSARecipeMaps;
+import tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps;
 
 public class SteamDustMixer extends SteamMetaTileEntity {
 
     public SteamDustMixer(ResourceLocation metaTileEntityId) {
-        super(metaTileEntityId, TKCYSARecipeMaps.PRIMITIVE_DUST_MIXING, Textures.ALLOY_SMELTER_OVERLAY, true);
+        super(metaTileEntityId, TkTechRecipeMaps.PRIMITIVE_DUST_MIXING, Textures.ALLOY_SMELTER_OVERLAY, true);
     }
 
     @Override

@@ -17,7 +17,7 @@ import tkcy.tktech.modules.toolmodule.WorkingTool;
 @UtilityClass
 @ZenExpansion("mods.tkcysa.recipe.RecipeMaps")
 @ZenRegister
-public final class TKCYSARecipeMaps {
+public final class TkTechRecipeMaps {
 
     @ZenProperty
     public static final RecipeMap<NoEnergyRecipeBuilder> PRIMITIVE_ROASTING = new MinimalPrimitiveRecipeMap<>(

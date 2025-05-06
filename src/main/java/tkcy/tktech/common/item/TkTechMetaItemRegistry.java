@@ -1,12 +1,12 @@
 package tkcy.tktech.common.item;
 
-import static tkcy.tktech.common.item.TKCYSAMetaItems.*;
+import static tkcy.tktech.common.item.TkTechMetaItems.*;
 
 import gregtech.api.items.metaitem.StandardMetaItem;
 
-public class TKCYSAMetaItemRegistry extends StandardMetaItem {
+public class TkTechMetaItemRegistry extends StandardMetaItem {
 
-    public TKCYSAMetaItemRegistry(short i) {
+    public TkTechMetaItemRegistry(short i) {
         super(i);
     }
 

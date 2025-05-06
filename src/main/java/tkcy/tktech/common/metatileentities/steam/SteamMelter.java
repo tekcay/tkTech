@@ -25,14 +25,14 @@ import gregtech.client.particle.VanillaParticleEffects;
 import gregtech.client.renderer.texture.Textures;
 import gregtech.client.renderer.texture.cube.SimpleSidedCubeRenderer;
 
-import tkcy.tktech.api.recipes.recipemaps.TKCYSARecipeMaps;
+import tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps;
 
 public class SteamMelter extends SteamMetaTileEntity {
 
     protected FluidTank outputTank;
 
     public SteamMelter(ResourceLocation metaTileEntityId) {
-        super(metaTileEntityId, TKCYSARecipeMaps.PRIMITIVE_MELTING, Textures.COKE_OVEN_OVERLAY, true);
+        super(metaTileEntityId, TkTechRecipeMaps.PRIMITIVE_MELTING, Textures.COKE_OVEN_OVERLAY, true);
     }
 
     @Override

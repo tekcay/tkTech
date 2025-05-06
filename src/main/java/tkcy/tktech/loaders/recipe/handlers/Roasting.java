@@ -3,15 +3,15 @@ package tkcy.tktech.loaders.recipe.handlers;
 import static gregtech.api.GTValues.L;
 import static gregtech.api.unification.material.Materials.*;
 import static gregtech.api.unification.ore.OrePrefix.dust;
-import static tkcy.tktech.api.TKCYSAValues.SECOND;
-import static tkcy.tktech.api.unification.materials.TKCYSAMaterials.*;
+import static tkcy.tktech.api.TkTechValues.SECOND;
+import static tkcy.tktech.api.unification.materials.TkTechMaterials.*;
 
 import gregtech.api.recipes.RecipeMaps;
 import gregtech.api.unification.material.Material;
 
 import lombok.experimental.UtilityClass;
 import tkcy.tktech.api.recipes.helpers.RecipeRemovalHelper;
-import tkcy.tktech.api.recipes.recipemaps.TKCYSARecipeMaps;
+import tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps;
 
 @UtilityClass
 public class Roasting {
@@ -36,7 +36,7 @@ public class Roasting {
 
     private static void roast(Material material1, int amount1, Material material2, int amount2,
                               int sulfurDioxideAmount) {
-        TKCYSARecipeMaps.PRIMITIVE_ROASTING.recipeBuilder()
+        TkTechRecipeMaps.PRIMITIVE_ROASTING.recipeBuilder()
                 .input(dust, material1, amount1)
                 .output(dust, material2, amount2)
                 .fluidInputs(Air.getFluid(sulfurDioxideAmount * 2))
@@ -44,7 +44,7 @@ public class Roasting {
                 .duration(20 * 50)
                 .buildAndRegister();
 
-        TKCYSARecipeMaps.PRIMITIVE_ROASTING.recipeBuilder()
+        TkTechRecipeMaps.PRIMITIVE_ROASTING.recipeBuilder()
                 .input(dust, material1, amount1)
                 .output(dust, material2, amount2)
                 .fluidInputs(Oxygen.getFluid(sulfurDioxideAmount))
@@ -54,7 +54,7 @@ public class Roasting {
     }
 
     private static void chalcopyrite() {
-        TKCYSARecipeMaps.PRIMITIVE_ROASTING.recipeBuilder()
+        TkTechRecipeMaps.PRIMITIVE_ROASTING.recipeBuilder()
                 .input(dust, Chalcopyrite)
                 .input(dust, SiliconDioxide)
                 .output(dust, RoastedChalcopyrite)
@@ -63,7 +63,7 @@ public class Roasting {
                 .duration(20 * 100)
                 .buildAndRegister();
 
-        TKCYSARecipeMaps.PRIMITIVE_ROASTING.recipeBuilder()
+        TkTechRecipeMaps.PRIMITIVE_ROASTING.recipeBuilder()
                 .input(dust, Chalcopyrite)
                 .output(dust, SiliconDioxide)
                 .output(dust, RoastedChalcopyrite)
@@ -74,7 +74,7 @@ public class Roasting {
     }
 
     private static void cinnabar() {
-        TKCYSARecipeMaps.PRIMITIVE_ROASTING.recipeBuilder()
+        TkTechRecipeMaps.PRIMITIVE_ROASTING.recipeBuilder()
                 .duration(SECOND * 10)
                 .fluidInputs(Air.getFluid(4000))
                 .input(dust, Cinnabar)
@@ -82,7 +82,7 @@ public class Roasting {
                 .fluidOutputs(Mercury.getFluid(L))
                 .buildAndRegister();
 
-        TKCYSARecipeMaps.PRIMITIVE_ROASTING.recipeBuilder()
+        TkTechRecipeMaps.PRIMITIVE_ROASTING.recipeBuilder()
                 .duration(SECOND * 8)
                 .fluidInputs(Oxygen.getFluid(1000))
                 .input(dust, Cinnabar)

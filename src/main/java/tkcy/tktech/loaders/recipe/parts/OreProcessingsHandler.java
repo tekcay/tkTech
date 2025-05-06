@@ -1,6 +1,6 @@
 package tkcy.tktech.loaders.recipe.parts;
 
-import static tkcy.tktech.common.TKCYSAConfigHolder.harderStuff;
+import static tkcy.tktech.common.TkTechConfigHolder.harderStuff;
 
 import lombok.experimental.UtilityClass;
 import tkcy.tktech.loaders.recipe.ToolsRecipes;

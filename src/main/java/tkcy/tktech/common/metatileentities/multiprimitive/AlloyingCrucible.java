@@ -1,6 +1,6 @@
 package tkcy.tktech.common.metatileentities.multiprimitive;
 
-import static tkcy.tktech.api.predicates.TKCYSAPredicates.*;
+import static tkcy.tktech.api.predicates.TkTechPredicates.*;
 
 import java.util.List;
 
@@ -25,12 +25,12 @@ import gregtech.client.renderer.texture.Textures;
 
 import tkcy.tktech.api.machines.NoEnergyMultiController;
 import tkcy.tktech.api.recipes.logic.NoEnergyLogic;
-import tkcy.tktech.api.recipes.recipemaps.TKCYSARecipeMaps;
+import tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps;
 
 public class AlloyingCrucible extends NoEnergyMultiController {
 
     public AlloyingCrucible(ResourceLocation metaTileEntityId) {
-        super(metaTileEntityId, TKCYSARecipeMaps.ALLOYING);
+        super(metaTileEntityId, TkTechRecipeMaps.ALLOYING);
         this.recipeMapWorkable = new NoEnergyLogic(this);
         initializeAbilities();
     }

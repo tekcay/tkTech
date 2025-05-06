@@ -26,12 +26,12 @@ import codechicken.lib.render.pipeline.IVertexOperation;
 import codechicken.lib.vec.Matrix4;
 import tkcy.tktech.api.machines.PrimitiveSingleBlock;
 import tkcy.tktech.api.recipes.CastingInfo;
-import tkcy.tktech.api.recipes.recipemaps.TKCYSARecipeMaps;
+import tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps;
 
 public class PrimitiveCasting extends PrimitiveSingleBlock {
 
     public PrimitiveCasting(ResourceLocation metaTileEntityId) {
-        super(metaTileEntityId, TKCYSARecipeMaps.CASTING, Textures.COKE_OVEN_OVERLAY);
+        super(metaTileEntityId, TkTechRecipeMaps.CASTING, Textures.COKE_OVEN_OVERLAY);
     }
 
     @Override

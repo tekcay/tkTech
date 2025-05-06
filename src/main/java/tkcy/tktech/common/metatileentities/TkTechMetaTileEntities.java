@@ -2,7 +2,7 @@ package tkcy.tktech.common.metatileentities;
 
 import static gregtech.common.metatileentities.MetaTileEntities.registerMetaTileEntity;
 import static gregtech.common.metatileentities.MetaTileEntities.registerSimpleMetaTileEntity;
-import static tkcy.tktech.api.utils.TKCYSAUtil.tkcysa;
+import static tkcy.tktech.api.utils.TkTechUtil.tktech;
 
 import gregtech.api.metatileentity.SimpleMachineMetaTileEntity;
 import gregtech.api.util.GTUtility;
@@ -11,9 +11,9 @@ import gregtech.client.renderer.texture.Textures;
 import lombok.experimental.UtilityClass;
 import tkcy.tktech.api.machines.ToolLogicMetaTileEntity;
 import tkcy.tktech.api.metatileentities.MaterialMetaTileEntity;
-import tkcy.tktech.api.recipes.recipemaps.TKCYSARecipeMaps;
-import tkcy.tktech.api.render.TKCYSATextures;
-import tkcy.tktech.api.utils.TKCYSAUtil;
+import tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps;
+import tkcy.tktech.api.render.TkTechTextures;
+import tkcy.tktech.api.utils.TkTechUtil;
 import tkcy.tktech.common.metatileentities.electric.*;
 import tkcy.tktech.common.metatileentities.multiblockpart.BrickFluidHatch;
 import tkcy.tktech.common.metatileentities.multiblockpart.BrickItemBus;
@@ -27,7 +27,7 @@ import tkcy.tktech.common.metatileentities.storage.MetaTileEntityModulableTankVa
 import tkcy.tktech.modules.storagemodule.StorageModule;
 
 @UtilityClass
-public class TKCYSAMetaTileEntities {
+public class TkTechMetaTileEntities {
 
     public static PrimitiveRoastingOven PRIMITIVE_ROASTING_OVEN;
     public static FluidPrimitiveBlastFurnace FLUID_PRIMITIVE_BLAST_FURNACE;
@@ -74,60 +74,60 @@ public class TKCYSAMetaTileEntities {
 
     public static void init() {
         PRIMITIVE_ROASTING_OVEN = registerMetaTileEntity(4000,
-                new PrimitiveRoastingOven(tkcysa("primitive_roasting_oven")));
+                new PrimitiveRoastingOven(tktech("primitive_roasting_oven")));
 
-        ELECTROLYZER = registerMetaTileEntity(4001, new Electrolyzer(tkcysa("electrolyzer")));
+        ELECTROLYZER = registerMetaTileEntity(4001, new Electrolyzer(tktech("electrolyzer")));
 
-        ASSEMBLING_MACHINE = registerMetaTileEntity(4002, new AssemblingMachine(tkcysa("assembler")));
+        ASSEMBLING_MACHINE = registerMetaTileEntity(4002, new AssemblingMachine(tktech("assembler")));
 
         FLUID_PRIMITIVE_BLAST_FURNACE = registerMetaTileEntity(4003,
-                new FluidPrimitiveBlastFurnace(tkcysa("fluid_primitive_blast_furnace")));
+                new FluidPrimitiveBlastFurnace(tktech("fluid_primitive_blast_furnace")));
 
-        PRIMITIVE_CASTING = registerMetaTileEntity(4004, new PrimitiveCasting(tkcysa("primitive_casting")));
+        PRIMITIVE_CASTING = registerMetaTileEntity(4004, new PrimitiveCasting(tktech("primitive_casting")));
 
         BRICK_FLUID_HATCH[0] = registerMetaTileEntity(4005,
-                new BrickFluidHatch(tkcysa("brick_fluid_input_hatch"), false));
+                new BrickFluidHatch(tktech("brick_fluid_input_hatch"), false));
 
         BRICK_FLUID_HATCH[1] = registerMetaTileEntity(4006,
-                new BrickFluidHatch(tkcysa("brick_fluid_output_hatch"), true));
+                new BrickFluidHatch(tktech("brick_fluid_output_hatch"), true));
 
         BRICK_ITEM_BUS[0] = registerMetaTileEntity(4007,
-                new BrickItemBus(tkcysa("brick_item_input_bus"), false));
+                new BrickItemBus(tktech("brick_item_input_bus"), false));
 
         BRICK_ITEM_BUS[1] = registerMetaTileEntity(4008,
-                new BrickItemBus(tkcysa("brick_item_output_bus"), true));
+                new BrickItemBus(tktech("brick_item_output_bus"), true));
 
-        DRYER = registerMetaTileEntity(4009, new Dryer(tkcysa("dryer")));
+        DRYER = registerMetaTileEntity(4009, new Dryer(tktech("dryer")));
 
-        GAS_RELEASE = registerMetaTileEntity(4010, new GasRelease(tkcysa("gas_release")));
+        GAS_RELEASE = registerMetaTileEntity(4010, new GasRelease(tktech("gas_release")));
 
         PRIMITIVE_ALLOYING_CRUCIBLE = registerMetaTileEntity(4011,
-                new AlloyingCrucible(tkcysa("alloying_crucible")));
+                new AlloyingCrucible(tktech("alloying_crucible")));
 
         registerSimpleMetaTileEntity(
                 CLUSTER_MILLS, 4012, "cluster_mill",
-                TKCYSARecipeMaps.CLUSTER_MILL_RECIPES, Textures.ASSEMBLER_OVERLAY,
-                true, TKCYSAUtil::tkcysa, GTUtility.hvCappedTankSizeFunction);
+                TkTechRecipeMaps.CLUSTER_MILL_RECIPES, Textures.ASSEMBLER_OVERLAY,
+                true, TkTechUtil::tktech, GTUtility.hvCappedTankSizeFunction);
 
         registerSimpleMetaTileEntity(
                 COMPONENT_ASSEMBLER_MTE, 4018, "component_assembler",
-                TKCYSARecipeMaps.COMPONENT_ASSEMBING, Textures.ASSEMBLER_OVERLAY,
-                true, TKCYSAUtil::tkcysa, GTUtility.hvCappedTankSizeFunction);
+                TkTechRecipeMaps.COMPONENT_ASSEMBING, Textures.ASSEMBLER_OVERLAY,
+                true, TkTechUtil::tktech, GTUtility.hvCappedTankSizeFunction);
 
-        registerSimpleMetaTileEntity(ROLLING_MILL, 4024, "rolling_mill", TKCYSARecipeMaps.ROLLING_RECIPES,
-                TKCYSATextures.ROLLING_MILL_OVERLAY, true, TKCYSAUtil::tkcysa, null);
+        registerSimpleMetaTileEntity(ROLLING_MILL, 4024, "rolling_mill", TkTechRecipeMaps.ROLLING_RECIPES,
+                TkTechTextures.ROLLING_MILL_OVERLAY, true, TkTechUtil::tktech, null);
 
-        HYDROGENATION_UNIT_MTE = registerMetaTileEntity(4100, new HydrogenationUnitMTE(tkcysa("hydrogenation_unit")));
-        CRACKING_UNIT = registerMetaTileEntity(4101, new CrackingUnitMte(tkcysa("cracking_unit")));
-        STEAM_DUST_MIXER = registerMetaTileEntity(4102, new SteamDustMixer(tkcysa("steam_dust_mixer")));
-        STEAM_MELTER = registerMetaTileEntity(4103, new SteamMelter(tkcysa("steam_melter")));
+        HYDROGENATION_UNIT_MTE = registerMetaTileEntity(4100, new HydrogenationUnitMTE(tktech("hydrogenation_unit")));
+        CRACKING_UNIT = registerMetaTileEntity(4101, new CrackingUnitMte(tktech("cracking_unit")));
+        STEAM_DUST_MIXER = registerMetaTileEntity(4102, new SteamDustMixer(tktech("steam_dust_mixer")));
+        STEAM_MELTER = registerMetaTileEntity(4103, new SteamMelter(tktech("steam_melter")));
         PARTS_WORKER_MTE = registerMetaTileEntity(4104,
-                new AnvilMetatileEntity(tkcysa("anvil")));
+                new AnvilMetatileEntity(tktech("anvil")));
         ADVANCED_CLEANROOM = registerMetaTileEntity(4105,
-                new MetaTileEntityAdvancedCleanroom(tkcysa("advanced_cleanroom")));
-        BASIC_ELECTRONIC = registerMetaTileEntity(4106, new BasicElectronicMetatileEntity(tkcysa("basic_electronic")));
-        WOOD_WORKSHOP = registerMetaTileEntity(4107, new MetaTileEntityWoodWorkshop(tkcysa("wood_workshop")));
-        PRIMITIVE_BATH = registerMetaTileEntity(4108, new PrimitiveBath(tkcysa("primitive_bath")));
+                new MetaTileEntityAdvancedCleanroom(tktech("advanced_cleanroom")));
+        BASIC_ELECTRONIC = registerMetaTileEntity(4106, new BasicElectronicMetatileEntity(tktech("basic_electronic")));
+        WOOD_WORKSHOP = registerMetaTileEntity(4107, new MetaTileEntityWoodWorkshop(tktech("wood_workshop")));
+        PRIMITIVE_BATH = registerMetaTileEntity(4108, new PrimitiveBath(tktech("primitive_bath")));
 
         MaterialMetaTileEntity.registerMaterialMetaTileEntity(StorageModule.TANK_MATERIALS, MODULABLE_TANKS, 4200,
                 StorageModule::initModulableTank);

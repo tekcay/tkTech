@@ -7,7 +7,7 @@ import gregtech.api.unification.material.info.MaterialIconSet;
 import gregtech.api.unification.ore.OrePrefix;
 
 import lombok.experimental.UtilityClass;
-import tkcy.tktech.api.unification.ore.TKCYSAOrePrefix;
+import tkcy.tktech.api.unification.ore.TkTechOrePrefix;
 import tkcy.tktech.modules.ElectrodeModule;
 
 @UtilityClass
@@ -24,7 +24,7 @@ public class Electrodes {
         RecipeMaps.LASER_ENGRAVER_RECIPES.recipeBuilder()
                 .input(OrePrefix.stickLong, material)
                 .notConsumable(OrePrefix.lens, getLensMaterial(material))
-                .output(TKCYSAOrePrefix.electrode, material)
+                .output(TkTechOrePrefix.electrode, material)
                 .duration((int) (material.getMass() * 10))
                 .EUt(30)
                 .buildAndRegister();
@@ -50,8 +50,8 @@ public class Electrodes {
 
     private static void anode(Material material) {
         RecipeMaps.POLARIZER_RECIPES.recipeBuilder()
-                .input(TKCYSAOrePrefix.cathode, material)
-                .output(TKCYSAOrePrefix.anode, material)
+                .input(TkTechOrePrefix.cathode, material)
+                .output(TkTechOrePrefix.anode, material)
                 .duration((int) (material.getMass() * 3))
                 .EUt(30)
                 .buildAndRegister();
@@ -59,15 +59,15 @@ public class Electrodes {
 
     private static Material cathode(Material material) {
         RecipeMaps.POLARIZER_RECIPES.recipeBuilder()
-                .input(TKCYSAOrePrefix.anode, material)
-                .output(TKCYSAOrePrefix.cathode, material)
+                .input(TkTechOrePrefix.anode, material)
+                .output(TkTechOrePrefix.cathode, material)
                 .duration((int) (material.getMass() * 3))
                 .EUt(30)
                 .buildAndRegister();
 
         RecipeMaps.POLARIZER_RECIPES.recipeBuilder()
-                .input(TKCYSAOrePrefix.electrode, material)
-                .output(TKCYSAOrePrefix.cathode, material)
+                .input(TkTechOrePrefix.electrode, material)
+                .output(TkTechOrePrefix.cathode, material)
                 .duration((int) (material.getMass() * 3))
                 .EUt(30)
                 .buildAndRegister();

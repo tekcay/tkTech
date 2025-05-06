@@ -22,7 +22,7 @@ import lombok.experimental.UtilityClass;
 import tkcy.tktech.api.recipes.properties.IRecipePropertyHelper;
 import tkcy.tktech.api.recipes.properties.ToolProperty;
 import tkcy.tktech.api.recipes.properties.ToolUsesProperty;
-import tkcy.tktech.api.utils.TKCYSALog;
+import tkcy.tktech.api.utils.TkTechLog;
 import tkcy.tktech.modules.toolmodule.ToolsModule;
 import tkcy.tktech.modules.toolmodule.WorkingTool;
 
@@ -134,45 +134,45 @@ public class RecipeSearchHelpers {
     public static Recipe findRecipeWithToolp(@NotNull RecipeMap<?> recipeMap, @NotNull ToolsModule.GtTool gtTool,
                                              @NotNull List<ItemStack> inputItemStacks,
                                              @NotNull List<FluidStack> inputFluidStacks) {
-        TKCYSALog.logger.info("starts method");
+        TkTechLog.logger.info("starts method");
         if (inputItemStacks.isEmpty()) {
             return null;
         }
 
         for (Recipe recipe : recipeMap.getRecipeList()) {
             if (!recipe.hasProperty(ToolProperty.getInstance())) {
-                TKCYSALog.logger.info("does not have toolProperty");
+                TkTechLog.logger.info("does not have toolProperty");
                 continue;
             }
 
             ToolsModule.GtTool tool = ToolProperty.getInstance().getValueFromRecipe(recipe);
 
-            TKCYSALog.logger.info("this recipe has tool " + tool.name());
-            TKCYSALog.logger.info("expected : " + gtTool);
+            TkTechLog.logger.info("this recipe has tool " + tool.name());
+            TkTechLog.logger.info("expected : " + gtTool);
 
             // if (!tool.equals(gtTool)) continue;
 
             if (!recipe.hasProperty(ToolUsesProperty.getInstance())) {
-                TKCYSALog.logger.info("does not have toolUseProperty");
+                TkTechLog.logger.info("does not have toolUseProperty");
                 continue;
             }
 
             int toolUses = ToolUsesProperty.getInstance().getValueFromRecipe(recipe);
 
-            TKCYSALog.logger.info("recipeUses : " + toolUses);
+            TkTechLog.logger.info("recipeUses : " + toolUses);
             recipe.getOutputs()
-                    .forEach(itemStack -> TKCYSALog.logger
-                            .info("recipeOutputs : " + TKCYSALog.itemStackToString(itemStack)));
+                    .forEach(itemStack -> TkTechLog.logger
+                            .info("recipeOutputs : " + TkTechLog.itemStackToString(itemStack)));
             inputItemStacks
-                    .forEach(itemStack -> TKCYSALog.logger
-                            .info("provided stacks : " + TKCYSALog.itemStackToString(itemStack)));
+                    .forEach(itemStack -> TkTechLog.logger
+                            .info("provided stacks : " + TkTechLog.itemStackToString(itemStack)));
 
             List<ItemStack> recipeInputStacks = accept(recipe);
 
-            TKCYSALog.logger.info("recipeItemStacks.size() : " + inputItemStacks.size());
+            TkTechLog.logger.info("recipeItemStacks.size() : " + inputItemStacks.size());
             if (inputItemStacks.size() > 0) {
                 for (ItemStack stack : recipeInputStacks) {
-                    TKCYSALog.logger.info("recipeItemStacks : " + TKCYSALog.itemStackToString(stack));
+                    TkTechLog.logger.info("recipeItemStacks : " + TkTechLog.itemStackToString(stack));
                 }
             }
             ItemStack toolStack = gtTool.getToolStack();
@@ -183,7 +183,7 @@ public class RecipeSearchHelpers {
             toSend.addAll(inputItemStacks);
 
             if (!recipe.matches(false, toSend, inputFluidStacks)) {
-                TKCYSALog.logger.info("recipe does not match");
+                TkTechLog.logger.info("recipe does not match");
                 continue;
             }
 
@@ -200,9 +200,9 @@ public class RecipeSearchHelpers {
         for (GTRecipeInput gtRecipeInput : recipe.getInputs()) {
             for (int i = 0; i < gtRecipeInput.getInputStacks().length; i++) {
                 recipeInputStacks.add(gtRecipeInput.getInputStacks()[i]);
-                TKCYSALog.logger.info(
+                TkTechLog.logger.info(
                         "recipe itemStack : " +
-                                TKCYSALog.itemStackToString(gtRecipeInput.getInputStacks()[i]));
+                                TkTechLog.itemStackToString(gtRecipeInput.getInputStacks()[i]));
             }
         }
         return recipeInputStacks;

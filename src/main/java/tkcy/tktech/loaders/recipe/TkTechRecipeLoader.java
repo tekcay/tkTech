@@ -1,8 +1,8 @@
 package tkcy.tktech.loaders.recipe;
 
 import static gregtech.api.recipes.RecipeMaps.*;
-import static tkcy.tktech.common.TKCYSAConfigHolder.chains;
-import static tkcy.tktech.common.TKCYSAConfigHolder.harderStuff;
+import static tkcy.tktech.common.TkTechConfigHolder.chains;
+import static tkcy.tktech.common.TkTechConfigHolder.harderStuff;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -25,7 +25,7 @@ import tkcy.tktech.loaders.recipe.handlers.chemistry.ChemistryHandler;
 import tkcy.tktech.loaders.recipe.handlers.harderstuff.*;
 
 @UtilityClass
-public final class TKCYSARecipeLoader {
+public final class TkTechRecipeLoader {
 
     public static void latestInit() {
         POLARIZER_RECIPES.setMaxInputs(2);

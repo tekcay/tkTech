@@ -1,7 +1,7 @@
 package tkcy.tktech.api.recipes;
 
 import static gregtech.api.unification.material.Materials.*;
-import static tkcy.tktech.api.unification.materials.TKCYSAMaterials.Ceramic;
+import static tkcy.tktech.api.unification.materials.TkTechMaterials.Ceramic;
 import static tkcy.tktech.api.utils.MaterialHelper.getMaterialFluidTemperature;
 
 import java.util.ArrayList;

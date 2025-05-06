@@ -10,7 +10,7 @@ import lombok.experimental.UtilityClass;
 
 @UtilityClass
 @SuppressWarnings("InstantiationOfUtilityClass")
-public class TKCYSAMultiblockAbilities {
+public class TkTechMultiblockAbilities {
 
     public static final MultiblockAbility<IItemHandlerModifiable> BRICK_BUS = new MultiblockAbility<>("brick_bus");
     public static final MultiblockAbility<IFluidTank> BRICK_HATCH = new MultiblockAbility<>("brick_hatch");

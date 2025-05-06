@@ -34,14 +34,14 @@ import gregtech.client.renderer.texture.Textures;
 import tkcy.tktech.api.machines.NoEnergyMultiController;
 import tkcy.tktech.api.metatileentities.RepetitiveSide;
 import tkcy.tktech.api.recipes.logic.NoEnergyParallelLogic;
-import tkcy.tktech.api.recipes.recipemaps.TKCYSARecipeMaps;
+import tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps;
 
 public class GasRelease extends NoEnergyMultiController implements RepetitiveSide {
 
     private int height = 1;
 
     public GasRelease(ResourceLocation metaTileEntityId) {
-        super(metaTileEntityId, TKCYSARecipeMaps.GAS_RELEASE);
+        super(metaTileEntityId, TkTechRecipeMaps.GAS_RELEASE);
         this.recipeMapWorkable = new NoEnergyParallelLogic(this);
     }
 
@@ -69,7 +69,7 @@ public class GasRelease extends NoEnergyMultiController implements RepetitiveSid
         super.formStructure(context);
         this.height = getHeight();
         this.recipeMapWorkable.setParallelLimit(this.getParallelNumber());
-        this.recipeMapWorkable.applyParallelBonus(TKCYSARecipeMaps.GAS_RELEASE.recipeBuilder());
+        this.recipeMapWorkable.applyParallelBonus(TkTechRecipeMaps.GAS_RELEASE.recipeBuilder());
         initializeAbilities();
     }
 

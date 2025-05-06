@@ -12,9 +12,9 @@ import gregtech.api.unification.material.properties.PropertyKey;
 import gregtech.api.unification.ore.OrePrefix;
 
 import lombok.experimental.UtilityClass;
-import tkcy.tktech.api.recipes.recipemaps.TKCYSARecipeMaps;
-import tkcy.tktech.api.unification.flags.TKCYSAMaterialFlags;
-import tkcy.tktech.api.unification.materials.TKCYSAMaterials;
+import tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps;
+import tkcy.tktech.api.unification.flags.TkTechMaterialFlags;
+import tkcy.tktech.api.unification.materials.TkTechMaterials;
 import tkcy.tktech.modules.toolmodule.ToolsModule;
 
 @UtilityClass
@@ -32,14 +32,14 @@ public class PlatesHandler {
             add(Materials.Epoxy);
             add(Materials.ReinforcedEpoxyResin);
             add(Materials.Rubber);
-            add(TKCYSAMaterials.Ceramic);
+            add(TkTechMaterials.Ceramic);
         }
     };
 
     private static void primitiveProcessPlate(OrePrefix orePrefix, Material material, IngotProperty ingotProperty) {
-        if (material.hasFlag(TKCYSAMaterialFlags.IS_POLYMER) || excludeMaterials.contains(material)) return;
+        if (material.hasFlag(TkTechMaterialFlags.IS_POLYMER) || excludeMaterials.contains(material)) return;
 
-        TKCYSARecipeMaps.ANVIL_RECIPES.recipeBuilder()
+        TkTechRecipeMaps.ANVIL_RECIPES.recipeBuilder()
                 .input(ingot, material, 2)
                 .output(orePrefix, material)
                 .output(dustSmall, material, 4)
@@ -51,7 +51,7 @@ public class PlatesHandler {
 
         if (!plateDouble.doGenerateItem(material)) return;
 
-        TKCYSARecipeMaps.ANVIL_RECIPES.recipeBuilder()
+        TkTechRecipeMaps.ANVIL_RECIPES.recipeBuilder()
                 .tool(ToolsModule.GtTool.HARD_HAMMER)
                 .toolUses(2 * (1 + (int) material.getMass() / 20))
                 .input(orePrefix, material, 3)

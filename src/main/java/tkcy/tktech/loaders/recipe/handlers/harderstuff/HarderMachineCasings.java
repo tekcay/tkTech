@@ -2,7 +2,7 @@ package tkcy.tktech.loaders.recipe.handlers.harderstuff;
 
 import static gregtech.api.unification.material.Materials.StainlessSteel;
 import static gregtech.api.unification.material.Materials.Steel;
-import static tkcy.tktech.api.unification.materials.TKCYSAMaterials.*;
+import static tkcy.tktech.api.unification.materials.TkTechMaterials.*;
 
 import net.minecraft.item.ItemStack;
 
@@ -16,7 +16,7 @@ import gregtech.common.blocks.BlockMachineCasing;
 import gregtech.common.blocks.MetaBlocks;
 
 import lombok.experimental.UtilityClass;
-import tkcy.tktech.api.recipes.recipemaps.TKCYSARecipeMaps;
+import tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps;
 
 @UtilityClass
 public class HarderMachineCasings {
@@ -37,7 +37,7 @@ public class HarderMachineCasings {
         ModHandler.addShapedRecipe("machine_casing_ulv", getMachineCasingItemStack(0),
                 "XXX", "XwX", "XXX", 'X', new UnificationEntry(OrePrefix.plate, Steel));
 
-        TKCYSARecipeMaps.ADVANCED_ASSEMBLING.recipeBuilder()
+        TkTechRecipeMaps.ADVANCED_ASSEMBLING.recipeBuilder()
                 .input(OrePrefix.plate, Steel, 8)
                 .fluidInputs(Materials.Tin.getFluid(GTValues.L))
                 .outputs(getMachineCasingItemStack(0))
@@ -48,7 +48,7 @@ public class HarderMachineCasings {
     }
 
     private static void addAssemblingRecipe(Material input, int tier) {
-        TKCYSARecipeMaps.ADVANCED_ASSEMBLING.recipeBuilder()
+        TkTechRecipeMaps.ADVANCED_ASSEMBLING.recipeBuilder()
                 .input(OrePrefix.plate, input, 8)
                 .fluidInputs(Materials.SolderingAlloy.getFluid(GTValues.L))
                 .outputs(getMachineCasingItemStack(tier))

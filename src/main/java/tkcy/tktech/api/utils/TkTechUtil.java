@@ -11,12 +11,12 @@ import gregtech.api.GTValues;
 import gregtech.api.unification.material.Material;
 import gregtech.api.unification.ore.OrePrefix;
 
-import tkcy.tktech.TekCaySimpleAddon;
+import tkcy.tktech.TkTech;
 
-public final class TKCYSAUtil {
+public final class TkTechUtil {
 
-    public static @NotNull ResourceLocation tkcysa(@NotNull String path) {
-        return new ResourceLocation(TekCaySimpleAddon.MODID, path);
+    public static @NotNull ResourceLocation tktech(@NotNull String path) {
+        return new ResourceLocation(TkTech.MODID, path);
     }
 
     public static int getFluidAmountFromOrePrefix(@NotNull OrePrefix orePrefix) {

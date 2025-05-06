@@ -1,7 +1,7 @@
 package tkcy.tktech.api.predicates;
 
 import static gregtech.api.metatileentity.multiblock.MultiblockControllerBase.*;
-import static tkcy.tktech.common.metatileentities.TKCYSAMetaTileEntities.*;
+import static tkcy.tktech.common.metatileentities.TkTechMetaTileEntities.*;
 
 import net.minecraft.block.state.IBlockState;
 
@@ -13,7 +13,7 @@ import gregtech.common.blocks.MetaBlocks;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
-public class TKCYSAPredicates {
+public class TkTechPredicates {
 
     public static TraceabilityPredicate fireBrick() {
         return states(MetaBlocks.METAL_CASING.getState(BlockMetalCasing.MetalCasingType.PRIMITIVE_BRICKS));

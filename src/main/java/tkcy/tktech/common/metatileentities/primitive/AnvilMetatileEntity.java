@@ -44,7 +44,7 @@ import tkcy.tktech.api.recipes.logic.OnBlockRecipeLogic;
 import tkcy.tktech.api.recipes.logic.impl.InWorldRecipeLogic;
 import tkcy.tktech.api.recipes.logic.impl.RecipeLogicsContainer;
 import tkcy.tktech.api.recipes.logic.impl.ToolLogic;
-import tkcy.tktech.api.recipes.recipemaps.TKCYSARecipeMaps;
+import tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps;
 import tkcy.tktech.modules.toolmodule.ToolsModule;
 
 public class AnvilMetatileEntity extends ToolLogicMetaTileEntity
@@ -117,7 +117,7 @@ public class AnvilMetatileEntity extends ToolLogicMetaTileEntity
 
     @Override
     protected OnBlockRecipeLogic initRecipeLogic() {
-        return new Logic(this, null, TKCYSARecipeMaps.ANVIL_RECIPES);
+        return new Logic(this, null, TkTechRecipeMaps.ANVIL_RECIPES);
     }
 
     @Override

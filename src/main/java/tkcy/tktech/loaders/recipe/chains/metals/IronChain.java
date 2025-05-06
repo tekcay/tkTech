@@ -2,7 +2,7 @@ package tkcy.tktech.loaders.recipe.chains.metals;
 
 import static gregtech.api.unification.material.Materials.*;
 import static gregtech.api.unification.ore.OrePrefix.*;
-import static tkcy.tktech.api.unification.materials.TKCYSAMaterials.PigIron;
+import static tkcy.tktech.api.unification.materials.TkTechMaterials.PigIron;
 
 import gregtech.api.GTValues;
 import gregtech.api.recipes.RecipeMaps;
@@ -10,7 +10,7 @@ import gregtech.api.unification.material.Material;
 import gregtech.api.unification.ore.OrePrefix;
 
 import lombok.experimental.UtilityClass;
-import tkcy.tktech.api.recipes.recipemaps.TKCYSARecipeMaps;
+import tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps;
 
 @UtilityClass
 public class IronChain {
@@ -26,21 +26,21 @@ public class IronChain {
     }
 
     private static void primitive(Material material, int count, int carbonSourceCount, int pigIronCount) {
-        TKCYSARecipeMaps.FLUID_PRIMITIVE_BLAST.recipeBuilder()
+        TkTechRecipeMaps.FLUID_PRIMITIVE_BLAST.recipeBuilder()
                 .input(crushed, material, count)
                 .input(dust, Coal, carbonSourceCount)
                 .fluidOutputs(PigIron.getFluid(GTValues.L * pigIronCount))
                 .duration(20 * 150)
                 .buildAndRegister();
 
-        TKCYSARecipeMaps.FLUID_PRIMITIVE_BLAST.recipeBuilder()
+        TkTechRecipeMaps.FLUID_PRIMITIVE_BLAST.recipeBuilder()
                 .input(dust, material, count)
                 .input(dust, Coal, carbonSourceCount)
                 .fluidOutputs(PigIron.getFluid(GTValues.L * pigIronCount))
                 .duration(20 * 150)
                 .buildAndRegister();
 
-        TKCYSARecipeMaps.FLUID_PRIMITIVE_BLAST.recipeBuilder()
+        TkTechRecipeMaps.FLUID_PRIMITIVE_BLAST.recipeBuilder()
                 .input(OrePrefix.ore, material, count)
                 .input(OrePrefix.gem, Coke, carbonSourceCount)
                 .fluidOutputs(PigIron.getFluid(GTValues.L * pigIronCount))
@@ -49,7 +49,7 @@ public class IronChain {
     }
 
     private static void pigIronToIron() {
-        TKCYSARecipeMaps.FLUID_PRIMITIVE_BLAST.recipeBuilder()
+        TkTechRecipeMaps.FLUID_PRIMITIVE_BLAST.recipeBuilder()
                 .fluidInputs(PigIron.getFluid(GTValues.L))
                 .fluidOutputs(Iron.getFluid(GTValues.L))
                 .duration(20 * 150)

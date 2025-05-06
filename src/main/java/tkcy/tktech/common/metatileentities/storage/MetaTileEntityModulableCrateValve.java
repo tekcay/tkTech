@@ -17,7 +17,7 @@ import gregtech.api.metatileentity.multiblock.MultiblockControllerBase;
 import gregtech.api.unification.material.Material;
 import gregtech.api.util.GTTransferUtils;
 
-import tkcy.tktech.api.capabilities.TKCYSAMultiblockAbilities;
+import tkcy.tktech.api.capabilities.TkTechMultiblockAbilities;
 import tkcy.tktech.modules.storagemodule.StorageModule;
 
 @StorageModule.StorageModulable
@@ -63,7 +63,7 @@ public class MetaTileEntityModulableCrateValve extends MetaTileEntityModulableVa
 
     @Override
     public MultiblockAbility<IItemHandler> getAbility() {
-        return TKCYSAMultiblockAbilities.CRATE_VALVE;
+        return TkTechMultiblockAbilities.CRATE_VALVE;
     }
 
     @Override

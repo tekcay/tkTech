@@ -23,7 +23,7 @@ import gregtech.common.blocks.MetaBlocks;
 import it.unimi.dsi.fastutil.ints.Int2ObjectAVLTreeMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import lombok.experimental.UtilityClass;
-import tkcy.tktech.common.block.TKCYSAMetaBlocks;
+import tkcy.tktech.common.block.TkTechMetaBlocks;
 
 @UtilityClass
 public class BlockMaterialBaseRegisteringHelpers {
@@ -67,7 +67,7 @@ public class BlockMaterialBaseRegisteringHelpers {
             T extends BlockMaterialBase> void createBlockMaterialBase(Map<Material, T> materialToBlockMap,
                                                                       List<T> blocks,
                                                                       Function<Material[], T> creator,
-                                                                      TKCYSAMetaBlocks.TranslationKeys blocksToRegister,
+                                                                      TkTechMetaBlocks.TranslationKeys blocksToRegister,
                                                                       Predicate<Material> doGenerate) {
         createGeneratedBlock(
                 doGenerate,

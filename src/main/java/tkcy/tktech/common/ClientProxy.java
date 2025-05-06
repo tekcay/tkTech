@@ -6,25 +6,25 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import tkcy.tktech.TekCaySimpleAddon;
-import tkcy.tktech.api.render.TKCYSATextures;
-import tkcy.tktech.common.block.TKCYSAMetaBlocks;
-import tkcy.tktech.common.item.TKCYSAToolItems;
+import tkcy.tktech.TkTech;
+import tkcy.tktech.api.render.TkTechTextures;
+import tkcy.tktech.common.block.TkTechMetaBlocks;
+import tkcy.tktech.common.item.TkTechToolItems;
 
 @SideOnly(Side.CLIENT)
-@Mod.EventBusSubscriber(modid = TekCaySimpleAddon.MODID, value = Side.CLIENT)
+@Mod.EventBusSubscriber(modid = TkTech.MODID, value = Side.CLIENT)
 public class ClientProxy extends CommonProxy {
 
     @Override
     public void preLoad() {
         super.preLoad();
-        TKCYSATextures.preInit();
+        TkTechTextures.preInit();
     }
 
     @SubscribeEvent
     public static void registerModels(ModelRegistryEvent event) {
-        TKCYSAMetaBlocks.registerItemModels();
-        TKCYSAToolItems.registerModels();
+        TkTechMetaBlocks.registerItemModels();
+        TkTechToolItems.registerModels();
     }
 
     @Override
@@ -33,7 +33,7 @@ public class ClientProxy extends CommonProxy {
     }
 
     public static void registerColors() {
-        TKCYSAToolItems.registerColors();
-        TKCYSAMetaBlocks.registerColors();
+        TkTechToolItems.registerColors();
+        TkTechMetaBlocks.registerColors();
     }
 }

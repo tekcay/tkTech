@@ -21,12 +21,12 @@ import gregtech.common.blocks.MetaBlocks;
 
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.experimental.UtilityClass;
-import tkcy.tktech.api.unification.flags.TKCYSAMaterialFlags;
-import tkcy.tktech.api.unification.ore.TKCYSAOrePrefix;
+import tkcy.tktech.api.unification.flags.TkTechMaterialFlags;
+import tkcy.tktech.api.unification.ore.TkTechOrePrefix;
 import tkcy.tktech.api.utils.BlockMaterialBaseRegisteringHelpers;
 
 @UtilityClass
-public class TKCYSAMetaBlocks {
+public class TkTechMetaBlocks {
 
     public static final Map<Material, BlockMaterialCasing> CASINGS = new Object2ObjectOpenHashMap<>();
     public static final Map<Material, BlockMaterialWall> WALLS = new Object2ObjectOpenHashMap<>();
@@ -48,17 +48,17 @@ public class TKCYSAMetaBlocks {
         BlockMaterialBaseRegisteringHelpers.createBlockMaterialBase(CASINGS, CASINGS_BLOCKS,
                 BlockMaterialCasing::create,
                 TranslationKeys.meta_block_casing,
-                material -> material.hasFlag(TKCYSAMaterialFlags.GENERATE_CASING));
+                material -> material.hasFlag(TkTechMaterialFlags.GENERATE_CASING));
 
         BlockMaterialBaseRegisteringHelpers.createBlockMaterialBase(WALLS, WALLS_BLOCKS,
                 BlockMaterialWall::create,
                 TranslationKeys.meta_block_wall,
-                material -> material.hasFlag(TKCYSAMaterialFlags.GENERATE_WALL));
+                material -> material.hasFlag(TkTechMaterialFlags.GENERATE_WALL));
 
         BlockMaterialBaseRegisteringHelpers.createBlockMaterialBase(COILS, COIL_BLOCKS,
                 BlockMaterialCoil::create,
                 TranslationKeys.meta_block_coil,
-                material -> material.hasFlag(TKCYSAMaterialFlags.GENERATE_COIL));
+                material -> material.hasFlag(TkTechMaterialFlags.GENERATE_COIL));
 
         STRIPPED_WOOD = new BlockStrippedWood();
         STRIPPED_WOOD.setRegistryName("stripped_wood");
@@ -84,9 +84,9 @@ public class TKCYSAMetaBlocks {
     }
 
     public static void registerOreDict() {
-        BlockMaterialBaseRegisteringHelpers.registerOreDict(CASINGS, TKCYSAOrePrefix.casing);
-        BlockMaterialBaseRegisteringHelpers.registerOreDict(WALLS, TKCYSAOrePrefix.wall);
-        BlockMaterialBaseRegisteringHelpers.registerOreDict(COILS, TKCYSAOrePrefix.coil);
+        BlockMaterialBaseRegisteringHelpers.registerOreDict(CASINGS, TkTechOrePrefix.casing);
+        BlockMaterialBaseRegisteringHelpers.registerOreDict(WALLS, TkTechOrePrefix.wall);
+        BlockMaterialBaseRegisteringHelpers.registerOreDict(COILS, TkTechOrePrefix.coil);
     }
 
     @SuppressWarnings("unchecked")

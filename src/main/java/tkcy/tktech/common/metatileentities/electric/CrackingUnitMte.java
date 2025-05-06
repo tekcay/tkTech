@@ -39,14 +39,14 @@ import gregtech.core.sound.GTSoundEvents;
 
 import tkcy.tktech.api.recipes.builders.CoilTypeRecipeBuilder;
 import tkcy.tktech.api.recipes.properties.CoilTypeProperty;
-import tkcy.tktech.api.recipes.recipemaps.TKCYSARecipeMaps;
+import tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps;
 
 public class CrackingUnitMte extends RecipeMapMultiblockController {
 
     private BlockWireCoil.CoilType coil;
 
     public CrackingUnitMte(ResourceLocation metaTileEntityId) {
-        super(metaTileEntityId, TKCYSARecipeMaps.CRACKING);
+        super(metaTileEntityId, TkTechRecipeMaps.CRACKING);
     }
 
     @Override

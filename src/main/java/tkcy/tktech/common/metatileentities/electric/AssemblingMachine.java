@@ -20,12 +20,12 @@ import gregtech.api.pattern.FactoryBlockPattern;
 import gregtech.client.renderer.ICubeRenderer;
 import gregtech.client.renderer.texture.Textures;
 
-import tkcy.tktech.api.recipes.recipemaps.TKCYSARecipeMaps;
+import tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps;
 
 public class AssemblingMachine extends RecipeMapMultiblockController {
 
     public AssemblingMachine(ResourceLocation metaTileEntityId) {
-        super(metaTileEntityId, TKCYSARecipeMaps.ADVANCED_ASSEMBLING);
+        super(metaTileEntityId, TkTechRecipeMaps.ADVANCED_ASSEMBLING);
     }
 
     @Override

@@ -4,7 +4,7 @@ import org.jetbrains.annotations.NotNull;
 
 import gregtech.common.blocks.properties.PropertyMaterial;
 
-import tkcy.tktech.api.unification.iconset.TKCYSAMaterialIconType;
+import tkcy.tktech.api.unification.iconset.TkTechMaterialIconType;
 
 public abstract class BlockMaterialWall extends BlockMaterial {
 
@@ -19,6 +19,6 @@ public abstract class BlockMaterialWall extends BlockMaterial {
     }
 
     private BlockMaterialWall() {
-        super(TKCYSAMaterialIconType.wall);
+        super(TkTechMaterialIconType.wall);
     }
 }

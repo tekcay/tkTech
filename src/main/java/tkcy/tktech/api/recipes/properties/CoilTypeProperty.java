@@ -16,7 +16,7 @@ import gregtech.api.unification.material.Material;
 import gregtech.api.util.EnumValidationResult;
 import gregtech.common.blocks.BlockWireCoil;
 
-import tkcy.tktech.api.utils.TKCYSALog;
+import tkcy.tktech.api.utils.TkTechLog;
 import tkcy.tktech.modules.RecipePropertiesKey;
 
 public class CoilTypeProperty extends RecipeProperty<BlockWireCoil.CoilType>
@@ -64,7 +64,7 @@ public class CoilTypeProperty extends RecipeProperty<BlockWireCoil.CoilType>
                                                       EnumValidationResult recipeStatus,
                                                       RecipeBuilder<?> recipeBuilder) {
         if (!this.testSuppliedValue().test(valueToTest)) {
-            TKCYSALog.logger.error(this::getErrorMessage, new IllegalArgumentException());
+            TkTechLog.logger.error(this::getErrorMessage, new IllegalArgumentException());
             recipeStatus = EnumValidationResult.INVALID;
         }
         recipeBuilder.applyProperty(this, valueToTest);

@@ -41,7 +41,7 @@ import tkcy.tktech.api.recipes.logic.IToolRecipeLogic;
 import tkcy.tktech.api.recipes.logic.OnBlockRecipeLogic;
 import tkcy.tktech.api.recipes.logic.impl.RecipeLogicsContainer;
 import tkcy.tktech.api.recipes.logic.impl.ToolLogic;
-import tkcy.tktech.api.recipes.recipemaps.TKCYSARecipeMaps;
+import tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps;
 import tkcy.tktech.modules.toolmodule.ToolsModule;
 
 public class BasicElectronicMetatileEntity extends ToolLogicMetaTileEntity
@@ -117,7 +117,7 @@ public class BasicElectronicMetatileEntity extends ToolLogicMetaTileEntity
 
     @Override
     protected OnBlockRecipeLogic initRecipeLogic() {
-        return new Logic(this, null, TKCYSARecipeMaps.BASIC_ELECTRONIC_RECIPES);
+        return new Logic(this, null, TkTechRecipeMaps.BASIC_ELECTRONIC_RECIPES);
     }
 
     @Override

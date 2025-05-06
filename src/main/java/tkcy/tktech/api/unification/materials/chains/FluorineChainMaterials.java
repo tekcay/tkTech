@@ -2,8 +2,8 @@ package tkcy.tktech.api.unification.materials.chains;
 
 import static gregtech.api.unification.material.Materials.*;
 import static gregtech.api.unification.material.info.MaterialFlags.DISABLE_DECOMPOSITION;
-import static tkcy.tktech.api.unification.materials.TKCYSAMaterials.*;
-import static tkcy.tktech.api.utils.TKCYSAUtil.tkcysa;
+import static tkcy.tktech.api.unification.materials.TkTechMaterials.*;
+import static tkcy.tktech.api.utils.TkTechUtil.tktech;
 
 import gregtech.api.fluids.FluidBuilder;
 import gregtech.api.fluids.attribute.FluidAttributes;
@@ -18,14 +18,14 @@ public class FluorineChainMaterials {
     public static int init(int id) {
         // FluorineChain
 
-        HydrogenFluoride = new Material.Builder(id++, tkcysa("hydrogen_fluoride"))
+        HydrogenFluoride = new Material.Builder(id++, tktech("hydrogen_fluoride"))
                 .gas()
                 .flags(DISABLE_DECOMPOSITION)
                 .components(Hydrogen, 1, Fluorine, 1)
                 .colorAverage()
                 .build();
 
-        PotassiumBifluoride = new Material.Builder(id++, tkcysa("potassium_bifluoride"))
+        PotassiumBifluoride = new Material.Builder(id++, tktech("potassium_bifluoride"))
                 .dust()
                 .liquid(new FluidBuilder().attribute(FluidAttributes.ACID)
                         .temperature(512))
@@ -35,7 +35,7 @@ public class FluorineChainMaterials {
                 .colorAverage()
                 .build();
 
-        Fluorite = new Material.Builder(id++, tkcysa("fluorite"))
+        Fluorite = new Material.Builder(id++, tktech("fluorite"))
                 .dust().ore()
                 .flags(DISABLE_DECOMPOSITION)
                 .iconSet(MaterialIconSet.BRIGHT)
@@ -43,7 +43,7 @@ public class FluorineChainMaterials {
                 .colorAverage()
                 .build();
 
-        CalciumSulfate = new Material.Builder(id++, tkcysa("calcium_sulfate"))
+        CalciumSulfate = new Material.Builder(id++, tktech("calcium_sulfate"))
                 .dust()
                 .flags(DISABLE_DECOMPOSITION)
                 .iconSet(MaterialIconSet.BRIGHT)
@@ -51,28 +51,28 @@ public class FluorineChainMaterials {
                 .colorAverage()
                 .build();
 
-        LithiumFluoride = new Material.Builder(id++, tkcysa("lithium_fluoride"))
+        LithiumFluoride = new Material.Builder(id++, tktech("lithium_fluoride"))
                 .dust()
                 .flags(DISABLE_DECOMPOSITION)
                 .components(Lithium, 1, Fluorine, 1)
                 .colorAverage()
                 .build();
 
-        SodiumFluoride = new Material.Builder(id++, tkcysa("sodium_fluoride"))
+        SodiumFluoride = new Material.Builder(id++, tktech("sodium_fluoride"))
                 .dust()
                 .flags(DISABLE_DECOMPOSITION)
                 .components(Sodium, 1, Fluorine, 1)
                 .colorAverage()
                 .build();
 
-        PotassiumFluoride = new Material.Builder(id++, tkcysa("potassium_fluoride"))
+        PotassiumFluoride = new Material.Builder(id++, tktech("potassium_fluoride"))
                 .dust()
                 .flags(DISABLE_DECOMPOSITION)
                 .components(Potassium, 1, Fluorine, 1)
                 .colorAverage()
                 .build();
 
-        LithiumHydroxide = new Material.Builder(id++, tkcysa("lithium_hydroxide"))
+        LithiumHydroxide = new Material.Builder(id++, tktech("lithium_hydroxide"))
                 .dust()
                 .flags(DISABLE_DECOMPOSITION)
                 .components(Lithium, 1, Oxygen, 1, Hydrogen, 1)

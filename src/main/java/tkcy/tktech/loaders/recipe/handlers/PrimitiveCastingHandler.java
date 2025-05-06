@@ -1,6 +1,6 @@
 package tkcy.tktech.loaders.recipe.handlers;
 
-import static tkcy.tktech.api.TKCYSAValues.SECOND;
+import static tkcy.tktech.api.TkTechValues.SECOND;
 
 import gregtech.api.GregTechAPI;
 import gregtech.api.unification.material.Material;
@@ -8,9 +8,9 @@ import gregtech.api.unification.ore.OrePrefix;
 
 import lombok.experimental.UtilityClass;
 import tkcy.tktech.api.recipes.CastingInfo;
-import tkcy.tktech.api.recipes.recipemaps.TKCYSARecipeMaps;
+import tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps;
 import tkcy.tktech.api.utils.MaterialHelper;
-import tkcy.tktech.api.utils.TKCYSALog;
+import tkcy.tktech.api.utils.TkTechLog;
 
 @UtilityClass
 public class PrimitiveCastingHandler {
@@ -19,7 +19,7 @@ public class PrimitiveCastingHandler {
         try {
             generate();
         } catch (IllegalArgumentException e) {
-            TKCYSALog.logger.error("ERROR");
+            TkTechLog.logger.error("ERROR");
         }
     }
 
@@ -58,7 +58,7 @@ public class PrimitiveCastingHandler {
             throw new IllegalArgumentException();
         }
 
-        TKCYSARecipeMaps.CASTING.recipeBuilder()
+        TkTechRecipeMaps.CASTING.recipeBuilder()
                 .fluidInputs(input.getFluid(fluidAmount))
                 .notConsumable(orePrefix, moldMaterial)
                 .output(orePrefix, input)
@@ -72,7 +72,7 @@ public class PrimitiveCastingHandler {
 
     private static void sendErrorMessage(Material input, Material moldMaterial, OrePrefix orePrefix, int fluidAmount,
                                          int multiplier) {
-        TKCYSALog.logger.error(String.format(
+        TkTechLog.logger.error(String.format(
                 "Primitive casting recipe for %s %s with the mold %s returned a duration of 0. Error details :" +
                         "fluidAmount = %d" +
                         "duration before multiplier = %d" +
