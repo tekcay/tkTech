@@ -21,13 +21,13 @@ import tkcy.tktech.common.metatileentities.TKCYSAMetaTileEntities;
      dependencies = TKCYSAInternalTags.DEP_VERSION_STRING)
 public class TekCaySimpleAddon {
 
-    public static final String MODID = "tkcysa";
-    public static final String NAME = "TeK CaY Simple Addon";
+    public static final String MODID = "tktech";
+    public static final String NAME = "TkTech";
     public static final String VERSION = tkcy.TKCYSAInternalTags.VERSION;
 
     @SidedProxy(modId = MODID,
-                clientSide = "tkcy.simpleaddon.common.ClientProxy",
-                serverSide = "tkcy.simpleaddon.common.CommonProxy")
+                clientSide = "tkcy.tktech.common.ClientProxy",
+                serverSide = "tkcy.tktech.common.CommonProxy")
     public static CommonProxy proxy;
 
     @Mod.EventHandler

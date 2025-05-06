@@ -122,7 +122,7 @@ public class AnvilMetatileEntity extends ToolLogicMetaTileEntity
 
     @Override
     protected void addExtraTooltip(ItemStack stack, @Nullable World player, List<String> tooltip, boolean advanced) {
-        tooltip.add(I18n.format("tkcya.tool_machine.parts.tooltip", addPartsOrePrefixInformation()));
+        tooltip.add(I18n.format("tktech.tool_machine.parts.tooltip", addPartsOrePrefixInformation()));
     }
 
     @Override

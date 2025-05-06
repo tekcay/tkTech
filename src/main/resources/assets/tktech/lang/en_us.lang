@@ -1,0 +1,366 @@
+##ChromiteChain
+tktech.material.sodium_dichromate=Sodium Dichromate
+tktech.material.sodium_chromate=Sodium Chromate
+tktech.material.chromium_oxide=Chromium Oxide
+tktech.material.sodium_carbonate=Sodium Carbonate
+tktech.material.sodium_sulfate=Sodium Sulfate
+tktech.material.potassium_sulfate=Potassium Sulfate
+
+##AluminiumChain
+tktech.material.aluminium_fluoride=Aluminium Fluoride
+tktech.material.alumina=Alumina
+tktech.material.aluminium_hydroxide=Aluminium Hydroxide
+
+tktech.material.potassium_aluminate=Potassium Aluminate
+tktech.material.sodium_aluminate=Sodium Aluminate
+
+tktech.material.bauxite_residue=Bauxite Residue
+
+tktech.material.potash_treated_bauxite=Potash Treated Bauxite
+tktech.material.soda_treated_bauxite=Soda Treated Bauxite
+tktech.material.treated_sodium_aluminate=Treated Sodium Aluminate
+tktech.material.treated_potassium_aluminate=Treated Potassium Aluminate
+tktech.material.dried_treated_potassium_aluminate=Dried Treated Potassium Aluminate
+tktech.material.dried_treated_sodium_aluminate=Dried Treated Sodium Aluminate
+
+tktech.material.cryolite=Cryolite
+tktech.material.hexafluorosilic_acid=Hexafluorosilic Acid
+
+##GoldChain
+tktech.material.precious_metal=Precious Metal
+tktech.material.gold_alloy=Gold Alloy
+tktech.material.gold_leach=Gold Leach
+tktech.material.copper_leach=Copper Leach
+tktech.material.chloroauric_acid=Chloroauric Acid
+tktech.material.potassium_metabisulfite=Potassium Metasulfite
+tktech.material.potassium_hydroxide=Potassium Hydroxide
+
+##Roasting
+tktech.material.kesterite=Kesterite
+tktech.material.stannite=Stannite
+tktech.material.aresenopyrite=Arsenopyrite
+tktech.material.molybdenum_trioxde=Molybdenum Trioxide
+
+##RoastingOutput
+tktech.material.cuprite=Cuprite
+tktech.material.roasted.tetrahedrite=Roasted Tetrahedrite
+tktech.material.roasted.stannite=Roasted Stannite
+tktech.material.roasted.kesterite=Roasted Kesterite
+tktech.material.roasted.arsenopyrite=Roasted Arsenopyrite
+tktech.material.roasted.pyrite=Roasted Pyrite
+tktech.material.roasted.cobaltite=Roasted Cobaltite
+tktech.material.roasted.galena=Roasted Galena
+tktech.material.roasted.chalcopyrite=Roasted Chalcopyrite
+tktech.material.roasted.bornite=Roasted Bornite
+
+##Iron
+tktech.material.pig_iron=Pig Iron
+
+##Tungsten
+tktech.material.tungsten_oxide=Tungsten Oxide
+
+##Zinc
+tktech.material.zinc_leaching_solution=Zinc Leaching Solution
+tktech.material.zinc_sulfate=Zinc Sulfate
+
+##Germanium
+tktech.material.zinc_leaching_residue=Zinc Leaching Residue
+tktech.material.iron_sulfate=Iron Sulfate
+tktech.material.germanium_sulfide=Germanium Sulfide
+tktech.material.germanium_oxide=Germanium Oxide
+tktech.material.germanium_tetrachloride=Germanium Tetrachloride
+tktech.material.argyrodite=Argyroditee
+
+## Fluorine
+tktech.material.potassium_bifluoride=Potassium Bifluoride
+tktech.material.fluorite=Fluorite
+tktech.material.calcium_sulfate=Calcium Sulfate
+tktech.material.lithium_fluoride=Lithium Fluoride
+tktech.material.sodium_fluoride=Sodium Fluoride
+tktech.material.potassium_fluoride=Potassium Fluoride
+tktech.material.lithium_hydroxide=Lithium Hydroxide
+tktech.material.hydrogen_fluoride=Hydrogen Fluoride
+
+##Arsenic
+tktech.material.arsenopyrite=Arsenopyrite
+
+## Manganese
+tktech.material.treated_spessartine=Treated Spessartine
+tktech.material.dry_oxalic_acid=Dry Oxalic Acid
+tktech.material.oxalic_acid=Oxalic Acid
+tktech.material.dimethyl_oxalate=Dimethyl Oxalate
+tktech.material.diethyl_oxalate=Diethyl Oxalate
+tktech.material.crude_oxalic_acid=Crude Oxalic Acid
+tktech.material.crude_dimethyl_oxalate=Crude Dimethyl Oxalate
+tktech.material.crude_diethyl_oxalate=Crude Diethyl Oxalate
+
+## Platinum group
+tktech.material.treated_platinum_group_sludge=Treated Platinum Group Sludge
+tktech.material.rhodium_hydroxide=Rhodium Hydroxide
+tktech.material.chlororhodic_acid=Chlororhodic Acid
+tktech.material.rhodium_precipitate=Rhodium Precipitate
+tktech.material.treated_rhodium_precipitate=Treated Rhodium Precipitate
+tktech.material.rhodium_hot=Hot Rhodium
+
+##Alloys
+tktech.material.galvanized_steel=Galvanized Steel
+tktech.material.monel=Monel
+tktech.material.bt_6=BT6
+tktech.material.hastelloy_n=Hastelloy N
+tktech.material.inconel_600=Inconel-600
+tktech.material.inconel_690=Inconel-690
+tktech.material.eglin_steel=Eglin Steel
+tktech.material.af_1410=AF_1410
+tktech.material.aermet_100=AerMet 100
+tktech.material.hy_180=HY 180
+tktech.material.hp_4920=HP 4920
+tktech.material.stellite_star_j=Stellite Star J
+tktech.material.mangalloy=Mangalloy
+tktech.material.talonite=Talonite
+tktech.material.nitinol=Nitinol
+tktech.material.nitinol_60=Nitinol-60
+tktech.material.tc_4=Ti-6Al-4V
+tktech.material.aluminium_5052=Aluminium 5052
+tktech.material.aluminium_6061=Aluminium 6061
+
+##Chemicals
+tktech.material.sodium_nitrite=Sodium Nitrite
+tktech.material.sodium_nitrite_solution=Sodium Nitrite Solution
+tktech.material.liquid_dinitrogen_trioxide=Liquid Dinitrogen Trioxide
+
+##Misc materials
+tktech.material.ceramic=Ceramic
+tktech.material.mica_pulp=Mica Based
+
+
+##Methane cracking
+tktech.material.severely_steam_cracked_methane=Severely Steam Cracked Methane
+tktech.material.moderately_steam_cracked_methane=Moderately Steam Cracked Methane
+tktech.material.lightly_steam_cracked_methane=Lightly Steam Cracked Methane
+
+##Sensors materials
+tktech.material.lead_zirconate_titanate=Lead Zirconate Titanate
+tktech.material.lithium_niobate=Lithium Niobate
+tktech.material.gallium_phosphate=Gallium Phosphate
+
+##MTEs
+tktech.machine.primitive_roasting_oven.name=Primitive Roasting Oven
+tktech.machine.electrolyzer.name=Electrolyzer
+tktech.machine.assembler.name=Assembling Machine
+tktech.machine.dryer.name=Dryer
+tktech.machine.gas_release.name=Gas Release
+tktech.machine.alloying_crucible.name=Alloying Crucible
+tktech.machine.hydrogenation_unit.name=Hydrogenation Unit
+tktech.machine.cracking_unit.name=Cracking Unit
+tktech.machine.steam_dust_mixer.name=Steam Dust Mixer
+tktech.machine.steam_melter.name=Steam Melter
+tktech.machine.advanced_cleanroom.name=Advanced Cleanroom
+
+tktech.machine.fluid_primitive_blast_furnace.name=Fluid Primitive Blast Furnace
+tktech.machine.primitive_casting.name=Primitive Casting
+tktech.machine.brick_item_output_bus.name=Brick Item Output Bus
+tktech.machine.brick_item_input_bus.name=Brick Item Input Bus
+tktech.machine.brick_fluid_output_hatch.name=Brick Fluid Output Hatch
+tktech.machine.brick_fluid_input_hatch.name=Brick Fluid Input Hatch
+
+tktech.machine.cluster_mill.lv.name=Cluster Mill LV
+tktech.machine.cluster_mill.mv.name=Cluster Mill MV
+tktech.machine.cluster_mill.hv.name=Cluster Mill HV
+tktech.machine.cluster_mill.ev.name=Cluster Mill EV
+tktech.machine.cluster_mill.iv.name=Cluster Mill IV
+
+tktech.machine.component_assembler.ulv.name=Component Assembler ULV
+tktech.machine.component_assembler.lv.name=Component Assembler LV
+tktech.machine.component_assembler.mv.name=Component Assembler MV
+tktech.machine.component_assembler.hv.name=Component Assembler HV
+tktech.machine.component_assembler.ev.name=Component Assembler EV
+tktech.machine.component_assembler.iv.name=Component Assembler IV
+
+tktech.machine.rolling_mill.lv.name=Rolling Mill LV
+tktech.machine.rolling_mill.mv.name=Rolling Mill MV
+tktech.machine.rolling_mill.hv.name=Rolling Mill HV
+tktech.machine.rolling_mill.ev.name=Rolling Mill EV
+tktech.machine.rolling_mill.iv.name=Rolling Mill IV
+
+tktech.machine.anvil.name=Anvil
+tktech.machine.basic_electronic.name=Basic Electronic Worker
+tktech.machine.wood_workshop.name=Wood Workshop
+
+tktech.machine.modulable_tank_valve.steel.name=Valve Tank Steel
+tktech.machine.modulable_tank_valve.stainless_steel.name=Valve Tank Stainless Steel
+tktech.machine.modulable_tank_valve.galvanized_steel.name=Valve Tank Galvanized Steel
+tktech.machine.modulable_tank_valve.tungsten_carbide.name=Valve Tank Tungsten Carbide
+
+tktech.machine.modulable_tank.steel.name=Tank Steel
+tktech.machine.modulable_tank.stainless_steel.name=Tank Stainless Steel
+tktech.machine.modulable_tank.galvanized_steel.name=Tank Galvanized Steel
+tktech.machine.modulable_tank.tungsten_carbide.name=Tank Tungsten Carbide
+
+tktech.machine.modulable_large_tank.steel.name=Large Tank Steel
+tktech.machine.modulable_large_tank.stainless_steel.name=Large Tank Stainless Steel
+tktech.machine.modulable_large_tank.galvanized_steel.name=Large Tank Galvanized Steel
+tktech.machine.modulable_large_tank.tungsten_carbide.name=Large Tank Tungsten Carbide
+
+tktech.machine.modulable_crate_valve.steel.name=Valve Crate Steel
+tktech.machine.modulable_crate_valve.stainless_steel.name=Valve Crate Stainless Steel
+tktech.machine.modulable_crate_valve.galvanized_steel.name=Valve Crate Galvanized Steel
+tktech.machine.modulable_crate_valve.tungsten_carbide.name=Valve Crate Tungsten Carbide
+
+tktech.machine.modulable_crate.steel.name=Crate Steel
+tktech.machine.modulable_crate.stainless_steel.name=Crate Stainless Steel
+tktech.machine.modulable_crate.galvanized_steel.name=Crate Galvanized Steel
+tktech.machine.modulable_crate.tungsten_carbide.name=Crate Tungsten Carbide
+
+tktech.machine.modulable_large_crate.steel.name=Large Crate Steel
+tktech.machine.modulable_large_crate.stainless_steel.name=Large Crate Stainless Steel
+tktech.machine.modulable_large_crate.galvanized_steel.name=Large Crate Galvanized Steel
+tktech.machine.modulable_large_crate.tungsten_carbide.name=Large Crate Tungsten Carbide
+
+tktech.machine.modulable_chest_valve.steel.name=Valve Chest Steel
+tktech.machine.modulable_chest_valve.stainless_steel.name=Valve Chest Stainless Steel
+tktech.machine.modulable_chest_valve.galvanized_steel.name=Valve Chest Galvanized Steel
+tktech.machine.modulable_chest_valve.tungsten_carbide.name=Valve Chest Tungsten Carbide
+
+tktech.machine.modulable_chest.steel.name=Chest Steel
+tktech.machine.modulable_chest.stainless_steel.name=Chest Stainless Steel
+tktech.machine.modulable_chest.galvanized_steel.name=Chest Galvanized Steel
+tktech.machine.modulable_chest.tungsten_carbide.name=Chest Tungsten Carbide
+
+tktech.machine.modulable_large_chest.steel.name=Large Chest Steel
+tktech.machine.modulable_large_chest.stainless_steel.name=Large Chest Stainless Steel
+tktech.machine.modulable_large_chest.galvanized_steel.name=Large Chest Galvanized Steel
+tktech.machine.modulable_large_chest.tungsten_carbide.name=Large Chest Tungsten Carbide
+
+##RecipesMaps
+recipemap.primitive_roasting.name=Primtive Roasting
+recipemap.advanced_electrolysis.name=Electrolyzis
+recipemap.advanced_assembling.name=Assembling
+recipemap.fluid_primitive_blast.name=Fluid Blasting
+recipemap.casting.name=Casting
+recipemap.drying.name=Drying
+recipemap.gas_release.name=Gas Release
+recipemap.alloying.name=Alloying
+recipemap.cluster_mill.name=Cluster Mill
+recipemap.component_assembler.name=Component Assembler
+recipemap.hydrogenation.name=Hydrogenation
+recipemap.cracking.name=Cracking
+recipemap.primitive_dust_mixing.name=Primtive Dust Mixing
+recipemap.primitive_smelting.name=Primitive Smelting
+recipemap.rolling.name=Roll Bending
+recipemap.anvil_recipes.name=Anvil Recipes
+recipemap.wood_workshop_recipes.name=Wood Recipes
+
+# Ore Prefixes
+item.material.oreprefix.cathode=%s Cathode
+item.material.oreprefix.anode=%s Anode
+item.material.oreprefix.electrode=%s Electrode
+item.material.oreprefix.curved_plate=%s Curved Plate
+
+item.material.oreprefix.casing=%s Casing
+item.material.oreprefix.wall=%s Wall
+item.material.oreprefix.coil=%s Coil
+item.material.oreprefix.stripped_wood=%s Stripped Log
+# MetaItems
+metaitem.mica.sheet.name=Mica Based Sheet
+metaitem.mica_insulator.sheet.name=Mica Insulator Sheet
+metaitem.mica_insulator.foil.name=Mica Insulator Foil
+
+## ULV Components
+metaitem.electric_motor_ulv.name=ULV Electric Motor
+metaitem.electric_pump_ulv.name=ULV Electric Pump
+metaitem.piston_ulv.name=ULV Piston
+metaitem.conveyor_ulv.name=ULV Conveyor
+metaitem.robot_arm_ulv.name=ULV Robot Arm
+
+## Tools
+item.gt.tool.soldering_iron.name=%s Soldering Iron
+
+gt.tool.class.soldering_iron=Soldering Iron
+
+item.gt.tool.soldering_iron.tooltip=§8Hold left click to dismantle Machines
+
+item.material.oreprefix.toolTipSolderingIron=%s Soldering Iron Tip
+
+#
+tktech.test_display.height=Height: %d
+
+##Machines tooltips
+tktech.machine.gas_release.1=Release gases into the atmosphere
+tktech.machine.alloying_crucible.1=Release gases into the atmosphere
+tktech.machine.cracker.tooltip.1=Cracks hydrocarbons or oil layers to get interesting compounds.
+tktech.machine.cracker.tooltip.2=All coils must be the same.
+tktech.machine.cracker.tooltip.3=§a%s §fenables §2LIGHT §fcracking.
+tktech.machine.cracker.tooltip.4=§e%s §fenables §6MODERATE §fcracking.
+tktech.machine.cracker.tooltip.5=§c%s §fenables §4SEVERE §fcracking.
+
+tktech.casting.tooltip.1=Solidifies liquid into parts using mold
+tktech.casting.tooltip.2=§fRecipe duration increases as :
+tktech.casting.tooltip.3=§f- the fluid temperature §5T1 §fincreases
+tktech.casting.tooltip.4=§f- the temperature gap between §d51 §fand the mold temperature capacity increases
+tktech.casting.tooltip.5=§f- the required amount to cast the part increases
+tktech.casting.tooltip=§e%s §fmolds handle fluids up to §c%dK
+
+tktech.steam_melter.tooltip.1=Melts metal dusts into their fluid form.
+tktech.steam_melter.tooltip.2=Auto-outputs on the bottom face.
+
+tktech.tool_machine.sneak_right_click_with_tool.tooltip.1=§aSneak-right click§7 with §b%d §7to run recipes.
+tktech.tool_machine.parts.tooltip=§fUse to make §e%s
+
+tktech.machine.parallel.tooltip=Every additional %d layers add one parallel point
+
+tktech.machine.cleanroom.tooltip=Not your vanilla cleanroom
+tktech.machine.cleanroom.tooltip.1=Place machines inside to run inert-gas cleanroom recipes.
+tktech.machine.cleanroom.tooltip.2=Uses both EU/t and gas based on cleanroom size.
+
+tktech.metatilentity.special_right.show_tooltips=Hold CTRL to show special Right-click behavior
+tktech.metatileentity.transfer_output_to_player.tooltip=§dRight-click§7 with an §fempty hand§7 to get the machine §6output
+tktech.metatileentity.transfer_input_to_player.tooltip=§dRight-click§7 with an §fempty hand§7 to get the machine §ainput
+tktech.metatileentity.transfer_hand_stack_to_input.tooltip=§dRight-click§7 to put your §fheld item§7 to the machine §ainput
+tktech.metatileentity.on_any_tool_click.sneak.invalidate.tooltip=Sneak-right click with the wrong tool §cinvalidates§r the recipe
+
+##Modulable Storage
+tktech.multiblock.modulable_storage.content=%s
+tktech.multiblock.modulable_storage.capacity=Capacity: %s
+tktech.multiblock.modulable_storage.fill.percentage=%s
+tktech.multiblock.modulable_tank.bucket_equivalent=%s
+tktech.multiblock.modulable_storage.layer_infos=§e%s §fper layer, up to §b%d §flayers.
+
+tktech.multiblock.modulable_tank.tooltip=A multiblock tank which capacity can be increased with extra-layers.
+tktech.multiblock.modulable_chest.tooltip.1=A multiblock chest which capacity can be increased with extra-layers.
+tktech.multiblock.modulable_chest.tooltip.2=No GUI (for now), only visible via the crafting station or AE2 for example.
+tktech.multiblock.modulable_pressurized_tank.tooltip=Modulable Pressurized Tank toolip
+tktech.multiblock.modulable_crate.tooltip=Modulable Crate tooltip
+
+tktech.multiblock.advanced_cleanroom.gas_consumption_infos=Consumes %s of %s
+tktech.multiblock.advanced_cleanroom.gas_require_infos=Requires %s of %s
+tktech.multiblock.advanced_cleanroom.not_enough_gas=Not enough %s!
+
+## Recipe properties
+tktech.recipe.coil=Coil: %s
+tktech.recipe.tool.uses=Tool uses: %d
+
+gregtech.recipe.cleanroom_nitrogen.display_name=Nitrogen Cleanroom
+gregtech.recipe.cleanroom_argon.display_name=Argon Cleanroom
+
+## Blocks
+tile.stripped_wood.oak_stripped.name=Stripped Oak Log
+tile.stripped_wood.dark_oak_stripped.name=Stripped Dark Oak Log
+tile.stripped_wood.acacia_stripped.name=Stripped Acacia Log
+tile.stripped_wood.spruce_stripped.name=Stripped Spruce Log
+tile.stripped_wood.jungle_stripped.name=Stripped Jungle Log
+tile.stripped_wood.birch_stripped.name=Stripped Birch Log
+tile.stripped_wood.rubber_stripped.name=Stripped Rubber Log
+
+
+
+##RecipeCategories
+#tktech.recipe.category.galvanizing=Galvanizing
+
+
+
+
+behavior.tricorder.itemStack=Stack : %s %d %s
+behavior.tricorder.size=slots : %s %d
+
+#Button headers
+tktech.multiblock.advanced_cleanroom.gas.header=Inert gas: %s

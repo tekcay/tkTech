@@ -38,7 +38,7 @@ public abstract class ToolLogicMetaTileEntity extends MetaTileEntity implements 
                 .map(ToolsModule.GtTool::toString)
                 .collect(Collectors.joining(", "));
 
-        tooltip.add(I18n.format("tkcya.tool_machine.sneak_right_click_with_tool.tooltip.1", tools));
+        tooltip.add(I18n.format("tktech.tool_machine.sneak_right_click_with_tool.tooltip.1", tools));
         addExtraTooltip(stack, player, tooltip, advanced);
         super.addInformation(stack, player, tooltip, advanced);
     }

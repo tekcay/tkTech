@@ -45,7 +45,7 @@ public class ToolUsesProperty extends RecipeProperty<Integer> implements IRecipe
     @Override
     public void drawInfo(Minecraft minecraft, int x, int y, int color, Object value) {
         Integer uses = castValue(value);
-        minecraft.fontRenderer.drawString(I18n.format("tkcya.recipe.tool.uses", uses), x, y, color);
+        minecraft.fontRenderer.drawString(I18n.format("tktech.recipe.tool.uses", uses), x, y, color);
     }
 
     @Override
