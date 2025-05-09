@@ -11,6 +11,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import gregtech.api.metatileentity.MetaTileEntity;
@@ -33,7 +34,8 @@ public abstract class ToolLogicMetaTileEntity extends MetaTileEntity implements 
     }
 
     @Override
-    public void addInformation(ItemStack stack, @Nullable World player, List<String> tooltip, boolean advanced) {
+    public void addInformation(ItemStack stack, @Nullable World player, @NotNull List<String> tooltip,
+                               boolean advanced) {
         String tools = getWorkingGtTool()
                 .stream()
                 .map(ToolsModule.GtTool::toString)
@@ -46,6 +48,7 @@ public abstract class ToolLogicMetaTileEntity extends MetaTileEntity implements 
             tooltip.add(I18n.format("tktech.tool_machine.sneak_right_click_with_tool.facing.tooltip",
                     enumFacing.getName().toUpperCase(), tools));
         }
+
         addExtraTooltip(stack, player, tooltip, advanced);
         super.addInformation(stack, player, tooltip, advanced);
     }
@@ -56,13 +59,13 @@ public abstract class ToolLogicMetaTileEntity extends MetaTileEntity implements 
     }
 
     @Override
-    public void onAnyToolClick(ToolsModule.GtTool tool, boolean isPlayerSneaking) {
+    public void onAnyToolClick(ToolsModule.GtTool tool, boolean isPlayerSneaking, EnumFacing faceClick) {
         if (!isPlayerSneaking) return;
-        this.logic.runToolRecipeLogic(tool);
+        this.logic.runToolRecipeLogic(tool, faceClick);
     }
 
     @Override
-    public void onAnyToolClickTooltip(List<String> tooltips) {
+    public void onAnyToolClickTooltip(@NotNull List<String> tooltips) {
         tooltips.add(I18n.format("tktech.metatileentity.on_any_tool_click.sneak.invalidate.tooltip"));
     }
 

@@ -48,7 +48,7 @@ public abstract class MixinToolClickMetaTileEntity implements IOnSolderingIronCl
         EnumFacing gridSideHit = CoverRayTracer.determineGridSideHit(hitResult);
 
         ToolsModule.GtTool tool = ToolsModule.getGtTool(toolClasses);
-        if (tool != null) onAnyToolClick(tool, playerIn.isSneaking());
+        if (tool != null) onAnyToolClick(tool, playerIn.isSneaking(), gridSideHit);
 
         if (toolClasses.contains(TkTechToolClasses.SOLDERING_IRON)) {
             result = onSolderingIronClick(playerIn, hand, gridSideHit, hitResult);

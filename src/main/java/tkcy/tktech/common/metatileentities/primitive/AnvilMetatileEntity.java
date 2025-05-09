@@ -43,7 +43,7 @@ import tkcy.tktech.api.recipes.logic.IToolRecipeLogic;
 import tkcy.tktech.api.recipes.logic.OnBlockRecipeLogic;
 import tkcy.tktech.api.recipes.logic.impl.InWorldRecipeLogic;
 import tkcy.tktech.api.recipes.logic.impl.RecipeLogicsContainer;
-import tkcy.tktech.api.recipes.logic.impl.ToolLogic;
+import tkcy.tktech.api.recipes.logic.impl.ToolFacingRecipeLogic;
 import tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps;
 import tkcy.tktech.modules.toolmodule.ToolsModule;
 
@@ -94,13 +94,17 @@ public class AnvilMetatileEntity extends ToolLogicMetaTileEntity
     }
 
     @Override
-    public void onAnyToolClick(ToolsModule.GtTool tool, boolean isPlayerSneaking) {}
+    public void onAnyToolClick(ToolsModule.GtTool tool, boolean isPlayerSneaking, EnumFacing faceClick) {
+        if (!isPlayerSneaking) return;
+        getLogic().runToolRecipeLogic(ToolsModule.GtTool.HARD_HAMMER, faceClick);
+    }
 
+    /**
+     * Removes {@link #toggleMuffled()}.
+     */
     @Override
     public boolean onHardHammerClick(EntityPlayer playerIn, EnumHand hand, EnumFacing facing,
                                      CuboidRayTraceResult hitResult) {
-        if (!playerIn.isSneaking() || facing != getRecipeTriggerFacing()) return false;
-        getLogic().runToolRecipeLogic(ToolsModule.GtTool.HARD_HAMMER);
         return true;
     }
 
@@ -162,7 +166,7 @@ public class AnvilMetatileEntity extends ToolLogicMetaTileEntity
             InWorldRecipeLogic inWorldRecipeLogic = new InWorldRecipeLogic.Builder(this)
                     .doesSpawnOutputItems()
                     .build();
-            return new RecipeLogicsContainer(this, new ToolLogic(this), inWorldRecipeLogic);
+            return new RecipeLogicsContainer(this, new ToolFacingRecipeLogic(this), inWorldRecipeLogic);
         }
     }
 }

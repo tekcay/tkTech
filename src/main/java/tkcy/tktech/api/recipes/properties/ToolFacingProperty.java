@@ -52,7 +52,9 @@ public class ToolFacingProperty extends RecipeProperty<EnumFacing>
     @Override
     public void drawInfo(Minecraft minecraft, int x, int y, int color, Object value) {
         EnumFacing facing = castValue(value);
-        minecraft.fontRenderer.drawString(I18n.format("tktech.recipe.tool.click_facing", facing.getName().toUpperCase()), x, y, color);}
+        minecraft.fontRenderer.drawString(
+                I18n.format("tktech.recipe.tool.click_facing", facing.getName().toUpperCase()), x, y, color);
+    }
 
     @Override
     public RecipeBuilder<?> testAndApplyPropertyValue(EnumFacing valueToTest, EnumValidationResult recipeStatus,

@@ -5,6 +5,8 @@ import static gregtech.api.unification.ore.OrePrefix.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.minecraft.util.EnumFacing;
+
 import gregtech.api.unification.material.Material;
 import gregtech.api.unification.material.Materials;
 import gregtech.api.unification.material.properties.IngotProperty;
@@ -12,7 +14,6 @@ import gregtech.api.unification.material.properties.PropertyKey;
 import gregtech.api.unification.ore.OrePrefix;
 
 import lombok.experimental.UtilityClass;
-import net.minecraft.util.EnumFacing;
 import tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps;
 import tkcy.tktech.api.unification.flags.TkTechMaterialFlags;
 import tkcy.tktech.api.unification.materials.TkTechMaterials;

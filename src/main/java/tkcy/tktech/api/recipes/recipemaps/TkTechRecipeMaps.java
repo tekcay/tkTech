@@ -9,7 +9,6 @@ import crafttweaker.annotations.ZenRegister;
 import lombok.experimental.UtilityClass;
 import stanhebben.zenscript.annotations.ZenExpansion;
 import stanhebben.zenscript.annotations.ZenProperty;
-import tkcy.tktech.TkTech;
 import tkcy.tktech.api.recipes.builders.AdvancedRecipeBuilder;
 import tkcy.tktech.api.recipes.builders.CoilTypeRecipeBuilder;
 import tkcy.tktech.api.recipes.builders.NoEnergyRecipeBuilder;
@@ -99,7 +98,7 @@ public final class TkTechRecipeMaps {
     @ZenProperty
     public static final RecipeMap<AdvancedRecipeBuilder> ANVIL_RECIPES = new RecipeMap<>(
             "anvil_recipes", 2, 2, 0, 0, new AdvancedRecipeBuilder(), false)
-            .onRecipeBuild(TkTechUtil.tktech("anvil_recipes"), AdvancedRecipeBuilder::hideEnergyAndDuration);
+                    .onRecipeBuild(TkTechUtil.tktech("anvil_recipes"), AdvancedRecipeBuilder::hideEnergyAndDuration);
 
     @WorkingTool
     @ZenProperty
