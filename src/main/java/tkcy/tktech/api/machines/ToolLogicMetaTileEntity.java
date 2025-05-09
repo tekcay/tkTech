@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -38,7 +39,13 @@ public abstract class ToolLogicMetaTileEntity extends MetaTileEntity implements 
                 .map(ToolsModule.GtTool::toString)
                 .collect(Collectors.joining(", "));
 
-        tooltip.add(I18n.format("tktech.tool_machine.sneak_right_click_with_tool.tooltip.1", tools));
+        EnumFacing enumFacing = getRecipeTriggerFacing();
+        if (enumFacing == null) {
+            tooltip.add(I18n.format("tktech.tool_machine.sneak_right_click_with_tool.tooltip.1", tools));
+        } else {
+            tooltip.add(I18n.format("tktech.tool_machine.sneak_right_click_with_tool.facing.tooltip",
+                    enumFacing.getName().toUpperCase(), tools));
+        }
         addExtraTooltip(stack, player, tooltip, advanced);
         super.addInformation(stack, player, tooltip, advanced);
     }
@@ -65,6 +72,11 @@ public abstract class ToolLogicMetaTileEntity extends MetaTileEntity implements 
     }
 
     protected void addExtraTooltip(ItemStack stack, @Nullable World player, List<String> tooltip, boolean advanced) {}
+
+    @Nullable
+    protected EnumFacing getRecipeTriggerFacing() {
+        return null;
+    }
 
     @SideOnly(Side.CLIENT)
     protected abstract SimpleOverlayRenderer getBaseRenderer();

@@ -99,7 +99,7 @@ public class AnvilMetatileEntity extends ToolLogicMetaTileEntity
     @Override
     public boolean onHardHammerClick(EntityPlayer playerIn, EnumHand hand, EnumFacing facing,
                                      CuboidRayTraceResult hitResult) {
-        if (!playerIn.isSneaking()) return false;
+        if (!playerIn.isSneaking() || facing != getRecipeTriggerFacing()) return false;
         getLogic().runToolRecipeLogic(ToolsModule.GtTool.HARD_HAMMER);
         return true;
     }
@@ -118,6 +118,11 @@ public class AnvilMetatileEntity extends ToolLogicMetaTileEntity
     @Override
     protected OnBlockRecipeLogic initRecipeLogic() {
         return new Logic(this, null, TkTechRecipeMaps.ANVIL_RECIPES);
+    }
+
+    @Override
+    protected @Nullable EnumFacing getRecipeTriggerFacing() {
+        return EnumFacing.UP;
     }
 
     @Override

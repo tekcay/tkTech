@@ -304,6 +304,7 @@ tktech.steam_melter.tooltip.1=Melts metal dusts into their fluid form.
 tktech.steam_melter.tooltip.2=Auto-outputs on the bottom face.
 
 tktech.tool_machine.sneak_right_click_with_tool.tooltip.1=§aSneak-right click§7 with §b%d §7to run recipes.
+tktech.tool_machine.sneak_right_click_with_tool.facing.tooltip=§aSneak-right click§7 on the §6%s FACE§7 with §b%d §7to run recipes.
 tktech.tool_machine.parts.tooltip=§fUse to make §e%s
 
 tktech.machine.parallel.tooltip=Every additional %d layers add one parallel point
@@ -316,7 +317,7 @@ tktech.metatilentity.special_right.show_tooltips=Hold CTRL to show special Right
 tktech.metatileentity.transfer_output_to_player.tooltip=§dRight-click§7 with an §fempty hand§7 to get the machine §6output
 tktech.metatileentity.transfer_input_to_player.tooltip=§dRight-click§7 with an §fempty hand§7 to get the machine §ainput
 tktech.metatileentity.transfer_hand_stack_to_input.tooltip=§dRight-click§7 to put your §fheld item§7 to the machine §ainput
-tktech.metatileentity.on_any_tool_click.sneak.invalidate.tooltip=Sneak-right click with the wrong tool §cinvalidates§r the recipe
+tktech.metatileentity.on_any_tool_click.sneak.invalidate.tooltip=Sneak-right click with the wrong tool §cinvalidates§7 the recipe
 
 ##Modulable Storage
 tktech.multiblock.modulable_storage.content=%s
