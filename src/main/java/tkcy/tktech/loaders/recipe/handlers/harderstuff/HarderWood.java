@@ -41,8 +41,7 @@ public class HarderWood {
                 .inputBlockInWorld(logStack)
                 .outputBlockInWorld(
                         TkTechMetaBlocks.STRIPPED_WOOD.getItemVariant(strippedWood))
-                .tool(ToolsModule.GtTool.AXE)
-                .toolUses(7)
+                .tool(ToolsModule.GtTool.AXE, 7)
                 .output(OrePrefix.dust, Wood)
                 .hideDuration()
                 .hideEnergy()
@@ -52,8 +51,7 @@ public class HarderWood {
                 .inputBlockInWorld(
                         TkTechMetaBlocks.STRIPPED_WOOD.getItemVariant(strippedWood))
                 .outputBlockInWorld(plankStack)
-                .tool(ToolsModule.GtTool.SAW)
-                .toolUses(7)
+                .tool(ToolsModule.GtTool.SAW, 7)
                 .output(OrePrefix.dust, Wood)
                 .hideDuration()
                 .hideEnergy()

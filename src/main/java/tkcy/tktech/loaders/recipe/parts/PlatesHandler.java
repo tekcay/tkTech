@@ -37,14 +37,15 @@ public class PlatesHandler {
     };
 
     private static void primitiveProcessPlate(OrePrefix orePrefix, Material material, IngotProperty ingotProperty) {
+        int baseUse = 1 + (int) material.getMass() / 20;
+
         if (material.hasFlag(TkTechMaterialFlags.IS_POLYMER) || excludeMaterials.contains(material)) return;
 
         TkTechRecipeMaps.ANVIL_RECIPES.recipeBuilder()
                 .input(ingot, material, 2)
                 .output(orePrefix, material)
                 .output(dustSmall, material, 4)
-                .tool(ToolsModule.GtTool.HARD_HAMMER)
-                .toolUses(1 + (int) material.getMass() / 20)
+                .tool(ToolsModule.GtTool.HARD_HAMMER, baseUse)
                 .hideDuration()
                 .hideEnergy()
                 .buildAndRegister();
@@ -52,8 +53,7 @@ public class PlatesHandler {
         if (!plateDouble.doGenerateItem(material)) return;
 
         TkTechRecipeMaps.ANVIL_RECIPES.recipeBuilder()
-                .tool(ToolsModule.GtTool.HARD_HAMMER)
-                .toolUses(2 * (1 + (int) material.getMass() / 20))
+                .tool(ToolsModule.GtTool.HARD_HAMMER, 2 * baseUse)
                 .input(orePrefix, material, 3)
                 .output(OrePrefix.plateDouble, material)
                 .output(dustSmall, material, 4)

@@ -4,6 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumFacing;
 
 import gregtech.api.recipes.Recipe;
 import gregtech.api.recipes.RecipeBuilder;
@@ -68,14 +69,32 @@ public class AdvancedRecipeBuilder extends RecipeBuilder<AdvancedRecipeBuilder> 
         return (AdvancedRecipeBuilder) recipeProperty.testAndApplyPropertyValue(itemStack, this.recipeStatus, this);
     }
 
-    public AdvancedRecipeBuilder tool(ToolsModule.GtTool gtTool) {
+    private AdvancedRecipeBuilder tool(ToolsModule.GtTool gtTool) {
         ToolProperty toolProperty = ToolProperty.getInstance();
         return (AdvancedRecipeBuilder) toolProperty.testAndApplyPropertyValue(gtTool, this.recipeStatus, this);
     }
 
-    public AdvancedRecipeBuilder toolUses(int uses) {
+    private AdvancedRecipeBuilder toolUses(int uses) {
         ToolUsesProperty toolUsesProperty = ToolUsesProperty.getInstance();
         return (AdvancedRecipeBuilder) toolUsesProperty.testAndApplyPropertyValue(uses, this.recipeStatus, this);
+    }
+
+    private AdvancedRecipeBuilder toolFacing(EnumFacing toolFacing) {
+        ToolFacingProperty toolFacingProperty = ToolFacingProperty.getInstance();
+        return (AdvancedRecipeBuilder) toolFacingProperty.testAndApplyPropertyValue(toolFacing, this.recipeStatus,
+                this);
+    }
+
+    public AdvancedRecipeBuilder tool(ToolsModule.GtTool gtTool, int uses) {
+        this.tool(gtTool);
+        this.toolUses(uses);
+        return this;
+    }
+
+    public AdvancedRecipeBuilder tool(ToolsModule.GtTool gtTool, int uses, EnumFacing toolFacing) {
+        this.tool(gtTool, uses);
+        this.toolFacing(toolFacing);
+        return this;
     }
 
     public AdvancedRecipeBuilder hideDuration() {
