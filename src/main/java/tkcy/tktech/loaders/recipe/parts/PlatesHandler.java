@@ -12,6 +12,7 @@ import gregtech.api.unification.material.properties.PropertyKey;
 import gregtech.api.unification.ore.OrePrefix;
 
 import lombok.experimental.UtilityClass;
+import net.minecraft.util.EnumFacing;
 import tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps;
 import tkcy.tktech.api.unification.flags.TkTechMaterialFlags;
 import tkcy.tktech.api.unification.materials.TkTechMaterials;
@@ -45,20 +46,16 @@ public class PlatesHandler {
                 .input(ingot, material, 2)
                 .output(orePrefix, material)
                 .output(dustSmall, material, 4)
-                .tool(ToolsModule.GtTool.HARD_HAMMER, baseUse)
-                .hideDuration()
-                .hideEnergy()
+                .tool(ToolsModule.GtTool.HARD_HAMMER, baseUse, EnumFacing.UP)
                 .buildAndRegister();
 
         if (!plateDouble.doGenerateItem(material)) return;
 
         TkTechRecipeMaps.ANVIL_RECIPES.recipeBuilder()
-                .tool(ToolsModule.GtTool.HARD_HAMMER, 2 * baseUse)
+                .tool(ToolsModule.GtTool.HARD_HAMMER, 2 * baseUse, EnumFacing.UP)
                 .input(orePrefix, material, 3)
                 .output(OrePrefix.plateDouble, material)
                 .output(dustSmall, material, 4)
-                .hideDuration()
-                .hideEnergy()
                 .buildAndRegister();
     }
 }

@@ -107,6 +107,12 @@ public class AdvancedRecipeBuilder extends RecipeBuilder<AdvancedRecipeBuilder> 
         return this;
     }
 
+    public AdvancedRecipeBuilder hideEnergyAndDuration() {
+        this.hideDuration();
+        this.hideEnergy();
+        return this;
+    }
+
     @Override
     public ValidationResult<Recipe> build() {
         if (this.hideDuration) {
