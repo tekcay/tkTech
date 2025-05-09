@@ -3,6 +3,7 @@ package tkcy.tktech.api.recipes.properties;
 import java.util.function.Predicate;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagString;
 import net.minecraft.util.EnumFacing;
@@ -49,7 +50,9 @@ public class ToolFacingProperty extends RecipeProperty<EnumFacing>
     }
 
     @Override
-    public void drawInfo(Minecraft minecraft, int x, int y, int color, Object value) {}
+    public void drawInfo(Minecraft minecraft, int x, int y, int color, Object value) {
+        EnumFacing facing = castValue(value);
+        minecraft.fontRenderer.drawString(I18n.format("tktech.recipe.tool.click_facing", facing.getName().toUpperCase()), x, y, color);}
 
     @Override
     public RecipeBuilder<?> testAndApplyPropertyValue(EnumFacing valueToTest, EnumValidationResult recipeStatus,

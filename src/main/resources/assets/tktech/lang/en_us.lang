@@ -339,6 +339,7 @@ tktech.multiblock.advanced_cleanroom.not_enough_gas=Not enough %s!
 ## Recipe properties
 tktech.recipe.coil=Coil: %s
 tktech.recipe.tool.uses=Tool uses: %d
+tktech.recipe.tool.click_facing=Click on %s face
 
 gregtech.recipe.cleanroom_nitrogen.display_name=Nitrogen Cleanroom
 gregtech.recipe.cleanroom_argon.display_name=Argon Cleanroom
