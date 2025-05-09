@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "tkcysa:items/metaitems/emitter.lv"
+    "layer0": "tktech:items/metaitems/emitter.lv"
   }
 }

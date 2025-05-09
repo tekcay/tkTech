@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "tkcysa:items/metaitems/electric.motor.lv"
+    "layer0": "tktech:items/metaitems/electric.motor.lv"
   }
 }

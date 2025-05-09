@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "tkcysa:items/metaitems/fluid.regulator.lv"
+    "layer0": "tktech:items/metaitems/fluid.regulator.lv"
   }
 }
