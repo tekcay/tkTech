@@ -2,16 +2,20 @@
 
 ***
 
-## v0.3
+## 0.3
 
 ### Features
+- added in-world wood plank crafting and api ([#52](https://github.com/tekcay/tkcy-simple-addon/pull/52))
 - added the basic electronic worker, a machine to make electronic parts using a soldering iron ([#51](https://github.com/tekcay/tkcy-simple-addon/pull/51))
 - added advanced cleanroom which consumes gas and provides 2 new `CleanroomType`s ([#50](https://github.com/tekcay/tkcy-simple-addon/pull/50))
+- added materials to replace ender pearls and derivatives in sensors and emitters recipes (credits go to [Supersymmetry](https://github.com/SymmetricDevs/Supersymmetry)) ([#48](https://github.com/tekcay/tkcy-simple-addon/pull/48))
 - added casings, walls and coils orePrefix material blocks generated *via* a `MaterialFlag` ([#26](https://github.com/tekcay/tkcy-simple-addon/pull/26))
-- added modulable multiblock tanks ([#41](https://github.com/tekcay/tkcy-simple-addon/pull/41))
+- added modulable storage multiblocks tanks ([#41](https://github.com/tekcay/tkcy-simple-addon/pull/41) & [#45](https://github.com/tekcay/tkcy-simple-addon/pull/45))
 
 ### Internal changes
+- rebranded the whole thing, added credits in README ([#54](https://github.com/tekcay/tkcy-simple-addon/pull/54))
 - added mixins (credits go to [Supercritical](https://github.com/SymmetricDevs/Supercritical) and [InventoryBogoSorter](https://github.com/CleanroomMC/InventoryBogoSorter) by inheritance ([#51](https://github.com/tekcay/tkcy-simple-addon/pull/51))
+- updated GTCEu dependency to a [fork](https://github.com/tekcay/GTCEu-tkcy) of the master branch ([#46](https://github.com/tekcay/tkcy-simple-addon/pull/46), [#47](https://github.com/tekcay/tkcy-simple-addon/pull/47), [#49](https://github.com/tekcay/tkcy-simple-addon/pull/49))
 - updated GTCEu dependency from 2.8.8 to 2.8.10 ([#44](https://github.com/tekcay/tkcy-simple-addon/pull/44))
 - updated GroovyScript from 1.0.1 to 1.1.3 ([#44](https://github.com/tekcay/tkcy-simple-addon/pull/44))
 - updated `FluidProperties` addition to an already registered `Material` ([#44](https://github.com/tekcay/tkcy-simple-addon/pull/44))
@@ -19,17 +23,19 @@
 - added an interface for using unpainted `BlockMaterial` in MetaTileEntities ([#40](https://github.com/tekcay/tkcy-simple-addon/pull/40))
 - updated GTCEu dependency from 2.8.6 to 2.8.8 ([#37](https://github.com/tekcay/tkcy-simple-addon/pull/37))
 
+### Fixes
+- fixed invalid recipes ([#53](https://github.com/tekcay/tkcy-simple-addon/pull/53))
 
-## v0.2 (GTCEu-tk-fork as dependency)
+
+***
+
+## v0.2
 
 ### Features
 - added tool working machines ([#38](https://github.com/tekcay/tkcy-simple-addon/pull/38))
 - added processes to produce sodium persulfate ([#36](https://github.com/tekcay/tkcy-simple-addon/pull/36))
 - added the soldering iron from GT5u ([#36](https://github.com/tekcay/tkcy-simple-addon/pull/36))
 - added `curvedPlate` ore prefix, its processing handler and a new machine ([#36](https://github.com/tekcay/tkcy-simple-addon/pull/36))
-- added Steam Dust Mixer and Steam Melter ([#32](https://github.com/tekcay/tkcy-simple-addon/pull/32))
-- added Steam Dust Mixer and Steam Melter ([#32](https://github.com/tekcay/tkcy-simple-addon/pull/32))
-- added Steam Dust Mixer and Steam Melter ([#32](https://github.com/tekcay/tkcy-simple-addon/pull/32))
 - added Steam Dust Mixer and Steam Melter ([#32](https://github.com/tekcay/tkcy-simple-addon/pull/32))
 - added GT6 plates textures ([#31](https://github.com/tekcay/tkcy-simple-addon/pull/31))
 - added harder cracking ([#25](https://github.com/tekcay/tkcy-simple-addon/pull/25))
@@ -63,7 +69,7 @@ Subsequent products must be distilled to recover the desired hydrogen
 
 ***
 
-## v0.1 (GTCEu as 2.8.6 dependency)
+## 0.1 (GTCEu as 2.8.6 dependency)
 
 ### Features
 
