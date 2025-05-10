@@ -4,8 +4,10 @@ import static gregtech.api.GTValues.M;
 import static gregtech.api.unification.ore.OrePrefix.Flags.ENABLE_UNIFICATION;
 import static gregtech.api.unification.ore.OrePrefix.Flags.SELF_REFERENCING;
 
+import gregtech.api.GTValues;
 import gregtech.api.unification.material.MarkerMaterials;
 import gregtech.api.unification.material.info.MaterialFlags;
+import gregtech.api.unification.material.properties.PropertyKey;
 import gregtech.api.unification.ore.OrePrefix;
 
 import lombok.experimental.UtilityClass;
@@ -31,6 +33,11 @@ public class TkTechOrePrefix {
             TkTechMaterialIconType.curvedPlate,
             ENABLE_UNIFICATION,
             mat -> mat.hasFlag(MaterialFlags.GENERATE_ROTOR));
+
+    public static final OrePrefix denseScrap = new OrePrefix("dense_scrap", M / 9, null,
+            TkTechMaterialIconType.denseScrap,
+            ENABLE_UNIFICATION,
+            mat -> mat.hasFlag(MaterialFlags.GENERATE_PLATE));
 
     // Components
     public static final OrePrefix lvComponents = new OrePrefix("lvComponents", -1, MarkerMaterials.Empty,

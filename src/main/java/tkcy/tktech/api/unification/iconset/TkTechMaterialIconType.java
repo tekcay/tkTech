@@ -13,6 +13,7 @@ public class TkTechMaterialIconType {
 
     public static final MaterialIconType anode = new MaterialIconType("anode");
     public static final MaterialIconType curvedPlate = new MaterialIconType("curved_plate");
+    public static final MaterialIconType denseScrap = new MaterialIconType("dense_scrap");
 
     // Components
     public static MaterialIconType lvComponents = new MaterialIconType("lvComponents");

@@ -255,6 +255,7 @@ item.material.oreprefix.cathode=%s Cathode
 item.material.oreprefix.anode=%s Anode
 item.material.oreprefix.electrode=%s Electrode
 item.material.oreprefix.curved_plate=%s Curved Plate
+item.material.oreprefix.dense_scrap=%s Dense Scrap
 
 item.material.oreprefix.casing=%s Casing
 item.material.oreprefix.wall=%s Wall
