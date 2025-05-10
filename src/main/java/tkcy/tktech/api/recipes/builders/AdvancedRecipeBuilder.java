@@ -6,10 +6,15 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 
+import org.jetbrains.annotations.NotNull;
+
 import gregtech.api.recipes.Recipe;
 import gregtech.api.recipes.RecipeBuilder;
 import gregtech.api.recipes.RecipeMap;
 import gregtech.api.recipes.properties.impl.PrimitiveProperty;
+import gregtech.api.unification.OreDictUnifier;
+import gregtech.api.unification.material.Material;
+import gregtech.api.unification.ore.OrePrefix;
 import gregtech.api.util.ValidationResult;
 
 import lombok.NoArgsConstructor;
@@ -95,6 +100,22 @@ public class AdvancedRecipeBuilder extends RecipeBuilder<AdvancedRecipeBuilder> 
         this.tool(gtTool, uses);
         this.toolFacing(toolFacing);
         return this;
+    }
+
+    /**
+     * If the recipe fails, this will be the output.
+     */
+    public AdvancedRecipeBuilder failedOutputStack(@NotNull ItemStack itemStack) {
+        FailedOutputRecipeProperty property = FailedOutputRecipeProperty.getInstance();
+        return (AdvancedRecipeBuilder) property.testAndApplyPropertyValue(itemStack, this.recipeStatus, this);
+    }
+
+    /**
+     * If the recipe fails, this will be the output.
+     */
+    public AdvancedRecipeBuilder failedOutputStack(OrePrefix orePrefix, Material material, int amount) {
+        ItemStack itemStack = OreDictUnifier.get(orePrefix, material, amount);
+        return failedOutputStack(itemStack);
     }
 
     public AdvancedRecipeBuilder hideDuration() {

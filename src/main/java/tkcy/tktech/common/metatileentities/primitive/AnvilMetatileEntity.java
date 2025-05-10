@@ -1,5 +1,7 @@
 package tkcy.tktech.common.metatileentities.primitive;
 
+import static tkcy.tktech.api.utils.GuiUtils.FONT_HEIGHT;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -20,6 +22,9 @@ import org.jetbrains.annotations.Nullable;
 
 import gregtech.api.capability.IEnergyContainer;
 import gregtech.api.capability.impl.NotifiableItemStackHandler;
+import gregtech.api.gui.ModularUI;
+import gregtech.api.gui.widgets.ClickButtonWidget;
+import gregtech.api.gui.widgets.LabelWidget;
 import gregtech.api.items.itemhandlers.GTItemStackHandler;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
@@ -41,6 +46,7 @@ import tkcy.tktech.api.recipes.logic.IHideEnergyRecipeLogic;
 import tkcy.tktech.api.recipes.logic.IRecipeLogicContainer;
 import tkcy.tktech.api.recipes.logic.IToolRecipeLogic;
 import tkcy.tktech.api.recipes.logic.OnBlockRecipeLogic;
+import tkcy.tktech.api.recipes.logic.impl.FailRecipeLogic;
 import tkcy.tktech.api.recipes.logic.impl.InWorldRecipeLogic;
 import tkcy.tktech.api.recipes.logic.impl.RecipeLogicsContainer;
 import tkcy.tktech.api.recipes.logic.impl.ToolFacingRecipeLogic;
@@ -96,7 +102,7 @@ public class AnvilMetatileEntity extends ToolLogicMetaTileEntity
     @Override
     public void onAnyToolClick(ToolsModule.GtTool tool, boolean isPlayerSneaking, EnumFacing faceClick) {
         if (!isPlayerSneaking) return;
-        getLogic().runToolRecipeLogic(ToolsModule.GtTool.HARD_HAMMER, faceClick);
+        getLogic().runToolRecipeLogic(tool, faceClick);
     }
 
     /**
@@ -117,6 +123,28 @@ public class AnvilMetatileEntity extends ToolLogicMetaTileEntity
                 add(OrePrefix.plateDouble);
             }
         };
+    }
+
+    @Override
+    protected boolean openGUIOnRightClick() {
+        return true;
+    }
+
+    @Override
+    protected ModularUI createUI(EntityPlayer player) {
+        return createUITemplate(player).build(getHolder(), player);
+    }
+
+    protected ModularUI.Builder createUITemplate(EntityPlayer entityPlayer) {
+        return getRecipeMap().getRecipeMapUI()
+                .createUITemplate(getLogic()::getProgressPercent, importItems, exportItems, importFluids, exportFluids,
+                        FONT_HEIGHT)
+                .widget(new LabelWidget(5, 5, getMetaFullName()))
+                .widget(new ClickButtonWidget(30, 60, 30, 20, "H",
+                        clickData -> getLogic().runToolRecipeLogic(ToolsModule.GtTool.HARD_HAMMER, EnumFacing.UP)))
+                .widget(new ClickButtonWidget(60, 60, 30, 20, "S",
+                        clickData -> getLogic().runToolRecipeLogic(ToolsModule.GtTool.SOLDERING_IRON, EnumFacing.UP)))
+                .bindPlayerInventory(entityPlayer.inventory, 92);
     }
 
     @Override
@@ -166,7 +194,11 @@ public class AnvilMetatileEntity extends ToolLogicMetaTileEntity
             InWorldRecipeLogic inWorldRecipeLogic = new InWorldRecipeLogic.Builder(this)
                     .doesSpawnOutputItems()
                     .build();
-            return new RecipeLogicsContainer(this, new ToolFacingRecipeLogic(this), inWorldRecipeLogic);
+            return new RecipeLogicsContainer(
+                    this,
+                    new ToolFacingRecipeLogic(this),
+                    new FailRecipeLogic(this),
+                    inWorldRecipeLogic);
         }
     }
 }

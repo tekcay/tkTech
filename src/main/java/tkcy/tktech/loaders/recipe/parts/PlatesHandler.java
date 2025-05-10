@@ -1,6 +1,7 @@
 package tkcy.tktech.loaders.recipe.parts;
 
 import static gregtech.api.unification.ore.OrePrefix.*;
+import static tkcy.tktech.api.unification.ore.TkTechOrePrefix.denseScrap;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,14 +41,18 @@ public class PlatesHandler {
 
     private static void primitiveProcessPlate(OrePrefix orePrefix, Material material, IngotProperty ingotProperty) {
         int baseUse = 1 + (int) material.getMass() / 20;
+        int denseScrapAmount = 0;
 
         if (material.hasFlag(TkTechMaterialFlags.IS_POLYMER) || excludeMaterials.contains(material)) return;
+
+        denseScrapAmount = (int) (2 * ingot.getMaterialAmount(material) / denseScrap.getMaterialAmount(material));
 
         TkTechRecipeMaps.ANVIL_RECIPES.recipeBuilder()
                 .input(ingot, material, 2)
                 .output(orePrefix, material)
-                .output(dustSmall, material, 4)
+                .output(denseScrap, material, 9)
                 .tool(ToolsModule.GtTool.HARD_HAMMER, baseUse, EnumFacing.UP)
+                .failedOutputStack(denseScrap, material, denseScrapAmount)
                 .buildAndRegister();
 
         if (!plateDouble.doGenerateItem(material)) return;
@@ -56,7 +61,8 @@ public class PlatesHandler {
                 .tool(ToolsModule.GtTool.HARD_HAMMER, 2 * baseUse, EnumFacing.UP)
                 .input(orePrefix, material, 3)
                 .output(OrePrefix.plateDouble, material)
-                .output(dustSmall, material, 4)
+                .output(denseScrap, material, 9)
+                .failedOutputStack(denseScrap, material, denseScrapAmount * 2)
                 .buildAndRegister();
     }
 }

@@ -34,6 +34,8 @@ public interface IRecipeLogicContainer extends IRecipePropertiesValueMap {
 
     void resetLogic();
 
+    void invalidate(IItemHandler outputInventory, IMultipleTankHandler outputFluidInventory);
+
     void serializeRecipeLogic(@NotNull NBTTagCompound compound);
 
     void deserializeRecipeLogic(@NotNull NBTTagCompound compound);

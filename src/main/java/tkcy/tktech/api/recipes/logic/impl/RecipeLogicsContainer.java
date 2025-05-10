@@ -51,6 +51,12 @@ public class RecipeLogicsContainer implements IRecipeLogicContainer, IRecipeProp
     }
 
     @Override
+    public void invalidate(IItemHandler outputInventory, IMultipleTankHandler outputFluidInventory) {
+        recipeLogics.forEach(
+                recipeLogicContainer -> recipeLogicContainer.invalidate(outputInventory, outputFluidInventory));
+    }
+
+    @Override
     public void serializeRecipeLogic(@NotNull NBTTagCompound compound) {
         recipeLogics.forEach(iRecipeLogic -> iRecipeLogic.serializeRecipeLogic(compound));
     }

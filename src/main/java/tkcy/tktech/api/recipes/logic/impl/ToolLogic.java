@@ -19,7 +19,6 @@ import gregtech.api.util.GTTransferUtils;
 
 import lombok.Getter;
 import lombok.Setter;
-import tkcy.tktech.api.recipes.builders.ToolRecipeBuilder;
 import tkcy.tktech.api.recipes.logic.IRecipeLogicContainer;
 import tkcy.tktech.api.recipes.logic.IRecipePropertiesValueMap;
 import tkcy.tktech.api.recipes.logic.RecipeLogicType;
@@ -45,17 +44,10 @@ public class ToolLogic implements IRecipeLogicContainer, IRecipePropertiesValueM
         return !abstractRecipeLogic.isWorking();
     }
 
-    /**
-     * Sets {@code maxProgress} from the {@link ToolUsesProperty} in the {@link ToolRecipeBuilder}. Just used for the
-     * label.
-     */
     private void setRecipeToolUses(Recipe recipe) {
         abstractRecipeLogic.setMaxProgress(ToolUsesProperty.getInstance().getValueFromRecipe(recipe));
     }
 
-    /**
-     * Sets {@code maxProgress} from the {@link ToolProperty} in the {@link ToolRecipeBuilder}. Just used for the label.
-     */
     private void setToolFromRecipe(Recipe recipe) {
         setRecipeTool(ToolProperty.getInstance().getValueFromRecipe(recipe));
     }
@@ -93,6 +85,11 @@ public class ToolLogic implements IRecipeLogicContainer, IRecipePropertiesValueM
         setRecipeTool(null);
         setCurrentTool(null);
         setToolUses(0);
+    }
+
+    @Override
+    public void invalidate(IItemHandler outputInventory, IMultipleTankHandler outputFluidInventory) {
+        resetLogic();
     }
 
     @Override

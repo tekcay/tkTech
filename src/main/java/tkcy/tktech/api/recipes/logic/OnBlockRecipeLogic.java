@@ -165,7 +165,7 @@ public abstract class OnBlockRecipeLogic extends AbstractRecipeLogic
     @Override
     public void invalidate() {
         super.invalidate();
-        recipeLogicContainer.resetLogic();
+        recipeLogicContainer.invalidate(getOutputInventory(), getOutputTank());
         this.recipeParameters.clear();
     }
 
