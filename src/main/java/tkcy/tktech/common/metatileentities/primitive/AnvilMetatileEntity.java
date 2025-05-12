@@ -127,7 +127,7 @@ public class AnvilMetatileEntity extends ToolLogicMetaTileEntity
 
     @Override
     protected boolean openGUIOnRightClick() {
-        return true;
+        return false;
     }
 
     @Override

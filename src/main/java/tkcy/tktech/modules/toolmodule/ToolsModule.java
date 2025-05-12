@@ -90,6 +90,7 @@ public class ToolsModule {
 
     @Nullable
     public static GtTool getGtTool(@NotNull Set<String> toolClasses) {
+        if (toolClasses.contains(GtTool.HARD_HAMMER.getToolClassName())) return GtTool.HARD_HAMMER;
         for (GtTool gtTool : GT_TOOLS) {
             if (toolClasses.contains(gtTool.toolClassName)) {
                 return gtTool;
