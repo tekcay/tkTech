@@ -234,7 +234,11 @@ public abstract class OnBlockRecipeLogic extends AbstractRecipeLogic
     @Override
     protected void runOverclockingLogic(@NotNull OCParams ocParams, @NotNull OCResult ocResult,
                                         @NotNull RecipePropertyStorage propertyStorage, long maxVoltage) {
-        subTickNonParallelOC(ocParams, ocResult, maxVoltage, getOverclockingDurationFactor(),
+        subTickNonParallelOC(
+                ocParams,
+                ocResult,
+                maxVoltage,
+                getOverclockingDurationFactor(),
                 getOverclockingVoltageFactor());
     }
 }

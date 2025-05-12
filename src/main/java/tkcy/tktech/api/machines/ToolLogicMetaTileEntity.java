@@ -24,7 +24,8 @@ import tkcy.tktech.modules.toolmodule.WorkingTool;
 
 @Getter
 @WorkingTool
-public abstract class ToolLogicMetaTileEntity extends MetaTileEntity implements IOnAnyToolClick {
+public abstract class ToolLogicMetaTileEntity extends MetaTileEntity
+                                              implements IOnAnyToolClick, IRightClickItemTransfer {
 
     private final OnBlockRecipeLogic logic;
 

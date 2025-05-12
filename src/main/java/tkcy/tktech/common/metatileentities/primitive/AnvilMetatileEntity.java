@@ -1,7 +1,5 @@
 package tkcy.tktech.common.metatileentities.primitive;
 
-import static tkcy.tktech.api.utils.GuiUtils.FONT_HEIGHT;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -21,10 +19,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import gregtech.api.capability.IEnergyContainer;
-import gregtech.api.capability.impl.NotifiableItemStackHandler;
-import gregtech.api.gui.ModularUI;
-import gregtech.api.gui.widgets.ClickButtonWidget;
-import gregtech.api.gui.widgets.LabelWidget;
 import gregtech.api.items.itemhandlers.GTItemStackHandler;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
@@ -51,6 +45,7 @@ import tkcy.tktech.api.recipes.logic.impl.InWorldRecipeLogic;
 import tkcy.tktech.api.recipes.logic.impl.RecipeLogicsContainer;
 import tkcy.tktech.api.recipes.logic.impl.ToolFacingRecipeLogic;
 import tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps;
+import tkcy.tktech.api.utils.item.FilteredNotifiableItemHandler;
 import tkcy.tktech.modules.toolmodule.ToolsModule;
 
 public class AnvilMetatileEntity extends ToolLogicMetaTileEntity
@@ -72,7 +67,8 @@ public class AnvilMetatileEntity extends ToolLogicMetaTileEntity
 
     @Override
     protected IItemHandlerModifiable createImportItemHandler() {
-        return new NotifiableItemStackHandler(this, 2, this, false);
+        return new FilteredNotifiableItemHandler(this, 2, this, false)
+                .setFillPredicate(ToolsModule::isTool, 1);
     }
 
     @Override
@@ -126,35 +122,8 @@ public class AnvilMetatileEntity extends ToolLogicMetaTileEntity
     }
 
     @Override
-    protected boolean openGUIOnRightClick() {
-        return false;
-    }
-
-    @Override
-    protected ModularUI createUI(EntityPlayer player) {
-        return createUITemplate(player).build(getHolder(), player);
-    }
-
-    protected ModularUI.Builder createUITemplate(EntityPlayer entityPlayer) {
-        return getRecipeMap().getRecipeMapUI()
-                .createUITemplate(getLogic()::getProgressPercent, importItems, exportItems, importFluids, exportFluids,
-                        FONT_HEIGHT)
-                .widget(new LabelWidget(5, 5, getMetaFullName()))
-                .widget(new ClickButtonWidget(30, 60, 30, 20, "H",
-                        clickData -> getLogic().runToolRecipeLogic(ToolsModule.GtTool.HARD_HAMMER, EnumFacing.UP)))
-                .widget(new ClickButtonWidget(60, 60, 30, 20, "S",
-                        clickData -> getLogic().runToolRecipeLogic(ToolsModule.GtTool.SOLDERING_IRON, EnumFacing.UP)))
-                .bindPlayerInventory(entityPlayer.inventory, 92);
-    }
-
-    @Override
     protected OnBlockRecipeLogic initRecipeLogic() {
         return new Logic(this, null, TkTechRecipeMaps.ANVIL_RECIPES);
-    }
-
-    @Override
-    protected @Nullable EnumFacing getRecipeTriggerFacing() {
-        return EnumFacing.UP;
     }
 
     @Override

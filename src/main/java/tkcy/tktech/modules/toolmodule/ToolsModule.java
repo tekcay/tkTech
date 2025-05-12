@@ -108,4 +108,10 @@ public class ToolsModule {
         }
         return null;
     }
+
+    public static boolean isTool(ItemStack itemStack) {
+        return GT_TOOLS.stream()
+                .map(GtTool::getToolStack)
+                .anyMatch(itemStack1 -> itemStack1.isItemEqual(itemStack));
+    }
 }
