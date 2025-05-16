@@ -115,10 +115,6 @@ public class ToolLogic implements IRecipeLogicContainer, IRecipePropertiesValueM
     }
 
     @Override
-    public void outputRecipeOutputs(List<ItemStack> outputStacks, List<FluidStack> outputFluidStacks,
-                                    IItemHandler outputInventory, IMultipleTankHandler outputFluidInventory) {}
-
-    @Override
     public @Nullable ToolLogic getInstance(RecipeLogicType recipeLogicType) {
         return recipeLogicType == RecipeLogicType.TOOL ? this : null;
     }

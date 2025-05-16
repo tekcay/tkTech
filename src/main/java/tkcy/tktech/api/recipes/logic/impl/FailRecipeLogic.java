@@ -6,7 +6,6 @@ import java.util.Map;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.items.IItemHandler;
 
 import org.jetbrains.annotations.NotNull;
@@ -46,11 +45,6 @@ public class FailRecipeLogic implements IRecipeLogicContainer, IRecipeProperties
     }
 
     @Override
-    public boolean canRecipeLogicProgress() {
-        return true;
-    }
-
-    @Override
     public boolean prepareRecipe(@NotNull Recipe recipe, IItemHandler inputInventory) {
         setFailedOutputStacksFromRecipe(recipe);
         return true;
@@ -75,13 +69,6 @@ public class FailRecipeLogic implements IRecipeLogicContainer, IRecipeProperties
 
     @Override
     public void updateRecipeParameters(@NotNull Map<IRecipePropertyHelper<?>, Object> recipeParameters) {}
-
-    @Override
-    public void appendToInputsForRecipeSearch(List<ItemStack> handlerStacks, List<FluidStack> handlerFluidStacks) {}
-
-    @Override
-    public void outputRecipeOutputs(List<ItemStack> outputStacks, List<FluidStack> outputFluidStacks,
-                                    IItemHandler outputInventory, IMultipleTankHandler outputFluidInventory) {}
 
     @Override
     public @Nullable FailRecipeLogic getInstance(RecipeLogicType recipeLogicType) {

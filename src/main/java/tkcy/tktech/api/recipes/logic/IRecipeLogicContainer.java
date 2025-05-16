@@ -18,38 +18,42 @@ import gregtech.api.recipes.Recipe;
 
 public interface IRecipeLogicContainer extends IRecipePropertiesValueMap {
 
-    /**
-     * Adds itemStacks that are not in the inventory but in the recipe properties of the provided {@code recipe}.
-     * This happens after those recipe properties were ensured.
-     * 
-     * @param recipe
-     * @param inputInventory the {@code handler} to add the missing stacks to.
-     * @return whether it succeeded.
-     */
-    boolean prepareRecipe(@NotNull Recipe recipe, IItemHandler inputInventory);
-
-    boolean hasRecipeLogicType(RecipeLogicType recipeLogicType);
-
-    boolean canRecipeLogicProgress();
-
-    void resetLogic();
-
-    void invalidate(IItemHandler outputInventory, IMultipleTankHandler outputFluidInventory);
-
-    void serializeRecipeLogic(@NotNull NBTTagCompound compound);
-
-    void deserializeRecipeLogic(@NotNull NBTTagCompound compound);
-
-    void appendToInputsForRecipeSearch(List<ItemStack> handlerStacks, List<FluidStack> handlerFluidStacks);
-
-    void outputRecipeOutputs(List<ItemStack> outputStacks, List<FluidStack> outputFluidStacks,
-                             IItemHandler outputInventory, IMultipleTankHandler outputFluidInventory);
-
     @NotNull
     AbstractRecipeLogic getAbstractRecipeLogic();
 
     @Nullable
     IRecipeLogicContainer getInstance(RecipeLogicType recipeLogicType);
+
+    boolean hasRecipeLogicType(RecipeLogicType recipeLogicType);
+
+    /**
+     * Adds itemStacks that are not in the inventory but in the recipe properties of the provided {@code recipe}.
+     * This happens after those recipe properties were ensured.
+     * @param inputInventory the {@code handler} to add the missing stacks to.
+     * @return whether it succeeded.
+     */
+    default boolean prepareRecipe(@NotNull Recipe recipe, IItemHandler inputInventory) {
+        return true;
+    }
+
+    default boolean canRecipeLogicProgress() {
+        return true;
+    }
+
+    default void resetLogic() {}
+
+    default void invalidate(IItemHandler outputInventory, IMultipleTankHandler outputFluidInventory) {}
+
+    default void serializeRecipeLogic(@NotNull NBTTagCompound compound) {}
+
+    default void deserializeRecipeLogic(@NotNull NBTTagCompound compound) {}
+
+    default void appendToInputsForRecipeSearch(List<ItemStack> handlerStacks, List<FluidStack> handlerFluidStacks) {}
+
+    default void outputRecipeOutputs(List<ItemStack> outputStacks, List<FluidStack> outputFluidStacks,
+                                     IItemHandler outputInventory, IMultipleTankHandler outputFluidInventory) {}
+
+    default void postSetupRecipe(@NotNull Recipe recipe) {}
 
     default MetaTileEntity getMetaTileEntity() {
         return getAbstractRecipeLogic().getMetaTileEntity();
