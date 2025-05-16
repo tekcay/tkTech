@@ -19,7 +19,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import gregtech.api.capability.IEnergyContainer;
-import gregtech.api.capability.impl.NotifiableItemStackHandler;
 import gregtech.api.items.itemhandlers.GTItemStackHandler;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
@@ -41,10 +40,12 @@ import tkcy.tktech.api.recipes.logic.IHideEnergyRecipeLogic;
 import tkcy.tktech.api.recipes.logic.IRecipeLogicContainer;
 import tkcy.tktech.api.recipes.logic.IToolRecipeLogic;
 import tkcy.tktech.api.recipes.logic.OnBlockRecipeLogic;
+import tkcy.tktech.api.recipes.logic.impl.FailRecipeLogic;
 import tkcy.tktech.api.recipes.logic.impl.InWorldRecipeLogic;
 import tkcy.tktech.api.recipes.logic.impl.RecipeLogicsContainer;
-import tkcy.tktech.api.recipes.logic.impl.ToolLogic;
+import tkcy.tktech.api.recipes.logic.impl.ToolFacingRecipeLogic;
 import tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps;
+import tkcy.tktech.api.utils.item.FilteredNotifiableItemHandler;
 import tkcy.tktech.modules.toolmodule.ToolsModule;
 
 public class AnvilMetatileEntity extends ToolLogicMetaTileEntity
@@ -66,7 +67,8 @@ public class AnvilMetatileEntity extends ToolLogicMetaTileEntity
 
     @Override
     protected IItemHandlerModifiable createImportItemHandler() {
-        return new NotifiableItemStackHandler(this, 2, this, false);
+        return new FilteredNotifiableItemHandler(this, 2, this, false)
+                .setFillPredicate(ToolsModule::isTool, 1);
     }
 
     @Override
@@ -94,13 +96,17 @@ public class AnvilMetatileEntity extends ToolLogicMetaTileEntity
     }
 
     @Override
-    public void onAnyToolClick(ToolsModule.GtTool tool, boolean isPlayerSneaking) {}
+    public void onAnyToolClick(ToolsModule.GtTool tool, boolean isPlayerSneaking, EnumFacing faceClick) {
+        if (!isPlayerSneaking) return;
+        getLogic().runToolRecipeLogic(tool, faceClick);
+    }
 
+    /**
+     * Removes {@link #toggleMuffled()}.
+     */
     @Override
     public boolean onHardHammerClick(EntityPlayer playerIn, EnumHand hand, EnumFacing facing,
                                      CuboidRayTraceResult hitResult) {
-        if (!playerIn.isSneaking()) return false;
-        getLogic().runToolRecipeLogic(ToolsModule.GtTool.HARD_HAMMER);
         return true;
     }
 
@@ -157,7 +163,11 @@ public class AnvilMetatileEntity extends ToolLogicMetaTileEntity
             InWorldRecipeLogic inWorldRecipeLogic = new InWorldRecipeLogic.Builder(this)
                     .doesSpawnOutputItems()
                     .build();
-            return new RecipeLogicsContainer(this, new ToolLogic(this), inWorldRecipeLogic);
+            return new RecipeLogicsContainer(
+                    this,
+                    new ToolFacingRecipeLogic(this),
+                    new FailRecipeLogic(this),
+                    inWorldRecipeLogic);
         }
     }
 }

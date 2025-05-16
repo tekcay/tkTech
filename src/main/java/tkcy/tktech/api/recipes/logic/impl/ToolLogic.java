@@ -19,7 +19,6 @@ import gregtech.api.util.GTTransferUtils;
 
 import lombok.Getter;
 import lombok.Setter;
-import tkcy.tktech.api.recipes.builders.ToolRecipeBuilder;
 import tkcy.tktech.api.recipes.logic.IRecipeLogicContainer;
 import tkcy.tktech.api.recipes.logic.IRecipePropertiesValueMap;
 import tkcy.tktech.api.recipes.logic.RecipeLogicType;
@@ -41,18 +40,15 @@ public class ToolLogic implements IRecipeLogicContainer, IRecipePropertiesValueM
         this.abstractRecipeLogic = abstractRecipeLogic;
     }
 
-    /**
-     * Sets {@code maxProgress} from the {@link ToolUsesProperty} in the {@link ToolRecipeBuilder}. Just used for the
-     * label.
-     */
-    protected void setRecipeToolUses(Recipe recipe) {
+    protected boolean isNotWorking() {
+        return !abstractRecipeLogic.isWorking();
+    }
+
+    private void setRecipeToolUses(Recipe recipe) {
         abstractRecipeLogic.setMaxProgress(ToolUsesProperty.getInstance().getValueFromRecipe(recipe));
     }
 
-    /**
-     * Sets {@code maxProgress} from the {@link ToolProperty} in the {@link ToolRecipeBuilder}. Just used for the label.
-     */
-    protected void setToolFromRecipe(Recipe recipe) {
+    private void setToolFromRecipe(Recipe recipe) {
         setRecipeTool(ToolProperty.getInstance().getValueFromRecipe(recipe));
     }
 
@@ -92,8 +88,13 @@ public class ToolLogic implements IRecipeLogicContainer, IRecipePropertiesValueM
     }
 
     @Override
+    public void invalidate(IItemHandler outputInventory, IMultipleTankHandler outputFluidInventory) {
+        resetLogic();
+    }
+
+    @Override
     public void serializeRecipeLogic(@NotNull NBTTagCompound compound) {
-        if (!abstractRecipeLogic.isWorking()) return;
+        if (isNotWorking()) return;
         getRecipeTool().serialize(compound);
     }
 

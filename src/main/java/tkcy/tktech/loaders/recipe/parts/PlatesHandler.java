@@ -1,9 +1,12 @@
 package tkcy.tktech.loaders.recipe.parts;
 
 import static gregtech.api.unification.ore.OrePrefix.*;
+import static tkcy.tktech.api.unification.ore.TkTechOrePrefix.denseScrap;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import net.minecraft.util.EnumFacing;
 
 import gregtech.api.unification.material.Material;
 import gregtech.api.unification.material.Materials;
@@ -37,28 +40,29 @@ public class PlatesHandler {
     };
 
     private static void primitiveProcessPlate(OrePrefix orePrefix, Material material, IngotProperty ingotProperty) {
+        int baseUse = 1 + (int) material.getMass() / 20;
+        int denseScrapAmount = 0;
+
         if (material.hasFlag(TkTechMaterialFlags.IS_POLYMER) || excludeMaterials.contains(material)) return;
+
+        denseScrapAmount = (int) (2 * ingot.getMaterialAmount(material) / denseScrap.getMaterialAmount(material));
 
         TkTechRecipeMaps.ANVIL_RECIPES.recipeBuilder()
                 .input(ingot, material, 2)
                 .output(orePrefix, material)
-                .output(dustSmall, material, 4)
-                .tool(ToolsModule.GtTool.HARD_HAMMER)
-                .toolUses(1 + (int) material.getMass() / 20)
-                .hideDuration()
-                .hideEnergy()
+                .output(denseScrap, material, 9)
+                .tool(ToolsModule.GtTool.HARD_HAMMER, baseUse, EnumFacing.UP)
+                .failedOutputStack(denseScrap, material, denseScrapAmount)
                 .buildAndRegister();
 
         if (!plateDouble.doGenerateItem(material)) return;
 
         TkTechRecipeMaps.ANVIL_RECIPES.recipeBuilder()
-                .tool(ToolsModule.GtTool.HARD_HAMMER)
-                .toolUses(2 * (1 + (int) material.getMass() / 20))
+                .tool(ToolsModule.GtTool.HARD_HAMMER, 2 * baseUse, EnumFacing.UP)
                 .input(orePrefix, material, 3)
                 .output(OrePrefix.plateDouble, material)
-                .output(dustSmall, material, 4)
-                .hideDuration()
-                .hideEnergy()
+                .output(denseScrap, material, 9)
+                .failedOutputStack(denseScrap, material, denseScrapAmount * 2)
                 .buildAndRegister();
     }
 }

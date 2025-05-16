@@ -7,6 +7,7 @@ import java.util.function.Supplier;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.items.IItemHandlerModifiable;
@@ -28,6 +29,7 @@ import gregtech.api.util.GTUtility;
 
 import lombok.Getter;
 import tkcy.tktech.api.recipes.helpers.RecipeSearchHelpers;
+import tkcy.tktech.api.recipes.logic.impl.ToolFacingRecipeLogic;
 import tkcy.tktech.api.recipes.logic.impl.ToolLogic;
 import tkcy.tktech.api.recipes.properties.IRecipePropertyHelper;
 import tkcy.tktech.api.utils.item.ItemHandlerHelpers;
@@ -57,10 +59,14 @@ public abstract class OnBlockRecipeLogic extends AbstractRecipeLogic
     }
 
     @Override
-    public void runToolRecipeLogic(ToolsModule.GtTool gtTool) {
+    public void runToolRecipeLogic(ToolsModule.GtTool gtTool, EnumFacing toolClickFacing) {
         ToolLogic toolLogic = getToolLogic();
         if (toolLogic == null) return;
         toolLogic.setCurrentTool(gtTool);
+
+        if (toolLogic instanceof ToolFacingRecipeLogic toolFacingRecipeLogic) {
+            toolFacingRecipeLogic.setCurrentToolClickFacing(toolClickFacing);
+        }
 
         World world = getMetaTileEntity().getWorld();
         if (world != null && !world.isRemote) {
@@ -159,7 +165,7 @@ public abstract class OnBlockRecipeLogic extends AbstractRecipeLogic
     @Override
     public void invalidate() {
         super.invalidate();
-        recipeLogicContainer.resetLogic();
+        recipeLogicContainer.invalidate(getOutputInventory(), getOutputTank());
         this.recipeParameters.clear();
     }
 
@@ -228,7 +234,11 @@ public abstract class OnBlockRecipeLogic extends AbstractRecipeLogic
     @Override
     protected void runOverclockingLogic(@NotNull OCParams ocParams, @NotNull OCResult ocResult,
                                         @NotNull RecipePropertyStorage propertyStorage, long maxVoltage) {
-        subTickNonParallelOC(ocParams, ocResult, maxVoltage, getOverclockingDurationFactor(),
+        subTickNonParallelOC(
+                ocParams,
+                ocResult,
+                maxVoltage,
+                getOverclockingDurationFactor(),
                 getOverclockingVoltageFactor());
     }
 }

@@ -32,6 +32,11 @@ public class TkTechOrePrefix {
             ENABLE_UNIFICATION,
             mat -> mat.hasFlag(MaterialFlags.GENERATE_ROTOR));
 
+    public static final OrePrefix denseScrap = new OrePrefix("dense_scrap", M / 9, null,
+            TkTechMaterialIconType.denseScrap,
+            ENABLE_UNIFICATION,
+            mat -> mat.hasFlag(MaterialFlags.GENERATE_PLATE));
+
     // Components
     public static final OrePrefix lvComponents = new OrePrefix("lvComponents", -1, MarkerMaterials.Empty,
             TkTechMaterialIconType.lvComponents, SELF_REFERENCING, null);

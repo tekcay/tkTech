@@ -44,14 +44,12 @@ public interface IRightClickItemTransfer {
         return true;
     }
 
-    /**
-     * @return {@code true} if a transfer happened
-     */
-    default boolean tryTransferOutputToPlayer(EntityPlayer playerIn, @NotNull IItemHandler machineOutput) {
-        if (machineOutput.getSlots() > 0) {
-            ItemStack foundStack = IntStream.range(0, machineOutput.getSlots())
+    static boolean transferHandlerToPlayer(EntityPlayer playerIn, @NotNull IItemHandler handler) {
+        if (handler.getSlots() > 0) {
+            ItemStack foundStack = IntStream.range(0, handler.getSlots())
                     .boxed()
-                    .map(machineOutput::getStackInSlot)
+                    .map(handler::getStackInSlot)
+                    .filter(itemStack -> !itemStack.isEmpty())
                     .findFirst()
                     .orElse(null);
 
@@ -63,18 +61,15 @@ public interface IRightClickItemTransfer {
     /**
      * @return {@code true} if a transfer happened
      */
-    default boolean tryTransferInputToPlayer(EntityPlayer playerIn, @NotNull IItemHandler machineInput) {
-        if (machineInput.getSlots() > 0) {
-            ItemStack foundStack = IntStream.range(0, machineInput.getSlots())
-                    .boxed()
-                    .map(machineInput::getStackInSlot)
-                    .findFirst()
-                    .orElse(null);
+    default boolean tryTransferOutputToPlayer(EntityPlayer playerIn, @NotNull IItemHandler machineOutput) {
+        return transferHandlerToPlayer(playerIn, machineOutput);
+    }
 
-            if (foundStack == null) return false;
-            else playerIn.inventory.addItemStackToInventory(foundStack);
-        }
-        return false;
+    /**
+     * @return {@code true} if a transfer happened
+     */
+    default boolean tryTransferInputToPlayer(EntityPlayer playerIn, @NotNull IItemHandler machineInput) {
+        return transferHandlerToPlayer(playerIn, machineInput);
     }
 
     default boolean showSpecialRightClickTooltips() {

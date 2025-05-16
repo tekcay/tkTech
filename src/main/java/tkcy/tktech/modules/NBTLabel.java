@@ -15,7 +15,8 @@ public enum NBTLabel {
     BLOCK_POS_Z,
     TOOL_ORDINAL,
     INPUT_IN_WORLD_STACK,
-    OUTPUT_IN_WORLD_STACK;
+    OUTPUT_IN_WORLD_STACK,
+    FAILED_OUTPUT_STACK;
 
     @Override
     public String toString() {

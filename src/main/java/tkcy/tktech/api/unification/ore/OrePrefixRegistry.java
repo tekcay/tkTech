@@ -14,6 +14,7 @@ public class OrePrefixRegistry {
         addOrePrefix(TkTechOrePrefix.cathode);
         addOrePrefix(curvedPlate);
         addOrePrefix(strippedWood);
+        addOrePrefix(denseScrap);
 
         registerComponentsOres();
         registerToolOres();

@@ -90,6 +90,7 @@ public class ToolsModule {
 
     @Nullable
     public static GtTool getGtTool(@NotNull Set<String> toolClasses) {
+        if (toolClasses.contains(GtTool.HARD_HAMMER.getToolClassName())) return GtTool.HARD_HAMMER;
         for (GtTool gtTool : GT_TOOLS) {
             if (toolClasses.contains(gtTool.toolClassName)) {
                 return gtTool;
@@ -106,5 +107,11 @@ public class ToolsModule {
             }
         }
         return null;
+    }
+
+    public static boolean isTool(ItemStack itemStack) {
+        return GT_TOOLS.stream()
+                .map(GtTool::getToolStack)
+                .anyMatch(itemStack1 -> itemStack1.isItemEqual(itemStack));
     }
 }

@@ -111,7 +111,7 @@ public class BasicElectronicMetatileEntity extends ToolLogicMetaTileEntity
                         FONT_HEIGHT)
                 .widget(new LabelWidget(5, 5, getMetaFullName()))
                 .widget(new ClickButtonWidget(30, 60, 30, 20, "T",
-                        clickData -> getLogic().runToolRecipeLogic(ToolsModule.GtTool.SOLDERING_IRON)))
+                        clickData -> getLogic().runToolRecipeLogic(ToolsModule.GtTool.SOLDERING_IRON, EnumFacing.UP)))
                 .bindPlayerInventory(entityPlayer.inventory, 92);
     }
 

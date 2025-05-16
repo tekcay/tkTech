@@ -163,6 +163,11 @@ public class InWorldRecipeLogic implements IRecipeLogicContainer, IRecipePropert
     }
 
     @Override
+    public void invalidate(IItemHandler outputInventory, IMultipleTankHandler outputFluidInventory) {
+        resetLogic();
+    }
+
+    @Override
     public void serializeRecipeLogic(@NotNull NBTTagCompound compound) {
         if (!abstractRecipeLogic.isWorking()) return;
 
@@ -241,6 +246,7 @@ public class InWorldRecipeLogic implements IRecipeLogicContainer, IRecipePropert
             WorldInteractionsHelper.spawnStacks(getMetaTileEntity(), outputStacks);
         } else GTTransferUtils.addItemsToItemHandler(getMetaTileEntity().getExportItems(), false, outputStacks);
 
+        if (outputFluidStacks == null) return;
         GTTransferUtils.addFluidsToFluidHandler(outputFluidInventory, false, outputFluidStacks);
     }
 
