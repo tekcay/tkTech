@@ -31,6 +31,7 @@ import codechicken.lib.render.CCRenderState;
 import codechicken.lib.render.pipeline.ColourMultiplier;
 import codechicken.lib.render.pipeline.IVertexOperation;
 import codechicken.lib.vec.Matrix4;
+import tkcy.tktech.api.recipes.logic.IHideRecipeProgress;
 import tkcy.tktech.api.recipes.logic.IRecipeLogicContainer;
 import tkcy.tktech.api.recipes.logic.OnBlockRecipeLogic;
 import tkcy.tktech.api.recipes.logic.impl.RandomDurationRecipeLogic;
@@ -127,7 +128,7 @@ public class MTeChemicalBench extends MetaTileEntity implements EnergyContainerH
         return builder;
     }
 
-    private static class Logic extends OnBlockRecipeLogic {
+    private static class Logic extends OnBlockRecipeLogic implements IHideRecipeProgress {
 
         public Logic(MetaTileEntity tileEntity, Supplier<IEnergyContainer> energyContainer,
                      RecipeMap<?>... recipeMaps) {

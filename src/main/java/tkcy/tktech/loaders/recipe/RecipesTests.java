@@ -30,10 +30,10 @@ public class RecipesTests {
 
         TkTechRecipeMaps.CHEMICAL_BENCH_RECIPES.recipeBuilder()
                 .input(OrePrefix.dust, Materials.Cadmium)
-                .fluidInputs(Materials.Epichlorohydrin.getFluid(1000))
-                .fluidOutputs(Materials.Acetone.getFluid(1000))
+                .fluidInputs(Materials.Epichlorohydrin.getFluid(100))
+                .fluidOutputs(Materials.Acetone.getFluid(100))
                 .EUt(20)
-                .duration(200, 0.1f)
+                .duration(400, 0.5f)
                 .buildAndRegister();
     }
 }

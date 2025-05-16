@@ -356,6 +356,7 @@ tile.stripped_wood.rubber_stripped.name=Stripped Rubber Log
 
 behavior.tricorder.itemStack=Stack : %s %d %s
 behavior.tricorder.size=slots : %s %d
+behavior.tricorder.recipelogic.progress=Progress : %d / %d
 
 #Button headers
 tktech.multiblock.advanced_cleanroom.gas.header=Inert gas: %s
