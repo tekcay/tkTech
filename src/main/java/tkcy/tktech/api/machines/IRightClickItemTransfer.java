@@ -1,7 +1,6 @@
 package tkcy.tktech.api.machines;
 
 import java.util.List;
-import java.util.stream.IntStream;
 
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
@@ -12,6 +11,8 @@ import net.minecraftforge.items.IItemHandler;
 import org.jetbrains.annotations.NotNull;
 
 import gregtech.api.util.GTTransferUtils;
+
+import tkcy.tktech.api.utils.StreamHelper;
 
 /**
  * A metatileentity that can transfer an itemStack from the player hand by right-clicking.
@@ -46,8 +47,7 @@ public interface IRightClickItemTransfer {
 
     static boolean transferHandlerToPlayer(EntityPlayer playerIn, @NotNull IItemHandler handler) {
         if (handler.getSlots() > 0) {
-            ItemStack foundStack = IntStream.range(0, handler.getSlots())
-                    .boxed()
+            ItemStack foundStack = StreamHelper.initIntStream(handler.getSlots())
                     .map(handler::getStackInSlot)
                     .filter(itemStack -> !itemStack.isEmpty())
                     .findFirst()

@@ -3,7 +3,6 @@ package tkcy.tktech.api.utils.item;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
-import java.util.stream.IntStream;
 
 import javax.annotation.Nonnull;
 
@@ -14,6 +13,8 @@ import org.jetbrains.annotations.NotNull;
 import gregtech.api.capability.impl.NotifiableItemStackHandler;
 import gregtech.api.metatileentity.MetaTileEntity;
 
+import tkcy.tktech.api.utils.StreamHelper;
+
 public class FilteredNotifiableItemHandler extends NotifiableItemStackHandler {
 
     private final List<Predicate<ItemStack>> slotIndexesToFillPredicate;
@@ -22,8 +23,7 @@ public class FilteredNotifiableItemHandler extends NotifiableItemStackHandler {
                                          boolean isExport) {
         super(metaTileEntity, slots, entityToNotify, isExport);
         this.slotIndexesToFillPredicate = new ArrayList<>();
-        IntStream.range(0, slots)
-                .boxed()
+        StreamHelper.initIntStream(slots)
                 .forEach(slotIndex -> slotIndexesToFillPredicate.add(slotIndex, itemStack -> true));
     }
 

@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 public final class CollectionHelper {
 
@@ -22,8 +21,7 @@ public final class CollectionHelper {
 
     public static <T> Map<T, T> buildMap(List<T> keys, List<T> values) throws IllegalArgumentException {
         if (keys.size() != values.size()) throw new IllegalArgumentException("Input lists size does not match !");
-        return IntStream.range(0, keys.size())
-                .boxed()
+        return StreamHelper.initIntStream(keys.size())
                 .collect(Collectors.toMap(keys::get, values::get));
     }
 }
