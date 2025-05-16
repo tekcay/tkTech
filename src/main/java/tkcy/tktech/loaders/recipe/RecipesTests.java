@@ -5,6 +5,7 @@ import gregtech.api.unification.material.Materials;
 import gregtech.api.unification.ore.OrePrefix;
 
 import tkcy.tktech.api.metatileentities.cleanroom.AdvancedCleanroomType;
+import tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps;
 
 public class RecipesTests {
 
@@ -25,6 +26,14 @@ public class RecipesTests {
                 .EUt(30)
                 .duration(500)
                 .cleanroom(AdvancedCleanroomType.NITROGEN_CLEANROOM)
+                .buildAndRegister();
+
+        TkTechRecipeMaps.CHEMICAL_BENCH_RECIPES.recipeBuilder()
+                .input(OrePrefix.dust, Materials.Cadmium)
+                .fluidInputs(Materials.Epichlorohydrin.getFluid(1000))
+                .fluidOutputs(Materials.Acetone.getFluid(1000))
+                .EUt(20)
+                .duration(200, 0.1f)
                 .buildAndRegister();
     }
 }

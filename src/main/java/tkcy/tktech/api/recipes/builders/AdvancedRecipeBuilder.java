@@ -8,6 +8,7 @@ import net.minecraft.util.EnumFacing;
 
 import org.jetbrains.annotations.NotNull;
 
+import gregtech.api.capability.impl.AbstractRecipeLogic;
 import gregtech.api.recipes.Recipe;
 import gregtech.api.recipes.RecipeBuilder;
 import gregtech.api.recipes.RecipeMap;
@@ -134,6 +135,13 @@ public class AdvancedRecipeBuilder extends RecipeBuilder<AdvancedRecipeBuilder> 
         return this;
     }
 
+    /**
+     * Set the recipe {@link #duration}.
+     * 
+     * @param duration
+     * @param recipeDurationRate a value that can modify the recipe duration at
+     *                           {@link AbstractRecipeLogic#setupRecipe(Recipe)}
+     */
     public AdvancedRecipeBuilder duration(int duration, float recipeDurationRate) {
         duration(duration);
         DurationModifierRecipeProperty recipeProperty = DurationModifierRecipeProperty.getInstance();

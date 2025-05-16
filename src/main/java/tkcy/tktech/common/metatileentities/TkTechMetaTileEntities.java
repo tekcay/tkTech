@@ -48,6 +48,7 @@ public class TkTechMetaTileEntities {
     public static BasicElectronicMetatileEntity BASIC_ELECTRONIC;
     public static MetaTileEntityWoodWorkshop WOOD_WORKSHOP;
     public static PrimitiveBath PRIMITIVE_BATH;
+    public static MTeChemicalBench CHEMICAL_BENCH;
     public static SimpleMachineMetaTileEntity[] CLUSTER_MILLS = new SimpleMachineMetaTileEntity[5];
     public static SimpleMachineMetaTileEntity[] COMPONENT_ASSEMBLER_MTE = new SimpleMachineMetaTileEntity[6];
     public static SimpleMachineMetaTileEntity[] ROLLING_MILL = new SimpleMachineMetaTileEntity[6];
@@ -128,6 +129,7 @@ public class TkTechMetaTileEntities {
         BASIC_ELECTRONIC = registerMetaTileEntity(4106, new BasicElectronicMetatileEntity(tktech("basic_electronic")));
         WOOD_WORKSHOP = registerMetaTileEntity(4107, new MetaTileEntityWoodWorkshop(tktech("wood_workshop")));
         PRIMITIVE_BATH = registerMetaTileEntity(4108, new PrimitiveBath(tktech("primitive_bath")));
+        CHEMICAL_BENCH = registerMetaTileEntity(4109, new MTeChemicalBench(tktech("chemical_bench")));
 
         MaterialMetaTileEntity.registerMaterialMetaTileEntity(StorageModule.TANK_MATERIALS, MODULABLE_TANKS, 4200,
                 StorageModule::initModulableTank);

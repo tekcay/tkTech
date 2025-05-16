@@ -30,8 +30,8 @@ public final class TkTechRecipeMaps {
             6, 4, 3, 6, new SimpleRecipeBuilder(), false)
                     .setSound(GTSoundEvents.ELECTROLYZER);
     @ZenProperty
-    public static final RecipeMap<SimpleRecipeBuilder> ADVANCED_ASSEMBLING = new RecipeMap<>("advanced_assembling",
-            9, 1, 2, 0, new SimpleRecipeBuilder(), false)
+    public static final RecipeMap<AdvancedRecipeBuilder> ADVANCED_ASSEMBLING = new RecipeMap<>("advanced_assembling",
+            9, 1, 2, 0, new AdvancedRecipeBuilder(), false)
                     .setSound(GTSoundEvents.ASSEMBLER);
     @ZenProperty
     public static final RecipeMap<NoEnergyRecipeBuilder> FLUID_PRIMITIVE_BLAST = new MinimalPrimitiveRecipeMap<>(
@@ -90,8 +90,8 @@ public final class TkTechRecipeMaps {
                     .setSound(GTSoundEvents.BOILER);
 
     @ZenProperty
-    public static final RecipeMap<SimpleRecipeBuilder> ROLLING_RECIPES = new RecipeMap<>(
-            "rolling", 2, 1, 0, 0, new SimpleRecipeBuilder(), false)
+    public static final RecipeMap<AdvancedRecipeBuilder> ROLLING_RECIPES = new RecipeMap<>(
+            "rolling", 2, 1, 0, 0, new AdvancedRecipeBuilder(), false)
                     .setSound(GTSoundEvents.MOTOR);
 
     @WorkingTool
@@ -112,4 +112,8 @@ public final class TkTechRecipeMaps {
     public static final RecipeMap<PrimitiveRecipeBuilder> PRIMITIVE_BATH_RECIPES = new MinimalPrimitiveRecipeMap<>(
             "primitive_bath_recipes",
             1, 1, 1, 0, new PrimitiveRecipeBuilder(), false);
+    @ZenProperty
+    public static final RecipeMap<AdvancedRecipeBuilder> CHEMICAL_BENCH_RECIPES = new RecipeMap<>(
+            "chemical_bench_recipes",
+            6, 0, 2, 1, new AdvancedRecipeBuilder(), false);
 }
