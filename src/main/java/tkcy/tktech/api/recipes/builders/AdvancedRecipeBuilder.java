@@ -134,6 +134,13 @@ public class AdvancedRecipeBuilder extends RecipeBuilder<AdvancedRecipeBuilder> 
         return this;
     }
 
+    public AdvancedRecipeBuilder duration(int duration, float recipeDurationRate) {
+        duration(duration);
+        DurationModifierRecipeProperty recipeProperty = DurationModifierRecipeProperty.getInstance();
+        recipeProperty.testAndApplyPropertyValue(recipeDurationRate, this.recipeStatus, this);
+        return this;
+    }
+
     @Override
     public ValidationResult<Recipe> build() {
         if (this.hideDuration) {

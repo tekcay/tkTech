@@ -97,4 +97,9 @@ public class RecipeLogicsContainer implements IRecipeLogicContainer, IRecipeProp
         return recipeLogics.stream()
                 .anyMatch(iRecipeLogic -> iRecipeLogic.hasRecipeLogicType(recipeLogicType));
     }
+
+    @Override
+    public void postSetupRecipe(@NotNull Recipe recipe) {
+        recipeLogics.forEach(recipeLogicContainer -> recipeLogicContainer.postSetupRecipe(recipe));
+    }
 }

@@ -29,6 +29,7 @@ public interface IRecipeLogicContainer extends IRecipePropertiesValueMap {
     /**
      * Adds itemStacks that are not in the inventory but in the recipe properties of the provided {@code recipe}.
      * This happens after those recipe properties were ensured.
+     * 
      * @param inputInventory the {@code handler} to add the missing stacks to.
      * @return whether it succeeded.
      */

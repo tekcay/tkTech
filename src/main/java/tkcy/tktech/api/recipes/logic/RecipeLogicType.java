@@ -3,5 +3,6 @@ package tkcy.tktech.api.recipes.logic;
 public enum RecipeLogicType {
     TOOL,
     IN_WORLD,
-    FAILED_OUTPUT
+    FAILED_OUTPUT,
+    RANDOM_DURATION
 }
