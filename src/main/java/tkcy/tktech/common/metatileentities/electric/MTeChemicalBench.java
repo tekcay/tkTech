@@ -6,7 +6,6 @@ import java.util.function.Supplier;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.IItemHandlerModifiable;
@@ -37,6 +36,7 @@ import tkcy.tktech.api.recipes.logic.OnBlockRecipeLogic;
 import tkcy.tktech.api.recipes.logic.impl.RandomDurationRecipeLogic;
 import tkcy.tktech.api.recipes.logic.impl.RecipeLogicsContainer;
 import tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps;
+import tkcy.tktech.api.utils.handlers.FluidTankListHelper;
 
 public class MTeChemicalBench extends MetaTileEntity implements EnergyContainerHandler.IEnergyChangeListener {
 
@@ -86,22 +86,14 @@ public class MTeChemicalBench extends MetaTileEntity implements EnergyContainerH
 
     @Override
     protected FluidTankList createImportFluidHandler() {
-        NotifiableFluidTank[] fluidImports = new NotifiableFluidTank[workable.getRecipeMap().getMaxFluidInputs()];
-        for (int i = 0; i < fluidImports.length; i++) {
-            NotifiableFluidTank filteredFluidHandler = new NotifiableFluidTank(
-                    2000, this, false);
-            fluidImports[i] = filteredFluidHandler;
-        }
-        return new FluidTankList(false, fluidImports);
+        return FluidTankListHelper.createNotifiableFluidHandler(workable.getRecipeMap().getMaxFluidInputs(), 2000, this,
+                false);
     }
 
     @Override
     protected FluidTankList createExportFluidHandler() {
-        FluidTank[] fluidExports = new FluidTank[workable.getRecipeMap().getMaxFluidOutputs()];
-        for (int i = 0; i < fluidExports.length; i++) {
-            fluidExports[i] = new NotifiableFluidTank(2000, this, true);
-        }
-        return new FluidTankList(false, fluidExports);
+        return FluidTankListHelper.createNotifiableFluidHandler(workable.getRecipeMap().getMaxFluidInputs(), 2000, this,
+                true);
     }
 
     @Override

@@ -27,7 +27,7 @@ import tkcy.tktech.api.recipes.helpers.RecipeSearchHelpers;
 import tkcy.tktech.api.recipes.logic.impl.ToolFacingRecipeLogic;
 import tkcy.tktech.api.recipes.logic.impl.ToolLogic;
 import tkcy.tktech.api.recipes.properties.IRecipePropertyHelper;
-import tkcy.tktech.api.utils.item.ItemHandlerHelpers;
+import tkcy.tktech.api.utils.handlers.ItemHandlerHelpers;
 import tkcy.tktech.modules.toolmodule.ToolsModule;
 
 public abstract class OnBlockRecipeLogic extends AbstractRecipeLogic

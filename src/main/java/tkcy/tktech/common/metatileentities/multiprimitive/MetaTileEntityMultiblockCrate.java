@@ -27,9 +27,9 @@ import gregtech.api.pattern.TraceabilityPredicate;
 import gregtech.api.unification.material.Material;
 import gregtech.api.util.GTTransferUtils;
 
+import tkcy.tktech.api.handlers.ModulableSingleItemStackHandler;
 import tkcy.tktech.api.utils.*;
-import tkcy.tktech.api.utils.item.ItemHandlerHelpers;
-import tkcy.tktech.api.utils.item.ModulableSingleItemStackHandler;
+import tkcy.tktech.api.utils.handlers.ItemHandlerHelpers;
 import tkcy.tktech.api.utils.units.CommonUnits;
 import tkcy.tktech.modules.NBTLabel;
 import tkcy.tktech.modules.TkTechDataCodes;
