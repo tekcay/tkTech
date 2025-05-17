@@ -15,8 +15,8 @@ import gregtech.integration.theoneprobe.provider.RecipeLogicInfoProvider;
 
 import mcjty.theoneprobe.api.IProbeHitData;
 import mcjty.theoneprobe.api.IProbeInfo;
-import tkcy.tktech.api.recipes.logic.IHideEnergyRecipeLogic;
 import tkcy.tktech.api.recipes.logic.OnBlockRecipeLogic;
+import tkcy.tktech.api.recipes.logic.markers.IHideEnergyRecipeLogic;
 
 @Mixin(value = RecipeLogicInfoProvider.class, remap = false)
 public abstract class MixinRecipeLogicTOPModule extends CapabilityInfoProvider<AbstractRecipeLogic> {

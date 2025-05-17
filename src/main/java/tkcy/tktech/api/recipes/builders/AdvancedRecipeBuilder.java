@@ -8,6 +8,7 @@ import net.minecraft.util.EnumFacing;
 
 import org.jetbrains.annotations.NotNull;
 
+import gregtech.api.capability.impl.AbstractRecipeLogic;
 import gregtech.api.recipes.Recipe;
 import gregtech.api.recipes.RecipeBuilder;
 import gregtech.api.recipes.RecipeMap;
@@ -75,17 +76,17 @@ public class AdvancedRecipeBuilder extends RecipeBuilder<AdvancedRecipeBuilder> 
     }
 
     private AdvancedRecipeBuilder tool(ToolsModule.GtTool gtTool) {
-        ToolProperty toolProperty = ToolProperty.getInstance();
+        ToolRecipeProperty toolProperty = ToolRecipeProperty.getInstance();
         return (AdvancedRecipeBuilder) toolProperty.testAndApplyPropertyValue(gtTool, this.recipeStatus, this);
     }
 
     private AdvancedRecipeBuilder toolUses(int uses) {
-        ToolUsesProperty toolUsesProperty = ToolUsesProperty.getInstance();
+        ToolUsesRecipeProperty toolUsesProperty = ToolUsesRecipeProperty.getInstance();
         return (AdvancedRecipeBuilder) toolUsesProperty.testAndApplyPropertyValue(uses, this.recipeStatus, this);
     }
 
     private AdvancedRecipeBuilder toolFacing(EnumFacing toolFacing) {
-        ToolFacingProperty toolFacingProperty = ToolFacingProperty.getInstance();
+        ToolFacingRecipeProperty toolFacingProperty = ToolFacingRecipeProperty.getInstance();
         return (AdvancedRecipeBuilder) toolFacingProperty.testAndApplyPropertyValue(toolFacing, this.recipeStatus,
                 this);
     }
@@ -134,11 +135,25 @@ public class AdvancedRecipeBuilder extends RecipeBuilder<AdvancedRecipeBuilder> 
         return this;
     }
 
+    /**
+     * Set the recipe {@link #duration}.
+     * 
+     * @param duration
+     * @param recipeDurationRate a value that can modify the recipe duration at
+     *                           {@link AbstractRecipeLogic#setupRecipe(Recipe)}
+     */
+    public AdvancedRecipeBuilder duration(int duration, float recipeDurationRate) {
+        duration(duration);
+        DurationModifierRecipeProperty recipeProperty = DurationModifierRecipeProperty.getInstance();
+        recipeProperty.testAndApplyPropertyValue(recipeDurationRate, this.recipeStatus, this);
+        return this;
+    }
+
     @Override
     public ValidationResult<Recipe> build() {
         if (this.hideDuration) {
             this.duration(10);
-            applyProperty(HideDurationProperty.getInstance(), true);
+            applyProperty(HideDurationRecipeProperty.getInstance(), true);
         }
 
         if (!useAndDisplayEnergy) {

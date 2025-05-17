@@ -6,7 +6,6 @@ import static tkcy.tktech.api.metatileentities.MaterialMetaTileEntity.getMetaTil
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.IntStream;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -18,6 +17,7 @@ import lombok.experimental.UtilityClass;
 import tkcy.tktech.api.metatileentities.MaterialMetaTileEntity;
 import tkcy.tktech.api.metatileentities.RepetitiveSide;
 import tkcy.tktech.api.unification.materials.TkTechMaterials;
+import tkcy.tktech.api.utils.StreamHelper;
 import tkcy.tktech.common.metatileentities.TkTechMetaTileEntities;
 import tkcy.tktech.common.metatileentities.multiprimitive.MetaTileEntityMultiblockChest;
 import tkcy.tktech.common.metatileentities.multiprimitive.MetaTileEntityMultiblockCrate;
@@ -63,8 +63,7 @@ public class StorageModule {
     @Nullable
     private static <T extends MaterialMetaTileEntity> T getMaterialMetaTileEntity(Material material, int materials,
                                                                                   T[] metaTileEntities) {
-        return IntStream.range(0, materials)
-                .boxed()
+        return StreamHelper.initIntStream(materials)
                 .map(i -> metaTileEntities[i])
                 .filter(mte -> mte.getMaterial() == material)
                 .findFirst()

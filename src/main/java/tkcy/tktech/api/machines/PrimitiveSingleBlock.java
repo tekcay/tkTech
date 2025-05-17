@@ -27,7 +27,7 @@ import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.recipes.RecipeMap;
 import gregtech.client.renderer.ICubeRenderer;
 
-import tkcy.tktech.api.recipes.logic.*;
+import tkcy.tktech.api.recipes.logic.markers.IHideEnergyRecipeLogic;
 
 public abstract class PrimitiveSingleBlock extends MetaTileEntity {
 

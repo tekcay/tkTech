@@ -10,7 +10,7 @@ import static tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps.COMPONENT_ASSE
 import static tkcy.tktech.api.unification.materials.TkTechMaterials.*;
 import static tkcy.tktech.api.unification.ore.TkTechOrePrefix.curvedPlate;
 import static tkcy.tktech.common.item.TkTechMetaItems.*;
-import static tkcy.tktech.common.metatileentities.TkTechMetaTileEntities.COMPONENT_ASSEMBLER_MTE;
+import static tkcy.tktech.common.metatileentities.TkTechMetaTileEntities.COMPONENT_ASSEMBLERS;
 import static tkcy.tktech.modules.ComponentsModule.*;
 
 import net.minecraftforge.fluids.FluidStack;
@@ -98,7 +98,7 @@ public class HarderComponents {
     }
 
     private static void addComponentAssemblerRecipe() {
-        ModHandler.addShapedRecipe(true, "component_assembler_lv", COMPONENT_ASSEMBLER_MTE[1].getStackForm(),
+        ModHandler.addShapedRecipe(true, "component_assembler_lv", COMPONENT_ASSEMBLERS[1].getStackForm(),
                 "PCP", "AHA", "WCW",
                 'C', new UnificationEntry(circuit, MarkerMaterials.Tier.ULV),
                 'W', new UnificationEntry(cableGtSingle, Lead),
@@ -106,7 +106,7 @@ public class HarderComponents {
                 'A', ROBOT_ARM_ULV.getStackForm(),
                 'P', ELECTRIC_PISTON_ULV.getStackForm());
 
-        ModHandler.addShapedRecipe(true, "component_assembler_mv", COMPONENT_ASSEMBLER_MTE[2].getStackForm(),
+        ModHandler.addShapedRecipe(true, "component_assembler_mv", COMPONENT_ASSEMBLERS[2].getStackForm(),
                 "PCP", "AHA", "WCW",
                 'C', new UnificationEntry(circuit, MarkerMaterials.Tier.LV),
                 'W', new UnificationEntry(cableGtDouble, Tin),
@@ -114,7 +114,7 @@ public class HarderComponents {
                 'A', ROBOT_ARM_LV.getStackForm(),
                 'P', ELECTRIC_PISTON_LV.getStackForm());
 
-        ModHandler.addShapedRecipe(true, "component_assembler_hv", COMPONENT_ASSEMBLER_MTE[3].getStackForm(),
+        ModHandler.addShapedRecipe(true, "component_assembler_hv", COMPONENT_ASSEMBLERS[3].getStackForm(),
                 "PCP", "AHA", "WCW",
                 'C', new UnificationEntry(circuit, MarkerMaterials.Tier.MV),
                 'W', new UnificationEntry(cableGtQuadruple, Copper),
@@ -122,7 +122,7 @@ public class HarderComponents {
                 'A', ROBOT_ARM_MV.getStackForm(),
                 'P', ELECTRIC_PISTON_MV.getStackForm());
 
-        ModHandler.addShapedRecipe(true, "component_assembler_ev", COMPONENT_ASSEMBLER_MTE[4].getStackForm(),
+        ModHandler.addShapedRecipe(true, "component_assembler_ev", COMPONENT_ASSEMBLERS[4].getStackForm(),
                 "PCP", "AHA", "WCW",
                 'C', new UnificationEntry(circuit, MarkerMaterials.Tier.HV),
                 'W', new UnificationEntry(cableGtOctal, Gold),
@@ -130,7 +130,7 @@ public class HarderComponents {
                 'A', ROBOT_ARM_HV.getStackForm(),
                 'P', ELECTRIC_PISTON_HV.getStackForm());
 
-        ModHandler.addShapedRecipe(true, "component_assembler_iv", COMPONENT_ASSEMBLER_MTE[5].getStackForm(),
+        ModHandler.addShapedRecipe(true, "component_assembler_iv", COMPONENT_ASSEMBLERS[5].getStackForm(),
                 "PCP", "AHA", "WCW",
                 'C', new UnificationEntry(circuit, MarkerMaterials.Tier.EV),
                 'W', new UnificationEntry(cableGtHex, Aluminium),

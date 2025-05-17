@@ -2,7 +2,6 @@ package tkcy.tktech.api.metatileentities;
 
 import java.util.List;
 import java.util.function.Function;
-import java.util.stream.IntStream;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.resources.I18n;
@@ -11,6 +10,8 @@ import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.NotNull;
 
 import gregtech.api.metatileentity.MetaTileEntity;
+
+import tkcy.tktech.api.utils.StreamHelper;
 
 public interface RepetitiveSide {
 
@@ -57,8 +58,7 @@ public interface RepetitiveSide {
     }
 
     default int getHeight() {
-        return IntStream.range(this.getMinSideLength(), this.getMaxSideLength())
-                .boxed()
+        return StreamHelper.initIntStream(this.getMinSideLength(), this.getMaxSideLength())
                 .filter(this::stopMatchSideBlock)
                 .findFirst()
                 .orElseGet(this::getMaxSideLength);

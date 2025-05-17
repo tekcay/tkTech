@@ -1,7 +1,5 @@
 package tkcy.tktech.api.recipes.logic;
 
-import static gregtech.api.recipes.logic.OverclockingLogic.subTickNonParallelOC;
-
 import java.util.*;
 import java.util.function.Supplier;
 
@@ -22,17 +20,15 @@ import gregtech.api.capability.impl.AbstractRecipeLogic;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.recipes.Recipe;
 import gregtech.api.recipes.RecipeMap;
-import gregtech.api.recipes.logic.OCParams;
-import gregtech.api.recipes.logic.OCResult;
-import gregtech.api.recipes.properties.RecipePropertyStorage;
 import gregtech.api.util.GTUtility;
 
 import lombok.Getter;
 import tkcy.tktech.api.recipes.helpers.RecipeSearchHelpers;
-import tkcy.tktech.api.recipes.logic.impl.ToolFacingRecipeLogic;
-import tkcy.tktech.api.recipes.logic.impl.ToolLogic;
+import tkcy.tktech.api.recipes.logic.containers.IRecipeLogicContainer;
+import tkcy.tktech.api.recipes.logic.containers.ToolFacingRecipeLogic;
+import tkcy.tktech.api.recipes.logic.containers.ToolLogic;
 import tkcy.tktech.api.recipes.properties.IRecipePropertyHelper;
-import tkcy.tktech.api.utils.item.ItemHandlerHelpers;
+import tkcy.tktech.api.utils.handlers.ItemHandlerHelpers;
 import tkcy.tktech.modules.toolmodule.ToolsModule;
 
 public abstract class OnBlockRecipeLogic extends AbstractRecipeLogic
@@ -42,15 +38,33 @@ public abstract class OnBlockRecipeLogic extends AbstractRecipeLogic
     private final Map<IRecipePropertyHelper<?>, Object> recipeParameters = new HashMap<>();
     @Getter
     private final IRecipeLogicContainer recipeLogicContainer;
+    private boolean allowOverlock = true;
 
     public OnBlockRecipeLogic(MetaTileEntity tileEntity, Supplier<IEnergyContainer> energyContainer,
                               RecipeMap<?>... recipeMaps) {
         super(tileEntity, recipeMaps[0]);
         this.recipeLogicContainer = setRecipeLogicContainer();
         if (consumesEnergy()) {
-            setMaximumOverclockVoltage(getMaxVoltage());
             this.energyContainer = energyContainer;
+            setMaximumOverclockVoltage(getMaxVoltage());
         }
+    }
+
+    public OnBlockRecipeLogic(MetaTileEntity tileEntity, Supplier<IEnergyContainer> energyContainer,
+                              boolean allowOverlock,
+                              RecipeMap<?>... recipeMaps) {
+        super(tileEntity, recipeMaps[0]);
+        this.recipeLogicContainer = setRecipeLogicContainer();
+        if (consumesEnergy()) {
+            this.energyContainer = energyContainer;
+            setMaximumOverclockVoltage(getMaxVoltage());
+        }
+        this.allowOverlock = allowOverlock;
+    }
+
+    @Override
+    public boolean isAllowOverclocking() {
+        return this.allowOverlock;
     }
 
     @Override
@@ -163,6 +177,12 @@ public abstract class OnBlockRecipeLogic extends AbstractRecipeLogic
     }
 
     @Override
+    public void setupRecipe(@NotNull Recipe recipe) {
+        super.setupRecipe(recipe);
+        recipeLogicContainer.postSetupRecipe(recipe);
+    }
+
+    @Override
     public void invalidate() {
         super.invalidate();
         recipeLogicContainer.invalidate(getOutputInventory(), getOutputTank());
@@ -229,16 +249,5 @@ public abstract class OnBlockRecipeLogic extends AbstractRecipeLogic
         return consumesEnergy() ?
                 Math.max(energyContainer.get().getInputVoltage(), energyContainer.get().getOutputVoltage()) :
                 GTValues.LV;
-    }
-
-    @Override
-    protected void runOverclockingLogic(@NotNull OCParams ocParams, @NotNull OCResult ocResult,
-                                        @NotNull RecipePropertyStorage propertyStorage, long maxVoltage) {
-        subTickNonParallelOC(
-                ocParams,
-                ocResult,
-                maxVoltage,
-                getOverclockingDurationFactor(),
-                getOverclockingVoltageFactor());
     }
 }
