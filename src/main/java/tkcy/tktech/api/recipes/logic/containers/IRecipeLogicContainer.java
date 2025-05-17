@@ -1,4 +1,4 @@
-package tkcy.tktech.api.recipes.logic;
+package tkcy.tktech.api.recipes.logic.containers;
 
 import java.util.List;
 
@@ -15,6 +15,9 @@ import gregtech.api.capability.IMultipleTankHandler;
 import gregtech.api.capability.impl.AbstractRecipeLogic;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.recipes.Recipe;
+
+import tkcy.tktech.api.recipes.logic.IRecipePropertiesValueMap;
+import tkcy.tktech.api.recipes.logic.RecipeLogicType;
 
 public interface IRecipeLogicContainer extends IRecipePropertiesValueMap {
 

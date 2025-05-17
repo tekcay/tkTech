@@ -1,4 +1,4 @@
-package tkcy.tktech.api.recipes.logic.impl;
+package tkcy.tktech.api.recipes.logic.containers;
 
 import java.util.List;
 import java.util.Map;
@@ -22,7 +22,6 @@ import gregtech.api.util.GTTransferUtils;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-import tkcy.tktech.api.recipes.logic.IRecipeLogicContainer;
 import tkcy.tktech.api.recipes.logic.IRecipePropertiesValueMap;
 import tkcy.tktech.api.recipes.logic.RecipeLogicType;
 import tkcy.tktech.api.recipes.properties.IRecipePropertyHelper;

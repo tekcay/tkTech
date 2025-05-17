@@ -24,8 +24,9 @@ import gregtech.api.util.GTUtility;
 
 import lombok.Getter;
 import tkcy.tktech.api.recipes.helpers.RecipeSearchHelpers;
-import tkcy.tktech.api.recipes.logic.impl.ToolFacingRecipeLogic;
-import tkcy.tktech.api.recipes.logic.impl.ToolLogic;
+import tkcy.tktech.api.recipes.logic.containers.IRecipeLogicContainer;
+import tkcy.tktech.api.recipes.logic.containers.ToolFacingRecipeLogic;
+import tkcy.tktech.api.recipes.logic.containers.ToolLogic;
 import tkcy.tktech.api.recipes.properties.IRecipePropertyHelper;
 import tkcy.tktech.api.utils.handlers.ItemHandlerHelpers;
 import tkcy.tktech.modules.toolmodule.ToolsModule;

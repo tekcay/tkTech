@@ -76,17 +76,17 @@ public class AdvancedRecipeBuilder extends RecipeBuilder<AdvancedRecipeBuilder> 
     }
 
     private AdvancedRecipeBuilder tool(ToolsModule.GtTool gtTool) {
-        ToolProperty toolProperty = ToolProperty.getInstance();
+        ToolRecipeProperty toolProperty = ToolRecipeProperty.getInstance();
         return (AdvancedRecipeBuilder) toolProperty.testAndApplyPropertyValue(gtTool, this.recipeStatus, this);
     }
 
     private AdvancedRecipeBuilder toolUses(int uses) {
-        ToolUsesProperty toolUsesProperty = ToolUsesProperty.getInstance();
+        ToolUsesRecipeProperty toolUsesProperty = ToolUsesRecipeProperty.getInstance();
         return (AdvancedRecipeBuilder) toolUsesProperty.testAndApplyPropertyValue(uses, this.recipeStatus, this);
     }
 
     private AdvancedRecipeBuilder toolFacing(EnumFacing toolFacing) {
-        ToolFacingProperty toolFacingProperty = ToolFacingProperty.getInstance();
+        ToolFacingRecipeProperty toolFacingProperty = ToolFacingRecipeProperty.getInstance();
         return (AdvancedRecipeBuilder) toolFacingProperty.testAndApplyPropertyValue(toolFacing, this.recipeStatus,
                 this);
     }
@@ -153,7 +153,7 @@ public class AdvancedRecipeBuilder extends RecipeBuilder<AdvancedRecipeBuilder> 
     public ValidationResult<Recipe> build() {
         if (this.hideDuration) {
             this.duration(10);
-            applyProperty(HideDurationProperty.getInstance(), true);
+            applyProperty(HideDurationRecipeProperty.getInstance(), true);
         }
 
         if (!useAndDisplayEnergy) {

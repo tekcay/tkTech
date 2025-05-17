@@ -21,9 +21,9 @@ import gregtech.common.blocks.MetaBlocks;
 
 import tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps;
 
-public class Dryer extends RecipeMapMultiblockController {
+public class MTeDryer extends RecipeMapMultiblockController {
 
-    public Dryer(ResourceLocation metaTileEntityId) {
+    public MTeDryer(ResourceLocation metaTileEntityId) {
         super(metaTileEntityId, TkTechRecipeMaps.DRYING);
     }
 
@@ -53,6 +53,6 @@ public class Dryer extends RecipeMapMultiblockController {
 
     @Override
     public MetaTileEntity createMetaTileEntity(IGregTechTileEntity tileEntity) {
-        return new Dryer(metaTileEntityId);
+        return new MTeDryer(metaTileEntityId);
     }
 }

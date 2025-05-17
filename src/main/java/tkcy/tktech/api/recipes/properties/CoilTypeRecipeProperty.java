@@ -19,20 +19,20 @@ import gregtech.common.blocks.BlockWireCoil;
 import tkcy.tktech.api.utils.TkTechLog;
 import tkcy.tktech.modules.RecipePropertiesKey;
 
-public class CoilTypeProperty extends RecipeProperty<BlockWireCoil.CoilType>
-                              implements IRecipePropertyHelper<BlockWireCoil.CoilType> {
+public class CoilTypeRecipeProperty extends RecipeProperty<BlockWireCoil.CoilType>
+                                    implements IRecipePropertyHelper<BlockWireCoil.CoilType> {
 
     public static final String KEY = RecipePropertiesKey.COIL_KEY;
-    private static CoilTypeProperty INSTANCE;
+    private static CoilTypeRecipeProperty INSTANCE;
 
-    private CoilTypeProperty() {
+    private CoilTypeRecipeProperty() {
         super(KEY, BlockWireCoil.CoilType.class);
     }
 
     @NotNull
-    public static CoilTypeProperty getInstance() {
+    public static CoilTypeRecipeProperty getInstance() {
         if (INSTANCE == null) {
-            INSTANCE = new CoilTypeProperty();
+            INSTANCE = new CoilTypeRecipeProperty();
         }
         return INSTANCE;
     }

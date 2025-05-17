@@ -30,11 +30,11 @@ import codechicken.lib.render.CCRenderState;
 import codechicken.lib.render.pipeline.ColourMultiplier;
 import codechicken.lib.render.pipeline.IVertexOperation;
 import codechicken.lib.vec.Matrix4;
-import tkcy.tktech.api.recipes.logic.IHideRecipeProgress;
-import tkcy.tktech.api.recipes.logic.IRecipeLogicContainer;
 import tkcy.tktech.api.recipes.logic.OnBlockRecipeLogic;
-import tkcy.tktech.api.recipes.logic.impl.RandomDurationRecipeLogic;
-import tkcy.tktech.api.recipes.logic.impl.RecipeLogicsContainer;
+import tkcy.tktech.api.recipes.logic.containers.IRecipeLogicContainer;
+import tkcy.tktech.api.recipes.logic.containers.RandomDurationRecipeLogic;
+import tkcy.tktech.api.recipes.logic.containers.RecipeLogicsContainer;
+import tkcy.tktech.api.recipes.logic.markers.IHideRecipeProgress;
 import tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps;
 import tkcy.tktech.api.utils.handlers.FluidTankListHelper;
 

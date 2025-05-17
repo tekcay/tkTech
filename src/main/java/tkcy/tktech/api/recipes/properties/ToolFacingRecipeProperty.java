@@ -19,20 +19,20 @@ import tkcy.tktech.modules.RecipePropertiesKey;
 import tkcy.tktech.modules.toolmodule.WorkingTool;
 
 @WorkingTool
-public class ToolFacingProperty extends RecipeProperty<EnumFacing>
-                                implements IRecipePropertyHelper<EnumFacing> {
+public class ToolFacingRecipeProperty extends RecipeProperty<EnumFacing>
+                                      implements IRecipePropertyHelper<EnumFacing> {
 
     public static final String KEY = RecipePropertiesKey.TOOL_CLICK_FACING_KEY;
-    private static ToolFacingProperty INSTANCE;
+    private static ToolFacingRecipeProperty INSTANCE;
 
-    private ToolFacingProperty() {
+    private ToolFacingRecipeProperty() {
         super(KEY, EnumFacing.class);
     }
 
     @NotNull
-    public static ToolFacingProperty getInstance() {
+    public static ToolFacingRecipeProperty getInstance() {
         if (INSTANCE == null) {
-            INSTANCE = new ToolFacingProperty();
+            INSTANCE = new ToolFacingRecipeProperty();
         }
         return INSTANCE;
     }

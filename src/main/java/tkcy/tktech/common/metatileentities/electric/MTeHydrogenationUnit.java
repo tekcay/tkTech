@@ -18,9 +18,9 @@ import gregtech.common.blocks.MetaBlocks;
 
 import tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps;
 
-public class HydrogenationUnitMTE extends RecipeMapMultiblockController {
+public class MTeHydrogenationUnit extends RecipeMapMultiblockController {
 
-    public HydrogenationUnitMTE(ResourceLocation metaTileEntityId) {
+    public MTeHydrogenationUnit(ResourceLocation metaTileEntityId) {
         super(metaTileEntityId, TkTechRecipeMaps.HYDROGENATION);
     }
 
@@ -48,6 +48,6 @@ public class HydrogenationUnitMTE extends RecipeMapMultiblockController {
 
     @Override
     public MetaTileEntity createMetaTileEntity(IGregTechTileEntity tileEntity) {
-        return new HydrogenationUnitMTE(metaTileEntityId);
+        return new MTeHydrogenationUnit(metaTileEntityId);
     }
 }

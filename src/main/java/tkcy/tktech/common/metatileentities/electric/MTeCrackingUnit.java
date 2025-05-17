@@ -38,20 +38,20 @@ import gregtech.common.blocks.MetaBlocks;
 import gregtech.core.sound.GTSoundEvents;
 
 import tkcy.tktech.api.recipes.builders.CoilTypeRecipeBuilder;
-import tkcy.tktech.api.recipes.properties.CoilTypeProperty;
+import tkcy.tktech.api.recipes.properties.CoilTypeRecipeProperty;
 import tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps;
 
-public class CrackingUnitMte extends RecipeMapMultiblockController {
+public class MTeCrackingUnit extends RecipeMapMultiblockController {
 
     private BlockWireCoil.CoilType coil;
 
-    public CrackingUnitMte(ResourceLocation metaTileEntityId) {
+    public MTeCrackingUnit(ResourceLocation metaTileEntityId) {
         super(metaTileEntityId, TkTechRecipeMaps.CRACKING);
     }
 
     @Override
     public MetaTileEntity createMetaTileEntity(IGregTechTileEntity tileEntity) {
-        return new CrackingUnitMte(metaTileEntityId);
+        return new MTeCrackingUnit(metaTileEntityId);
     }
 
     @Override
@@ -84,7 +84,8 @@ public class CrackingUnitMte extends RecipeMapMultiblockController {
     @Override
     public boolean checkRecipe(@NotNull Recipe recipe, boolean consumeIfSuccess) {
         return this.coil
-                .equals(recipe.getProperty(CoilTypeProperty.getInstance(), CoilTypeRecipeBuilder.getDefaultValue()));
+                .equals(recipe.getProperty(CoilTypeRecipeProperty.getInstance(),
+                        CoilTypeRecipeBuilder.getDefaultValue()));
     }
 
     @Override

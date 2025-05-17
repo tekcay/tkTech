@@ -1,4 +1,4 @@
-package tkcy.tktech.api.recipes.logic.impl;
+package tkcy.tktech.api.recipes.logic.containers;
 
 import java.util.Map;
 
@@ -13,10 +13,9 @@ import gregtech.api.recipes.Recipe;
 
 import lombok.Getter;
 import lombok.Setter;
-import tkcy.tktech.api.recipes.logic.IRecipeLogicContainer;
 import tkcy.tktech.api.recipes.logic.IRecipePropertiesValueMap;
 import tkcy.tktech.api.recipes.properties.IRecipePropertyHelper;
-import tkcy.tktech.api.recipes.properties.ToolFacingProperty;
+import tkcy.tktech.api.recipes.properties.ToolFacingRecipeProperty;
 import tkcy.tktech.api.utils.EnumFacingHelper;
 
 @Setter
@@ -31,7 +30,7 @@ public class ToolFacingRecipeLogic extends ToolLogic implements IRecipeLogicCont
     }
 
     protected void setToolClickFacingFromRecipe(Recipe recipe) {
-        setRecipeToolClickFacing(ToolFacingProperty.getInstance().getValueFromRecipe(recipe));
+        setRecipeToolClickFacing(ToolFacingRecipeProperty.getInstance().getValueFromRecipe(recipe));
     }
 
     @Override
@@ -68,6 +67,6 @@ public class ToolFacingRecipeLogic extends ToolLogic implements IRecipeLogicCont
     @Override
     public void updateRecipeParameters(@NotNull Map<IRecipePropertyHelper<?>, Object> recipeParameters) {
         super.updateRecipeParameters(recipeParameters);
-        recipeParameters.put(ToolFacingProperty.getInstance(), getCurrentToolClickFacing());
+        recipeParameters.put(ToolFacingRecipeProperty.getInstance(), getCurrentToolClickFacing());
     }
 }

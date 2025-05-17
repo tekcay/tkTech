@@ -26,7 +26,7 @@ public class CurvedPlateHandler {
     }
 
     private static void rollingMill() {
-        MetaTileEntityLoader.registerMachineRecipe(TkTechMetaTileEntities.ROLLING_MILL,
+        MetaTileEntityLoader.registerMachineRecipe(TkTechMetaTileEntities.ROLLING_MILLS,
                 "WPS", "PHC", "WPS",
                 'P', PISTON,
                 'S', CABLE,

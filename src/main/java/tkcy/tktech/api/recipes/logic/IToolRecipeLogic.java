@@ -4,7 +4,7 @@ import net.minecraft.util.EnumFacing;
 
 import org.jetbrains.annotations.Nullable;
 
-import tkcy.tktech.api.recipes.logic.impl.ToolLogic;
+import tkcy.tktech.api.recipes.logic.containers.ToolLogic;
 import tkcy.tktech.modules.toolmodule.ToolsModule;
 
 public interface IToolRecipeLogic {

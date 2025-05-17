@@ -18,20 +18,20 @@ import tkcy.tktech.modules.toolmodule.ToolsModule;
 import tkcy.tktech.modules.toolmodule.WorkingTool;
 
 @WorkingTool
-public class ToolProperty extends RecipeProperty<ToolsModule.GtTool>
-                          implements IRecipePropertyHelper<ToolsModule.GtTool> {
+public class ToolRecipeProperty extends RecipeProperty<ToolsModule.GtTool>
+                                implements IRecipePropertyHelper<ToolsModule.GtTool> {
 
     public static final String KEY = RecipePropertiesKey.TOOL_KEY;
-    private static ToolProperty INSTANCE;
+    private static ToolRecipeProperty INSTANCE;
 
-    private ToolProperty() {
+    private ToolRecipeProperty() {
         super(KEY, ToolsModule.GtTool.class);
     }
 
     @NotNull
-    public static ToolProperty getInstance() {
+    public static ToolRecipeProperty getInstance() {
         if (INSTANCE == null) {
-            INSTANCE = new ToolProperty();
+            INSTANCE = new ToolRecipeProperty();
         }
         return INSTANCE;
     }

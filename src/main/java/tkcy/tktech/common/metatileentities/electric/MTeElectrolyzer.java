@@ -21,9 +21,9 @@ import gregtech.client.renderer.texture.Textures;
 
 import tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps;
 
-public class Electrolyzer extends RecipeMapMultiblockController {
+public class MTeElectrolyzer extends RecipeMapMultiblockController {
 
-    public Electrolyzer(ResourceLocation metaTileEntityId) {
+    public MTeElectrolyzer(ResourceLocation metaTileEntityId) {
         super(metaTileEntityId, TkTechRecipeMaps.ADVANCED_ELECTROLYSIS);
     }
 
@@ -52,6 +52,6 @@ public class Electrolyzer extends RecipeMapMultiblockController {
 
     @Override
     public MetaTileEntity createMetaTileEntity(IGregTechTileEntity tileEntity) {
-        return new Electrolyzer(metaTileEntityId);
+        return new MTeElectrolyzer(metaTileEntityId);
     }
 }

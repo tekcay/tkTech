@@ -23,15 +23,15 @@ import codechicken.lib.vec.Matrix4;
 import tkcy.tktech.api.machines.PrimitiveSingleBlock;
 import tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps;
 
-public class PrimitiveBath extends PrimitiveSingleBlock {
+public class MTePrimitiveBath extends PrimitiveSingleBlock {
 
-    public PrimitiveBath(ResourceLocation metaTileEntityId) {
+    public MTePrimitiveBath(ResourceLocation metaTileEntityId) {
         super(metaTileEntityId, TkTechRecipeMaps.PRIMITIVE_BATH_RECIPES, Textures.COKE_OVEN_OVERLAY);
     }
 
     @Override
     public MetaTileEntity createMetaTileEntity(IGregTechTileEntity tileEntity) {
-        return new PrimitiveBath(metaTileEntityId);
+        return new MTePrimitiveBath(metaTileEntityId);
     }
 
     @Override

@@ -10,7 +10,7 @@ import gregtech.api.unification.material.Material;
 import gregtech.common.blocks.BlockWireCoil;
 
 import lombok.NoArgsConstructor;
-import tkcy.tktech.api.recipes.properties.CoilTypeProperty;
+import tkcy.tktech.api.recipes.properties.CoilTypeRecipeProperty;
 
 @NoArgsConstructor
 public class CoilTypeRecipeBuilder extends RecipeBuilder<CoilTypeRecipeBuilder> {
@@ -30,7 +30,7 @@ public class CoilTypeRecipeBuilder extends RecipeBuilder<CoilTypeRecipeBuilder> 
     }
 
     public CoilTypeRecipeBuilder coil(BlockWireCoil.CoilType coil) {
-        CoilTypeProperty property = CoilTypeProperty.getInstance();
+        CoilTypeRecipeProperty property = CoilTypeRecipeProperty.getInstance();
         return (CoilTypeRecipeBuilder) property.testAndApplyPropertyValue(coil, this.recipeStatus, this);
     }
 
@@ -46,7 +46,7 @@ public class CoilTypeRecipeBuilder extends RecipeBuilder<CoilTypeRecipeBuilder> 
     @NotNull
     public BlockWireCoil.CoilType getCoilType() {
         return this.recipePropertyStorage == null ? getDefaultValue() :
-                this.recipePropertyStorage.get(CoilTypeProperty.getInstance(),
+                this.recipePropertyStorage.get(CoilTypeRecipeProperty.getInstance(),
                         getDefaultValue());
     }
 
@@ -54,7 +54,7 @@ public class CoilTypeRecipeBuilder extends RecipeBuilder<CoilTypeRecipeBuilder> 
     public String toString() {
         return new ToStringBuilder(this)
                 .appendSuper(super.toString())
-                .append(CoilTypeProperty.getInstance().getKey(), getDisplayedValue(this.getCoilType()))
+                .append(CoilTypeRecipeProperty.getInstance().getKey(), getDisplayedValue(this.getCoilType()))
                 .toString();
     }
 }

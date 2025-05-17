@@ -1,16 +1,13 @@
 package tkcy.tktech.common.metatileentities.primitive;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.function.Supplier;
 
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
 import net.minecraftforge.items.IItemHandlerModifiable;
 
@@ -19,6 +16,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import gregtech.api.capability.IEnergyContainer;
+import gregtech.api.capability.impl.NotifiableItemStackHandler;
 import gregtech.api.items.itemhandlers.GTItemStackHandler;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
@@ -33,31 +31,33 @@ import codechicken.lib.render.CCRenderState;
 import codechicken.lib.render.pipeline.ColourMultiplier;
 import codechicken.lib.render.pipeline.IVertexOperation;
 import codechicken.lib.vec.Matrix4;
-import tkcy.tktech.api.handlers.FilteredNotifiableItemHandler;
-import tkcy.tktech.api.machines.IRightClickItemTransfer;
-import tkcy.tktech.api.machines.IUnificationToolMachine;
-import tkcy.tktech.api.machines.ToolLogicMetaTileEntity;
-import tkcy.tktech.api.recipes.logic.IHideEnergyRecipeLogic;
-import tkcy.tktech.api.recipes.logic.IRecipeLogicContainer;
-import tkcy.tktech.api.recipes.logic.IToolRecipeLogic;
-import tkcy.tktech.api.recipes.logic.OnBlockRecipeLogic;
-import tkcy.tktech.api.recipes.logic.impl.FailRecipeLogic;
-import tkcy.tktech.api.recipes.logic.impl.InWorldRecipeLogic;
-import tkcy.tktech.api.recipes.logic.impl.RecipeLogicsContainer;
-import tkcy.tktech.api.recipes.logic.impl.ToolFacingRecipeLogic;
+import tkcy.tktech.api.machines.*;
+import tkcy.tktech.api.recipes.logic.*;
+import tkcy.tktech.api.recipes.logic.containers.IRecipeLogicContainer;
+import tkcy.tktech.api.recipes.logic.containers.InWorldRecipeLogic;
+import tkcy.tktech.api.recipes.logic.containers.RecipeLogicsContainer;
+import tkcy.tktech.api.recipes.logic.containers.ToolLogic;
+import tkcy.tktech.api.recipes.logic.markers.IHideEnergyRecipeLogic;
 import tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps;
+import tkcy.tktech.api.unification.ore.TkTechOrePrefix;
 import tkcy.tktech.modules.toolmodule.ToolsModule;
 
-public class AnvilMetatileEntity extends ToolLogicMetaTileEntity
-                                 implements IUnificationToolMachine, IRightClickItemTransfer {
+public class MTeWoodWorkshop extends ToolLogicMetaTileEntity
+                             implements IUnificationToolMachine, IOnSawClick {
 
-    public AnvilMetatileEntity(ResourceLocation metaTileEntityId) {
+    public MTeWoodWorkshop(ResourceLocation metaTileEntityId) {
         super(metaTileEntityId);
     }
 
     @Override
     protected List<ToolsModule.GtTool> getWorkingGtTool() {
-        return Collections.singletonList(ToolsModule.GtTool.HARD_HAMMER);
+        return new ArrayList<>() {
+
+            {
+                add(ToolsModule.GtTool.AXE);
+                add(ToolsModule.GtTool.SAW);
+            }
+        };
     }
 
     @Override
@@ -67,8 +67,7 @@ public class AnvilMetatileEntity extends ToolLogicMetaTileEntity
 
     @Override
     protected IItemHandlerModifiable createImportItemHandler() {
-        return new FilteredNotifiableItemHandler(this, 2, this, false)
-                .setFillPredicate(ToolsModule::isTool, 1);
+        return new NotifiableItemStackHandler(this, 2, this, false);
     }
 
     @Override
@@ -92,22 +91,7 @@ public class AnvilMetatileEntity extends ToolLogicMetaTileEntity
 
     @Override
     public MetaTileEntity createMetaTileEntity(IGregTechTileEntity tileEntity) {
-        return new AnvilMetatileEntity(metaTileEntityId);
-    }
-
-    @Override
-    public void onAnyToolClick(ToolsModule.GtTool tool, boolean isPlayerSneaking, EnumFacing faceClick) {
-        if (!isPlayerSneaking) return;
-        getLogic().runToolRecipeLogic(tool, faceClick);
-    }
-
-    /**
-     * Removes {@link #toggleMuffled()}.
-     */
-    @Override
-    public boolean onHardHammerClick(EntityPlayer playerIn, EnumHand hand, EnumFacing facing,
-                                     CuboidRayTraceResult hitResult) {
-        return true;
+        return new MTeWoodWorkshop(metaTileEntityId);
     }
 
     @Override
@@ -115,15 +99,15 @@ public class AnvilMetatileEntity extends ToolLogicMetaTileEntity
         return new ArrayList<>() {
 
             {
-                add(OrePrefix.plate);
-                add(OrePrefix.plateDouble);
+                add(TkTechOrePrefix.strippedWood);
+                add(OrePrefix.plank);
             }
         };
     }
 
     @Override
     protected OnBlockRecipeLogic initRecipeLogic() {
-        return new Logic(this, null, TkTechRecipeMaps.ANVIL_RECIPES);
+        return new Logic(this, null, TkTechRecipeMaps.WOOD_WORKSHOP_RECIPES);
     }
 
     @Override
@@ -132,21 +116,18 @@ public class AnvilMetatileEntity extends ToolLogicMetaTileEntity
     }
 
     @Override
-    public boolean doesTransferHandStackToInput() {
+    public boolean onSawClick(EntityPlayer playerIn, EnumHand hand, EnumFacing wrenchSide,
+                              CuboidRayTraceResult hitResult) {
+        if (playerIn.isSneaking()) {
+            ToolLogic toolLogic = getLogic().getToolLogic();
+            if (toolLogic != null && toolLogic.getRecipeTool() == ToolsModule.GtTool.SAW) {
+                playSawClickSound(playerIn);
+            }
+        }
         return true;
     }
 
-    @Override
-    public boolean doesTransferInputToPlayer() {
-        return true;
-    }
-
-    @Override
-    public boolean showSpecialRightClickTooltips() {
-        return true;
-    }
-
-    private static class Logic extends OnBlockRecipeLogic implements IToolRecipeLogic, IHideEnergyRecipeLogic {
+    private static class Logic extends OnBlockRecipeLogic implements IHideEnergyRecipeLogic {
 
         public Logic(MetaTileEntity tileEntity, Supplier<IEnergyContainer> energyContainer,
                      RecipeMap<?>... recipeMaps) {
@@ -154,20 +135,20 @@ public class AnvilMetatileEntity extends ToolLogicMetaTileEntity
         }
 
         @Override
-        public boolean consumesEnergy() {
-            return false;
+        public @NotNull IRecipeLogicContainer setRecipeLogicContainer() {
+            InWorldRecipeLogic inWorldRecipeLogic = new InWorldRecipeLogic.Builder(this)
+                    .doesNeedInWorldBlock(mte -> mte.getPos().up())
+                    .doesPlaceOutputBlock(mte -> mte.getPos().up())
+                    .doesRemoveInputBlock()
+                    .doesSpawnOutputItems()
+                    .build();
+            ToolLogic toolLogic = new ToolLogic(this);
+            return new RecipeLogicsContainer(this, inWorldRecipeLogic, toolLogic);
         }
 
         @Override
-        public @NotNull IRecipeLogicContainer setRecipeLogicContainer() {
-            InWorldRecipeLogic inWorldRecipeLogic = new InWorldRecipeLogic.Builder(this)
-                    .doesSpawnOutputItems()
-                    .build();
-            return new RecipeLogicsContainer(
-                    this,
-                    new ToolFacingRecipeLogic(this),
-                    new FailRecipeLogic(this),
-                    inWorldRecipeLogic);
+        public boolean consumesEnergy() {
+            return false;
         }
     }
 }

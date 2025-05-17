@@ -1,4 +1,4 @@
-package tkcy.tktech.api.recipes.logic.impl;
+package tkcy.tktech.api.recipes.logic.containers;
 
 import java.util.List;
 import java.util.Map;
@@ -19,12 +19,11 @@ import gregtech.api.util.GTTransferUtils;
 
 import lombok.Getter;
 import lombok.Setter;
-import tkcy.tktech.api.recipes.logic.IRecipeLogicContainer;
 import tkcy.tktech.api.recipes.logic.IRecipePropertiesValueMap;
 import tkcy.tktech.api.recipes.logic.RecipeLogicType;
 import tkcy.tktech.api.recipes.properties.IRecipePropertyHelper;
-import tkcy.tktech.api.recipes.properties.ToolProperty;
-import tkcy.tktech.api.recipes.properties.ToolUsesProperty;
+import tkcy.tktech.api.recipes.properties.ToolRecipeProperty;
+import tkcy.tktech.api.recipes.properties.ToolUsesRecipeProperty;
 import tkcy.tktech.modules.toolmodule.ToolsModule;
 
 @Setter
@@ -45,11 +44,11 @@ public class ToolLogic implements IRecipeLogicContainer, IRecipePropertiesValueM
     }
 
     private void setRecipeToolUses(Recipe recipe) {
-        abstractRecipeLogic.setMaxProgress(ToolUsesProperty.getInstance().getValueFromRecipe(recipe));
+        abstractRecipeLogic.setMaxProgress(ToolUsesRecipeProperty.getInstance().getValueFromRecipe(recipe));
     }
 
     private void setToolFromRecipe(Recipe recipe) {
-        setRecipeTool(ToolProperty.getInstance().getValueFromRecipe(recipe));
+        setRecipeTool(ToolRecipeProperty.getInstance().getValueFromRecipe(recipe));
     }
 
     /**
@@ -106,7 +105,7 @@ public class ToolLogic implements IRecipeLogicContainer, IRecipePropertiesValueM
 
     @Override
     public void updateRecipeParameters(@NotNull Map<IRecipePropertyHelper<?>, Object> recipeParameters) {
-        recipeParameters.put(ToolProperty.getInstance(), getCurrentTool());
+        recipeParameters.put(ToolRecipeProperty.getInstance(), getCurrentTool());
     }
 
     @Override

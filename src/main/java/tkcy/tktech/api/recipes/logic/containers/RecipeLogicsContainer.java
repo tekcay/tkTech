@@ -1,4 +1,4 @@
-package tkcy.tktech.api.recipes.logic.impl;
+package tkcy.tktech.api.recipes.logic.containers;
 
 import java.util.*;
 
@@ -16,7 +16,6 @@ import gregtech.api.recipes.Recipe;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import tkcy.tktech.api.recipes.logic.IRecipeLogicContainer;
 import tkcy.tktech.api.recipes.logic.IRecipePropertiesValueMap;
 import tkcy.tktech.api.recipes.logic.RecipeLogicType;
 import tkcy.tktech.api.recipes.properties.IRecipePropertyHelper;

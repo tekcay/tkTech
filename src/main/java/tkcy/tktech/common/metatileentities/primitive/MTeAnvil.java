@@ -1,74 +1,74 @@
 package tkcy.tktech.common.metatileentities.primitive;
 
-import static tkcy.tktech.api.utils.GuiUtils.FONT_HEIGHT;
-
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.Supplier;
 
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fluids.FluidTank;
+import net.minecraft.world.World;
 import net.minecraftforge.items.IItemHandlerModifiable;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import gregtech.api.capability.IEnergyContainer;
-import gregtech.api.capability.impl.FluidTankList;
-import gregtech.api.capability.impl.NotifiableItemStackHandler;
-import gregtech.api.gui.ModularUI;
-import gregtech.api.gui.widgets.ClickButtonWidget;
-import gregtech.api.gui.widgets.LabelWidget;
 import gregtech.api.items.itemhandlers.GTItemStackHandler;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
 import gregtech.api.recipes.RecipeMap;
+import gregtech.api.unification.ore.OrePrefix;
 import gregtech.api.util.GTUtility;
 import gregtech.client.renderer.texture.Textures;
 import gregtech.client.renderer.texture.cube.SimpleOverlayRenderer;
 
+import codechicken.lib.raytracer.CuboidRayTraceResult;
 import codechicken.lib.render.CCRenderState;
 import codechicken.lib.render.pipeline.ColourMultiplier;
 import codechicken.lib.render.pipeline.IVertexOperation;
 import codechicken.lib.vec.Matrix4;
+import tkcy.tktech.api.handlers.FilteredNotifiableItemHandler;
 import tkcy.tktech.api.machines.IRightClickItemTransfer;
+import tkcy.tktech.api.machines.IUnificationToolMachine;
 import tkcy.tktech.api.machines.ToolLogicMetaTileEntity;
-import tkcy.tktech.api.recipes.logic.IHideEnergyRecipeLogic;
-import tkcy.tktech.api.recipes.logic.IRecipeLogicContainer;
 import tkcy.tktech.api.recipes.logic.IToolRecipeLogic;
 import tkcy.tktech.api.recipes.logic.OnBlockRecipeLogic;
-import tkcy.tktech.api.recipes.logic.impl.RecipeLogicsContainer;
-import tkcy.tktech.api.recipes.logic.impl.ToolLogic;
+import tkcy.tktech.api.recipes.logic.containers.FailRecipeLogic;
+import tkcy.tktech.api.recipes.logic.containers.IRecipeLogicContainer;
+import tkcy.tktech.api.recipes.logic.containers.InWorldRecipeLogic;
+import tkcy.tktech.api.recipes.logic.containers.RecipeLogicsContainer;
+import tkcy.tktech.api.recipes.logic.containers.ToolFacingRecipeLogic;
+import tkcy.tktech.api.recipes.logic.markers.IHideEnergyRecipeLogic;
 import tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps;
 import tkcy.tktech.modules.toolmodule.ToolsModule;
 
-public class BasicElectronicMetatileEntity extends ToolLogicMetaTileEntity
-                                           implements IRightClickItemTransfer {
+public class MTeAnvil extends ToolLogicMetaTileEntity
+                      implements IUnificationToolMachine, IRightClickItemTransfer {
 
-    public BasicElectronicMetatileEntity(ResourceLocation metaTileEntityId) {
+    public MTeAnvil(ResourceLocation metaTileEntityId) {
         super(metaTileEntityId);
     }
 
     @Override
     protected List<ToolsModule.GtTool> getWorkingGtTool() {
-        return Collections.singletonList(ToolsModule.GtTool.SOLDERING_IRON);
-    }
-
-    @Override
-    protected IItemHandlerModifiable createImportItemHandler() {
-        return new NotifiableItemStackHandler(this, 9, this, false);
+        return Collections.singletonList(ToolsModule.GtTool.HARD_HAMMER);
     }
 
     @Override
     protected IItemHandlerModifiable createExportItemHandler() {
-        return new GTItemStackHandler(this, 1);
+        return new GTItemStackHandler(this, 2);
     }
 
     @Override
-    protected FluidTankList createImportFluidHandler() {
-        return new FluidTankList(false, new FluidTank(2000));
+    protected IItemHandlerModifiable createImportItemHandler() {
+        return new FilteredNotifiableItemHandler(this, 2, this, false)
+                .setFillPredicate(ToolsModule::isTool, 1);
     }
 
     @Override
@@ -92,36 +92,52 @@ public class BasicElectronicMetatileEntity extends ToolLogicMetaTileEntity
 
     @Override
     public MetaTileEntity createMetaTileEntity(IGregTechTileEntity tileEntity) {
-        return new BasicElectronicMetatileEntity(this.metaTileEntityId);
+        return new MTeAnvil(metaTileEntityId);
     }
 
     @Override
-    protected boolean openGUIOnRightClick() {
+    public void onAnyToolClick(ToolsModule.GtTool tool, boolean isPlayerSneaking, EnumFacing faceClick) {
+        if (!isPlayerSneaking) return;
+        getLogic().runToolRecipeLogic(tool, faceClick);
+    }
+
+    /**
+     * Removes {@link #toggleMuffled()}.
+     */
+    @Override
+    public boolean onHardHammerClick(EntityPlayer playerIn, EnumHand hand, EnumFacing facing,
+                                     CuboidRayTraceResult hitResult) {
         return true;
     }
 
     @Override
-    protected ModularUI createUI(EntityPlayer player) {
-        return createUITemplate(player).build(getHolder(), player);
-    }
+    public @NotNull List<OrePrefix> getPartsOrePrefixes() {
+        return new ArrayList<>() {
 
-    protected ModularUI.Builder createUITemplate(EntityPlayer entityPlayer) {
-        return getRecipeMap().getRecipeMapUI()
-                .createUITemplate(getLogic()::getProgressPercent, importItems, exportItems, importFluids, exportFluids,
-                        FONT_HEIGHT)
-                .widget(new LabelWidget(5, 5, getMetaFullName()))
-                .widget(new ClickButtonWidget(30, 60, 30, 20, "T",
-                        clickData -> getLogic().runToolRecipeLogic(ToolsModule.GtTool.SOLDERING_IRON, EnumFacing.UP)))
-                .bindPlayerInventory(entityPlayer.inventory, 92);
+            {
+                add(OrePrefix.plate);
+                add(OrePrefix.plateDouble);
+            }
+        };
     }
 
     @Override
     protected OnBlockRecipeLogic initRecipeLogic() {
-        return new Logic(this, null, TkTechRecipeMaps.BASIC_ELECTRONIC_RECIPES);
+        return new Logic(this, null, TkTechRecipeMaps.ANVIL_RECIPES);
     }
 
     @Override
-    public boolean doesTransferOutputToPlayer() {
+    protected void addExtraTooltip(ItemStack stack, @Nullable World player, List<String> tooltip, boolean advanced) {
+        tooltip.add(I18n.format("tktech.tool_machine.parts.tooltip", addPartsOrePrefixInformation()));
+    }
+
+    @Override
+    public boolean doesTransferHandStackToInput() {
+        return true;
+    }
+
+    @Override
+    public boolean doesTransferInputToPlayer() {
         return true;
     }
 
@@ -144,7 +160,14 @@ public class BasicElectronicMetatileEntity extends ToolLogicMetaTileEntity
 
         @Override
         public @NotNull IRecipeLogicContainer setRecipeLogicContainer() {
-            return new RecipeLogicsContainer(this, new ToolLogic(this));
+            InWorldRecipeLogic inWorldRecipeLogic = new InWorldRecipeLogic.Builder(this)
+                    .doesSpawnOutputItems()
+                    .build();
+            return new RecipeLogicsContainer(
+                    this,
+                    new ToolFacingRecipeLogic(this),
+                    new FailRecipeLogic(this),
+                    inWorldRecipeLogic);
         }
     }
 }

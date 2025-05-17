@@ -10,7 +10,7 @@ public class StreamHelper {
     }
 
     public static Stream<Integer> initIntStream(int min, int max) {
-        return IntStream.range(0, max)
+        return IntStream.range(min, max)
                 .boxed();
     }
 }

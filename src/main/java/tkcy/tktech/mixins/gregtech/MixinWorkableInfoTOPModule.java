@@ -15,7 +15,7 @@ import gregtech.integration.theoneprobe.provider.WorkableInfoProvider;
 
 import mcjty.theoneprobe.api.IProbeHitData;
 import mcjty.theoneprobe.api.IProbeInfo;
-import tkcy.tktech.api.recipes.logic.IHideRecipeProgress;
+import tkcy.tktech.api.recipes.logic.markers.IHideRecipeProgress;
 
 @Mixin(value = WorkableInfoProvider.class, remap = false)
 public abstract class MixinWorkableInfoTOPModule extends CapabilityInfoProvider<IWorkable> {

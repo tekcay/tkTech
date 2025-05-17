@@ -28,15 +28,15 @@ import tkcy.tktech.api.machines.PrimitiveSingleBlock;
 import tkcy.tktech.api.recipes.CastingInfo;
 import tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps;
 
-public class PrimitiveCasting extends PrimitiveSingleBlock {
+public class MTePrimitiveCasting extends PrimitiveSingleBlock {
 
-    public PrimitiveCasting(ResourceLocation metaTileEntityId) {
+    public MTePrimitiveCasting(ResourceLocation metaTileEntityId) {
         super(metaTileEntityId, TkTechRecipeMaps.CASTING, Textures.COKE_OVEN_OVERLAY);
     }
 
     @Override
     public MetaTileEntity createMetaTileEntity(IGregTechTileEntity tileEntity) {
-        return new PrimitiveCasting(metaTileEntityId);
+        return new MTePrimitiveCasting(metaTileEntityId);
     }
 
     @Override

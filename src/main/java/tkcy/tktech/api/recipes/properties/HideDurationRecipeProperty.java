@@ -14,19 +14,19 @@ import gregtech.api.util.EnumValidationResult;
 
 import tkcy.tktech.modules.RecipePropertiesKey;
 
-public class HideDurationProperty extends RecipeProperty<Boolean> implements IRecipePropertyHelper<Boolean> {
+public class HideDurationRecipeProperty extends RecipeProperty<Boolean> implements IRecipePropertyHelper<Boolean> {
 
     public static final String KEY = RecipePropertiesKey.HIDE_DURATION_KEY;
-    private static HideDurationProperty INSTANCE;
+    private static HideDurationRecipeProperty INSTANCE;
 
-    private HideDurationProperty() {
+    private HideDurationRecipeProperty() {
         super(KEY, Boolean.class);
     }
 
     @NotNull
-    public static HideDurationProperty getInstance() {
+    public static HideDurationRecipeProperty getInstance() {
         if (INSTANCE == null) {
-            INSTANCE = new HideDurationProperty();
+            INSTANCE = new HideDurationRecipeProperty();
         }
         return INSTANCE;
     }

@@ -15,19 +15,19 @@ import tkcy.tktech.modules.RecipePropertiesKey;
 import tkcy.tktech.modules.toolmodule.WorkingTool;
 
 @WorkingTool
-public class ToolUsesProperty extends RecipeProperty<Integer> implements IRecipePropertyHelper<Integer> {
+public class ToolUsesRecipeProperty extends RecipeProperty<Integer> implements IRecipePropertyHelper<Integer> {
 
     public static final String KEY = RecipePropertiesKey.TOOL_USAGE_KEY;
-    private static ToolUsesProperty INSTANCE;
+    private static ToolUsesRecipeProperty INSTANCE;
 
-    private ToolUsesProperty() {
+    private ToolUsesRecipeProperty() {
         super(KEY, Integer.class);
     }
 
     @NotNull
-    public static ToolUsesProperty getInstance() {
+    public static ToolUsesRecipeProperty getInstance() {
         if (INSTANCE == null) {
-            INSTANCE = new ToolUsesProperty();
+            INSTANCE = new ToolUsesRecipeProperty();
         }
         return INSTANCE;
     }

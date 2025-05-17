@@ -37,21 +37,21 @@ import tkcy.tktech.api.metatileentities.cleanroom.IAdvancedCleanroomProvider;
 import tkcy.tktech.api.metatileentities.cleanroom.MetaTileEntityCleanroomBase;
 import tkcy.tktech.modules.TkTechDataCodes;
 
-public class MetaTileEntityAdvancedCleanroom extends MetaTileEntityCleanroomBase
-                                             implements IAdvancedCleanroomProvider, IWorkable, IDataInfoProvider {
+public class MTeAdvancedCleanroom extends MetaTileEntityCleanroomBase
+                                  implements IAdvancedCleanroomProvider, IWorkable, IDataInfoProvider {
 
     protected IMultipleTankHandler inputFluidInventory;
     protected int cleanroomTypeIndex;
     protected boolean hasEnoughGas = false;
 
-    public MetaTileEntityAdvancedCleanroom(ResourceLocation metaTileEntityId) {
+    public MTeAdvancedCleanroom(ResourceLocation metaTileEntityId) {
         super(metaTileEntityId);
         cleanroomLogic = new AdvancedCleanroomLogic(this);
     }
 
     @Override
     public MetaTileEntity createMetaTileEntity(IGregTechTileEntity tileEntity) {
-        return new MetaTileEntityAdvancedCleanroom(metaTileEntityId);
+        return new MTeAdvancedCleanroom(metaTileEntityId);
     }
 
     @Override

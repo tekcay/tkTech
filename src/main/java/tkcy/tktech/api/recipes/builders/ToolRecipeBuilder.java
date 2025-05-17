@@ -7,9 +7,9 @@ import gregtech.api.recipes.properties.impl.PrimitiveProperty;
 import gregtech.api.util.ValidationResult;
 
 import lombok.NoArgsConstructor;
-import tkcy.tktech.api.recipes.properties.HideDurationProperty;
-import tkcy.tktech.api.recipes.properties.ToolProperty;
-import tkcy.tktech.api.recipes.properties.ToolUsesProperty;
+import tkcy.tktech.api.recipes.properties.HideDurationRecipeProperty;
+import tkcy.tktech.api.recipes.properties.ToolRecipeProperty;
+import tkcy.tktech.api.recipes.properties.ToolUsesRecipeProperty;
 import tkcy.tktech.modules.toolmodule.ToolsModule;
 import tkcy.tktech.modules.toolmodule.WorkingTool;
 
@@ -33,12 +33,12 @@ public class ToolRecipeBuilder extends RecipeBuilder<ToolRecipeBuilder> {
     }
 
     public ToolRecipeBuilder tool(ToolsModule.GtTool gtTool) {
-        ToolProperty toolProperty = ToolProperty.getInstance();
+        ToolRecipeProperty toolProperty = ToolRecipeProperty.getInstance();
         return (ToolRecipeBuilder) toolProperty.testAndApplyPropertyValue(gtTool, this.recipeStatus, this);
     }
 
     public ToolRecipeBuilder toolUses(int uses) {
-        ToolUsesProperty toolUsesProperty = ToolUsesProperty.getInstance();
+        ToolUsesRecipeProperty toolUsesProperty = ToolUsesRecipeProperty.getInstance();
         return (ToolRecipeBuilder) toolUsesProperty.testAndApplyPropertyValue(uses, this.recipeStatus, this);
     }
 
@@ -47,7 +47,7 @@ public class ToolRecipeBuilder extends RecipeBuilder<ToolRecipeBuilder> {
         this.EUt(1); // secretly force to 1 to allow recipe matching to work properly
         this.duration(10);
         applyProperty(PrimitiveProperty.getInstance(), true);
-        applyProperty(HideDurationProperty.getInstance(), true);
+        applyProperty(HideDurationRecipeProperty.getInstance(), true);
         return super.build();
     }
 }

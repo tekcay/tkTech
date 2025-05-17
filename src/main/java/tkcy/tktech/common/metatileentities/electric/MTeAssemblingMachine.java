@@ -22,9 +22,9 @@ import gregtech.client.renderer.texture.Textures;
 
 import tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps;
 
-public class AssemblingMachine extends RecipeMapMultiblockController {
+public class MTeAssemblingMachine extends RecipeMapMultiblockController {
 
-    public AssemblingMachine(ResourceLocation metaTileEntityId) {
+    public MTeAssemblingMachine(ResourceLocation metaTileEntityId) {
         super(metaTileEntityId, TkTechRecipeMaps.ADVANCED_ASSEMBLING);
     }
 
@@ -54,6 +54,6 @@ public class AssemblingMachine extends RecipeMapMultiblockController {
 
     @Override
     public MetaTileEntity createMetaTileEntity(IGregTechTileEntity tileEntity) {
-        return new AssemblingMachine(metaTileEntityId);
+        return new MTeAssemblingMachine(metaTileEntityId);
     }
 }

@@ -20,8 +20,8 @@ import gregtech.api.util.GTUtility;
 
 import lombok.experimental.UtilityClass;
 import tkcy.tktech.api.recipes.properties.IRecipePropertyHelper;
-import tkcy.tktech.api.recipes.properties.ToolProperty;
-import tkcy.tktech.api.recipes.properties.ToolUsesProperty;
+import tkcy.tktech.api.recipes.properties.ToolRecipeProperty;
+import tkcy.tktech.api.recipes.properties.ToolUsesRecipeProperty;
 import tkcy.tktech.api.utils.TkTechLog;
 import tkcy.tktech.modules.toolmodule.ToolsModule;
 import tkcy.tktech.modules.toolmodule.WorkingTool;
@@ -50,9 +50,9 @@ public class RecipeSearchHelpers {
                                             @NotNull List<ItemStack> inputItemStacks,
                                             List<FluidStack> inputFluidStacks) {
         return recipeMap.getRecipeList().stream()
-                .filter(recipe -> recipe.hasProperty(ToolProperty.getInstance()))
-                .filter(recipe -> ToolProperty.getInstance().getValueFromRecipe(recipe).equals(gtTool))
-                .filter(recipe -> recipe.hasProperty(ToolUsesProperty.getInstance()))
+                .filter(recipe -> recipe.hasProperty(ToolRecipeProperty.getInstance()))
+                .filter(recipe -> ToolRecipeProperty.getInstance().getValueFromRecipe(recipe).equals(gtTool))
+                .filter(recipe -> recipe.hasProperty(ToolUsesRecipeProperty.getInstance()))
                 .filter(recipe -> recipe.matches(false, inputItemStacks, inputFluidStacks))
                 .findFirst()
                 .orElse(null);
@@ -140,24 +140,24 @@ public class RecipeSearchHelpers {
         }
 
         for (Recipe recipe : recipeMap.getRecipeList()) {
-            if (!recipe.hasProperty(ToolProperty.getInstance())) {
+            if (!recipe.hasProperty(ToolRecipeProperty.getInstance())) {
                 TkTechLog.logger.info("does not have toolProperty");
                 continue;
             }
 
-            ToolsModule.GtTool tool = ToolProperty.getInstance().getValueFromRecipe(recipe);
+            ToolsModule.GtTool tool = ToolRecipeProperty.getInstance().getValueFromRecipe(recipe);
 
             TkTechLog.logger.info("this recipe has tool " + tool.name());
             TkTechLog.logger.info("expected : " + gtTool);
 
             // if (!tool.equals(gtTool)) continue;
 
-            if (!recipe.hasProperty(ToolUsesProperty.getInstance())) {
+            if (!recipe.hasProperty(ToolUsesRecipeProperty.getInstance())) {
                 TkTechLog.logger.info("does not have toolUseProperty");
                 continue;
             }
 
-            int toolUses = ToolUsesProperty.getInstance().getValueFromRecipe(recipe);
+            int toolUses = ToolUsesRecipeProperty.getInstance().getValueFromRecipe(recipe);
 
             TkTechLog.logger.info("recipeUses : " + toolUses);
             recipe.getOutputs()

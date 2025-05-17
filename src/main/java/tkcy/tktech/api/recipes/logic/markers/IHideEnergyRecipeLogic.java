@@ -1,4 +1,4 @@
-package tkcy.tktech.api.recipes.logic;
+package tkcy.tktech.api.recipes.logic.markers;
 
 import gregtech.api.capability.impl.AbstractRecipeLogic;
 
