@@ -3,20 +3,43 @@ package tkcy.tktech.api.unification.properties;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.github.bsideup.jabel.Desugar;
-
 import gregtech.api.unification.material.Material;
-import gregtech.api.unification.material.properties.IMaterialProperty;
 import gregtech.api.unification.material.properties.MaterialProperties;
 import gregtech.api.unification.material.properties.PropertyKey;
 
-@Desugar
-public record ChemicalStructureProperty(int textureHeight, int textureWidth) implements IMaterialProperty {
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import tkcy.tktech.api.utils.BooleanHelper;
+import tkcy.tktech.api.utils.MaterialPropertiesHelper;
+
+@AllArgsConstructor
+@Getter
+public class ChemicalStructureProperty extends MaterialPropertiesHelper<ChemicalStructureProperty> {
+
+    private int textureHeight, textureWidth;
+
+    private ChemicalStructureProperty() {}
 
     public static final Set<Material> MATERIALS_WITH_CHEMICAL_STRUCTURE = new HashSet<>();
+    public static ChemicalStructureProperty INSTANCE = new ChemicalStructureProperty();
 
     @Override
     public void verifyProperty(MaterialProperties properties) {
-        properties.ensureSet(PropertyKey.CHEMICAL_STRUCTURE, true);
+        if (!BooleanHelper.doesAnyMatch(properties::hasProperty, PropertyKey.DUST, PropertyKey.FLUID)) {
+            throw new IllegalStateException(
+                    "ChemicalStructureProperty requires atleast DUST property or FLUID property!");
+        }
+    }
+
+    @Override
+    public PropertyKey<ChemicalStructureProperty> getPropertyKey() {
+        return TkTechMaterialPropertyKeys.CHEMICAL_STRUCTURE;
+    }
+
+    public static void addChemicalStructureProperty(Material material, int textureHeight, int textureWidth) {
+        material.getProperties().setProperty(
+                TkTechMaterialPropertyKeys.CHEMICAL_STRUCTURE,
+                new ChemicalStructureProperty(textureHeight, textureWidth));
+        ChemicalStructureProperty.MATERIALS_WITH_CHEMICAL_STRUCTURE.add(material);
     }
 }

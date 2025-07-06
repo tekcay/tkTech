@@ -1,5 +1,7 @@
 package tkcy.tktech.api.unification.properties;
 
+import static tkcy.tktech.api.unification.properties.ChemicalStructureProperty.addChemicalStructureProperty;
+
 import gregtech.api.fluids.FluidBuilder;
 import gregtech.api.fluids.store.FluidStorageKeys;
 import gregtech.api.unification.material.Material;
@@ -19,13 +21,7 @@ public class PropertiesAddition {
     }
 
     public static void init() {
+        Materials.Benzene.getProperties().ensureSet(PropertyKey.DUST);
         addChemicalStructureProperty(Materials.Benzene, 46, 40);
-    }
-
-    public static void addChemicalStructureProperty(Material material, int textureHeight, int textureWidth) {
-        material.getProperties().setProperty(
-                TkTechMaterialPropertyKeys.CHEMICAL_STRUCTURE,
-                new ChemicalStructureProperty(textureHeight, textureWidth));
-        ChemicalStructureProperty.MATERIALS_WITH_CHEMICAL_STRUCTURE.add(material);
     }
 }

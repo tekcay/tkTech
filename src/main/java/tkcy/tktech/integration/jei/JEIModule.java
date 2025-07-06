@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 import org.jetbrains.annotations.NotNull;
 
 import gregtech.api.modules.GregTechModule;
-import gregtech.api.unification.material.Materials;
 import gregtech.api.util.Mods;
 import gregtech.integration.IntegrationSubmodule;
 
@@ -37,6 +36,5 @@ public class JEIModule extends IntegrationSubmodule implements IModPlugin {
                 .collect(Collectors.toList());
         String chemicalStructureID = TkTech.MODID + ":" + "chemical_structure_location";
         registry.addRecipes(chemicalStructureInfos, chemicalStructureID);
-        registry.addRecipeCatalyst(Materials.Benzene.getFluid(1), chemicalStructureID);
     }
 }

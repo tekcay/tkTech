@@ -2,15 +2,12 @@ package tkcy.tktech.integration.jei;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.fluids.FluidStack;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import gregtech.api.gui.GuiTextures;
 import gregtech.api.unification.OreDictUnifier;
-import gregtech.api.unification.material.Material;
 import gregtech.api.unification.material.Materials;
 import gregtech.api.unification.ore.OrePrefix;
 import gregtech.integration.jei.basic.BasicRecipeCategory;
@@ -28,15 +25,15 @@ import tkcy.tktech.api.render.ChemicalStructureRenderUtils;
 public class ChemicalStructureCategory extends BasicRecipeCategory<ChemicalStructureInfo, ChemicalStructureInfo> {
 
     private static final int SLOT_CENTER = 79;
-    private static final int TEXT_START_X = 5;
-    private static final int START_POS_Y = 40;
+
+    private final IGuiHelper guiHelper;
 
     protected final IDrawable slot;
     protected final IDrawable icon;
     protected IDrawable chemicalStructure;
-    private String materialName;
-    private Material material;
-    private final IGuiHelper guiHelper;
+
+    private ChemicalStructureInfo info;
+    private final int SLOT_DIM = 18;
 
     public ChemicalStructureCategory(IGuiHelper guiHelper) {
         super("chemical_structure_location",
@@ -45,43 +42,65 @@ public class ChemicalStructureCategory extends BasicRecipeCategory<ChemicalStruc
                 guiHelper);
 
         this.guiHelper = guiHelper;
-
         this.icon = guiHelper.createDrawableIngredient(OreDictUnifier.get(OrePrefix.ingot, Materials.Copper));
         this.slot = guiHelper
-                .drawableBuilder(GuiTextures.SLOT.imageLocation, 0, 0, 18, 18)
-                .setTextureSize(18, 18)
+                .drawableBuilder(GuiTextures.SLOT.imageLocation, 0, 0, SLOT_DIM, SLOT_DIM)
+                .setTextureSize(SLOT_DIM, SLOT_DIM)
                 .build();
+    }
+
+    @NotNull
+    @Override
+    public IRecipeWrapper getRecipeWrapper(@NotNull ChemicalStructureInfo recipeWrapper) {
+        return recipeWrapper;
     }
 
     @Override
     public void setRecipe(@NotNull IRecipeLayout recipeLayout, @NotNull ChemicalStructureInfo recipeWrapper,
                           @NotNull IIngredients ingredients) {
-        this.material = recipeWrapper.getMaterial();
-        this.materialName = recipeWrapper.getMaterial().getLocalizedName();
-        ItemStack dust = recipeWrapper.getDust();
+        this.info = recipeWrapper;
 
-        int yPosition = 19;
+        int yPosition = 9;
+        int xPosition = SLOT_CENTER;
+        int slotIndex = 0;
 
-        if (dust != null) {
+        if (recipeWrapper.isHasDust()) {
             IGuiItemStackGroup itemStackGroup = recipeLayout.getItemStacks();
-            itemStackGroup.init(0, true, SLOT_CENTER, yPosition);
-            itemStackGroup.set(0, dust);
-            yPosition += 19;
+            itemStackGroup.init(slotIndex, true, xPosition, yPosition);
+            itemStackGroup.set(slotIndex, recipeWrapper.getDust());
+            xPosition += SLOT_DIM * 2;
+            slotIndex++;
         }
 
-        FluidStack fluidStack = recipeWrapper.getFluidStack();
-        if (fluidStack != null) {
+        if (recipeWrapper.isHasFluid()) {
             IGuiFluidStackGroup fluidStackGroup = recipeLayout.getFluidStacks();
-            // fluidStackGroup.init(0, true, SLOT_CENTER, 9, 16, 16, 1, false, null);
-            fluidStackGroup.init(0, true, SLOT_CENTER, yPosition);
-            fluidStackGroup.set(0, recipeWrapper.getFluidStack());
+            fluidStackGroup.init(slotIndex, true, xPosition, yPosition);
+            fluidStackGroup.set(slotIndex, recipeWrapper.getFluidStack());
         }
     }
 
-    @NotNull
     @Override
-    public IRecipeWrapper getRecipeWrapper(@NotNull ChemicalStructureInfo recipe) {
-        return recipe;
+    public void drawExtras(@NotNull Minecraft minecraft) {
+        int xPosition = SLOT_CENTER;
+        int yOffset = 8;
+
+        if (Boolean.logicalXor(this.info.isHasFluid(), this.info.isHasDust())) {
+            slot.draw(minecraft, xPosition, yOffset);
+        } else {
+            slot.draw(minecraft, xPosition, yOffset);
+            slot.draw(minecraft, xPosition + SLOT_DIM * 2 - 1, yOffset);
+        }
+
+        int width = this.info.getChemicalStructureWidth();
+        int height = this.info.getChemicalStructureHeight();
+
+        this.chemicalStructure = guiHelper
+                .drawableBuilder(ChemicalStructureRenderUtils.getMoleculeTexture(this.info.getMaterial()).imageLocation,
+                        0, 0, width, height)
+                .setTextureSize(width, height)
+                .build();
+
+        chemicalStructure.draw(minecraft, SLOT_CENTER, 30);
     }
 
     @Nullable
@@ -94,22 +113,6 @@ public class ChemicalStructureCategory extends BasicRecipeCategory<ChemicalStruc
     @Override
     public String getTitle() {
         return I18n.format("tktech.category.chemstructure.title");
-    }
-
-    @Override
-    public void drawExtras(@NotNull Minecraft minecraft) {
-        // GTStringUtils.drawCenteredStringWithCutoff(materialName, minecraft.fontRenderer, 176);
-        slot.draw(minecraft, SLOT_CENTER, 19);
-        slot.draw(minecraft, SLOT_CENTER, 38);
-        // chemicalStructure.draw(minecraft, SLOT_CENTER, 60);
-
-        this.chemicalStructure = guiHelper
-                .drawableBuilder(ChemicalStructureRenderUtils.getMoleculeTexture(this.material).imageLocation, 0, 0, 40,
-                        40)
-                .setTextureSize(40, 40)
-                .build();
-
-        chemicalStructure.draw(minecraft, SLOT_CENTER, 60);
     }
 
     @NotNull
