@@ -34,6 +34,8 @@ public class ChemicalStructureCategory extends BasicRecipeCategory<ChemicalStruc
 
     private ChemicalStructureInfo info;
     private final int SLOT_DIM = 18;
+    private final int ingredientsYoffset = 20;
+    private final int ingredientsXoffset = 20;
 
     public ChemicalStructureCategory(IGuiHelper guiHelper) {
         super("chemical_structure_location",
@@ -60,47 +62,48 @@ public class ChemicalStructureCategory extends BasicRecipeCategory<ChemicalStruc
                           @NotNull IIngredients ingredients) {
         this.info = recipeWrapper;
 
-        int yPosition = 9;
-        int xPosition = SLOT_CENTER;
+        int xPosition = ingredientsXoffset;
         int slotIndex = 0;
 
         if (recipeWrapper.isHasDust()) {
             IGuiItemStackGroup itemStackGroup = recipeLayout.getItemStacks();
-            itemStackGroup.init(slotIndex, true, xPosition, yPosition);
-            itemStackGroup.set(slotIndex, recipeWrapper.getDust());
-            xPosition += SLOT_DIM * 2;
+            itemStackGroup.init(slotIndex, true, xPosition, ingredientsYoffset);
+            itemStackGroup.set(slotIndex, recipeWrapper.getDusts());
+            xPosition += SLOT_DIM;
             slotIndex++;
         }
 
         if (recipeWrapper.isHasFluid()) {
             IGuiFluidStackGroup fluidStackGroup = recipeLayout.getFluidStacks();
-            fluidStackGroup.init(slotIndex, true, xPosition, yPosition);
+            fluidStackGroup.init(slotIndex, true, xPosition, ingredientsYoffset);
             fluidStackGroup.set(slotIndex, recipeWrapper.getFluidStack());
         }
     }
 
     @Override
     public void drawExtras(@NotNull Minecraft minecraft) {
-        int xPosition = SLOT_CENTER;
-        int yOffset = 8;
+        int xPosition = ingredientsXoffset;
+        int yOffset = ingredientsYoffset - 1;
 
-        if (Boolean.logicalXor(this.info.isHasFluid(), this.info.isHasDust())) {
+        if (info.isHasDust()) {
             slot.draw(minecraft, xPosition, yOffset);
-        } else {
-            slot.draw(minecraft, xPosition, yOffset);
-            slot.draw(minecraft, xPosition + SLOT_DIM * 2 - 1, yOffset);
+            xPosition += SLOT_DIM - 1;
         }
 
-        int width = this.info.getChemicalStructureWidth();
-        int height = this.info.getChemicalStructureHeight();
+        if (info.isHasFluid()) {
+            slot.draw(minecraft, xPosition, yOffset);
+        }
+
+        int width = info.getChemicalStructureWidth();
+        int height = info.getChemicalStructureHeight();
 
         this.chemicalStructure = guiHelper
-                .drawableBuilder(ChemicalStructureRenderUtils.getMoleculeTexture(this.info.getMaterial()).imageLocation,
+                .drawableBuilder(ChemicalStructureRenderUtils.getMoleculeTexture(info.getMaterial()).imageLocation,
                         0, 0, width, height)
                 .setTextureSize(width, height)
                 .build();
 
-        chemicalStructure.draw(minecraft, SLOT_CENTER, 30);
+        chemicalStructure.draw(minecraft, 20, yOffset + SLOT_DIM * 2 + 1);
     }
 
     @Nullable

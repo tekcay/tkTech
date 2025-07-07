@@ -1,5 +1,8 @@
 package tkcy.tktech.integration.jei;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
@@ -22,7 +25,7 @@ import tkcy.tktech.api.unification.properties.TkTechMaterialPropertyKeys;
 public class ChemicalStructureInfo implements IRecipeWrapper {
 
     private final Material material;
-    private ItemStack dust;
+    private final List<ItemStack> dusts = new ArrayList<>();
     private FluidStack fluidStack;
 
     private boolean hasFluid = false;
@@ -49,16 +52,18 @@ public class ChemicalStructureInfo implements IRecipeWrapper {
 
         if (material.hasProperty(PropertyKey.DUST)) {
             this.hasDust = true;
-            this.dust = OreDictUnifier.get(OrePrefix.dust, material);
+            this.dusts.add(OreDictUnifier.get(OrePrefix.dust, material));
+            this.dusts.add(OreDictUnifier.get(OrePrefix.dustSmall, material));
+            this.dusts.add(OreDictUnifier.get(OrePrefix.dustTiny, material));
         }
     }
 
     @Override
     public void getIngredients(@NotNull IIngredients ingredients) {
-        if (dust != null) {
-            ingredients.setOutput(VanillaTypes.ITEM, dust);
+        if (hasDust) {
+            ingredients.setOutputs(VanillaTypes.ITEM, dusts);
         }
-        if (fluidStack != null) {
+        if (hasFluid) {
             ingredients.setOutput(VanillaTypes.FLUID, fluidStack);
         }
     }
