@@ -1,6 +1,6 @@
 package tkcy.tktech.api.recipes.builders;
 
-import java.util.Arrays;
+import java.util.*;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -23,6 +23,7 @@ import gregtech.api.util.ValidationResult;
 import lombok.NoArgsConstructor;
 import tkcy.tktech.api.recipes.properties.*;
 import tkcy.tktech.api.utils.BlockStateHelper;
+import tkcy.tktech.api.utils.BooleanHelper;
 import tkcy.tktech.modules.toolmodule.ToolsModule;
 
 @NoArgsConstructor
@@ -32,6 +33,8 @@ public class AdvancedRecipeBuilder extends RecipeBuilder<AdvancedRecipeBuilder> 
     protected boolean useAndDisplayEnergy = true;
     protected boolean hasInputsChemicalStructures = false;
     protected boolean hasOutputsChemicalStructures = false;
+    protected final Set<Material> inputMaterialsChemStructure = new HashSet<>();
+    protected final Set<Material> outputMaterialsChemStructure = new HashSet<>();
 
     @SuppressWarnings("unused")
     public AdvancedRecipeBuilder(Recipe recipe, RecipeMap<AdvancedRecipeBuilder> recipeMap) {
@@ -153,39 +156,27 @@ public class AdvancedRecipeBuilder extends RecipeBuilder<AdvancedRecipeBuilder> 
         return this;
     }
 
-    /**
-     * Can only be called ONCE!
-     */
-    public AdvancedRecipeBuilder inputsChemicalStructures(Material... materials) {
-        if (hasInputsChemicalStructures)
-            throw new IllegalStateException("Chemical structures have already been registered for inputs!");
-        chemicalStructures(true, materials);
-        hasInputsChemicalStructures = true;
-        return this;
-    }
-
-    /**
-     * Can only be called ONCE!
-     */
-    public AdvancedRecipeBuilder outputsChemicalStructures(Material... materials) {
-        if (hasOutputsChemicalStructures)
-            throw new IllegalStateException("Chemical structures have already been registered for outputs!");
-        chemicalStructures(false, materials);
-        hasOutputsChemicalStructures = true;
-        return this;
-    }
-
-    private AdvancedRecipeBuilder chemicalStructures(boolean isInput, Material[] materials) {
-        ChemicalStructuresRecipeProperty recipeProperty = ChemicalStructuresRecipeProperty.getInstance();
-        recipeProperty.testAndApplyPropertyValue(
-                new ChemicalStructuresRecipeProperty.Container(isInput, Arrays.asList(materials)),
-                this.recipeStatus,
-                this);
+    public AdvancedRecipeBuilder chemicalStructures(boolean isInput, Material... materials) {
+        if (isInput) {
+            inputMaterialsChemStructure.addAll(Arrays.asList(materials));
+        } else {
+            outputMaterialsChemStructure.addAll(Arrays.asList(materials));
+        }
         return this;
     }
 
     @Override
     public ValidationResult<Recipe> build() {
+        if (BooleanHelper.doesAnyNotMatch(Set::isEmpty, inputMaterialsChemStructure, outputMaterialsChemStructure)) {
+
+            ChemicalStructuresRecipeProperty recipeProperty = ChemicalStructuresRecipeProperty.getInstance();
+            recipeProperty.testAndApplyPropertyValue(
+                    new ChemicalStructuresRecipeProperty.Container(inputMaterialsChemStructure,
+                            outputMaterialsChemStructure),
+                    recipeStatus,
+                    this);
+        }
+
         if (this.hideDuration) {
             this.duration(10);
             applyProperty(HideDurationRecipeProperty.getInstance(), true);

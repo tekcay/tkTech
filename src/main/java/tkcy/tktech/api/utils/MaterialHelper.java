@@ -1,11 +1,10 @@
 package tkcy.tktech.api.utils;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
@@ -176,7 +175,7 @@ public class MaterialHelper {
         return new NBTTagString(material.getRegistryName());
     }
 
-    public static NBTTagList serializeMaterials(@NotNull List<Material> materials) {
+    public static NBTTagList serializeMaterials(@NotNull Collection<Material> materials) {
         NBTTagList tagList = new NBTTagList();
         materials.stream()
                 .map(Material::getRegistryName)
@@ -195,10 +194,17 @@ public class MaterialHelper {
     }
 
     public static List<Material> deserializeMaterials(NBTTagList nbtTagList) {
+        return deserializeMaterialsAsStream(nbtTagList).collect(Collectors.toList());
+    }
+
+    public static Set<Material> deserializeMaterialsToSet(NBTTagList nbtTagList) {
+        return deserializeMaterialsAsStream(nbtTagList).collect(Collectors.toSet());
+    }
+
+    private static Stream<Material> deserializeMaterialsAsStream(NBTTagList nbtTagList) {
         return nbtTagList.tagList.stream()
                 .map(nbtBase -> (NBTTagString) nbtBase)
                 .map(NBTTagString::getString)
-                .map(GregTechAPI.materialManager::getMaterial)
-                .collect(Collectors.toList());
+                .map(GregTechAPI.materialManager::getMaterial);
     }
 }

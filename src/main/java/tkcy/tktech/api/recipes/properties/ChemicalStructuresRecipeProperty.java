@@ -1,9 +1,10 @@
 package tkcy.tktech.api.recipes.properties;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.function.Predicate;
 
+import com.github.bsideup.jabel.Desugar;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
@@ -11,6 +12,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.common.util.Constants;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import gregtech.api.recipes.properties.RecipeProperty;
 import gregtech.api.unification.material.Material;
@@ -23,8 +25,8 @@ public class ChemicalStructuresRecipeProperty extends RecipeProperty<ChemicalStr
                                               implements
                                               IRecipePropertyHelper<ChemicalStructuresRecipeProperty.Container> {
 
-    private static final String isInputNbtKey = "isInput";
-    private static final String materialsNbtKey = "materials";
+    private static final String outputMaterialsNbtKey = "inputMaterials";
+    private static final String inputMaterialsNbtKey = "outputMaterials";
 
     public static final String KEY = RecipePropertiesKey.CHEMICAL_STRUCTURE_KEY;
     private static ChemicalStructuresRecipeProperty INSTANCE;
@@ -41,27 +43,34 @@ public class ChemicalStructuresRecipeProperty extends RecipeProperty<ChemicalStr
         super(KEY, Container.class);
     }
 
-    public record Container(boolean isInput, List<Material> materials) {}
+    @Desugar
+    public record Container(Set<Material> inputMaterials, Set<Material> outputMaterials) {}
 
     @Override
     public @NotNull NBTBase serialize(@NotNull Object value) {
         Container recipeProperty = castValue(value);
         NBTTagCompound nbtTagCompound = new NBTTagCompound();
-        nbtTagCompound.setBoolean(isInputNbtKey, recipeProperty.isInput);
-        NBTTagList nbtTagList = MaterialHelper.serializeMaterials(recipeProperty.materials);
-        nbtTagCompound.setTag(materialsNbtKey, nbtTagList);
+
+        NBTTagList inputNbtTagList = MaterialHelper.serializeMaterials(recipeProperty.inputMaterials());
+        nbtTagCompound.setTag(inputMaterialsNbtKey, inputNbtTagList);
+
+        NBTTagList outputNbtTagList = MaterialHelper.serializeMaterials(recipeProperty.outputMaterials);
+        nbtTagCompound.setTag(outputMaterialsNbtKey, outputNbtTagList);
+
         return nbtTagCompound;
     }
 
     @Override
     public @NotNull Object deserialize(@NotNull NBTBase nbt) {
         NBTTagCompound nbtTagCompound = (NBTTagCompound) nbt;
-        boolean isInput = nbtTagCompound.getBoolean(isInputNbtKey);
 
-        NBTTagList materialsTag = nbtTagCompound.getTagList(materialsNbtKey, Constants.NBT.TAG_LIST);
-        List<Material> materials = MaterialHelper.deserializeMaterials(materialsTag);
+        NBTTagList inputMaterialsTag = nbtTagCompound.getTagList(inputMaterialsNbtKey, Constants.NBT.TAG_LIST);
+        Set<Material> inputMaterials = MaterialHelper.deserializeMaterialsToSet(inputMaterialsTag);
 
-        return new Container(isInput, materials);
+        NBTTagList outputMaterialsTag = nbtTagCompound.getTagList(outputMaterialsNbtKey, Constants.NBT.TAG_LIST);
+        Set<Material> outputMaterials = MaterialHelper.deserializeMaterialsToSet(outputMaterialsTag);
+
+        return new Container(inputMaterials, outputMaterials);
     }
 
     @Override
@@ -69,21 +78,22 @@ public class ChemicalStructuresRecipeProperty extends RecipeProperty<ChemicalStr
 
     @Override
     public Predicate<Container> testSuppliedValue() {
-        return container -> {
-            if (container.materials.isEmpty()) return false;
+        return container -> testMaterials(container.inputMaterials) && testMaterials(container.outputMaterials());
+    }
 
-            for (Material material : container.materials) {
-                if (material == null || !material.hasProperty(TkTechMaterialPropertyKeys.CHEMICAL_STRUCTURE)) {
-                    return false;
-                }
+    private boolean testMaterials(@Nullable Set<Material> materials) {
+        if (materials == null) return false;
+        for (Material material : materials) {
+            if (material == null || !material.hasProperty(TkTechMaterialPropertyKeys.CHEMICAL_STRUCTURE)) {
+                return false;
             }
-            return true;
-        };
+        }
+        return true;
     }
 
     @Override
     public Container getDefaultValue() {
-        return new Container(true, new ArrayList<>());
+        return new Container(new HashSet<>(), new HashSet<>());
     }
 
     @Override

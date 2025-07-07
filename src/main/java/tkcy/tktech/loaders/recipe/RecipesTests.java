@@ -35,5 +35,13 @@ public class RecipesTests {
                 .EUt(20)
                 .duration(400, 0.5f)
                 .buildAndRegister();
+
+        TkTechRecipeMaps.CHEMICAL_BENCH_RECIPES.recipeBuilder()
+                .fluidInputs(Materials.Benzene.getFluid(100))
+                .fluidOutputs(Materials.Toluene.getFluid(100))
+                .chemicalStructures(true, Materials.Benzene, Materials.Toluene)
+                .EUt(20)
+                .duration(400, 0.5f)
+                .buildAndRegister();
     }
 }

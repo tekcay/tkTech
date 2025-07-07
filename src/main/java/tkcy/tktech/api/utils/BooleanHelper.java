@@ -17,6 +17,12 @@ public class BooleanHelper {
     }
 
     @SafeVarargs
+    public static <T> boolean doesAnyNotMatch(Predicate<T> predicate, T... toCompareWith) {
+        return Arrays.stream(toCompareWith)
+                .anyMatch(predicate.negate());
+    }
+
+    @SafeVarargs
     public static <T> boolean doesAnyMatch(T base, T... toCompareWith) {
         return Arrays.stream(toCompareWith)
                 .anyMatch(toCompare -> toCompare == base);
