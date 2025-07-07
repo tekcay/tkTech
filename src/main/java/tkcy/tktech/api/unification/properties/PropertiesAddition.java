@@ -23,5 +23,6 @@ public class PropertiesAddition {
     public static void init() {
         Materials.Benzene.getProperties().ensureSet(PropertyKey.DUST);
         addChemicalStructureProperty(Materials.Benzene, 46, 40);
+        addChemicalStructureProperty(Materials.Toluene, 70, 41);
     }
 }

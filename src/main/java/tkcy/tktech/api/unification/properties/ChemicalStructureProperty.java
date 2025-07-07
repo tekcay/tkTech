@@ -7,11 +7,16 @@ import gregtech.api.unification.material.Material;
 import gregtech.api.unification.material.properties.MaterialProperties;
 import gregtech.api.unification.material.properties.PropertyKey;
 
+import crafttweaker.annotations.ZenRegister;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import stanhebben.zenscript.annotations.ZenClass;
+import stanhebben.zenscript.annotations.ZenMethod;
 import tkcy.tktech.api.utils.BooleanHelper;
 import tkcy.tktech.api.utils.MaterialPropertiesHelper;
 
+@ZenClass("mods.tktech.api.unification.properties.ChemicalStructureProperty")
+@ZenRegister
 @AllArgsConstructor
 @Getter
 public class ChemicalStructureProperty extends MaterialPropertiesHelper<ChemicalStructureProperty> {
@@ -36,6 +41,7 @@ public class ChemicalStructureProperty extends MaterialPropertiesHelper<Chemical
         return TkTechMaterialPropertyKeys.CHEMICAL_STRUCTURE;
     }
 
+    @ZenMethod
     public static void addChemicalStructureProperty(Material material, int textureHeight, int textureWidth) {
         material.getProperties().setProperty(
                 TkTechMaterialPropertyKeys.CHEMICAL_STRUCTURE,
