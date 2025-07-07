@@ -1,5 +1,7 @@
 package tkcy.tktech.api.recipes.builders;
 
+import java.util.Arrays;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.Item;
@@ -28,6 +30,8 @@ public class AdvancedRecipeBuilder extends RecipeBuilder<AdvancedRecipeBuilder> 
 
     protected boolean hideDuration = false;
     protected boolean useAndDisplayEnergy = true;
+    protected boolean hasInputsChemicalStructures = false;
+    protected boolean hasOutputsChemicalStructures = false;
 
     @SuppressWarnings("unused")
     public AdvancedRecipeBuilder(Recipe recipe, RecipeMap<AdvancedRecipeBuilder> recipeMap) {
@@ -146,6 +150,37 @@ public class AdvancedRecipeBuilder extends RecipeBuilder<AdvancedRecipeBuilder> 
         duration(duration);
         DurationModifierRecipeProperty recipeProperty = DurationModifierRecipeProperty.getInstance();
         recipeProperty.testAndApplyPropertyValue(recipeDurationRate, this.recipeStatus, this);
+        return this;
+    }
+
+    /**
+     * Can only be called ONCE!
+     */
+    public AdvancedRecipeBuilder inputsChemicalStructures(Material... materials) {
+        if (hasInputsChemicalStructures)
+            throw new IllegalStateException("Chemical structures have already been registered for inputs!");
+        chemicalStructures(true, materials);
+        hasInputsChemicalStructures = true;
+        return this;
+    }
+
+    /**
+     * Can only be called ONCE!
+     */
+    public AdvancedRecipeBuilder outputsChemicalStructures(Material... materials) {
+        if (hasOutputsChemicalStructures)
+            throw new IllegalStateException("Chemical structures have already been registered for outputs!");
+        chemicalStructures(false, materials);
+        hasOutputsChemicalStructures = true;
+        return this;
+    }
+
+    private AdvancedRecipeBuilder chemicalStructures(boolean isInput, Material[] materials) {
+        ChemicalStructuresRecipeProperty recipeProperty = ChemicalStructuresRecipeProperty.getInstance();
+        recipeProperty.testAndApplyPropertyValue(
+                new ChemicalStructuresRecipeProperty.Container(isInput, Arrays.asList(materials)),
+                this.recipeStatus,
+                this);
         return this;
     }
 
