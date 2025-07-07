@@ -43,7 +43,7 @@ public class ChemicalStructureInfo implements IRecipeWrapper {
         this.material = material;
         ChemicalStructureProperty property = ChemicalStructureProperty.INSTANCE.getProperty(material);
         this.chemicalStructureHeight = property.getTextureHeight();
-        this.chemicalStructureWidth = property.getTextureHeight();
+        this.chemicalStructureWidth = property.getTextureWidth();
 
         if (material.hasFluid()) {
             this.hasFluid = true;

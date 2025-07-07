@@ -94,8 +94,9 @@ public class ChemicalStructureCategory extends BasicRecipeCategory<ChemicalStruc
             slot.draw(minecraft, xPosition, yOffset);
         }
 
-        int width = info.getChemicalStructureWidth();
-        int height = info.getChemicalStructureHeight();
+        //To avoid auto-supersizing textures
+        int width = info.getChemicalStructureWidth() / 2;
+        int height = info.getChemicalStructureHeight() / 2;
 
         this.chemicalStructure = guiHelper
                 .drawableBuilder(ChemicalStructureRenderUtils.getMoleculeTexture(info.getMaterial()).imageLocation,
