@@ -6,12 +6,14 @@ import java.util.stream.Collectors;
 import org.jetbrains.annotations.NotNull;
 
 import gregtech.api.modules.GregTechModule;
+import gregtech.api.recipes.category.GTRecipeCategory;
 import gregtech.api.util.Mods;
 import gregtech.integration.IntegrationSubmodule;
 
 import mezz.jei.api.*;
 import mezz.jei.api.recipe.IRecipeCategoryRegistration;
 import tkcy.tktech.TkTech;
+import tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps;
 import tkcy.tktech.api.unification.properties.ChemicalStructureProperty;
 import tkcy.tktech.modules.TkTechModules;
 
@@ -26,6 +28,11 @@ public class JEIModule extends IntegrationSubmodule implements IModPlugin {
     @Override
     public void registerCategories(@NotNull IRecipeCategoryRegistration registry) {
         registry.addRecipeCategories(new ChemicalStructureCategory(registry.getJeiHelpers().getGuiHelper()));
+
+        for (GTRecipeCategory category : TkTechRecipeMaps.CHEMICAL_BENCH_RECIPES.getRecipesByCategory().keySet()) {
+            registry.addRecipeCategories(new ChemicalStructureRecipeCategory(TkTechRecipeMaps.CHEMICAL_BENCH_RECIPES,
+                    category, registry.getJeiHelpers().getGuiHelper()));
+        }
     }
 
     @Override

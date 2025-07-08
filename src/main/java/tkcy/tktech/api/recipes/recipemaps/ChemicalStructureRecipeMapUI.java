@@ -1,14 +1,8 @@
 package tkcy.tktech.api.recipes.recipemaps;
 
-import net.minecraftforge.items.IItemHandlerModifiable;
-
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 
-import gregtech.api.capability.impl.FluidTankList;
-import gregtech.api.gui.GuiTextures;
-import gregtech.api.gui.ModularUI;
-import gregtech.api.gui.widgets.ProgressWidget;
 import gregtech.api.recipes.RecipeMap;
 import gregtech.api.recipes.ui.RecipeMapUI;
 
@@ -24,15 +18,16 @@ public class ChemicalStructureRecipeMapUI<R extends RecipeMap<?>> extends Recipe
         super(recipeMap, false, false, false, false, false);
     }
 
-    @Override
-    @NotNull
-    public ModularUI.Builder createJeiUITemplate(IItemHandlerModifiable importItems, IItemHandlerModifiable exportItems,
-                                                 FluidTankList importFluids, FluidTankList exportFluids, int yOffset) {
-        ModularUI.Builder builder = ModularUI.builder(GuiTextures.BACKGROUND, 500, backgroundHeight)
-                .widget(new ProgressWidget(200, 70, 19, 36, 18, GuiTextures.PROGRESS_BAR_ARROW,
-                        ProgressWidget.MoveType.HORIZONTAL));
-        this.addInventorySlotGroup(builder, importItems, importFluids, false, yOffset);
-        this.addInventorySlotGroup(builder, exportItems, exportFluids, true, yOffset);
-        return builder;
-    }
+    // @Override
+    // @NotNull
+    // public ModularUI.Builder createJeiUITemplate(IItemHandlerModifiable importItems, IItemHandlerModifiable
+    // exportItems,
+    // FluidTankList importFluids, FluidTankList exportFluids, int yOffset) {
+    // ModularUI.Builder builder = ModularUI.builder(GuiTextures.BACKGROUND, 176, backgroundHeight);
+    // builder.widget(new RecipeProgressWidget(200, 78, 23 + yOffset, 20, 20, progressBarTexture(),
+    // progressBarMoveType(), recipeMap()));
+    // this.addInventorySlotGroup(builder, importItems, importFluids, false, yOffset);
+    // this.addInventorySlotGroup(builder, exportItems, exportFluids, true, yOffset);
+    // return builder;
+    // }
 }

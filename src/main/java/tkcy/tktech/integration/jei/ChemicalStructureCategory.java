@@ -1,5 +1,7 @@
 package tkcy.tktech.integration.jei;
 
+import static tkcy.tktech.api.utils.GuiUtils.SLOT_DIM;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 
@@ -24,8 +26,6 @@ import tkcy.tktech.api.render.ChemicalStructureRenderUtils;
 
 public class ChemicalStructureCategory extends BasicRecipeCategory<ChemicalStructureInfo, ChemicalStructureInfo> {
 
-    private static final int SLOT_CENTER = 79;
-
     private final IGuiHelper guiHelper;
 
     protected final IDrawable slot;
@@ -33,7 +33,6 @@ public class ChemicalStructureCategory extends BasicRecipeCategory<ChemicalStruc
     protected IDrawable chemicalStructure;
 
     private ChemicalStructureInfo info;
-    private final int SLOT_DIM = 18;
     private final int ingredientsYoffset = 20;
     private final int ingredientsXoffset = 20;
 
@@ -94,7 +93,7 @@ public class ChemicalStructureCategory extends BasicRecipeCategory<ChemicalStruc
             slot.draw(minecraft, xPosition, yOffset);
         }
 
-        //To avoid auto-supersizing textures
+        // To avoid auto-supersizing textures
         int width = info.getChemicalStructureWidth() / 2;
         int height = info.getChemicalStructureHeight() / 2;
 
