@@ -4,7 +4,6 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Predicate;
 
-import com.github.bsideup.jabel.Desugar;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
@@ -17,6 +16,9 @@ import org.jetbrains.annotations.Nullable;
 import gregtech.api.recipes.properties.RecipeProperty;
 import gregtech.api.unification.material.Material;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import tkcy.tktech.api.recipes.recipemaps.IChemStructureToMaterials;
 import tkcy.tktech.api.unification.properties.TkTechMaterialPropertyKeys;
 import tkcy.tktech.api.utils.MaterialHelper;
 import tkcy.tktech.modules.RecipePropertiesKey;
@@ -43,18 +45,24 @@ public class ChemicalStructuresRecipeProperty extends RecipeProperty<ChemicalStr
         super(KEY, Container.class);
     }
 
-    @Desugar
-    public record Container(Set<Material> inputMaterials, Set<Material> outputMaterials) {}
+    @Getter
+    @AllArgsConstructor
+    public static class Container implements IChemStructureToMaterials {
+
+        private Set<Material> inputMaterialsChemStructure;
+        private Set<Material> outputMaterialsChemStructure;
+    }
 
     @Override
     public @NotNull NBTBase serialize(@NotNull Object value) {
         Container recipeProperty = castValue(value);
         NBTTagCompound nbtTagCompound = new NBTTagCompound();
 
-        NBTTagList inputNbtTagList = MaterialHelper.serializeMaterials(recipeProperty.inputMaterials());
+        NBTTagList inputNbtTagList = MaterialHelper.serializeMaterials(recipeProperty.getInputMaterialsChemStructure());
         nbtTagCompound.setTag(inputMaterialsNbtKey, inputNbtTagList);
 
-        NBTTagList outputNbtTagList = MaterialHelper.serializeMaterials(recipeProperty.outputMaterials);
+        NBTTagList outputNbtTagList = MaterialHelper
+                .serializeMaterials(recipeProperty.getOutputMaterialsChemStructure());
         nbtTagCompound.setTag(outputMaterialsNbtKey, outputNbtTagList);
 
         return nbtTagCompound;
@@ -78,7 +86,8 @@ public class ChemicalStructuresRecipeProperty extends RecipeProperty<ChemicalStr
 
     @Override
     public Predicate<Container> testSuppliedValue() {
-        return container -> testMaterials(container.inputMaterials) && testMaterials(container.outputMaterials());
+        return container -> testMaterials(container.getInputMaterialsChemStructure()) &&
+                testMaterials(container.getOutputMaterialsChemStructure());
     }
 
     private boolean testMaterials(@Nullable Set<Material> materials) {
