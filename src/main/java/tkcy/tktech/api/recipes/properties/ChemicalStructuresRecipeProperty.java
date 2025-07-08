@@ -1,8 +1,8 @@
 package tkcy.tktech.api.recipes.properties;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 import java.util.function.Predicate;
 
 import net.minecraft.client.Minecraft;
@@ -51,8 +51,8 @@ public class ChemicalStructuresRecipeProperty extends RecipeProperty<ChemicalStr
     @AllArgsConstructor
     public static class Container implements IChemStructureToMaterials {
 
-        private Set<Material> inputMaterialsChemStructure;
-        private Set<Material> outputMaterialsChemStructure;
+        private List<Material> inputMaterialsChemStructure;
+        private List<Material> outputMaterialsChemStructure;
 
         public boolean isValid() {
             return BooleanHelper.doesAnyNotMatch(Collection::isEmpty, inputMaterialsChemStructure,
@@ -80,10 +80,10 @@ public class ChemicalStructuresRecipeProperty extends RecipeProperty<ChemicalStr
         NBTTagCompound nbtTagCompound = (NBTTagCompound) nbt;
 
         NBTTagList inputMaterialsTag = nbtTagCompound.getTagList(inputMaterialsNbtKey, Constants.NBT.TAG_LIST);
-        Set<Material> inputMaterials = MaterialHelper.deserializeMaterialsToSet(inputMaterialsTag);
+        List<Material> inputMaterials = MaterialHelper.deserializeMaterials(inputMaterialsTag);
 
         NBTTagList outputMaterialsTag = nbtTagCompound.getTagList(outputMaterialsNbtKey, Constants.NBT.TAG_LIST);
-        Set<Material> outputMaterials = MaterialHelper.deserializeMaterialsToSet(outputMaterialsTag);
+        List<Material> outputMaterials = MaterialHelper.deserializeMaterials(outputMaterialsTag);
 
         return new Container(inputMaterials, outputMaterials);
     }
@@ -97,7 +97,7 @@ public class ChemicalStructuresRecipeProperty extends RecipeProperty<ChemicalStr
                 testMaterials(container.getOutputMaterialsChemStructure());
     }
 
-    private boolean testMaterials(@Nullable Set<Material> materials) {
+    private boolean testMaterials(@Nullable List<Material> materials) {
         if (materials == null) return false;
         for (Material material : materials) {
             if (material == null || !material.hasProperty(TkTechMaterialPropertyKeys.CHEMICAL_STRUCTURE)) {
@@ -109,7 +109,7 @@ public class ChemicalStructuresRecipeProperty extends RecipeProperty<ChemicalStr
 
     @Override
     public Container getDefaultValue() {
-        return new Container(new HashSet<>(), new HashSet<>());
+        return new Container(new ArrayList<>(), new ArrayList<>());
     }
 
     @Override

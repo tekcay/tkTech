@@ -34,9 +34,9 @@ public class AdvancedRecipeBuilder extends RecipeBuilder<AdvancedRecipeBuilder> 
     protected boolean hideDuration = false;
     protected boolean useAndDisplayEnergy = true;
     @Getter
-    protected final Set<Material> inputMaterialsChemStructure = new HashSet<>();
+    protected final List<Material> inputMaterialsChemStructure = new ArrayList<>();
     @Getter
-    protected final Set<Material> outputMaterialsChemStructure = new HashSet<>();
+    protected final List<Material> outputMaterialsChemStructure = new ArrayList<>();
 
     @SuppressWarnings("unused")
     public AdvancedRecipeBuilder(Recipe recipe, RecipeMap<AdvancedRecipeBuilder> recipeMap) {
@@ -145,7 +145,7 @@ public class AdvancedRecipeBuilder extends RecipeBuilder<AdvancedRecipeBuilder> 
     }
 
     /**
-     * Set the recipe {@link #duration}.
+     * List the recipe {@link #duration}.
      * 
      * @param duration
      * @param recipeDurationRate a value that can modify the recipe duration at
@@ -169,11 +169,12 @@ public class AdvancedRecipeBuilder extends RecipeBuilder<AdvancedRecipeBuilder> 
 
     @Override
     public ValidationResult<Recipe> build() {
-        if (BooleanHelper.doesAnyNotMatch(Set::isEmpty, inputMaterialsChemStructure, outputMaterialsChemStructure)) {
+        if (BooleanHelper.doesAnyNotMatch(List::isEmpty, inputMaterialsChemStructure, outputMaterialsChemStructure)) {
 
             ChemicalStructuresRecipeProperty recipeProperty = ChemicalStructuresRecipeProperty.getInstance();
             recipeProperty.testAndApplyPropertyValue(
-                    new ChemicalStructuresRecipeProperty.Container(inputMaterialsChemStructure,
+                    new ChemicalStructuresRecipeProperty.Container(
+                            inputMaterialsChemStructure,
                             outputMaterialsChemStructure),
                     recipeStatus,
                     this);
