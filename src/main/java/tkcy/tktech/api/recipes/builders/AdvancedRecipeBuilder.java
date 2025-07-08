@@ -20,20 +20,22 @@ import gregtech.api.unification.material.Material;
 import gregtech.api.unification.ore.OrePrefix;
 import gregtech.api.util.ValidationResult;
 
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import tkcy.tktech.api.recipes.properties.*;
+import tkcy.tktech.api.recipes.recipemaps.IChemStructureToMaterials;
 import tkcy.tktech.api.utils.BlockStateHelper;
 import tkcy.tktech.api.utils.BooleanHelper;
 import tkcy.tktech.modules.toolmodule.ToolsModule;
 
 @NoArgsConstructor
-public class AdvancedRecipeBuilder extends RecipeBuilder<AdvancedRecipeBuilder> {
+public class AdvancedRecipeBuilder extends RecipeBuilder<AdvancedRecipeBuilder> implements IChemStructureToMaterials {
 
     protected boolean hideDuration = false;
     protected boolean useAndDisplayEnergy = true;
-    protected boolean hasInputsChemicalStructures = false;
-    protected boolean hasOutputsChemicalStructures = false;
+    @Getter
     protected final Set<Material> inputMaterialsChemStructure = new HashSet<>();
+    @Getter
     protected final Set<Material> outputMaterialsChemStructure = new HashSet<>();
 
     @SuppressWarnings("unused")

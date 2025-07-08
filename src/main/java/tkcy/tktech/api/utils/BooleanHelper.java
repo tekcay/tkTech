@@ -45,4 +45,10 @@ public class BooleanHelper {
         return Arrays.stream(toCompareWith)
                 .allMatch(toCompare -> toCompare == base);
     }
+
+    @SafeVarargs
+    public static <T> boolean allPredicate(T toTest, Predicate<T>... predicates) {
+        return Arrays.stream(predicates)
+                .anyMatch(tPredicate -> tPredicate.negate().test(toTest));
+    }
 }

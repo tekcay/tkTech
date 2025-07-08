@@ -1,5 +1,6 @@
 package tkcy.tktech.api.recipes.properties;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Predicate;
@@ -20,6 +21,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import tkcy.tktech.api.recipes.recipemaps.IChemStructureToMaterials;
 import tkcy.tktech.api.unification.properties.TkTechMaterialPropertyKeys;
+import tkcy.tktech.api.utils.BooleanHelper;
 import tkcy.tktech.api.utils.MaterialHelper;
 import tkcy.tktech.modules.RecipePropertiesKey;
 
@@ -51,6 +53,11 @@ public class ChemicalStructuresRecipeProperty extends RecipeProperty<ChemicalStr
 
         private Set<Material> inputMaterialsChemStructure;
         private Set<Material> outputMaterialsChemStructure;
+
+        public boolean isValid() {
+            return BooleanHelper.doesAnyNotMatch(Collection::isEmpty, inputMaterialsChemStructure,
+                    outputMaterialsChemStructure);
+        }
     }
 
     @Override
