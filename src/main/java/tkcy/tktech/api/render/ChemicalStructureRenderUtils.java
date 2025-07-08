@@ -1,7 +1,7 @@
 package tkcy.tktech.api.render;
 
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Stream;
 
 import net.minecraft.util.ResourceLocation;
@@ -20,7 +20,7 @@ public class ChemicalStructureRenderUtils {
 
     public static TextureArea getMoleculeTexture(Material material) {
         return TextureArea.fullImage(
-                String.format("textures/chemicalstructures/%s.png", material.getResourceLocation().getPath()));
+                String.format("textures/chemicalstructures/%s.jpeg", material.getResourceLocation().getPath()));
     }
 
     public static ImageWidget getChemicalStructureWidget(Material material, int x, int y, int size) {
@@ -46,8 +46,18 @@ public class ChemicalStructureRenderUtils {
                 .build();
     }
 
-    public static Set<IDrawable> buildChemicalStructures(IGuiHelper guiHelper, Set<Material> materials) {
-        Set<IDrawable> drawables = new LinkedHashSet<>();
+    public static IDrawable buildChemStructureDrawable(IGuiHelper guiHelper, Material material) {
+        ChemicalStructureProperty materialProperty = ChemicalStructureProperty.INSTANCE.getProperty(material);
+
+        int width = materialProperty.getTextureWidth() / 2;
+        int height = materialProperty.getTextureHeight() / 2;
+
+        ResourceLocation imageLocation = ChemicalStructureRenderUtils.getMoleculeTexture(material).imageLocation;
+        return buildChemStructureDrawable(guiHelper, imageLocation, width, height);
+    }
+
+    public static List<IDrawable> buildChemicalStructures(IGuiHelper guiHelper, List<Material> materials) {
+        List<IDrawable> drawables = new ArrayList<>();
         for (Material material : materials) {
             ChemicalStructureProperty materialProperty = ChemicalStructureProperty.INSTANCE.getProperty(material);
 

@@ -23,6 +23,7 @@ import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import tkcy.tktech.TkTech;
 import tkcy.tktech.api.render.ChemicalStructureRenderUtils;
+import tkcy.tktech.api.render.TkTechTextures;
 
 public class ChemicalStructureCategory extends BasicRecipeCategory<ChemicalStructureInfo, ChemicalStructureInfo> {
 
@@ -81,6 +82,8 @@ public class ChemicalStructureCategory extends BasicRecipeCategory<ChemicalStruc
 
     @Override
     public void drawExtras(@NotNull Minecraft minecraft) {
+        TkTechTextures.REACTION_BACKGROUND.draw(0, 0, 176, 166);
+
         int xPosition = ingredientsXoffset;
         int yOffset = ingredientsYoffset - 1;
 
@@ -93,18 +96,11 @@ public class ChemicalStructureCategory extends BasicRecipeCategory<ChemicalStruc
             slot.draw(minecraft, xPosition, yOffset);
         }
 
-        // To avoid auto-supersizing textures
-        int width = info.getChemicalStructureWidth() / 2;
-        int height = info.getChemicalStructureHeight() / 2;
-
-        this.chemicalStructure = guiHelper
-                .drawableBuilder(ChemicalStructureRenderUtils.getMoleculeTexture(info.getMaterial()).imageLocation,
-                        0, 0, width, height)
-                .setTextureSize(width, height)
-                .build();
-
+        chemicalStructure = ChemicalStructureRenderUtils.buildChemStructureDrawable(guiHelper, info.getMaterial());
         chemicalStructure.draw(minecraft, 20, yOffset + SLOT_DIM * 2 + 1);
     }
+
+    private void drawWhiteBackground(int width, int height, int xOffset, int yOffset) {}
 
     @Nullable
     @Override
