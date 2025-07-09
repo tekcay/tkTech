@@ -24,10 +24,11 @@ import mezz.jei.api.ingredients.IIngredients;
 import tkcy.tktech.api.recipes.properties.ChemicalStructuresRecipeProperty;
 import tkcy.tktech.api.recipes.recipemaps.IChemStructureToMaterials;
 import tkcy.tktech.api.recipes.recipemaps.ICustomRecipeMapUI;
+import tkcy.tktech.api.render.IChemicalStructureCategory;
 import tkcy.tktech.api.render.TkTechTextures;
 
 public class ChemicalStructureRecipeCategory extends RecipeMapCategory
-                                             implements IChemStructureToMaterials {
+                                             implements IChemicalStructureCategory, IChemStructureToMaterials {
 
     private final IGuiHelper guiHelper;
     private ChemicalStructuresRecipeProperty.Container chemicalStructureContainer;
@@ -36,6 +37,7 @@ public class ChemicalStructureRecipeCategory extends RecipeMapCategory
     private final RecipeMapUI<?> recipeMapUI;
     private List<IDrawable> chemicalStructuresInputs;
     private List<IDrawable> chemicalStructuresOutputs;
+    private int backgroundHeight;
 
     public ChemicalStructureRecipeCategory(@NotNull RecipeMap<?> recipeMap, @NotNull GTRecipeCategory category,
                                            IGuiHelper guiHelper) {
@@ -65,21 +67,19 @@ public class ChemicalStructureRecipeCategory extends RecipeMapCategory
                 .getValueFromRecipe(recipeWrapper.getRecipe(), true);
     }
 
-    private int xMargin() {
-        return 20;
+    @Override
+    public int getBackgroundHeight() {
+        return this.backgroundHeight;
     }
 
-    private int yMargin() {
-        return 20;
-    }
-
-    private int getBackgroundWidth() {
+    @Override
+    public int getBackgroundWidth() {
         int chemstructuresWidth = Stream.concat(chemicalStructuresInputs.stream(), chemicalStructuresOutputs.stream())
                 .mapToInt(IDrawable::getWidth)
                 .sum();
 
-        int reactionArrowWidth = reactionArrow.getWidth() + 2 * getXSpace();
-        int plusSignsWidth = (plusSign.getWidth() + getXSpace() * 2);
+        int reactionArrowWidth = reactionArrow.getWidth() + 2 * xSpacing();
+        int plusSignsWidth = (plusSign.getWidth() + xSpacing() * 2);
         plusSignsWidth *= (chemicalStructuresInputs.size() + chemicalStructuresOutputs.size() - 2);
 
         int xMargins = xMargin() * 2;
@@ -102,22 +102,22 @@ public class ChemicalStructureRecipeCategory extends RecipeMapCategory
         int maxHeight = getTallestChemStructureHeight(
                 Stream.concat(chemicalStructuresInputs.stream(), chemicalStructuresOutputs.stream()));
 
-        TkTechTextures.REACTION_BACKGROUND.draw(0, getRecipeMapUI().getBackgroundHeight(), getBackgroundWidth(),
-                yMargin() * 2 + maxHeight);
+        backgroundHeight = yMargin() * 2 + maxHeight;
+
+        drawBackground(0,
+                getRecipeMapUI().getBackgroundHeight(),
+                getBackgroundWidth(),
+                backgroundHeight);
 
         xOffset = drawChemStructures(chemicalStructuresInputs, minecraft, xOffset, yOffset, maxHeight);
 
         reactionArrow.draw(minecraft, xOffset, getCenteredYOffset(yOffset, maxHeight, reactionArrow.getHeight()));
 
         xOffset += reactionArrow.getWidth();
-        xOffset += getXSpace();
+        xOffset += xSpacing();
 
         xOffset = drawChemStructures(chemicalStructuresOutputs, minecraft, xOffset, yOffset, maxHeight);
         xOffset += xMargin();
-    }
-
-    private int getXSpace() {
-        return 10;
     }
 
     private int drawChemStructures(List<IDrawable> chemStructures, Minecraft minecraft, int baseXOffset,
@@ -127,11 +127,11 @@ public class ChemicalStructureRecipeCategory extends RecipeMapCategory
             int height = chemStructure.getHeight();
             int yOffset = getCenteredYOffset(baseYOffset, maxHeight, height);
             chemStructure.draw(minecraft, baseXOffset, yOffset);
-            baseXOffset += chemStructure.getWidth() + getXSpace();
+            baseXOffset += chemStructure.getWidth() + xSpacing();
 
             if (chemStructures.indexOf(chemStructure) < chemStructures.size() - 1) {
                 plusSign.draw(minecraft, baseXOffset, getCenteredYOffset(baseYOffset, maxHeight, plusSign.getHeight()));
-                baseXOffset += plusSign.getWidth() + getXSpace();
+                baseXOffset += plusSign.getWidth() + xSpacing();
             }
         }
         return baseXOffset;

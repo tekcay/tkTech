@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
 
 import gregtech.api.gui.resources.TextureArea;
@@ -14,6 +15,7 @@ import lombok.experimental.UtilityClass;
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
 import tkcy.tktech.api.unification.properties.ChemicalStructureProperty;
+import tkcy.tktech.integration.jei.ChemicalStructureInfo;
 
 @UtilityClass
 public class ChemicalStructureRenderUtils {
@@ -46,6 +48,11 @@ public class ChemicalStructureRenderUtils {
                 .build();
     }
 
+    public static int getChemStructureWidth(Material material) {
+        ChemicalStructureProperty materialProperty = ChemicalStructureProperty.INSTANCE.getProperty(material);
+        return materialProperty.getTextureWidth();
+    }
+
     public static IDrawable buildChemStructureDrawable(IGuiHelper guiHelper, Material material) {
         ChemicalStructureProperty materialProperty = ChemicalStructureProperty.INSTANCE.getProperty(material);
 
@@ -54,6 +61,11 @@ public class ChemicalStructureRenderUtils {
 
         ResourceLocation imageLocation = ChemicalStructureRenderUtils.getMoleculeTexture(material).imageLocation;
         return buildChemStructureDrawable(guiHelper, imageLocation, width, height);
+    }
+
+    public static IDrawable buildChemStructureDrawable(IGuiHelper guiHelper, ChemicalStructureInfo info) {
+        ResourceLocation imageLocation = ChemicalStructureRenderUtils.getMoleculeTexture(info.getMaterial()).imageLocation;
+        return buildChemStructureDrawable(guiHelper, imageLocation, info.getChemicalStructureWidth(), info.getChemicalStructureHeight());
     }
 
     public static List<IDrawable> buildChemicalStructures(IGuiHelper guiHelper, List<Material> materials) {
