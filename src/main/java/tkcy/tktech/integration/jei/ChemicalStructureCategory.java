@@ -96,7 +96,11 @@ public class ChemicalStructureCategory extends BasicRecipeCategory<ChemicalStruc
 
     @Override
     public void drawExtras(@NotNull Minecraft minecraft) {
-        TkTechTextures.REACTION_BACKGROUND.draw(0, 0, 176, 166);
+        if (info == null) return;
+
+        chemicalStructure = ChemicalStructureRenderUtils.buildChemStructureDrawable(guiHelper, info.getMaterial());
+
+        TkTechTextures.REACTION_BACKGROUND.draw(0, 0, getBackgroundWidth(), getBackgroundHeight());
 
         info.setGuiWidth(getBackgroundWidth());
         info.setYMargin(yMargin());
@@ -111,8 +115,6 @@ public class ChemicalStructureCategory extends BasicRecipeCategory<ChemicalStruc
         if (info.isHasFluid()) {
             slot.draw(minecraft, slotXOffset(slotIndex), slotYOffset());
         }
-
-        chemicalStructure = ChemicalStructureRenderUtils.buildChemStructureDrawable(guiHelper, info.getMaterial());
         chemicalStructure.draw(minecraft, getCenterXOffset(getBackgroundWidth(), chemicalStructure.getWidth()),
                 chemStructureYOffset());
     }
@@ -137,11 +139,15 @@ public class ChemicalStructureCategory extends BasicRecipeCategory<ChemicalStruc
 
     @Override
     public int getBackgroundHeight() {
-        return GuiUtils.STANDARD_JEI_UI_HEIGHT;
+        return Math.max(
+                GuiUtils.STANDARD_JEI_UI_HEIGHT,
+                chemStructureYOffset() + chemicalStructure.getHeight() + yMargin());
     }
 
     @Override
     public int getBackgroundWidth() {
-        return GuiUtils.STANDARD_JEI_UI_WIDTH;
+        return Math.max(
+                GuiUtils.STANDARD_JEI_UI_WIDTH,
+                xMargin() + chemicalStructure.getWidth() + xMargin());
     }
 }
