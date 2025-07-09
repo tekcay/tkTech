@@ -98,6 +98,9 @@ public class ChemicalStructureCategory extends BasicRecipeCategory<ChemicalStruc
     public void drawExtras(@NotNull Minecraft minecraft) {
         TkTechTextures.REACTION_BACKGROUND.draw(0, 0, 176, 166);
 
+        info.setGuiWidth(getBackgroundWidth());
+        info.setYMargin(yMargin());
+
         int slotIndex = 0;
 
         if (info.isHasDust()) {

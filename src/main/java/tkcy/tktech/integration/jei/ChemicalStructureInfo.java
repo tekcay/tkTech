@@ -15,10 +15,10 @@ import gregtech.api.unification.material.properties.PropertyKey;
 import gregtech.api.unification.ore.OrePrefix;
 
 import lombok.Getter;
+import lombok.Setter;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.ingredients.VanillaTypes;
 import mezz.jei.api.recipe.IRecipeWrapper;
-import tkcy.tktech.api.render.IChemicalStructureCategory;
 import tkcy.tktech.api.unification.properties.ChemicalStructureProperty;
 import tkcy.tktech.api.unification.properties.TkTechMaterialPropertyKeys;
 import tkcy.tktech.api.utils.GuiUtils;
@@ -35,6 +35,12 @@ public class ChemicalStructureInfo implements IRecipeWrapper {
 
     private final int chemicalStructureWidth;
     private final int chemicalStructureHeight;
+
+    @Setter
+    private int yMargin = 0;
+
+    @Setter
+    private int guiWidth = GuiUtils.STANDARD_JEI_UI_WIDTH;
 
     public ChemicalStructureInfo(Material material) {
         if (!material.hasProperty(TkTechMaterialPropertyKeys.CHEMICAL_STRUCTURE)) {
@@ -70,16 +76,9 @@ public class ChemicalStructureInfo implements IRecipeWrapper {
         }
     }
 
-    /**
-     * Same as in {@link IChemicalStructureCategory#yMargin()}.
-     */
-    private int yMargin() {
-        return 20;
-    }
-
     @Override
     public void drawInfo(Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
         GuiUtils.drawCenteredStringWithCutoff(material.getLocalizedName(), minecraft.fontRenderer,
-                GuiUtils.STANDARD_JEI_UI_WIDTH, yMargin());
+                guiWidth, yMargin);
     }
 }
