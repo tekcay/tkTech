@@ -18,8 +18,10 @@ import lombok.Getter;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.ingredients.VanillaTypes;
 import mezz.jei.api.recipe.IRecipeWrapper;
+import tkcy.tktech.api.render.IChemicalStructureCategory;
 import tkcy.tktech.api.unification.properties.ChemicalStructureProperty;
 import tkcy.tktech.api.unification.properties.TkTechMaterialPropertyKeys;
+import tkcy.tktech.api.utils.GuiUtils;
 
 @Getter
 public class ChemicalStructureInfo implements IRecipeWrapper {
@@ -68,9 +70,16 @@ public class ChemicalStructureInfo implements IRecipeWrapper {
         }
     }
 
+    /**
+     * Same as in {@link IChemicalStructureCategory#yMargin()}.
+     */
+    private int yMargin() {
+        return 20;
+    }
+
     @Override
     public void drawInfo(Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
-        int fontHeight = Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT;
-        minecraft.fontRenderer.drawString(material.getLocalizedName(), 0, fontHeight, 0x111111);
+        GuiUtils.drawCenteredStringWithCutoff(material.getLocalizedName(), minecraft.fontRenderer,
+                GuiUtils.STANDARD_JEI_UI_WIDTH, yMargin());
     }
 }

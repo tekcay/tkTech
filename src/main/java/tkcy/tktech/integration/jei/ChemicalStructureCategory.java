@@ -15,17 +15,17 @@ import gregtech.api.unification.ore.OrePrefix;
 import gregtech.integration.jei.basic.BasicRecipeCategory;
 
 import mezz.jei.api.IGuiHelper;
-import mezz.jei.api.gui.IDrawable;
-import mezz.jei.api.gui.IGuiFluidStackGroup;
-import mezz.jei.api.gui.IGuiItemStackGroup;
-import mezz.jei.api.gui.IRecipeLayout;
+import mezz.jei.api.gui.*;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import tkcy.tktech.TkTech;
 import tkcy.tktech.api.render.ChemicalStructureRenderUtils;
+import tkcy.tktech.api.render.IChemicalStructureCategory;
 import tkcy.tktech.api.render.TkTechTextures;
+import tkcy.tktech.api.utils.GuiUtils;
 
-public class ChemicalStructureCategory extends BasicRecipeCategory<ChemicalStructureInfo, ChemicalStructureInfo> {
+public class ChemicalStructureCategory extends BasicRecipeCategory<ChemicalStructureInfo, ChemicalStructureInfo>
+                                       implements IChemicalStructureCategory {
 
     private final IGuiHelper guiHelper;
 
@@ -34,8 +34,6 @@ public class ChemicalStructureCategory extends BasicRecipeCategory<ChemicalStruc
     protected IDrawable chemicalStructure;
 
     private ChemicalStructureInfo info;
-    private final int ingredientsYoffset = 20;
-    private final int ingredientsXoffset = 20;
 
     public ChemicalStructureCategory(IGuiHelper guiHelper) {
         super("chemical_structure_location",
@@ -61,46 +59,60 @@ public class ChemicalStructureCategory extends BasicRecipeCategory<ChemicalStruc
     public void setRecipe(@NotNull IRecipeLayout recipeLayout, @NotNull ChemicalStructureInfo recipeWrapper,
                           @NotNull IIngredients ingredients) {
         this.info = recipeWrapper;
-
-        int xPosition = ingredientsXoffset;
         int slotIndex = 0;
 
         if (recipeWrapper.isHasDust()) {
             IGuiItemStackGroup itemStackGroup = recipeLayout.getItemStacks();
-            itemStackGroup.init(slotIndex, true, xPosition, ingredientsYoffset);
+            itemStackGroup.init(slotIndex, true, slotXOffset(slotIndex), slotYOffset());
             itemStackGroup.set(slotIndex, recipeWrapper.getDusts());
-            xPosition += SLOT_DIM;
             slotIndex++;
         }
 
         if (recipeWrapper.isHasFluid()) {
             IGuiFluidStackGroup fluidStackGroup = recipeLayout.getFluidStacks();
-            fluidStackGroup.init(slotIndex, true, xPosition, ingredientsYoffset);
+            fluidStackGroup.init(slotIndex, true, slotXOffset(slotIndex), slotYOffset());
             fluidStackGroup.set(slotIndex, recipeWrapper.getFluidStack());
         }
+    }
+
+    private int slotYOffset() {
+        return yMargin() + materialNameHeight() + ySpacing();
+    }
+
+    private int slotXOffset(int slotIndex) {
+        return xMargin() + slotIndex * (SLOT_DIM + xSpacing());
+    }
+
+    private int chemStructureYOffset() {
+        return slotYOffset() + SLOT_DIM + ySpacing();
+    }
+
+    /**
+     * Drawn in the recipeWrapper, see {@link ChemicalStructureInfo#drawInfo(Minecraft, int, int, int, int)}.
+     */
+    private int materialNameHeight() {
+        return GuiUtils.FONT_HEIGHT;
     }
 
     @Override
     public void drawExtras(@NotNull Minecraft minecraft) {
         TkTechTextures.REACTION_BACKGROUND.draw(0, 0, 176, 166);
 
-        int xPosition = ingredientsXoffset;
-        int yOffset = ingredientsYoffset - 1;
+        int slotIndex = 0;
 
         if (info.isHasDust()) {
-            slot.draw(minecraft, xPosition, yOffset);
-            xPosition += SLOT_DIM - 1;
+            slot.draw(minecraft, slotXOffset(slotIndex), slotYOffset());
+            slotIndex++;
         }
 
         if (info.isHasFluid()) {
-            slot.draw(minecraft, xPosition, yOffset);
+            slot.draw(minecraft, slotXOffset(slotIndex), slotYOffset());
         }
 
         chemicalStructure = ChemicalStructureRenderUtils.buildChemStructureDrawable(guiHelper, info.getMaterial());
-        chemicalStructure.draw(minecraft, 20, yOffset + SLOT_DIM * 2 + 1);
+        chemicalStructure.draw(minecraft, getCenterXOffset(getBackgroundWidth(), chemicalStructure.getWidth()),
+                chemStructureYOffset());
     }
-
-    private void drawWhiteBackground(int width, int height, int xOffset, int yOffset) {}
 
     @Nullable
     @Override
@@ -118,5 +130,15 @@ public class ChemicalStructureCategory extends BasicRecipeCategory<ChemicalStruc
     @Override
     public String getModName() {
         return TkTech.MODID;
+    }
+
+    @Override
+    public int getBackgroundHeight() {
+        return GuiUtils.STANDARD_JEI_UI_HEIGHT;
+    }
+
+    @Override
+    public int getBackgroundWidth() {
+        return GuiUtils.STANDARD_JEI_UI_WIDTH;
     }
 }

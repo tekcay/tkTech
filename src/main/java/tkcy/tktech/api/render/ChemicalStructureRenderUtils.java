@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
 
 import gregtech.api.gui.resources.TextureArea;
@@ -64,8 +63,10 @@ public class ChemicalStructureRenderUtils {
     }
 
     public static IDrawable buildChemStructureDrawable(IGuiHelper guiHelper, ChemicalStructureInfo info) {
-        ResourceLocation imageLocation = ChemicalStructureRenderUtils.getMoleculeTexture(info.getMaterial()).imageLocation;
-        return buildChemStructureDrawable(guiHelper, imageLocation, info.getChemicalStructureWidth(), info.getChemicalStructureHeight());
+        ResourceLocation imageLocation = ChemicalStructureRenderUtils
+                .getMoleculeTexture(info.getMaterial()).imageLocation;
+        return buildChemStructureDrawable(guiHelper, imageLocation, info.getChemicalStructureWidth(),
+                info.getChemicalStructureHeight());
     }
 
     public static List<IDrawable> buildChemicalStructures(IGuiHelper guiHelper, List<Material> materials) {
