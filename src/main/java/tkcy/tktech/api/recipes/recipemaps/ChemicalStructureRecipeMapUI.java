@@ -13,13 +13,16 @@ import gregtech.api.recipes.RecipeMap;
 import gregtech.api.recipes.ui.RecipeMapUI;
 
 import lombok.Getter;
+import mezz.jei.config.Config;
+import tkcy.tktech.api.utils.GuiUtils;
 
 @Getter
 @ApiStatus.Internal
-public class ChemicalStructureRecipeMapUI<R extends RecipeMap<?>> extends RecipeMapUI<R> implements ICustomRecipeMapUI {
+public class ChemicalStructureRecipeMapUI<R extends RecipeMap<?>> extends RecipeMapUI<R>
+                                         implements IJeiConfigBoundRecipeUI {
 
-    private final int backgroundHeight = 166;
-    private final int backgroundWidth = 176;
+    private final int backgroundHeight = GuiUtils.STANDARD_JEI_UI_HEIGHT;
+    private final int backgroundWidth = GuiUtils.STANDARD_JEI_UI_WIDTH;
 
     public ChemicalStructureRecipeMapUI(@NotNull R recipeMap) {
         super(recipeMap, false, false, false, false, false);
@@ -29,11 +32,10 @@ public class ChemicalStructureRecipeMapUI<R extends RecipeMap<?>> extends Recipe
     @NotNull
     public ModularUI.Builder createJeiUITemplate(IItemHandlerModifiable importItems, IItemHandlerModifiable exportItems,
                                                  FluidTankList importFluids, FluidTankList exportFluids, int yOffset) {
-        ModularUI.Builder builder = ModularUI.builder(GuiTextures.BOXED_BACKGROUND, getBackgroundWidth(),
-                getBackgroundHeight());
+        ModularUI.Builder builder = ModularUI.builder(GuiTextures.BACKGROUND, getBackgroundWidth(),
+                Config.getMaxRecipeGuiHeight());
         builder.widget(new RecipeProgressWidget(200, 78, 23 + yOffset, 20, 20, progressBarTexture(),
-                progressBarMoveType(), recipeMap()));;
-        // setSpecialTexture(TkTechTextures.REACTION_BACKGROUND, 0, 0, 300, 350);
+                progressBarMoveType(), recipeMap()));
         this.addInventorySlotGroup(builder, importItems, importFluids, false, yOffset);
         this.addInventorySlotGroup(builder, exportItems, exportFluids, true, yOffset);
         return builder;

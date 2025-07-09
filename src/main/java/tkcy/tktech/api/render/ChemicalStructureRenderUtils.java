@@ -1,7 +1,7 @@
 package tkcy.tktech.api.render;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import net.minecraft.util.ResourceLocation;
@@ -14,7 +14,6 @@ import lombok.experimental.UtilityClass;
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
 import tkcy.tktech.api.unification.properties.ChemicalStructureProperty;
-import tkcy.tktech.integration.jei.ChemicalStructureInfo;
 
 @UtilityClass
 public class ChemicalStructureRenderUtils {
@@ -47,39 +46,33 @@ public class ChemicalStructureRenderUtils {
                 .build();
     }
 
-    public static int getChemStructureWidth(Material material) {
-        ChemicalStructureProperty materialProperty = ChemicalStructureProperty.INSTANCE.getProperty(material);
-        return materialProperty.getTextureWidth();
+    public static IDrawable buildChemStructureDrawable(IGuiHelper guiHelper, Material material, double scale) {
+        ChemicalStructureProperty property = ChemicalStructureProperty.INSTANCE.getProperty(material);
+        int height = (int) (property.getTextureHeight() * scale);
+        int width = (int) (property.getTextureWidth() * scale);
+
+        TextureArea texture = getMoleculeTexture(material);
+        ResourceLocation imageLocation = texture.imageLocation;
+
+        return buildChemStructureDrawable(
+                guiHelper,
+                imageLocation,
+                width,
+                height);
     }
 
     public static IDrawable buildChemStructureDrawable(IGuiHelper guiHelper, Material material) {
-        ChemicalStructureProperty materialProperty = ChemicalStructureProperty.INSTANCE.getProperty(material);
-
-        int width = materialProperty.getTextureWidth() / 2;
-        int height = materialProperty.getTextureHeight() / 2;
-
-        ResourceLocation imageLocation = ChemicalStructureRenderUtils.getMoleculeTexture(material).imageLocation;
-        return buildChemStructureDrawable(guiHelper, imageLocation, width, height);
-    }
-
-    public static IDrawable buildChemStructureDrawable(IGuiHelper guiHelper, ChemicalStructureInfo info) {
-        ResourceLocation imageLocation = ChemicalStructureRenderUtils
-                .getMoleculeTexture(info.getMaterial()).imageLocation;
-        return buildChemStructureDrawable(guiHelper, imageLocation, info.getChemicalStructureWidth(),
-                info.getChemicalStructureHeight());
+        return buildChemStructureDrawable(guiHelper, material, 1.0D);
     }
 
     public static List<IDrawable> buildChemicalStructures(IGuiHelper guiHelper, List<Material> materials) {
-        List<IDrawable> drawables = new ArrayList<>();
-        for (Material material : materials) {
-            ChemicalStructureProperty materialProperty = ChemicalStructureProperty.INSTANCE.getProperty(material);
+        return buildChemicalStructures(guiHelper, materials, 1.0D);
+    }
 
-            int width = materialProperty.getTextureWidth() / 2;
-            int height = materialProperty.getTextureHeight() / 2;
-
-            ResourceLocation imageLocation = ChemicalStructureRenderUtils.getMoleculeTexture(material).imageLocation;
-            drawables.add(buildChemStructureDrawable(guiHelper, imageLocation, width, height));
-        }
-        return drawables;
+    public static List<IDrawable> buildChemicalStructures(IGuiHelper guiHelper, List<Material> materials,
+                                                          double scale) {
+        return materials.stream()
+                .map(chemicalStructure -> buildChemStructureDrawable(guiHelper, chemicalStructure, scale))
+                .collect(Collectors.toList());
     }
 }

@@ -21,7 +21,6 @@ import mezz.jei.api.recipe.IRecipeWrapper;
 import tkcy.tktech.TkTech;
 import tkcy.tktech.api.render.ChemicalStructureRenderUtils;
 import tkcy.tktech.api.render.IChemicalStructureCategory;
-import tkcy.tktech.api.render.TkTechTextures;
 import tkcy.tktech.api.utils.GuiUtils;
 
 public class ChemicalStructureCategory extends BasicRecipeCategory<ChemicalStructureInfo, ChemicalStructureInfo>
@@ -38,7 +37,7 @@ public class ChemicalStructureCategory extends BasicRecipeCategory<ChemicalStruc
     public ChemicalStructureCategory(IGuiHelper guiHelper) {
         super("chemical_structure_location",
                 "chemical_structure_location.name",
-                guiHelper.createBlankDrawable(176, 166),
+                GuiUtils.drawConfigHeightDependentJEIGui(guiHelper, 0.8D),
                 guiHelper);
 
         this.guiHelper = guiHelper;
@@ -100,7 +99,7 @@ public class ChemicalStructureCategory extends BasicRecipeCategory<ChemicalStruc
 
         chemicalStructure = ChemicalStructureRenderUtils.buildChemStructureDrawable(guiHelper, info.getMaterial());
 
-        TkTechTextures.REACTION_BACKGROUND.draw(0, 0, getBackgroundWidth(), getBackgroundHeight());
+        drawBackground();
 
         info.setGuiWidth(getBackgroundWidth());
         info.setYMargin(yMargin());
@@ -115,7 +114,10 @@ public class ChemicalStructureCategory extends BasicRecipeCategory<ChemicalStruc
         if (info.isHasFluid()) {
             slot.draw(minecraft, slotXOffset(slotIndex), slotYOffset());
         }
-        chemicalStructure.draw(minecraft, getCenterXOffset(getBackgroundWidth(), chemicalStructure.getWidth()),
+
+        chemicalStructure.draw(
+                minecraft,
+                getCenterXOffset(getBackgroundWidth(), chemicalStructure.getWidth()),
                 chemStructureYOffset());
     }
 

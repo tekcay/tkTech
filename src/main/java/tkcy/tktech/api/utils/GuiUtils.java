@@ -8,6 +8,8 @@ import gregtech.api.util.GTStringUtils;
 import lombok.experimental.UtilityClass;
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
+import mezz.jei.api.gui.IDrawableStatic;
+import mezz.jei.config.Config;
 
 @UtilityClass
 public class GuiUtils {
@@ -56,5 +58,20 @@ public class GuiUtils {
         int startPosition = (maxLength - fontRenderer.getStringWidth(stringToDraw)) / 2;
 
         fontRenderer.drawString(stringToDraw, startPosition, yOffset, 0x111111);
+    }
+
+    public static IDrawableStatic drawStandardJEIGui(IGuiHelper guiHelper) {
+        return guiHelper.createBlankDrawable(STANDARD_JEI_UI_WIDTH, STANDARD_JEI_UI_HEIGHT);
+    }
+
+    /**
+     * Draws a GUI based on JEI current config max height : {@link Config#getMaxRecipeGuiHeight()}.
+     */
+    public static IDrawableStatic drawConfigHeightDependentJEIGui(IGuiHelper guiHelper) {
+        return drawConfigHeightDependentJEIGui(guiHelper, 1);
+    }
+
+    public static IDrawableStatic drawConfigHeightDependentJEIGui(IGuiHelper guiHelper, double scale) {
+        return guiHelper.createBlankDrawable(STANDARD_JEI_UI_WIDTH, (int) (Config.getMaxRecipeGuiHeight() * scale));
     }
 }
