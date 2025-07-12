@@ -24,16 +24,16 @@ import mezz.jei.api.ingredients.IIngredients;
 import tkcy.tktech.api.recipes.properties.ChemicalStructuresRecipeProperty;
 import tkcy.tktech.api.recipes.recipemaps.IChemStructureToMaterials;
 import tkcy.tktech.api.recipes.recipemaps.ICustomRecipeMapUI;
+import tkcy.tktech.api.render.ChemicalReactionRenderUtils;
 import tkcy.tktech.api.render.IChemicalStructureCategory;
-import tkcy.tktech.api.render.TkTechTextures;
 
 public class ChemicalStructureRecipeCategory extends RecipeMapCategory
                                              implements IChemicalStructureCategory, IChemStructureToMaterials {
 
     private final IGuiHelper guiHelper;
     private ChemicalStructuresRecipeProperty.Container chemicalStructureContainer;
-    private IDrawable plusSign;
-    private IDrawable reactionArrow;
+    private final IDrawable plusSign;
+    private final IDrawable reactionArrow;
     private final RecipeMapUI<?> recipeMapUI;
     private List<IDrawable> chemicalStructuresInputs;
     private List<IDrawable> chemicalStructuresOutputs;
@@ -44,14 +44,8 @@ public class ChemicalStructureRecipeCategory extends RecipeMapCategory
         super(recipeMap, category, guiHelper);
         this.recipeMapUI = recipeMap.getRecipeMapUI();
         this.guiHelper = guiHelper;
-        this.plusSign = guiHelper
-                .drawableBuilder(TkTechTextures.REACTION_PLUS.imageLocation, 0, 0, 47 / 4, 75 / 4)
-                .setTextureSize(47 / 4, 75 / 4)
-                .build();
-        this.reactionArrow = guiHelper
-                .drawableBuilder(TkTechTextures.REACTION_ARROW.imageLocation, 0, 0, 138 / 4, 37 / 4)
-                .setTextureSize(138 / 4, 37 / 4)
-                .build();
+        this.plusSign = ChemicalReactionRenderUtils.getPlusSign(guiHelper, 0.25D);
+        this.reactionArrow = ChemicalReactionRenderUtils.getReactionArrow(guiHelper, 0.25D);
     }
 
     protected ICustomRecipeMapUI getRecipeMapUI() {

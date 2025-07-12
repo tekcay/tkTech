@@ -1,5 +1,7 @@
 package tkcy.tktech.api.render;
 
+import java.io.IOException;
+
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.relauncher.Side;
 
@@ -10,6 +12,7 @@ import gregtech.client.renderer.texture.cube.SimpleOverlayRenderer;
 
 import lombok.experimental.UtilityClass;
 import tkcy.tktech.TkTech;
+import tkcy.tktech.api.utils.RenderUtils;
 
 @UtilityClass
 @Mod.EventBusSubscriber(modid = TkTech.MODID, value = Side.CLIENT)
@@ -28,14 +31,20 @@ public class TkTechTextures {
      * Width = 138
      * Height = 37
      */
-    public static final TextureArea REACTION_ARROW = TextureArea
+    public static final TextureArea REACTION_ARROW2 = TextureArea
             .fullImage("textures/chemicalstructures/reaction_arrow.jpeg");
-    /**
-     * Width = 47
-     * Height = 75
-     */
-    public static final TextureArea REACTION_PLUS = TextureArea
-            .fullImage("textures/chemicalstructures/reaction_plus.jpeg");
+
+    public static final TextureArea REACTION_ARROW;
+    public static final TextureArea REACTION_PLUS;
+
+    static {
+        try {
+            REACTION_ARROW = RenderUtils.buildGTFromImageLocation("textures/chemicalstructures/reaction_arrow.jpeg");
+            REACTION_PLUS = RenderUtils.buildGTFromImageLocation("textures/chemicalstructures/reaction_plus.jpeg");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public static void preInit() {
         // ROLLING_MILL_OVERLAY = new OrientedOverlayRenderer("machines/rolling_mill");
