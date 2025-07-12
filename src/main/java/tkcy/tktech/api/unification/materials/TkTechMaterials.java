@@ -3,6 +3,7 @@ package tkcy.tktech.api.unification.materials;
 import gregtech.api.unification.material.Material;
 
 import lombok.experimental.UtilityClass;
+import tkcy.tktech.api.render.ChemicalStructureRenderUtils;
 import tkcy.tktech.api.unification.MaterialsFormula;
 import tkcy.tktech.api.unification.RoastingMaterials;
 import tkcy.tktech.api.unification.TkTechFirstDegreeMaterials;
@@ -11,7 +12,7 @@ import tkcy.tktech.api.unification.materials.chains.*;
 import tkcy.tktech.api.unification.materials.other.Chemicals;
 import tkcy.tktech.api.unification.materials.other.MethaneCracking;
 import tkcy.tktech.api.unification.materials.other.MiscMaterials;
-import tkcy.tktech.api.unification.properties.PropertiesAddition;
+import tkcy.tktech.api.unification.properties.MaterialPropertiesAddition;
 
 @UtilityClass
 public class TkTechMaterials {
@@ -42,9 +43,10 @@ public class TkTechMaterials {
 
         MaterialsFormula.init();
 
-        PropertiesAddition.init();
+        MaterialPropertiesAddition.init();
 
         MaterialIconAddition.init();
+        ChemicalStructureRenderUtils.registerChemicalStructuresTexture();
     }
 
     // Chromite chain

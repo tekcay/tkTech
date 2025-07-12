@@ -11,7 +11,7 @@ import gregtech.api.unification.material.properties.*;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
-public class PropertiesAddition {
+public class MaterialPropertiesAddition {
 
     public static void addFluidProperty(Material material, int mp) {
         MaterialProperties properties = material.getProperties();

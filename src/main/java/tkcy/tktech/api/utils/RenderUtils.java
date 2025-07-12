@@ -18,7 +18,7 @@ import mezz.jei.api.gui.IDrawable;
 
 public class RenderUtils {
 
-    public static final IResourceManager resourceManager = Minecraft.getMinecraft().getResourceManager();
+    public static final IResourceManager MINECRAFT_RESOURCE_MANAGER = Minecraft.getMinecraft().getResourceManager();
 
     /**
      * Builds {@link IDrawable} from a {@link TextureArea} from JEI category drawing.
@@ -37,14 +37,22 @@ public class RenderUtils {
     /**
      * Will use textures located in assets/gregtech/textures
      */
-    public static TextureArea buildGt(String imageLocation, double width, double height) {
-        return new TextureArea(GTUtility.gregtechId(imageLocation), 0, 0, width, height);
-    }
-
     public static TextureArea buildGTFromImageLocation(String imageLocation) throws IOException {
         ResourceLocation resourceLocation = GTUtility.gregtechId(imageLocation);
-        InputStream inputStream = resourceManager.getResource(resourceLocation).getInputStream();
+        return buildGTFromImageLocation(resourceLocation);
+    }
+
+    /**
+     * Uses {@link #MINECRAFT_RESOURCE_MANAGER} to retrieve an instance of {@link BufferedImage}.
+     * This allows to get the image dimensions from the file itself.
+     * <br>
+     * Use this when image dimensions are unknown.
+     * 
+     * @throws IOException if no file can be found or could not be built as an image.
+     */
+    public static TextureArea buildGTFromImageLocation(ResourceLocation imageLocation) throws IOException {
+        InputStream inputStream = MINECRAFT_RESOURCE_MANAGER.getResource(imageLocation).getInputStream();
         BufferedImage image = ImageIO.read(inputStream);
-        return new TextureArea(GTUtility.gregtechId(imageLocation), 0, 0, image.getWidth(), image.getHeight());
+        return new TextureArea(imageLocation, 0, 0, image.getWidth(), image.getHeight());
     }
 }

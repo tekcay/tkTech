@@ -97,7 +97,7 @@ public class ChemicalStructureCategory extends BasicRecipeCategory<ChemicalStruc
     public void drawExtras(@NotNull Minecraft minecraft) {
         if (info == null) return;
 
-        chemicalStructure = ChemicalStructureRenderUtils.buildChemStructureDrawable(guiHelper, info.getMaterial());
+        chemicalStructure = ChemicalStructureRenderUtils.getChemStructureIDrawable(guiHelper, info.getMaterial(), 0.5D);
 
         drawBackground();
 
