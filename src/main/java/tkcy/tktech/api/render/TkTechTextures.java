@@ -27,13 +27,6 @@ public class TkTechTextures {
             "textures/chemicalstructures/reaction_background.jpeg", 641,
             363, 0, 0);
 
-    /**
-     * Width = 138
-     * Height = 37
-     */
-    public static final TextureArea REACTION_ARROW2 = TextureArea
-            .fullImage("textures/chemicalstructures/reaction_arrow.jpeg");
-
     public static final TextureArea REACTION_ARROW;
     public static final TextureArea REACTION_PLUS;
 
