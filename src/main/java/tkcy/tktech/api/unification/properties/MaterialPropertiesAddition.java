@@ -24,5 +24,6 @@ public class MaterialPropertiesAddition {
         Materials.Benzene.getProperties().ensureSet(PropertyKey.DUST);
         addChemicalStructureProperty(Materials.Benzene);
         addChemicalStructureProperty(Materials.Toluene);
+        addChemicalStructureProperty(Materials.Ethanol);
     }
 }
