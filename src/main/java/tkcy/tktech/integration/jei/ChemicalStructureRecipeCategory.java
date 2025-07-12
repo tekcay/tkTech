@@ -38,6 +38,7 @@ public class ChemicalStructureRecipeCategory extends RecipeMapCategory
     private List<IDrawable> chemicalStructuresInputs;
     private List<IDrawable> chemicalStructuresOutputs;
     private int backgroundHeight;
+    private int chemReactionWidth;
 
     private static final double scale = 0.25D;
 
@@ -70,17 +71,7 @@ public class ChemicalStructureRecipeCategory extends RecipeMapCategory
 
     @Override
     public int getBackgroundWidth() {
-        int chemstructuresWidth = Stream.concat(chemicalStructuresInputs.stream(), chemicalStructuresOutputs.stream())
-                .mapToInt(IDrawable::getWidth)
-                .sum();
-
-        int reactionArrowWidth = reactionArrow.getWidth() + 2 * xSpacing();
-        int plusSignsWidth = (plusSign.getWidth() + xSpacing() * 2);
-        plusSignsWidth *= (chemicalStructuresInputs.size() + chemicalStructuresOutputs.size() - 2);
-
-        int xMargins = xMargin() * 2;
-
-        return chemstructuresWidth + reactionArrowWidth + plusSignsWidth + xMargins;
+        return Math.max(chemReactionWidth + xMargin() * 2, getRecipeMapUI().getBackgroundWidth());
     }
 
     @Override
@@ -91,8 +82,11 @@ public class ChemicalStructureRecipeCategory extends RecipeMapCategory
 
         chemicalStructuresInputs = buildChemicalStructures(guiHelper, getInputMaterialsChemStructure(), scale);
         chemicalStructuresOutputs = buildChemicalStructures(guiHelper, getOutputMaterialsChemStructure(), scale);
+        chemReactionWidth = ChemicalReactionRenderUtils.getReactionWith(chemicalStructuresInputs,
+                chemicalStructuresOutputs, plusSign, reactionArrow, xSpacing());
 
-        int xOffset = xMargin();
+        int xOffset = ChemicalReactionRenderUtils.getReactionXOffset(chemReactionWidth + 2 * xMargin(),
+                getRecipeMapUI().getBackgroundWidth());
         int yOffset = getRecipeMapUI().getBackgroundHeight() + yMargin();
 
         int maxHeight = getTallestChemStructureHeight(
@@ -100,11 +94,12 @@ public class ChemicalStructureRecipeCategory extends RecipeMapCategory
 
         backgroundHeight = yMargin() * 2 + maxHeight;
 
-        drawBackground(0,
+        drawBackground(xOffset,
                 getRecipeMapUI().getBackgroundHeight(),
                 getBackgroundWidth(),
                 backgroundHeight);
 
+        xOffset += xMargin();
         xOffset = drawChemStructures(chemicalStructuresInputs, minecraft, xOffset, yOffset, maxHeight);
 
         reactionArrow.draw(minecraft, xOffset, getCenteredYOffset(yOffset, maxHeight, reactionArrow.getHeight()));
