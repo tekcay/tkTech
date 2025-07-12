@@ -6,9 +6,13 @@ import mezz.jei.api.gui.IDrawable;
 
 public interface IChemicalStructureCategory {
 
-    int getBackgroundHeight();
+    int getReactionBackgroundHeight();
 
-    int getBackgroundWidth();
+    int getReactionBackgroundWidth();
+
+    int getReactionBackgroundXOffset();
+
+    int getReactionBackgroundYOffset();
 
     default int ySpacing() {
         return 10;
@@ -26,23 +30,24 @@ public interface IChemicalStructureCategory {
         return 20;
     }
 
-    default TextureArea backgroundImage() {
+    default TextureArea reactionBackgroundImage() {
         return TkTechTextures.REACTION_BACKGROUND;
     }
 
-    default void drawBackground() {
-        drawBackground(0, 0);
+    default void drawReactionBackground() {
+        drawReactionBackground(getReactionBackgroundXOffset(), getReactionBackgroundYOffset());
     }
 
     /**
-     * Draws with {@code width} = {@link #getBackgroundWidth()} and {@code height} = {@link #getBackgroundHeight()}.
+     * Draws with {@code width} = {@link #getReactionBackgroundWidth()} and {@code height} =
+     * {@link #getReactionBackgroundHeight()}.
      */
-    default void drawBackground(int xOffset, int yOffset) {
-        drawBackground(xOffset, yOffset, getBackgroundWidth(), getBackgroundHeight());
+    default void drawReactionBackground(int xOffset, int yOffset) {
+        drawReactionBackground(xOffset, yOffset, getReactionBackgroundWidth(), getReactionBackgroundHeight());
     }
 
-    default void drawBackground(int xOffset, int yOffset, int width, int height) {
-        backgroundImage().draw(xOffset, yOffset, width, height);
+    default void drawReactionBackground(int xOffset, int yOffset, int width, int height) {
+        reactionBackgroundImage().draw(xOffset, yOffset, width, height);
     }
 
     default int getCenterXOffset(int guiWidth, int drawableWidth) {

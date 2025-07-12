@@ -71,7 +71,10 @@ public class ChemicalStructureInfo implements IRecipeWrapper {
 
     @Override
     public void drawInfo(Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
-        GuiUtils.drawCenteredStringWithCutoff(material.getLocalizedName(), minecraft.fontRenderer,
-                guiWidth, yMargin);
+        GuiUtils.drawCenteredStringWithCutoff(
+                material.getLocalizedName(),
+                minecraft.fontRenderer,
+                guiWidth,
+                yMargin);
     }
 }

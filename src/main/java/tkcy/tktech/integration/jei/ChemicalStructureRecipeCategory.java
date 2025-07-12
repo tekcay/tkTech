@@ -65,13 +65,24 @@ public class ChemicalStructureRecipeCategory extends RecipeMapCategory
     }
 
     @Override
-    public int getBackgroundHeight() {
+    public int getReactionBackgroundHeight() {
         return this.backgroundHeight;
     }
 
     @Override
-    public int getBackgroundWidth() {
+    public int getReactionBackgroundWidth() {
         return Math.max(chemReactionWidth + xMargin() * 2, getRecipeMapUI().getBackgroundWidth());
+    }
+
+    @Override
+    public int getReactionBackgroundXOffset() {
+        return ChemicalReactionRenderUtils.getReactionXOffset(chemReactionWidth + 2 * xMargin(),
+                getRecipeMapUI().getBackgroundWidth());
+    }
+
+    @Override
+    public int getReactionBackgroundYOffset() {
+        return getRecipeMapUI().getBackgroundHeight() + yMargin();
     }
 
     @Override
@@ -85,18 +96,17 @@ public class ChemicalStructureRecipeCategory extends RecipeMapCategory
         chemReactionWidth = ChemicalReactionRenderUtils.getReactionWith(chemicalStructuresInputs,
                 chemicalStructuresOutputs, plusSign, reactionArrow, xSpacing());
 
-        int xOffset = ChemicalReactionRenderUtils.getReactionXOffset(chemReactionWidth + 2 * xMargin(),
-                getRecipeMapUI().getBackgroundWidth());
-        int yOffset = getRecipeMapUI().getBackgroundHeight() + yMargin();
+        int xOffset = getReactionBackgroundXOffset();
+        int yOffset = getReactionBackgroundYOffset();
 
         int maxHeight = getTallestChemStructureHeight(
                 Stream.concat(chemicalStructuresInputs.stream(), chemicalStructuresOutputs.stream()));
 
         backgroundHeight = yMargin() * 2 + maxHeight;
 
-        drawBackground(xOffset,
+        drawReactionBackground(xOffset,
                 getRecipeMapUI().getBackgroundHeight(),
-                getBackgroundWidth(),
+                getReactionBackgroundWidth(),
                 backgroundHeight);
 
         xOffset += xMargin();

@@ -19,6 +19,7 @@ import mezz.jei.api.gui.*;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import tkcy.tktech.TkTech;
+import tkcy.tktech.api.render.ChemicalReactionRenderUtils;
 import tkcy.tktech.api.render.ChemicalStructureRenderUtils;
 import tkcy.tktech.api.render.IChemicalStructureCategory;
 import tkcy.tktech.api.utils.GuiUtils;
@@ -82,10 +83,6 @@ public class ChemicalStructureCategory extends BasicRecipeCategory<ChemicalStruc
         return xMargin() + slotIndex * (SLOT_DIM + xSpacing());
     }
 
-    private int chemStructureYOffset() {
-        return slotYOffset() + SLOT_DIM + ySpacing();
-    }
-
     /**
      * Drawn in the recipeWrapper, see {@link ChemicalStructureInfo#drawInfo(Minecraft, int, int, int, int)}.
      */
@@ -99,9 +96,11 @@ public class ChemicalStructureCategory extends BasicRecipeCategory<ChemicalStruc
 
         chemicalStructure = ChemicalStructureRenderUtils.getChemStructureIDrawable(guiHelper, info.getMaterial(), 0.5D);
 
-        drawBackground();
+        int xOffset = getReactionBackgroundXOffset();
 
-        info.setGuiWidth(getBackgroundWidth());
+        drawReactionBackground();
+
+        info.setGuiWidth(background.getWidth());
         info.setYMargin(yMargin());
 
         int slotIndex = 0;
@@ -115,10 +114,12 @@ public class ChemicalStructureCategory extends BasicRecipeCategory<ChemicalStruc
             slot.draw(minecraft, slotXOffset(slotIndex), slotYOffset());
         }
 
+        xOffset += xMargin();
         chemicalStructure.draw(
                 minecraft,
-                getCenterXOffset(getBackgroundWidth(), chemicalStructure.getWidth()),
-                chemStructureYOffset());
+                // getCenterXOffset(getBackgroundWidth(), chemicalStructure.getWidth()),
+                xOffset,
+                getReactionBackgroundYOffset() + ySpacing());
     }
 
     @Nullable
@@ -140,16 +141,22 @@ public class ChemicalStructureCategory extends BasicRecipeCategory<ChemicalStruc
     }
 
     @Override
-    public int getBackgroundHeight() {
-        return Math.max(
-                GuiUtils.STANDARD_JEI_UI_HEIGHT,
-                chemStructureYOffset() + chemicalStructure.getHeight() + yMargin());
+    public int getReactionBackgroundHeight() {
+        return ySpacing() + chemicalStructure.getHeight() + ySpacing();
     }
 
     @Override
-    public int getBackgroundWidth() {
-        return Math.max(
-                GuiUtils.STANDARD_JEI_UI_WIDTH,
-                xMargin() + chemicalStructure.getWidth() + xMargin());
+    public int getReactionBackgroundWidth() {
+        return xMargin() + chemicalStructure.getWidth() + xMargin();
+    }
+
+    @Override
+    public int getReactionBackgroundXOffset() {
+        return ChemicalReactionRenderUtils.getReactionXOffset(getReactionBackgroundWidth(), background.getWidth());
+    }
+
+    @Override
+    public int getReactionBackgroundYOffset() {
+        return slotYOffset() + SLOT_DIM + ySpacing();
     }
 }
