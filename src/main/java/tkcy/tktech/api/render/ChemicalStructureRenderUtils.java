@@ -89,12 +89,12 @@ public class ChemicalStructureRenderUtils {
     }
 
     public static IDrawable buildChemStructureDrawable(IGuiHelper guiHelper, Material material, double scale) {
-        ChemicalStructureProperty property = ChemicalStructureProperty.INSTANCE.getProperty(material);
-        int height = (int) (property.getTextureHeight() * scale);
-        int width = (int) (property.getTextureWidth() * scale);
+        TextureArea textureArea = getMoleculeTexture(material);
 
-        TextureArea texture = getMoleculeTexture(material);
-        ResourceLocation imageLocation = texture.imageLocation;
+        int height = (int) (textureArea.imageHeight * scale);
+        int width = (int) (textureArea.imageWidth * scale);
+
+        ResourceLocation imageLocation = textureArea.imageLocation;
 
         return buildChemStructureDrawable(
                 guiHelper,
@@ -114,7 +114,7 @@ public class ChemicalStructureRenderUtils {
     public static List<IDrawable> buildChemicalStructures(IGuiHelper guiHelper, List<Material> materials,
                                                           double scale) {
         return materials.stream()
-                .map(chemicalStructure -> buildChemStructureDrawable(guiHelper, chemicalStructure, scale))
+                .map(material -> buildChemStructureDrawable(guiHelper, material, scale))
                 .collect(Collectors.toList());
     }
 }

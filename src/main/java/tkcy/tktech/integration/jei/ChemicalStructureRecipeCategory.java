@@ -39,13 +39,15 @@ public class ChemicalStructureRecipeCategory extends RecipeMapCategory
     private List<IDrawable> chemicalStructuresOutputs;
     private int backgroundHeight;
 
+    private static final double scale = 0.25D;
+
     public ChemicalStructureRecipeCategory(@NotNull RecipeMap<?> recipeMap, @NotNull GTRecipeCategory category,
                                            IGuiHelper guiHelper) {
         super(recipeMap, category, guiHelper);
         this.recipeMapUI = recipeMap.getRecipeMapUI();
         this.guiHelper = guiHelper;
-        this.plusSign = ChemicalReactionRenderUtils.getPlusSign(guiHelper, 0.25D);
-        this.reactionArrow = ChemicalReactionRenderUtils.getReactionArrow(guiHelper, 0.25D);
+        this.plusSign = ChemicalReactionRenderUtils.getPlusSign(guiHelper, scale);
+        this.reactionArrow = ChemicalReactionRenderUtils.getReactionArrow(guiHelper, scale);
     }
 
     protected ICustomRecipeMapUI getRecipeMapUI() {
@@ -87,8 +89,8 @@ public class ChemicalStructureRecipeCategory extends RecipeMapCategory
 
         if (chemicalStructureContainer == null || !chemicalStructureContainer.isValid()) return;
 
-        chemicalStructuresInputs = buildChemicalStructures(guiHelper, getInputMaterialsChemStructure());
-        chemicalStructuresOutputs = buildChemicalStructures(guiHelper, getOutputMaterialsChemStructure());
+        chemicalStructuresInputs = buildChemicalStructures(guiHelper, getInputMaterialsChemStructure(), scale);
+        chemicalStructuresOutputs = buildChemicalStructures(guiHelper, getOutputMaterialsChemStructure(), scale);
 
         int xOffset = xMargin();
         int yOffset = getRecipeMapUI().getBackgroundHeight() + yMargin();

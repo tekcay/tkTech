@@ -19,7 +19,6 @@ import lombok.Setter;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.ingredients.VanillaTypes;
 import mezz.jei.api.recipe.IRecipeWrapper;
-import tkcy.tktech.api.unification.properties.ChemicalStructureProperty;
 import tkcy.tktech.api.unification.properties.TkTechMaterialPropertyKeys;
 import tkcy.tktech.api.utils.GuiUtils;
 
@@ -32,9 +31,6 @@ public class ChemicalStructureInfo implements IRecipeWrapper {
 
     private boolean hasFluid = false;
     private boolean hasDust = false;
-
-    private final int chemicalStructureWidth;
-    private final int chemicalStructureHeight;
 
     @Setter
     private int yMargin = 0;
@@ -49,9 +45,6 @@ public class ChemicalStructureInfo implements IRecipeWrapper {
         }
 
         this.material = material;
-        ChemicalStructureProperty property = ChemicalStructureProperty.INSTANCE.getProperty(material);
-        this.chemicalStructureHeight = property.getTextureHeight();
-        this.chemicalStructureWidth = property.getTextureWidth();
 
         if (material.hasFluid()) {
             this.hasFluid = true;
