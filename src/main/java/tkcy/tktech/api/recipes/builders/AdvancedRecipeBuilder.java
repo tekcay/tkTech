@@ -6,7 +6,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -18,6 +17,7 @@ import gregtech.api.recipes.properties.impl.PrimitiveProperty;
 import gregtech.api.unification.OreDictUnifier;
 import gregtech.api.unification.material.Material;
 import gregtech.api.unification.ore.OrePrefix;
+import gregtech.api.util.EnumValidationResult;
 import gregtech.api.util.ValidationResult;
 
 import lombok.Getter;
@@ -25,11 +25,11 @@ import lombok.NoArgsConstructor;
 import tkcy.tktech.api.recipes.properties.*;
 import tkcy.tktech.api.recipes.recipemaps.IChemStructureToMaterials;
 import tkcy.tktech.api.utils.BlockStateHelper;
-import tkcy.tktech.modules.toolmodule.ToolsModule;
 
 @NoArgsConstructor
 public class AdvancedRecipeBuilder extends RecipeBuilder<AdvancedRecipeBuilder> implements IChemStructureToMaterials,
-                                   IChemicalStructureRecipeBuilder<AdvancedRecipeBuilder> {
+                                   IChemicalStructureRecipeBuilder<AdvancedRecipeBuilder>,
+                                   IToolRecipeBuilder<AdvancedRecipeBuilder> {
 
     protected boolean hideDuration = false;
     protected boolean useAndDisplayEnergy = true;
@@ -82,34 +82,6 @@ public class AdvancedRecipeBuilder extends RecipeBuilder<AdvancedRecipeBuilder> 
         this.outputs(itemStack);
         OutputBlockStateRecipeProperty recipeProperty = OutputBlockStateRecipeProperty.getInstance();
         return (AdvancedRecipeBuilder) recipeProperty.testAndApplyPropertyValue(itemStack, this.recipeStatus, this);
-    }
-
-    private AdvancedRecipeBuilder tool(ToolsModule.GtTool gtTool) {
-        ToolRecipeProperty toolProperty = ToolRecipeProperty.getInstance();
-        return (AdvancedRecipeBuilder) toolProperty.testAndApplyPropertyValue(gtTool, this.recipeStatus, this);
-    }
-
-    private AdvancedRecipeBuilder toolUses(int uses) {
-        ToolUsesRecipeProperty toolUsesProperty = ToolUsesRecipeProperty.getInstance();
-        return (AdvancedRecipeBuilder) toolUsesProperty.testAndApplyPropertyValue(uses, this.recipeStatus, this);
-    }
-
-    private AdvancedRecipeBuilder toolFacing(EnumFacing toolFacing) {
-        ToolFacingRecipeProperty toolFacingProperty = ToolFacingRecipeProperty.getInstance();
-        return (AdvancedRecipeBuilder) toolFacingProperty.testAndApplyPropertyValue(toolFacing, this.recipeStatus,
-                this);
-    }
-
-    public AdvancedRecipeBuilder tool(ToolsModule.GtTool gtTool, int uses) {
-        this.tool(gtTool);
-        this.toolUses(uses);
-        return this;
-    }
-
-    public AdvancedRecipeBuilder tool(ToolsModule.GtTool gtTool, int uses, EnumFacing toolFacing) {
-        this.tool(gtTool, uses);
-        this.toolFacing(toolFacing);
-        return this;
     }
 
     /**
@@ -178,5 +150,10 @@ public class AdvancedRecipeBuilder extends RecipeBuilder<AdvancedRecipeBuilder> 
     @Override
     public AdvancedRecipeBuilder getRecipeBuilder() {
         return this;
+    }
+
+    @Override
+    public EnumValidationResult getRecipeStatus() {
+        return recipeStatus;
     }
 }
