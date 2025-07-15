@@ -2,9 +2,6 @@ package tkcy.tktech.api.recipes.builders;
 
 import java.util.*;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 import org.jetbrains.annotations.NotNull;
@@ -24,12 +21,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import tkcy.tktech.api.recipes.properties.*;
 import tkcy.tktech.api.recipes.recipemaps.IChemStructureToMaterials;
-import tkcy.tktech.api.utils.BlockStateHelper;
 
 @NoArgsConstructor
 public class AdvancedRecipeBuilder extends RecipeBuilder<AdvancedRecipeBuilder> implements IChemStructureToMaterials,
                                    IChemicalStructureRecipeBuilder<AdvancedRecipeBuilder>,
-                                   IToolRecipeBuilder<AdvancedRecipeBuilder> {
+                                   IToolRecipeBuilder<AdvancedRecipeBuilder>,
+                                   IBlockInWorldRecipeBuilder<AdvancedRecipeBuilder> {
 
     protected boolean hideDuration = false;
     protected boolean useAndDisplayEnergy = true;
@@ -50,38 +47,6 @@ public class AdvancedRecipeBuilder extends RecipeBuilder<AdvancedRecipeBuilder> 
     @Override
     public AdvancedRecipeBuilder copy() {
         return new AdvancedRecipeBuilder(this);
-    }
-
-    public AdvancedRecipeBuilder inputBlockInWorld(IBlockState blockState) {
-        ItemStack itemStack = BlockStateHelper.blockStateToItemStack(blockState);
-        return inputBlockInWorld(itemStack);
-    }
-
-    public AdvancedRecipeBuilder inputBlockInWorld(Block block) {
-        ItemStack input = Item.getItemFromBlock(block).getDefaultInstance();
-        return inputBlockInWorld(input);
-    }
-
-    public AdvancedRecipeBuilder inputBlockInWorld(ItemStack itemStack) {
-        this.inputs(itemStack);
-        InputBlockStateRecipeProperty recipeProperty = InputBlockStateRecipeProperty.getInstance();
-        return (AdvancedRecipeBuilder) recipeProperty.testAndApplyPropertyValue(itemStack, this.recipeStatus, this);
-    }
-
-    public AdvancedRecipeBuilder outputBlockInWorld(IBlockState blockState) {
-        ItemStack itemStack = BlockStateHelper.blockStateToItemStack(blockState);
-        return outputBlockInWorld(itemStack);
-    }
-
-    public AdvancedRecipeBuilder outputBlockInWorld(Block block) {
-        ItemStack output = Item.getItemFromBlock(block).getDefaultInstance();
-        return outputBlockInWorld(output);
-    }
-
-    public AdvancedRecipeBuilder outputBlockInWorld(ItemStack itemStack) {
-        this.outputs(itemStack);
-        OutputBlockStateRecipeProperty recipeProperty = OutputBlockStateRecipeProperty.getInstance();
-        return (AdvancedRecipeBuilder) recipeProperty.testAndApplyPropertyValue(itemStack, this.recipeStatus, this);
     }
 
     /**
