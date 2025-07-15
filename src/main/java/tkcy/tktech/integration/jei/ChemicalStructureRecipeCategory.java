@@ -35,8 +35,6 @@ public class ChemicalStructureRecipeCategory extends RecipeMapCategory
     private final IDrawable plusSign;
     private final IDrawable reactionArrow;
     private final RecipeMapUI<?> recipeMapUI;
-    private List<IDrawable> chemicalStructuresInputs;
-    private List<IDrawable> chemicalStructuresOutputs;
     private int backgroundHeight;
     private int chemReactionWidth;
 
@@ -65,23 +63,23 @@ public class ChemicalStructureRecipeCategory extends RecipeMapCategory
     }
 
     @Override
-    public int getReactionBackgroundHeight() {
+    public int getChemicalBackgroundHeight() {
         return this.backgroundHeight;
     }
 
     @Override
-    public int getReactionBackgroundWidth() {
+    public int getChemicalBackgroundWidth() {
         return Math.max(chemReactionWidth + xMargin() * 2, getRecipeMapUI().getBackgroundWidth());
     }
 
     @Override
-    public int getReactionBackgroundXOffset() {
+    public int getChemicalBackgroundXOffset() {
         return ChemicalReactionRenderUtils.getReactionXOffset(chemReactionWidth + 2 * xMargin(),
                 getRecipeMapUI().getBackgroundWidth());
     }
 
     @Override
-    public int getReactionBackgroundYOffset() {
+    public int getChemicalBackgroundYOffset() {
         return getRecipeMapUI().getBackgroundHeight() + yMargin();
     }
 
@@ -91,13 +89,15 @@ public class ChemicalStructureRecipeCategory extends RecipeMapCategory
 
         if (chemicalStructureContainer == null || !chemicalStructureContainer.isValid()) return;
 
-        chemicalStructuresInputs = buildChemicalStructures(guiHelper, getInputMaterialsChemStructure(), scale);
-        chemicalStructuresOutputs = buildChemicalStructures(guiHelper, getOutputMaterialsChemStructure(), scale);
+        List<IDrawable> chemicalStructuresInputs = buildChemicalStructures(guiHelper, getInputMaterialsChemStructure(),
+                scale);
+        List<IDrawable> chemicalStructuresOutputs = buildChemicalStructures(guiHelper,
+                getOutputMaterialsChemStructure(), scale);
         chemReactionWidth = ChemicalReactionRenderUtils.getReactionWith(chemicalStructuresInputs,
                 chemicalStructuresOutputs, plusSign, reactionArrow, xSpacing());
 
-        int xOffset = getReactionBackgroundXOffset();
-        int yOffset = getReactionBackgroundYOffset();
+        int xOffset = getChemicalBackgroundXOffset();
+        int yOffset = getChemicalBackgroundYOffset();
 
         int maxHeight = getTallestChemStructureHeight(
                 Stream.concat(chemicalStructuresInputs.stream(), chemicalStructuresOutputs.stream()));
@@ -106,7 +106,7 @@ public class ChemicalStructureRecipeCategory extends RecipeMapCategory
 
         drawReactionBackground(xOffset,
                 getRecipeMapUI().getBackgroundHeight(),
-                getReactionBackgroundWidth(),
+                getChemicalBackgroundWidth(),
                 backgroundHeight);
 
         xOffset += xMargin();

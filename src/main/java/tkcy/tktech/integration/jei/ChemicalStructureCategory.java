@@ -1,6 +1,6 @@
 package tkcy.tktech.integration.jei;
 
-import static tkcy.tktech.api.utils.GuiUtils.SLOT_DIM;
+import static tkcy.tktech.api.utils.GuiJeiUtils.SLOT_DIM;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
@@ -8,7 +8,6 @@ import net.minecraft.client.resources.I18n;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import gregtech.api.gui.GuiTextures;
 import gregtech.api.unification.OreDictUnifier;
 import gregtech.api.unification.material.Materials;
 import gregtech.api.unification.ore.OrePrefix;
@@ -22,7 +21,7 @@ import tkcy.tktech.TkTech;
 import tkcy.tktech.api.render.ChemicalReactionRenderUtils;
 import tkcy.tktech.api.render.ChemicalStructureRenderUtils;
 import tkcy.tktech.api.render.IChemicalStructureCategory;
-import tkcy.tktech.api.utils.GuiUtils;
+import tkcy.tktech.api.utils.GuiJeiUtils;
 
 public class ChemicalStructureCategory extends BasicRecipeCategory<ChemicalStructureInfo, ChemicalStructureInfo>
                                        implements IChemicalStructureCategory {
@@ -38,15 +37,12 @@ public class ChemicalStructureCategory extends BasicRecipeCategory<ChemicalStruc
     public ChemicalStructureCategory(IGuiHelper guiHelper) {
         super("chemical_structure_location",
                 "chemical_structure_location.name",
-                GuiUtils.drawConfigHeightDependentJEIGui(guiHelper, 0.8D),
+                GuiJeiUtils.drawConfigHeightDependentJEIGui(guiHelper, 0.8D),
                 guiHelper);
 
         this.guiHelper = guiHelper;
         this.icon = guiHelper.createDrawableIngredient(OreDictUnifier.get(OrePrefix.ingot, Materials.Copper));
-        this.slot = guiHelper
-                .drawableBuilder(GuiTextures.SLOT.imageLocation, 0, 0, SLOT_DIM, SLOT_DIM)
-                .setTextureSize(SLOT_DIM, SLOT_DIM)
-                .build();
+        this.slot = GuiJeiUtils.standardSlot(guiHelper);
     }
 
     @NotNull
@@ -75,19 +71,34 @@ public class ChemicalStructureCategory extends BasicRecipeCategory<ChemicalStruc
         }
     }
 
+    /**
+     * Sum of all the ingredients slots width plus the required {@link #xSpacing()}.
+     */
+    private int ingredientsWidth() {
+        int slots = 0;
+        if (info.isHasDust()) slots++;
+        if (info.isHasFluid()) slots++;
+        return slots * SLOT_DIM + (slots - 1) * xSpacing();
+    }
+
     private int slotYOffset() {
         return yMargin() + materialNameHeight() + ySpacing();
     }
 
+    /**
+     * Returns an xOffset for the slot to be centered in the GUI, provided its width is
+     * {@link GuiJeiUtils#STANDARD_JEI_UI_WIDTH}.
+     */
     private int slotXOffset(int slotIndex) {
-        return xMargin() + slotIndex * (SLOT_DIM + xSpacing());
+        int firstSlotXOffset = getCenterXOffset(GuiJeiUtils.STANDARD_JEI_UI_WIDTH, ingredientsWidth());
+        return firstSlotXOffset + slotIndex * (SLOT_DIM + 1 + xSpacing());
     }
 
     /**
      * Drawn in the recipeWrapper, see {@link ChemicalStructureInfo#drawInfo(Minecraft, int, int, int, int)}.
      */
     private int materialNameHeight() {
-        return GuiUtils.FONT_HEIGHT;
+        return GuiJeiUtils.FONT_HEIGHT;
     }
 
     @Override
@@ -96,7 +107,7 @@ public class ChemicalStructureCategory extends BasicRecipeCategory<ChemicalStruc
 
         chemicalStructure = ChemicalStructureRenderUtils.getChemStructureIDrawable(guiHelper, info.getMaterial(), 0.5D);
 
-        int xOffset = getReactionBackgroundXOffset();
+        int xOffset = getChemicalBackgroundXOffset();
 
         drawReactionBackground();
 
@@ -117,9 +128,8 @@ public class ChemicalStructureCategory extends BasicRecipeCategory<ChemicalStruc
         xOffset += xMargin();
         chemicalStructure.draw(
                 minecraft,
-                // getCenterXOffset(getBackgroundWidth(), chemicalStructure.getWidth()),
                 xOffset,
-                getReactionBackgroundYOffset() + ySpacing());
+                getChemicalBackgroundYOffset() + ySpacing());
     }
 
     @Nullable
@@ -141,22 +151,22 @@ public class ChemicalStructureCategory extends BasicRecipeCategory<ChemicalStruc
     }
 
     @Override
-    public int getReactionBackgroundHeight() {
+    public int getChemicalBackgroundHeight() {
         return ySpacing() + chemicalStructure.getHeight() + ySpacing();
     }
 
     @Override
-    public int getReactionBackgroundWidth() {
+    public int getChemicalBackgroundWidth() {
         return xMargin() + chemicalStructure.getWidth() + xMargin();
     }
 
     @Override
-    public int getReactionBackgroundXOffset() {
-        return ChemicalReactionRenderUtils.getReactionXOffset(getReactionBackgroundWidth(), background.getWidth());
+    public int getChemicalBackgroundXOffset() {
+        return ChemicalReactionRenderUtils.getReactionXOffset(getChemicalBackgroundWidth(), background.getWidth());
     }
 
     @Override
-    public int getReactionBackgroundYOffset() {
+    public int getChemicalBackgroundYOffset() {
         return slotYOffset() + SLOT_DIM + ySpacing();
     }
 }

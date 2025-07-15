@@ -20,7 +20,7 @@ import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.ingredients.VanillaTypes;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import tkcy.tktech.api.unification.properties.TkTechMaterialPropertyKeys;
-import tkcy.tktech.api.utils.GuiUtils;
+import tkcy.tktech.api.utils.GuiJeiUtils;
 
 @Getter
 public class ChemicalStructureInfo implements IRecipeWrapper {
@@ -36,7 +36,7 @@ public class ChemicalStructureInfo implements IRecipeWrapper {
     private int yMargin = 0;
 
     @Setter
-    private int guiWidth = GuiUtils.STANDARD_JEI_UI_WIDTH;
+    private int guiWidth = GuiJeiUtils.STANDARD_JEI_UI_WIDTH;
 
     public ChemicalStructureInfo(Material material) {
         if (!material.hasProperty(TkTechMaterialPropertyKeys.CHEMICAL_STRUCTURE)) {
@@ -71,7 +71,7 @@ public class ChemicalStructureInfo implements IRecipeWrapper {
 
     @Override
     public void drawInfo(Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
-        GuiUtils.drawCenteredStringWithCutoff(
+        GuiJeiUtils.drawCenteredStringWithCutoff(
                 material.getLocalizedName(),
                 minecraft.fontRenderer,
                 guiWidth,

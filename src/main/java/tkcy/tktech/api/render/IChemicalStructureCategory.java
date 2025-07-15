@@ -6,13 +6,13 @@ import mezz.jei.api.gui.IDrawable;
 
 public interface IChemicalStructureCategory {
 
-    int getReactionBackgroundHeight();
+    int getChemicalBackgroundHeight();
 
-    int getReactionBackgroundWidth();
+    int getChemicalBackgroundWidth();
 
-    int getReactionBackgroundXOffset();
+    int getChemicalBackgroundXOffset();
 
-    int getReactionBackgroundYOffset();
+    int getChemicalBackgroundYOffset();
 
     default int ySpacing() {
         return 10;
@@ -35,15 +35,15 @@ public interface IChemicalStructureCategory {
     }
 
     default void drawReactionBackground() {
-        drawReactionBackground(getReactionBackgroundXOffset(), getReactionBackgroundYOffset());
+        drawReactionBackground(getChemicalBackgroundXOffset(), getChemicalBackgroundYOffset());
     }
 
     /**
-     * Draws with {@code width} = {@link #getReactionBackgroundWidth()} and {@code height} =
-     * {@link #getReactionBackgroundHeight()}.
+     * Draws with {@code width} = {@link #getChemicalBackgroundWidth()} and {@code height} =
+     * {@link #getChemicalBackgroundHeight()}.
      */
     default void drawReactionBackground(int xOffset, int yOffset) {
-        drawReactionBackground(xOffset, yOffset, getReactionBackgroundWidth(), getReactionBackgroundHeight());
+        drawReactionBackground(xOffset, yOffset, getChemicalBackgroundWidth(), getChemicalBackgroundHeight());
     }
 
     default void drawReactionBackground(int xOffset, int yOffset, int width, int height) {

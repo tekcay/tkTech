@@ -12,7 +12,7 @@ import mezz.jei.api.gui.IDrawableStatic;
 import mezz.jei.config.Config;
 
 @UtilityClass
-public class GuiUtils {
+public class GuiJeiUtils {
 
     /**
      * Standard slot dimension in guis and JEI.
