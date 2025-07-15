@@ -25,11 +25,11 @@ import lombok.NoArgsConstructor;
 import tkcy.tktech.api.recipes.properties.*;
 import tkcy.tktech.api.recipes.recipemaps.IChemStructureToMaterials;
 import tkcy.tktech.api.utils.BlockStateHelper;
-import tkcy.tktech.api.utils.BooleanHelper;
 import tkcy.tktech.modules.toolmodule.ToolsModule;
 
 @NoArgsConstructor
-public class AdvancedRecipeBuilder extends RecipeBuilder<AdvancedRecipeBuilder> implements IChemStructureToMaterials {
+public class AdvancedRecipeBuilder extends RecipeBuilder<AdvancedRecipeBuilder> implements IChemStructureToMaterials,
+                                   IChemicalStructureRecipeBuilder<AdvancedRecipeBuilder> {
 
     protected boolean hideDuration = false;
     protected boolean useAndDisplayEnergy = true;
@@ -158,27 +158,9 @@ public class AdvancedRecipeBuilder extends RecipeBuilder<AdvancedRecipeBuilder> 
         return this;
     }
 
-    public AdvancedRecipeBuilder chemicalStructures(boolean isInput, Material... materials) {
-        if (isInput) {
-            inputMaterialsChemStructure.addAll(Arrays.asList(materials));
-        } else {
-            outputMaterialsChemStructure.addAll(Arrays.asList(materials));
-        }
-        return this;
-    }
-
     @Override
     public ValidationResult<Recipe> build() {
-        if (BooleanHelper.doesAnyNotMatch(List::isEmpty, inputMaterialsChemStructure, outputMaterialsChemStructure)) {
-
-            ChemicalStructuresRecipeProperty recipeProperty = ChemicalStructuresRecipeProperty.getInstance();
-            recipeProperty.testAndApplyPropertyValue(
-                    new ChemicalStructuresRecipeProperty.Container(
-                            inputMaterialsChemStructure,
-                            outputMaterialsChemStructure),
-                    recipeStatus,
-                    this);
-        }
+        validateChemicalStructuresRecipeProperty(recipeStatus);
 
         if (this.hideDuration) {
             this.duration(10);
@@ -191,5 +173,10 @@ public class AdvancedRecipeBuilder extends RecipeBuilder<AdvancedRecipeBuilder> 
         }
 
         return super.build();
+    }
+
+    @Override
+    public AdvancedRecipeBuilder getRecipeBuilder() {
+        return this;
     }
 }
