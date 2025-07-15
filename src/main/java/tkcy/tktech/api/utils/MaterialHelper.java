@@ -1,12 +1,15 @@
 package tkcy.tktech.api.utils;
 
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTBase;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.nbt.NBTTagString;
 import net.minecraftforge.fluids.FluidStack;
 
 import org.jetbrains.annotations.NotNull;
@@ -166,5 +169,42 @@ public class MaterialHelper {
                 fluidPipeProperties.isPlasmaProof(),
                 fluidPipeProperties.isBaseProof(),
                 fluidPipeProperties.isFluorideProof());
+    }
+
+    public static NBTBase serializeMaterial(@NotNull Material material) {
+        return new NBTTagString(material.getRegistryName());
+    }
+
+    public static NBTTagList serializeMaterials(@NotNull Collection<Material> materials) {
+        NBTTagList tagList = new NBTTagList();
+        materials.stream()
+                .map(Material::getRegistryName)
+                .map(NBTTagString::new)
+                .forEach(tagList::appendTag);
+        return tagList;
+    }
+
+    public static NBTTagList serializeMaterials(@NotNull Material[] materials) {
+        return serializeMaterials(Arrays.asList(materials));
+    }
+
+    public static Material deserializeMaterial(NBTTagString nbt) {
+        String materialRegistryName = nbt.getString();
+        return GregTechAPI.materialManager.getMaterial(materialRegistryName);
+    }
+
+    public static List<Material> deserializeMaterials(NBTTagList nbtTagList) {
+        return deserializeMaterialsAsStream(nbtTagList).collect(Collectors.toList());
+    }
+
+    public static Set<Material> deserializeMaterialsToSet(NBTTagList nbtTagList) {
+        return deserializeMaterialsAsStream(nbtTagList).collect(Collectors.toSet());
+    }
+
+    private static Stream<Material> deserializeMaterialsAsStream(NBTTagList nbtTagList) {
+        return nbtTagList.tagList.stream()
+                .map(nbtBase -> (NBTTagString) nbtBase)
+                .map(NBTTagString::getString)
+                .map(GregTechAPI.materialManager::getMaterial);
     }
 }

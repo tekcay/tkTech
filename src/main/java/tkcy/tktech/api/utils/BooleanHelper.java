@@ -17,6 +17,12 @@ public class BooleanHelper {
     }
 
     @SafeVarargs
+    public static <T> boolean doesAnyNotMatch(Predicate<T> predicate, T... toCompareWith) {
+        return Arrays.stream(toCompareWith)
+                .anyMatch(predicate.negate());
+    }
+
+    @SafeVarargs
     public static <T> boolean doesAnyMatch(T base, T... toCompareWith) {
         return Arrays.stream(toCompareWith)
                 .anyMatch(toCompare -> toCompare == base);
@@ -38,5 +44,11 @@ public class BooleanHelper {
     public static <T> boolean allMatch(T base, T... toCompareWith) {
         return Arrays.stream(toCompareWith)
                 .allMatch(toCompare -> toCompare == base);
+    }
+
+    @SafeVarargs
+    public static <T> boolean allPredicate(T toTest, Predicate<T>... predicates) {
+        return Arrays.stream(predicates)
+                .anyMatch(tPredicate -> tPredicate.negate().test(toTest));
     }
 }

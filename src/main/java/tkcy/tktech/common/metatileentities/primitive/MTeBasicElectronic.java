@@ -1,6 +1,6 @@
 package tkcy.tktech.common.metatileentities.primitive;
 
-import static tkcy.tktech.api.utils.GuiUtils.FONT_HEIGHT;
+import static tkcy.tktech.api.utils.GuiJeiUtils.FONT_HEIGHT;
 
 import java.util.Collections;
 import java.util.List;

@@ -112,8 +112,14 @@ public final class TkTechRecipeMaps {
     public static final RecipeMap<PrimitiveRecipeBuilder> PRIMITIVE_BATH_RECIPES = new MinimalPrimitiveRecipeMap<>(
             "primitive_bath_recipes",
             1, 1, 1, 0, new PrimitiveRecipeBuilder(), false);
+
     @ZenProperty
-    public static final RecipeMap<AdvancedRecipeBuilder> CHEMICAL_BENCH_RECIPES = new RecipeMap<>(
+    public static final RecipeMap<AdvancedRecipeBuilder> CHEMICAL_BENCH_RECIPES = new ChemicalStructureDisplayRecipeMap<>(
             "chemical_bench_recipes",
-            6, 0, 2, 1, new AdvancedRecipeBuilder(), false);
+            new AdvancedRecipeBuilder(),
+            ChemicalStructureRecipeMapUI::new,
+            6,
+            1,
+            6,
+            1);
 }

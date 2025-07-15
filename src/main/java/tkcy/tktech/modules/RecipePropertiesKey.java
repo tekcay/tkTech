@@ -18,4 +18,5 @@ public class RecipePropertiesKey {
     public static final String OUTPUT_BLOCK_STATE_KEY = "outputBlockStateKey";
     public static final String FAILED_OUTPUT_KEY = "failedOutputKey";
     public static final String DURATION_MODIFIER_KEY = "maxDurationKey";
+    public static final String CHEMICAL_STRUCTURE_KEY = "chemicalStructureKey";
 }

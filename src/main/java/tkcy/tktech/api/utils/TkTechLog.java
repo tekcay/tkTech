@@ -5,12 +5,17 @@ import java.util.List;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
+import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 
+import lombok.experimental.UtilityClass;
+import tkcy.tktech.TkTech;
+
+@UtilityClass
 public final class TkTechLog {
 
-    public static Logger logger;
+    public static Logger logger = LogManager.getLogger(TkTech.MODID);
 
     public static void init(@NotNull Logger modLogger) {
         logger = modLogger;

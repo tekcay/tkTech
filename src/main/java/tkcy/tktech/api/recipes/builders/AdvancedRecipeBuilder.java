@@ -1,5 +1,7 @@
 package tkcy.tktech.api.recipes.builders;
 
+import java.util.*;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.Item;
@@ -18,16 +20,23 @@ import gregtech.api.unification.material.Material;
 import gregtech.api.unification.ore.OrePrefix;
 import gregtech.api.util.ValidationResult;
 
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import tkcy.tktech.api.recipes.properties.*;
+import tkcy.tktech.api.recipes.recipemaps.IChemStructureToMaterials;
 import tkcy.tktech.api.utils.BlockStateHelper;
+import tkcy.tktech.api.utils.BooleanHelper;
 import tkcy.tktech.modules.toolmodule.ToolsModule;
 
 @NoArgsConstructor
-public class AdvancedRecipeBuilder extends RecipeBuilder<AdvancedRecipeBuilder> {
+public class AdvancedRecipeBuilder extends RecipeBuilder<AdvancedRecipeBuilder> implements IChemStructureToMaterials {
 
     protected boolean hideDuration = false;
     protected boolean useAndDisplayEnergy = true;
+    @Getter
+    protected final List<Material> inputMaterialsChemStructure = new ArrayList<>();
+    @Getter
+    protected final List<Material> outputMaterialsChemStructure = new ArrayList<>();
 
     @SuppressWarnings("unused")
     public AdvancedRecipeBuilder(Recipe recipe, RecipeMap<AdvancedRecipeBuilder> recipeMap) {
@@ -136,7 +145,7 @@ public class AdvancedRecipeBuilder extends RecipeBuilder<AdvancedRecipeBuilder> 
     }
 
     /**
-     * Set the recipe {@link #duration}.
+     * List the recipe {@link #duration}.
      * 
      * @param duration
      * @param recipeDurationRate a value that can modify the recipe duration at
@@ -149,8 +158,28 @@ public class AdvancedRecipeBuilder extends RecipeBuilder<AdvancedRecipeBuilder> 
         return this;
     }
 
+    public AdvancedRecipeBuilder chemicalStructures(boolean isInput, Material... materials) {
+        if (isInput) {
+            inputMaterialsChemStructure.addAll(Arrays.asList(materials));
+        } else {
+            outputMaterialsChemStructure.addAll(Arrays.asList(materials));
+        }
+        return this;
+    }
+
     @Override
     public ValidationResult<Recipe> build() {
+        if (BooleanHelper.doesAnyNotMatch(List::isEmpty, inputMaterialsChemStructure, outputMaterialsChemStructure)) {
+
+            ChemicalStructuresRecipeProperty recipeProperty = ChemicalStructuresRecipeProperty.getInstance();
+            recipeProperty.testAndApplyPropertyValue(
+                    new ChemicalStructuresRecipeProperty.Container(
+                            inputMaterialsChemStructure,
+                            outputMaterialsChemStructure),
+                    recipeStatus,
+                    this);
+        }
+
         if (this.hideDuration) {
             this.duration(10);
             applyProperty(HideDurationRecipeProperty.getInstance(), true);
