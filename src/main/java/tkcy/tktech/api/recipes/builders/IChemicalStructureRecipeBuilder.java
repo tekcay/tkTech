@@ -9,25 +9,20 @@ import gregtech.api.unification.ore.OrePrefix;
 import gregtech.api.util.EnumValidationResult;
 
 import tkcy.tktech.api.recipes.properties.ChemicalStructuresRecipeProperty;
+import tkcy.tktech.api.recipes.recipemaps.IChemStructureToMaterials;
 import tkcy.tktech.api.utils.BooleanHelper;
 
-public interface IChemicalStructureRecipeBuilder<T extends RecipeBuilder<T>> extends IAdvancedRecipeBuilder<T> {
-
-    List<Material> getInputMaterialsChemStructure();
-
-    List<Material> getOutputMaterialsChemStructure();
+public interface IChemicalStructureRecipeBuilder<T extends RecipeBuilder<T>>
+                                                extends IAdvancedRecipeBuilder<T>, IChemStructureToMaterials {
 
     default void validateChemicalStructuresRecipeProperty(EnumValidationResult recipeStatus) {
         if (BooleanHelper.doesAnyNotMatch(List::isEmpty, getInputMaterialsChemStructure(),
                 getOutputMaterialsChemStructure())) {
 
-            ChemicalStructuresRecipeProperty recipeProperty = ChemicalStructuresRecipeProperty.getInstance();
-            recipeProperty.testAndApplyPropertyValue(
-                    new ChemicalStructuresRecipeProperty.Container(
-                            getInputMaterialsChemStructure(),
-                            getOutputMaterialsChemStructure()),
-                    recipeStatus,
-                    getRecipeBuilder());
+            ChemicalStructuresRecipeProperty.Container container = new ChemicalStructuresRecipeProperty.Container(
+                    getInputMaterialsChemStructure(),
+                    getOutputMaterialsChemStructure());
+            testAndApplyPropertyValue(ChemicalStructuresRecipeProperty.getInstance(), container);
         }
     }
 

@@ -12,23 +12,12 @@ import tkcy.tktech.modules.toolmodule.ToolsModule;
 interface IToolRecipeBuilder<T extends RecipeBuilder<T>> extends IAdvancedRecipeBuilder<T> {
 
     default T tool(ToolsModule.GtTool gtTool, int uses) {
-        ToolRecipeProperty.getInstance().testAndApplyPropertyValue(
-                gtTool,
-                getRecipeStatus(),
-                getRecipeBuilder());
-        ToolUsesRecipeProperty.getInstance().testAndApplyPropertyValue(
-                uses,
-                getRecipeStatus(),
-                getRecipeBuilder());
-        return getRecipeBuilder();
+        testAndApplyPropertyValue(ToolRecipeProperty.getInstance(), gtTool);
+        return testAndApplyPropertyValue(ToolUsesRecipeProperty.getInstance(), uses);
     }
 
     default T tool(ToolsModule.GtTool gtTool, int uses, EnumFacing toolFacing) {
         this.tool(gtTool, uses);
-        ToolFacingRecipeProperty.getInstance().testAndApplyPropertyValue(
-                toolFacing,
-                getRecipeStatus(),
-                getRecipeBuilder());
-        return getRecipeBuilder();
+        return testAndApplyPropertyValue(ToolFacingRecipeProperty.getInstance(), toolFacing);
     }
 }

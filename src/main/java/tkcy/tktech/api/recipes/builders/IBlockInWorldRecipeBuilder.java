@@ -24,11 +24,7 @@ public interface IBlockInWorldRecipeBuilder<T extends RecipeBuilder<T>> extends 
     }
 
     default T inputBlockInWorld(ItemStack itemStack) {
-        InputBlockStateRecipeProperty.getInstance().testAndApplyPropertyValue(
-                itemStack,
-                getRecipeStatus(),
-                getRecipeBuilder());
-        return getRecipeBuilder().inputs(itemStack);
+        return testAndApplyPropertyValue(InputBlockStateRecipeProperty.getInstance(), itemStack).inputs(itemStack);
     }
 
     default T outputBlockInWorld(IBlockState blockState) {
@@ -42,10 +38,6 @@ public interface IBlockInWorldRecipeBuilder<T extends RecipeBuilder<T>> extends 
     }
 
     default T outputBlockInWorld(ItemStack itemStack) {
-        OutputBlockStateRecipeProperty.getInstance().testAndApplyPropertyValue(
-                itemStack,
-                getRecipeStatus(),
-                getRecipeBuilder());
-        return getRecipeBuilder().outputs(itemStack);
+        return testAndApplyPropertyValue(OutputBlockStateRecipeProperty.getInstance(), itemStack).outputs(itemStack);
     }
 }
