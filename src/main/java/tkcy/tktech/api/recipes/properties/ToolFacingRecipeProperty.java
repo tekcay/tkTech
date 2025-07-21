@@ -10,11 +10,8 @@ import net.minecraft.util.EnumFacing;
 
 import org.jetbrains.annotations.NotNull;
 
-import gregtech.api.recipes.RecipeBuilder;
 import gregtech.api.recipes.properties.RecipeProperty;
-import gregtech.api.util.EnumValidationResult;
 
-import tkcy.tktech.api.utils.TkTechLog;
 import tkcy.tktech.modules.RecipePropertiesKey;
 import tkcy.tktech.modules.toolmodule.WorkingTool;
 
@@ -54,17 +51,6 @@ public class ToolFacingRecipeProperty extends RecipeProperty<EnumFacing>
         EnumFacing facing = castValue(value);
         minecraft.fontRenderer.drawString(
                 I18n.format("tktech.recipe.tool.click_facing", facing.getName().toUpperCase()), x, y, color);
-    }
-
-    @Override
-    public RecipeBuilder<?> testAndApplyPropertyValue(EnumFacing valueToTest, EnumValidationResult recipeStatus,
-                                                      RecipeBuilder<?> recipeBuilder) {
-        if (!this.testSuppliedValue().test(valueToTest)) {
-            TkTechLog.logger.error(this::getErrorMessage, new IllegalArgumentException());
-            recipeStatus = EnumValidationResult.INVALID;
-        }
-        recipeBuilder.applyProperty(this, valueToTest);
-        return recipeBuilder;
     }
 
     @Override
