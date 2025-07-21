@@ -10,13 +10,10 @@ import net.minecraft.nbt.NBTTagString;
 
 import org.jetbrains.annotations.NotNull;
 
-import gregtech.api.recipes.RecipeBuilder;
 import gregtech.api.recipes.properties.RecipeProperty;
 import gregtech.api.unification.material.Material;
-import gregtech.api.util.EnumValidationResult;
 import gregtech.common.blocks.BlockWireCoil;
 
-import tkcy.tktech.api.utils.TkTechLog;
 import tkcy.tktech.modules.RecipePropertiesKey;
 
 public class CoilTypeRecipeProperty extends RecipeProperty<BlockWireCoil.CoilType>
@@ -57,18 +54,6 @@ public class CoilTypeRecipeProperty extends RecipeProperty<BlockWireCoil.CoilTyp
     public void drawInfo(Minecraft minecraft, int x, int y, int color, Object value) {
         minecraft.fontRenderer.drawString(I18n.format("tktech.recipe.coil",
                 getInfo(value)), x, y, color);
-    }
-
-    @Override
-    public RecipeBuilder<?> testAndApplyPropertyValue(BlockWireCoil.CoilType valueToTest,
-                                                      EnumValidationResult recipeStatus,
-                                                      RecipeBuilder<?> recipeBuilder) {
-        if (!this.testSuppliedValue().test(valueToTest)) {
-            TkTechLog.logger.error(this::getErrorMessage, new IllegalArgumentException());
-            recipeStatus = EnumValidationResult.INVALID;
-        }
-        recipeBuilder.applyProperty(this, valueToTest);
-        return recipeBuilder;
     }
 
     @Override

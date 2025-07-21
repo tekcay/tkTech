@@ -12,7 +12,6 @@ import gregtech.api.recipes.RecipeBuilder;
 import gregtech.api.recipes.properties.RecipeProperty;
 import gregtech.api.util.EnumValidationResult;
 
-import tkcy.tktech.api.utils.TkTechLog;
 import tkcy.tktech.modules.RecipePropertiesKey;
 import tkcy.tktech.modules.toolmodule.ToolsModule;
 import tkcy.tktech.modules.toolmodule.WorkingTool;
@@ -53,13 +52,8 @@ public class ToolRecipeProperty extends RecipeProperty<ToolsModule.GtTool>
     @Override
     public RecipeBuilder<?> testAndApplyPropertyValue(ToolsModule.GtTool valueToTest, EnumValidationResult recipeStatus,
                                                       RecipeBuilder<?> recipeBuilder) {
-        if (!this.testSuppliedValue().test(valueToTest)) {
-            TkTechLog.logger.error(this::getErrorMessage, new IllegalArgumentException());
-            recipeStatus = EnumValidationResult.INVALID;
-        }
-        recipeBuilder.applyProperty(this, valueToTest);
-        recipeBuilder.inputs(valueToTest.getToolStack());
-        return recipeBuilder;
+        IRecipePropertyHelper.super.testAndApplyPropertyValue(valueToTest, recipeStatus, recipeBuilder);
+        return recipeBuilder.inputs(valueToTest.getToolStack());
     }
 
     @Override
