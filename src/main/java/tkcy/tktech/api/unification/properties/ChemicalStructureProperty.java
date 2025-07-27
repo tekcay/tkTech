@@ -11,6 +11,7 @@ import crafttweaker.annotations.ZenRegister;
 import lombok.Getter;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
+import tkcy.tktech.api.render.ChemicalStructureRenderUtils;
 import tkcy.tktech.api.utils.BooleanHelper;
 import tkcy.tktech.api.utils.MaterialPropertiesHelper;
 
@@ -37,6 +38,11 @@ public class ChemicalStructureProperty extends MaterialPropertiesHelper<Chemical
         return TkTechMaterialPropertyKeys.CHEMICAL_STRUCTURE;
     }
 
+    /**
+     * For textures to be registered,
+     * {@link ChemicalStructureRenderUtils#registerChemicalStructuresTexture() registerChemicalStructuresTexture}
+     * must be called <strong>AFTER</strong> the <strong>LAST</strong> call of this method.
+     */
     @ZenMethod
     public static void addChemicalStructureProperty(Material material) {
         material.getProperties().setProperty(

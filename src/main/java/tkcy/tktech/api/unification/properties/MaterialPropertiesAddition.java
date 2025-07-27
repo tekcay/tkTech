@@ -20,10 +20,5 @@ public class MaterialPropertiesAddition {
         property.enqueueRegistration(FluidStorageKeys.LIQUID, new FluidBuilder().temperature(mp));
     }
 
-    public static void init() {
-        Materials.Benzene.getProperties().ensureSet(PropertyKey.DUST);
-        addChemicalStructureProperty(Materials.Benzene);
-        addChemicalStructureProperty(Materials.Toluene);
-        addChemicalStructureProperty(Materials.Ethanol);
-    }
+    public static void init() {}
 }

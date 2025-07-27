@@ -17,6 +17,7 @@ import gregtech.api.util.GTUtility;
 import lombok.experimental.UtilityClass;
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
+import stanhebben.zenscript.annotations.ZenMethod;
 import tkcy.tktech.api.unification.properties.ChemicalStructureProperty;
 import tkcy.tktech.api.unification.properties.MaterialPropertiesAddition;
 import tkcy.tktech.api.utils.RenderUtils;
@@ -34,8 +35,9 @@ public class ChemicalStructureRenderUtils {
 
     /**
      * Must be called <strong>AFTER</strong> both Materials registration and extra MaterialProperties addition (see
-     * {@link MaterialPropertiesAddition#init()}).
+     * {@link ChemicalStructureProperty#addChemicalStructureProperty(Material) addChemicalStructureProperty}).
      */
+    @ZenMethod
     public static void registerChemicalStructuresTexture() {
         TkTechLog.logger.info("registering chemical structure textures...");
         for (Material material : ChemicalStructureProperty.MATERIALS_WITH_CHEMICAL_STRUCTURE) {
