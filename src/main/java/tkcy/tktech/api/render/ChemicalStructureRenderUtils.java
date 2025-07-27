@@ -19,7 +19,6 @@ import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
 import stanhebben.zenscript.annotations.ZenMethod;
 import tkcy.tktech.api.unification.properties.ChemicalStructureProperty;
-import tkcy.tktech.api.unification.properties.MaterialPropertiesAddition;
 import tkcy.tktech.api.utils.RenderUtils;
 import tkcy.tktech.api.utils.TkTechLog;
 
@@ -27,6 +26,10 @@ import tkcy.tktech.api.utils.TkTechLog;
 public class ChemicalStructureRenderUtils {
 
     public static final Map<Material, TextureArea> MATERIALS_TO_CHEMSTRUC_TEXTURE = new HashMap<>();
+
+    public static boolean hasChemStructureTexture(Material material) {
+        return MATERIALS_TO_CHEMSTRUC_TEXTURE.containsKey(material);
+    }
 
     public static ResourceLocation getChemStructuresResourceLocation(Material material) {
         String path = String.format("textures/chemicalstructures/%s.jpeg", material.getResourceLocation().getPath());

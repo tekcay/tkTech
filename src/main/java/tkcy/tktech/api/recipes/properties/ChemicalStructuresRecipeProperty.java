@@ -1,7 +1,6 @@
 package tkcy.tktech.api.recipes.properties;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -20,8 +19,8 @@ import gregtech.api.unification.material.Material;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import tkcy.tktech.api.recipes.recipemaps.IChemStructureToMaterials;
+import tkcy.tktech.api.render.ChemicalStructureRenderUtils;
 import tkcy.tktech.api.unification.properties.TkTechMaterialPropertyKeys;
-import tkcy.tktech.api.utils.BooleanHelper;
 import tkcy.tktech.api.utils.MaterialHelper;
 import tkcy.tktech.modules.RecipePropertiesKey;
 
@@ -55,8 +54,9 @@ public class ChemicalStructuresRecipeProperty extends RecipeProperty<ChemicalStr
         private List<Material> outputMaterialsChemStructure;
 
         public boolean isValid() {
-            return BooleanHelper.doesAnyNotMatch(Collection::isEmpty, inputMaterialsChemStructure,
-                    outputMaterialsChemStructure);
+            ChemicalStructuresRecipeProperty recipeProperty = getInstance();
+            return recipeProperty.testMaterials(inputMaterialsChemStructure) &&
+                    recipeProperty.testMaterials(outputMaterialsChemStructure);
         }
     }
 
@@ -100,9 +100,9 @@ public class ChemicalStructuresRecipeProperty extends RecipeProperty<ChemicalStr
     private boolean testMaterials(@Nullable List<Material> materials) {
         if (materials == null) return false;
         for (Material material : materials) {
-            if (material == null || !material.hasProperty(TkTechMaterialPropertyKeys.CHEMICAL_STRUCTURE)) {
-                return false;
-            }
+            if (material == null) return false;
+            if (!material.hasProperty(TkTechMaterialPropertyKeys.CHEMICAL_STRUCTURE)) return false;
+            if (!ChemicalStructureRenderUtils.hasChemStructureTexture(material)) return false;
         }
         return true;
     }
