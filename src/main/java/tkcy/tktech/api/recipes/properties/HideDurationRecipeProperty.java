@@ -10,7 +10,6 @@ import org.jetbrains.annotations.NotNull;
 
 import gregtech.api.recipes.RecipeBuilder;
 import gregtech.api.recipes.properties.RecipeProperty;
-import gregtech.api.util.EnumValidationResult;
 
 import tkcy.tktech.modules.RecipePropertiesKey;
 
@@ -55,8 +54,8 @@ public class HideDurationRecipeProperty extends RecipeProperty<Boolean> implemen
     public void drawInfo(Minecraft minecraft, int x, int y, int color, Object value) {}
 
     @Override
-    public RecipeBuilder<?> testAndApplyPropertyValue(Boolean valueToTest, EnumValidationResult recipeStatus,
-                                                      RecipeBuilder<?> recipeBuilder) {
+    public RecipeBuilder<?> testAndApplyPropertyValue(Boolean valueToTest,
+                                                      RecipeBuilder<?> recipeBuilder, Runnable recipeInvalidator) {
         return recipeBuilder;
     }
 

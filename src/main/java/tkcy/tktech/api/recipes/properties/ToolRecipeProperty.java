@@ -10,7 +10,6 @@ import org.jetbrains.annotations.NotNull;
 
 import gregtech.api.recipes.RecipeBuilder;
 import gregtech.api.recipes.properties.RecipeProperty;
-import gregtech.api.util.EnumValidationResult;
 
 import tkcy.tktech.modules.RecipePropertiesKey;
 import tkcy.tktech.modules.toolmodule.ToolsModule;
@@ -50,9 +49,9 @@ public class ToolRecipeProperty extends RecipeProperty<ToolsModule.GtTool>
     public void drawInfo(Minecraft minecraft, int x, int y, int color, Object value) {}
 
     @Override
-    public RecipeBuilder<?> testAndApplyPropertyValue(ToolsModule.GtTool valueToTest, EnumValidationResult recipeStatus,
-                                                      RecipeBuilder<?> recipeBuilder) {
-        IRecipePropertyHelper.super.testAndApplyPropertyValue(valueToTest, recipeStatus, recipeBuilder);
+    public RecipeBuilder<?> testAndApplyPropertyValue(ToolsModule.GtTool valueToTest,
+                                                      RecipeBuilder<?> recipeBuilder, Runnable recipeInvalidator) {
+        IRecipePropertyHelper.super.testAndApplyPropertyValue(valueToTest, recipeBuilder, recipeInvalidator);
         return recipeBuilder.inputs(valueToTest.getToolStack());
     }
 
