@@ -1,11 +1,8 @@
 package tkcy.tktech.api.unification.properties;
 
-import static tkcy.tktech.api.unification.properties.ChemicalStructureProperty.addChemicalStructureProperty;
-
 import gregtech.api.fluids.FluidBuilder;
 import gregtech.api.fluids.store.FluidStorageKeys;
 import gregtech.api.unification.material.Material;
-import gregtech.api.unification.material.Materials;
 import gregtech.api.unification.material.properties.*;
 
 import lombok.experimental.UtilityClass;

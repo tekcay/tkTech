@@ -10,6 +10,7 @@ import gregtech.api.recipes.properties.impl.PrimitiveProperty;
 import gregtech.api.unification.material.Material;
 import gregtech.api.util.EnumValidationResult;
 import gregtech.api.util.ValidationResult;
+import gregtech.common.blocks.BlockWireCoil;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,6 +29,11 @@ public class AdvancedRecipeBuilder extends RecipeBuilder<AdvancedRecipeBuilder> 
     protected final List<Material> inputMaterialsChemStructure = new ArrayList<>();
     @Getter
     protected final List<Material> outputMaterialsChemStructure = new ArrayList<>();
+
+    @Override
+    public void invalidateRecipe() {
+        recipeStatus = EnumValidationResult.INVALID;
+    }
 
     @SuppressWarnings("unused")
     public AdvancedRecipeBuilder(Recipe recipe, RecipeMap<AdvancedRecipeBuilder> recipeMap) {
@@ -48,15 +54,20 @@ public class AdvancedRecipeBuilder extends RecipeBuilder<AdvancedRecipeBuilder> 
         return this;
     }
 
-    public AdvancedRecipeBuilder hideEnergy() {
+    public AdvancedRecipeBuilder noEUt() {
         this.useAndDisplayEnergy = false;
         return this;
     }
 
     public AdvancedRecipeBuilder hideEnergyAndDuration() {
         this.hideDuration();
-        this.hideEnergy();
+        this.noEUt();
         return this;
+    }
+
+    public AdvancedRecipeBuilder coil(BlockWireCoil.CoilType coil) {
+        CoilTypeRecipeProperty property = CoilTypeRecipeProperty.getInstance();
+        return testAndApplyPropertyValue(CoilTypeRecipeProperty.getInstance(), coil);
     }
 
     /**
@@ -91,10 +102,5 @@ public class AdvancedRecipeBuilder extends RecipeBuilder<AdvancedRecipeBuilder> 
     @Override
     public AdvancedRecipeBuilder getRecipeBuilder() {
         return this;
-    }
-
-    @Override
-    public EnumValidationResult getRecipeStatus() {
-        return recipeStatus;
     }
 }

@@ -44,7 +44,7 @@ public class HarderWood {
                 .tool(ToolsModule.GtTool.AXE, 7)
                 .output(OrePrefix.dust, Wood)
                 .hideDuration()
-                .hideEnergy()
+                .noEUt()
                 .buildAndRegister();
 
         TkTechRecipeMaps.WOOD_WORKSHOP_RECIPES.recipeBuilder()
@@ -54,7 +54,7 @@ public class HarderWood {
                 .tool(ToolsModule.GtTool.SAW, 7)
                 .output(OrePrefix.dust, Wood)
                 .hideDuration()
-                .hideEnergy()
+                .noEUt()
                 .buildAndRegister();
     }
 }
