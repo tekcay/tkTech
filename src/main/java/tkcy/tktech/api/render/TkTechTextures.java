@@ -24,7 +24,7 @@ public class TkTechTextures {
     public static SimpleOverlayRenderer COIL_TEXTURE = new SimpleOverlayRenderer("material_sets/dull/coil");
 
     public static final TextureArea REACTION_BACKGROUND = AdoptableTextureArea.fullImage(
-            "textures/chemicalstructures/reaction_background.jpeg", 641,
+            "textures/chemicalstructures/reaction_background.png", 641,
             363, 0, 0);
 
     public static final TextureArea REACTION_ARROW;
@@ -32,8 +32,8 @@ public class TkTechTextures {
 
     static {
         try {
-            REACTION_ARROW = RenderUtils.buildGTFromImageLocation("textures/chemicalstructures/reaction_arrow.jpeg");
-            REACTION_PLUS = RenderUtils.buildGTFromImageLocation("textures/chemicalstructures/reaction_plus.jpeg");
+            REACTION_ARROW = RenderUtils.buildGTFromImageLocation("textures/chemicalstructures/reaction_arrow.png");
+            REACTION_PLUS = RenderUtils.buildGTFromImageLocation("textures/chemicalstructures/reaction_plus.png");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
