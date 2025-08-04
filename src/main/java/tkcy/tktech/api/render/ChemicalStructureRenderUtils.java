@@ -32,7 +32,7 @@ public class ChemicalStructureRenderUtils {
     }
 
     public static ResourceLocation getChemStructuresResourceLocation(Material material) {
-        String path = String.format("textures/chemicalstructures/%s.jpeg", material.getResourceLocation().getPath());
+        String path = String.format("textures/chemicalstructures/%s.png", material.getResourceLocation().getPath());
         return GTUtility.gregtechId(path);
     }
 

@@ -35,17 +35,17 @@ public class RecipesTests {
                 .EUt(20)
                 .duration(400, 0.5f)
                 .buildAndRegister();
-//
+
 //        TkTechRecipeMaps.CHEMICAL_BENCH_RECIPES.recipeBuilder()
 //                .inputFluidChemical(Materials.Benzene, 100)
 //                .inputFluidChemical(Materials.Toluene, 100)
-//                .outputFluidChemical(Materials.Ethanol, 100)
+//                .outputFluidChemical(Materials.Epichlorohydrin, 100)
 //                // .fluidInputs(Materials.Benzene.getFluid(100))
 //                // .fluidInputs(Materials.Toluene.getFluid(100))
 //                // .fluidOutputs(Materials.Ethanol.getFluid(100))
 //                .EUt(20)
 //                .duration(400, 0.5f)
 //                .buildAndRegister();
-//
+
     }
 }

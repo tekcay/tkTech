@@ -24,7 +24,7 @@ public class TkTechTextures {
     public static SimpleOverlayRenderer COIL_TEXTURE = new SimpleOverlayRenderer("material_sets/dull/coil");
 
     public static final TextureArea REACTION_BACKGROUND = AdoptableTextureArea.fullImage(
-            "textures/chemicalstructures/reaction_background.png", 641,
+            "textures/chemicalstructures/reaction_background.jpeg", 641,
             363, 0, 0);
 
     public static final TextureArea REACTION_ARROW;
