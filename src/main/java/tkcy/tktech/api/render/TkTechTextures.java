@@ -32,8 +32,8 @@ public class TkTechTextures {
 
     static {
         try {
-            REACTION_ARROW = RenderUtils.buildGTFromImageLocation("textures/chemicalstructures/reaction_arrow.jpeg");
-            REACTION_PLUS = RenderUtils.buildGTFromImageLocation("textures/chemicalstructures/reaction_plus.jpeg");
+            REACTION_ARROW = RenderUtils.buildGTFromImageLocation("textures/chemicalstructures/reaction_arrow.png");
+            REACTION_PLUS = RenderUtils.buildGTFromImageLocation("textures/chemicalstructures/reaction_plus.png");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

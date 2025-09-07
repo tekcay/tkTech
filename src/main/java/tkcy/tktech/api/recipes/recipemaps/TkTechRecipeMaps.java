@@ -10,8 +10,6 @@ import lombok.experimental.UtilityClass;
 import stanhebben.zenscript.annotations.ZenExpansion;
 import stanhebben.zenscript.annotations.ZenProperty;
 import tkcy.tktech.api.recipes.builders.AdvancedRecipeBuilder;
-import tkcy.tktech.api.recipes.builders.CoilTypeRecipeBuilder;
-import tkcy.tktech.api.recipes.builders.NoEnergyRecipeBuilder;
 import tkcy.tktech.api.utils.TkTechUtil;
 import tkcy.tktech.modules.toolmodule.WorkingTool;
 
@@ -21,10 +19,12 @@ import tkcy.tktech.modules.toolmodule.WorkingTool;
 public final class TkTechRecipeMaps {
 
     @ZenProperty
-    public static final RecipeMap<NoEnergyRecipeBuilder> PRIMITIVE_ROASTING = new MinimalPrimitiveRecipeMap<>(
+    public static final RecipeMap<AdvancedRecipeBuilder> PRIMITIVE_ROASTING = new MinimalPrimitiveRecipeMap<>(
             "primitive_roasting",
-            2, 2, 1, 2, new NoEnergyRecipeBuilder(), false)
-                    .setSound(GTSoundEvents.FURNACE);
+            2, 2, 1, 2, new AdvancedRecipeBuilder(), false)
+                    .setSound(GTSoundEvents.FURNACE)
+                    .onRecipeBuild(TkTechUtil.tktech("noEnergy"), AdvancedRecipeBuilder::noEUt);
+
     @ZenProperty
     public static final RecipeMap<SimpleRecipeBuilder> ADVANCED_ELECTROLYSIS = new RecipeMap<>("advanced_electrolysis",
             6, 4, 3, 6, new SimpleRecipeBuilder(), false)
@@ -34,10 +34,11 @@ public final class TkTechRecipeMaps {
             9, 1, 2, 0, new AdvancedRecipeBuilder(), false)
                     .setSound(GTSoundEvents.ASSEMBLER);
     @ZenProperty
-    public static final RecipeMap<NoEnergyRecipeBuilder> FLUID_PRIMITIVE_BLAST = new MinimalPrimitiveRecipeMap<>(
+    public static final RecipeMap<AdvancedRecipeBuilder> FLUID_PRIMITIVE_BLAST = new MinimalPrimitiveRecipeMap<>(
             "fluid_primitive_blast",
-            2, 0, 1, 1, new NoEnergyRecipeBuilder(), false)
-                    .setSound(GTSoundEvents.FURNACE);
+            2, 0, 1, 1, new AdvancedRecipeBuilder(), false)
+                    .setSound(GTSoundEvents.FURNACE)
+                    .onRecipeBuild(TkTechUtil.tktech("noEnergy"), AdvancedRecipeBuilder::noEUt);
     @ZenProperty
     public static final RecipeMap<PrimitiveRecipeBuilder> CASTING = new MinimalPrimitiveRecipeMap<>(
             "casting",
@@ -48,16 +49,18 @@ public final class TkTechRecipeMaps {
             new SimpleRecipeBuilder(), false)
                     .setSound(GTSoundEvents.BOILER);
     @ZenProperty
-    public static final RecipeMap<NoEnergyRecipeBuilder> GAS_RELEASE = new MinimalPrimitiveRecipeMap<>("gas_release", 0,
+    public static final RecipeMap<AdvancedRecipeBuilder> GAS_RELEASE = new MinimalPrimitiveRecipeMap<>("gas_release", 0,
             0, 1, 0,
-            new NoEnergyRecipeBuilder(), false)
+            new AdvancedRecipeBuilder(), false)
                     .allowEmptyOutput()
-                    .setSound(GTSoundEvents.BOILER);
+                    .setSound(GTSoundEvents.BOILER)
+                    .onRecipeBuild(TkTechUtil.tktech("noEnergy"), AdvancedRecipeBuilder::noEUt);
     @ZenProperty
-    public static final RecipeMap<NoEnergyRecipeBuilder> ALLOYING = new RecipeMap<>("alloying", 2,
+    public static final RecipeMap<AdvancedRecipeBuilder> ALLOYING = new RecipeMap<>("alloying", 2,
             0, 9, 2,
-            new NoEnergyRecipeBuilder(), false)
-                    .setSound(GTSoundEvents.BOILER);
+            new AdvancedRecipeBuilder(), false)
+                    .setSound(GTSoundEvents.BOILER)
+                    .onRecipeBuild(TkTechUtil.tktech("noEnergy"), AdvancedRecipeBuilder::noEUt);
     @ZenProperty
     public static final RecipeMap<SimpleRecipeBuilder> PRIMITIVE_DUST_MIXING = new RecipeMap<>("primitive_dust_mixing",
             3,
@@ -84,9 +87,9 @@ public final class TkTechRecipeMaps {
             2, new SimpleRecipeBuilder(), false)
                     .setSound(GTSoundEvents.COOLING);
     @ZenProperty
-    public static final RecipeMap<CoilTypeRecipeBuilder> CRACKING = new RecipeMap<>("cracking", 2,
+    public static final RecipeMap<AdvancedRecipeBuilder> CRACKING = new RecipeMap<>("cracking", 2,
             0, 2,
-            1, new CoilTypeRecipeBuilder(), false)
+            1, new AdvancedRecipeBuilder(), false)
                     .setSound(GTSoundEvents.BOILER);
 
     @ZenProperty

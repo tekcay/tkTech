@@ -17,8 +17,8 @@ import gregtech.api.util.GTUtility;
 import lombok.experimental.UtilityClass;
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
+import stanhebben.zenscript.annotations.ZenMethod;
 import tkcy.tktech.api.unification.properties.ChemicalStructureProperty;
-import tkcy.tktech.api.unification.properties.MaterialPropertiesAddition;
 import tkcy.tktech.api.utils.RenderUtils;
 import tkcy.tktech.api.utils.TkTechLog;
 
@@ -27,15 +27,20 @@ public class ChemicalStructureRenderUtils {
 
     public static final Map<Material, TextureArea> MATERIALS_TO_CHEMSTRUC_TEXTURE = new HashMap<>();
 
+    public static boolean hasChemStructureTexture(Material material) {
+        return MATERIALS_TO_CHEMSTRUC_TEXTURE.containsKey(material);
+    }
+
     public static ResourceLocation getChemStructuresResourceLocation(Material material) {
-        String path = String.format("textures/chemicalstructures/%s.jpeg", material.getResourceLocation().getPath());
+        String path = String.format("textures/chemicalstructures/%s.png", material.getResourceLocation().getPath());
         return GTUtility.gregtechId(path);
     }
 
     /**
      * Must be called <strong>AFTER</strong> both Materials registration and extra MaterialProperties addition (see
-     * {@link MaterialPropertiesAddition#init()}).
+     * {@link ChemicalStructureProperty#addChemicalStructureProperty(Material) addChemicalStructureProperty}).
      */
+    @ZenMethod
     public static void registerChemicalStructuresTexture() {
         TkTechLog.logger.info("registering chemical structure textures...");
         for (Material material : ChemicalStructureProperty.MATERIALS_WITH_CHEMICAL_STRUCTURE) {

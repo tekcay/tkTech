@@ -8,7 +8,6 @@ import org.jetbrains.annotations.Nullable;
 import gregtech.api.recipes.Recipe;
 import gregtech.api.recipes.RecipeBuilder;
 import gregtech.api.recipes.properties.RecipeProperty;
-import gregtech.api.util.EnumValidationResult;
 
 import tkcy.tktech.api.utils.TkTechLog;
 
@@ -58,11 +57,11 @@ public interface IRecipePropertyHelper<T> {
         return recipeValue != null && areValueEquals(recipeValue, value);
     }
 
-    default RecipeBuilder<?> testAndApplyPropertyValue(T valueToTest, EnumValidationResult recipeStatus,
-                                                       RecipeBuilder<?> recipeBuilder) {
+    default RecipeBuilder<?> testAndApplyPropertyValue(T valueToTest,
+                                                       RecipeBuilder<?> recipeBuilder, Runnable recipeInvalidator) {
         if (!this.testSuppliedValue().test(valueToTest)) {
             TkTechLog.logger.error(this::getErrorMessage, new IllegalArgumentException());
-            recipeStatus = EnumValidationResult.INVALID;
+            recipeInvalidator.run();
         }
         recipeBuilder.applyProperty(getProperty(), valueToTest);
         return recipeBuilder;

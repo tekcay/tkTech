@@ -37,7 +37,6 @@ import gregtech.common.blocks.BlockWireCoil;
 import gregtech.common.blocks.MetaBlocks;
 import gregtech.core.sound.GTSoundEvents;
 
-import tkcy.tktech.api.recipes.builders.CoilTypeRecipeBuilder;
 import tkcy.tktech.api.recipes.properties.CoilTypeRecipeProperty;
 import tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps;
 
@@ -72,7 +71,7 @@ public class MTeCrackingUnit extends RecipeMapMultiblockController {
         if (type instanceof BlockWireCoil.CoilType) {
             this.coil = (BlockWireCoil.CoilType) type;
         } else {
-            this.coil = CoilTypeRecipeBuilder.getDefaultValue();
+            this.coil = CoilTypeRecipeProperty.getInstance().getDefaultValue();
         }
     }
 
@@ -83,9 +82,7 @@ public class MTeCrackingUnit extends RecipeMapMultiblockController {
 
     @Override
     public boolean checkRecipe(@NotNull Recipe recipe, boolean consumeIfSuccess) {
-        return this.coil
-                .equals(recipe.getProperty(CoilTypeRecipeProperty.getInstance(),
-                        CoilTypeRecipeBuilder.getDefaultValue()));
+        return CoilTypeRecipeProperty.getInstance().hasRecipePropertyValue(recipe, this.coil);
     }
 
     @Override

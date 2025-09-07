@@ -1,11 +1,8 @@
 package tkcy.tktech.api.unification.properties;
 
-import static tkcy.tktech.api.unification.properties.ChemicalStructureProperty.addChemicalStructureProperty;
-
 import gregtech.api.fluids.FluidBuilder;
 import gregtech.api.fluids.store.FluidStorageKeys;
 import gregtech.api.unification.material.Material;
-import gregtech.api.unification.material.Materials;
 import gregtech.api.unification.material.properties.*;
 
 import lombok.experimental.UtilityClass;
@@ -20,10 +17,5 @@ public class MaterialPropertiesAddition {
         property.enqueueRegistration(FluidStorageKeys.LIQUID, new FluidBuilder().temperature(mp));
     }
 
-    public static void init() {
-        Materials.Benzene.getProperties().ensureSet(PropertyKey.DUST);
-        addChemicalStructureProperty(Materials.Benzene);
-        addChemicalStructureProperty(Materials.Toluene);
-        addChemicalStructureProperty(Materials.Ethanol);
-    }
+    public static void init() {}
 }

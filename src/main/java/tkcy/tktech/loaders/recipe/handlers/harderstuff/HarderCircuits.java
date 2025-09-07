@@ -23,7 +23,7 @@ public class HarderCircuits {
                 .fluidInputs(Tin.getFluid(288))
                 .tool(ToolsModule.GtTool.SOLDERING_IRON, 7)
                 .hideDuration()
-                .hideEnergy()
+                .noEUt()
                 .output(ELECTRONIC_CIRCUIT_LV)
                 .buildAndRegister();
     }
