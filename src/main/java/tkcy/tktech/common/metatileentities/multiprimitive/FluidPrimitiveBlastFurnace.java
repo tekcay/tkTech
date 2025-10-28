@@ -1,13 +1,7 @@
 package tkcy.tktech.common.metatileentities.multiprimitive;
 
-import static tkcy.tktech.api.predicates.TkTechPredicates.*;
-
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-
-import org.jetbrains.annotations.NotNull;
-
+import gregtech.api.capability.impl.FluidTankList;
+import gregtech.api.capability.impl.ItemHandlerList;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
 import gregtech.api.metatileentity.multiblock.IMultiblockPart;
@@ -15,14 +9,30 @@ import gregtech.api.pattern.BlockPattern;
 import gregtech.api.pattern.FactoryBlockPattern;
 import gregtech.client.renderer.ICubeRenderer;
 import gregtech.client.renderer.texture.Textures;
-
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import org.jetbrains.annotations.NotNull;
+import tkcy.tktech.api.capabilities.TkTechMultiblockAbilities;
 import tkcy.tktech.api.machines.NoEnergyMultiController;
 import tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps;
+
+import static tkcy.tktech.api.predicates.TkTechPredicates.*;
 
 public class FluidPrimitiveBlastFurnace extends NoEnergyMultiController {
 
     public FluidPrimitiveBlastFurnace(ResourceLocation metaTileEntityId) {
         super(metaTileEntityId, TkTechRecipeMaps.FLUID_PRIMITIVE_BLAST);
+    }
+
+    @Override
+    protected void initializeAbilities() {
+        this.inputInventory = new ItemHandlerList(getAbilities(TkTechMultiblockAbilities.BRICK_BUS_INPUT));
+        this.inputFluidInventory = new FluidTankList(allowSameFluidFillForOutputs(),
+                getAbilities(TkTechMultiblockAbilities.BRICK_HATCH_INPUT));
+        this.outputInventory = new ItemHandlerList(getAbilities(TkTechMultiblockAbilities.BRICK_BUS_OUTPUT));
+        this.outputFluidInventory = new FluidTankList(allowSameFluidFillForOutputs(),
+                getAbilities(TkTechMultiblockAbilities.BRICK_HATCH_OUTPUT));
     }
 
     @Override

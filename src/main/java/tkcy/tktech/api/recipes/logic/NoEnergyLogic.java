@@ -25,7 +25,7 @@ public class NoEnergyLogic extends MultiblockRecipeLogic {
 
     @Override
     protected long getEnergyStored() {
-        return 0L;
+        return Integer.MAX_VALUE;
     }
 
     @Override
@@ -35,13 +35,19 @@ public class NoEnergyLogic extends MultiblockRecipeLogic {
 
     @Override
     protected boolean drawEnergy(long recipeEUt, boolean simulate) {
-        return false;
+        return true;
     }
 
     @Override
     public long getMaxVoltage() {
-        return 1L;
+        return GTValues.LV;
     }
+
+    @Override
+    protected boolean hasEnoughPower(long eut, int duration) {
+        return true;
+    }
+
 
     @Override
     protected void runOverclockingLogic(@NotNull OCParams ocParams, @NotNull OCResult ocResult,
@@ -55,17 +61,17 @@ public class NoEnergyLogic extends MultiblockRecipeLogic {
         return GTValues.V[GTValues.LV];
     }
 
-    /**
-     * Used to reset cached values in the Recipe Logic on structure deform
-     */
-    @Override
-    public void invalidate() {
-        previousRecipe = null;
-        progressTime = 0;
-        maxProgressTime = 0;
-        recipeEUt = 0;
-        fluidOutputs = null;
-        itemOutputs = null;
-        setActive(false); // this marks dirty for us
-    }
+//    /**
+//     * Used to reset cached values in the Recipe Logic on structure deform
+//     */
+//    @Override
+//    public void invalidate() {
+//        previousRecipe = null;
+//        progressTime = 0;
+//        maxProgressTime = 0;
+//        recipeEUt = 0;
+//        fluidOutputs = null;
+//        itemOutputs = null;
+//        setActive(false); // this marks dirty for us
+//    }
 }
