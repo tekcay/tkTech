@@ -1,5 +1,6 @@
 package tkcy.tktech.common.metatileentities.multiprimitive;
 
+import codechicken.lib.raytracer.CuboidRayTraceResult;
 import gregtech.api.capability.impl.FluidTankList;
 import gregtech.api.capability.impl.ItemHandlerList;
 import gregtech.api.metatileentity.MetaTileEntity;
@@ -9,17 +10,26 @@ import gregtech.api.pattern.BlockPattern;
 import gregtech.api.pattern.FactoryBlockPattern;
 import gregtech.client.renderer.ICubeRenderer;
 import gregtech.client.renderer.texture.Textures;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.PacketBuffer;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.jetbrains.annotations.NotNull;
 import tkcy.tktech.api.capabilities.TkTechMultiblockAbilities;
+import tkcy.tktech.api.machines.IOnSolderingIronClick;
 import tkcy.tktech.api.machines.NoEnergyMultiController;
 import tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps;
 
 import static tkcy.tktech.api.predicates.TkTechPredicates.*;
 
-public class FluidPrimitiveBlastFurnace extends NoEnergyMultiController {
+public class FluidPrimitiveBlastFurnace extends NoEnergyMultiController implements IOnSolderingIronClick {
+    
+    private int size;
 
     public FluidPrimitiveBlastFurnace(ResourceLocation metaTileEntityId) {
         super(metaTileEntityId, TkTechRecipeMaps.FLUID_PRIMITIVE_BLAST);
@@ -33,6 +43,18 @@ public class FluidPrimitiveBlastFurnace extends NoEnergyMultiController {
         this.outputInventory = new ItemHandlerList(getAbilities(TkTechMultiblockAbilities.BRICK_BUS_OUTPUT));
         this.outputFluidInventory = new FluidTankList(allowSameFluidFillForOutputs(),
                 getAbilities(TkTechMultiblockAbilities.BRICK_HATCH_OUTPUT));
+    }
+
+    @Override
+    public boolean onSolderingIronClick(EntityPlayer playerIn, EnumHand hand,
+                                         EnumFacing wrenchSide,
+                                         CuboidRayTraceResult hitResult) {
+        if (playerIn.isSneaking()) {
+            size = Math.max(0, size - 1);
+        } else size++;
+        markDirty();
+        playerIn.sendMessage(new TextComponentString("Size : " + size));
+        return true;
     }
 
     @Override
@@ -66,5 +88,30 @@ public class FluidPrimitiveBlastFurnace extends NoEnergyMultiController {
     @Override
     public ICubeRenderer getBaseTexture(IMultiblockPart sourcePart) {
         return Textures.COKE_BRICKS;
+    }
+    
+    @Override
+    public NBTTagCompound writeToNBT(NBTTagCompound data) {
+        super.writeToNBT(data);
+        data.setInteger("size", size);
+        return data;
+    }
+
+    @Override
+    public void readFromNBT(NBTTagCompound data) {
+        super.readFromNBT(data);
+        size = data.getInteger("size");
+    }
+
+    @Override
+    public void writeInitialSyncData(PacketBuffer buf) {
+        super.writeInitialSyncData(buf);
+        buf.writeInt(size);
+    }
+
+    @Override
+    public void receiveInitialSyncData(PacketBuffer buf) {
+        super.receiveInitialSyncData(buf);
+        size = buf.readInt();
     }
 }
