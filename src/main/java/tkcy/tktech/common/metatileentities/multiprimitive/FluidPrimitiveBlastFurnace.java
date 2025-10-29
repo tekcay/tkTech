@@ -19,17 +19,19 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.apache.commons.lang3.ArrayUtils;
 import org.jetbrains.annotations.NotNull;
 import tkcy.tktech.api.capabilities.TkTechMultiblockAbilities;
 import tkcy.tktech.api.machines.IOnSolderingIronClick;
 import tkcy.tktech.api.machines.NoEnergyMultiController;
 import tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps;
+import tkcy.tktech.api.utils.StreamHelper;
 
 import static tkcy.tktech.api.predicates.TkTechPredicates.*;
 
 public class FluidPrimitiveBlastFurnace extends NoEnergyMultiController implements IOnSolderingIronClick {
     
-    private int size;
+    private int size = 0;
 
     public FluidPrimitiveBlastFurnace(ResourceLocation metaTileEntityId) {
         super(metaTileEntityId, TkTechRecipeMaps.FLUID_PRIMITIVE_BLAST);
@@ -52,6 +54,7 @@ public class FluidPrimitiveBlastFurnace extends NoEnergyMultiController implemen
         if (playerIn.isSneaking()) {
             size = Math.max(0, size - 1);
         } else size++;
+        reinitializeStructurePattern();
         markDirty();
         playerIn.sendMessage(new TextComponentString("Size : " + size));
         return true;
@@ -62,12 +65,39 @@ public class FluidPrimitiveBlastFurnace extends NoEnergyMultiController implemen
         return new FluidPrimitiveBlastFurnace(metaTileEntityId);
     }
 
+    private String growSubAisle(String subAisle, int size) {
+        if (size == 0) return subAisle;
+        char firstLetter = subAisle.charAt(0);
+        char lastLetter = subAisle.charAt(subAisle.length() - 1);
+        return growSubAisle(firstLetter + subAisle + lastLetter, size - 1);
+    }
+
+    private String[] growAisle2(String[] aisle, int size) {
+        if (size == 0) return aisle;
+        size--;
+        int middleIndex = aisle.length / 2;
+        String toRepeat = aisle[middleIndex];
+        String[] result = ArrayUtils.add(aisle, middleIndex, toRepeat);
+        return growAisle2(result, size);
+    }
+
+    private String[] growGrow(String[] aisle, int size) {
+        String[] preResult = growAisle2(aisle, size);
+        StreamHelper.initIntStream(preResult.length).forEach(i -> preResult[i] = growSubAisle(preResult[i], size));
+        return preResult;
+    }
+
+    private String[] growGrow(int size, String... subAisles) {
+        return growGrow(subAisles, size);
+    }
+
+
     @Override
     protected @NotNull BlockPattern createStructurePattern() {
         return FactoryBlockPattern.start()
-                .aisle("AAA", "XXX", "XXX", "BBB")
-                .aisle("AAA", "XXX", "X#X", "BCB")
-                .aisle("AAA", "XYX", "XXX", "BBB")
+                .aisle(growGrow(size, "AAA", "XXX", "BBB"))
+                .aisle(growGrow(size, "AAA", "X#X", "BCB")).setRepeatable(Math.max(1, size * 2))
+                .aisle(growGrow(size, "AYA", "XXX", "BBB"))
                 .where('A', cokeBrick().or(brickFluidHatch(true, 1)))
                 .where('B', cokeBrick().or(brickItemBus(false, 2)))
                 .where('C', cokeBrick().or(brickFluidHatch(false, 1)))
