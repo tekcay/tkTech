@@ -288,6 +288,7 @@ tktech.test_display.height=Height: %d
 
 ##Machines tooltips
 tktech.machine.gas_release.1=Release gases into the atmosphere
+tktech.machine.gas_release.2=CAREFUL! Gases can deal damage!
 tktech.machine.alloying_crucible.1=Release gases into the atmosphere
 tktech.machine.cracker.tooltip.1=Cracks hydrocarbons or oil layers to get interesting compounds.
 tktech.machine.cracker.tooltip.2=All coils must be the same.
