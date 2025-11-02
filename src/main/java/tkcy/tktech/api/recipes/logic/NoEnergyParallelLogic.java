@@ -14,11 +14,12 @@ import gregtech.api.recipes.RecipeBuilder;
 import gregtech.api.recipes.ingredients.GTRecipeFluidInput;
 import gregtech.api.recipes.ingredients.GTRecipeInput;
 import gregtech.api.recipes.logic.IParallelableRecipeLogic;
+import tkcy.tktech.api.recipes.logic.markers.IHideEnergyRecipeLogic;
 
 /**
  * Recipe Logic for a Multiblock that does not require power.
  */
-public class NoEnergyParallelLogic extends NoEnergyLogic implements IParallelableRecipeLogic {
+public class NoEnergyParallelLogic extends NoEnergyLogic implements IParallelableRecipeLogic, IHideEnergyRecipeLogic {
 
     protected int maxVoltageTier;
 
