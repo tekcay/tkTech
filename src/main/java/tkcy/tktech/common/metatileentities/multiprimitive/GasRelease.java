@@ -6,14 +6,22 @@ import static gregtech.common.blocks.MetaBlocks.BOILER_CASING;
 import java.util.List;
 import java.util.function.Function;
 
+import gregtech.api.recipes.ingredients.GTRecipeFluidInput;
+import gregtech.api.recipes.ingredients.GTRecipeInput;
+import gregtech.api.util.TextComponentUtil;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.PacketBuffer;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -51,6 +59,61 @@ public class GasRelease extends NoEnergyMultiController implements RepetitiveSid
     }
 
     @Override
+    public void update() {
+        super.update();
+        if ((getOffsetTimer() % 20 == 0) && isActive()) {
+            tryHurtPlayer();
+        }
+    }
+
+    @Nullable
+    protected FluidStack getReleasedGas() {
+        if (!isActive()) return null;
+        try {
+            return getRecipeLogic()
+                    .getPreviousRecipe()
+                    .getFluidInputs()
+                    .get(0)
+                    .getInputFluidStack();
+        } catch (NullPointerException e) {
+            return null;
+        }
+    }
+
+    @Nullable
+    protected Entity findEntity() {
+        int maxRange = 5;
+        BlockPos blockPos = this.getPos().up(getHeight() + 2);
+        for (int i = 0; i < maxRange; i++) {
+            AxisAlignedBB axisAlignedBB = new AxisAlignedBB(blockPos);
+            try {
+                Entity entity = getWorld().getEntitiesWithinAABB(Entity.class, axisAlignedBB).get(0);
+                if (entity != null) {
+                    return entity;
+                }
+            } catch (Exception e) {
+                continue;
+            }
+            blockPos.up();
+        }
+        return null;
+    }
+
+    protected void tryHurtPlayer() {
+        FluidStack releasedGas = getReleasedGas();
+        if (releasedGas == null) return;
+        int gasTemperature = releasedGas.getFluid().getTemperature();
+        if (gasTemperature > 398) {
+            float damage = (float) (gasTemperature - 298) / 100;
+            Entity entity = findEntity();
+            if (entity == null) return;
+            if (!entity.isImmuneToFire) {
+                entity.attackEntityFrom(DamageSource.IN_FIRE, damage);
+            }
+        }
+    }
+
+    @Override
     protected @NotNull BlockPattern createStructurePattern() {
         return FactoryBlockPattern.start(RelativeDirection.RIGHT, RelativeDirection.FRONT, RelativeDirection.UP)
                 .aisle("I")
@@ -78,6 +141,7 @@ public class GasRelease extends NoEnergyMultiController implements RepetitiveSid
                                boolean advanced) {
         super.addInformation(stack, player, tooltip, advanced);
         tooltip.add(I18n.format("tktech.machine.gas_release.1"));
+        tooltip.add(TextComponentUtil.translationWithColor(TextFormatting.GOLD, I18n.format("tktech.machine.gas_release.2")).getFormattedText());
         addParallelTooltip(tooltip);
     }
 
