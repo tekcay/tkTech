@@ -36,6 +36,7 @@ public class BrickFluidHatch extends MetaTileEntityFluidHatch {
 
     @Override
     public MultiblockAbility<IFluidTank> getAbility() {
-        return isExportHatch ? TkTechMultiblockAbilities.BRICK_HATCH_OUTPUT : TkTechMultiblockAbilities.BRICK_HATCH_INPUT;
+        return isExportHatch ? TkTechMultiblockAbilities.BRICK_HATCH_OUTPUT :
+                TkTechMultiblockAbilities.BRICK_HATCH_INPUT;
     }
 }

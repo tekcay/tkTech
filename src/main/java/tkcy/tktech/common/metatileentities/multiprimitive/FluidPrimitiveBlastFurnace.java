@@ -1,16 +1,13 @@
 package tkcy.tktech.common.metatileentities.multiprimitive;
 
-import codechicken.lib.raytracer.CuboidRayTraceResult;
-import gregtech.api.capability.impl.FluidTankList;
-import gregtech.api.capability.impl.ItemHandlerList;
-import gregtech.api.metatileentity.MetaTileEntity;
-import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
-import gregtech.api.metatileentity.multiblock.IMultiblockPart;
-import gregtech.api.pattern.BlockPattern;
-import gregtech.api.pattern.FactoryBlockPattern;
-import gregtech.client.renderer.ICubeRenderer;
-import gregtech.client.renderer.texture.Textures;
+import static gregtech.api.util.RelativeDirection.*;
+import static tkcy.tktech.api.predicates.TkTechPredicates.*;
+import static tkcy.tktech.api.utils.BlockPatternUtils.growGrow;
+
+import java.util.List;
+
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.EnumFacing;
@@ -19,22 +16,49 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.apache.commons.lang3.ArrayUtils;
+
 import org.jetbrains.annotations.NotNull;
+
+import gregtech.api.capability.impl.FluidTankList;
+import gregtech.api.capability.impl.ItemHandlerList;
+import gregtech.api.metatileentity.MetaTileEntity;
+import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
+import gregtech.api.metatileentity.multiblock.IMultiblockPart;
+import gregtech.api.pattern.BlockPattern;
+import gregtech.api.pattern.FactoryBlockPattern;
+import gregtech.api.pattern.MultiblockShapeInfo;
+import gregtech.client.renderer.ICubeRenderer;
+import gregtech.client.renderer.texture.Textures;
+import gregtech.common.blocks.BlockMetalCasing;
+import gregtech.common.blocks.MetaBlocks;
+
+import codechicken.lib.raytracer.CuboidRayTraceResult;
+import lombok.Getter;
 import tkcy.tktech.api.capabilities.TkTechMultiblockAbilities;
 import tkcy.tktech.api.machines.IOnSolderingIronClick;
 import tkcy.tktech.api.machines.NoEnergyMultiController;
 import tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps;
-import tkcy.tktech.api.utils.StreamHelper;
-
-import static tkcy.tktech.api.predicates.TkTechPredicates.*;
+import tkcy.tktech.api.utils.MultiblockShapeInfoHelper;
+import tkcy.tktech.common.metatileentities.TkTechMetaTileEntities;
 
 public class FluidPrimitiveBlastFurnace extends NoEnergyMultiController implements IOnSolderingIronClick {
-    
+
+    @Getter
     private int size = 0;
 
     public FluidPrimitiveBlastFurnace(ResourceLocation metaTileEntityId) {
         super(metaTileEntityId, TkTechRecipeMaps.FLUID_PRIMITIVE_BLAST);
+    }
+
+    protected void setSize(int size) {
+        this.size = size;
+        markDirty();
+        reinitializeStructurePattern();
+        recipeMapWorkable.setParallelLimit(size + 1);
+    }
+
+    protected int getMaxSize() {
+        return 7;
     }
 
     @Override
@@ -49,14 +73,12 @@ public class FluidPrimitiveBlastFurnace extends NoEnergyMultiController implemen
 
     @Override
     public boolean onSolderingIronClick(EntityPlayer playerIn, EnumHand hand,
-                                         EnumFacing wrenchSide,
-                                         CuboidRayTraceResult hitResult) {
+                                        EnumFacing wrenchSide,
+                                        CuboidRayTraceResult hitResult) {
         if (playerIn.isSneaking()) {
-            size = Math.max(0, size - 1);
-        } else size++;
-        reinitializeStructurePattern();
-        markDirty();
-        playerIn.sendMessage(new TextComponentString("Size : " + size));
+            setSize(Math.max(0, getSize() - 1));
+        } else setSize(Math.min(getSize() + 1, getMaxSize()));
+        playerIn.sendMessage(new TextComponentString("Size : " + getSize()));
         return true;
     }
 
@@ -65,39 +87,12 @@ public class FluidPrimitiveBlastFurnace extends NoEnergyMultiController implemen
         return new FluidPrimitiveBlastFurnace(metaTileEntityId);
     }
 
-    private String growSubAisle(String subAisle, int size) {
-        if (size == 0) return subAisle;
-        char firstLetter = subAisle.charAt(0);
-        char lastLetter = subAisle.charAt(subAisle.length() - 1);
-        return growSubAisle(firstLetter + subAisle + lastLetter, size - 1);
-    }
-
-    private String[] growAisle2(String[] aisle, int size) {
-        if (size == 0) return aisle;
-        size--;
-        int middleIndex = aisle.length / 2;
-        String toRepeat = aisle[middleIndex];
-        String[] result = ArrayUtils.add(aisle, middleIndex, toRepeat);
-        return growAisle2(result, size);
-    }
-
-    private String[] growGrow(String[] aisle, int size) {
-        String[] preResult = growAisle2(aisle, size);
-        StreamHelper.initIntStream(preResult.length).forEach(i -> preResult[i] = growSubAisle(preResult[i], size));
-        return preResult;
-    }
-
-    private String[] growGrow(int size, String... subAisles) {
-        return growGrow(subAisles, size);
-    }
-
-
     @Override
     protected @NotNull BlockPattern createStructurePattern() {
         return FactoryBlockPattern.start()
-                .aisle(growGrow(size, "AAA", "XXX", "BBB"))
-                .aisle(growGrow(size, "AAA", "X#X", "BCB")).setRepeatable(Math.max(1, size * 2))
-                .aisle(growGrow(size, "AYA", "XXX", "BBB"))
+                .aisle(growGrow(getSize(), "AAA", "XXX", "BBB"))
+                .aisle(growGrow(getSize(), "AAA", "X#X", "BCB")).setRepeatable(Math.max(1, 1 + getSize() * 2))
+                .aisle(growGrow(getSize(), "YAA", "XXX", "BBB"))
                 .where('A', cokeBrick().or(brickFluidHatch(true, 1)))
                 .where('B', cokeBrick().or(brickItemBus(false, 2)))
                 .where('C', cokeBrick().or(brickFluidHatch(false, 1)))
@@ -105,6 +100,24 @@ public class FluidPrimitiveBlastFurnace extends NoEnergyMultiController implemen
                 .where('#', air())
                 .where('Y', selfPredicate())
                 .build();
+    }
+
+    @Override
+    public List<MultiblockShapeInfo> getMatchingShapes() {
+        String[] firstAisle = new String[] { "AXX", "XXX", "BXX" };
+        String[] repeatableAisle = new String[] { "XXX", "X#X", "XXX" };
+        String[] lastAisle = new String[] { "YXX", "XXX", "BXC" };
+
+        MultiblockShapeInfo.Builder baseBuilder = MultiblockShapeInfo.builder(LEFT, DOWN, FRONT)
+                .where('Y', TkTechMetaTileEntities.FLUID_PRIMITIVE_BLAST_FURNACE, EnumFacing.SOUTH)
+                .where('A', TkTechMetaTileEntities.BRICK_FLUID_HATCH[1], EnumFacing.DOWN)
+                .where('C', TkTechMetaTileEntities.BRICK_FLUID_HATCH[0], EnumFacing.UP)
+                .where('B', TkTechMetaTileEntities.BRICK_ITEM_BUS[0], EnumFacing.SOUTH)
+                .where('X', MetaBlocks.METAL_CASING.getState(BlockMetalCasing.MetalCasingType.COKE_BRICKS))
+                .where('#', Blocks.AIR.getDefaultState());
+
+        return MultiblockShapeInfoHelper.generateMultiblockShapeInfos(baseBuilder, getMaxSize(), firstAisle,
+                repeatableAisle, lastAisle);
     }
 
     @SideOnly(Side.CLIENT)
@@ -119,29 +132,29 @@ public class FluidPrimitiveBlastFurnace extends NoEnergyMultiController implemen
     public ICubeRenderer getBaseTexture(IMultiblockPart sourcePart) {
         return Textures.COKE_BRICKS;
     }
-    
+
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound data) {
         super.writeToNBT(data);
-        data.setInteger("size", size);
+        data.setInteger("size", getSize());
         return data;
     }
 
     @Override
     public void readFromNBT(NBTTagCompound data) {
         super.readFromNBT(data);
-        size = data.getInteger("size");
+        setSize(data.getInteger("size"));
     }
 
     @Override
     public void writeInitialSyncData(PacketBuffer buf) {
         super.writeInitialSyncData(buf);
-        buf.writeInt(size);
+        buf.writeInt(getSize());
     }
 
     @Override
     public void receiveInitialSyncData(PacketBuffer buf) {
         super.receiveInitialSyncData(buf);
-        size = buf.readInt();
+        setSize(buf.readInt());
     }
 }
