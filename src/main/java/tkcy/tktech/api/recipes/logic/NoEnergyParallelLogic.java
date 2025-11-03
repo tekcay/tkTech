@@ -14,6 +14,7 @@ import gregtech.api.recipes.RecipeBuilder;
 import gregtech.api.recipes.ingredients.GTRecipeFluidInput;
 import gregtech.api.recipes.ingredients.GTRecipeInput;
 import gregtech.api.recipes.logic.IParallelableRecipeLogic;
+
 import tkcy.tktech.api.recipes.logic.markers.IHideEnergyRecipeLogic;
 
 /**
