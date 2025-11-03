@@ -2,6 +2,7 @@ package tkcy.tktech.api.unification.materials;
 
 import gregtech.api.unification.material.Material;
 
+import gregtech.api.unification.material.Materials;
 import lombok.experimental.UtilityClass;
 import tkcy.tktech.api.render.ChemicalStructureRenderUtils;
 import tkcy.tktech.api.unification.MaterialsFormula;
@@ -13,6 +14,7 @@ import tkcy.tktech.api.unification.materials.other.Chemicals;
 import tkcy.tktech.api.unification.materials.other.MethaneCracking;
 import tkcy.tktech.api.unification.materials.other.MiscMaterials;
 import tkcy.tktech.api.unification.properties.MaterialPropertiesAddition;
+import tkcy.tktech.api.unification.properties.ToxicMaterialProperty;
 
 @UtilityClass
 public class TkTechMaterials {
@@ -47,6 +49,7 @@ public class TkTechMaterials {
 
         MaterialIconAddition.init();
         ChemicalStructureRenderUtils.registerChemicalStructuresTexture();
+        ToxicMaterialProperty.addToxicMaterialProperty(Materials.Benzene);
     }
 
     // Chromite chain
