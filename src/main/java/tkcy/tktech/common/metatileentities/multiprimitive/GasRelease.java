@@ -6,16 +6,13 @@ import static gregtech.common.blocks.MetaBlocks.BOILER_CASING;
 import java.util.List;
 import java.util.function.Function;
 
-import gregtech.api.recipes.ingredients.GTRecipeFluidInput;
-import gregtech.api.recipes.ingredients.GTRecipeInput;
-import gregtech.api.util.TextComponentUtil;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -35,7 +32,9 @@ import gregtech.api.metatileentity.multiblock.MultiblockAbility;
 import gregtech.api.pattern.BlockPattern;
 import gregtech.api.pattern.FactoryBlockPattern;
 import gregtech.api.pattern.PatternMatchContext;
+import gregtech.api.util.EntityDamageUtil;
 import gregtech.api.util.RelativeDirection;
+import gregtech.api.util.TextComponentUtil;
 import gregtech.client.renderer.ICubeRenderer;
 import gregtech.client.renderer.texture.Textures;
 
@@ -104,12 +103,9 @@ public class GasRelease extends NoEnergyMultiController implements RepetitiveSid
         if (releasedGas == null) return;
         int gasTemperature = releasedGas.getFluid().getTemperature();
         if (gasTemperature > 398) {
-            float damage = (float) (gasTemperature - 298) / 100;
             Entity entity = findEntity();
             if (entity == null) return;
-            if (!entity.isImmuneToFire) {
-                entity.attackEntityFrom(DamageSource.IN_FIRE, damage);
-            }
+            EntityDamageUtil.applyTemperatureDamage((EntityLivingBase) entity, gasTemperature, 1.0F, -1);
         }
     }
 
@@ -141,7 +137,9 @@ public class GasRelease extends NoEnergyMultiController implements RepetitiveSid
                                boolean advanced) {
         super.addInformation(stack, player, tooltip, advanced);
         tooltip.add(I18n.format("tktech.machine.gas_release.1"));
-        tooltip.add(TextComponentUtil.translationWithColor(TextFormatting.GOLD, I18n.format("tktech.machine.gas_release.2")).getFormattedText());
+        tooltip.add(
+                TextComponentUtil.translationWithColor(TextFormatting.GOLD, I18n.format("tktech.machine.gas_release.2"))
+                        .getFormattedText());
         addParallelTooltip(tooltip);
     }
 
