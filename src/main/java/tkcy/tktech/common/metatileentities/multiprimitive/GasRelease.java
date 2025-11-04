@@ -10,9 +10,11 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.PacketBuffer;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -122,7 +124,8 @@ public class GasRelease extends NoEnergyMultiController implements RepetitiveSid
 
         Material fluidMaterial = MaterialHelper.getMaterialFromFluid(releasedGas);
         if (fluidMaterial != null && fluidMaterial.hasProperty(TkTechMaterialPropertyKeys.TOXIC)) {
-            EntityDamageUtil.applyChemicalDamage((EntityLivingBase) entity, 2);
+            ((EntityLivingBase) entity).addPotionEffect(new PotionEffect(MobEffects.POISON, 2 * 100, 1));
+            // EntityDamageUtil.applyChemicalDamage((EntityLivingBase) entity, 2);
         }
     }
 
