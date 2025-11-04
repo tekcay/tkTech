@@ -286,6 +286,12 @@ item.gt.tool.soldering_iron.tooltip=§8Hold left click to dismantle Machines
 
 item.material.oreprefix.toolTipSolderingIron=%s Soldering Iron Tip
 
+## Armors
+metaitem.chemical_hazard_suite.legs.name=Chemical Hazard Suite Legs
+metaitem.chemical_hazard_suite.feet.name=Chemical Hazard Suite Boots
+metaitem.chemical_hazard_suite.head.name=Chemical Hazard Suite Mask
+metaitem.chemical_hazard_suite.chest.name=Chemical Hazard Suite Chest
+
 #
 tktech.test_display.height=Height: %d
 
