@@ -20,5 +20,6 @@ public class MaterialPropertiesAddition {
 
     public static void init() {
         ToxicMaterialProperty.addToxicMaterialProperty(Materials.Benzene);
+        ToxicMaterialProperty.addToxicMaterialProperty(Materials.CoalGas);
     }
 }

@@ -32,6 +32,7 @@ import gregtech.api.metatileentity.multiblock.MultiblockAbility;
 import gregtech.api.pattern.BlockPattern;
 import gregtech.api.pattern.FactoryBlockPattern;
 import gregtech.api.pattern.PatternMatchContext;
+import gregtech.api.unification.material.Material;
 import gregtech.api.util.EntityDamageUtil;
 import gregtech.api.util.RelativeDirection;
 import gregtech.api.util.TextComponentUtil;
@@ -42,6 +43,9 @@ import tkcy.tktech.api.machines.NoEnergyMultiController;
 import tkcy.tktech.api.metatileentities.RepetitiveSide;
 import tkcy.tktech.api.recipes.logic.NoEnergyParallelLogic;
 import tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps;
+import tkcy.tktech.api.unification.properties.TkTechMaterialPropertyKeys;
+import tkcy.tktech.api.unification.properties.ToxicMaterialProperty;
+import tkcy.tktech.api.utils.MaterialHelper;
 
 public class GasRelease extends NoEnergyMultiController implements RepetitiveSide {
 
@@ -61,10 +65,17 @@ public class GasRelease extends NoEnergyMultiController implements RepetitiveSid
     public void update() {
         super.update();
         if ((getOffsetTimer() % 20 == 0) && isActive()) {
-            tryHurtPlayer();
+            Entity entity = findEntity();
+            if (entity == null) return;
+
+            FluidStack releasedGas = getReleasedGas();
+            if (releasedGas == null) return;
+
+            tryDamageEntity(entity, releasedGas);
         }
     }
 
+    @SuppressWarnings("ConstantConditions")
     @Nullable
     protected FluidStack getReleasedGas() {
         if (!isActive()) return null;
@@ -98,14 +109,20 @@ public class GasRelease extends NoEnergyMultiController implements RepetitiveSid
         return null;
     }
 
-    protected void tryHurtPlayer() {
-        FluidStack releasedGas = getReleasedGas();
-        if (releasedGas == null) return;
+    /**
+     * Applies damage to an entity if the processed released gas is either hot i.e. T > 398 or has
+     * {@link ToxicMaterialProperty}.
+     */
+    protected void tryDamageEntity(@NotNull Entity entity, @NotNull FluidStack releasedGas) {
         int gasTemperature = releasedGas.getFluid().getTemperature();
+
         if (gasTemperature > 398) {
-            Entity entity = findEntity();
-            if (entity == null) return;
             EntityDamageUtil.applyTemperatureDamage((EntityLivingBase) entity, gasTemperature, 1.0F, -1);
+        }
+
+        Material fluidMaterial = MaterialHelper.getMaterialFromFluid(releasedGas);
+        if (fluidMaterial != null && fluidMaterial.hasProperty(TkTechMaterialPropertyKeys.TOXIC)) {
+            EntityDamageUtil.applyChemicalDamage((EntityLivingBase) entity, 2);
         }
     }
 
