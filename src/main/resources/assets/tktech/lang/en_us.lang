@@ -143,6 +143,9 @@ tktech.material.lead_zirconate_titanate=Lead Zirconate Titanate
 tktech.material.lithium_niobate=Lithium Niobate
 tktech.material.gallium_phosphate=Gallium Phosphate
 
+# Material properties
+tktech.toxic_material_property.tooltip=TOXIC!
+
 ##MTEs
 tktech.machine.primitive_roasting_oven.name=Primitive Roasting Oven
 tktech.machine.electrolyzer.name=Electrolyzer
