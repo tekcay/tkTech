@@ -295,10 +295,21 @@ metaitem.chemical_hazard_suite.feet_icon.name=Chemical Hazard Suite Boots
 metaitem.chemical_hazard_suite.head_icon.name=Chemical Hazard Suite Mask
 metaitem.chemical_hazard_suite.chest_icon.name=Chemical Hazard Suite Chest
 
+tk_armor.chemical_hazard_suite.head.tooltip=Full set protects against corrosive chemicals
+tk_armor.chemical_hazard_suite.head.tooltip.toxic=Protects against toxic chemicals
+tk_armor.chemical_hazard_suite.feet.tooltip=Full set protects against corrosive chemicals
+tk_armor.chemical_hazard_suite.legs.tooltip=Full set protects against corrosive chemicals
+tk_armor.chemical_hazard_suite.chest.tooltip=Full set protects against corrosive chemicals
+
 metaitem.heat_hazard_suite.legs_icon.name=Heat Hazard Suite Legs
 metaitem.heat_hazard_suite.feet_icon.name=Heat Hazard Suite Boots
 metaitem.heat_hazard_suite.head_icon.name=Heat Hazard Suite Mask
 metaitem.heat_hazard_suite.chest_icon.name=Heat Hazard Suite Chest
+
+tk_armor.heat_hazard_suite.head.tooltip=Full set protects against heat
+tk_armor.heat_hazard_suite.feet.tooltip=Full set protects against heat
+tk_armor.heat_hazard_suite.legs.tooltip=Full set protects against heat
+tk_armor.heat_hazard_suite.chest.tooltip=Full set protects against heat
 
 #
 tktech.test_display.height=Height: %d
