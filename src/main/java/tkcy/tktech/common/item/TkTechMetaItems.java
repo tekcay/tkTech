@@ -36,6 +36,6 @@ public final class TkTechMetaItems {
         metaItem1.setRegistryName(TkTech.MODID);
 
         TkTechArmor tkTechArmors = new TkTechArmor();
-        tkTechArmors.setRegistryName("tk_armor");
+        tkTechArmors.setRegistryName(TkTech.MODID, TkTechArmor.registryName);
     }
 }

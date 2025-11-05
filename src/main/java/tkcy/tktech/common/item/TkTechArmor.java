@@ -9,7 +9,8 @@ import tkcy.tktech.common.item.armor.HeatHazardArmor;
 
 public class TkTechArmor extends ArmorMetaItem<ArmorMetaItem<?>.ArmorMetaValueItem> {
 
-    public static final String basePath = "tktech:textures/items/armors";
+    public static final String texturePath = "tktech:textures/items/armors";
+    public static final String registryName = "tk_armor";
 
     @Override
     public void registerSubItems() {

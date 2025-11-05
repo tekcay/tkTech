@@ -1,7 +1,10 @@
 package tkcy.tktech.api.items.armor;
 
-import static tkcy.tktech.common.item.TkTechArmor.basePath;
+import static tkcy.tktech.common.item.TkTechArmor.texturePath;
 
+import java.util.List;
+
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -15,9 +18,22 @@ import org.jetbrains.annotations.NotNull;
 import gregtech.api.items.armor.ArmorMetaItem;
 import gregtech.api.items.armor.ISpecialArmorLogic;
 
+import tkcy.tktech.common.item.TkTechArmor;
+
 public interface ISimpleArmorLogicHelper extends ISpecialArmorLogic {
 
     String getUnlocalizedName();
+
+    @Override
+    default void addToolComponents(ArmorMetaItem.ArmorMetaValueItem metaValueItem) {
+        metaValueItem.addComponents(new BasicArmorItemBehavior(this::addInfo));
+    }
+
+    default void addInfo(ItemStack itemStack, List<String> lines) {
+        EntityEquipmentSlot slot = getEquipmentSlot(itemStack);
+        String str = String.format("%s.%s.%s.tooltip", TkTechArmor.registryName, getUnlocalizedName(), slot.getName());
+        lines.add(I18n.format(str));
+    }
 
     default boolean isEquipped(EntityPlayer player, EntityEquipmentSlot slot,
                                ArmorMetaItem<?>.ArmorMetaValueItem armorMetaValueItem) {
@@ -40,16 +56,16 @@ public interface ISimpleArmorLogicHelper extends ISpecialArmorLogic {
     default String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
         switch (slot) {
             case CHEST -> {
-                return String.format("%s/%s/chest.png", basePath, getUnlocalizedName());
+                return String.format("%s/%s/chest.png", texturePath, getUnlocalizedName());
             }
             case LEGS -> {
-                return String.format("%s/%s/legs.png", basePath, getUnlocalizedName());
+                return String.format("%s/%s/legs.png", texturePath, getUnlocalizedName());
             }
             case HEAD -> {
-                return String.format("%s/%s/head.png", basePath, getUnlocalizedName());
+                return String.format("%s/%s/head.png", texturePath, getUnlocalizedName());
             }
             case FEET -> {
-                return String.format("%s/%s/feet.png", basePath, getUnlocalizedName());
+                return String.format("%s/%s/feet.png", texturePath, getUnlocalizedName());
             }
         }
         return "";
