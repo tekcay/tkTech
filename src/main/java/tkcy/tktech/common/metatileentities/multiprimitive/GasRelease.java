@@ -24,6 +24,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import gregtech.api.capability.impl.FluidTankList;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
 import gregtech.api.metatileentity.multiblock.IMultiblockPart;
@@ -67,6 +68,17 @@ public class GasRelease extends NoEnergyMultiController implements RepetitiveSid
     @Override
     public MetaTileEntity createMetaTileEntity(IGregTechTileEntity tileEntity) {
         return new GasRelease(metaTileEntityId, repetitiveBlock, baseTexture, isBrick);
+    }
+
+    @Override
+    protected void initializeAbilities() {
+        if (!isBrick) {
+            super.initializeAbilities();
+            return;
+        }
+
+        this.inputFluidInventory = new FluidTankList(allowSameFluidFillForOutputs(),
+                getAbilities(TkTechMultiblockAbilities.BRICK_HATCH_INPUT));
     }
 
     @Override

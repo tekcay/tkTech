@@ -19,6 +19,7 @@ import tkcy.tktech.api.utils.TkTechUtil;
 import tkcy.tktech.common.metatileentities.electric.*;
 import tkcy.tktech.common.metatileentities.multiblockpart.BrickFluidHatch;
 import tkcy.tktech.common.metatileentities.multiblockpart.BrickItemBus;
+import tkcy.tktech.common.metatileentities.multiblockpart.MTeBrickMufflerHatch;
 import tkcy.tktech.common.metatileentities.multiprimitive.*;
 import tkcy.tktech.common.metatileentities.primitive.*;
 import tkcy.tktech.common.metatileentities.steam.SteamDustMixer;
@@ -53,6 +54,7 @@ public class TkTechMetaTileEntities {
     public static MTeWoodWorkshop WOOD_WORKSHOP;
     public static MTePrimitiveBath PRIMITIVE_BATH;
     public static MTeChemicalBench CHEMICAL_BENCH;
+    public static MTeBrickMufflerHatch BRICK_MUFFLER_HATCH;
     public static SimpleMachineMetaTileEntity[] CLUSTER_MILLS = new SimpleMachineMetaTileEntity[5];
     public static SimpleMachineMetaTileEntity[] COMPONENT_ASSEMBLERS = new SimpleMachineMetaTileEntity[6];
     public static SimpleMachineMetaTileEntity[] ROLLING_MILLS = new SimpleMachineMetaTileEntity[6];
@@ -143,10 +145,12 @@ public class TkTechMetaTileEntities {
                 new GasRelease(tktech("gas_release_steel"),
                         MetaBlocks.METAL_CASING.getState(BlockMetalCasing.MetalCasingType.STEEL_SOLID),
                         Textures.SOLID_STEEL_CASING, false));
-        GAS_RELEASE_STEEL = registerMetaTileEntity(4112,
+        GAS_RELEASE_STAINLESS_STEEL = registerMetaTileEntity(4112,
                 new GasRelease(tktech("gas_release_stainless_steel"),
                         MetaBlocks.METAL_CASING.getState(BlockMetalCasing.MetalCasingType.STAINLESS_CLEAN),
                         Textures.CLEAN_STAINLESS_STEEL_CASING, false));
+
+        BRICK_MUFFLER_HATCH = registerMetaTileEntity(4113, new MTeBrickMufflerHatch(tktech("brick_muffler_hatch")));
 
         MaterialMetaTileEntity.registerMaterialMetaTileEntity(StorageModule.TANK_MATERIALS, MODULABLE_TANKS, 4200,
                 StorageModule::initModulableTank);
