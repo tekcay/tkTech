@@ -1,8 +1,5 @@
 package tkcy.tktech.common.metatileentities.multiprimitive;
 
-import static gregtech.common.blocks.BlockBoilerCasing.BoilerCasingType.STEEL_PIPE;
-import static gregtech.common.blocks.MetaBlocks.BOILER_CASING;
-
 import java.util.List;
 import java.util.function.Function;
 
@@ -34,6 +31,7 @@ import gregtech.api.metatileentity.multiblock.MultiblockAbility;
 import gregtech.api.pattern.BlockPattern;
 import gregtech.api.pattern.FactoryBlockPattern;
 import gregtech.api.pattern.PatternMatchContext;
+import gregtech.api.pattern.TraceabilityPredicate;
 import gregtech.api.unification.material.Material;
 import gregtech.api.util.EntityDamageUtil;
 import gregtech.api.util.RelativeDirection;
@@ -41,6 +39,7 @@ import gregtech.api.util.TextComponentUtil;
 import gregtech.client.renderer.ICubeRenderer;
 import gregtech.client.renderer.texture.Textures;
 
+import tkcy.tktech.api.capabilities.TkTechMultiblockAbilities;
 import tkcy.tktech.api.machines.NoEnergyMultiController;
 import tkcy.tktech.api.metatileentities.RepetitiveSide;
 import tkcy.tktech.api.recipes.logic.NoEnergyParallelLogic;
@@ -52,15 +51,22 @@ import tkcy.tktech.api.utils.MaterialHelper;
 public class GasRelease extends NoEnergyMultiController implements RepetitiveSide {
 
     private int height = 1;
+    private final boolean isBrick;
+    private final IBlockState repetitiveBlock;
+    private final ICubeRenderer baseTexture;
 
-    public GasRelease(ResourceLocation metaTileEntityId) {
+    public GasRelease(ResourceLocation metaTileEntityId, IBlockState repetitiveBlock, ICubeRenderer baseTexture,
+                      boolean isBrick) {
         super(metaTileEntityId, TkTechRecipeMaps.GAS_RELEASE);
+        this.isBrick = isBrick;
         this.recipeMapWorkable = new NoEnergyParallelLogic(this);
+        this.repetitiveBlock = repetitiveBlock;
+        this.baseTexture = baseTexture;
     }
 
     @Override
     public MetaTileEntity createMetaTileEntity(IGregTechTileEntity tileEntity) {
-        return new GasRelease(metaTileEntityId);
+        return new GasRelease(metaTileEntityId, repetitiveBlock, baseTexture, isBrick);
     }
 
     @Override
@@ -125,8 +131,12 @@ public class GasRelease extends NoEnergyMultiController implements RepetitiveSid
         Material fluidMaterial = MaterialHelper.getMaterialFromFluid(releasedGas);
         if (fluidMaterial != null && fluidMaterial.hasProperty(TkTechMaterialPropertyKeys.TOXIC)) {
             ((EntityLivingBase) entity).addPotionEffect(new PotionEffect(MobEffects.POISON, 2 * 100, 1));
-            // EntityDamageUtil.applyChemicalDamage((EntityLivingBase) entity, 2);
         }
+    }
+
+    private TraceabilityPredicate importFluidPredicate() {
+        return isBrick ? abilities(TkTechMultiblockAbilities.BRICK_HATCH_INPUT) :
+                abilities(MultiblockAbility.IMPORT_FLUIDS);
     }
 
     @Override
@@ -136,7 +146,7 @@ public class GasRelease extends NoEnergyMultiController implements RepetitiveSid
                 .aisle("Y")
                 .aisle("P").setRepeatable(getMinSideLength(), getMaxSideLength())
                 .aisle("M")
-                .where('I', abilities(MultiblockAbility.IMPORT_FLUIDS))
+                .where('I', importFluidPredicate())
                 .where('M', abilities(MultiblockAbility.MUFFLER_HATCH))
                 .where('P', states(getSideBlockBlockState()))
                 .where('Y', selfPredicate())
@@ -178,7 +188,7 @@ public class GasRelease extends NoEnergyMultiController implements RepetitiveSid
     @SideOnly(Side.CLIENT)
     @Override
     public ICubeRenderer getBaseTexture(IMultiblockPart sourcePart) {
-        return Textures.SOLID_STEEL_CASING;
+        return baseTexture;
     }
 
     @Override
@@ -218,7 +228,7 @@ public class GasRelease extends NoEnergyMultiController implements RepetitiveSid
 
     @Override
     public IBlockState getSideBlockBlockState() {
-        return BOILER_CASING.getState(STEEL_PIPE);
+        return repetitiveBlock;
     }
 
     @Override

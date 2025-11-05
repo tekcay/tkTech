@@ -151,7 +151,9 @@ tktech.machine.primitive_roasting_oven.name=Primitive Roasting Oven
 tktech.machine.electrolyzer.name=Electrolyzer
 tktech.machine.assembler.name=Assembling Machine
 tktech.machine.dryer.name=Dryer
-tktech.machine.gas_release.name=Gas Release
+tktech.machine.gas_release_brick.name=Brick Gas Release
+tktech.machine.gas_release_steel.name=Steel Gas Release
+tktech.machine.gas_release_stainless_steel.name=Stainless Steel Gas Release
 tktech.machine.alloying_crucible.name=Alloying Crucible
 tktech.machine.hydrogenation_unit.name=Hydrogenation Unit
 tktech.machine.cracking_unit.name=Cracking Unit
@@ -296,7 +298,7 @@ metaitem.chemical_hazard_suite.chest.name=Chemical Hazard Suite Chest
 tktech.test_display.height=Height: %d
 
 ##Machines tooltips
-tktech.machine.gas_release.1=Release gases into the atmosphere
+tktech.machine.gas_release.1=Releases gases into the atmosphere
 tktech.machine.gas_release.2=CAREFUL! Gases can deal damage!
 tktech.machine.alloying_crucible.1=Release gases into the atmosphere
 tktech.machine.cracker.tooltip.1=Cracks hydrocarbons or oil layers to get interesting compounds.
