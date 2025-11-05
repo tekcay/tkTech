@@ -26,6 +26,11 @@ public final class TkTechMetaItems {
     public static ArmorMetaItem<?>.ArmorMetaValueItem CHEMICAL_HAZARD_SUITE_CHEST;
     public static ArmorMetaItem<?>.ArmorMetaValueItem CHEMICAL_HAZARD_SUITE_FEET;
 
+    public static ArmorMetaItem<?>.ArmorMetaValueItem HEAT_HAZARD_SUITE_HEAD;
+    public static ArmorMetaItem<?>.ArmorMetaValueItem HEAT_HAZARD_SUITE_LEGS;
+    public static ArmorMetaItem<?>.ArmorMetaValueItem HEAT_HAZARD_SUITE_CHEST;
+    public static ArmorMetaItem<?>.ArmorMetaValueItem HEAT_HAZARD_SUITE_FEET;
+
     public static void init() {
         TkTechMetaItemRegistry metaItem1 = new TkTechMetaItemRegistry((short) 0);
         metaItem1.setRegistryName(TkTech.MODID);

@@ -3,6 +3,7 @@ package tkcy.tktech.api.utils;
 import java.util.Arrays;
 import java.util.function.Predicate;
 
+import org.apache.commons.lang3.BooleanUtils;
 import org.jetbrains.annotations.Nullable;
 
 import lombok.experimental.UtilityClass;
@@ -50,5 +51,12 @@ public class BooleanHelper {
     public static <T> boolean allPredicate(T toTest, Predicate<T>... predicates) {
         return Arrays.stream(predicates)
                 .anyMatch(tPredicate -> tPredicate.negate().test(toTest));
+    }
+
+    /**
+     * Just calls {@link BooleanUtils#and(boolean...)} and avoids conflict with {@link BooleanUtils#and(Boolean...)}.
+     */
+    public static boolean and(boolean... booleans) {
+        return BooleanUtils.and(booleans);
     }
 }
