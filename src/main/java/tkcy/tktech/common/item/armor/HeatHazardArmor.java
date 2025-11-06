@@ -8,8 +8,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 
 import tkcy.tktech.api.items.armor.ISimpleArmorLogicHelper;
-import tkcy.tktech.api.utils.BooleanHelper;
-import tkcy.tktech.common.item.TkTechMetaItems;
+import tkcy.tktech.api.utils.TkTechArmorUtils;
 
 public class HeatHazardArmor implements ISimpleArmorLogicHelper {
 
@@ -28,13 +27,7 @@ public class HeatHazardArmor implements ISimpleArmorLogicHelper {
     @SuppressWarnings("ConstantConditions")
     @Override
     public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack) {
-        boolean isFullyEquipped = BooleanHelper.and(
-                isEquipped(player, EntityEquipmentSlot.CHEST, TkTechMetaItems.HEAT_HAZARD_SUITE_CHEST),
-                isEquipped(player, EntityEquipmentSlot.HEAD, TkTechMetaItems.HEAT_HAZARD_SUITE_HEAD),
-                isEquipped(player, EntityEquipmentSlot.LEGS, TkTechMetaItems.HEAT_HAZARD_SUITE_LEGS),
-                isEquipped(player, EntityEquipmentSlot.FEET, TkTechMetaItems.HEAT_HAZARD_SUITE_FEET));
-
-        if (isFullyEquipped) {
+        if (TkTechArmorUtils.isFullyHeatHazardEquipped(player)) {
             player.addPotionEffect(new PotionEffect(MobEffects.FIRE_RESISTANCE));
         }
     }

@@ -1,5 +1,7 @@
 package tkcy.tktech.common.item.armor;
 
+import static tkcy.tktech.api.utils.TkTechArmorUtils.isEquipped;
+
 import java.util.List;
 
 import net.minecraft.client.resources.I18n;
@@ -10,8 +12,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 import tkcy.tktech.api.items.armor.ISimpleArmorLogicHelper;
+import tkcy.tktech.api.utils.TkTechArmorUtils;
 import tkcy.tktech.common.item.TkTechArmor;
 import tkcy.tktech.common.item.TkTechMetaItems;
+import tkcy.tktech.common.item.potions.TkTechPotion;
 
 public class ChemicalHazardArmor implements ISimpleArmorLogicHelper {
 
@@ -30,7 +34,16 @@ public class ChemicalHazardArmor implements ISimpleArmorLogicHelper {
     @SuppressWarnings("ConstantConditions")
     @Override
     public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack) {
-        if (isEquipped(player, EntityEquipmentSlot.HEAD, TkTechMetaItems.HEAT_HAZARD_SUITE_HEAD)) {
+        if (isEquipped(player, EntityEquipmentSlot.HEAD, TkTechMetaItems.CHEMICAL_HAZARD_SUITE_CHEST)) {
+            if (player.isPotionActive(MobEffects.POISON)) {
+                player.removeActivePotionEffect(MobEffects.POISON);
+            }
+        }
+
+        if (TkTechArmorUtils.isFullyChemicalHazardEquipped(player)) {
+            if (player.isPotionActive(TkTechPotion.CORROSION)) {
+                player.removeActivePotionEffect(TkTechPotion.CORROSION);
+            }
             if (player.isPotionActive(MobEffects.POISON)) {
                 player.removeActivePotionEffect(MobEffects.POISON);
             }

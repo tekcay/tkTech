@@ -16,6 +16,7 @@ import gregtech.api.fluids.FluidState;
 import gregtech.api.unification.material.Material;
 import gregtech.api.util.FluidTooltipUtil;
 
+import tkcy.tktech.api.unification.properties.CorrosiveMaterialProperty;
 import tkcy.tktech.api.unification.properties.TkTechMaterialPropertyKeys;
 import tkcy.tktech.api.unification.properties.ToxicMaterialProperty;
 
@@ -26,10 +27,15 @@ public abstract class MixinFluidTooltipUtil {
     private static Supplier<List<String>> addExtraFluidTooltips2(Supplier<List<String>> supplier,
                                                                  @Nullable Material material, @NotNull Fluid fluid,
                                                                  @NotNull FluidState fluidState) {
-        if (material != null && material.hasProperty(TkTechMaterialPropertyKeys.TOXIC)) {
-            List<String> tooltips = supplier.get();
+        if (material == null) return supplier;
+        List<String> tooltips = supplier.get();
+
+        if (material.hasProperty(TkTechMaterialPropertyKeys.TOXIC)) {
             tooltips.addAll(ToxicMaterialProperty.createToxicMaterialPropertyTooltip(material));
-            return () -> tooltips;
-        } else return supplier;
+        }
+        if (material.hasProperty(TkTechMaterialPropertyKeys.CORROSIVE)) {
+            tooltips.addAll(CorrosiveMaterialProperty.createCorrosiveMaterialPropertyTooltip(material));
+        }
+        return () -> tooltips;
     }
 }

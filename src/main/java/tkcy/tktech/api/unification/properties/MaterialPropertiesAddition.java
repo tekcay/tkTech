@@ -7,6 +7,7 @@ import gregtech.api.unification.material.Materials;
 import gregtech.api.unification.material.properties.*;
 
 import lombok.experimental.UtilityClass;
+import tkcy.tktech.api.unification.materials.TkTechMaterials;
 
 @UtilityClass
 public class MaterialPropertiesAddition {
@@ -21,5 +22,6 @@ public class MaterialPropertiesAddition {
     public static void init() {
         ToxicMaterialProperty.addToxicMaterialProperty(Materials.Benzene);
         ToxicMaterialProperty.addToxicMaterialProperty(Materials.CoalGas);
+        CorrosiveMaterialProperty.addCorrosiveMaterialProperty(TkTechMaterials.HydrogenFluoride);
     }
 }
