@@ -48,7 +48,9 @@ import tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps;
 import tkcy.tktech.api.unification.properties.CorrosiveMaterialProperty;
 import tkcy.tktech.api.unification.properties.TkTechMaterialPropertyKeys;
 import tkcy.tktech.api.unification.properties.ToxicMaterialProperty;
+import tkcy.tktech.api.utils.BooleanHelper;
 import tkcy.tktech.api.utils.MaterialHelper;
+import tkcy.tktech.common.TkTechConfigHolder;
 import tkcy.tktech.common.item.potions.TkTechPotion;
 
 public class GasRelease extends NoEnergyMultiController implements RepetitiveSide {
@@ -86,7 +88,10 @@ public class GasRelease extends NoEnergyMultiController implements RepetitiveSid
     @Override
     public void update() {
         super.update();
-        if ((getOffsetTimer() % 20 == 0) && isActive()) {
+        if (BooleanHelper.and(
+                TkTechConfigHolder.gamePlay.enableGasReleaseDealsDamage,
+                (getOffsetTimer() % 20 == 0),
+                isActive())) {
             Entity entity = findEntity();
             if (entity == null) return;
 
