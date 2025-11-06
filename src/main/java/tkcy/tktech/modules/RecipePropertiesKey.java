@@ -19,4 +19,5 @@ public class RecipePropertiesKey {
     public static final String FAILED_OUTPUT_KEY = "failedOutputKey";
     public static final String DURATION_MODIFIER_KEY = "maxDurationKey";
     public static final String CHEMICAL_STRUCTURE_KEY = "chemicalStructureKey";
+    public static final String IS_IGNITED = "is_ignited";
 }

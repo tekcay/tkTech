@@ -6,4 +6,10 @@ public class TkTechMaterialPropertyKeys {
 
     public static final PropertyKey<ChemicalStructureProperty> CHEMICAL_STRUCTURE = new PropertyKey<>(
             "chemical_structure", ChemicalStructureProperty.class);
+
+    public static final PropertyKey<ToxicMaterialProperty> TOXIC = new PropertyKey<>(
+            "toxic", ToxicMaterialProperty.class);
+
+    public static final PropertyKey<CorrosiveMaterialProperty> CORROSIVE = new PropertyKey<>("corrosive",
+            CorrosiveMaterialProperty.class);
 }
