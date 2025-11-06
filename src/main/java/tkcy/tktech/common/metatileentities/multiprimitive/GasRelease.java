@@ -152,14 +152,17 @@ public class GasRelease extends NoEnergyMultiController implements RepetitiveSid
         if (gasTemperature > 398) {
             EntityDamageUtil.applyTemperatureDamage((EntityLivingBase) entity, gasTemperature, 1.0F, -1);
         }
+        if (isIgnited()) {
+            EntityDamageUtil.applyTemperatureDamage((EntityLivingBase) entity, 500, 1.0F, -1);
+        }
 
         Material fluidMaterial = MaterialHelper.getMaterialFromFluid(releasedGas);
         if (fluidMaterial == null) return;
 
-        if (fluidMaterial.hasProperty(TkTechMaterialPropertyKeys.TOXIC)) {
+        if (fluidMaterial.hasProperty(TkTechMaterialPropertyKeys.TOXIC) || isIgnited()) {
             ((EntityLivingBase) entity).addPotionEffect(new PotionEffect(MobEffects.POISON, 2 * 500, 1));
         }
-        if (fluidMaterial.hasProperty(TkTechMaterialPropertyKeys.CORROSIVE)) {
+        if (fluidMaterial.hasProperty(TkTechMaterialPropertyKeys.CORROSIVE) || isIgnited()) {
             ((EntityLivingBase) entity).addPotionEffect(new PotionEffect(TkTechPotion.CORROSION, 2 * 200, 1));
         }
     }
@@ -297,7 +300,7 @@ public class GasRelease extends NoEnergyMultiController implements RepetitiveSid
     @Override
     public boolean checkRecipe(@NotNull Recipe recipe, boolean consumeIfSuccess) {
         if (recipe.hasProperty(IsIgnitedRecipeProperty.getInstance())) {
-            return isIgnited;
+            return isIgnited();
         }
         return super.checkRecipe(recipe, consumeIfSuccess);
     }
