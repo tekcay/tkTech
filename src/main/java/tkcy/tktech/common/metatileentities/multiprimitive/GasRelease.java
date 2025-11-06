@@ -40,8 +40,10 @@ import gregtech.api.util.TextComponentUtil;
 import gregtech.client.renderer.ICubeRenderer;
 import gregtech.client.renderer.texture.Textures;
 
+import lombok.Getter;
 import tkcy.tktech.api.capabilities.TkTechMultiblockAbilities;
 import tkcy.tktech.api.machines.NoEnergyMultiController;
+import tkcy.tktech.api.metatileentities.IIgnitable;
 import tkcy.tktech.api.metatileentities.RepetitiveSide;
 import tkcy.tktech.api.recipes.logic.NoEnergyParallelLogic;
 import tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps;
@@ -53,9 +55,11 @@ import tkcy.tktech.api.utils.MaterialHelper;
 import tkcy.tktech.common.TkTechConfigHolder;
 import tkcy.tktech.common.item.potions.TkTechPotion;
 
-public class GasRelease extends NoEnergyMultiController implements RepetitiveSide {
+public class GasRelease extends NoEnergyMultiController implements RepetitiveSide, IIgnitable {
 
     private int height = 1;
+    @Getter
+    private boolean isIgnited;
     private final boolean isBrick;
     private final IBlockState repetitiveBlock;
     private final ICubeRenderer baseTexture;
@@ -219,6 +223,7 @@ public class GasRelease extends NoEnergyMultiController implements RepetitiveSid
     public NBTTagCompound writeToNBT(NBTTagCompound data) {
         super.writeToNBT(data);
         data.setInteger(RepetitiveSide.getHeightMarker(), this.height);
+        data.setBoolean(IIgnitable.NBT_LABEL, this.isIgnited);
         return data;
     }
 
@@ -226,18 +231,21 @@ public class GasRelease extends NoEnergyMultiController implements RepetitiveSid
     public void readFromNBT(NBTTagCompound data) {
         super.readFromNBT(data);
         this.height = data.getInteger(RepetitiveSide.getHeightMarker());
+        this.isIgnited = data.getBoolean(IIgnitable.NBT_LABEL);
     }
 
     @Override
     public void writeInitialSyncData(PacketBuffer buf) {
         super.writeInitialSyncData(buf);
         buf.writeInt(this.height);
+        buf.writeBoolean(this.isIgnited);
     }
 
     @Override
     public void receiveInitialSyncData(PacketBuffer buf) {
         super.receiveInitialSyncData(buf);
         this.height = buf.readInt();
+        this.isIgnited = buf.readBoolean();
     }
 
     @Override
@@ -268,5 +276,17 @@ public class GasRelease extends NoEnergyMultiController implements RepetitiveSid
     @Override
     public Function<Integer, BlockPos> getRepetitiveDirection() {
         return pos -> this.getPos().up(pos);
+    }
+
+    @Override
+    public void ignite() {
+        isIgnited = true;
+        markDirty();
+    }
+
+    @Override
+    public void shutOff() {
+        isIgnited = false;
+        markDirty();
     }
 }
