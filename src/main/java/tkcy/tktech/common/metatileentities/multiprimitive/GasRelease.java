@@ -33,6 +33,7 @@ import gregtech.api.pattern.BlockPattern;
 import gregtech.api.pattern.FactoryBlockPattern;
 import gregtech.api.pattern.PatternMatchContext;
 import gregtech.api.pattern.TraceabilityPredicate;
+import gregtech.api.recipes.Recipe;
 import gregtech.api.unification.material.Material;
 import gregtech.api.util.EntityDamageUtil;
 import gregtech.api.util.RelativeDirection;
@@ -46,11 +47,11 @@ import tkcy.tktech.api.machines.NoEnergyMultiController;
 import tkcy.tktech.api.metatileentities.IIgnitable;
 import tkcy.tktech.api.metatileentities.RepetitiveSide;
 import tkcy.tktech.api.recipes.logic.NoEnergyParallelLogic;
+import tkcy.tktech.api.recipes.properties.IsIgnitedRecipeProperty;
 import tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps;
 import tkcy.tktech.api.unification.properties.CorrosiveMaterialProperty;
 import tkcy.tktech.api.unification.properties.TkTechMaterialPropertyKeys;
 import tkcy.tktech.api.unification.properties.ToxicMaterialProperty;
-import tkcy.tktech.api.utils.BooleanHelper;
 import tkcy.tktech.api.utils.MaterialHelper;
 import tkcy.tktech.common.TkTechConfigHolder;
 import tkcy.tktech.common.item.potions.TkTechPotion;
@@ -92,10 +93,11 @@ public class GasRelease extends NoEnergyMultiController implements RepetitiveSid
     @Override
     public void update() {
         super.update();
-        if (BooleanHelper.and(
-                TkTechConfigHolder.gamePlay.enableGasReleaseDealsDamage,
-                (getOffsetTimer() % 20 == 0),
-                isActive())) {
+        if (!isActive()) {
+            shutOff();
+            return;
+        }
+        if (TkTechConfigHolder.gamePlay.enableGasReleaseDealsDamage && getOffsetTimer() % 20 == 0) {
             Entity entity = findEntity();
             if (entity == null) return;
 
@@ -191,6 +193,7 @@ public class GasRelease extends NoEnergyMultiController implements RepetitiveSid
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, @Nullable World player, @NotNull List<String> tooltip,
                                boolean advanced) {
         super.addInformation(stack, player, tooltip, advanced);
@@ -199,6 +202,7 @@ public class GasRelease extends NoEnergyMultiController implements RepetitiveSid
                 TextComponentUtil.translationWithColor(TextFormatting.GOLD, I18n.format("tktech.machine.gas_release.2"))
                         .getFormattedText());
         addParallelTooltip(tooltip);
+        addIgnitableInformations(tooltip);
     }
 
     @Override
@@ -288,5 +292,13 @@ public class GasRelease extends NoEnergyMultiController implements RepetitiveSid
     public void shutOff() {
         isIgnited = false;
         markDirty();
+    }
+
+    @Override
+    public boolean checkRecipe(@NotNull Recipe recipe, boolean consumeIfSuccess) {
+        if (recipe.hasProperty(IsIgnitedRecipeProperty.getInstance())) {
+            return isIgnited;
+        }
+        return super.checkRecipe(recipe, consumeIfSuccess);
     }
 }
