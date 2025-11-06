@@ -8,11 +8,12 @@ import gregtech.api.metatileentity.multiblock.RecipeMapMultiblockController;
 import gregtech.api.recipes.logic.OCParams;
 import gregtech.api.recipes.logic.OCResult;
 import gregtech.api.recipes.properties.RecipePropertyStorage;
+import tkcy.tktech.api.recipes.logic.markers.IHideEnergyRecipeLogic;
 
 /**
  * Recipe Logic for a Multiblock that does not require power.
  */
-public class NoEnergyLogic extends MultiblockRecipeLogic {
+public class NoEnergyLogic extends MultiblockRecipeLogic implements IHideEnergyRecipeLogic {
 
     public NoEnergyLogic(RecipeMapMultiblockController tileEntity) {
         super(tileEntity);
