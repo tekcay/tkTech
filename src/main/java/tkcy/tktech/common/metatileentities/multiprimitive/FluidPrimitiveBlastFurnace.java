@@ -1,8 +1,7 @@
 package tkcy.tktech.common.metatileentities.multiprimitive;
 
-import static gregtech.api.util.RelativeDirection.*;
 import static tkcy.tktech.api.predicates.TkTechPredicates.*;
-import static tkcy.tktech.api.utils.BlockPatternUtils.growGrow;
+import static tkcy.tktech.api.utils.BlockPatternUtils.growAisle;
 
 import java.util.*;
 
@@ -94,9 +93,9 @@ public class FluidPrimitiveBlastFurnace extends NoEnergyMultiController implemen
 
     protected @NotNull BlockPattern createStructurePattern(int size) {
         return FactoryBlockPattern.start()
-                .aisle(growGrow(size, "AAA", "XXX", "BBB"))
-                .aisle(growGrow(size, "AAA", "X#X", "BCB")).setRepeatable(Math.max(1, 1 + size * 2))
-                .aisle(growGrow(size, "YAA", "XXX", "BBB"))
+                .aisle(growAisle(size, "AAA", "XXX", "BBB"))
+                .aisle(growAisle(size, "AAA", "X#X", "BCB")).setRepeatable(Math.max(1, 1 + size * 2))
+                .aisle(growAisle(size, "YAA", "XXX", "BBB"))
                 .where('A', cokeBrick().or(brickFluidHatch(true, 1)))
                 .where('B', cokeBrick().or(brickItemBus(false, 2)))
                 .where('C', cokeBrick().or(brickFluidHatch(false, 1)))

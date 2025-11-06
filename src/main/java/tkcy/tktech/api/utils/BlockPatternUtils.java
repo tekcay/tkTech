@@ -7,14 +7,10 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class BlockPatternUtils {
 
+    /**
+     * {@code "A#A" -> "A###A"}
+     */
     public static String growSubAisle(String subAisle, int size) {
-        if (size == 0) return subAisle;
-        char firstLetter = subAisle.charAt(0);
-        char lastLetter = subAisle.charAt(subAisle.length() - 1);
-        return growSubAisle(firstLetter + subAisle + lastLetter, size - 1);
-    }
-
-    public static String growSubAisle2(String subAisle, int size) {
         StringBuilder stringBuilder = new StringBuilder();
         int subAisleMiddleIndex = subAisle.length() / 2;
 
@@ -28,16 +24,30 @@ public class BlockPatternUtils {
         return stringBuilder.toString();
     }
 
-    public static String[] growAisle(String[] aisle, int size) {
+    /**
+     * {@code { "BBB", "AAA", "CCC" }}
+     * <br>
+     * ->
+     * <br>
+     * {@code { "BBB", "AAA", "AAA", "CCC" }}
+     */
+    public static String[] addSubAisles(String[] aisle, int size) {
         if (size == 0) return aisle;
         size--;
         int subAisleIndexToRepeat = aisle.length / 2;
         String subAisleToRepeat = aisle[subAisleIndexToRepeat];
         String[] result = ArrayUtils.add(aisle, subAisleIndexToRepeat, subAisleToRepeat);
-        return growAisle(result, size);
+        return addSubAisles(result, size);
     }
 
-    public static String[] growAisle2(String[] aisle, int size) {
+    /**
+     * {@code { "BBB", "A#A", "CCC }}
+     * <br>
+     * ->
+     * <br>
+     * {@code { "BBB", "A#A", "A#A", "A#A", "CCC" }}
+     */
+    public static String[] addSubAisles2(String[] aisle, int size) {
         int subAisleIndexToRepeat = aisle.length / 2;
         int finalLength = aisle.length + size * 2;
         String toRepeat = aisle[subAisleIndexToRepeat];
@@ -59,13 +69,27 @@ public class BlockPatternUtils {
         return result;
     }
 
-    public static String[] growGrow(String[] aisle, int size) {
-        String[] preResult = growAisle2(aisle, size);
-        StreamHelper.initIntStream(preResult.length).forEach(i -> preResult[i] = growSubAisle2(preResult[i], size));
+    /**
+     * {@code { "BBB", "A#A", "CCC }}
+     * <br>
+     * ->
+     * <br>
+     * {@code { "BBBBB", "A###A", "A###A", "A###A", "CCCCC" }}
+     */
+    public static String[] growAisle(String[] aisle, int size) {
+        String[] preResult = addSubAisles2(aisle, size);
+        StreamHelper.initIntStream(preResult.length).forEach(i -> preResult[i] = growSubAisle(preResult[i], size));
         return preResult;
     }
 
-    public static String[] growGrow(int size, String... subAisles) {
-        return growGrow(subAisles, size);
+    /**
+     * {@code { "BBB", "A#A", "CCC }}
+     * <br>
+     * ->
+     * <br>
+     * {@code { "BBBBB", "A###A", "A###A", "A###A", "CCCCC" }}
+     */
+    public static String[] growAisle(int size, String... subAisles) {
+        return growAisle(subAisles, size);
     }
 }
