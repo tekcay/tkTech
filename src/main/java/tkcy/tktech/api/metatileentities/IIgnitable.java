@@ -14,7 +14,7 @@ public interface IIgnitable {
 
     void shutOff();
 
-    default void addIgnitableInformations(List<String> tooltip) {
+    default void addIgnitableInformation(List<String> tooltip) {
         tooltip.add(I18n.format("tktech.machine.ignitable.tooltip"));
     }
 }

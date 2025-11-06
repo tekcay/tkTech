@@ -8,6 +8,7 @@ import gregtech.api.metatileentity.multiblock.RecipeMapMultiblockController;
 import gregtech.api.recipes.logic.OCParams;
 import gregtech.api.recipes.logic.OCResult;
 import gregtech.api.recipes.properties.RecipePropertyStorage;
+
 import tkcy.tktech.api.recipes.logic.markers.IHideEnergyRecipeLogic;
 
 /**

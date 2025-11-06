@@ -30,6 +30,7 @@ import gregtech.api.pattern.BlockPattern;
 import gregtech.api.pattern.FactoryBlockPattern;
 import gregtech.api.pattern.MultiblockShapeInfo;
 import gregtech.api.pattern.PatternMatchContext;
+import gregtech.api.recipes.Recipe;
 import gregtech.client.renderer.ICubeRenderer;
 import gregtech.client.renderer.texture.Textures;
 
@@ -38,15 +39,18 @@ import lombok.Getter;
 import tkcy.tktech.api.capabilities.TkTechMultiblockAbilities;
 import tkcy.tktech.api.machines.IOnFileClick;
 import tkcy.tktech.api.machines.NoEnergyMultiController;
+import tkcy.tktech.api.metatileentities.IIgnitable;
 import tkcy.tktech.api.metatileentities.RepetitiveSide;
 import tkcy.tktech.api.predicates.TkTechPredicates;
+import tkcy.tktech.api.recipes.properties.IsIgnitedRecipeProperty;
 import tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps;
 import tkcy.tktech.api.utils.MultiblockShapeInfoHelper;
 
-public class FluidPrimitiveBlastFurnace extends NoEnergyMultiController implements IOnFileClick {
+public class FluidPrimitiveBlastFurnace extends NoEnergyMultiController implements IOnFileClick, IIgnitable {
 
     @Getter
     private int size = 0;
+    private boolean isIgnited;
 
     public FluidPrimitiveBlastFurnace(ResourceLocation metaTileEntityId) {
         super(metaTileEntityId, TkTechRecipeMaps.FLUID_PRIMITIVE_BLAST);
@@ -147,12 +151,14 @@ public class FluidPrimitiveBlastFurnace extends NoEnergyMultiController implemen
         super.addInformation(stack, player, tooltip, advanced);
         tooltip.add(I18n.format("tktech.machine.scale_multi.file_click.1"));
         tooltip.add(I18n.format("tktech.machine.scale_multi.file_click.2"));
+        addIgnitableInformation(tooltip);
     }
 
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound data) {
         super.writeToNBT(data);
         data.setInteger("size", getSize());
+        data.setBoolean(IIgnitable.NBT_LABEL, isIgnited());
         return data;
     }
 
@@ -160,17 +166,45 @@ public class FluidPrimitiveBlastFurnace extends NoEnergyMultiController implemen
     public void readFromNBT(NBTTagCompound data) {
         super.readFromNBT(data);
         setSize(data.getInteger("size"));
+        isIgnited = data.getBoolean(IIgnitable.NBT_LABEL);
     }
 
     @Override
     public void writeInitialSyncData(PacketBuffer buf) {
         super.writeInitialSyncData(buf);
         buf.writeInt(getSize());
+        buf.writeBoolean(isIgnited());
     }
 
     @Override
     public void receiveInitialSyncData(PacketBuffer buf) {
         super.receiveInitialSyncData(buf);
         setSize(buf.readInt());
+        isIgnited = buf.readBoolean();
+    }
+
+    @Override
+    public boolean isIgnited() {
+        return isIgnited;
+    }
+
+    @Override
+    public void ignite() {
+        isIgnited = true;
+        markDirty();
+    }
+
+    @Override
+    public void shutOff() {
+        isIgnited = false;
+        markDirty();
+    }
+
+    @Override
+    public boolean checkRecipe(@NotNull Recipe recipe, boolean consumeIfSuccess) {
+        if (recipe.hasProperty(IsIgnitedRecipeProperty.getInstance())) {
+            return isIgnited();
+        }
+        return super.checkRecipe(recipe, consumeIfSuccess);
     }
 }
