@@ -5,7 +5,6 @@ import static tkcy.tktech.api.utils.BlockPatternUtils.growAisle;
 
 import java.util.*;
 
-import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -13,7 +12,6 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -26,6 +24,7 @@ import gregtech.api.capability.impl.ItemHandlerList;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
 import gregtech.api.metatileentity.multiblock.IMultiblockPart;
+import gregtech.api.metatileentity.multiblock.MultiblockControllerBase;
 import gregtech.api.pattern.BlockPattern;
 import gregtech.api.pattern.FactoryBlockPattern;
 import gregtech.api.pattern.MultiblockShapeInfo;
@@ -40,13 +39,14 @@ import tkcy.tktech.api.capabilities.TkTechMultiblockAbilities;
 import tkcy.tktech.api.machines.IOnFileClick;
 import tkcy.tktech.api.machines.NoEnergyMultiController;
 import tkcy.tktech.api.metatileentities.IIgnitable;
+import tkcy.tktech.api.metatileentities.IScalableMultiblock;
 import tkcy.tktech.api.metatileentities.RepetitiveSide;
 import tkcy.tktech.api.predicates.TkTechPredicates;
 import tkcy.tktech.api.recipes.properties.IsIgnitedRecipeProperty;
 import tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps;
-import tkcy.tktech.api.utils.MultiblockShapeInfoHelper;
 
-public class FluidPrimitiveBlastFurnace extends NoEnergyMultiController implements IOnFileClick, IIgnitable {
+public class FluidPrimitiveBlastFurnace extends NoEnergyMultiController
+                                        implements IOnFileClick, IIgnitable, IScalableMultiblock {
 
     @Getter
     private int size = 0;
@@ -56,14 +56,21 @@ public class FluidPrimitiveBlastFurnace extends NoEnergyMultiController implemen
         super(metaTileEntityId, TkTechRecipeMaps.FLUID_PRIMITIVE_BLAST);
     }
 
-    protected void setSize(int size) {
+    @Override
+    public void setSize(int size) {
         this.size = size;
-        markDirty();
         reinitializeStructurePattern();
+        markDirty();
     }
 
-    protected int getMaxSize() {
-        return 7;
+    @Override
+    public MultiblockControllerBase multiblock() {
+        return this;
+    }
+
+    @Override
+    public int getMaxSize() {
+        return 4;
     }
 
     @Override
@@ -80,10 +87,7 @@ public class FluidPrimitiveBlastFurnace extends NoEnergyMultiController implemen
     public boolean onFileClick(EntityPlayer playerIn, EnumHand hand,
                                EnumFacing wrenchSide,
                                CuboidRayTraceResult hitResult) {
-        if (playerIn.isSneaking()) {
-            setSize(Math.max(0, getSize() - 1));
-        } else setSize(Math.min(getSize() + 1, getMaxSize()));
-        playerIn.sendMessage(new TextComponentString("Size : " + getSize()));
+        setSizeOnToolClick(playerIn);
         return IOnFileClick.super.onFileClick(playerIn, hand, wrenchSide, hitResult);
     }
 
@@ -99,7 +103,8 @@ public class FluidPrimitiveBlastFurnace extends NoEnergyMultiController implemen
         recipeMapWorkable.setParallelLimit(parallelLimit);
     }
 
-    protected @NotNull BlockPattern createStructurePattern(int size) {
+    @Override
+    public @NotNull BlockPattern createStructurePattern(int size) {
         return FactoryBlockPattern.start()
                 .aisle(growAisle(size, "AAA", "XXX", "BBB"))
                 .aisle(growAisle(size, "AAA", "X#X", "BCB")).setRepeatable(Math.max(1, 1 + size * 2))
@@ -120,15 +125,7 @@ public class FluidPrimitiveBlastFurnace extends NoEnergyMultiController implemen
 
     @Override
     public List<MultiblockShapeInfo> getMatchingShapes() {
-        List<MultiblockShapeInfo> matchingShapes = new ArrayList<>();
-
-        for (int sizee = 0; sizee <= getMaxSize(); sizee++) {
-            this.structurePattern = createStructurePattern(sizee);
-            int[][] aisleRepetitions = this.structurePattern.aisleRepetitions;
-            matchingShapes.addAll(MultiblockShapeInfoHelper.repetitionDFS(new ArrayList<>(), aisleRepetitions,
-                    new Stack<>(), structurePattern));
-        }
-        return matchingShapes;
+        return getMatchingShapes(this.structurePattern);
     }
 
     @SideOnly(Side.CLIENT)
@@ -149,8 +146,7 @@ public class FluidPrimitiveBlastFurnace extends NoEnergyMultiController implemen
     public void addInformation(ItemStack stack, @Nullable World player, @NotNull List<String> tooltip,
                                boolean advanced) {
         super.addInformation(stack, player, tooltip, advanced);
-        tooltip.add(I18n.format("tktech.machine.scale_multi.file_click.1"));
-        tooltip.add(I18n.format("tktech.machine.scale_multi.file_click.2"));
+        addInformation(tooltip);
         addIgnitableInformation(tooltip);
     }
 
