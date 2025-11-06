@@ -205,7 +205,7 @@ public class GasRelease extends NoEnergyMultiController implements RepetitiveSid
                 TextComponentUtil.translationWithColor(TextFormatting.GOLD, I18n.format("tktech.machine.gas_release.2"))
                         .getFormattedText());
         addParallelTooltip(tooltip);
-        addIgnitableInformations(tooltip);
+        addIgnitableInformation(tooltip);
     }
 
     @Override

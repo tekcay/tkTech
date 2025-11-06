@@ -3,7 +3,6 @@ package tkcy.tktech.api.recipes.logic;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import lombok.Getter;
 import net.minecraftforge.fluids.FluidStack;
 
 import org.jetbrains.annotations.NotNull;
@@ -16,6 +15,7 @@ import gregtech.api.recipes.ingredients.GTRecipeFluidInput;
 import gregtech.api.recipes.ingredients.GTRecipeInput;
 import gregtech.api.recipes.logic.IParallelableRecipeLogic;
 
+import lombok.Getter;
 import tkcy.tktech.api.recipes.logic.markers.IHideEnergyRecipeLogic;
 
 /**

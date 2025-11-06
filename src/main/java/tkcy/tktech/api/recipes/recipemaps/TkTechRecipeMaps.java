@@ -38,7 +38,8 @@ public final class TkTechRecipeMaps {
             "fluid_primitive_blast",
             2, 0, 1, 1, new AdvancedRecipeBuilder(), false)
                     .setSound(GTSoundEvents.FURNACE)
-                    .onRecipeBuild(TkTechUtil.tktech("noEnergy"), AdvancedRecipeBuilder::noEUt);
+                    .onRecipeBuild(TkTechUtil.tktech("noEnergy"),
+                            recipeBuilder -> recipeBuilder.noEUt().requiresIgnition());
     @ZenProperty
     public static final RecipeMap<PrimitiveRecipeBuilder> CASTING = new MinimalPrimitiveRecipeMap<>(
             "casting",
