@@ -70,6 +70,10 @@ public class AdvancedRecipeBuilder extends RecipeBuilder<AdvancedRecipeBuilder> 
         return testAndApplyPropertyValue(CoilTypeRecipeProperty.getInstance(), coil);
     }
 
+    public AdvancedRecipeBuilder requiresIgnition() {
+        return testAndApplyPropertyValue(IsIgnitedRecipeProperty.getInstance(), true);
+    }
+
     /**
      * List the recipe {@link #duration}.
      * 

@@ -2,6 +2,7 @@ package tkcy.tktech.loaders.recipe.handlers;
 
 import gregtech.api.GregTechAPI;
 import gregtech.api.unification.material.Material;
+import gregtech.api.unification.material.Materials;
 
 import lombok.experimental.UtilityClass;
 import tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps;
@@ -15,12 +16,22 @@ public class GasReleaseHandler {
                 .filter(Material::hasFluid)
                 .filter(material -> material.getFluid().isGaseous())
                 .forEach(GasReleaseHandler::generateRecipe);
+
+        generateLiquidRecipe(Materials.Benzene);
     }
 
     private static void generateRecipe(Material material) {
         TkTechRecipeMaps.GAS_RELEASE.recipeBuilder()
                 .fluidInputs(material.getFluid(100))
                 .duration(20)
+                .buildAndRegister();
+    }
+
+    private static void generateLiquidRecipe(Material material) {
+        TkTechRecipeMaps.GAS_RELEASE.recipeBuilder()
+                .fluidInputs(material.getFluid(100))
+                .duration(20)
+                .requiresIgnition()
                 .buildAndRegister();
     }
 }

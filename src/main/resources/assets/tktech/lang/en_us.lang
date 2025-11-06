@@ -340,6 +340,7 @@ tktech.tool_machine.sneak_right_click_with_tool.facing.tooltip=§aSneak-right cl
 tktech.tool_machine.parts.tooltip=§fUse to make §e%s
 
 tktech.machine.parallel.tooltip=Every additional %d layers add one parallel point
+tktech.machine.ignitable.tooltip=Right-click with an igniter such a lighter to ignite the machine.
 
 tktech.machine.cleanroom.tooltip=Not your vanilla cleanroom
 tktech.machine.cleanroom.tooltip.1=Place machines inside to run inert-gas cleanroom recipes.
@@ -372,6 +373,7 @@ tktech.multiblock.advanced_cleanroom.not_enough_gas=Not enough %s!
 tktech.recipe.coil=Coil: %s
 tktech.recipe.tool.uses=Tool uses: %d
 tktech.recipe.tool.click_facing=Click on %s face
+tktech.recipe.requires_ignition=Requires ignition
 
 gregtech.recipe.cleanroom_nitrogen.display_name=Nitrogen Cleanroom
 gregtech.recipe.cleanroom_argon.display_name=Argon Cleanroom
