@@ -26,6 +26,7 @@ import gregtech.api.metatileentity.multiblock.IMultiblockPart;
 import gregtech.api.pattern.BlockPattern;
 import gregtech.api.pattern.FactoryBlockPattern;
 import gregtech.api.pattern.MultiblockShapeInfo;
+import gregtech.api.pattern.PatternMatchContext;
 import gregtech.client.renderer.ICubeRenderer;
 import gregtech.client.renderer.texture.Textures;
 
@@ -34,6 +35,8 @@ import lombok.Getter;
 import tkcy.tktech.api.capabilities.TkTechMultiblockAbilities;
 import tkcy.tktech.api.machines.IOnSolderingIronClick;
 import tkcy.tktech.api.machines.NoEnergyMultiController;
+import tkcy.tktech.api.metatileentities.RepetitiveSide;
+import tkcy.tktech.api.predicates.TkTechPredicates;
 import tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps;
 import tkcy.tktech.api.utils.MultiblockShapeInfoHelper;
 
@@ -50,7 +53,6 @@ public class FluidPrimitiveBlastFurnace extends NoEnergyMultiController implemen
         this.size = size;
         markDirty();
         reinitializeStructurePattern();
-        recipeMapWorkable.setParallelLimit(size + 1);
     }
 
     protected int getMaxSize() {
@@ -83,6 +85,13 @@ public class FluidPrimitiveBlastFurnace extends NoEnergyMultiController implemen
         return new FluidPrimitiveBlastFurnace(metaTileEntityId);
     }
 
+    @Override
+    protected void formStructure(PatternMatchContext context) {
+        super.formStructure(context);
+        int parallelLimit = context.getOrDefault(RepetitiveSide.getHeightMarker(), 1);
+        recipeMapWorkable.setParallelLimit(parallelLimit);
+    }
+
     protected @NotNull BlockPattern createStructurePattern(int size) {
         return FactoryBlockPattern.start()
                 .aisle(growGrow(size, "AAA", "XXX", "BBB"))
@@ -92,7 +101,7 @@ public class FluidPrimitiveBlastFurnace extends NoEnergyMultiController implemen
                 .where('B', cokeBrick().or(brickItemBus(false, 2)))
                 .where('C', cokeBrick().or(brickFluidHatch(false, 1)))
                 .where('X', cokeBrick())
-                .where('#', air())
+                .where('#', TkTechPredicates.isAir(RepetitiveSide.getHeightMarker()))
                 .where('Y', selfPredicate())
                 .build();
     }
