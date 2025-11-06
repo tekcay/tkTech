@@ -7,6 +7,8 @@ import static tkcy.tktech.api.utils.TkTechUtil.tktech;
 import gregtech.api.metatileentity.SimpleMachineMetaTileEntity;
 import gregtech.api.util.GTUtility;
 import gregtech.client.renderer.texture.Textures;
+import gregtech.common.blocks.BlockMetalCasing;
+import gregtech.common.blocks.MetaBlocks;
 
 import lombok.experimental.UtilityClass;
 import tkcy.tktech.api.machines.ToolLogicMetaTileEntity;
@@ -17,6 +19,7 @@ import tkcy.tktech.api.utils.TkTechUtil;
 import tkcy.tktech.common.metatileentities.electric.*;
 import tkcy.tktech.common.metatileentities.multiblockpart.BrickFluidHatch;
 import tkcy.tktech.common.metatileentities.multiblockpart.BrickItemBus;
+import tkcy.tktech.common.metatileentities.multiblockpart.MTeBrickMufflerHatch;
 import tkcy.tktech.common.metatileentities.multiprimitive.*;
 import tkcy.tktech.common.metatileentities.primitive.*;
 import tkcy.tktech.common.metatileentities.steam.SteamDustMixer;
@@ -37,7 +40,9 @@ public class TkTechMetaTileEntities {
     public static BrickFluidHatch[] BRICK_FLUID_HATCH = new BrickFluidHatch[2];
     public static BrickItemBus[] BRICK_ITEM_BUS = new BrickItemBus[2];
     public static MTeDryer DRYER;
-    public static GasRelease GAS_RELEASE;
+    public static GasRelease GAS_RELEASE_BRICK;
+    public static GasRelease GAS_RELEASE_STEEL;
+    public static GasRelease GAS_RELEASE_STAINLESS_STEEL;
     public static AlloyingCrucible PRIMITIVE_ALLOYING_CRUCIBLE;
     public static MTeHydrogenationUnit HYDROGENATION_UNIT;
     public static MTeCrackingUnit CRACKING_UNIT;
@@ -49,6 +54,7 @@ public class TkTechMetaTileEntities {
     public static MTeWoodWorkshop WOOD_WORKSHOP;
     public static MTePrimitiveBath PRIMITIVE_BATH;
     public static MTeChemicalBench CHEMICAL_BENCH;
+    public static MTeBrickMufflerHatch BRICK_MUFFLER_HATCH;
     public static SimpleMachineMetaTileEntity[] CLUSTER_MILLS = new SimpleMachineMetaTileEntity[5];
     public static SimpleMachineMetaTileEntity[] COMPONENT_ASSEMBLERS = new SimpleMachineMetaTileEntity[6];
     public static SimpleMachineMetaTileEntity[] ROLLING_MILLS = new SimpleMachineMetaTileEntity[6];
@@ -100,7 +106,7 @@ public class TkTechMetaTileEntities {
 
         DRYER = registerMetaTileEntity(4009, new MTeDryer(tktech("dryer")));
 
-        GAS_RELEASE = registerMetaTileEntity(4010, new GasRelease(tktech("gas_release")));
+        // FREE ID 4010
 
         PRIMITIVE_ALLOYING_CRUCIBLE = registerMetaTileEntity(4011,
                 new AlloyingCrucible(tktech("alloying_crucible")));
@@ -130,6 +136,21 @@ public class TkTechMetaTileEntities {
         WOOD_WORKSHOP = registerMetaTileEntity(4107, new MTeWoodWorkshop(tktech("wood_workshop")));
         PRIMITIVE_BATH = registerMetaTileEntity(4108, new MTePrimitiveBath(tktech("primitive_bath")));
         CHEMICAL_BENCH = registerMetaTileEntity(4109, new MTeChemicalBench(tktech("chemical_bench")));
+
+        GAS_RELEASE_BRICK = registerMetaTileEntity(4110,
+                new GasRelease(tktech("gas_release_brick"),
+                        MetaBlocks.METAL_CASING.getState(BlockMetalCasing.MetalCasingType.PRIMITIVE_BRICKS),
+                        Textures.PRIMITIVE_BRICKS, true));
+        GAS_RELEASE_STEEL = registerMetaTileEntity(4111,
+                new GasRelease(tktech("gas_release_steel"),
+                        MetaBlocks.METAL_CASING.getState(BlockMetalCasing.MetalCasingType.STEEL_SOLID),
+                        Textures.SOLID_STEEL_CASING, false));
+        GAS_RELEASE_STAINLESS_STEEL = registerMetaTileEntity(4112,
+                new GasRelease(tktech("gas_release_stainless_steel"),
+                        MetaBlocks.METAL_CASING.getState(BlockMetalCasing.MetalCasingType.STAINLESS_CLEAN),
+                        Textures.CLEAN_STAINLESS_STEEL_CASING, false));
+
+        BRICK_MUFFLER_HATCH = registerMetaTileEntity(4113, new MTeBrickMufflerHatch(tktech("brick_muffler_hatch")));
 
         MaterialMetaTileEntity.registerMaterialMetaTileEntity(StorageModule.TANK_MATERIALS, MODULABLE_TANKS, 4200,
                 StorageModule::initModulableTank);

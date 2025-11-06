@@ -48,4 +48,12 @@ public class TkTechConfigHolder {
         public boolean enableHarderWoodCrafting = true;
         public boolean enableHarderCircuitsCrafting = true;
     }
+
+    @Config.Name("GamePlay")
+    public static GamePlay gamePlay = new GamePlay();
+
+    public static class GamePlay {
+
+        public boolean enableGasReleaseDealsDamage = true;
+    }
 }
