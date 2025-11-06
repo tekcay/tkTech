@@ -48,7 +48,6 @@ public class NoEnergyLogic extends MultiblockRecipeLogic {
         return true;
     }
 
-
     @Override
     protected void runOverclockingLogic(@NotNull OCParams ocParams, @NotNull OCResult ocResult,
                                         @NotNull RecipePropertyStorage propertyStorage, long maxVoltage) {

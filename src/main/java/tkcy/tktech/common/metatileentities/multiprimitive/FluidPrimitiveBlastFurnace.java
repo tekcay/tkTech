@@ -4,10 +4,9 @@ import static gregtech.api.util.RelativeDirection.*;
 import static tkcy.tktech.api.predicates.TkTechPredicates.*;
 import static tkcy.tktech.api.utils.BlockPatternUtils.growGrow;
 
-import java.util.List;
+import java.util.*;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.EnumFacing;
@@ -29,8 +28,6 @@ import gregtech.api.pattern.FactoryBlockPattern;
 import gregtech.api.pattern.MultiblockShapeInfo;
 import gregtech.client.renderer.ICubeRenderer;
 import gregtech.client.renderer.texture.Textures;
-import gregtech.common.blocks.BlockMetalCasing;
-import gregtech.common.blocks.MetaBlocks;
 
 import codechicken.lib.raytracer.CuboidRayTraceResult;
 import lombok.Getter;
@@ -39,7 +36,6 @@ import tkcy.tktech.api.machines.IOnSolderingIronClick;
 import tkcy.tktech.api.machines.NoEnergyMultiController;
 import tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps;
 import tkcy.tktech.api.utils.MultiblockShapeInfoHelper;
-import tkcy.tktech.common.metatileentities.TkTechMetaTileEntities;
 
 public class FluidPrimitiveBlastFurnace extends NoEnergyMultiController implements IOnSolderingIronClick {
 
@@ -87,12 +83,11 @@ public class FluidPrimitiveBlastFurnace extends NoEnergyMultiController implemen
         return new FluidPrimitiveBlastFurnace(metaTileEntityId);
     }
 
-    @Override
-    protected @NotNull BlockPattern createStructurePattern() {
+    protected @NotNull BlockPattern createStructurePattern(int size) {
         return FactoryBlockPattern.start()
-                .aisle(growGrow(getSize(), "AAA", "XXX", "BBB"))
-                .aisle(growGrow(getSize(), "AAA", "X#X", "BCB")).setRepeatable(Math.max(1, 1 + getSize() * 2))
-                .aisle(growGrow(getSize(), "YAA", "XXX", "BBB"))
+                .aisle(growGrow(size, "AAA", "XXX", "BBB"))
+                .aisle(growGrow(size, "AAA", "X#X", "BCB")).setRepeatable(Math.max(1, 1 + size * 2))
+                .aisle(growGrow(size, "YAA", "XXX", "BBB"))
                 .where('A', cokeBrick().or(brickFluidHatch(true, 1)))
                 .where('B', cokeBrick().or(brickItemBus(false, 2)))
                 .where('C', cokeBrick().or(brickFluidHatch(false, 1)))
@@ -103,21 +98,21 @@ public class FluidPrimitiveBlastFurnace extends NoEnergyMultiController implemen
     }
 
     @Override
+    protected @NotNull BlockPattern createStructurePattern() {
+        return createStructurePattern(getSize());
+    }
+
+    @Override
     public List<MultiblockShapeInfo> getMatchingShapes() {
-        String[] firstAisle = new String[] { "AXX", "XXX", "BXX" };
-        String[] repeatableAisle = new String[] { "XXX", "X#X", "XXX" };
-        String[] lastAisle = new String[] { "YXX", "XXX", "BXC" };
+        List<MultiblockShapeInfo> matchingShapes = new ArrayList<>();
 
-        MultiblockShapeInfo.Builder baseBuilder = MultiblockShapeInfo.builder(LEFT, DOWN, FRONT)
-                .where('Y', TkTechMetaTileEntities.FLUID_PRIMITIVE_BLAST_FURNACE, EnumFacing.SOUTH)
-                .where('A', TkTechMetaTileEntities.BRICK_FLUID_HATCH[1], EnumFacing.DOWN)
-                .where('C', TkTechMetaTileEntities.BRICK_FLUID_HATCH[0], EnumFacing.UP)
-                .where('B', TkTechMetaTileEntities.BRICK_ITEM_BUS[0], EnumFacing.SOUTH)
-                .where('X', MetaBlocks.METAL_CASING.getState(BlockMetalCasing.MetalCasingType.COKE_BRICKS))
-                .where('#', Blocks.AIR.getDefaultState());
-
-        return MultiblockShapeInfoHelper.generateMultiblockShapeInfos(baseBuilder, getMaxSize(), firstAisle,
-                repeatableAisle, lastAisle);
+        for (int sizee = 0; sizee <= getMaxSize(); sizee++) {
+            this.structurePattern = createStructurePattern(sizee);
+            int[][] aisleRepetitions = this.structurePattern.aisleRepetitions;
+            matchingShapes.addAll(MultiblockShapeInfoHelper.repetitionDFS(new ArrayList<>(), aisleRepetitions,
+                    new Stack<>(), structurePattern));
+        }
+        return matchingShapes;
     }
 
     @SideOnly(Side.CLIENT)
