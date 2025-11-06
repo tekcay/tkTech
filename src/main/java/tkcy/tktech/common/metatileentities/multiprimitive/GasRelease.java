@@ -45,9 +45,11 @@ import tkcy.tktech.api.machines.NoEnergyMultiController;
 import tkcy.tktech.api.metatileentities.RepetitiveSide;
 import tkcy.tktech.api.recipes.logic.NoEnergyParallelLogic;
 import tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps;
+import tkcy.tktech.api.unification.properties.CorrosiveMaterialProperty;
 import tkcy.tktech.api.unification.properties.TkTechMaterialPropertyKeys;
 import tkcy.tktech.api.unification.properties.ToxicMaterialProperty;
 import tkcy.tktech.api.utils.MaterialHelper;
+import tkcy.tktech.common.item.potions.TkTechPotion;
 
 public class GasRelease extends NoEnergyMultiController implements RepetitiveSide {
 
@@ -131,7 +133,7 @@ public class GasRelease extends NoEnergyMultiController implements RepetitiveSid
 
     /**
      * Applies damage to an entity if the processed released gas is either hot i.e. T > 398 or has
-     * {@link ToxicMaterialProperty}.
+     * {@link ToxicMaterialProperty} or {@link CorrosiveMaterialProperty}.
      */
     protected void tryDamageEntity(@NotNull Entity entity, @NotNull FluidStack releasedGas) {
         int gasTemperature = releasedGas.getFluid().getTemperature();
@@ -141,8 +143,13 @@ public class GasRelease extends NoEnergyMultiController implements RepetitiveSid
         }
 
         Material fluidMaterial = MaterialHelper.getMaterialFromFluid(releasedGas);
-        if (fluidMaterial != null && fluidMaterial.hasProperty(TkTechMaterialPropertyKeys.TOXIC)) {
-            ((EntityLivingBase) entity).addPotionEffect(new PotionEffect(MobEffects.POISON, 2 * 100, 1));
+        if (fluidMaterial == null) return;
+
+        if (fluidMaterial.hasProperty(TkTechMaterialPropertyKeys.TOXIC)) {
+            ((EntityLivingBase) entity).addPotionEffect(new PotionEffect(MobEffects.POISON, 2 * 500, 1));
+        }
+        if (fluidMaterial.hasProperty(TkTechMaterialPropertyKeys.CORROSIVE)) {
+            ((EntityLivingBase) entity).addPotionEffect(new PotionEffect(TkTechPotion.CORROSION, 2 * 200, 1));
         }
     }
 

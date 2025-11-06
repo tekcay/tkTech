@@ -9,4 +9,7 @@ public class TkTechMaterialPropertyKeys {
 
     public static final PropertyKey<ToxicMaterialProperty> TOXIC = new PropertyKey<>(
             "toxic", ToxicMaterialProperty.class);
+
+    public static final PropertyKey<CorrosiveMaterialProperty> CORROSIVE = new PropertyKey<>("corrosive",
+            CorrosiveMaterialProperty.class);
 }

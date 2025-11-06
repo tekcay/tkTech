@@ -35,11 +35,6 @@ public interface ISimpleArmorLogicHelper extends ISpecialArmorLogic {
         lines.add(I18n.format(str));
     }
 
-    default boolean isEquipped(EntityPlayer player, EntityEquipmentSlot slot,
-                               ArmorMetaItem<?>.ArmorMetaValueItem armorMetaValueItem) {
-        return (player.getItemStackFromSlot(slot).isItemEqual(armorMetaValueItem.getStackForm()));
-    }
-
     @Override
     default ISpecialArmor.ArmorProperties getProperties(EntityLivingBase player, @NotNull ItemStack armor,
                                                         DamageSource source, double damage,

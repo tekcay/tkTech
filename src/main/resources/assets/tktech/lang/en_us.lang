@@ -145,6 +145,7 @@ tktech.material.gallium_phosphate=Gallium Phosphate
 
 # Material properties
 tktech.toxic_material_property.tooltip=TOXIC!
+tktech.corrosive_material_property.tooltip=CORROSIVE!
 
 ##MTEs
 tktech.machine.primitive_roasting_oven.name=Primitive Roasting Oven
