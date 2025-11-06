@@ -32,6 +32,7 @@ import tkcy.tktech.modules.toolmodule.ToolsModule;
 
 @Mixin(value = MetaTileEntity.class, remap = false)
 public abstract class MixinToolClickMetaTileEntity implements IOnSolderingIronClick, IOnAxeClick, IOnSawClick,
+                                                   IOnFileClick,
                                                    IOnAnyToolClick,
                                                    IRightClickItemTransfer {
 
@@ -60,6 +61,10 @@ public abstract class MixinToolClickMetaTileEntity implements IOnSolderingIronCl
         }
         if (toolClasses.contains(ToolClasses.SAW)) {
             result = onSawClick(playerIn, hand, gridSideHit, hitResult);
+            callback.setReturnValue(result);
+        }
+        if (toolClasses.contains(ToolClasses.FILE)) {
+            result = onFileClick(playerIn, hand, gridSideHit, hitResult);
             callback.setReturnValue(result);
         }
     }

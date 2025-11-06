@@ -5,17 +5,21 @@ import static tkcy.tktech.api.utils.BlockPatternUtils.growAisle;
 
 import java.util.*;
 
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextComponentString;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import gregtech.api.capability.impl.FluidTankList;
 import gregtech.api.capability.impl.ItemHandlerList;
@@ -32,14 +36,14 @@ import gregtech.client.renderer.texture.Textures;
 import codechicken.lib.raytracer.CuboidRayTraceResult;
 import lombok.Getter;
 import tkcy.tktech.api.capabilities.TkTechMultiblockAbilities;
-import tkcy.tktech.api.machines.IOnSolderingIronClick;
+import tkcy.tktech.api.machines.IOnFileClick;
 import tkcy.tktech.api.machines.NoEnergyMultiController;
 import tkcy.tktech.api.metatileentities.RepetitiveSide;
 import tkcy.tktech.api.predicates.TkTechPredicates;
 import tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps;
 import tkcy.tktech.api.utils.MultiblockShapeInfoHelper;
 
-public class FluidPrimitiveBlastFurnace extends NoEnergyMultiController implements IOnSolderingIronClick {
+public class FluidPrimitiveBlastFurnace extends NoEnergyMultiController implements IOnFileClick {
 
     @Getter
     private int size = 0;
@@ -69,14 +73,14 @@ public class FluidPrimitiveBlastFurnace extends NoEnergyMultiController implemen
     }
 
     @Override
-    public boolean onSolderingIronClick(EntityPlayer playerIn, EnumHand hand,
-                                        EnumFacing wrenchSide,
-                                        CuboidRayTraceResult hitResult) {
+    public boolean onFileClick(EntityPlayer playerIn, EnumHand hand,
+                               EnumFacing wrenchSide,
+                               CuboidRayTraceResult hitResult) {
         if (playerIn.isSneaking()) {
             setSize(Math.max(0, getSize() - 1));
         } else setSize(Math.min(getSize() + 1, getMaxSize()));
         playerIn.sendMessage(new TextComponentString("Size : " + getSize()));
-        return true;
+        return IOnFileClick.super.onFileClick(playerIn, hand, wrenchSide, hitResult);
     }
 
     @Override
@@ -134,6 +138,15 @@ public class FluidPrimitiveBlastFurnace extends NoEnergyMultiController implemen
     @Override
     public ICubeRenderer getBaseTexture(IMultiblockPart sourcePart) {
         return Textures.COKE_BRICKS;
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void addInformation(ItemStack stack, @Nullable World player, @NotNull List<String> tooltip,
+                               boolean advanced) {
+        super.addInformation(stack, player, tooltip, advanced);
+        tooltip.add(I18n.format("tktech.machine.scale_multi.file_click.1"));
+        tooltip.add(I18n.format("tktech.machine.scale_multi.file_click.2"));
     }
 
     @Override
