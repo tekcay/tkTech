@@ -3,6 +3,7 @@ package tkcy.tktech.api.recipes.logic;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import lombok.Getter;
 import net.minecraftforge.fluids.FluidStack;
 
 import org.jetbrains.annotations.NotNull;
@@ -20,6 +21,7 @@ import tkcy.tktech.api.recipes.logic.markers.IHideEnergyRecipeLogic;
 /**
  * Recipe Logic for a Multiblock that does not require power.
  */
+@Getter
 public class NoEnergyParallelLogic extends NoEnergyLogic implements IParallelableRecipeLogic, IHideEnergyRecipeLogic {
 
     protected int maxVoltageTier;
@@ -34,10 +36,6 @@ public class NoEnergyParallelLogic extends NoEnergyLogic implements IParallelabl
 
     public void setMaxVoltageTier(int maxVoltageTier) {
         this.maxVoltageTier = maxVoltageTier;
-    }
-
-    public int getMaxVoltageTier() {
-        return maxVoltageTier;
     }
 
     @Override
