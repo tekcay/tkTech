@@ -20,6 +20,7 @@ import tkcy.tktech.common.metatileentities.electric.*;
 import tkcy.tktech.common.metatileentities.multiblockpart.BrickFluidHatch;
 import tkcy.tktech.common.metatileentities.multiblockpart.BrickItemBus;
 import tkcy.tktech.common.metatileentities.multiblockpart.MTeBrickMufflerHatch;
+import tkcy.tktech.common.metatileentities.multiblockpart.MTeControllerProxyHatch;
 import tkcy.tktech.common.metatileentities.multiprimitive.*;
 import tkcy.tktech.common.metatileentities.primitive.*;
 import tkcy.tktech.common.metatileentities.steam.SteamDustMixer;
@@ -55,6 +56,7 @@ public class TkTechMetaTileEntities {
     public static MTePrimitiveBath PRIMITIVE_BATH;
     public static MTeChemicalBench CHEMICAL_BENCH;
     public static MTeBrickMufflerHatch BRICK_MUFFLER_HATCH;
+    public static MTeControllerProxyHatch REDSTONE_HATCH;
     public static SimpleMachineMetaTileEntity[] CLUSTER_MILLS = new SimpleMachineMetaTileEntity[5];
     public static SimpleMachineMetaTileEntity[] COMPONENT_ASSEMBLERS = new SimpleMachineMetaTileEntity[6];
     public static SimpleMachineMetaTileEntity[] ROLLING_MILLS = new SimpleMachineMetaTileEntity[6];
@@ -151,6 +153,7 @@ public class TkTechMetaTileEntities {
                         Textures.CLEAN_STAINLESS_STEEL_CASING, false));
 
         BRICK_MUFFLER_HATCH = registerMetaTileEntity(4113, new MTeBrickMufflerHatch(tktech("brick_muffler_hatch")));
+        REDSTONE_HATCH = registerMetaTileEntity(4114, new MTeControllerProxyHatch(tktech("controller_proxy_hatch")));
 
         MaterialMetaTileEntity.registerMaterialMetaTileEntity(StorageModule.TANK_MATERIALS, MODULABLE_TANKS, 4200,
                 StorageModule::initModulableTank);

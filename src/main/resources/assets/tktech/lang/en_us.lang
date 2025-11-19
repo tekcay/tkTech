@@ -169,6 +169,7 @@ tktech.machine.brick_item_input_bus.name=Brick Item Input Bus
 tktech.machine.brick_fluid_output_hatch.name=Brick Fluid Output Hatch
 tktech.machine.brick_fluid_input_hatch.name=Brick Fluid Input Hatch
 tktech.machine.brick_muffler_hatch.name=Brick Muffler Hatch
+tktech.machine.controller_proxy_hatch.name=Controller Proxy Hatch
 
 tktech.machine.cluster_mill.lv.name=Cluster Mill LV
 tktech.machine.cluster_mill.mv.name=Cluster Mill MV
@@ -345,6 +346,9 @@ tktech.machine.ignitable.tooltip=Right-click with an igniter such a lighter to i
 tktech.machine.cleanroom.tooltip=Not your vanilla cleanroom
 tktech.machine.cleanroom.tooltip.1=Place machines inside to run inert-gas cleanroom recipes.
 tktech.machine.cleanroom.tooltip.2=Uses both EU/t and gas based on cleanroom size.
+
+tktech.controller_proxy_hatch.tooltip.1=Control the multiblock remotely.
+tktech.controller_proxy_hatch.tooltip.2=Can be used as an extra block to put covers on.
 
 tktech.metatilentity.special_right.show_tooltips=Hold CTRL to show special Right-click behavior
 tktech.metatileentity.transfer_output_to_player.tooltip=§dRight-click§7 with an §fempty hand§7 to get the machine §6output
