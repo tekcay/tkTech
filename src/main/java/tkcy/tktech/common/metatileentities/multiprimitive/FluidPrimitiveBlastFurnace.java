@@ -35,7 +35,7 @@ import gregtech.client.renderer.texture.Textures;
 
 import codechicken.lib.raytracer.CuboidRayTraceResult;
 import lombok.Getter;
-import tkcy.tktech.api.capabilities.TkTechMultiblockAbilities;
+import tkcy.tktech.api.capabilities.multiblock.TkTechMultiblockAbilities;
 import tkcy.tktech.api.machines.IOnFileClick;
 import tkcy.tktech.api.machines.NoEnergyMultiController;
 import tkcy.tktech.api.metatileentities.IIgnitable;

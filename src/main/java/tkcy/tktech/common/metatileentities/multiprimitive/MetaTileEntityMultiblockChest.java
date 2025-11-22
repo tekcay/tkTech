@@ -26,7 +26,7 @@ import gregtech.api.util.GTTransferUtils;
 import gregtech.api.util.GTUtility;
 
 import lombok.Getter;
-import tkcy.tktech.api.capabilities.TkTechMultiblockAbilities;
+import tkcy.tktech.api.capabilities.multiblock.TkTechMultiblockAbilities;
 import tkcy.tktech.api.utils.StorageUtils;
 import tkcy.tktech.api.utils.units.CommonUnits;
 import tkcy.tktech.modules.storagemodule.StorageModule;

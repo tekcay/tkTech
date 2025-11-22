@@ -22,6 +22,8 @@ public class TkTechTextures {
     public static SimpleOverlayRenderer WALL_TEXTURE = new SimpleOverlayRenderer("material_sets/dull/wall");
     public static SimpleOverlayRenderer CASING_TEXTURE = new SimpleOverlayRenderer("material_sets/dull/casing");
     public static SimpleOverlayRenderer COIL_TEXTURE = new SimpleOverlayRenderer("material_sets/dull/coil");
+    public static SimpleOverlayRenderer CONTROLLER_PROXY_HATCH = new SimpleOverlayRenderer(
+            "hatches/controller_proxy_hatch/overlay_front");
 
     public static final TextureArea REACTION_BACKGROUND = AdoptableTextureArea.fullImage(
             "textures/chemicalstructures/reaction_background.jpeg", 641,

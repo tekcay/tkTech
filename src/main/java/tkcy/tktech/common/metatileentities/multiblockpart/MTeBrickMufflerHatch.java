@@ -10,7 +10,7 @@ import gregtech.client.renderer.ICubeRenderer;
 import gregtech.client.renderer.texture.Textures;
 import gregtech.common.metatileentities.multi.multiblockpart.MetaTileEntityMufflerHatch;
 
-import tkcy.tktech.api.capabilities.TkTechMultiblockAbilities;
+import tkcy.tktech.api.capabilities.multiblock.TkTechMultiblockAbilities;
 
 public class MTeBrickMufflerHatch extends MetaTileEntityMufflerHatch {
 

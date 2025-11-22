@@ -1,4 +1,4 @@
-package tkcy.tktech.api.capabilities;
+package tkcy.tktech.api.capabilities.multiblock;
 
 import net.minecraftforge.fluids.IFluidTank;
 import net.minecraftforge.items.IItemHandler;
@@ -23,4 +23,6 @@ public class TkTechMultiblockAbilities {
     public static final MultiblockAbility<IMufflerHatch> BRICK_MUFFLER = new MultiblockAbility<>("brick_muffler");
     public static final MultiblockAbility<IItemHandler> CRATE_VALVE = new MultiblockAbility<>("crate_valve");
     public static final MultiblockAbility<IItemHandler> CHEST_VALVE = new MultiblockAbility<>("chest_valve");
+    public static final MultiblockAbility<IControllerProxy> CONTROLLER_PROXY = new MultiblockAbility<>(
+            "controller_proxy");
 }
