@@ -24,15 +24,14 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import gregtech.api.capability.IMufflerHatch;
 import gregtech.api.capability.impl.FluidTankList;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
 import gregtech.api.metatileentity.multiblock.IMultiblockPart;
-import gregtech.api.metatileentity.multiblock.MultiblockAbility;
 import gregtech.api.pattern.BlockPattern;
 import gregtech.api.pattern.FactoryBlockPattern;
 import gregtech.api.pattern.PatternMatchContext;
-import gregtech.api.pattern.TraceabilityPredicate;
 import gregtech.api.recipes.Recipe;
 import gregtech.api.unification.material.Material;
 import gregtech.api.util.EntityDamageUtil;
@@ -44,6 +43,7 @@ import gregtech.client.renderer.texture.Textures;
 import lombok.Getter;
 import tkcy.tktech.api.capabilities.multiblock.TkTechMultiblockAbilities;
 import tkcy.tktech.api.machines.NoEnergyMultiController;
+import tkcy.tktech.api.metatileentities.IBrickMultiblock;
 import tkcy.tktech.api.metatileentities.IIgnitable;
 import tkcy.tktech.api.metatileentities.RepetitiveSide;
 import tkcy.tktech.api.recipes.logic.NoEnergyParallelLogic;
@@ -56,11 +56,12 @@ import tkcy.tktech.api.utils.MaterialHelper;
 import tkcy.tktech.common.TkTechConfigHolder;
 import tkcy.tktech.common.item.potions.TkTechPotion;
 
-public class GasRelease extends NoEnergyMultiController implements RepetitiveSide, IIgnitable {
+public class GasRelease extends NoEnergyMultiController implements RepetitiveSide, IIgnitable, IBrickMultiblock {
 
     private int height = 1;
     @Getter
     private boolean isIgnited;
+    @Getter
     private final boolean isBrick;
     private final IBlockState repetitiveBlock;
     private final ICubeRenderer baseTexture;
@@ -107,6 +108,29 @@ public class GasRelease extends NoEnergyMultiController implements RepetitiveSid
             tryDamageEntity(entity, releasedGas);
         }
     }
+
+    @Nullable
+    private IMufflerHatch getMuffler() {
+        List<IMufflerHatch> mufflers = getAbilities(TkTechMultiblockAbilities.BRICK_MUFFLER);
+        return mufflers.isEmpty() ? null : mufflers.get(0);
+    }
+
+    @Override
+    public boolean isMufflerFaceFree() {
+        if (!hasMufflerMechanics()) return false;
+        if (!isBrick()) return super.isMufflerFaceFree();
+
+        IMufflerHatch mufflerHatch = getMuffler();
+        if (mufflerHatch == null) return false;
+
+        return isStructureFormed() && mufflerHatch.isFrontFaceFree();
+    }
+
+    @Override
+    public void outputRecoveryItems() {}
+
+    @Override
+    public void outputRecoveryItems(int parallel) {}
 
     @SuppressWarnings("ConstantConditions")
     @Nullable
@@ -167,11 +191,6 @@ public class GasRelease extends NoEnergyMultiController implements RepetitiveSid
         }
     }
 
-    private TraceabilityPredicate importFluidPredicate() {
-        return isBrick ? abilities(TkTechMultiblockAbilities.BRICK_HATCH_INPUT) :
-                abilities(MultiblockAbility.IMPORT_FLUIDS);
-    }
-
     @Override
     protected @NotNull BlockPattern createStructurePattern() {
         return FactoryBlockPattern.start(RelativeDirection.RIGHT, RelativeDirection.FRONT, RelativeDirection.UP)
@@ -180,7 +199,7 @@ public class GasRelease extends NoEnergyMultiController implements RepetitiveSid
                 .aisle("P").setRepeatable(getMinSideLength(), getMaxSideLength())
                 .aisle("M")
                 .where('I', importFluidPredicate())
-                .where('M', abilities(MultiblockAbility.MUFFLER_HATCH))
+                .where('M', mufflerPredicate())
                 .where('P', states(getSideBlockBlockState()))
                 .where('Y', selfPredicate())
                 .build();
@@ -206,6 +225,7 @@ public class GasRelease extends NoEnergyMultiController implements RepetitiveSid
                         .getFormattedText());
         addParallelTooltip(tooltip);
         addIgnitableInformation(tooltip);
+        tooltip.add(I18n.format("tktech.machine.muffler_no_output"));
     }
 
     @Override

@@ -359,6 +359,8 @@ tktech.metatileentity.on_any_tool_click.sneak.invalidate.tooltip=Sneak-right cli
 tktech.machine.scale_multi.file_click.1=§fRight click§7 with a §fFILE§7 to scale §aUP§7 the multiblock size.
 tktech.machine.scale_multi.file_click.2=§fSneak-right click§7 with a §fFILE§7 to scale §eDOWN§7 the multiblock size.
 
+tktech.machine.muffler_no_output=Muffler hatch will not recover anything.
+
 ##Modulable Storage
 tktech.multiblock.modulable_storage.content=%s
 tktech.multiblock.modulable_storage.capacity=Capacity: %s
