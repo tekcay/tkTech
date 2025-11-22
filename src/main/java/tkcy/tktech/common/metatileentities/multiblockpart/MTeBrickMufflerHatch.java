@@ -25,7 +25,7 @@ public class MTeBrickMufflerHatch extends MetaTileEntityMufflerHatch {
 
     @Override
     public MetaTileEntity createMetaTileEntity(IGregTechTileEntity tileEntity) {
-        return new MetaTileEntityMufflerHatch(metaTileEntityId, 0);
+        return new MTeBrickMufflerHatch(metaTileEntityId);
     }
 
     @Override
