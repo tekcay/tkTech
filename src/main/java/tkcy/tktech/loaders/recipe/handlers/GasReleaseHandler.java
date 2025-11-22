@@ -31,7 +31,6 @@ public class GasReleaseHandler {
         TkTechRecipeMaps.GAS_RELEASE.recipeBuilder()
                 .fluidInputs(material.getFluid(100))
                 .duration(20)
-                .requiresIgnition()
                 .buildAndRegister();
     }
 }

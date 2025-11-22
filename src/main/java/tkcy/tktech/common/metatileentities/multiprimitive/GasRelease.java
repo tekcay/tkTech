@@ -247,6 +247,12 @@ public class GasRelease extends NoEnergyMultiController implements RepetitiveSid
     }
 
     @Override
+    public void invalidateStructure() {
+        super.invalidateStructure();
+        shutOff();
+    }
+
+    @Override
     public NBTTagCompound writeToNBT(NBTTagCompound data) {
         super.writeToNBT(data);
         data.setInteger(RepetitiveSide.getHeightMarker(), this.height);

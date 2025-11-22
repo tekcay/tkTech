@@ -17,7 +17,7 @@ import tkcy.tktech.modules.RecipePropertiesKey;
 public class IsIgnitedRecipeProperty extends RecipeProperty<Boolean>
                                      implements IRecipePropertyHelper<Boolean> {
 
-    public static final String KEY = RecipePropertiesKey.COIL_KEY;
+    public static final String KEY = RecipePropertiesKey.IS_IGNITED;
     private static IsIgnitedRecipeProperty INSTANCE;
 
     private IsIgnitedRecipeProperty() {
