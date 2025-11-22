@@ -1,13 +1,14 @@
 {
-  "package" : "tkcy.tktech.mixins.gregtech",
-  "refmap" : "mixins.tktech.refmap.json",
-  "target" : "@env(DEFAULT)",
-  "minVersion" : "0.8",
-  "compatibilityLevel" : "JAVA_8",
-  "mixins" : [
+  "package": "tkcy.tktech.mixins.gregtech",
+  "refmap": "mixins.tktech.refmap.json",
+  "target": "@env(DEFAULT)",
+  "minVersion": "0.8",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
     "MixinFluidTooltipUtil",
     "MixinJEIModule",
     "MixinLighterBehaviour",
+    "MixinMultiblockWithDisplayBase",
     "MixinRecipeLogicTOPModule",
     "MixinToolClickMetaTileEntity",
     "MixinWorkableInfoTOPModule"

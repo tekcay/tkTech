@@ -347,7 +347,7 @@ tktech.machine.cleanroom.tooltip=Not your vanilla cleanroom
 tktech.machine.cleanroom.tooltip.1=Place machines inside to run inert-gas cleanroom recipes.
 tktech.machine.cleanroom.tooltip.2=Uses both EU/t and gas based on cleanroom size.
 
-tktech.controller_proxy_hatch.tooltip.1=Control the multiblock remotely.
+tktech.controller_proxy_hatch.tooltip.1=Controls the multiblock remotely.
 tktech.controller_proxy_hatch.tooltip.2=Can be used as an extra block to put covers on.
 
 tktech.metatilentity.special_right.show_tooltips=Hold CTRL to show special Right-click behavior

@@ -20,7 +20,6 @@ import gregtech.api.pattern.FactoryBlockPattern;
 import gregtech.client.renderer.ICubeRenderer;
 import gregtech.client.renderer.texture.Textures;
 
-import tkcy.tktech.api.capabilities.multiblock.TkTechMultiblockAbilities;
 import tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps;
 
 public class MTeAssemblingMachine extends RecipeMapMultiblockController {
@@ -36,8 +35,7 @@ public class MTeAssemblingMachine extends RecipeMapMultiblockController {
                 .aisle("XXX", "XXX", "F#F")
                 .aisle("XXX", "XYX", "F#F")
                 .where('X', states(getCasingState())
-                        .or(autoAbilities())
-                        .or(abilities(TkTechMultiblockAbilities.CONTROLLER_PROXY).setMaxGlobalLimited(1, 1)))
+                        .or(autoAbilities()))
                 .where('Y', selfPredicate())
                 .where('#', air())
                 .where('F', frames(Steel))
