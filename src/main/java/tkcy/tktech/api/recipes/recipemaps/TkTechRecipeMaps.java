@@ -55,7 +55,9 @@ public final class TkTechRecipeMaps {
             new AdvancedRecipeBuilder(), false)
                     .allowEmptyOutput()
                     .setSound(GTSoundEvents.BOILER)
-                    .onRecipeBuild(TkTechUtil.tktech("noEnergy"), AdvancedRecipeBuilder::noEUt);
+                    .onRecipeBuild(
+                            TkTechUtil.tktech("noEnergy"),
+                            builder -> builder.noEUt().requiresIgnition());
     @ZenProperty
     public static final RecipeMap<AdvancedRecipeBuilder> ALLOYING = new RecipeMap<>("alloying", 2,
             0, 9, 2,

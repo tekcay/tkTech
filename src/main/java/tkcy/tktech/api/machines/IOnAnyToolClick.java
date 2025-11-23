@@ -10,7 +10,7 @@ import tkcy.tktech.modules.toolmodule.ToolsModule;
 
 public interface IOnAnyToolClick {
 
-    void onAnyToolClickTooltip(@NotNull List<String> tooltips);
+    default void onAnyToolClickTooltip(@NotNull List<String> tooltips) {}
 
     /**
      * Called when player clicks with any tool on specific side of this meta tile entity.
