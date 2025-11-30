@@ -9,7 +9,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import com.github.bsideup.jabel.Desugar;
-import com.google.common.base.Preconditions;
 
 import gregtech.api.unification.material.Material;
 import gregtech.api.unification.material.properties.MaterialProperties;
@@ -28,7 +27,8 @@ public record PhysicalProperties(int bp, int bpPressure, int mp, int flameTemper
         implements ITooltipMaterialProperty<PhysicalProperties> {
 
     @ZenMethod
-    public static void addPhysicalMaterialProperty(@NotNull Material material, @NotNull Builder builder) {
+    public static void addPhysicalMaterialProperty(@NotNull Material material,
+                                                   @NotNull PhysicalPropertiesBuilder builder) {
         material.getProperties().setProperty(
                 TkTechMaterialPropertyKeys.PHYSICAL_PROPERTIES,
                 builder.build());
@@ -88,75 +88,5 @@ public record PhysicalProperties(int bp, int bpPressure, int mp, int flameTemper
     @Override
     public List<String> createTooltip(@NotNull Material material) {
         return createPhysicalPropertiesTooltip(material);
-    }
-
-    public static class Builder {
-
-        private int thermalConductivity = 0;
-        private int bp = 0;
-        private int mp = 0;
-        private int bpPressure = 0;
-        private int flameTemperature = 0;
-        private int autoIgnitionTemperature = 0;
-        private boolean isPyrophoric = false;
-        private boolean isHygroscopic = false;
-        private boolean oxidizes = false;
-
-        public Builder thermalConductivity(int thermalConductivity) {
-            this.thermalConductivity = thermalConductivity;
-            return this;
-        }
-
-        public Builder bp(int boilingPoint) {
-            Preconditions.checkArgument(boilingPoint > 0, "Boiling point must be > 0");
-            this.bp = boilingPoint;
-            return this;
-        }
-
-        public Builder bp(int boilingPoint, int boilingPressure) {
-            Preconditions.checkArgument(boilingPoint > 0, "Boiling point must be > 0");
-            Preconditions.checkArgument(boilingPressure > 0, "Boiling pressure must be > 0");
-            this.bp = boilingPoint;
-            this.bpPressure = boilingPressure;
-            return this;
-        }
-
-        public Builder mp(int meltingPoint) {
-            Preconditions.checkArgument(meltingPoint > 0, "Melting point must be > 0");
-            this.mp = meltingPoint;
-            return this;
-        }
-
-        public Builder flameTemperature(int flameTemperature) {
-            Preconditions.checkArgument(flameTemperature > 0, "flameTemperature must be > 0");
-            this.flameTemperature = flameTemperature;
-            return this;
-        }
-
-        public Builder autoIgnitionTemperature(int autoIgnitionTemperature) {
-            Preconditions.checkArgument(autoIgnitionTemperature > 0, "autoIgnitionTemperature must be > 0");
-            this.autoIgnitionTemperature = autoIgnitionTemperature;
-            return this;
-        }
-
-        public Builder pyrophoric() {
-            this.isPyrophoric = true;
-            return this;
-        }
-
-        public Builder hygroscopic() {
-            this.isHygroscopic = true;
-            return this;
-        }
-
-        public Builder oxidizes() {
-            this.oxidizes = true;
-            return this;
-        }
-
-        public PhysicalProperties build() {
-            return new PhysicalProperties(bp, bpPressure, mp, flameTemperature, thermalConductivity,
-                    autoIgnitionTemperature, isPyrophoric, isHygroscopic, oxidizes);
-        }
     }
 }
