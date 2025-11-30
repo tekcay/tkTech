@@ -13,6 +13,12 @@ public class TkTechMaterialPropertyKeys {
     public static final PropertyKey<CorrosiveMaterialProperty> CORROSIVE = new PropertyKey<>("corrosive",
             CorrosiveMaterialProperty.class);
 
-    public static final PropertyKey<PhysicalProperties> PHYSICAL_PROPERTIES = new PropertyKey<>("physical_properties",
+    public static final PropertyKey<PhysicalProperties> PHYSICAL_PROPERTIES = new PropertyKey<>("physical-properties",
             PhysicalProperties.class);
+
+    static {
+        ITooltipMaterialProperty.TOOLTIP_MATERIAL_PROPERTIES.add(PHYSICAL_PROPERTIES);
+        ITooltipMaterialProperty.TOOLTIP_MATERIAL_PROPERTIES.add(TOXIC);
+        ITooltipMaterialProperty.TOOLTIP_MATERIAL_PROPERTIES.add(CORROSIVE);
+    }
 }

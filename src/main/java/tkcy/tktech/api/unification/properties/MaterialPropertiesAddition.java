@@ -23,5 +23,9 @@ public class MaterialPropertiesAddition {
         ToxicMaterialProperty.addToxicMaterialProperty(Materials.Benzene);
         ToxicMaterialProperty.addToxicMaterialProperty(Materials.CoalGas);
         CorrosiveMaterialProperty.addCorrosiveMaterialProperty(TkTechMaterials.HydrogenFluoride);
+        PhysicalProperties.Builder builder = new PhysicalProperties.Builder().autoIgnitionTemperature(503).bp(348)
+                .mp(176)
+                .flameTemperature(2120);
+        PhysicalProperties.addPhysicalMaterialProperty(TkTechMaterials.HydrogenFluoride, builder);
     }
 }

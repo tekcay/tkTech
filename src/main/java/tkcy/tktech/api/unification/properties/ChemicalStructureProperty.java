@@ -9,21 +9,30 @@ import gregtech.api.unification.material.properties.PropertyKey;
 
 import crafttweaker.annotations.ZenRegister;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 import tkcy.tktech.api.render.ChemicalStructureRenderUtils;
 import tkcy.tktech.api.utils.BooleanHelper;
-import tkcy.tktech.api.utils.MaterialPropertiesHelper;
 
 @ZenClass("mods.tktech.api.unification.properties.ChemicalStructureProperty")
 @ZenRegister
 @Getter
-public class ChemicalStructureProperty extends MaterialPropertiesHelper<ChemicalStructureProperty> {
-
-    private ChemicalStructureProperty() {}
+@NoArgsConstructor
+public class ChemicalStructureProperty implements IExtraMaterialProperty<ChemicalStructureProperty> {
 
     public static final Set<Material> MATERIALS_WITH_CHEMICAL_STRUCTURE = new HashSet<>();
     public static ChemicalStructureProperty INSTANCE = new ChemicalStructureProperty();
+
+    /**
+     * For textures to be registered,
+     * {@link ChemicalStructureRenderUtils#registerChemicalStructuresTexture() registerChemicalStructuresTexture}
+     * must be called <strong>AFTER</strong> the <strong>LAST</strong> call of this method.
+     */
+    @ZenMethod
+    public static void addChemicalStructureProperty(Material material) {
+        INSTANCE.addMaterialProperty(material, INSTANCE);
+    }
 
     @Override
     public void verifyProperty(MaterialProperties properties) {
@@ -38,16 +47,9 @@ public class ChemicalStructureProperty extends MaterialPropertiesHelper<Chemical
         return TkTechMaterialPropertyKeys.CHEMICAL_STRUCTURE;
     }
 
-    /**
-     * For textures to be registered,
-     * {@link ChemicalStructureRenderUtils#registerChemicalStructuresTexture() registerChemicalStructuresTexture}
-     * must be called <strong>AFTER</strong> the <strong>LAST</strong> call of this method.
-     */
-    @ZenMethod
-    public static void addChemicalStructureProperty(Material material) {
-        material.getProperties().setProperty(
-                TkTechMaterialPropertyKeys.CHEMICAL_STRUCTURE,
-                new ChemicalStructureProperty());
+    @Override
+    public void addMaterialProperty(Material material, ChemicalStructureProperty materialProperty) {
+        IExtraMaterialProperty.super.addMaterialProperty(material, materialProperty);
         ChemicalStructureProperty.MATERIALS_WITH_CHEMICAL_STRUCTURE.add(material);
     }
 }

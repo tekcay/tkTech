@@ -6,22 +6,35 @@ import java.util.List;
 import net.minecraft.client.resources.I18n;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import com.github.bsideup.jabel.Desugar;
 import com.google.common.base.Preconditions;
 
 import gregtech.api.unification.material.Material;
-import gregtech.api.unification.material.properties.IMaterialProperty;
 import gregtech.api.unification.material.properties.MaterialProperties;
 import gregtech.api.unification.material.properties.PropertyKey;
 
+import crafttweaker.annotations.ZenRegister;
+import stanhebben.zenscript.annotations.ZenClass;
+import stanhebben.zenscript.annotations.ZenMethod;
+
+@ZenClass("mods.tktech.api.unification.properties.PhysicalProperties")
+@ZenRegister
 @Desugar
 public record PhysicalProperties(int bp, int bpPressure, int mp, int flameTemperature, int thermalConductivity,
                                  int autoIgnitionTemperature, boolean isPyrophoric, boolean isHygroscopic,
                                  boolean oxidizes)
-        implements IMaterialProperty {
+        implements ITooltipMaterialProperty<PhysicalProperties> {
 
-    public static List<String> createPhysicalPropertiesTooltip(@NotNull Material material) {
+    @ZenMethod
+    public static void addPhysicalMaterialProperty(@NotNull Material material, @NotNull Builder builder) {
+        material.getProperties().setProperty(
+                TkTechMaterialPropertyKeys.PHYSICAL_PROPERTIES,
+                builder.build());
+    }
+
+    public static List<String> createPhysicalPropertiesTooltip(@Nullable Material material) {
         List<String> tooltips = new ArrayList<>();
 
         if (material.hasProperty(TkTechMaterialPropertyKeys.PHYSICAL_PROPERTIES)) {
@@ -60,6 +73,21 @@ public record PhysicalProperties(int bp, int bpPressure, int mp, int flameTemper
             }
         }
         return tooltips;
+    }
+
+    @Override
+    public PropertyKey<PhysicalProperties> getPropertyKey() {
+        return TkTechMaterialPropertyKeys.PHYSICAL_PROPERTIES;
+    }
+
+    @Override
+    public void verifyProperty(MaterialProperties properties) {
+        properties.ensureSet(TkTechMaterialPropertyKeys.PHYSICAL_PROPERTIES, true);
+    }
+
+    @Override
+    public List<String> createTooltip(@NotNull Material material) {
+        return createPhysicalPropertiesTooltip(material);
     }
 
     public static class Builder {
@@ -130,10 +158,5 @@ public record PhysicalProperties(int bp, int bpPressure, int mp, int flameTemper
             return new PhysicalProperties(bp, bpPressure, mp, flameTemperature, thermalConductivity,
                     autoIgnitionTemperature, isPyrophoric, isHygroscopic, oxidizes);
         }
-    }
-
-    @Override
-    public void verifyProperty(MaterialProperties properties) {
-        properties.ensureSet(PropertyKey.PHYSICAL_PROPERTIES, true);
     }
 }
