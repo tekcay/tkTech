@@ -146,6 +146,15 @@ tktech.material.gallium_phosphate=Gallium Phosphate
 # Material properties
 tktech.toxic_material_property.tooltip=TOXIC!
 tktech.corrosive_material_property.tooltip=CORROSIVE!
+gregtech.physical_properties.hygroscopic=§5Hygroscopic, absorbs air moisture!
+gregtech.physical_properties.oxidizes=§6Oxidizes in air!
+gregtech.physical_properties.pyrophoric=§cPyrophoric! Ignites spontaneously on exposure to air!
+gregtech.physical_properties.thermal_conductivity=§dThermal Conductivity: §f%d W/Km
+gregtech.physical_properties.mp=§emp: §f%d K
+gregtech.physical_properties.bp=§ebp: §f%d K
+gregtech.physical_properties.bp_pressure=§ebp: §f%d K §7at §f%d Pa
+gregtech.physical_properties.flame_temperature=§6Flame Temperature: %d K
+gregtech.physical_properties.auto_ignition_temperature=§6Autoignition Temperature: %d K
 
 ##MTEs
 tktech.machine.primitive_roasting_oven.name=Primitive Roasting Oven
