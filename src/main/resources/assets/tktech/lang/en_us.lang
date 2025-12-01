@@ -156,6 +156,8 @@ tktech.physical_properties.bp_pressure=§ebp: §f%d K §7at §f%d Pa
 tktech.physical_properties.flame_temperature=§6Flame Temperature: %d K
 tktech.physical_properties.auto_ignition_temperature=§6Autoignition Temperature: %d K
 
+tktech.fluid.distilled=Distilled %s
+
 ##MTEs
 tktech.machine.primitive_roasting_oven.name=Primitive Roasting Oven
 tktech.machine.electrolyzer.name=Electrolyzer
