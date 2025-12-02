@@ -8,6 +8,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import org.jetbrains.annotations.NotNull;
 
 import tkcy.tktech.api.TkTechInternalTags;
+import tkcy.tktech.api.fluid.FluidRegistration;
 import tkcy.tktech.api.utils.TkTechLog;
 import tkcy.tktech.common.CommonProxy;
 import tkcy.tktech.common.block.TkTechMetaBlocks;
@@ -39,6 +40,7 @@ public class TkTech {
         TkTechMetaItems.init();
         TkTechMetaTileEntities.init();
         TkTechToolItems.init();
+        FluidRegistration.register();
     }
 
     @Mod.EventHandler

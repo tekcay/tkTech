@@ -15,19 +15,23 @@ import gregtech.api.util.TextComponentUtil;
 
 import crafttweaker.annotations.ZenRegister;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 import tkcy.tktech.api.utils.BooleanHelper;
-import tkcy.tktech.api.utils.MaterialPropertiesHelper;
 
 @ZenClass("mods.tktech.api.unification.properties.CorrosiveMaterialProperty")
 @ZenRegister
 @Getter
-public class CorrosiveMaterialProperty extends MaterialPropertiesHelper<CorrosiveMaterialProperty> {
-
-    private CorrosiveMaterialProperty() {}
+@NoArgsConstructor
+public class CorrosiveMaterialProperty implements ITooltipMaterialProperty<CorrosiveMaterialProperty> {
 
     public static CorrosiveMaterialProperty INSTANCE = new CorrosiveMaterialProperty();
+
+    @ZenMethod
+    public static void addCorrosiveMaterialProperty(Material material) {
+        INSTANCE.addMaterialProperty(material, INSTANCE);
+    }
 
     @Override
     public void verifyProperty(MaterialProperties properties) {
@@ -42,14 +46,8 @@ public class CorrosiveMaterialProperty extends MaterialPropertiesHelper<Corrosiv
         return TkTechMaterialPropertyKeys.CORROSIVE;
     }
 
-    @ZenMethod
-    public static void addCorrosiveMaterialProperty(Material material) {
-        material.getProperties().setProperty(
-                TkTechMaterialPropertyKeys.CORROSIVE,
-                new CorrosiveMaterialProperty());
-    }
-
-    public static List<String> createCorrosiveMaterialPropertyTooltip(@NotNull Material material) {
+    @Override
+    public List<String> createTooltip(@NotNull Material material) {
         List<String> tooltips = new ArrayList<>();
         if (material.hasProperty(TkTechMaterialPropertyKeys.CORROSIVE)) {
             if (material.hasFluid()) {

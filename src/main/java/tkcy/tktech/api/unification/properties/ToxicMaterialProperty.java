@@ -15,19 +15,23 @@ import gregtech.api.util.TextComponentUtil;
 
 import crafttweaker.annotations.ZenRegister;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 import tkcy.tktech.api.utils.BooleanHelper;
-import tkcy.tktech.api.utils.MaterialPropertiesHelper;
 
 @ZenClass("mods.tktech.api.unification.properties.ToxicMaterialProperty")
 @ZenRegister
 @Getter
-public class ToxicMaterialProperty extends MaterialPropertiesHelper<ToxicMaterialProperty> {
-
-    private ToxicMaterialProperty() {}
+@NoArgsConstructor
+public class ToxicMaterialProperty implements ITooltipMaterialProperty<ToxicMaterialProperty> {
 
     public static ToxicMaterialProperty INSTANCE = new ToxicMaterialProperty();
+
+    @ZenMethod
+    public static void addToxicMaterialProperty(Material material) {
+        INSTANCE.addMaterialProperty(material, INSTANCE);
+    }
 
     @Override
     public void verifyProperty(MaterialProperties properties) {
@@ -42,16 +46,10 @@ public class ToxicMaterialProperty extends MaterialPropertiesHelper<ToxicMateria
         return TkTechMaterialPropertyKeys.TOXIC;
     }
 
-    @ZenMethod
-    public static void addToxicMaterialProperty(Material material) {
-        material.getProperties().setProperty(
-                TkTechMaterialPropertyKeys.TOXIC,
-                new ToxicMaterialProperty());
-    }
-
-    public static List<String> createToxicMaterialPropertyTooltip(@NotNull Material material) {
+    @Override
+    public List<String> createTooltip(@NotNull Material material) {
         List<String> tooltips = new ArrayList<>();
-        if (material.hasProperty(TkTechMaterialPropertyKeys.TOXIC)) {
+        if (material.hasProperty(getPropertyKey())) {
             if (material.hasFluid()) {
                 tooltips.add(TextComponentUtil
                         .translationWithColor(TextFormatting.RED, I18n.format("tktech.toxic_material_property.tooltip"))

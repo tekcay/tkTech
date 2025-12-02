@@ -166,9 +166,7 @@ public class MaterialHelper {
                 fluidPipeProperties.isGasProof(),
                 fluidPipeProperties.isAcidProof(),
                 fluidPipeProperties.isCryoProof(),
-                fluidPipeProperties.isPlasmaProof(),
-                fluidPipeProperties.isBaseProof(),
-                fluidPipeProperties.isFluorideProof());
+                fluidPipeProperties.isPlasmaProof());
     }
 
     public static NBTBase serializeMaterial(@NotNull Material material) {
