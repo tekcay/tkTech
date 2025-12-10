@@ -9,6 +9,7 @@
     "MixinJEIModule",
     "MixinLighterBehaviour",
     "MixinMultiblockWithDisplayBase",
+    "MixinOrePrefix",
     "MixinRecipeLogicTOPModule",
     "MixinToolClickMetaTileEntity",
     "MixinWorkableInfoTOPModule"

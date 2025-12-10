@@ -17,6 +17,10 @@ public class TkTechMaterialPropertyKeys {
             "physical_properties",
             PhysicalProperties.class);
 
+    public static final PropertyKey<ChiralMaterialProperty> CHIRAL = new PropertyKey<>(
+            "chiral",
+            ChiralMaterialProperty.class);
+
     static {
         ITooltipMaterialProperty.TOOLTIP_MATERIAL_PROPERTIES.add(PHYSICAL_PROPERTIES);
         ITooltipMaterialProperty.TOOLTIP_MATERIAL_PROPERTIES.add(TOXIC);

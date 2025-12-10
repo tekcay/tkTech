@@ -155,6 +155,11 @@ tktech.physical_properties.bp=§ebp: §f%d K
 tktech.physical_properties.bp_pressure=§ebp: §f%d K §7at §f%d Pa
 tktech.physical_properties.flame_temperature=§6Flame Temperature: %d K
 tktech.physical_properties.auto_ignition_temperature=§6Autoignition Temperature: %d K
+tktech.chiral_material_property.S=(S)-
+tktech.chiral_material_property.R=(R)-
+tktech.chiral_material_property.PLUS=(+)-
+tktech.chiral_material_property.MINUS=(-)-
+tktech.chiral_material_property.RACEMIC=(±)-
 
 tktech.fluid.distilled=Distilled %s
 

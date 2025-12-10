@@ -27,5 +27,6 @@ public class MaterialPropertiesAddition {
                 .mp(176)
                 .flameTemperature(2120);
         PhysicalProperties.addPhysicalMaterialProperty(TkTechMaterials.HydrogenFluoride, builder);
+        ChiralMaterialProperty.addChiralProperty(Materials.Aluminium, ChiralMaterialProperty.Optical.RACEMIC);
     }
 }
