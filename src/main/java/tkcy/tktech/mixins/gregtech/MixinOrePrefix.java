@@ -17,7 +17,8 @@ public abstract class MixinOrePrefix {
     @ModifyReturnValue(method = "getLocalNameForItem", at = @At(value = "RETURN"))
     private String addPrefix(String original, @NotNull Material material) {
         ChiralMaterialProperty property = ChiralMaterialProperty.INSTANCE.getProperty(material);
-        if (property == null) return original;
-        return property.applyPrefix(original);
+        return original;
+        // if (property == null) return original;
+        // return property.applyPrefix(original);
     }
 }

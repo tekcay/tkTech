@@ -11,20 +11,42 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import tkcy.tktech.api.utils.BooleanHelper;
+import tkcy.tktech.api.utils.ChiralMaterial;
 
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
 public class ChiralMaterialProperty implements IExtraMaterialProperty<ChiralMaterialProperty> {
 
     private static final String baseLangKey = "tktech.chiral_material_property.";
 
     public static ChiralMaterialProperty INSTANCE = new ChiralMaterialProperty();
 
-    @Getter
-    private ChiralMaterialProperty.Optical optical;
+    private String chiralPrefix;
+    private String baseName;
 
-    public static void addChiralProperty(@NotNull Material material, ChiralMaterialProperty.Optical optical) {
-        INSTANCE.addMaterialProperty(material, new ChiralMaterialProperty(optical));
+    public static void addChiralProperty(@NotNull Material material, String chiralPrefix, Material racemicMaterial) {
+        INSTANCE.addMaterialProperty(material,
+                new ChiralMaterialProperty(chiralPrefix, racemicMaterial.getUnlocalizedName()));
+    }
+
+    public static void addChiralProperty(@NotNull Material racemicMaterial, @NotNull Material enantiomer1,
+                                         @NotNull Material enantiomer2, ChiralSign chiralSign) {
+        ChiralMaterialProperty property = INSTANCE;
+        property.addMaterialProperty(racemicMaterial,
+                new ChiralMaterialProperty(chiralSign.racemicPrefix, racemicMaterial.getUnlocalizedName()));
+        property.addMaterialProperty(enantiomer1,
+                new ChiralMaterialProperty(chiralSign.enantiomer1Prefix, racemicMaterial.getUnlocalizedName()));
+        property.addMaterialProperty(enantiomer2,
+                new ChiralMaterialProperty(chiralSign.enantiomer2Prefix, racemicMaterial.getUnlocalizedName()));
+    }
+
+    public static void addChiralProperty(ChiralMaterial chiralMaterial) {
+        addChiralProperty(
+                chiralMaterial.getRacemic(),
+                chiralMaterial.getEnantiomer1(),
+                chiralMaterial.getEnantiomer2(),
+                chiralMaterial.isUseLetterPrefix() ? ChiralSign.LETTER : ChiralSign.SIGN);
     }
 
     @Override
@@ -45,15 +67,17 @@ public class ChiralMaterialProperty implements IExtraMaterialProperty<ChiralMate
     }
 
     public String getPrefix() {
-        String key = baseLangKey + this.optical;
+        String key = baseLangKey + this.chiralPrefix;
         return LocalizationUtils.format(key);
     }
 
-    public enum Optical {
-        RACEMIC,
-        S,
-        R,
-        PLUS,
-        MINUS
+    @AllArgsConstructor
+    @Getter
+    public enum ChiralSign {
+
+        LETTER("RACEMIC", "R", "S"),
+        SIGN("RACEMIC", "PLUS", "MINUS");
+
+        private final String racemicPrefix, enantiomer1Prefix, enantiomer2Prefix;
     }
 }
