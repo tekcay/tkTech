@@ -12,7 +12,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import tkcy.tktech.api.utils.BooleanHelper;
 import tkcy.tktech.api.utils.ChiralMaterial;
+import tkcy.tktech.mixins.gregtech.MixinMaterial;
 
+/**
+ * Used to add chiral sign to material orePrefix items e.g. dusts in localized name. This is done via
+ * MaterialProperty checking in
+ * the mixin version of {@link Material#getLocalizedName()} in {@link MixinMaterial}.
+ *
+ */
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter

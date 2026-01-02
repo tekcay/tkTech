@@ -1,10 +1,9 @@
 package tkcy.tktech.api.utils;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.function.BiFunction;
+import net.minecraft.util.ResourceLocation;
 
 import gregtech.api.unification.material.Material;
+import gregtech.api.unification.stack.MaterialStack;
 
 import crafttweaker.annotations.ZenRegister;
 import lombok.AllArgsConstructor;
@@ -21,19 +20,32 @@ import tkcy.tktech.api.unification.properties.ChiralMaterialProperty;
 @Getter
 public class ChiralMaterial {
 
-    private String materialName;
+    private String baseMaterialName;
+    private String modid;
     private Material racemic, enantiomer1, enantiomer2;
-    private int id;
+    private int baseId;
     private boolean useLetterPrefix;
-    private BiFunction<String, Integer, Material.Builder> materialBuilderSupplier;
+    private MaterialStack[] components;
 
     @ZenMethod
-    public static ChiralMaterialBuilder builder() {
+    public static ChiralMaterialBuilder chiralMaterialBuilder() {
         return new ChiralMaterialBuilder();
     }
 
+    @ZenMethod
+    public static ChiralMaterialBuilder chiralMaterialBuilder(String modid, String baseMaterialName, int baseId) {
+        return ChiralMaterial.builder()
+                .modid(modid)
+                .baseMaterialName(baseMaterialName)
+                .baseId(baseId);
+    }
+
     private Material material(String materialName) {
-        return materialBuilderSupplier.apply(materialName, id++).build();
+        return new Material.Builder(baseId++, new ResourceLocation(modid, materialName))
+                .colorAverage()
+                .dust()
+                .components(components)
+                .build();
     }
 
     private Material material(String materialName, String enantiomer) {
@@ -45,9 +57,9 @@ public class ChiralMaterial {
         ChiralMaterialProperty.ChiralSign chiralSign = useLetterPrefix ? ChiralMaterialProperty.ChiralSign.LETTER :
                 ChiralMaterialProperty.ChiralSign.SIGN;
 
-        racemic = material(materialName);
-        enantiomer1 = material(materialName, chiralSign.getEnantiomer1Prefix());
-        enantiomer2 = material(materialName, chiralSign.getEnantiomer2Prefix());
+        racemic = material(baseMaterialName);
+        enantiomer1 = material(baseMaterialName, chiralSign.getEnantiomer1Prefix());
+        enantiomer2 = material(baseMaterialName, chiralSign.getEnantiomer2Prefix());
         ChiralMaterialProperty.addChiralProperty(this);
     }
 }
