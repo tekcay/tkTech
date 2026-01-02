@@ -10,7 +10,6 @@
     "MixinLighterBehaviour",
     "MixinMaterial",
     "MixinMultiblockWithDisplayBase",
-    "MixinOrePrefix",
     "MixinRecipeLogicTOPModule",
     "MixinToolClickMetaTileEntity",
     "MixinWorkableInfoTOPModule"
