@@ -4,6 +4,7 @@ import static gregtech.common.metatileentities.MetaTileEntities.registerMetaTile
 import static gregtech.common.metatileentities.MetaTileEntities.registerSimpleMetaTileEntity;
 import static tkcy.tktech.api.utils.TkTechUtil.tktech;
 
+import gregtech.api.GTValues;
 import gregtech.api.metatileentity.SimpleMachineMetaTileEntity;
 import gregtech.api.util.GTUtility;
 import gregtech.client.renderer.texture.Textures;
@@ -15,6 +16,7 @@ import tkcy.tktech.api.machines.ToolLogicMetaTileEntity;
 import tkcy.tktech.api.metatileentities.MaterialMetaTileEntity;
 import tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps;
 import tkcy.tktech.api.render.TkTechTextures;
+import tkcy.tktech.api.utils.StreamHelper;
 import tkcy.tktech.api.utils.TkTechUtil;
 import tkcy.tktech.common.metatileentities.electric.*;
 import tkcy.tktech.common.metatileentities.multiblockpart.BrickFluidHatch;
@@ -60,6 +62,7 @@ public class TkTechMetaTileEntities {
     public static SimpleMachineMetaTileEntity[] CLUSTER_MILLS = new SimpleMachineMetaTileEntity[5];
     public static SimpleMachineMetaTileEntity[] COMPONENT_ASSEMBLERS = new SimpleMachineMetaTileEntity[6];
     public static SimpleMachineMetaTileEntity[] ROLLING_MILLS = new SimpleMachineMetaTileEntity[6];
+    public static MTePipePlacer[] PIPE_PLACERS = new MTePipePlacer[4];
 
     public static MetaTileEntityModulableTankValve[] MODULABLE_TANK_VALVES = new MetaTileEntityModulableTankValve[StorageModule.TANK_MATERIALS
             .size()];
@@ -181,5 +184,10 @@ public class TkTechMetaTileEntities {
 
         MaterialMetaTileEntity.registerMaterialMetaTileEntity(StorageModule.CRATE_MATERIALS, MODULABLE_CHEST_VALVES,
                 4280, StorageModule::initChestValve);
+
+        StreamHelper.initIntStream(0, PIPE_PLACERS.length)
+                .forEach(tier -> registerMetaTileEntity(
+                        4300 + tier,
+                        new MTePipePlacer(tktech("pipe_placer." + GTValues.VN[tier]), tier)));
     }
 }
