@@ -2,13 +2,20 @@ package tkcy.tktech.common.metatileentities.electric;
 
 import static gregtech.api.capability.GregtechDataCodes.*;
 
+import java.util.List;
+
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.IItemHandlerModifiable;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import gregtech.api.GTValues;
 import gregtech.api.capability.impl.*;
@@ -24,6 +31,7 @@ import gregtech.client.renderer.texture.Textures;
 import codechicken.lib.render.CCRenderState;
 import codechicken.lib.render.pipeline.IVertexOperation;
 import codechicken.lib.vec.Matrix4;
+import lombok.Getter;
 import tkcy.tktech.api.logic.PipePlacerLogic;
 import tkcy.tktech.api.utils.StreamHelper;
 
@@ -32,12 +40,15 @@ public class MTePipePlacer extends TieredMetaTileEntity {
     protected final GTItemStackHandler chargerInventory;
     private final int inventorySize;
     private final PipePlacerLogic pipePlacerLogic;
+    @Getter
+    private final int maxRange;
 
     public MTePipePlacer(ResourceLocation metaTileEntityId, int tier) {
         super(metaTileEntityId, tier);
+        this.maxRange = 20 * (getTier() + 1);
         this.chargerInventory = new GTItemStackHandler(this, 1);
         this.inventorySize = (tier + 1) * (tier + 1);
-        this.pipePlacerLogic = new PipePlacerLogic(this, tier * 10);
+        this.pipePlacerLogic = new PipePlacerLogic(this);
         initializeInventory();
     }
 
@@ -100,6 +111,18 @@ public class MTePipePlacer extends TieredMetaTileEntity {
     }
 
     @Override
+    public void addInformation(ItemStack stack, @Nullable World player, @NotNull List<String> tooltip,
+                               boolean advanced) {
+        tooltip.add(I18n.format("tktech.pipeplacer.tooltip.range", getMaxRange()));
+        tooltip.add(I18n.format("tktech.pipeplacer.tooltip.eu_per_operation", getEuPerOperation()));
+        tooltip.add(I18n.format("tktech.pipeplacer.tooltip.time_per_operation", getTimePerOperation()));
+        tooltip.add(I18n.format("gregtech.universal.tooltip.voltage_in", energyContainer.getInputVoltage(),
+                GTValues.VNF[getTier()]));
+        tooltip.add(
+                I18n.format("gregtech.universal.tooltip.energy_storage_capacity", energyContainer.getEnergyCapacity()));
+    }
+
+    @Override
     public NBTTagCompound writeToNBT(NBTTagCompound data) {
         super.writeToNBT(data);
         data.setTag("ChargerInventory", chargerInventory.serializeNBT());
@@ -110,20 +133,5 @@ public class MTePipePlacer extends TieredMetaTileEntity {
     public void readFromNBT(NBTTagCompound data) {
         super.readFromNBT(data);
         this.chargerInventory.deserializeNBT(data.getCompoundTag("ChargerInventory"));
-    }
-
-    @Override
-    public void writeInitialSyncData(PacketBuffer buf) {
-        super.writeInitialSyncData(buf);
-    }
-
-    @Override
-    public void receiveInitialSyncData(PacketBuffer buf) {
-        super.receiveInitialSyncData(buf);
-    }
-
-    @Override
-    public void receiveCustomData(int dataId, PacketBuffer buf) {
-        super.receiveCustomData(dataId, buf);
     }
 }

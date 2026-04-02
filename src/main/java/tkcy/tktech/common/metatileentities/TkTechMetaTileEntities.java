@@ -185,7 +185,7 @@ public class TkTechMetaTileEntities {
         MaterialMetaTileEntity.registerMaterialMetaTileEntity(StorageModule.CRATE_MATERIALS, MODULABLE_CHEST_VALVES,
                 4280, StorageModule::initChestValve);
 
-        StreamHelper.initIntStream(0, PIPE_PLACERS.length)
+        StreamHelper.initIntStream(1, PIPE_PLACERS.length)
                 .forEach(tier -> registerMetaTileEntity(
                         4300 + tier,
                         new MTePipePlacer(tktech("pipe_placer." + GTValues.VN[tier]), tier)));

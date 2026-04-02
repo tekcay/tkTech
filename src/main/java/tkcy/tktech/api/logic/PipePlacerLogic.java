@@ -7,23 +7,21 @@ import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.pipenet.block.ItemBlockPipe;
 import gregtech.api.unification.OreDictUnifier;
 import gregtech.api.unification.stack.UnificationEntry;
 
 import tkcy.tktech.api.utils.StreamHelper;
 import tkcy.tktech.api.utils.WorldInteractionsHelper;
+import tkcy.tktech.common.metatileentities.electric.MTePipePlacer;
 
 public class PipePlacerLogic {
 
-    private final MetaTileEntity pipePlacer;
+    private final MTePipePlacer pipePlacer;
     private BlockPos blockPosToPlace;
-    private final int maxRange;
 
-    public PipePlacerLogic(MetaTileEntity pipePlacer, int maxRange) {
+    public PipePlacerLogic(MTePipePlacer pipePlacer) {
         this.pipePlacer = pipePlacer;
-        this.maxRange = maxRange;
     }
 
     private boolean isPipeStack(@NotNull ItemStack itemStack) {
@@ -34,7 +32,7 @@ public class PipePlacerLogic {
     }
 
     private void setBlockPosToPlace() {
-        blockPosToPlace = StreamHelper.initIntStream(1, maxRange)
+        blockPosToPlace = StreamHelper.initIntStream(1, pipePlacer.getMaxRange())
                 .map(this::getBlockPos)
                 .filter(blockPos -> WorldInteractionsHelper.canPlaceBlockInWorld(pipePlacer.getWorld(), blockPos))
                 .findFirst()
