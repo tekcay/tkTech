@@ -10,6 +10,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.IItemHandlerModifiable;
 
+import gregtech.api.GTValues;
 import gregtech.api.capability.impl.*;
 import gregtech.api.gui.GuiTextures;
 import gregtech.api.gui.ModularUI;
@@ -40,6 +41,14 @@ public class MTePipePlacer extends TieredMetaTileEntity {
         initializeInventory();
     }
 
+    public int getTimePerOperation() {
+        return 20 / (getTier() + 1);
+    }
+
+    public int getEuPerOperation() {
+        return GTValues.VA[getTier() + 1];
+    }
+
     @Override
     public MetaTileEntity createMetaTileEntity(IGregTechTileEntity tileEntity) {
         return new MTePipePlacer(metaTileEntityId, getTier());
@@ -55,8 +64,12 @@ public class MTePipePlacer extends TieredMetaTileEntity {
         super.update();
         if (!getWorld().isRemote) {
             ((EnergyContainerHandler) this.energyContainer).dischargeOrRechargeEnergyContainers(chargerInventory, 0);
-            if (getOffsetTimer() % 20 == 0) {
-                pipePlacerLogic.placePipe();
+            if (getOffsetTimer() % getTimePerOperation() == 0) {
+                if (this.energyContainer.getEnergyStored() >= getEuPerOperation()) {
+                    if (pipePlacerLogic.placePipe()) {
+                        this.energyContainer.changeEnergy(-getEuPerOperation());
+                    }
+                }
             }
         }
         checkWeatherOrTerrainExplosion(getTier(), getTier() * 10, energyContainer);
