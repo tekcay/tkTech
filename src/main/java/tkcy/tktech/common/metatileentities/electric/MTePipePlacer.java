@@ -36,7 +36,7 @@ public class MTePipePlacer extends TieredMetaTileEntity {
         super(metaTileEntityId, tier);
         this.chargerInventory = new GTItemStackHandler(this, 1);
         this.inventorySize = (tier + 1) * (tier + 1);
-        this.pipePlacerLogic = new PipePlacerLogic(this);
+        this.pipePlacerLogic = new PipePlacerLogic(this, tier * 10);
         initializeInventory();
     }
 
@@ -55,6 +55,9 @@ public class MTePipePlacer extends TieredMetaTileEntity {
         super.update();
         if (!getWorld().isRemote) {
             ((EnergyContainerHandler) this.energyContainer).dischargeOrRechargeEnergyContainers(chargerInventory, 0);
+            if (getOffsetTimer() % 20 == 0) {
+                pipePlacerLogic.placePipe();
+            }
         }
         checkWeatherOrTerrainExplosion(getTier(), getTier() * 10, energyContainer);
     }
