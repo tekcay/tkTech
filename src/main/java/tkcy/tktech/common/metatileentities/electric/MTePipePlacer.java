@@ -23,16 +23,20 @@ import gregtech.client.renderer.texture.Textures;
 import codechicken.lib.render.CCRenderState;
 import codechicken.lib.render.pipeline.IVertexOperation;
 import codechicken.lib.vec.Matrix4;
+import tkcy.tktech.api.logic.PipePlacerLogic;
+import tkcy.tktech.api.utils.StreamHelper;
 
 public class MTePipePlacer extends TieredMetaTileEntity {
 
     protected final GTItemStackHandler chargerInventory;
     private final int inventorySize;
+    private final PipePlacerLogic pipePlacerLogic;
 
     public MTePipePlacer(ResourceLocation metaTileEntityId, int tier) {
         super(metaTileEntityId, tier);
         this.chargerInventory = new GTItemStackHandler(this, 1);
         this.inventorySize = (tier + 1) * (tier + 1);
+        this.pipePlacerLogic = new PipePlacerLogic(this);
         initializeInventory();
     }
 
@@ -68,9 +72,12 @@ public class MTePipePlacer extends TieredMetaTileEntity {
 
         ModularUI.Builder builder = ModularUI.builder(GuiTextures.BACKGROUND, 176,
                 18 + 18 * rowSize + 94)
-                .label(10, 5, getMetaFullName())
-                .widget(new SlotWidget(importItems, 0, 18, 18, true, true)
-                        .setBackgroundTexture(GuiTextures.SLOT, GuiTextures.STRING_SLOT_OVERLAY));
+                .label(10, 5, getMetaFullName());
+
+        StreamHelper.initIntStream(inventorySize)
+                .forEach(slotIndex -> builder
+                        .widget(new SlotWidget(importItems, slotIndex, (18 + 1) * (slotIndex + 1), 18, true, true)
+                                .setBackgroundTexture(GuiTextures.SLOT, GuiTextures.STRING_SLOT_OVERLAY)));
 
         builder.bindPlayerInventory(entityPlayer.inventory, GuiTextures.SLOT, 7, 18 + 18 * rowSize + 12);
         return builder.build(getHolder(), entityPlayer);
