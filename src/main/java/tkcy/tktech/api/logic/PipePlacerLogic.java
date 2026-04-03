@@ -10,9 +10,13 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import gregtech.api.pipenet.block.ItemBlockPipe;
+import gregtech.api.pipenet.block.material.BlockMaterialPipe;
+import gregtech.api.pipenet.block.material.IMaterialPipeTile;
 import gregtech.api.pipenet.tile.TileEntityPipeBase;
 import gregtech.api.unification.OreDictUnifier;
+import gregtech.api.unification.material.Material;
 import gregtech.api.unification.stack.UnificationEntry;
+import gregtech.api.util.GTTransferUtils;
 
 import tkcy.tktech.api.utils.StreamHelper;
 import tkcy.tktech.api.utils.WorldInteractionsHelper;
@@ -40,6 +44,18 @@ public class PipePlacerLogic {
                 .filter(blockPos -> WorldInteractionsHelper.canPlaceBlockInWorld(pipePlacer.getWorld(), blockPos))
                 .findFirst()
                 .orElse(null);
+    }
+
+    private void setBlockPosToRemove() {
+        for (int offset = 1; offset < pipePlacer.getMaxRange(); offset++) {
+            BlockPos blockPos = getBlockPos(offset);
+            TileEntityPipeBase<?, ?> tileEntityPipeBase = getPipeEntity(blockPos);
+            if (tileEntityPipeBase == null) {
+                blockPosToPlace = getBlockPos(offset - 1);
+                return;
+            }
+        }
+        blockPosToPlace = getBlockPos(pipePlacer.getMaxRange());
     }
 
     @Nullable
@@ -97,6 +113,35 @@ public class PipePlacerLogic {
                 blockState);
     }
 
+    @Nullable
+    private ItemStack getInWorldPipeStack(@NotNull TileEntityPipeBase<?, ?> te) {
+        if (te instanceof IMaterialPipeTile<?, ?>materialPipeTile) {
+            Material material = materialPipeTile.getPipeMaterial();
+            if (te.getPipeBlock() instanceof BlockMaterialPipe<?, ?, ?>materialPipeBase) {
+                return materialPipeBase.getItem(material);
+            }
+        }
+        return null;
+    }
+
+    public boolean removePipe() {
+        setBlockPosToRemove();
+        if (blockPosToPlace == pipePlacer.getPos()) return false;
+
+        TileEntityPipeBase<?, ?> te = getPipeEntity();
+        if (te == null) return false;
+
+        ItemStack pipeStack = getInWorldPipeStack(te);
+        if (pipeStack == null) return false;
+
+        if (GTTransferUtils.insertItem(pipePlacer.getImportItems(), pipeStack, true).isEmpty()) {
+            GTTransferUtils.insertItem(pipePlacer.getImportItems(), pipeStack, false);
+            pipePlacer.getWorld().destroyBlock(blockPosToPlace, false);
+            return true;
+        }
+        return false;
+    }
+
     private void setBlockedFace(EnumFacing blockingPipeFace) {
         TileEntityPipeBase<?, ?> tileEntityPipeBase = getPipeEntity();
         if (tileEntityPipeBase != null) {
@@ -105,10 +150,15 @@ public class PipePlacerLogic {
     }
 
     @Nullable
-    private TileEntityPipeBase<?, ?> getPipeEntity() {
-        TileEntity tileEntity = pipePlacer.getWorld().getTileEntity(blockPosToPlace);
+    private TileEntityPipeBase<?, ?> getPipeEntity(BlockPos blockPos) {
+        TileEntity tileEntity = pipePlacer.getWorld().getTileEntity(blockPos);
         if (tileEntity instanceof TileEntityPipeBase<?, ?>tileEntityPipeBase) {
             return tileEntityPipeBase;
         } else return null;
+    }
+
+    @Nullable
+    private TileEntityPipeBase<?, ?> getPipeEntity() {
+        return getPipeEntity(blockPosToPlace);
     }
 }

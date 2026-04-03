@@ -82,13 +82,21 @@ public class MTePipePlacer extends TieredMetaTileEntity implements IOnFileClick 
     public void update() {
         super.update();
         if (!getWorld().isRemote) {
+
             ((EnergyContainerHandler) this.energyContainer).dischargeOrRechargeEnergyContainers(chargerInventory, 0);
-            if (getOffsetTimer() % getTimePerOperation() == 0) {
-                if (this.energyContainer.getEnergyStored() >= getEuPerOperation()) {
-                    if (pipePlacerLogic.placePipe()) {
-                        this.energyContainer.changeEnergy(-getEuPerOperation());
-                    }
-                }
+
+            if (getOffsetTimer() % getTimePerOperation() == 0 &&
+                    !isBlockRedstonePowered() &&
+                    this.energyContainer.getEnergyStored() >= getEuPerOperation()) {
+
+                boolean didOperate;
+
+                if (pipePlacerBehavior == PipePlacerBehavior.PLACE) {
+                    didOperate = pipePlacerLogic.placePipe();
+                } else didOperate = pipePlacerLogic.removePipe();
+
+                if (didOperate) this.energyContainer.changeEnergy(-getEuPerOperation());
+
             }
         }
         checkWeatherOrTerrainExplosion(getTier(), getTier() * 10, energyContainer);
