@@ -2,12 +2,14 @@ package tkcy.tktech.api.logic;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import gregtech.api.pipenet.block.ItemBlockPipe;
+import gregtech.api.pipenet.tile.TileEntityPipeBase;
 import gregtech.api.unification.OreDictUnifier;
 import gregtech.api.unification.stack.UnificationEntry;
 
@@ -61,6 +63,7 @@ public class PipePlacerLogic {
         boolean didPlace = placePipe(pipeStack);
         if (didPlace) {
             pipeStack.shrink(1);
+            setBlockedFace();
             return true;
         } else return false;
     }
@@ -85,5 +88,12 @@ public class PipePlacerLogic {
                 pipePlacer.getFrontFacing(),
                 1.0f, 1.0f, 1.0f,
                 blockState);
+    }
+
+    private void setBlockedFace() {
+        TileEntity tileEntity = pipePlacer.getWorld().getTileEntity(blockPosToPlace);
+        if (tileEntity instanceof TileEntityPipeBase<?, ?>tileEntityPipeBase) {
+            tileEntityPipeBase.setFaceBlocked(pipePlacer.getFrontFacing(), true);
+        }
     }
 }

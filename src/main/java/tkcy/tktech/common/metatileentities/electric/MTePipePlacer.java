@@ -1,13 +1,13 @@
 package tkcy.tktech.common.metatileentities.electric;
 
-import static gregtech.api.capability.GregtechDataCodes.*;
-
 import java.util.List;
 
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -28,20 +28,26 @@ import gregtech.api.metatileentity.TieredMetaTileEntity;
 import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
 import gregtech.client.renderer.texture.Textures;
 
+import codechicken.lib.raytracer.CuboidRayTraceResult;
 import codechicken.lib.render.CCRenderState;
 import codechicken.lib.render.pipeline.IVertexOperation;
 import codechicken.lib.vec.Matrix4;
 import lombok.Getter;
+import tkcy.tktech.api.logic.BlockingPipeFaceBehavior;
+import tkcy.tktech.api.logic.PipePlacerBehavior;
 import tkcy.tktech.api.logic.PipePlacerLogic;
+import tkcy.tktech.api.machines.IOnFileClick;
 import tkcy.tktech.api.utils.StreamHelper;
 
-public class MTePipePlacer extends TieredMetaTileEntity {
+public class MTePipePlacer extends TieredMetaTileEntity implements IOnFileClick {
 
     protected final GTItemStackHandler chargerInventory;
     private final int inventorySize;
     private final PipePlacerLogic pipePlacerLogic;
     @Getter
     private final int maxRange;
+    private BlockingPipeFaceBehavior blockingPipeFaceBehavior = BlockingPipeFaceBehavior.NONE;
+    private PipePlacerBehavior pipePlacerBehavior = PipePlacerBehavior.PLACE;
 
     public MTePipePlacer(ResourceLocation metaTileEntityId, int tier) {
         super(metaTileEntityId, tier);
@@ -123,15 +129,46 @@ public class MTePipePlacer extends TieredMetaTileEntity {
     }
 
     @Override
+    public void addToolUsages(ItemStack stack, @Nullable World world, List<String> tooltip, boolean advanced) {
+        tooltip.add(I18n.format("tktech.pipeplacer.onScrewdriverClick.tooltip"));
+        tooltip.add(I18n.format("tktech.pipeplacer.onFileClick.tooltip"));
+        super.addToolUsages(stack, world, tooltip, advanced);
+    }
+
+    @Override
+    public boolean onScrewdriverClick(EntityPlayer playerIn, EnumHand hand, EnumFacing facing,
+                                      CuboidRayTraceResult hitResult) {
+        if (playerIn.isSneaking()) {
+            blockingPipeFaceBehavior = blockingPipeFaceBehavior.next();
+            playerIn.sendMessage(blockingPipeFaceBehavior.getMessage());
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onFileClick(EntityPlayer playerIn, EnumHand hand, EnumFacing facing,
+                               CuboidRayTraceResult hitResult) {
+        if (playerIn.isSneaking()) {
+            pipePlacerBehavior = pipePlacerBehavior.next();
+            playerIn.sendMessage(pipePlacerBehavior.getMessage());
+        }
+        return true;
+    }
+
+    @Override
     public NBTTagCompound writeToNBT(NBTTagCompound data) {
         super.writeToNBT(data);
         data.setTag("ChargerInventory", chargerInventory.serializeNBT());
+        blockingPipeFaceBehavior.serialize(data);
+        pipePlacerBehavior.serialize(data);
         return data;
     }
 
     @Override
     public void readFromNBT(NBTTagCompound data) {
         super.readFromNBT(data);
-        this.chargerInventory.deserializeNBT(data.getCompoundTag("ChargerInventory"));
+        chargerInventory.deserializeNBT(data.getCompoundTag("ChargerInventory"));
+        blockingPipeFaceBehavior = blockingPipeFaceBehavior.deserialize(data);
+        pipePlacerBehavior = pipePlacerBehavior.deserialize(data);
     }
 }
