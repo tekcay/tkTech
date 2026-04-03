@@ -46,7 +46,9 @@ public class MTePipePlacer extends TieredMetaTileEntity implements IOnFileClick 
     private final PipePlacerLogic pipePlacerLogic;
     @Getter
     private final int maxRange;
+    @Getter
     private BlockingPipeFaceBehavior blockingPipeFaceBehavior = BlockingPipeFaceBehavior.NONE;
+    @Getter
     private PipePlacerBehavior pipePlacerBehavior = PipePlacerBehavior.PLACE;
 
     public MTePipePlacer(ResourceLocation metaTileEntityId, int tier) {

@@ -3,6 +3,7 @@ package tkcy.tktech.api.logic;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 
 import org.jetbrains.annotations.NotNull;
@@ -58,12 +59,18 @@ public class PipePlacerLogic {
     public boolean placePipe() {
         ItemStack pipeStack = getPipeStack();
         if (pipeStack == null) return false;
+
         setBlockPosToPlace();
         if (blockPosToPlace == null) return false;
+
         boolean didPlace = placePipe(pipeStack);
         if (didPlace) {
             pipeStack.shrink(1);
-            setBlockedFace();
+
+            EnumFacing blockingPipeFace = pipePlacer.getBlockingPipeFaceBehavior().getBlockingPipeFace(pipePlacer);
+            if (blockingPipeFace != null) {
+                setBlockedFace(blockingPipeFace);
+            }
             return true;
         } else return false;
     }
@@ -90,10 +97,18 @@ public class PipePlacerLogic {
                 blockState);
     }
 
-    private void setBlockedFace() {
+    private void setBlockedFace(EnumFacing blockingPipeFace) {
+        TileEntityPipeBase<?, ?> tileEntityPipeBase = getPipeEntity();
+        if (tileEntityPipeBase != null) {
+            tileEntityPipeBase.setFaceBlocked(blockingPipeFace, true);
+        }
+    }
+
+    @Nullable
+    private TileEntityPipeBase<?, ?> getPipeEntity() {
         TileEntity tileEntity = pipePlacer.getWorld().getTileEntity(blockPosToPlace);
         if (tileEntity instanceof TileEntityPipeBase<?, ?>tileEntityPipeBase) {
-            tileEntityPipeBase.setFaceBlocked(pipePlacer.getFrontFacing(), true);
-        }
+            return tileEntityPipeBase;
+        } else return null;
     }
 }

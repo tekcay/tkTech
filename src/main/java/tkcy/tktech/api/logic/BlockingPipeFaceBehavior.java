@@ -1,9 +1,13 @@
 package tkcy.tktech.api.logic;
 
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 
+import org.jetbrains.annotations.Nullable;
+
 import tkcy.tktech.api.utils.IEnumUtils;
+import tkcy.tktech.common.metatileentities.electric.MTePipePlacer;
 
 public enum BlockingPipeFaceBehavior implements IEnumUtils<BlockingPipeFaceBehavior> {
 
@@ -13,6 +17,15 @@ public enum BlockingPipeFaceBehavior implements IEnumUtils<BlockingPipeFaceBehav
 
     public ITextComponent getMessage() {
         return new TextComponentString("tktech.pipeplacer.blockingFaceBehavior." + this.name());
+    }
+
+    @Nullable
+    public EnumFacing getBlockingPipeFace(MTePipePlacer pipePlacer) {
+        return switch (this) {
+            case OPPOSITE -> pipePlacer.getFrontFacing().getOpposite();
+            case FRONT_FACING -> pipePlacer.getFrontFacing();
+            default -> null;
+        };
     }
 
     @Override
