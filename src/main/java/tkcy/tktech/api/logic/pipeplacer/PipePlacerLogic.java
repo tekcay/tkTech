@@ -1,4 +1,4 @@
-package tkcy.tktech.api.logic;
+package tkcy.tktech.api.logic.pipeplacer;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -103,7 +103,7 @@ public class PipePlacerLogic {
         if (didPlace) {
             pipeStack.shrink(1);
 
-            EnumFacing blockingPipeFace = pipePlacer.getBlockingPipeFaceBehavior().getBlockingPipeFace(pipePlacer);
+            EnumFacing blockingPipeFace = pipePlacer.getBlockingFaceBehavior().getBlockingPipeFace(pipePlacer);
             if (blockingPipeFace != null && !isPipeStackLongDistance) {
                 setBlockedFace(blockingPipeFace);
             }

@@ -7,7 +7,6 @@ public enum PipePlacerPaintingBehavior implements IEnumUtils<PipePlacerPaintingB
     NONE,
     PAINT,
     REMOVAL;
-    ;
 
     @Override
     public PipePlacerPaintingBehavior getEnum() {
