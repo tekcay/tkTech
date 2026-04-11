@@ -1,6 +1,9 @@
 package tkcy.tktech.api.logic;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -12,10 +15,9 @@ import org.jetbrains.annotations.Nullable;
 import gregtech.api.pipenet.block.ItemBlockPipe;
 import gregtech.api.pipenet.block.material.BlockMaterialPipe;
 import gregtech.api.pipenet.block.material.IMaterialPipeTile;
+import gregtech.api.pipenet.longdist.BlockLongDistancePipe;
 import gregtech.api.pipenet.tile.TileEntityPipeBase;
-import gregtech.api.unification.OreDictUnifier;
 import gregtech.api.unification.material.Material;
-import gregtech.api.unification.stack.UnificationEntry;
 import gregtech.api.util.GTTransferUtils;
 
 import tkcy.tktech.api.utils.StreamHelper;
@@ -26,16 +28,24 @@ public class PipePlacerLogic {
 
     private final MTePipePlacer pipePlacer;
     private BlockPos blockPosToPlace;
+    private boolean isPipeStackLongDistance;
 
     public PipePlacerLogic(MTePipePlacer pipePlacer) {
         this.pipePlacer = pipePlacer;
     }
 
     private boolean isPipeStack(@NotNull ItemStack itemStack) {
-        UnificationEntry unificationEntry = OreDictUnifier.getUnificationEntry(itemStack);
-        if (unificationEntry == null) return false;
-        if (unificationEntry.material == null) return false;
-        return unificationEntry.orePrefix.name().contains("pipe");
+        if (itemStack.getItem() instanceof ItemBlock itemBlock) {
+            if (itemBlock instanceof ItemBlockPipe<?, ?>) {
+                isPipeStackLongDistance = false;
+                return true;
+            }
+            if (itemBlock.getBlock() instanceof BlockLongDistancePipe) {
+                isPipeStackLongDistance = true;
+                return true;
+            }
+        }
+        return false;
     }
 
     private void setBlockPosToPlace() {
@@ -49,11 +59,21 @@ public class PipePlacerLogic {
     private void setBlockPosToRemove() {
         for (int offset = 1; offset < pipePlacer.getMaxRange(); offset++) {
             BlockPos blockPos = getBlockPos(offset);
+
             TileEntityPipeBase<?, ?> tileEntityPipeBase = getPipeEntity(blockPos);
-            if (tileEntityPipeBase == null) {
-                blockPosToPlace = getBlockPos(offset - 1);
-                return;
+            if (tileEntityPipeBase != null) {
+                isPipeStackLongDistance = false;
+                continue;
             }
+
+            BlockLongDistancePipe blockLongDistancePipe = getPipeBlock(blockPos);
+            if (blockLongDistancePipe != null) {
+                isPipeStackLongDistance = true;
+                continue;
+            }
+
+            blockPosToPlace = getBlockPos(offset - 1);
+            return;
         }
         blockPosToPlace = getBlockPos(pipePlacer.getMaxRange());
     }
@@ -84,7 +104,7 @@ public class PipePlacerLogic {
             pipeStack.shrink(1);
 
             EnumFacing blockingPipeFace = pipePlacer.getBlockingPipeFaceBehavior().getBlockingPipeFace(pipePlacer);
-            if (blockingPipeFace != null) {
+            if (blockingPipeFace != null && !isPipeStackLongDistance) {
                 setBlockedFace(blockingPipeFace);
             }
             return true;
@@ -92,9 +112,9 @@ public class PipePlacerLogic {
     }
 
     private boolean placePipe(@NotNull ItemStack pipeStack) {
-        ItemBlockPipe<?, ?> block = (ItemBlockPipe<?, ?>) pipeStack.getItem();
+        ItemBlock pipeBlock = (ItemBlock) pipeStack.getItem();
 
-        IBlockState blockState = block.getBlock().getStateForPlacement(
+        IBlockState blockState = pipeBlock.getBlock().getStateForPlacement(
                 pipePlacer.getWorld(),
                 blockPosToPlace,
                 pipePlacer.getFrontFacing(),
@@ -103,7 +123,7 @@ public class PipePlacerLogic {
                 null,
                 null);
 
-        return block.placeBlockAt(
+        return pipeBlock.placeBlockAt(
                 pipeStack,
                 null,
                 pipePlacer.getWorld(),
@@ -124,14 +144,25 @@ public class PipePlacerLogic {
         return null;
     }
 
+    private ItemStack getInWorldPipeStack(@NotNull BlockLongDistancePipe blockLongDistancePipe) {
+        return Item.getItemFromBlock(blockLongDistancePipe).getDefaultInstance();
+    }
+
     public boolean removePipe() {
         setBlockPosToRemove();
         if (blockPosToPlace == pipePlacer.getPos()) return false;
 
+        ItemStack pipeStack = ItemStack.EMPTY;
         TileEntityPipeBase<?, ?> te = getPipeEntity();
-        if (te == null) return false;
+        if (te != null) {
+            pipeStack = getInWorldPipeStack(te);
+        } else {
+            BlockLongDistancePipe blockLongDistancePipe = getPipeBlock(blockPosToPlace);
+            if (blockLongDistancePipe != null) {
+                pipeStack = getInWorldPipeStack(blockLongDistancePipe);
+            }
+        }
 
-        ItemStack pipeStack = getInWorldPipeStack(te);
         if (pipeStack == null) return false;
 
         if (GTTransferUtils.insertItem(pipePlacer.getImportItems(), pipeStack, true).isEmpty()) {
@@ -147,6 +178,14 @@ public class PipePlacerLogic {
         if (tileEntityPipeBase != null) {
             tileEntityPipeBase.setFaceBlocked(blockingPipeFace, true);
         }
+    }
+
+    @Nullable
+    private BlockLongDistancePipe getPipeBlock(BlockPos blockPos) {
+        Block block = pipePlacer.getWorld().getBlockState(blockPos).getBlock();
+        if (block instanceof BlockLongDistancePipe blockLongDistancePipe) {
+            return blockLongDistancePipe;
+        } else return null;
     }
 
     @Nullable
