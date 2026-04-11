@@ -1,4 +1,4 @@
-package tkcy.tktech.api.logic;
+package tkcy.tktech.api.logic.pipeplacer;
 
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.text.ITextComponent;
@@ -41,5 +41,10 @@ public enum BlockingPipeFaceBehavior implements IEnumUtils<BlockingPipeFaceBehav
     @Override
     public String getNBTKey() {
         return "BlockingPipeFaceBehavior";
+    }
+
+    @Override
+    public String getButtonLocalizationKey() {
+        return "tktech.pipeplacer.blockingFaceBehavior.button";
     }
 }
