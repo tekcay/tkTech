@@ -3,6 +3,7 @@ package tkcy.tktech.common.metatileentities.electric;
 import static tkcy.tktech.api.utils.IEnumUtils.getMaxButtonWidth;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.IntConsumer;
 
 import net.minecraft.client.resources.I18n;
@@ -13,6 +14,8 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.IItemHandlerModifiable;
@@ -29,6 +32,7 @@ import gregtech.api.items.itemhandlers.GTItemStackHandler;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.TieredMetaTileEntity;
 import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
+import gregtech.api.unification.material.Materials;
 import gregtech.client.renderer.texture.Textures;
 
 import codechicken.lib.raytracer.CuboidRayTraceResult;
@@ -57,6 +61,8 @@ public class MTePipePlacer extends TieredMetaTileEntity implements IOnFileClick 
     private PipePlacerBehavior placingBehavior = PipePlacerBehavior.PLACE;
     @Getter
     private PipePlacerPaintingBehavior paintingBehavior = PipePlacerPaintingBehavior.NONE;
+    @Getter
+    private final FluidStack paintingRemovalFluid = Materials.Acetone.getFluid(1);
 
     private static final int PADDING = 3;
     private static final int SIZE = 18;
@@ -89,6 +95,11 @@ public class MTePipePlacer extends TieredMetaTileEntity implements IOnFileClick 
     }
 
     @Override
+    protected FluidTankList createImportFluidHandler() {
+        return new FluidTankList(false, new FluidTank(1000));
+    }
+
+    @Override
     public void update() {
         super.update();
         if (!getWorld().isRemote) {
@@ -99,16 +110,29 @@ public class MTePipePlacer extends TieredMetaTileEntity implements IOnFileClick 
                     !isBlockRedstonePowered() &&
                     this.energyContainer.getEnergyStored() >= getEuPerOperation()) {
 
-                boolean didOperate;
+                boolean didOperate = false;
 
-                if (placingBehavior == PipePlacerBehavior.PLACE) {
-                    didOperate = pipePlacerLogic.placePipe();
-                } else didOperate = pipePlacerLogic.removePipe();
+                if (placingBehavior != PipePlacerBehavior.REMOVAL) {
+                    if (placingBehavior == PipePlacerBehavior.PLACE) {
+                        didOperate = pipePlacerLogic.tryPlacePipe();
+                    }
+
+                    if (paintingBehavior == PipePlacerPaintingBehavior.PAINT) {
+                        didOperate = pipePlacerLogic.tryPaintPipe();
+                    } else if (paintingBehavior == PipePlacerPaintingBehavior.REMOVAL) {
+                        didOperate = pipePlacerLogic.tryRemovePipePainting();
+                    }
+
+                    if (blockingFaceBehavior != BlockingPipeFaceBehavior.NONE) {
+                        didOperate = pipePlacerLogic.tryBlockFacePipe();
+                    }
+
+                } else didOperate = pipePlacerLogic.tryRemovePipe();
 
                 if (didOperate) this.energyContainer.changeEnergy(-getEuPerOperation());
-
             }
         }
+        pipePlacerLogic.reset();
         checkWeatherOrTerrainExplosion(getTier(), getTier() * 10, energyContainer);
     }
 
@@ -138,10 +162,17 @@ public class MTePipePlacer extends TieredMetaTileEntity implements IOnFileClick 
                 18 + 18 * rowSize + 204)
                 .label(10, 5, getMetaFullName());
 
+        AtomicInteger x = new AtomicInteger();
         StreamHelper.initIntStream(inventorySize)
                 .forEach(slotIndex -> builder
-                        .widget(new SlotWidget(importItems, slotIndex, (18 + 1) * (slotIndex + 1), 18, true, true)
+                        .widget(new SlotWidget(importItems, slotIndex, x.addAndGet(19), 18, true, true)
                                 .setBackgroundTexture(GuiTextures.SLOT, GuiTextures.STRING_SLOT_OVERLAY)));
+
+        builder.widget(new TankWidget(importFluids.getTankAt(0), x.addAndGet(19), 18, 18, 18)
+                .setAlwaysShowFull(true)
+                .setBackgroundTexture(GuiTextures.FLUID_SLOT)
+                .setContainerClicking(true, true));
+
         int y = 40;
 
         placingBehavior.widget(builder, 20, y, () -> placingBehavior.ordinal(),

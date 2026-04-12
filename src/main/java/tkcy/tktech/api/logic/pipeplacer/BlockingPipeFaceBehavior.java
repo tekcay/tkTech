@@ -13,7 +13,8 @@ public enum BlockingPipeFaceBehavior implements IEnumUtils<BlockingPipeFaceBehav
 
     NONE,
     FRONT_FACING,
-    OPPOSITE;
+    OPPOSITE,
+    REMOVAL;
 
     public ITextComponent getMessage() {
         return new TextComponentString("tktech.pipeplacer.blockingFaceBehavior." + this.name());
