@@ -9,14 +9,14 @@ public enum PipePlacerBehavior implements IEnumUtils<PipePlacerBehavior> {
 
     NONE,
     PLACE,
-    REMOVAL;
+    REMOVE;
 
     public ITextComponent getMessage() {
         return new TextComponentString("tktech.pipeplacer.PipePlacerBehavior." + this.name());
     }
 
     @Override
-    public PipePlacerBehavior getEnum() {
+    public PipePlacerBehavior getValue() {
         return this;
     }
 
@@ -31,7 +31,7 @@ public enum PipePlacerBehavior implements IEnumUtils<PipePlacerBehavior> {
     }
 
     @Override
-    public String getButtonLocalizationKey() {
-        return "tktech.pipeplacer.pipePlacerBehavior.button";
+    public String getBaseLocalizationKey() {
+        return "tktech.pipeplacer.pipePlacerBehavior.";
     }
 }

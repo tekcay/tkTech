@@ -3,6 +3,7 @@ package tkcy.tktech.api.utils;
 import java.util.function.IntSupplier;
 import java.util.stream.Stream;
 
+import net.minecraft.client.resources.I18n;
 import net.minecraft.nbt.NBTTagCompound;
 
 import gregtech.api.gui.ModularUI;
@@ -17,20 +18,20 @@ public interface IEnumUtils<T extends Enum<?>> {
     int PADDING = 3;
     int SIZE = 18;
 
-    T getEnum();
+    T getValue();
 
     T[] getValues();
 
     String getNBTKey();
 
-    String getButtonLocalizationKey();
+    String getBaseLocalizationKey();
 
     default boolean isLastValue() {
-        return getEnum().ordinal() + 1 == getValues().length;
+        return getValue().ordinal() + 1 == getValues().length;
     }
 
     default void serialize(NBTTagCompound nbtTagCompound) {
-        nbtTagCompound.setInteger(getNBTKey(), getEnum().ordinal());
+        nbtTagCompound.setInteger(getNBTKey(), getValue().ordinal());
     }
 
     default T deserialize(NBTTagCompound nbtTagCompound) {
@@ -42,15 +43,8 @@ public interface IEnumUtils<T extends Enum<?>> {
         if (isLastValue()) {
             return getValues()[0];
         } else {
-            return getValues()[getEnum().ordinal() + 1];
+            return getValues()[getValue().ordinal() + 1];
         }
-    }
-
-    default String[] valuesString() {
-        String[] valuesString = new String[getValues().length];
-        StreamHelper.initIntStream(getValues().length)
-                .forEach(ordinal -> valuesString[ordinal] = getValues()[ordinal].name());
-        return valuesString;
     }
 
     default void widget(ModularUI.Builder builder, int x, int y, IntSupplier supplier, Runnable consumer) {
@@ -59,7 +53,7 @@ public interface IEnumUtils<T extends Enum<?>> {
     }
 
     default Widget label(int x, int y) {
-        return new LabelWidget(x, y, getButtonLocalizationKey());
+        return new LabelWidget(x, y, getBaseLocalizationKey() + "button");
     }
 
     default void cycleButton(ModularUI.Builder builder, int x, int y, IntSupplier intSupplie, Runnable onComplete) {
@@ -68,16 +62,26 @@ public interface IEnumUtils<T extends Enum<?>> {
                 y,
                 getMaxButtonWidth(this),
                 SIZE,
-                valuesString(),
+                valuesLocalizationKeys(this),
                 intSupplie,
                 i -> onComplete.run()));
     }
 
+    static String[] valuesLocalizationKeys(IEnumUtils<?> iEnumUtils) {
+        String[] valuesString = new String[iEnumUtils.getValues().length];
+
+        for (int ordinal = 0; ordinal < iEnumUtils.getValues().length; ordinal++) {
+            valuesString[ordinal] = iEnumUtils.getBaseLocalizationKey() + iEnumUtils.getValues()[ordinal].name();
+        }
+
+        return valuesString;
+    }
+
     static int getMaxButtonWidth(IEnumUtils<?> enumUtils) {
-        return Stream.of(enumUtils.getValues())
-                .map(Enum::toString)
+        return Stream.of(valuesLocalizationKeys(enumUtils))
+                .map(I18n::format)
                 .mapToInt(String::length)
                 .max()
-                .getAsInt() * 9 + PADDING;
+                .orElse(0) * 9 + PADDING;
     }
 }

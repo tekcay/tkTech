@@ -211,7 +211,7 @@ public class PipePlacerLogic {
     }
 
     public boolean tryBlockFacePipe() {
-        if (pipePlacer.getBlockingFaceBehavior() == BlockingPipeFaceBehavior.REMOVAL) {
+        if (pipePlacer.getBlockingFaceBehavior() == BlockingPipeFaceBehavior.REMOVE) {
 
             for (int offset = 1; offset < pipePlacer.getMaxRange(); offset++) {
                 BlockPos blockPos = getBlockPos(offset);

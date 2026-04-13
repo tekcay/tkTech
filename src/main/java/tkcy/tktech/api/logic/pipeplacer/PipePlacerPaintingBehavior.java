@@ -6,10 +6,10 @@ public enum PipePlacerPaintingBehavior implements IEnumUtils<PipePlacerPaintingB
 
     NONE,
     PAINT,
-    REMOVAL;
+    REMOVE;
 
     @Override
-    public PipePlacerPaintingBehavior getEnum() {
+    public PipePlacerPaintingBehavior getValue() {
         return this;
     }
 
@@ -24,7 +24,7 @@ public enum PipePlacerPaintingBehavior implements IEnumUtils<PipePlacerPaintingB
     }
 
     @Override
-    public String getButtonLocalizationKey() {
-        return "tktech.pipeplacer.pipePlacerPaintingBehavior.button";
+    public String getBaseLocalizationKey() {
+        return "tktech.pipeplacer.pipePlacerPaintingBehavior.";
     }
 }

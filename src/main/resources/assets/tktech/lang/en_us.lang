@@ -375,7 +375,7 @@ tktech.controller_proxy_hatch.tooltip.2=Can be used as an extra block to put cov
 tktech.pipeplacer.tooltip.range=Places pipes within a §f%d blocks§7 range
 tktech.pipeplacer.tooltip.eu_per_operation=Consumes §f%d EU§7 per operation
 tktech.pipeplacer.tooltip.time_per_operation=Operation takes §f%d ticks
-tktech.pipeplacer.onFileClick.tooltip=§8Use File to toggle place/removal mode
+tktech.pipeplacer.onFileClick.tooltip=§8Use File to toggle place/remove mode
 tktech.pipeplacer.onScrewdriverClick.tooltip=§8Use Screwdriver to toggle blocking face mode
 
 tktech.metatilentity.special_right.show_tooltips=Hold CTRL to show special Right-click behavior
@@ -430,6 +430,23 @@ behavior.tricorder.recipelogic.progress=Progress : %d / %d
 
 #Button headers
 tktech.multiblock.advanced_cleanroom.gas.header=Inert gas: %s
+
+tktech.pipeplacer.pipePlacerPaintingBehavior.button=Painting behavior
+tktech.pipeplacer.pipePlacerBehavior.button=Placing behavior
+tktech.pipeplacer.blockingFaceBehavior.button=Blocking behavior
+
+tktech.pipeplacer.pipePlacerBehavior.NONE=NONE
+tktech.pipeplacer.pipePlacerBehavior.PLACE=PLACE
+tktech.pipeplacer.pipePlacerBehavior.REMOVE=REMOVE
+
+tktech.pipeplacer.blockingFaceBehavior.NONE=NONE
+tktech.pipeplacer.blockingFaceBehavior.FRONT_FACING=OUTWARD
+tktech.pipeplacer.blockingFaceBehavior.OPPOSITE=INWARD
+tktech.pipeplacer.blockingFaceBehavior.REMOVE=REMOVE
+
+tktech.pipeplacer.pipePlacerPaintingBehavior.NONE=NONE
+tktech.pipeplacer.pipePlacerPaintingBehavior.PAINT=PAINT
+tktech.pipeplacer.pipePlacerPaintingBehavior.REMOVE=REMOVE
 
 #JEI
 

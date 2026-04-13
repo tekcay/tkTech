@@ -14,7 +14,7 @@ public enum BlockingPipeFaceBehavior implements IEnumUtils<BlockingPipeFaceBehav
     NONE,
     FRONT_FACING,
     OPPOSITE,
-    REMOVAL;
+    REMOVE;
 
     public ITextComponent getMessage() {
         return new TextComponentString("tktech.pipeplacer.blockingFaceBehavior." + this.name());
@@ -30,7 +30,7 @@ public enum BlockingPipeFaceBehavior implements IEnumUtils<BlockingPipeFaceBehav
     }
 
     @Override
-    public BlockingPipeFaceBehavior getEnum() {
+    public BlockingPipeFaceBehavior getValue() {
         return this;
     }
 
@@ -45,7 +45,7 @@ public enum BlockingPipeFaceBehavior implements IEnumUtils<BlockingPipeFaceBehav
     }
 
     @Override
-    public String getButtonLocalizationKey() {
-        return "tktech.pipeplacer.blockingFaceBehavior.button";
+    public String getBaseLocalizationKey() {
+        return "tktech.pipeplacer.blockingFaceBehavior.";
     }
 }

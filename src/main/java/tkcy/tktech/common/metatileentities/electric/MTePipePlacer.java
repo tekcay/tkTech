@@ -1,10 +1,7 @@
 package tkcy.tktech.common.metatileentities.electric;
 
-import static tkcy.tktech.api.utils.IEnumUtils.getMaxButtonWidth;
-
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.function.IntConsumer;
 
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
@@ -45,7 +42,6 @@ import tkcy.tktech.api.logic.pipeplacer.PipePlacerBehavior;
 import tkcy.tktech.api.logic.pipeplacer.PipePlacerLogic;
 import tkcy.tktech.api.logic.pipeplacer.PipePlacerPaintingBehavior;
 import tkcy.tktech.api.machines.IOnFileClick;
-import tkcy.tktech.api.utils.IEnumUtils;
 import tkcy.tktech.api.utils.StreamHelper;
 
 public class MTePipePlacer extends TieredMetaTileEntity implements IOnFileClick {
@@ -107,19 +103,19 @@ public class MTePipePlacer extends TieredMetaTileEntity implements IOnFileClick 
             ((EnergyContainerHandler) this.energyContainer).dischargeOrRechargeEnergyContainers(chargerInventory, 0);
 
             if (getOffsetTimer() % getTimePerOperation() == 0 &&
-                    !isBlockRedstonePowered() &&
+                    isBlockRedstonePowered() &&
                     this.energyContainer.getEnergyStored() >= getEuPerOperation()) {
 
                 boolean didOperate = false;
 
-                if (placingBehavior != PipePlacerBehavior.REMOVAL) {
+                if (placingBehavior != PipePlacerBehavior.REMOVE) {
                     if (placingBehavior == PipePlacerBehavior.PLACE) {
                         didOperate = pipePlacerLogic.tryPlacePipe();
                     }
 
                     if (paintingBehavior == PipePlacerPaintingBehavior.PAINT) {
                         didOperate = pipePlacerLogic.tryPaintPipe();
-                    } else if (paintingBehavior == PipePlacerPaintingBehavior.REMOVAL) {
+                    } else if (paintingBehavior == PipePlacerPaintingBehavior.REMOVE) {
                         didOperate = pipePlacerLogic.tryRemovePipePainting();
                     }
 
@@ -143,23 +139,12 @@ public class MTePipePlacer extends TieredMetaTileEntity implements IOnFileClick 
         Textures.PIPE_OUT_OVERLAY.renderSided(getFrontFacing(), renderState, translation, pipeline);
     }
 
-    private ModularUI.Builder mp(ModularUI.Builder builder, int y, IEnumUtils<?> enumUtils, IntConsumer consumer) {
-        return builder.widget(new CycleButtonWidget(
-                20,
-                y,
-                getMaxButtonWidth(placingBehavior),
-                SIZE,
-                enumUtils.valuesString(),
-                () -> enumUtils.getEnum().ordinal(),
-                consumer));
-    }
-
     @Override
     protected ModularUI createUI(EntityPlayer entityPlayer) {
         int rowSize = (int) Math.sqrt(inventorySize);
 
         ModularUI.Builder builder = ModularUI.builder(GuiTextures.BACKGROUND, 176,
-                18 + 18 * rowSize + 204)
+                18 + 18 * rowSize + 164)
                 .label(10, 5, getMetaFullName());
 
         AtomicInteger x = new AtomicInteger();
@@ -196,6 +181,7 @@ public class MTePipePlacer extends TieredMetaTileEntity implements IOnFileClick 
                 GTValues.VNF[getTier()]));
         tooltip.add(
                 I18n.format("gregtech.universal.tooltip.energy_storage_capacity", energyContainer.getEnergyCapacity()));
+        tooltip.add(I18n.format("gregtech.universal.tooltip.requires_redstone"));
     }
 
     @Override
