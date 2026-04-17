@@ -31,11 +31,11 @@ public interface IEnumUtils<T extends Enum<?>> {
     }
 
     default void serialize(NBTTagCompound nbtTagCompound) {
-        nbtTagCompound.setInteger(getNBTKey(), getValue().ordinal());
+        nbtTagCompound.setByte(getNBTKey(), (byte) getValue().ordinal());
     }
 
     default T deserialize(NBTTagCompound nbtTagCompound) {
-        int ordinal = nbtTagCompound.getInteger(getNBTKey());
+        byte ordinal = nbtTagCompound.getByte(getNBTKey());
         return getValues()[ordinal];
     }
 
