@@ -228,7 +228,7 @@ public class PipePlacerLogic {
         }
         EnumFacing blockingPipeFace = pipePlacer.getBlockingFaceBehavior().getBlockingPipeFace(pipePlacer);
         pipeEntityAtBlockPos = getPipeToWorkOn(pipe -> !pipe.isFaceBlocked(blockingPipeFace));
-        if (pipeEntityAtBlockPos == null) return true;
+        if (pipeEntityAtBlockPos == null) return false;
 
         pipeEntityAtBlockPos.setFaceBlocked(blockingPipeFace.getOpposite(), false);
         pipeEntityAtBlockPos.setFaceBlocked(blockingPipeFace, true);

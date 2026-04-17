@@ -7,6 +7,7 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
@@ -21,6 +22,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import gregtech.api.GTValues;
+import gregtech.api.capability.IControllable;
 import gregtech.api.capability.impl.*;
 import gregtech.api.gui.GuiTextures;
 import gregtech.api.gui.ModularUI;
@@ -43,8 +45,9 @@ import tkcy.tktech.api.logic.pipeplacer.PipePlacerLogic;
 import tkcy.tktech.api.logic.pipeplacer.PipePlacerPaintingBehavior;
 import tkcy.tktech.api.machines.IOnFileClick;
 import tkcy.tktech.api.utils.StreamHelper;
+import tkcy.tktech.modules.TkTechDataCodes;
 
-public class MTePipePlacer extends TieredMetaTileEntity implements IOnFileClick {
+public class MTePipePlacer extends TieredMetaTileEntity implements IOnFileClick, IControllable {
 
     protected final GTItemStackHandler chargerInventory;
     private final int inventorySize;
@@ -59,6 +62,8 @@ public class MTePipePlacer extends TieredMetaTileEntity implements IOnFileClick 
     private PipePlacerPaintingBehavior paintingBehavior = PipePlacerPaintingBehavior.NONE;
     @Getter
     private final FluidStack paintingRemovalFluid = Materials.Acetone.getFluid(1);
+    private int lastEuConsumption;
+    private int euConsumption;
 
     private static final int PADDING = 3;
     private static final int SIZE = 18;
@@ -72,7 +77,7 @@ public class MTePipePlacer extends TieredMetaTileEntity implements IOnFileClick 
         initializeInventory();
     }
 
-    public int getTimePerOperation() {
+    public int getTicksPerOperation() {
         return 20 / (getTier() + 1);
     }
 
@@ -95,6 +100,31 @@ public class MTePipePlacer extends TieredMetaTileEntity implements IOnFileClick 
         return new FluidTankList(false, new FluidTank(1000));
     }
 
+    private int getPotentialEnergyConsumption() {
+        int operations = 0;
+        if (placingBehavior == PipePlacerBehavior.REMOVE) {
+            return getEuPerOperation();
+        }
+
+        if (placingBehavior == PipePlacerBehavior.PLACE) operations++;
+        if (blockingFaceBehavior != BlockingPipeFaceBehavior.NONE) operations++;
+        if (paintingBehavior != PipePlacerPaintingBehavior.NONE) operations++;
+        return operations * getEuPerOperation();
+    }
+
+    private boolean hasEnoughPower() {
+        return this.energyContainer.getEnergyStored() >= getEuPerOperation();
+    }
+
+    private boolean hasEnoughPowerForAll() {
+        return this.energyContainer.getEnergyStored() >= getPotentialEnergyConsumption();
+    }
+
+    private void consumePower() {
+        this.energyContainer.changeEnergy(-getEuPerOperation());
+        euConsumption += getEuPerOperation();
+    }
+
     @Override
     public void update() {
         super.update();
@@ -102,30 +132,32 @@ public class MTePipePlacer extends TieredMetaTileEntity implements IOnFileClick 
 
             ((EnergyContainerHandler) this.energyContainer).dischargeOrRechargeEnergyContainers(chargerInventory, 0);
 
-            if (getOffsetTimer() % getTimePerOperation() == 0 &&
+            if (getOffsetTimer() % getTicksPerOperation() == 0 &&
                     isBlockRedstonePowered() &&
-                    this.energyContainer.getEnergyStored() >= getEuPerOperation()) {
-
-                boolean didOperate = false;
+                    hasEnoughPowerForAll()) {
+                setLastEuConsumption(euConsumption);
+                euConsumption = 0;
 
                 if (placingBehavior != PipePlacerBehavior.REMOVE) {
-                    if (placingBehavior == PipePlacerBehavior.PLACE) {
-                        didOperate = pipePlacerLogic.tryPlacePipe();
+                    if (placingBehavior == PipePlacerBehavior.PLACE && hasEnoughPower()) {
+                        if (pipePlacerLogic.tryPlacePipe()) consumePower();
                     }
 
-                    if (paintingBehavior == PipePlacerPaintingBehavior.PAINT) {
-                        didOperate = pipePlacerLogic.tryPaintPipe();
-                    } else if (paintingBehavior == PipePlacerPaintingBehavior.REMOVE) {
-                        didOperate = pipePlacerLogic.tryRemovePipePainting();
+                    if (hasEnoughPower()) {
+
+                        if (paintingBehavior == PipePlacerPaintingBehavior.PAINT) {
+                            if (pipePlacerLogic.tryPaintPipe()) consumePower();
+
+                        } else if (paintingBehavior == PipePlacerPaintingBehavior.REMOVE) {
+                            if (pipePlacerLogic.tryRemovePipePainting()) consumePower();
+                        }
                     }
 
-                    if (blockingFaceBehavior != BlockingPipeFaceBehavior.NONE) {
-                        didOperate = pipePlacerLogic.tryBlockFacePipe();
+                    if (blockingFaceBehavior != BlockingPipeFaceBehavior.NONE && hasEnoughPower()) {
+                        if (pipePlacerLogic.tryBlockFacePipe()) consumePower();
                     }
 
-                } else didOperate = pipePlacerLogic.tryRemovePipe();
-
-                if (didOperate) this.energyContainer.changeEnergy(-getEuPerOperation());
+                } else if (pipePlacerLogic.tryRemovePipe()) consumePower();
             }
         }
         pipePlacerLogic.reset();
@@ -167,7 +199,15 @@ public class MTePipePlacer extends TieredMetaTileEntity implements IOnFileClick 
         paintingBehavior.widget(builder, 20, y += 30, () -> paintingBehavior.ordinal(),
                 () -> paintingBehavior = paintingBehavior.next());
 
-        builder.bindPlayerInventory(entityPlayer.inventory, GuiTextures.SLOT, 7, 18 + 18 * 6 + 12);
+        builder.dynamicLabel(
+                7,
+                y += 30,
+                () -> I18n.format(
+                        "tktech.pipeplacer.dynamicLabel.energyConsumption",
+                        lastEuConsumption / getTicksPerOperation()),
+                0x232323);
+
+        builder.bindPlayerInventory(entityPlayer.inventory, GuiTextures.SLOT, 7, y += 20);
         return builder.build(getHolder(), entityPlayer);
     }
 
@@ -176,7 +216,7 @@ public class MTePipePlacer extends TieredMetaTileEntity implements IOnFileClick 
                                boolean advanced) {
         tooltip.add(I18n.format("tktech.pipeplacer.tooltip.range", getMaxRange()));
         tooltip.add(I18n.format("tktech.pipeplacer.tooltip.eu_per_operation", getEuPerOperation()));
-        tooltip.add(I18n.format("tktech.pipeplacer.tooltip.time_per_operation", getTimePerOperation()));
+        tooltip.add(I18n.format("tktech.pipeplacer.tooltip.time_per_operation", getTicksPerOperation()));
         tooltip.add(I18n.format("gregtech.universal.tooltip.voltage_in", energyContainer.getInputVoltage(),
                 GTValues.VNF[getTier()]));
         tooltip.add(
@@ -211,6 +251,21 @@ public class MTePipePlacer extends TieredMetaTileEntity implements IOnFileClick 
         return true;
     }
 
+    public void setLastEuConsumption(int eu) {
+        if (this.lastEuConsumption != eu) {
+            this.lastEuConsumption = eu;
+            this.writeCustomData(TkTechDataCodes.LAST_ENERGY, packetBuffer -> packetBuffer.writeInt(eu));
+        }
+    }
+
+    @Override
+    public void receiveCustomData(int dataId, @NotNull PacketBuffer buf) {
+        super.receiveCustomData(dataId, buf);
+        if (dataId == TkTechDataCodes.LAST_ENERGY) {
+            this.lastEuConsumption = buf.readInt();
+        }
+    }
+
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound data) {
         super.writeToNBT(data);
@@ -229,4 +284,12 @@ public class MTePipePlacer extends TieredMetaTileEntity implements IOnFileClick 
         placingBehavior = placingBehavior.deserialize(data);
         paintingBehavior = paintingBehavior.deserialize(data);
     }
+
+    @Override
+    public boolean isWorkingEnabled() {
+        return isBlockRedstonePowered();
+    }
+
+    @Override
+    public void setWorkingEnabled(boolean isWorkingAllowed) {}
 }

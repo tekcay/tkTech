@@ -448,6 +448,8 @@ tktech.pipeplacer.pipePlacerPaintingBehavior.NONE=NONE
 tktech.pipeplacer.pipePlacerPaintingBehavior.PAINT=PAINT
 tktech.pipeplacer.pipePlacerPaintingBehavior.REMOVE=REMOVE
 
+tktech.pipeplacer.dynamicLabel.energyConsumption=Consumes %d EU/t
+
 #JEI
 
 ##Categories
