@@ -206,6 +206,12 @@ tktech.machine.rolling_mill.hv.name=Rolling Mill HV
 tktech.machine.rolling_mill.ev.name=Rolling Mill EV
 tktech.machine.rolling_mill.iv.name=Rolling Mill IV
 
+tktech.machine.pipe_placer.lv.name=Pipe Placer LV
+tktech.machine.pipe_placer.mv.name=Pipe Placer MV
+tktech.machine.pipe_placer.hv.name=Pipe Placer HV
+tktech.machine.pipe_placer.ev.name=Pipe Placer EV
+tktech.machine.pipe_placer.iv.name=Pipe Placer IV
+
 tktech.machine.anvil.name=Anvil
 tktech.machine.basic_electronic.name=Basic Electronic Worker
 tktech.machine.wood_workshop.name=Wood Workshop
@@ -366,6 +372,12 @@ tktech.machine.cleanroom.tooltip.2=Uses both EU/t and gas based on cleanroom siz
 tktech.controller_proxy_hatch.tooltip.1=Controls the multiblock remotely.
 tktech.controller_proxy_hatch.tooltip.2=Can be used as an extra block to put covers on.
 
+tktech.pipeplacer.tooltip.range=Places pipes within a §f%d blocks§7 range
+tktech.pipeplacer.tooltip.blockingFaceBehavior=Can block pipe face
+tktech.pipeplacer.tooltip.paintingBehavior=Can paint pipe with liquid dye or remove painting with §b%s
+tktech.pipeplacer.tooltip.eu_per_operation=Consumes §f%d EU§7 per operation
+tktech.pipeplacer.tooltip.time_per_operation=Operation takes §f%d ticks
+
 tktech.metatilentity.special_right.show_tooltips=Hold CTRL to show special Right-click behavior
 tktech.metatileentity.transfer_output_to_player.tooltip=§dRight-click§7 with an §fempty hand§7 to get the machine §6output
 tktech.metatileentity.transfer_input_to_player.tooltip=§dRight-click§7 with an §fempty hand§7 to get the machine §ainput
@@ -418,6 +430,25 @@ behavior.tricorder.recipelogic.progress=Progress : %d / %d
 
 #Button headers
 tktech.multiblock.advanced_cleanroom.gas.header=Inert gas: %s
+
+tktech.pipeplacer.pipePlacerPaintingBehavior.button=Painting behavior
+tktech.pipeplacer.pipePlacerBehavior.button=Placing behavior
+tktech.pipeplacer.blockingFaceBehavior.button=Blocking behavior
+
+tktech.pipeplacer.pipePlacerBehavior.NONE=NONE
+tktech.pipeplacer.pipePlacerBehavior.PLACE=PLACE
+tktech.pipeplacer.pipePlacerBehavior.REMOVE=REMOVE
+
+tktech.pipeplacer.blockingFaceBehavior.NONE=NONE
+tktech.pipeplacer.blockingFaceBehavior.FRONT_FACING=OUTWARD
+tktech.pipeplacer.blockingFaceBehavior.OPPOSITE=INWARD
+tktech.pipeplacer.blockingFaceBehavior.REMOVE=REMOVE
+
+tktech.pipeplacer.pipePlacerPaintingBehavior.NONE=NONE
+tktech.pipeplacer.pipePlacerPaintingBehavior.PAINT=PAINT
+tktech.pipeplacer.pipePlacerPaintingBehavior.REMOVE=REMOVE
+
+tktech.pipeplacer.dynamicLabel.energyConsumption=Consumes %d EU/t
 
 #JEI
 

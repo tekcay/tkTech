@@ -15,6 +15,7 @@ public class TkTechDataCodes {
     public static final int UPDATE_ITEM_COUNT = assignId();
     public static final int TOTAL_CAPACITY = assignId();
     public static int CLEANROOM_TYPE_INDEX = assignId();
+    public static int LAST_ENERGY = assignId();
 
     public static Consumer<PacketBuffer> getItemStackWriter(ItemStack itemStack) {
         return packetBuffer -> packetBuffer.writeItemStack(itemStack);
