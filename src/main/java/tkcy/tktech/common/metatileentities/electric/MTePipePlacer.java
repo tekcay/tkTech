@@ -49,7 +49,7 @@ import tkcy.tktech.api.machines.IOnFileClick;
 import tkcy.tktech.api.utils.StreamHelper;
 import tkcy.tktech.modules.TkTechDataCodes;
 
-public class MTePipePlacer extends TieredMetaTileEntity implements IOnFileClick, IControllable {
+public class MTePipePlacer extends TieredMetaTileEntity implements IControllable {
 
     protected final GTItemStackHandler chargerInventory;
     private final int inventorySize;
@@ -229,33 +229,6 @@ public class MTePipePlacer extends TieredMetaTileEntity implements IOnFileClick,
         tooltip.add(
                 I18n.format("gregtech.universal.tooltip.energy_storage_capacity", energyContainer.getEnergyCapacity()));
         tooltip.add(I18n.format("gregtech.universal.tooltip.requires_redstone"));
-    }
-
-    @Override
-    public void addToolUsages(ItemStack stack, @Nullable World world, List<String> tooltip, boolean advanced) {
-        tooltip.add(I18n.format("tktech.pipeplacer.onScrewdriverClick.tooltip"));
-        tooltip.add(I18n.format("tktech.pipeplacer.onFileClick.tooltip"));
-        super.addToolUsages(stack, world, tooltip, advanced);
-    }
-
-    @Override
-    public boolean onScrewdriverClick(EntityPlayer playerIn, EnumHand hand, EnumFacing facing,
-                                      CuboidRayTraceResult hitResult) {
-        if (playerIn.isSneaking()) {
-            blockingFaceBehavior = blockingFaceBehavior.next();
-            playerIn.sendMessage(blockingFaceBehavior.getMessage());
-        }
-        return true;
-    }
-
-    @Override
-    public boolean onFileClick(EntityPlayer playerIn, EnumHand hand, EnumFacing facing,
-                               CuboidRayTraceResult hitResult) {
-        if (playerIn.isSneaking()) {
-            placingBehavior = placingBehavior.next();
-            playerIn.sendMessage(placingBehavior.getMessage());
-        }
-        return true;
     }
 
     public void setLastEuConsumption(int eu) {

@@ -375,8 +375,6 @@ tktech.controller_proxy_hatch.tooltip.2=Can be used as an extra block to put cov
 tktech.pipeplacer.tooltip.range=Places pipes within a §f%d blocks§7 range
 tktech.pipeplacer.tooltip.eu_per_operation=Consumes §f%d EU§7 per operation
 tktech.pipeplacer.tooltip.time_per_operation=Operation takes §f%d ticks
-tktech.pipeplacer.onFileClick.tooltip=§8Use File to toggle place/remove mode
-tktech.pipeplacer.onScrewdriverClick.tooltip=§8Use Screwdriver to toggle blocking face mode
 
 tktech.metatilentity.special_right.show_tooltips=Hold CTRL to show special Right-click behavior
 tktech.metatileentity.transfer_output_to_player.tooltip=§dRight-click§7 with an §fempty hand§7 to get the machine §6output
