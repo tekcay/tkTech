@@ -12,6 +12,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fml.relauncher.Side;
@@ -22,6 +23,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import gregtech.api.GTValues;
+import gregtech.api.capability.GregtechTileCapabilities;
 import gregtech.api.capability.IControllable;
 import gregtech.api.capability.impl.*;
 import gregtech.api.gui.GuiTextures;
@@ -64,9 +66,6 @@ public class MTePipePlacer extends TieredMetaTileEntity implements IOnFileClick,
     private final FluidStack paintingRemovalFluid = Materials.Acetone.getFluid(1);
     private int lastEuConsumption;
     private int euConsumption;
-
-    private static final int PADDING = 3;
-    private static final int SIZE = 18;
 
     public MTePipePlacer(ResourceLocation metaTileEntityId, int tier) {
         super(metaTileEntityId, tier);
@@ -162,6 +161,14 @@ public class MTePipePlacer extends TieredMetaTileEntity implements IOnFileClick,
         }
         pipePlacerLogic.reset();
         checkWeatherOrTerrainExplosion(getTier(), getTier() * 10, energyContainer);
+    }
+
+    @Override
+    public <T> T getCapability(Capability<T> capability, EnumFacing side) {
+        if (capability == GregtechTileCapabilities.CAPABILITY_CONTROLLABLE) {
+            return GregtechTileCapabilities.CAPABILITY_CONTROLLABLE.cast(this);
+        }
+        return super.getCapability(capability, side);
     }
 
     @Override
