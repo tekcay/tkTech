@@ -373,6 +373,8 @@ tktech.controller_proxy_hatch.tooltip.1=Controls the multiblock remotely.
 tktech.controller_proxy_hatch.tooltip.2=Can be used as an extra block to put covers on.
 
 tktech.pipeplacer.tooltip.range=Places pipes within a §f%d blocks§7 range
+tktech.pipeplacer.tooltip.blockingFaceBehavior=Can block pipe face
+tktech.pipeplacer.tooltip.paintingBehavior=Can paint pipe with liquid dye or remove painting with §b%s
 tktech.pipeplacer.tooltip.eu_per_operation=Consumes §f%d EU§7 per operation
 tktech.pipeplacer.tooltip.time_per_operation=Operation takes §f%d ticks
 

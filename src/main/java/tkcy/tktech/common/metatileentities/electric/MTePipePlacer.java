@@ -222,6 +222,8 @@ public class MTePipePlacer extends TieredMetaTileEntity implements IControllable
     public void addInformation(ItemStack stack, @Nullable World player, @NotNull List<String> tooltip,
                                boolean advanced) {
         tooltip.add(I18n.format("tktech.pipeplacer.tooltip.range", getMaxRange()));
+        tooltip.add(I18n.format("tktech.pipeplacer.tooltip.blockingFaceBehavior"));
+        tooltip.add(I18n.format("tktech.pipeplacer.tooltip.paintingBehavior", getPaintingRemovalFluid().getLocalizedName()));
         tooltip.add(I18n.format("tktech.pipeplacer.tooltip.eu_per_operation", getEuPerOperation()));
         tooltip.add(I18n.format("tktech.pipeplacer.tooltip.time_per_operation", getTicksPerOperation()));
         tooltip.add(I18n.format("gregtech.universal.tooltip.voltage_in", energyContainer.getInputVoltage(),
