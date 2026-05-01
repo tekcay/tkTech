@@ -63,6 +63,7 @@ public class TkTechMetaTileEntities {
     public static SimpleMachineMetaTileEntity[] COMPONENT_ASSEMBLERS = new SimpleMachineMetaTileEntity[6];
     public static SimpleMachineMetaTileEntity[] ROLLING_MILLS = new SimpleMachineMetaTileEntity[6];
     public static MTePipePlacer[] PIPE_PLACERS = new MTePipePlacer[4];
+    public static MTeLightChemicalReactor LIGHT_CHEMICAL_REACTOR;
 
     public static MetaTileEntityModulableTankValve[] MODULABLE_TANK_VALVES = new MetaTileEntityModulableTankValve[StorageModule.TANK_MATERIALS
             .size()];
@@ -157,6 +158,8 @@ public class TkTechMetaTileEntities {
 
         BRICK_MUFFLER_HATCH = registerMetaTileEntity(4113, new MTeBrickMufflerHatch(tktech("brick_muffler_hatch")));
         REDSTONE_HATCH = registerMetaTileEntity(4114, new MTeControllerProxyHatch(tktech("controller_proxy_hatch")));
+        LIGHT_CHEMICAL_REACTOR = registerMetaTileEntity(4115,
+                new MTeLightChemicalReactor(tktech("light_chemical_reactor")));
 
         MaterialMetaTileEntity.registerMaterialMetaTileEntity(StorageModule.TANK_MATERIALS, MODULABLE_TANKS, 4200,
                 StorageModule::initModulableTank);
