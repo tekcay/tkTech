@@ -9,7 +9,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
@@ -36,7 +35,6 @@ import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
 import gregtech.api.unification.material.Materials;
 import gregtech.client.renderer.texture.Textures;
 
-import codechicken.lib.raytracer.CuboidRayTraceResult;
 import codechicken.lib.render.CCRenderState;
 import codechicken.lib.render.pipeline.IVertexOperation;
 import codechicken.lib.vec.Matrix4;
@@ -45,7 +43,6 @@ import tkcy.tktech.api.logic.pipeplacer.BlockingPipeFaceBehavior;
 import tkcy.tktech.api.logic.pipeplacer.PipePlacerBehavior;
 import tkcy.tktech.api.logic.pipeplacer.PipePlacerLogic;
 import tkcy.tktech.api.logic.pipeplacer.PipePlacerPaintingBehavior;
-import tkcy.tktech.api.machines.IOnFileClick;
 import tkcy.tktech.api.utils.StreamHelper;
 import tkcy.tktech.modules.TkTechDataCodes;
 
@@ -223,7 +220,8 @@ public class MTePipePlacer extends TieredMetaTileEntity implements IControllable
                                boolean advanced) {
         tooltip.add(I18n.format("tktech.pipeplacer.tooltip.range", getMaxRange()));
         tooltip.add(I18n.format("tktech.pipeplacer.tooltip.blockingFaceBehavior"));
-        tooltip.add(I18n.format("tktech.pipeplacer.tooltip.paintingBehavior", getPaintingRemovalFluid().getLocalizedName()));
+        tooltip.add(I18n.format("tktech.pipeplacer.tooltip.paintingBehavior",
+                getPaintingRemovalFluid().getLocalizedName()));
         tooltip.add(I18n.format("tktech.pipeplacer.tooltip.eu_per_operation", getEuPerOperation()));
         tooltip.add(I18n.format("tktech.pipeplacer.tooltip.time_per_operation", getTicksPerOperation()));
         tooltip.add(I18n.format("gregtech.universal.tooltip.voltage_in", energyContainer.getInputVoltage(),

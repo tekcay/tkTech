@@ -91,11 +91,19 @@ public class AdvancedRecipeBuilder extends RecipeBuilder<AdvancedRecipeBuilder> 
     }
 
     public AdvancedRecipeBuilder light(@NotNull EnumDyeColor lightColor) {
-        return light(lightColor.ordinal());
+        if (recipePropertyStorage.contains(RequiresLightRecipeProperty.getInstance())) {
+            throw new IllegalStateException(
+                    String.format("Recipe already has a %s", RequiresNoLightRecipeProperty.getInstance().getKey()));
+        }
+        return testAndApplyPropertyValue(RequiresLightRecipeProperty.getInstance(), lightColor);
     }
 
-    public AdvancedRecipeBuilder light(int value) {
-        return testAndApplyPropertyValue(LightRecipeProperty.getInstance(), (byte) value);
+    public AdvancedRecipeBuilder requiresNoLight() {
+        if (recipePropertyStorage.contains(RequiresNoLightRecipeProperty.getInstance())) {
+            throw new IllegalStateException(
+                    String.format("Recipe already has a %s", RequiresLightRecipeProperty.getInstance().getKey()));
+        }
+        return testAndApplyPropertyValue(RequiresNoLightRecipeProperty.getInstance(), true);
     }
 
     @Override

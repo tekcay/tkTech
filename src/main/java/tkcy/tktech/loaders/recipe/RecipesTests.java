@@ -40,7 +40,7 @@ public class RecipesTests {
 
         TkTechRecipeMaps.RECIPE_MAP_TEST.recipeBuilder()
                 .input(OrePrefix.dust, Materials.Cadmium)
-                .light(-1)
+                .requiresNoLight()
                 .fluidInputs(Materials.Lava.getFluid(100))
                 .fluidOutputs(Materials.Acetone.getFluid(100))
                 .EUt(20)
