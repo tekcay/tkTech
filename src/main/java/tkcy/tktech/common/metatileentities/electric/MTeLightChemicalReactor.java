@@ -8,6 +8,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -28,6 +30,8 @@ import tkcy.tktech.api.utils.BlockStateHelper;
 import tkcy.tktech.api.utils.WorldInteractionsHelper;
 
 public class MTeLightChemicalReactor extends SimpleMachineMetaTileEntity {
+
+    private static final Log log = LogFactory.getLog(MTeLightChemicalReactor.class);
 
     public MTeLightChemicalReactor(ResourceLocation metaTileEntityId) {
         super(metaTileEntityId, TkTechRecipeMaps.RECIPE_MAP_TEST, Textures.CHEMICAL_REACTOR_OVERLAY, 1, true);
@@ -71,28 +75,12 @@ public class MTeLightChemicalReactor extends SimpleMachineMetaTileEntity {
 
         @Override
         protected boolean canProgressRecipe() {
-            Recipe recipe = getPreviousRecipe();
-
-            if (!this.mustCheckIfInDark &&
-                    recipe != null &&
-                    recipe.hasProperty(noLightRecipeProperty())) {
-                toggle(null);
-            }
-
             if (this.mustCheckIfInDark && !WorldInteractionsHelper.isInTheDark(getMetaTileEntity(), 3)) {
                 return false;
             }
-
-            if (this.lightColor == null &&
-                    recipe != null &&
-                    recipe.hasProperty(requiresLightRecipeProperty())) {
-                toggle(requiresLightRecipeProperty().getValueFromRecipe(recipe));
-            }
-
             if (this.lightColor != null && !hasLamp()) {
                 return false;
             }
-
             return super.canProgressRecipe();
         }
 
@@ -102,6 +90,18 @@ public class MTeLightChemicalReactor extends SimpleMachineMetaTileEntity {
             if (block instanceof BlockLamp blockLamp) {
                 return blockLamp.isLightEnabled(blockLamp.blockState.getBaseState()) && blockLamp.color == lightColor;
             } else return false;
+        }
+
+        @Override
+        public boolean checkRecipe(@NotNull Recipe recipe) {
+            if (recipe.hasProperty(noLightRecipeProperty())) {
+                toggle(null);
+                return true;
+            } else if (recipe.hasProperty(requiresLightRecipeProperty())) {
+                toggle(requiresLightRecipeProperty().getValueFromRecipe(recipe));
+                return true;
+            }
+            return false;
         }
 
         @Override
