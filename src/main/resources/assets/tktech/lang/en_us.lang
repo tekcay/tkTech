@@ -411,6 +411,8 @@ tktech.recipe.coil=Coil: %s
 tktech.recipe.tool.uses=Tool uses: %d
 tktech.recipe.tool.click_facing=Click on %s face
 tktech.recipe.requires_ignition=Requires ignition
+tktech.recipe.requires_dark=Requires no light
+tktech.recipe.requires_light=Requires %s lamp
 
 gregtech.recipe.cleanroom_nitrogen.display_name=Nitrogen Cleanroom
 gregtech.recipe.cleanroom_argon.display_name=Argon Cleanroom
