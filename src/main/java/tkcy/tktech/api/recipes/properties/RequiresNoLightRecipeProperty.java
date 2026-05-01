@@ -7,19 +7,19 @@ import org.jetbrains.annotations.NotNull;
 
 import tkcy.tktech.modules.RecipePropertiesKey;
 
-public class IsIgnitedRecipeProperty extends SimpleRecipeProperty {
+public class RequiresNoLightRecipeProperty extends SimpleRecipeProperty {
 
-    public static final String KEY = RecipePropertiesKey.IS_IGNITED;
-    private static IsIgnitedRecipeProperty INSTANCE;
+    public static final String KEY = RecipePropertiesKey.NO_LIGHT;
+    private static RequiresNoLightRecipeProperty INSTANCE;
 
-    private IsIgnitedRecipeProperty() {
+    private RequiresNoLightRecipeProperty() {
         super(KEY, Boolean.class);
     }
 
     @NotNull
-    public static IsIgnitedRecipeProperty getInstance() {
+    public static RequiresNoLightRecipeProperty getInstance() {
         if (INSTANCE == null) {
-            INSTANCE = new IsIgnitedRecipeProperty();
+            INSTANCE = new RequiresNoLightRecipeProperty();
         }
         return INSTANCE;
     }

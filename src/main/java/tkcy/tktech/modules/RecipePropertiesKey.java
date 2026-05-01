@@ -21,4 +21,5 @@ public class RecipePropertiesKey {
     public static final String CHEMICAL_STRUCTURE_KEY = "chemicalStructureKey";
     public static final String IS_IGNITED = "is_ignited";
     public static final String LIGHT = "light";
+    public static final String NO_LIGHT = "no_light";
 }
