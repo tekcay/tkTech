@@ -1,37 +1,35 @@
 package tkcy.tktech.common.metatileentities.electric;
 
-import java.util.function.Supplier;
+import java.util.List;
 
-import net.minecraft.block.Block;
-import net.minecraft.item.EnumDyeColor;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.client.resources.I18n;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.world.World;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import gregtech.api.capability.IEnergyContainer;
 import gregtech.api.capability.impl.RecipeLogicEnergy;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.SimpleMachineMetaTileEntity;
 import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
-import gregtech.api.recipes.Recipe;
 import gregtech.api.recipes.RecipeMap;
+import gregtech.api.util.TextComponentUtil;
 import gregtech.client.renderer.texture.Textures;
-import gregtech.common.blocks.BlockLamp;
 
-import tkcy.tktech.api.recipes.properties.RequiresLightRecipeProperty;
-import tkcy.tktech.api.recipes.properties.RequiresNoLightRecipeProperty;
+import lombok.Getter;
+import tkcy.tktech.api.logic.light.IRequiresLightRecipeLogicMachine;
+import tkcy.tktech.api.logic.light.IRequiresNoLightRecipeLogicMachine;
+import tkcy.tktech.api.logic.light.LightChemicalReactorLogic;
 import tkcy.tktech.api.recipes.recipemaps.TkTechRecipeMaps;
-import tkcy.tktech.api.utils.BlockStateHelper;
-import tkcy.tktech.api.utils.WorldInteractionsHelper;
 
-public class MTeLightChemicalReactor extends SimpleMachineMetaTileEntity {
+@Getter
+public class MTeLightChemicalReactor extends SimpleMachineMetaTileEntity
+                                     implements IRequiresLightRecipeLogicMachine, IRequiresNoLightRecipeLogicMachine {
 
-    private static final Log log = LogFactory.getLog(MTeLightChemicalReactor.class);
+    private final int scanRadius = 3;
 
     public MTeLightChemicalReactor(ResourceLocation metaTileEntityId) {
         super(metaTileEntityId, TkTechRecipeMaps.RECIPE_MAP_TEST, Textures.CHEMICAL_REACTOR_OVERLAY, 1, true);
@@ -44,91 +42,35 @@ public class MTeLightChemicalReactor extends SimpleMachineMetaTileEntity {
 
     @Override
     protected RecipeLogicEnergy createWorkable(RecipeMap<?> recipeMap) {
-        return new LightRecipeLogic(this, recipeMap, () -> energyContainer);
+        return new LightChemicalReactorLogic<>(this, recipeMap, () -> energyContainer);
     }
 
-    private static class LightRecipeLogic extends RecipeLogicEnergy {
+    @Override
+    public void addInformation(ItemStack stack, @Nullable World player, List<String> tooltip, boolean advanced) {
+        super.addInformation(stack, player, tooltip, advanced);
+        tooltip.add(I18n.format("tktech.light_chemical_reactor.tooltip.1"));
+        tooltip.add(I18n.format("tktech.light_chemical_reactor.light_color.tooltip"));
+        tooltip.add(I18n.format(TextComponentUtil.translationWithColor(
+                TextFormatting.WHITE, "tktech.tooltip.or")
+                .getFormattedText()));
+        tooltip.add(I18n.format("tktech.light_chemical_reactor.scan_radius.tooltip",
+                this.scanRadius, this.scanRadius, this.scanRadius));
+    }
 
-        private boolean mustCheckIfInDark;
-        private EnumDyeColor lightColor;
+    @Override
+    @Nullable
+    public BlockPos gtLampPos() {
+        return getPos().up();
+    }
 
-        private void toggle(@Nullable EnumDyeColor enumDyeColor) {
-            this.mustCheckIfInDark = !mustCheckIfInDark;
-            this.lightColor = enumDyeColor;
-        }
+    @Override
+    @Nullable
+    public BlockPos scanCenterBlockPos() {
+        return getPos();
+    }
 
-        public LightRecipeLogic(MetaTileEntity tileEntity, RecipeMap<?> recipeMap,
-                                Supplier<IEnergyContainer> energyContainer) {
-            super(tileEntity, recipeMap, energyContainer);
-        }
-
-        private RequiresLightRecipeProperty requiresLightRecipeProperty() {
-            return RequiresLightRecipeProperty.getInstance();
-        }
-
-        private RequiresNoLightRecipeProperty noLightRecipeProperty() {
-            return RequiresNoLightRecipeProperty.getInstance();
-        }
-
-        @Override
-        protected void decreaseProgress() {}
-
-        @Override
-        protected boolean canProgressRecipe() {
-            if (this.mustCheckIfInDark && !WorldInteractionsHelper.isInTheDark(getMetaTileEntity(), 3)) {
-                return false;
-            }
-            if (this.lightColor != null && !hasLamp()) {
-                return false;
-            }
-            return super.canProgressRecipe();
-        }
-
-        protected boolean hasLamp() {
-            BlockPos blockPosToCheck = getMetaTileEntity().getPos().up();
-            Block block = BlockStateHelper.getBlockAtBlockPos(blockPosToCheck, getMetaTileEntity().getWorld());
-            if (block instanceof BlockLamp blockLamp) {
-                return blockLamp.isLightEnabled(blockLamp.blockState.getBaseState()) && blockLamp.color == lightColor;
-            } else return false;
-        }
-
-        @Override
-        public boolean checkRecipe(@NotNull Recipe recipe) {
-            if (recipe.hasProperty(noLightRecipeProperty())) {
-                toggle(null);
-                return true;
-            } else if (recipe.hasProperty(requiresLightRecipeProperty())) {
-                toggle(requiresLightRecipeProperty().getValueFromRecipe(recipe));
-                return true;
-            }
-            return false;
-        }
-
-        @Override
-        public void invalidate() {
-            super.invalidate();
-            this.lightColor = null;
-            this.mustCheckIfInDark = false;
-        }
-
-        @Override
-        @NotNull
-        public NBTTagCompound serializeNBT() {
-            NBTTagCompound nbtTagCompound = super.serializeNBT();
-            if (this.lightColor != null) {
-                requiresLightRecipeProperty().serialize(nbtTagCompound, this.lightColor);
-            }
-            if (this.mustCheckIfInDark) {
-                noLightRecipeProperty().serialize(nbtTagCompound);
-            }
-            return nbtTagCompound;
-        }
-
-        @Override
-        public void deserializeNBT(@NotNull NBTTagCompound compound) {
-            super.deserializeNBT(compound);
-            this.mustCheckIfInDark = noLightRecipeProperty().deserialize(compound);
-            this.lightColor = requiresLightRecipeProperty().deserialize(compound);
-        }
+    @Override
+    public int scanRadius() {
+        return 3;
     }
 }
