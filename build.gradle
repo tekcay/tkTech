@@ -620,9 +620,9 @@ sourceSets {
 }
 
 test {
-    // ensure tests are run with java8
+    // ensure tests are run with java17
     javaLauncher = javaToolchains.launcherFor {
-        languageVersion = JavaLanguageVersion.of(8)
+        languageVersion = JavaLanguageVersion.of(17)
     }.get()
 
     testLogging {
