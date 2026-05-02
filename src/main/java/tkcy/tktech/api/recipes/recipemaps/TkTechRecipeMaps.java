@@ -128,4 +128,8 @@ public final class TkTechRecipeMaps {
             1,
             6,
             1);
+
+    @ZenProperty
+    public static final RecipeMap<AdvancedRecipeBuilder> RECIPE_MAP_TEST = new RecipeMap<>(
+            "tests", 2, 2, 2, 2, new AdvancedRecipeBuilder(), false);
 }

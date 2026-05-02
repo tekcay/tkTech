@@ -1,3 +1,9 @@
+## Run
+
+- Requires Java 17
+- Use `Run Client (Java 17)`, **NOT** `Run Client`
+
+
 ## CREDITS
 
 - [Gregtech CEu](https://github.com/GregTechCEu/GregTech) (goes without saying)

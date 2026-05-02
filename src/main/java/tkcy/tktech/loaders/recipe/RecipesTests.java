@@ -1,5 +1,7 @@
 package tkcy.tktech.loaders.recipe;
 
+import net.minecraft.item.EnumDyeColor;
+
 import gregtech.api.recipes.RecipeMaps;
 import gregtech.api.unification.material.Materials;
 import gregtech.api.unification.ore.OrePrefix;
@@ -31,6 +33,24 @@ public class RecipesTests {
         TkTechRecipeMaps.CHEMICAL_BENCH_RECIPES.recipeBuilder()
                 .input(OrePrefix.dust, Materials.Cadmium)
                 .fluidInputs(Materials.Epichlorohydrin.getFluid(100))
+                .fluidOutputs(Materials.Acetone.getFluid(100))
+                .EUt(20)
+                .duration(400, 0.5f)
+                .buildAndRegister();
+
+        TkTechRecipeMaps.RECIPE_MAP_TEST.recipeBuilder()
+                .input(OrePrefix.dust, Materials.Cadmium)
+                .requiresNoLight()
+                .fluidInputs(Materials.Lava.getFluid(100))
+                .fluidOutputs(Materials.Acetone.getFluid(100))
+                .EUt(20)
+                .duration(400, 0.5f)
+                .buildAndRegister();
+
+        TkTechRecipeMaps.RECIPE_MAP_TEST.recipeBuilder()
+                .input(OrePrefix.dust, Materials.Cadmium)
+                .light(EnumDyeColor.LIGHT_BLUE)
+                .fluidInputs(Materials.LightFuel.getFluid(100))
                 .fluidOutputs(Materials.Acetone.getFluid(100))
                 .EUt(20)
                 .duration(400, 0.5f)

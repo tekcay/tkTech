@@ -378,6 +378,10 @@ tktech.pipeplacer.tooltip.paintingBehavior=Can paint pipe with liquid dye or rem
 tktech.pipeplacer.tooltip.eu_per_operation=Consumes §f%d EU§7 per operation
 tktech.pipeplacer.tooltip.time_per_operation=Operation takes §f%d ticks
 
+tktech.light_chemical_reactor.tooltip.1=Requires special light conditions according to the recipe.
+tktech.light_chemical_reactor.light_color.tooltip=Requires a specific GTLamp on the §fTOP§7 face.
+tktech.light_chemical_reactor.scan_radius.tooltip=No light in a §f%dx%dx%d§7 cube centered around the machine.
+
 tktech.metatilentity.special_right.show_tooltips=Hold CTRL to show special Right-click behavior
 tktech.metatileentity.transfer_output_to_player.tooltip=§dRight-click§7 with an §fempty hand§7 to get the machine §6output
 tktech.metatileentity.transfer_input_to_player.tooltip=§dRight-click§7 with an §fempty hand§7 to get the machine §ainput
@@ -411,6 +415,8 @@ tktech.recipe.coil=Coil: %s
 tktech.recipe.tool.uses=Tool uses: %d
 tktech.recipe.tool.click_facing=Click on %s face
 tktech.recipe.requires_ignition=Requires ignition
+tktech.recipe.requires_dark=Requires no light
+tktech.recipe.requires_light=Requires %s lamp
 
 gregtech.recipe.cleanroom_nitrogen.display_name=Nitrogen Cleanroom
 gregtech.recipe.cleanroom_argon.display_name=Argon Cleanroom
@@ -454,3 +460,6 @@ tktech.pipeplacer.dynamicLabel.energyConsumption=Consumes %d EU/t
 
 ##Categories
 tktech.category.chemstructure.title=Chemical Structures
+
+#Misc
+tktech.tooltip.or=OR

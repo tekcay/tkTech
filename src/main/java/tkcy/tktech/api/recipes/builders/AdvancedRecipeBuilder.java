@@ -2,6 +2,10 @@ package tkcy.tktech.api.recipes.builders;
 
 import java.util.*;
 
+import net.minecraft.item.EnumDyeColor;
+
+import org.jetbrains.annotations.NotNull;
+
 import gregtech.api.capability.impl.AbstractRecipeLogic;
 import gregtech.api.recipes.Recipe;
 import gregtech.api.recipes.RecipeBuilder;
@@ -84,6 +88,22 @@ public class AdvancedRecipeBuilder extends RecipeBuilder<AdvancedRecipeBuilder> 
     public AdvancedRecipeBuilder duration(int duration, float recipeDurationRate) {
         duration(duration);
         return testAndApplyPropertyValue(DurationModifierRecipeProperty.getInstance(), recipeDurationRate);
+    }
+
+    public AdvancedRecipeBuilder light(@NotNull EnumDyeColor lightColor) {
+        if (recipePropertyStorage.contains(RequiresLightRecipeProperty.getInstance())) {
+            throw new IllegalStateException(
+                    String.format("Recipe already has a %s", RequiresNoLightRecipeProperty.getInstance().getKey()));
+        }
+        return testAndApplyPropertyValue(RequiresLightRecipeProperty.getInstance(), lightColor);
+    }
+
+    public AdvancedRecipeBuilder requiresNoLight() {
+        if (recipePropertyStorage.contains(RequiresNoLightRecipeProperty.getInstance())) {
+            throw new IllegalStateException(
+                    String.format("Recipe already has a %s", RequiresLightRecipeProperty.getInstance().getKey()));
+        }
+        return testAndApplyPropertyValue(RequiresNoLightRecipeProperty.getInstance(), true);
     }
 
     @Override
