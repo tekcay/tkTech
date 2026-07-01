@@ -7,7 +7,7 @@ import org.jetbrains.annotations.Nullable;
 
 import tkcy.tktech.api.utils.WorldInteractionsHelper;
 
-public non-sealed interface IRequiresNoLightRecipeLogicMachine extends ILightRecipeLogicMachine {
+public interface IRequiresNoLightRecipeLogicMachine extends ILightRecipeLogicMachine {
 
     /**
      * @return the center of the cube to check InWorld light value.
