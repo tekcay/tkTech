@@ -11,7 +11,7 @@ import gregtech.common.blocks.BlockLamp;
 
 import tkcy.tktech.api.utils.BlockStateHelper;
 
-public non-sealed interface IRequiresLightRecipeLogicMachine extends ILightRecipeLogicMachine {
+public interface IRequiresLightRecipeLogicMachine extends ILightRecipeLogicMachine {
 
     /**
      * @return the {@code BlockPos} that requires a GT {@link BlockLamp} for a recipe to run.
